@@ -53,23 +53,23 @@ namespace WinterEngine.Toolset.Views
             // Category support not implemented yet. Use a basic root node
             treeViewAreas.Nodes.Add("Uncategorized");
 
-            UndoRedoManager.Start("Debugging");
-
-            foreach (AreaDTO currentArea in areaList)
+            using (UndoRedoManager.Start("Debugging"))
             {
-                TreeNode node = new TreeNode();
-                node.Text = currentArea.Name;
-                node.Tag = currentArea;
+                foreach (AreaDTO currentArea in areaList)
+                {
+                    TreeNode node = new TreeNode();
+                    node.Text = currentArea.Name;
+                    node.Tag = currentArea;
 
-                treeViewAreas.Nodes[0].Nodes.Add(node);
+                    treeViewAreas.Nodes[0].Nodes.Add(node);
+                }
+                UndoRedoManager.Commit();
             }
-            UndoRedoManager.Commit();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             UndoRedoManager.Undo();
-            MessageBox.Show("Undo");
         }
 
     }

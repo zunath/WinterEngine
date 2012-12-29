@@ -58,7 +58,6 @@
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.dll</HintPath>
@@ -121,6 +120,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ControlHelpers\InputMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ControlHelpers\InputMessageBox.Designer.cs">
+      <DependentUpon>InputMessageBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\WinterEngineControls\AddCategoryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -174,6 +179,7 @@
     <Compile Include="Data\Repositories\PlaceableRepository.cs" />
     <Compile Include="Data\Repositories\ItemRepository.cs" />
     <Compile Include="Data\Repositories\CreatureRepository.cs" />
+    <Compile Include="Enumerations\ResourceTypeEnum.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +229,9 @@
     </Compile>
     <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceService.cs" />
     <Compile Include="Controls\XnaControls\Shared\ServiceContainer.cs" />
+    <EmbeddedResource Include="Controls\ControlHelpers\InputMessageBox.resx">
+      <DependentUpon>InputMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\WinterEngineControls\AddCategoryControl.resx">
       <DependentUpon>AddCategoryControl.cs</DependentUpon>
     </EmbeddedResource>

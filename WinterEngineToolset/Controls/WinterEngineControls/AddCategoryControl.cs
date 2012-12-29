@@ -10,11 +10,20 @@ using WinterEngine.Toolset.Data.Database;
 using WinterEngine.Toolset.Data.DataTransferObjects;
 using AutoMapper;
 using DejaVu;
+using WinterEngine.Toolset.Controls.ControlHelpers;
 
 namespace WinterEngine.Toolset.Controls.WinterEngineControls
 {
     public partial class AddCategoryControl : UserControl
     {
+        #region Constants
+
+        // Minimum and maximum lengths category names can be.
+        private const int MinCategoryNameLength = 1;
+        private const int MaxCategoryNameLength = 32;
+
+        #endregion
+
         #region Fields
 
         private int _resourceTypeID;
@@ -39,6 +48,22 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         }
 
         /// <summary>
+        /// Handles validation of text input by user.
+        /// </summary>
+        /// <param name="inputText"></param>
+        /// <returns></returns>
+        private bool Validation(string inputText)
+        {
+            bool isValid = true;
+
+            return isValid;
+        }
+
+        private void Success()
+        {
+        }
+
+        /// <summary>
         /// Handles popping up a modal dialog box which asks user to input a category name.
         /// Once a category name has been entered, the database will be updated with the new category.
         /// The tree view is refreshed to show the change.
@@ -47,41 +72,9 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         /// <param name="e"></param>
         private void buttonAddCategory_Click(object sender, EventArgs e)
         {
-            string categoryName = Microsoft.VisualBasic.Interaction.InputBox("Category Name: ", "Add Category", "Default");
-
-
-
+            InputMessageBox inputBox = new InputMessageBox("Enter the category's name.", "New Category", MinCategoryNameLength, MaxCategoryNameLength, Validation, Success, "Category Name");
+            inputBox.ShowDialog();
         }
 
-        private void AddCategoryControl_Load(object sender, EventArgs e)
-        {
-
-            // Running into an issue where I can't pull from the database inside the VS2010 GUI designer.
-            // Commented out but left here so I can look at it again later.
-            /*
-            UndoRedoManager.Start("Resource Type - Load");
-            try
-            {
-                _resourceTypeList = new List<ResourceTypeDTO>();
-                using (WinterContext context = new WinterContext())
-                {
-                
-                    // Retrieve the list of resource types from database using LINQ.
-                    // Then, map them to a list of ResourceTypeDTO and return the list.
-                    var resourceTypes = from resourceType
-                                        in context.ResourceTypes
-                                        select resourceType;
-                    _resourceTypeList = Mapper.Map(resourceTypes.ToList<ResourceType>(), _resourceTypeList);
-
-                    UndoRedoManager.Commit();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error retrieving resource types.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                UndoRedoManager.Cancel();
-            }
-            */
-        }
     }
 }

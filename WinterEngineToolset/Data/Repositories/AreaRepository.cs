@@ -38,7 +38,6 @@ namespace WinterEngine.Toolset.Data.Repositories
             }
             catch (Exception ex)
             {
-                _areaList.Clear();
                 MessageBox.Show("Error retrieving all areas.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 UndoRedoManager.Cancel();
             }
@@ -71,7 +70,6 @@ namespace WinterEngine.Toolset.Data.Repositories
             }
             catch (Exception ex)
             {
-                retArea = null;
                 MessageBox.Show("Error retrieving specified area (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 UndoRedoManager.Cancel();
             }

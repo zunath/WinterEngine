@@ -20,3 +20,4 @@ C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.xml
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.InputMessageBox.resources
