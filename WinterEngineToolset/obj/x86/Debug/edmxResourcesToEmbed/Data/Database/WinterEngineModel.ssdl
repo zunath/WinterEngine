@@ -43,17 +43,16 @@
   <EntityType Name="ResourceCategories">
     <Key>
       <PropertyRef Name="ResourceCategoryID" />
-      <PropertyRef Name="ResourceTypeID" />
     </Key>
-    <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
+    <Property Name="ResourceCategoryID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="ResourceTypeID" Type="integer" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="32" />
+    <Property Name="ResourceName" Type="nvarchar" Nullable="false" MaxLength="32" />
   </EntityType>
   <EntityType Name="ResourceTypes">
     <Key>
       <PropertyRef Name="ResourceTypeID" />
     </Key>
     <Property Name="ResourceTypeID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="ResourceName" Type="nvarchar" Nullable="false" MaxLength="32" />
   </EntityType>
 </Schema>

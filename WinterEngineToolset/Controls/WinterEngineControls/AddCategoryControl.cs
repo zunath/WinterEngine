@@ -42,7 +42,6 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             set { _resourceTypeEnum = value; }
         }
 
-
         #endregion
 
 
@@ -53,7 +52,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         }
 
         /// <summary>
-        /// Handles validation of text input by user.
+        /// Business layer validation for adding a new category.
         /// </summary>
         /// <param name="inputText"></param>
         /// <returns></returns>
@@ -61,12 +60,28 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         {
             bool isValid = true;
 
+            if (inputText.Length < MinCategoryNameLength) isValid = false;
+            if (inputText.Length > MaxCategoryNameLength) isValid = false;
+
             return isValid;
         }
 
-        private void SuccessMethod()
+        private void SuccessMethod(string inputText)
         {
-            MessageBox.Show("Successful!");
+            bool success;
+            UndoRedoManager.Start("Add Category: " + inputText);
+
+            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+            {
+                ResourceCategoryDTO resourceCategoryDTO = new ResourceCategoryDTO();
+                resourceCategoryDTO.ResourceName = inputText;
+                resourceCategoryDTO.ResourceTypeID = (int)ResourceType;
+
+                success = repo.AddResourceCategory(resourceCategoryDTO);
+            }
+            
+
+            UndoRedoManager.Commit();
         }
 
         /// <summary>

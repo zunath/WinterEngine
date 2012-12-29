@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using WinterEngine.Toolset.Data.Database;
 using WinterEngine.Toolset.Data.DataTransferObjects;
+using WinterEngine.Toolset.Enumerations;
 using AutoMapper;
 using System.Windows.Forms;
-using DejaVu;
 
 namespace WinterEngine.Toolset.Data.Repositories
 {
@@ -22,7 +22,6 @@ namespace WinterEngine.Toolset.Data.Repositories
         /// <returns></returns>
         public List<ResourceCategoryDTO> GetAllResourceCategories()
         {
-            UndoRedoManager.StartInvisible("Data Access");
             List<ResourceCategoryDTO> _resourceCategoryList = new List<ResourceCategoryDTO>();
 
             try
@@ -34,13 +33,11 @@ namespace WinterEngine.Toolset.Data.Repositories
                                 select resourceCategory;
                     _resourceCategoryList = Mapper.Map(query.ToList<ResourceCategory>(), _resourceCategoryList);
                 }
-                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
                 _resourceCategoryList.Clear();
                 MessageBox.Show("Error retrieving all resource categories.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                UndoRedoManager.Cancel();
             }
 
             return _resourceCategoryList;
@@ -54,8 +51,7 @@ namespace WinterEngine.Toolset.Data.Repositories
         /// <returns></returns>
         public ResourceCategoryDTO GetResourceCategoryByID(int resourceCategoryID, int resourceTypeID)
         {
-            UndoRedoManager.StartInvisible("Data Access");
-            ResourceCategoryDTO retResourceCategory = new ResourceCategoryDTO();
+            ResourceCategoryDTO retResourceCategoryDTO = new ResourceCategoryDTO();
 
             try
             {
@@ -67,38 +63,44 @@ namespace WinterEngine.Toolset.Data.Repositories
                                       resourceCategory.ResourceTypeID.Equals(resourceTypeID)
                                 select resourceCategory;
                     List<ResourceCategory> resultResourceCategories = query.ToList<ResourceCategory>();
-                    retResourceCategory = Mapper.Map(resultResourceCategories[0], retResourceCategory);
+                    retResourceCategoryDTO = Mapper.Map(resultResourceCategories[0], retResourceCategoryDTO);
                 }
-                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error retrieving specified resource category (CategoryID: " + resourceCategoryID + ", ResourceTypeID: " + resourceTypeID + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                UndoRedoManager.Cancel();
             }
 
-            return retResourceCategory;
+            return retResourceCategoryDTO;
         }
-        /*
-        public void AddResourceCategory(ResourceTypeEnum resourceType, ResourceCategoryDTO resourceCategory)
-        {
-            UndoRedoManager.StartInvisible("Data Insert");
 
+        /// <summary>
+        /// Adds a resource category to the database.
+        /// </summary>
+        /// <param name="resourceCategory"></param>
+        /// <returns></returns>
+        public bool AddResourceCategory(ResourceCategoryDTO resourceCategory)
+        {
+            bool success = true;
             try
             {
                 using (WinterContext context = new WinterContext())
                 {
+                    ResourceCategory category = new ResourceCategory();
+                    category = Mapper.Map(resourceCategory, category);
+                    context.ResourceCategories.Add(category);
+                    context.SaveChanges();
                 }
-                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error adding new resource category (ResourceType: " + resourceType + ", ResourceCategory: " + resourceCategory.ResourceName + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                UndoRedoManager.Cancel();
+                success = false;
+                MessageBox.Show("Error adding new resource category (ResourceCategory: " + resourceCategory.ResourceName + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-        */
 
+            return success;
+        }
+        
         public void Dispose()
         {
         }

@@ -15,6 +15,6 @@ namespace WinterEngine.Toolset.Data.Database
     public partial class ResourceType
     {
         public long ResourceTypeID { get; set; }
-        public string Name { get; set; }
+        public string ResourceName { get; set; }
     }
 }

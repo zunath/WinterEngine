@@ -37,7 +37,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         // ValidationMethod runs when "OK" button is clicked by user.
         public delegate bool ValidationMethod(string inputText);
         // SuccessMethod runs when validation succeeds
-        public delegate void SuccessMethod();
+        public delegate void SuccessMethod(string inputText);
 
         #endregion
 
@@ -83,7 +83,9 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             if (_validationMethod(textBoxInput.Text))
             {
                 // Run success method.
-                _successMethod();
+                _successMethod(textBoxInput.Text);
+                // Dispose of window.
+                this.Dispose();
             }
 
             else

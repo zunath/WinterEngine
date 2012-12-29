@@ -16,6 +16,6 @@ namespace WinterEngine.Toolset.Data.Database
     {
         public long ResourceCategoryID { get; set; }
         public long ResourceTypeID { get; set; }
-        public string Name { get; set; }
+        public string ResourceName { get; set; }
     }
 }

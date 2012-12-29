@@ -12,7 +12,7 @@ namespace WinterEngine.Toolset.Data.DataTransferObjects
         #region Fields
 
         readonly UndoRedo<int> _resourceTypeID = new UndoRedo<int>();
-        readonly UndoRedo<string> _name = new UndoRedo<string>();
+        readonly UndoRedo<string> _resourceName = new UndoRedo<string>();
 
         #endregion
 
@@ -24,10 +24,10 @@ namespace WinterEngine.Toolset.Data.DataTransferObjects
             set { _resourceTypeID.Value = value; }
         }
 
-        public string Name
+        public string ResourceName
         {
-            get { return _name.Value; }
-            set { _name.Value = value; }
+            get { return _resourceName.Value; }
+            set { _resourceName.Value = value; }
         }
 
         #endregion
@@ -37,7 +37,7 @@ namespace WinterEngine.Toolset.Data.DataTransferObjects
         ResourceTypeDTO(int resourceTypeID, string resourceName)
         {
             this.ResourceTypeID = resourceTypeID;
-            this.Name = resourceName;
+            this.ResourceName = resourceName;
         }
 
         #endregion

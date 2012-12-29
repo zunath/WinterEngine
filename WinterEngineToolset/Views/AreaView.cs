@@ -50,9 +50,6 @@ namespace WinterEngine.Toolset.Views
         /// <param name="areaList"></param>
         private void LoadContent(List<AreaDTO> areaList)
         {
-            // Category support not implemented yet. Use a basic root node
-            treeViewAreas.Nodes.Add("Uncategorized");
-
             using (UndoRedoManager.Start("Debugging"))
             {
                 foreach (AreaDTO currentArea in areaList)
