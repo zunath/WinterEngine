@@ -6,6 +6,7 @@ using WinterEngine.Toolset.Data.Database;
 using WinterEngine.Toolset.Data.DataTransferObjects;
 using AutoMapper;
 using System.Windows.Forms;
+using DejaVu;
 
 namespace WinterEngine.Toolset.Data.Repositories
 {
@@ -13,7 +14,7 @@ namespace WinterEngine.Toolset.Data.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class AreaRepository
+    public class AreaRepository : IDisposable
     {
         /// <summary>
         /// Returns all areas from the database.
@@ -36,7 +37,7 @@ namespace WinterEngine.Toolset.Data.Repositories
             catch (Exception ex)
             {
                 _areaList.Clear();
-                MessageBox.Show("Error retrieving all areas.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);                
+                MessageBox.Show("Error retrieving all areas.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return _areaList;
@@ -71,5 +72,11 @@ namespace WinterEngine.Toolset.Data.Repositories
 
             return retArea;
         }
+
+
+        public void Dispose()
+        {
+        }
+
     }
 }

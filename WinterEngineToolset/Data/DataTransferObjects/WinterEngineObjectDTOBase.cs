@@ -47,7 +47,17 @@ namespace WinterEngine.Toolset.Data.DataTransferObjects
         /// </summary>
         public string Resref
         {
-            get { return _resref.Value.ToLower(); }
+            get 
+            {
+                if (_resref.Value == null)
+                {
+                    return _resref.Value;
+                }
+                else
+                {
+                    return _resref.Value.ToLower(); 
+                }
+            }
             set { _resref.Value = value.ToLower(); }
         }
 

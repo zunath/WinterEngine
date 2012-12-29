@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.Data.Database;
 using WinterEngine.Toolset.Data.DataTransferObjects;
+using WinterEngine.Toolset.Data.Repositories;
 using DejaVu;
 using AutoMapper;
 
@@ -26,22 +27,10 @@ namespace WinterEngine.Toolset.Views
 
             // Debugging
 
-            UndoRedoManager.Start("Debugging");
-
-            using(Data.Database.WinterContext context = new Data.Database.WinterContext())
+            using (AreaRepository repo = new AreaRepository())
             {
-                var areas = from area in context.Areas
-                            select area;
-                List<Area> listAreas = areas.ToList<Area>();
-
-                List<AreaDTO> areaDTOs = new List<AreaDTO>();
-                areaDTOs = Mapper.Map(areas, areaDTOs);
-
-                LoadContent(areaDTOs);
-
+                LoadContent(repo.GetAllAreas());
             }
-
-            UndoRedoManager.Commit();
 
             // End debugging
 
@@ -64,6 +53,8 @@ namespace WinterEngine.Toolset.Views
             // Category support not implemented yet. Use a basic root node
             treeViewAreas.Nodes.Add("Uncategorized");
 
+            UndoRedoManager.Start("Debugging");
+
             foreach (AreaDTO currentArea in areaList)
             {
                 TreeNode node = new TreeNode();
@@ -72,6 +63,12 @@ namespace WinterEngine.Toolset.Views
 
                 treeViewAreas.Nodes[0].Nodes.Add(node);
             }
+            UndoRedoManager.Commit();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            UndoRedoManager.Undo();
         }
 
     }
