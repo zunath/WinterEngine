@@ -5,15 +5,16 @@ using System.Text;
 
 namespace WinterEngine.Toolset.Enumerations
 {
-    // NOTE: These values should be pulled from the database in most cases.
-    // However, I am unable to access the database through the VS2010 designer.
-    // If anyone has a solution to this please let me know.
-    public enum ResourceType
+    /// <summary>
+    /// Used by the custom User Controls. Refer to the values in the SQLite database for everything else.
+    /// </summary>
+    public enum ResourceTypeEnum
     {
         Area = 1,
         Creature = 2,
         Placeable = 3,
         Conversation = 4,
-        Script = 5
+        Script = 5,
+        Item = 6
     }
 }

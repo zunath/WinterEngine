@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.Data.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class CreatureRepository
+    public class CreatureRepository : IDisposable
     {
         /// <summary>
         /// Returns all creatures from the database.
@@ -77,6 +77,10 @@ namespace WinterEngine.Toolset.Data.Repositories
             }
 
             return retCreature;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

@@ -48,7 +48,6 @@
             this.Controls.Add(this.buttonAddCategory);
             this.Name = "AddCategoryControl";
             this.Size = new System.Drawing.Size(185, 26);
-            this.Load += new System.EventHandler(this.AddCategoryControl_Load);
             this.ResumeLayout(false);
 
         }

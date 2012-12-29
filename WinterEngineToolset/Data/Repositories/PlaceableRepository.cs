@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.Data.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class PlaceableRepository
+    public class PlaceableRepository : IDisposable
     {
         /// <summary>
         /// Returns all placeables from the database.
@@ -75,6 +75,10 @@ namespace WinterEngine.Toolset.Data.Repositories
             }
 
             return retPlaceable;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

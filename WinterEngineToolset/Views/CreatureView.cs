@@ -7,6 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
+using WinterEngine.Toolset.Data.Database;
+using WinterEngine.Toolset.Data.DataTransferObjects;
+using WinterEngine.Toolset.Data.Repositories;
+using DejaVu;
+using AutoMapper;
 
 namespace WinterEngine.Toolset.Views
 {
@@ -19,6 +24,7 @@ namespace WinterEngine.Toolset.Views
         {
             InitializeComponent();
             AddXNAViewerControl();
+
         }
 
         private void AddXNAViewerControl()
@@ -27,6 +33,5 @@ namespace WinterEngine.Toolset.Views
             _creatureEditorControl.Dock = DockStyle.Fill;
             panelCreatureEditorControl.Controls.Add(_creatureEditorControl);
         }
-
     }
 }

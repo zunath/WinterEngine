@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Areas");
             this.tabControlAreaSubProperties = new System.Windows.Forms.TabControl();
             this.tabPageAreaViewer = new System.Windows.Forms.TabPage();
             this.panelAreaEditorControl = new System.Windows.Forms.Panel();
@@ -43,10 +44,8 @@
             this.labelAreaName = new System.Windows.Forms.Label();
             this.treeViewAreas = new System.Windows.Forms.TreeView();
             this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.AddCategoryControl();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControlAreaSubProperties.SuspendLayout();
             this.tabPageAreaViewer.SuspendLayout();
-            this.panelAreaEditorControl.SuspendLayout();
             this.tabPageAreaDetails.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,7 +78,6 @@
             this.panelAreaEditorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelAreaEditorControl.Controls.Add(this.button1);
             this.panelAreaEditorControl.Location = new System.Drawing.Point(0, 0);
             this.panelAreaEditorControl.Name = "panelAreaEditorControl";
             this.panelAreaEditorControl.Size = new System.Drawing.Size(367, 430);
@@ -194,6 +192,10 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeViewAreas.Location = new System.Drawing.Point(4, 0);
             this.treeViewAreas.Name = "treeViewAreas";
+            treeNode1.Name = "rootNode";
+            treeNode1.Text = "Areas";
+            this.treeViewAreas.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
             this.treeViewAreas.Size = new System.Drawing.Size(186, 423);
             this.treeViewAreas.TabIndex = 4;
             // 
@@ -201,19 +203,8 @@
             // 
             this.buttonAddCategory.Location = new System.Drawing.Point(5, 426);
             this.buttonAddCategory.Name = "buttonAddCategory";
-            this.buttonAddCategory.ResourceTypeID = 0;
             this.buttonAddCategory.Size = new System.Drawing.Size(185, 26);
             this.buttonAddCategory.TabIndex = 5;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(93, 293);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // AreaView
             // 
@@ -226,7 +217,6 @@
             this.Size = new System.Drawing.Size(570, 455);
             this.tabControlAreaSubProperties.ResumeLayout(false);
             this.tabPageAreaViewer.ResumeLayout(false);
-            this.panelAreaEditorControl.ResumeLayout(false);
             this.tabPageAreaDetails.ResumeLayout(false);
             this.tabPageAreaDetails.PerformLayout();
             this.ResumeLayout(false);
@@ -250,7 +240,6 @@
         private System.Windows.Forms.Label labelAreaName;
         private System.Windows.Forms.TreeView treeViewAreas;
         private Controls.WinterEngineControls.AddCategoryControl buttonAddCategory;
-        private System.Windows.Forms.Button button1;
 
     }
 }

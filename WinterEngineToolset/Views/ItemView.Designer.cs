@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Items");
             this.tabControlItemSubProperties = new System.Windows.Forms.TabControl();
             this.tabPageItemViewer = new System.Windows.Forms.TabPage();
             this.panelItemEditorControl = new System.Windows.Forms.Panel();
@@ -191,6 +192,10 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeViewItems.Location = new System.Drawing.Point(4, 0);
             this.treeViewItems.Name = "treeViewItems";
+            treeNode1.Name = "rootNode";
+            treeNode1.Text = "Items";
+            this.treeViewItems.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
             this.treeViewItems.Size = new System.Drawing.Size(186, 423);
             this.treeViewItems.TabIndex = 4;
             // 
@@ -198,7 +203,7 @@
             // 
             this.buttonAddCategory.Location = new System.Drawing.Point(4, 426);
             this.buttonAddCategory.Name = "buttonAddCategory";
-            this.buttonAddCategory.ResourceTypeID = 0;
+            this.buttonAddCategory.ResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Item;
             this.buttonAddCategory.Size = new System.Drawing.Size(185, 26);
             this.buttonAddCategory.TabIndex = 5;
             // 

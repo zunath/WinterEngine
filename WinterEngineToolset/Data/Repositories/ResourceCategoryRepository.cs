@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.Data.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class ResourceCategoryRepository
+    public class ResourceCategoryRepository: IDisposable
     {
         /// <summary>
         /// Returns all resource categories from the database.
@@ -78,6 +78,29 @@ namespace WinterEngine.Toolset.Data.Repositories
             }
 
             return retResourceCategory;
+        }
+        /*
+        public void AddResourceCategory(ResourceTypeEnum resourceType, ResourceCategoryDTO resourceCategory)
+        {
+            UndoRedoManager.StartInvisible("Data Insert");
+
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                {
+                }
+                UndoRedoManager.Commit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding new resource category (ResourceType: " + resourceType + ", ResourceCategory: " + resourceCategory.ResourceName + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
+            }
+        }
+        */
+
+        public void Dispose()
+        {
         }
     }
 }

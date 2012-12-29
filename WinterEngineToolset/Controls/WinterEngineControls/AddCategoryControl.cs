@@ -11,6 +11,8 @@ using WinterEngine.Toolset.Data.DataTransferObjects;
 using AutoMapper;
 using DejaVu;
 using WinterEngine.Toolset.Controls.ControlHelpers;
+using WinterEngine.Toolset.Data.Repositories;
+using WinterEngine.Toolset.Enumerations;
 
 namespace WinterEngine.Toolset.Controls.WinterEngineControls
 {
@@ -26,18 +28,20 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
 
         #region Fields
 
-        private int _resourceTypeID;
+        private ResourceTypeEnum _resourceTypeEnum;
 
         #endregion
 
         #region Properties
 
-        [Description("ID number of resource that will be used. Refer to database for values.")]
-        public int ResourceTypeID
+        [Description("The resource type to add the category to.")]
+        [DefaultValue(ResourceTypeEnum.Area)]
+        public ResourceTypeEnum ResourceType
         {
-            get { return _resourceTypeID; }
-            set { _resourceTypeID = value; }
+            get { return _resourceTypeEnum; }
+            set { _resourceTypeEnum = value; }
         }
+
 
         #endregion
 
@@ -45,6 +49,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         public AddCategoryControl()
         {
             InitializeComponent();
+            _resourceTypeEnum = ResourceTypeEnum.Area;
         }
 
         /// <summary>
@@ -52,15 +57,16 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         /// </summary>
         /// <param name="inputText"></param>
         /// <returns></returns>
-        private bool Validation(string inputText)
+        private bool ValidationMethod(string inputText)
         {
             bool isValid = true;
 
             return isValid;
         }
 
-        private void Success()
+        private void SuccessMethod()
         {
+            MessageBox.Show("Successful!");
         }
 
         /// <summary>
@@ -72,7 +78,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         /// <param name="e"></param>
         private void buttonAddCategory_Click(object sender, EventArgs e)
         {
-            InputMessageBox inputBox = new InputMessageBox("Enter the category's name.", "New Category", MinCategoryNameLength, MaxCategoryNameLength, Validation, Success, "Category Name");
+            InputMessageBox inputBox = new InputMessageBox("Enter the category's name.", "New Category", MinCategoryNameLength, MaxCategoryNameLength, ValidationMethod, SuccessMethod, "Category Name");
             inputBox.ShowDialog();
         }
 

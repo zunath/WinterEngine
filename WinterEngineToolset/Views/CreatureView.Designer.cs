@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Creatures");
             this.tabControlCreatureSubProperties = new System.Windows.Forms.TabControl();
             this.tabPageCreatureViewer = new System.Windows.Forms.TabPage();
             this.panelCreatureEditorControl = new System.Windows.Forms.Panel();
@@ -42,7 +43,7 @@
             this.labelCreatureTag = new System.Windows.Forms.Label();
             this.labelCreatureName = new System.Windows.Forms.Label();
             this.treeViewCreatures = new System.Windows.Forms.TreeView();
-            this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.AddCategoryControl();
+            this.buttonAddCreatureCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.AddCategoryControl();
             this.tabControlCreatureSubProperties.SuspendLayout();
             this.tabPageCreatureViewer.SuspendLayout();
             this.tabPageCreatureDetails.SuspendLayout();
@@ -191,22 +192,26 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeViewCreatures.Location = new System.Drawing.Point(4, 0);
             this.treeViewCreatures.Name = "treeViewCreatures";
+            treeNode1.Name = "rootNode";
+            treeNode1.Text = "Creatures";
+            this.treeViewCreatures.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
             this.treeViewCreatures.Size = new System.Drawing.Size(186, 423);
             this.treeViewCreatures.TabIndex = 4;
             // 
-            // buttonAddCategory
+            // buttonAddCreatureCategory
             // 
-            this.buttonAddCategory.Location = new System.Drawing.Point(4, 426);
-            this.buttonAddCategory.Name = "buttonAddCategory";
-            this.buttonAddCategory.ResourceTypeID = 0;
-            this.buttonAddCategory.Size = new System.Drawing.Size(185, 26);
-            this.buttonAddCategory.TabIndex = 5;
+            this.buttonAddCreatureCategory.Location = new System.Drawing.Point(5, 426);
+            this.buttonAddCreatureCategory.Name = "buttonAddCreatureCategory";
+            this.buttonAddCreatureCategory.ResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Creature;
+            this.buttonAddCreatureCategory.Size = new System.Drawing.Size(185, 26);
+            this.buttonAddCreatureCategory.TabIndex = 5;
             // 
             // CreatureView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonAddCategory);
+            this.Controls.Add(this.buttonAddCreatureCategory);
             this.Controls.Add(this.treeViewCreatures);
             this.Controls.Add(this.tabControlCreatureSubProperties);
             this.Name = "CreatureView";
@@ -236,6 +241,7 @@
         private System.Windows.Forms.Label labelCreatureName;
         private System.Windows.Forms.TreeView treeViewCreatures;
         private Controls.WinterEngineControls.AddCategoryControl buttonAddCategory;
+        private Controls.WinterEngineControls.AddCategoryControl buttonAddCreatureCategory;
 
     }
 }

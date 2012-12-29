@@ -95,7 +95,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InputMessageBox";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Input Text";
             this.ResumeLayout(false);
             this.PerformLayout();

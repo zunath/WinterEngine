@@ -26,12 +26,12 @@ namespace WinterEngine.Toolset.Views
             AddXNAViewerControl();
 
             // Debugging
-
+            /*
             using (AreaRepository repo = new AreaRepository())
             {
                 LoadContent(repo.GetAllAreas());
             }
-
+            */
             // End debugging
 
         }
@@ -66,11 +66,5 @@ namespace WinterEngine.Toolset.Views
                 UndoRedoManager.Commit();
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            UndoRedoManager.Undo();
-        }
-
     }
 }

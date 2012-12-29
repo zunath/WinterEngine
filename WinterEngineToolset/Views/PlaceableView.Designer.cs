@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Placeables");
             this.tabControlPlaceableSubProperties = new System.Windows.Forms.TabControl();
             this.tabPagePlaceableViewer = new System.Windows.Forms.TabPage();
             this.panelPlaceableEditorControl = new System.Windows.Forms.Panel();
@@ -191,6 +192,10 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeViewPlaceables.Location = new System.Drawing.Point(4, 0);
             this.treeViewPlaceables.Name = "treeViewPlaceables";
+            treeNode1.Name = "rootNode";
+            treeNode1.Text = "Placeables";
+            this.treeViewPlaceables.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
             this.treeViewPlaceables.Size = new System.Drawing.Size(186, 423);
             this.treeViewPlaceables.TabIndex = 4;
             // 
@@ -198,7 +203,7 @@
             // 
             this.buttonAddCategory.Location = new System.Drawing.Point(4, 426);
             this.buttonAddCategory.Name = "buttonAddCategory";
-            this.buttonAddCategory.ResourceTypeID = 0;
+            this.buttonAddCategory.ResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Placeable;
             this.buttonAddCategory.Size = new System.Drawing.Size(185, 26);
             this.buttonAddCategory.TabIndex = 5;
             // 

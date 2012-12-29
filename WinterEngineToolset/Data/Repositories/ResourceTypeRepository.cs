@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.Data.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class ResourceTypeRepository
+    public class ResourceTypeRepository: IDisposable
     {
         public List<ResourceTypeDTO> GetAllResourceTypes()
         {
@@ -39,6 +39,10 @@ namespace WinterEngine.Toolset.Data.Repositories
             }
 
             return _resourceTypeList;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

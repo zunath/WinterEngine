@@ -194,17 +194,17 @@
     <Compile Include="Views\AreaView.Designer.cs">
       <DependentUpon>AreaView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlaceableView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\PlaceableView.Designer.cs">
-      <DependentUpon>PlaceableView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreatureView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\CreatureView.Designer.cs">
       <DependentUpon>CreatureView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlaceableView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PlaceableView.Designer.cs">
+      <DependentUpon>PlaceableView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemView.cs">
       <SubType>UserControl</SubType>
@@ -251,11 +251,11 @@
     <EmbeddedResource Include="Views\AreaView.resx">
       <DependentUpon>AreaView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PlaceableView.resx">
-      <DependentUpon>PlaceableView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\CreatureView.resx">
       <DependentUpon>CreatureView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PlaceableView.resx">
+      <DependentUpon>PlaceableView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ItemView.resx">
       <DependentUpon>ItemView.cs</DependentUpon>
