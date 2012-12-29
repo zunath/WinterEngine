@@ -43,11 +43,12 @@ namespace WinterEngine.Toolset.Data.DataTransferObjects
         /// <summary>
         /// Gets/Sets a particular object's resref.
         /// This is a unique identifier used as the primary key in the embedded database.
+        /// Automatically converts all resrefs to lower case. This maintains consistency throughout the engine.
         /// </summary>
         public string Resref
         {
-            get { return _resref.Value; }
-            set { _resref.Value = value; }
+            get { return _resref.Value.ToLower(); }
+            set { _resref.Value = value.ToLower(); }
         }
 
         #endregion

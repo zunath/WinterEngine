@@ -15,6 +15,10 @@ namespace WinterEngine.Toolset.Data.Repositories
     /// </summary>
     public class ResourceCategoryRepository
     {
+        /// <summary>
+        /// Returns all resource categories from the database.
+        /// </summary>
+        /// <returns></returns>
         public List<ResourceCategoryDTO> GetAllResourceCategories()
         {
             List<ResourceCategoryDTO> _resourceCategoryList = new List<ResourceCategoryDTO>();
@@ -23,10 +27,10 @@ namespace WinterEngine.Toolset.Data.Repositories
             {
                 using (WinterContext context = new WinterContext())
                 {
-                    var resourceCategories = from resourceCategory
-                                             in context.ResourceCategories
-                                             select resourceCategory;
-                    _resourceCategoryList = Mapper.Map(resourceCategories.ToList<ResourceCategory>(), _resourceCategoryList);
+                    var query = from resourceCategory
+                                in context.ResourceCategories
+                                select resourceCategory;
+                    _resourceCategoryList = Mapper.Map(query.ToList<ResourceCategory>(), _resourceCategoryList);
                 }
             }
             catch (Exception ex)
@@ -36,6 +40,38 @@ namespace WinterEngine.Toolset.Data.Repositories
             }
 
             return _resourceCategoryList;
+        }
+
+        /// <summary>
+        /// Returns a specified resource category by ResourceCategoryID and ResourceTypeID from the database.
+        /// </summary>
+        /// <param name="resourceCategoryID"></param>
+        /// <param name="resourceTypeID"></param>
+        /// <returns></returns>
+        public ResourceCategoryDTO GetResourceCategoryByID(int resourceCategoryID, int resourceTypeID)
+        {
+            ResourceCategoryDTO retResourceCategory = new ResourceCategoryDTO();
+
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                {
+                    var query = from resourceCategory
+                                in context.ResourceCategories
+                                where resourceCategory.ResourceCategoryID.Equals(resourceCategoryID) && 
+                                      resourceCategory.ResourceTypeID.Equals(resourceTypeID)
+                                select resourceCategory;
+                    List<ResourceCategory> resultResourceCategories = query.ToList<ResourceCategory>();
+                    retResourceCategory = Mapper.Map(resultResourceCategories[0], retResourceCategory);
+                }
+            }
+            catch (Exception ex)
+            {
+                retResourceCategory = null;
+                MessageBox.Show("Error retrieving specified resource category (CategoryID: " + resourceCategoryID + ", ResourceTypeID: " + resourceTypeID + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return retResourceCategory;
         }
     }
 }

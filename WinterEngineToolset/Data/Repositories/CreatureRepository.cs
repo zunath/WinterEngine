@@ -15,6 +15,10 @@ namespace WinterEngine.Toolset.Data.Repositories
     /// </summary>
     public class CreatureRepository
     {
+        /// <summary>
+        /// Returns all creatures from the database.
+        /// </summary>
+        /// <returns></returns>
         public List<CreatureDTO> GetAllCreatures()
         {
             List<CreatureDTO> _creatureList = new List<CreatureDTO>();
@@ -23,10 +27,10 @@ namespace WinterEngine.Toolset.Data.Repositories
             {
                 using (WinterContext context = new WinterContext())
                 {
-                    var creatures = from creature
-                                    in context.Creatures
-                                    select creature;
-                    _creatureList = Mapper.Map(creatures.ToList<Creature>(), _creatureList);
+                    var query = from creature
+                                in context.Creatures
+                                select creature;
+                    _creatureList = Mapper.Map(query.ToList<Creature>(), _creatureList);
                 }
             }
             catch (Exception ex)
@@ -36,6 +40,36 @@ namespace WinterEngine.Toolset.Data.Repositories
             }
 
             return _creatureList;
+        }
+
+        /// <summary>
+        /// Returns a specified creature by resref from the database
+        /// </summary>
+        /// <param name="resref"></param>
+        /// <returns></returns>
+        public CreatureDTO GetCreatureByResref(string resref)
+        {
+            CreatureDTO retCreature = new CreatureDTO();
+
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                {
+                    var query = from creature
+                                in context.Creatures
+                                where creature.Resref.Equals(resref) // Must match the resref - primary key in database
+                                select creature;
+                    List<Creature> resultCreatures = query.ToList<Creature>();
+                    retCreature = Mapper.Map(resultCreatures[0], retCreature);
+                }
+            }
+            catch (Exception ex)
+            {
+                retCreature = null;
+                MessageBox.Show("Error retrieving specified creature (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return retCreature;
         }
     }
 }

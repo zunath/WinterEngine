@@ -171,7 +171,7 @@
     <Compile Include="Data\Repositories\AreaRepository.cs" />
     <Compile Include="Data\Repositories\ResourceTypeRepository.cs" />
     <Compile Include="Data\Repositories\ResourceCategoryRepository.cs" />
-    <Compile Include="Data\Repositories\PlaceableDTO.cs" />
+    <Compile Include="Data\Repositories\PlaceableRepository.cs" />
     <Compile Include="Data\Repositories\ItemRepository.cs" />
     <Compile Include="Data\Repositories\CreatureRepository.cs" />
     <Compile Include="MainForm.cs">

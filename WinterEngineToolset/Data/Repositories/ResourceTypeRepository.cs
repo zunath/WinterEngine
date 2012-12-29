@@ -23,10 +23,10 @@ namespace WinterEngine.Toolset.Data.Repositories
             {
                 using (WinterContext context = new WinterContext())
                 {
-                    var resourceTypes = from resourceType
-                                        in context.ResourceTypes
-                                        select resourceType;
-                    _resourceTypeList = Mapper.Map(resourceTypes.ToList<ResourceType>(), _resourceTypeList);
+                    var query = from resourceType
+                                in context.ResourceTypes
+                                select resourceType;
+                    _resourceTypeList = Mapper.Map(query.ToList<ResourceType>(), _resourceTypeList);
                 }
             }
             catch (Exception ex)
