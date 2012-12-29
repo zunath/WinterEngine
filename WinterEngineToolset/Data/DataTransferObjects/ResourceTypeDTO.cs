@@ -33,6 +33,13 @@ namespace WinterEngine.Toolset.Data.DataTransferObjects
         #endregion
 
         #region Methods
+
+        ResourceTypeDTO(int resourceTypeID, string resourceName)
+        {
+            this.ResourceTypeID = resourceTypeID;
+            this.Name = resourceName;
+        }
+
         #endregion
     }
 }

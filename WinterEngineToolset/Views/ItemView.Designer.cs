@@ -41,8 +41,8 @@
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
-            this.buttonAddItemCategory = new System.Windows.Forms.Button();
             this.treeViewItems = new System.Windows.Forms.TreeView();
+            this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.AddCategoryControl();
             this.tabControlItemSubProperties.SuspendLayout();
             this.tabPageItemViewer.SuspendLayout();
             this.tabPageItemDetails.SuspendLayout();
@@ -185,16 +185,6 @@
             this.labelItemName.TabIndex = 1;
             this.labelItemName.Text = "Name:";
             // 
-            // buttonAddItemCategory
-            // 
-            this.buttonAddItemCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAddItemCategory.Location = new System.Drawing.Point(6, 429);
-            this.buttonAddItemCategory.Name = "buttonAddItemCategory";
-            this.buttonAddItemCategory.Size = new System.Drawing.Size(184, 23);
-            this.buttonAddItemCategory.TabIndex = 5;
-            this.buttonAddItemCategory.Text = "Add Category";
-            this.buttonAddItemCategory.UseVisualStyleBackColor = true;
-            // 
             // treeViewItems
             // 
             this.treeViewItems.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -204,11 +194,19 @@
             this.treeViewItems.Size = new System.Drawing.Size(186, 423);
             this.treeViewItems.TabIndex = 4;
             // 
+            // buttonAddCategory
+            // 
+            this.buttonAddCategory.Location = new System.Drawing.Point(4, 426);
+            this.buttonAddCategory.Name = "buttonAddCategory";
+            this.buttonAddCategory.ResourceTypeID = 0;
+            this.buttonAddCategory.Size = new System.Drawing.Size(185, 26);
+            this.buttonAddCategory.TabIndex = 5;
+            // 
             // ItemView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonAddItemCategory);
+            this.Controls.Add(this.buttonAddCategory);
             this.Controls.Add(this.treeViewItems);
             this.Controls.Add(this.tabControlItemSubProperties);
             this.Name = "ItemView";
@@ -236,8 +234,8 @@
         private System.Windows.Forms.Label labelItemResref;
         private System.Windows.Forms.Label labelItemTag;
         private System.Windows.Forms.Label labelItemName;
-        private System.Windows.Forms.Button buttonAddItemCategory;
         private System.Windows.Forms.TreeView treeViewItems;
+        private Controls.WinterEngineControls.AddCategoryControl buttonAddCategory;
 
     }
 }

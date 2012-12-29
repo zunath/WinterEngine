@@ -41,8 +41,8 @@
             this.labelCreatureResref = new System.Windows.Forms.Label();
             this.labelCreatureTag = new System.Windows.Forms.Label();
             this.labelCreatureName = new System.Windows.Forms.Label();
-            this.buttonAddCreatureCategory = new System.Windows.Forms.Button();
             this.treeViewCreatures = new System.Windows.Forms.TreeView();
+            this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.AddCategoryControl();
             this.tabControlCreatureSubProperties.SuspendLayout();
             this.tabPageCreatureViewer.SuspendLayout();
             this.tabPageCreatureDetails.SuspendLayout();
@@ -127,7 +127,7 @@
             this.labelCreatureDetailsHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCreatureDetailsHeader.Location = new System.Drawing.Point(101, 16);
             this.labelCreatureDetailsHeader.Name = "labelCreatureDetailsHeader";
-            this.labelCreatureDetailsHeader.Size = new System.Drawing.Size(162, 31);
+            this.labelCreatureDetailsHeader.Size = new System.Drawing.Size(211, 31);
             this.labelCreatureDetailsHeader.TabIndex = 7;
             this.labelCreatureDetailsHeader.Text = "Creature Details";
             // 
@@ -185,16 +185,6 @@
             this.labelCreatureName.TabIndex = 1;
             this.labelCreatureName.Text = "Name:";
             // 
-            // buttonAddCreatureCategory
-            // 
-            this.buttonAddCreatureCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAddCreatureCategory.Location = new System.Drawing.Point(6, 429);
-            this.buttonAddCreatureCategory.Name = "buttonAddCreatureCategory";
-            this.buttonAddCreatureCategory.Size = new System.Drawing.Size(184, 23);
-            this.buttonAddCreatureCategory.TabIndex = 5;
-            this.buttonAddCreatureCategory.Text = "Add Category";
-            this.buttonAddCreatureCategory.UseVisualStyleBackColor = true;
-            // 
             // treeViewCreatures
             // 
             this.treeViewCreatures.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -204,11 +194,19 @@
             this.treeViewCreatures.Size = new System.Drawing.Size(186, 423);
             this.treeViewCreatures.TabIndex = 4;
             // 
+            // buttonAddCategory
+            // 
+            this.buttonAddCategory.Location = new System.Drawing.Point(4, 426);
+            this.buttonAddCategory.Name = "buttonAddCategory";
+            this.buttonAddCategory.ResourceTypeID = 0;
+            this.buttonAddCategory.Size = new System.Drawing.Size(185, 26);
+            this.buttonAddCategory.TabIndex = 5;
+            // 
             // CreatureView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonAddCreatureCategory);
+            this.Controls.Add(this.buttonAddCategory);
             this.Controls.Add(this.treeViewCreatures);
             this.Controls.Add(this.tabControlCreatureSubProperties);
             this.Name = "CreatureView";
@@ -236,8 +234,8 @@
         private System.Windows.Forms.Label labelCreatureResref;
         private System.Windows.Forms.Label labelCreatureTag;
         private System.Windows.Forms.Label labelCreatureName;
-        private System.Windows.Forms.Button buttonAddCreatureCategory;
         private System.Windows.Forms.TreeView treeViewCreatures;
+        private Controls.WinterEngineControls.AddCategoryControl buttonAddCategory;
 
     }
 }

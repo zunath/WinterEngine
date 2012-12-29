@@ -41,8 +41,8 @@
             this.labelPlaceableResref = new System.Windows.Forms.Label();
             this.labelPlaceableTag = new System.Windows.Forms.Label();
             this.labelPlaceableName = new System.Windows.Forms.Label();
-            this.buttonAddPlaceableCategory = new System.Windows.Forms.Button();
             this.treeViewPlaceables = new System.Windows.Forms.TreeView();
+            this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.AddCategoryControl();
             this.tabControlPlaceableSubProperties.SuspendLayout();
             this.tabPagePlaceableViewer.SuspendLayout();
             this.tabPagePlaceableDetails.SuspendLayout();
@@ -127,7 +127,7 @@
             this.labelPlaceableDetailsHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPlaceableDetailsHeader.Location = new System.Drawing.Point(101, 16);
             this.labelPlaceableDetailsHeader.Name = "labelPlaceableDetailsHeader";
-            this.labelPlaceableDetailsHeader.Size = new System.Drawing.Size(158, 31);
+            this.labelPlaceableDetailsHeader.Size = new System.Drawing.Size(224, 31);
             this.labelPlaceableDetailsHeader.TabIndex = 7;
             this.labelPlaceableDetailsHeader.Text = "Placeable Details";
             // 
@@ -185,16 +185,6 @@
             this.labelPlaceableName.TabIndex = 1;
             this.labelPlaceableName.Text = "Name:";
             // 
-            // buttonAddPlaceableCategory
-            // 
-            this.buttonAddPlaceableCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAddPlaceableCategory.Location = new System.Drawing.Point(6, 429);
-            this.buttonAddPlaceableCategory.Name = "buttonAddPlaceableCategory";
-            this.buttonAddPlaceableCategory.Size = new System.Drawing.Size(184, 23);
-            this.buttonAddPlaceableCategory.TabIndex = 5;
-            this.buttonAddPlaceableCategory.Text = "Add Category";
-            this.buttonAddPlaceableCategory.UseVisualStyleBackColor = true;
-            // 
             // treeViewPlaceables
             // 
             this.treeViewPlaceables.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -204,11 +194,19 @@
             this.treeViewPlaceables.Size = new System.Drawing.Size(186, 423);
             this.treeViewPlaceables.TabIndex = 4;
             // 
+            // buttonAddCategory
+            // 
+            this.buttonAddCategory.Location = new System.Drawing.Point(4, 426);
+            this.buttonAddCategory.Name = "buttonAddCategory";
+            this.buttonAddCategory.ResourceTypeID = 0;
+            this.buttonAddCategory.Size = new System.Drawing.Size(185, 26);
+            this.buttonAddCategory.TabIndex = 5;
+            // 
             // PlaceableView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonAddPlaceableCategory);
+            this.Controls.Add(this.buttonAddCategory);
             this.Controls.Add(this.treeViewPlaceables);
             this.Controls.Add(this.tabControlPlaceableSubProperties);
             this.Name = "PlaceableView";
@@ -236,8 +234,8 @@
         private System.Windows.Forms.Label labelPlaceableResref;
         private System.Windows.Forms.Label labelPlaceableTag;
         private System.Windows.Forms.Label labelPlaceableName;
-        private System.Windows.Forms.Button buttonAddPlaceableCategory;
         private System.Windows.Forms.TreeView treeViewPlaceables;
+        private Controls.WinterEngineControls.AddCategoryControl buttonAddCategory;
 
     }
 }
