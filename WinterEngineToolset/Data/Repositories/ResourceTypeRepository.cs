@@ -6,6 +6,7 @@ using WinterEngine.Toolset.Data.Database;
 using WinterEngine.Toolset.Data.DataTransferObjects;
 using AutoMapper;
 using System.Windows.Forms;
+using DejaVu;
 
 namespace WinterEngine.Toolset.Data.Repositories
 {
@@ -17,6 +18,7 @@ namespace WinterEngine.Toolset.Data.Repositories
     {
         public List<ResourceTypeDTO> GetAllResourceTypes()
         {
+            UndoRedoManager.StartInvisible("Data Access");
             List<ResourceTypeDTO> _resourceTypeList = new List<ResourceTypeDTO>();
 
             try
@@ -28,11 +30,12 @@ namespace WinterEngine.Toolset.Data.Repositories
                                 select resourceType;
                     _resourceTypeList = Mapper.Map(query.ToList<ResourceType>(), _resourceTypeList);
                 }
+                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
-                _resourceTypeList.Clear();
-                MessageBox.Show("Error retrieving all resource types.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);                
+                MessageBox.Show("Error retrieving all resource types.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
             }
 
             return _resourceTypeList;

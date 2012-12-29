@@ -7,7 +7,7 @@ using DejaVu;
 namespace WinterEngine.Toolset.Data.DataTransferObjects
 {
     /// <summary>
-    /// Base class for Winter Engine data transfer objects. All object DTOs need to inherit this base class.
+    /// Base class for Winter Engine user interface data transfer objects. All UI object DTOs need to inherit this base class.
     /// </summary>
     [Serializable]
     public class WinterEngineObjectDTOBase

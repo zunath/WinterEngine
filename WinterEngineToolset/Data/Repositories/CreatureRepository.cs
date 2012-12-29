@@ -6,6 +6,7 @@ using WinterEngine.Toolset.Data.Database;
 using WinterEngine.Toolset.Data.DataTransferObjects;
 using AutoMapper;
 using System.Windows.Forms;
+using DejaVu;
 
 namespace WinterEngine.Toolset.Data.Repositories
 {
@@ -21,6 +22,7 @@ namespace WinterEngine.Toolset.Data.Repositories
         /// <returns></returns>
         public List<CreatureDTO> GetAllCreatures()
         {
+            UndoRedoManager.StartInvisible("Data Access");
             List<CreatureDTO> _creatureList = new List<CreatureDTO>();
 
             try
@@ -32,11 +34,13 @@ namespace WinterEngine.Toolset.Data.Repositories
                                 select creature;
                     _creatureList = Mapper.Map(query.ToList<Creature>(), _creatureList);
                 }
+                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
                 _creatureList.Clear();
-                MessageBox.Show("Error retrieving all creatures.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);                
+                MessageBox.Show("Error retrieving all creatures.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
             }
 
             return _creatureList;
@@ -49,6 +53,7 @@ namespace WinterEngine.Toolset.Data.Repositories
         /// <returns></returns>
         public CreatureDTO GetCreatureByResref(string resref)
         {
+            UndoRedoManager.StartInvisible("Data Access");
             CreatureDTO retCreature = new CreatureDTO();
 
             try
@@ -62,11 +67,13 @@ namespace WinterEngine.Toolset.Data.Repositories
                     List<Creature> resultCreatures = query.ToList<Creature>();
                     retCreature = Mapper.Map(resultCreatures[0], retCreature);
                 }
+                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
                 retCreature = null;
                 MessageBox.Show("Error retrieving specified creature (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
             }
 
             return retCreature;

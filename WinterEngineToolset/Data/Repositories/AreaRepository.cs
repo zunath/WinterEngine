@@ -22,6 +22,7 @@ namespace WinterEngine.Toolset.Data.Repositories
         /// <returns></returns>
         public List<AreaDTO> GetAllAreas()
         {
+            UndoRedoManager.StartInvisible("Data Access");
             List<AreaDTO> _areaList = new List<AreaDTO>();
 
             try
@@ -33,11 +34,13 @@ namespace WinterEngine.Toolset.Data.Repositories
                                 select area;
                     _areaList = Mapper.Map(query.ToList<Area>(), _areaList);
                 }
+                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
                 _areaList.Clear();
                 MessageBox.Show("Error retrieving all areas.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
             }
 
             return _areaList;
@@ -50,6 +53,7 @@ namespace WinterEngine.Toolset.Data.Repositories
         /// <returns></returns>
         public AreaDTO GetAreaByResref(string resref)
         {
+            UndoRedoManager.StartInvisible("Data Access");
             AreaDTO retArea = new AreaDTO();
 
             try
@@ -63,11 +67,13 @@ namespace WinterEngine.Toolset.Data.Repositories
                     List<Area> resultAreas = query.ToList<Area>();
                     retArea = Mapper.Map(resultAreas[0], retArea);
                 }
+                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
                 retArea = null;
                 MessageBox.Show("Error retrieving specified area (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
             }
 
             return retArea;

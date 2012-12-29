@@ -6,7 +6,6 @@ C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineCl
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Client.pdb
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\AutoMapper.dll
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\AutoMapper.xml
-C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.csprojResolveAssemblyReference.cache
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.exe
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.pdb

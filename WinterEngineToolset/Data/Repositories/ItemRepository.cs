@@ -6,6 +6,7 @@ using WinterEngine.Toolset.Data.Database;
 using WinterEngine.Toolset.Data.DataTransferObjects;
 using AutoMapper;
 using System.Windows.Forms;
+using DejaVu;
 
 namespace WinterEngine.Toolset.Data.Repositories
 {
@@ -21,6 +22,7 @@ namespace WinterEngine.Toolset.Data.Repositories
         /// <returns></returns>
         public List<ItemDTO> GetAllItems()
         {
+            UndoRedoManager.StartInvisible("Data Access");
             List<ItemDTO> _itemList = new List<ItemDTO>();
 
             try
@@ -32,11 +34,12 @@ namespace WinterEngine.Toolset.Data.Repositories
                                 select item;
                     _itemList = Mapper.Map(query.ToList<Item>(), _itemList);
                 }
+                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
-                _itemList.Clear();
-                MessageBox.Show("Error retrieving all items.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);                
+                MessageBox.Show("Error retrieving all items.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
             }
 
             return _itemList;
@@ -49,6 +52,7 @@ namespace WinterEngine.Toolset.Data.Repositories
         /// <returns></returns>
         public ItemDTO GetItemByResref(string resref)
         {
+            UndoRedoManager.StartInvisible("Data Access");
             ItemDTO retItem = new ItemDTO();
 
             try
@@ -62,11 +66,12 @@ namespace WinterEngine.Toolset.Data.Repositories
                     List<Item> resultItems = query.ToList<Item>();
                     retItem = Mapper.Map(resultItems[0], retItem);
                 }
+                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
-                retItem = null;
                 MessageBox.Show("Error retrieving specified item (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
             }
 
             return retItem;

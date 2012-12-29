@@ -6,6 +6,7 @@ using WinterEngine.Toolset.Data.Database;
 using WinterEngine.Toolset.Data.DataTransferObjects;
 using AutoMapper;
 using System.Windows.Forms;
+using DejaVu;
 
 namespace WinterEngine.Toolset.Data.Repositories
 {
@@ -21,6 +22,7 @@ namespace WinterEngine.Toolset.Data.Repositories
         /// <returns></returns>
         public List<PlaceableRepository> GetAllPlaceables()
         {
+            UndoRedoManager.StartInvisible("Data Access");
             List<PlaceableRepository> _placeableList = new List<PlaceableRepository>();
 
             try
@@ -32,11 +34,12 @@ namespace WinterEngine.Toolset.Data.Repositories
                                 select placeable;
                     _placeableList = Mapper.Map(query.ToList<Placeable>(), _placeableList);
                 }
+                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
-                _placeableList.Clear();
-                MessageBox.Show("Error retrieving all placeables.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);                
+                MessageBox.Show("Error retrieving all placeables.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
             }
 
             return _placeableList;
@@ -49,6 +52,7 @@ namespace WinterEngine.Toolset.Data.Repositories
         /// <returns></returns>
         public PlaceableDTO GetPlaceableByResref(string resref)
         {
+            UndoRedoManager.StartInvisible("Data Access");
             PlaceableDTO retPlaceable = new PlaceableDTO();
 
             try
@@ -62,11 +66,12 @@ namespace WinterEngine.Toolset.Data.Repositories
                     List<Placeable> resultPlaceables = query.ToList<Placeable>();
                     retPlaceable = Mapper.Map(resultPlaceables[0], retPlaceable);
                 }
+                UndoRedoManager.Commit();
             }
             catch (Exception ex)
             {
-                retPlaceable = null;
                 MessageBox.Show("Error retrieving specified placeable (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
             }
 
             return retPlaceable;
