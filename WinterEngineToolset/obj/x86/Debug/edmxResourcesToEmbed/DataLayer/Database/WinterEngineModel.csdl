@@ -15,6 +15,7 @@
     <Property Type="String" Name="Resref" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Name" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Tag" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Type="Int64" Name="ResourceCategoryID" Nullable="false" />
   </EntityType>
   <EntityType Name="Creature">
     <Key>
@@ -23,6 +24,7 @@
     <Property Type="String" Name="Resref" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Name" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Tag" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Type="Int64" Name="ResourceCategoryID" Nullable="false" />
   </EntityType>
   <EntityType Name="Item">
     <Key>
@@ -31,6 +33,7 @@
     <Property Type="String" Name="Resref" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Name" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Tag" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Type="Int64" Name="ResourceCategoryID" Nullable="false" />
   </EntityType>
   <EntityType Name="Placeable">
     <Key>
@@ -39,6 +42,7 @@
     <Property Type="String" Name="Resref" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Name" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Tag" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Type="Int64" Name="ResourceCategoryID" Nullable="false" />
   </EntityType>
   <EntityType Name="ResourceCategory">
     <Key>

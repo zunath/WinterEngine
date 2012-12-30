@@ -17,7 +17,8 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects
         readonly UndoRedo<string> _name = new UndoRedo<string>();
         readonly UndoRedo<string> _tag = new UndoRedo<string>();
         readonly UndoRedo<string> _resref = new UndoRedo<string>();
-        
+        readonly UndoRedo<int> _resourceCategoryID = new UndoRedo<int>();
+
         #endregion
 
         #region Properties
@@ -59,6 +60,12 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects
                 }
             }
             set { _resref.Value = value.ToLower(); }
+        }
+
+        public int ResourceCategoryID
+        {
+            get { return _resourceCategoryID.Value; }
+            set { _resourceCategoryID.Value = value; }
         }
 
         #endregion

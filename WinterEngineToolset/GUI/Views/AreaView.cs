@@ -12,14 +12,20 @@ using WinterEngine.Toolset.DataLayer.DataTransferObjects;
 using WinterEngine.Toolset.DataLayer.Repositories;
 using DejaVu;
 using AutoMapper;
+using WinterEngine.Toolset.Enumerations;
+using WinterEngine.Toolset.Controls.ControlHelpers;
 
 namespace WinterEngine.Toolset.GUI.Views
 {
     public partial class AreaView : UserControl
     {
-        // Custom controls are defined here due to a bug with the Visual Studio 2010 designer.
+        #region Fields
         private AreaEditorControl _areaEditorControl;
+        #endregion
 
+        #region Constructors and Initialization
+
+        // Custom controls are defined here due to a bug with the Visual Studio 2010 designer.
         public AreaView()
         {
             InitializeComponent();
@@ -34,53 +40,36 @@ namespace WinterEngine.Toolset.GUI.Views
             panelAreaEditorControl.Controls.Add(_areaEditorControl);
         }
 
-        /// <summary>
-        /// Loads a list of area objects into the GUI of this control.
-        /// The list of areas should be retrieved from the repository first and then passed into this method.
-        /// </summary>
-        /// <param name="areaList"></param>
-        private void LoadContent()
+        #endregion
+
+        #region GUI Population Methods
+
+        private void RefreshTreeViewGUI()
         {
-            using (UndoRedoManager.StartInvisible("Load Area Tree List"))
-            {
-                List<AreaDTO> areaList = new List<AreaDTO>();
-                List<ResourceCategoryDTO> categoryList = new List<ResourceCategoryDTO>();
+            TreeViewPopulator populator = new TreeViewPopulator();
 
-                using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
-                {
-                    categoryList = repo.GetAllResourceCategories();
-                }
-
-                using (AreaRepository repo = new AreaRepository())
-                {
-                    areaList = repo.GetAllAreas();
-                    treeViewAreas.Nodes[0].Nodes.Clear(); // Clear all nodes attached to root but not root iself.
-
-                    foreach (AreaDTO currentArea in areaList)
-                    {
-                        TreeNode node = new TreeNode();
-                        node.Text = currentArea.Name;
-                        node.Tag = currentArea;
-
-                        treeViewAreas.Nodes[0].Nodes.Add(node);
-                    }
-                }
-
-                UndoRedoManager.Commit();
-            }
+            treeViewAreas.Nodes[0].Nodes.Clear(); // Remove all but root node
+            populator.PopulateTreeViewCategories(ref treeViewAreas, ResourceTypeEnum.Area); // Repopulate categories
+            populator.PopulateAreaTreeViewObjects(ref treeViewAreas, ResourceTypeEnum.Area); // Repopulate objects
         }
 
+        /// <summary>
+        /// Empties all GUI controls and repopulates them using the Populate* methods.
+        /// </summary>
+        private void RefreshControlGUI()
+        {
+        }
+
+        #endregion
 
         /// <summary>
         /// Method called from child component buttonAddCategory.
-        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void buttonAddCategory_RefreshTreeView(object sender, EventArgs e)
         {
-            
-            LoadContent();
+            RefreshTreeViewGUI();
         }
 
     }

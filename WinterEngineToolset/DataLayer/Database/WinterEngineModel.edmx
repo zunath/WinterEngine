@@ -20,6 +20,7 @@
           <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
           <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+          <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Creatures">
           <Key>
@@ -28,6 +29,7 @@
           <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
           <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+          <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Items">
           <Key>
@@ -36,6 +38,7 @@
           <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
           <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+          <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="Placeables">
           <Key>
@@ -44,6 +47,7 @@
           <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
           <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+          <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="ResourceCategories">
           <Key>
@@ -79,6 +83,7 @@
           <Property Type="String" Name="Resref" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Tag" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="ResourceCategoryID" Nullable="false" />
         </EntityType>
         <EntityType Name="Creature">
           <Key>
@@ -87,6 +92,7 @@
           <Property Type="String" Name="Resref" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Tag" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="ResourceCategoryID" Nullable="false" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -95,6 +101,7 @@
           <Property Type="String" Name="Resref" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Tag" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="ResourceCategoryID" Nullable="false" />
         </EntityType>
         <EntityType Name="Placeable">
           <Key>
@@ -103,6 +110,7 @@
           <Property Type="String" Name="Resref" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Tag" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="ResourceCategoryID" Nullable="false" />
         </EntityType>
         <EntityType Name="ResourceCategory">
           <Key>
@@ -128,6 +136,7 @@
           <EntitySetMapping Name="Areas">
             <EntityTypeMapping TypeName="WinterEngineDatabaseModel.Area">
               <MappingFragment StoreEntitySet="Areas">
+                <ScalarProperty Name="ResourceCategoryID" ColumnName="ResourceCategoryID" />
                 <ScalarProperty Name="Tag" ColumnName="Tag" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Resref" ColumnName="Resref" />
@@ -137,6 +146,7 @@
           <EntitySetMapping Name="Creatures">
             <EntityTypeMapping TypeName="WinterEngineDatabaseModel.Creature">
               <MappingFragment StoreEntitySet="Creatures">
+                <ScalarProperty Name="ResourceCategoryID" ColumnName="ResourceCategoryID" />
                 <ScalarProperty Name="Tag" ColumnName="Tag" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Resref" ColumnName="Resref" />
@@ -146,6 +156,7 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="WinterEngineDatabaseModel.Item">
               <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="ResourceCategoryID" ColumnName="ResourceCategoryID" />
                 <ScalarProperty Name="Tag" ColumnName="Tag" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Resref" ColumnName="Resref" />
@@ -155,6 +166,7 @@
           <EntitySetMapping Name="Placeables">
             <EntityTypeMapping TypeName="WinterEngineDatabaseModel.Placeable">
               <MappingFragment StoreEntitySet="Placeables">
+                <ScalarProperty Name="ResourceCategoryID" ColumnName="ResourceCategoryID" />
                 <ScalarProperty Name="Tag" ColumnName="Tag" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Resref" ColumnName="Resref" />
@@ -200,10 +212,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="WinterEngineModel" >
-        <EntityTypeShape EntityType="WinterEngineDatabaseModel.Area" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937499996" />
-        <EntityTypeShape EntityType="WinterEngineDatabaseModel.Creature" Width="1.5" PointX="2.75" PointY="0.75" Height="1.5956835937499996" />
-        <EntityTypeShape EntityType="WinterEngineDatabaseModel.Item" Width="1.5" PointX="0.75" PointY="3.75" Height="1.5956835937499996" />
-        <EntityTypeShape EntityType="WinterEngineDatabaseModel.Placeable" Width="1.5" PointX="2.75" PointY="3.75" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="WinterEngineDatabaseModel.Area" Width="1.5" PointX="0.75" PointY="0.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WinterEngineDatabaseModel.Creature" Width="1.5" PointX="2.75" PointY="0.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WinterEngineDatabaseModel.Item" Width="1.5" PointX="0.75" PointY="3.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WinterEngineDatabaseModel.Placeable" Width="1.5" PointX="2.75" PointY="3.75" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="WinterEngineDatabaseModel.ResourceCategory" Width="1.5" PointX="4.75" PointY="0.75" Height="1.5956835937500031" />
         <EntityTypeShape EntityType="WinterEngineDatabaseModel.ResourceType" Width="1.5" PointX="4.75" PointY="3.75" Height="1.4033821614583317" />
       </Diagram>

@@ -15,6 +15,7 @@
     <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
     <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
   </EntityType>
   <EntityType Name="Creatures">
     <Key>
@@ -23,6 +24,7 @@
     <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
     <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
   </EntityType>
   <EntityType Name="Items">
     <Key>
@@ -31,6 +33,7 @@
     <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
     <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
   </EntityType>
   <EntityType Name="Placeables">
     <Key>
@@ -39,6 +42,7 @@
     <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
     <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
   </EntityType>
   <EntityType Name="ResourceCategories">
     <Key>

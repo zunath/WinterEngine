@@ -17,5 +17,6 @@ namespace WinterEngine.Toolset.DataLayer.Database
         public string Resref { get; set; }
         public string Name { get; set; }
         public string Tag { get; set; }
+        public long ResourceCategoryID { get; set; }
     }
 }

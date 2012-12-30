@@ -6,6 +6,7 @@ using WinterEngine.Toolset.DataLayer.Database;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects;
 using AutoMapper;
 using System.Windows.Forms;
+using WinterEngine.Toolset.Enumerations;
 
 namespace WinterEngine.Toolset.DataLayer.Repositories
 {
@@ -37,6 +38,35 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             {
                 _areaList.Clear();
                 MessageBox.Show("Error retrieving all areas.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return _areaList;
+        }
+
+        /// <summary>
+        /// Returns all areas that match a particular ResourceCategoryDTO's CategoryID field.
+        /// </summary>
+        /// <param name="resourceCategory"></param>
+        /// <returns></returns>
+        public List<AreaDTO> GetAllAreasByResourceCategory(ResourceCategoryDTO resourceCategory)
+        {
+            List<AreaDTO> _areaList = new List<AreaDTO>();
+
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                {
+                    var query = from area
+                                in context.Areas
+                                where area.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID)
+                                select area;
+                    _areaList = Mapper.Map(query.ToList<Area>(), _areaList);
+                }
+            }
+            catch (Exception ex)
+            {
+                _areaList.Clear();
+                MessageBox.Show("Error retrieving areas by resource type.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return _areaList;

@@ -74,6 +74,32 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             return retResourceCategoryDTO;
         }
 
+        public List<ResourceCategoryDTO> GetAllResourceCategoriesByResourceType(ResourceTypeEnum resourceType)
+        {
+            List<ResourceCategoryDTO> categoryList = new List<ResourceCategoryDTO>();
+
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                {
+                    var query = from resourceCategory
+                                in context.ResourceCategories
+                                where resourceCategory.ResourceTypeID.Equals((int)resourceType)
+                                select resourceCategory;
+
+                    List<ResourceCategory> resultResourceCategories = query.ToList<ResourceCategory>();
+                    categoryList = Mapper.Map(resultResourceCategories, categoryList);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error retrieving specified resource categories (ResourceType: " + resourceType + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return categoryList;
+        }
+
         /// <summary>
         /// Adds a resource category to the database.
         /// </summary>

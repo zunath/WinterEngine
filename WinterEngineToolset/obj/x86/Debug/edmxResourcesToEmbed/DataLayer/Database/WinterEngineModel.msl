@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Areas">
       <EntityTypeMapping TypeName="WinterEngineDatabaseModel.Area">
         <MappingFragment StoreEntitySet="Areas">
+          <ScalarProperty Name="ResourceCategoryID" ColumnName="ResourceCategoryID" />
           <ScalarProperty Name="Tag" ColumnName="Tag" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Resref" ColumnName="Resref" />
@@ -13,6 +14,7 @@
     <EntitySetMapping Name="Creatures">
       <EntityTypeMapping TypeName="WinterEngineDatabaseModel.Creature">
         <MappingFragment StoreEntitySet="Creatures">
+          <ScalarProperty Name="ResourceCategoryID" ColumnName="ResourceCategoryID" />
           <ScalarProperty Name="Tag" ColumnName="Tag" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Resref" ColumnName="Resref" />
@@ -22,6 +24,7 @@
     <EntitySetMapping Name="Items">
       <EntityTypeMapping TypeName="WinterEngineDatabaseModel.Item">
         <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="ResourceCategoryID" ColumnName="ResourceCategoryID" />
           <ScalarProperty Name="Tag" ColumnName="Tag" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Resref" ColumnName="Resref" />
@@ -31,6 +34,7 @@
     <EntitySetMapping Name="Placeables">
       <EntityTypeMapping TypeName="WinterEngineDatabaseModel.Placeable">
         <MappingFragment StoreEntitySet="Placeables">
+          <ScalarProperty Name="ResourceCategoryID" ColumnName="ResourceCategoryID" />
           <ScalarProperty Name="Tag" ColumnName="Tag" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Resref" ColumnName="Resref" />
