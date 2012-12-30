@@ -33,5 +33,26 @@ namespace WinterEngine.Toolset.Views
             _creatureEditorControl.Dock = DockStyle.Fill;
             panelCreatureEditorControl.Controls.Add(_creatureEditorControl);
         }
+
+        /// <summary>
+        /// Loads a list of creature objects into the GUI of this control.
+        /// The list of creatures should be retrieved from the repository first and then passed into this method.
+        /// </summary>
+        /// <param name="areaList"></param>
+        private void LoadContent(List<CreatureDTO> creatureList)
+        {
+            using (UndoRedoManager.StartInvisible("Load Creature Tree List"))
+            {
+                foreach (CreatureDTO currentCreature in creatureList)
+                {
+                    TreeNode node = new TreeNode();
+                    node.Text = currentCreature.Name;
+                    node.Tag = currentCreature;
+
+                    treeViewCreatures.Nodes[0].Nodes.Add(node);
+                }
+                UndoRedoManager.Commit();
+            }
+        }
     }
 }

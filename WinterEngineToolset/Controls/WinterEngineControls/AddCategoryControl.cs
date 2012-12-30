@@ -44,11 +44,17 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
 
         #endregion
 
+        #region Delegate and Events
+
+        public event EventHandler RefreshTreeView;
+
+        #endregion
 
         public AddCategoryControl()
         {
             InitializeComponent();
             _resourceTypeEnum = ResourceTypeEnum.Area;
+            
         }
 
         /// <summary>
@@ -66,7 +72,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             return isValid;
         }
 
-        private void SuccessMethod(string inputText)
+        public void SuccessMethod(string inputText)
         {
             bool success;
             UndoRedoManager.Start("Add Category: " + inputText);
@@ -78,10 +84,11 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
                 resourceCategoryDTO.ResourceTypeID = (int)ResourceType;
 
                 success = repo.AddResourceCategory(resourceCategoryDTO);
+                UndoRedoManager.Commit();
+
+                RefreshTreeView(this, null);
             }
             
-
-            UndoRedoManager.Commit();
         }
 
         /// <summary>
