@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using DejaVu;
 
 namespace WinterEngine.Toolset.GUI.Views

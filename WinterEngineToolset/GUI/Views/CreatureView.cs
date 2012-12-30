@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.DataLayer.Database;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using WinterEngine.Toolset.DataLayer.Repositories;
 using DejaVu;
 using AutoMapper;

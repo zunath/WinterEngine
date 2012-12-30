@@ -145,13 +145,13 @@
     <Compile Include="DataLayer\Database\Placeable.cs">
       <DependentUpon>WinterEngineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataLayer\DataTransferObjects\AreaDTO.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\ResourceTypeDTO.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\ResourceCategoryDTO.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\CreatureDTO.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\PlaceableDTO.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterEngineObjectDTOBase.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\ItemDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\AreaDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceTypeDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceCategoryDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\CreatureDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\PlaceableDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\WinterObjectDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\ItemDTO.cs" />
     <Compile Include="DataLayer\Database\ResourceCategory.cs">
       <DependentUpon>WinterEngineModel.tt</DependentUpon>
     </Compile>
@@ -180,6 +180,7 @@
     <Compile Include="DataLayer\Repositories\ItemRepository.cs" />
     <Compile Include="DataLayer\Repositories\CreatureRepository.cs" />
     <Compile Include="Enumerations\ResourceTypeEnum.cs" />
+    <Compile Include="Factories\WinterObjectFactory.cs" />
     <Compile Include="GUI\Views\AreaView.cs">
       <SubType>UserControl</SubType>
     </Compile>

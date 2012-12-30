@@ -4,26 +4,19 @@ using System.Linq;
 using System.Text;
 using DejaVu;
 
-namespace WinterEngine.Toolset.DataLayer.DataTransferObjects
+namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
 {
     [Serializable]
-    public class ResourceCategoryDTO
+    public class ResourceTypeDTO
     {
         #region Fields
 
-        readonly UndoRedo<int> _resourceCategoryID = new UndoRedo<int>();
         readonly UndoRedo<int> _resourceTypeID = new UndoRedo<int>();
         readonly UndoRedo<string> _resourceName = new UndoRedo<string>();
 
         #endregion
 
         #region Properties
-
-        public int ResourceCategoryID
-        {
-            get { return _resourceCategoryID.Value; }
-            set { _resourceCategoryID.Value = value; }
-        }
 
         public int ResourceTypeID
         {
@@ -40,6 +33,13 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects
         #endregion
 
         #region Methods
+
+        ResourceTypeDTO(int resourceTypeID, string resourceName)
+        {
+            this.ResourceTypeID = resourceTypeID;
+            this.ResourceName = resourceName;
+        }
+
         #endregion
     }
 }

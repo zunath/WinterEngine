@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.Toolset.DataLayer.Database;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects;
-using AutoMapper;
 using System.Windows.Forms;
+using AutoMapper;
+using WinterEngine.Toolset.DataLayer.Database;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
 using WinterEngine.Toolset.Enumerations;
 
 namespace WinterEngine.Toolset.DataLayer.Repositories

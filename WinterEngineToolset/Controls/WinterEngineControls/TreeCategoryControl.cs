@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Toolset.DataLayer.Database;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using AutoMapper;
 using DejaVu;
 using WinterEngine.Toolset.Controls.ControlHelpers;
 using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.Enumerations;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
+using WinterEngine.Toolset.Factories;
 
 namespace WinterEngine.Toolset.Controls.WinterEngineControls
 {
@@ -141,168 +143,28 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             UndoRedoManager.Commit();
         }
 
-        /// <summary>
-        /// Populates the tree view with area objects.
-        /// Note that you must populate tree view categories first or none of these will be added.
-        /// </summary>
-        public void PopulateAreaTreeViewObjects()
-        {
-            UndoRedoManager.StartInvisible("TreeView object population");
-            List<AreaDTO> areaList = new List<AreaDTO>();
-            TreeNodeCollection nodeCollection = treeView.Nodes[0].Nodes;
-            // Get list of DTOs from the tag of tree nodes
-            List<ResourceCategoryDTO> resourceDTOList = GetTreeNodeTagResourceDTOs(nodeCollection);
-
-            using (AreaRepository repo = new AreaRepository())
-            {
-                areaList = repo.GetAllAreas();
-            }
-
-            foreach (AreaDTO area in areaList)
-            {
-                TreeNode treeNode = new TreeNode(area.Name);
-                treeNode.Tag = area;
-
-                // Find the first category that matches this area's category ID.
-                ResourceCategoryDTO category = resourceDTOList.FirstOrDefault(val => val.ResourceCategoryID == area.ResourceCategoryID);
-
-                // Unable to find category. Move this object to the first category on the list.
-                if (category == null)
-                {
-                    // If there are no categories at all, we won't load the area.
-                    if (treeView.Nodes[0].Nodes[0] != null)
-                    {
-                        treeView.Nodes[0].Nodes[0].Nodes.Add(treeNode);
-                    }
-                }
-                // Otherwise we found the category. Add the node to it.
-                else
-                {
-                    TreeNode[] treeNodeSearch = nodeCollection.Find("" + category.ResourceCategoryID, false);
-                    treeNodeSearch[0].Nodes.Add(treeNode);
-                }
-            }
-
-            UndoRedoManager.Commit();
-        }
-
-
-        /// <summary>
-        /// Populates the tree view with creature objects.
-        /// Note that you must populate tree view categories first or none of these will be added.
-        /// </summary>
-        public void PopulateCreatureTreeViewObjects()
-        {
-            UndoRedoManager.StartInvisible("TreeView object population");
-            List<CreatureDTO> creatureList = new List<CreatureDTO>();
-            TreeNodeCollection nodeCollection = treeView.Nodes[0].Nodes;
-            // Get list of DTOs from the tag of tree nodes
-            List<ResourceCategoryDTO> resourceDTOList = GetTreeNodeTagResourceDTOs(nodeCollection);
-
-            using (CreatureRepository repo = new CreatureRepository())
-            {
-                creatureList = repo.GetAllCreatures();
-            }
-
-            foreach (CreatureDTO creature in creatureList)
-            {
-                TreeNode treeNode = new TreeNode(creature.Name);
-                treeNode.Tag = creature;
-
-                // Find the first category that matches this creature's category ID.
-                ResourceCategoryDTO category = resourceDTOList.FirstOrDefault(val => val.ResourceCategoryID == creature.ResourceCategoryID);
-
-                // Unable to find category. Move this object to the first category on the list.
-                if (category == null)
-                {
-                    // If there are no categories at all, we won't load the creature.
-                    if (treeView.Nodes[0].Nodes[0] != null)
-                    {
-                        treeView.Nodes[0].Nodes[0].Nodes.Add(treeNode);
-                    }
-                }
-                // Otherwise we found the category. Add the node to it.
-                else
-                {
-                    TreeNode[] treeNodeSearch = nodeCollection.Find("" + category.ResourceCategoryID, false);
-                    treeNodeSearch[0].Nodes.Add(treeNode);
-                }
-            }
-
-            UndoRedoManager.Commit();
-        }
-
-
-        /// <summary>
-        /// Populates the tree view with item objects.
-        /// Note that you must populate tree view categories first or none of these will be added.
-        /// </summary>
-        public void PopulateItemTreeViewObjects()
-        {
-            UndoRedoManager.StartInvisible("TreeView object population");
-            List<ItemDTO> itemList = new List<ItemDTO>();
-            TreeNodeCollection nodeCollection = treeView.Nodes[0].Nodes;
-            // Get list of DTOs from the tag of tree nodes
-            List<ResourceCategoryDTO> resourceDTOList = GetTreeNodeTagResourceDTOs(nodeCollection);
-
-            using (ItemRepository repo = new ItemRepository())
-            {
-                itemList = repo.GetAllItems();
-            }
-
-            foreach (ItemDTO item in itemList)
-            {
-                TreeNode treeNode = new TreeNode(item.Name);
-                treeNode.Tag = item;
-
-                // Find the first category that matches this creature's category ID.
-                ResourceCategoryDTO category = resourceDTOList.FirstOrDefault(val => val.ResourceCategoryID == item.ResourceCategoryID);
-
-                // Unable to find category. Move this object to the first category on the list.
-                if (category == null)
-                {
-                    // If there are no categories at all, we won't load the item.
-                    if (treeView.Nodes[0].Nodes[0] != null)
-                    {
-                        treeView.Nodes[0].Nodes[0].Nodes.Add(treeNode);
-                    }
-                }
-                // Otherwise we found the category. Add the node to it.
-                else
-                {
-                    TreeNode[] treeNodeSearch = nodeCollection.Find("" + category.ResourceCategoryID, false);
-                    treeNodeSearch[0].Nodes.Add(treeNode);
-                }
-            }
-
-            UndoRedoManager.Commit();
-        }
-
 
         /// <summary>
         /// Populates the tree view with placeable objects.
         /// Note that you must populate tree view categories first or none of these will be added.
         /// </summary>
-        public void PopulatePlaceableTreeViewObjects()
+        public void PopulateTreeViewObjects()
         {
             UndoRedoManager.StartInvisible("TreeView object population");
-            List<PlaceableDTO> placeableList = new List<PlaceableDTO>();
+
+            WinterObjectFactory factory = new WinterObjectFactory();
+            List<WinterObjectDTO> objectList = factory.GetAllObjects(WinterObjectResourceType);
             TreeNodeCollection nodeCollection = treeView.Nodes[0].Nodes;
             // Get list of DTOs from the tag of tree nodes
             List<ResourceCategoryDTO> resourceDTOList = GetTreeNodeTagResourceDTOs(nodeCollection);
 
-            using (PlaceableRepository repo = new PlaceableRepository())
+            foreach (WinterObjectDTO currentObject in objectList)
             {
-                placeableList = repo.GetAllPlaceables();
-            }
-
-            foreach (PlaceableDTO placeable in placeableList)
-            {
-                TreeNode treeNode = new TreeNode(placeable.Name);
-                treeNode.Tag = placeable;
+                TreeNode treeNode = new TreeNode(currentObject.Name);
+                treeNode.Tag = currentObject;
 
                 // Find the first category that matches this creature's category ID.
-                ResourceCategoryDTO category = resourceDTOList.FirstOrDefault(val => val.ResourceCategoryID == placeable.ResourceCategoryID);
+                ResourceCategoryDTO category = resourceDTOList.FirstOrDefault(val => val.ResourceCategoryID == currentObject.ResourceCategoryID);
 
                 // Unable to find category. Move this object to the first category on the list.
                 if (category == null)
@@ -333,27 +195,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         {
             treeView.Nodes[0].Nodes.Clear();
             PopulateTreeViewCategories();
-
-            switch (WinterObjectResourceType)
-            {
-                case ResourceTypeEnum.Area:
-                    PopulateAreaTreeViewObjects();
-                    break;
-                case ResourceTypeEnum.Conversation:
-                    break;
-                case ResourceTypeEnum.Creature:
-                    PopulateCreatureTreeViewObjects();
-                    break;
-                case ResourceTypeEnum.Item:
-                    PopulateItemTreeViewObjects();
-                    break;
-                case ResourceTypeEnum.Placeable:
-                    PopulatePlaceableTreeViewObjects();
-                    break;
-                case ResourceTypeEnum.Script:
-                    break;
-            }
-
+            PopulateTreeViewObjects();
         }
 
         /// <summary>
@@ -471,7 +313,22 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         /// <param name="e"></param>
         private void contextMenuStripNodes_DeleteCategory(object sender, EventArgs e)
         {
-            MessageBox.Show("Delete category");
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this category? All contained objects will be deleted.", "Delete Category", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+            // User chose to delete the category. Remove all contained objects and delete the category.
+            if (result == DialogResult.Yes)
+            {
+                ResourceCategoryDTO resource = treeView.SelectedNode.Tag as ResourceCategoryDTO;
+
+                // Remove objects tied to this resource category and type
+                
+
+                // Remove the category itself
+                using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+                {
+                    
+                }
+            }
         }
 
         #endregion

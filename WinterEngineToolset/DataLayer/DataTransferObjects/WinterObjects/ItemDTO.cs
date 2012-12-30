@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WinterEngine.Toolset.DataLayer.DataTransferObjects
+namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
 {
     [Serializable]
-    public class CreatureDTO : WinterEngineObjectDTOBase
+    public class ItemDTO : WinterObjectDTO
     {
         #region Fields
         #endregion
