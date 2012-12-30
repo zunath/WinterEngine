@@ -29,27 +29,5 @@ namespace WinterEngine.Toolset.GUI.Views
             _ItemEditorControl.Dock = DockStyle.Fill;
             panelItemEditorControl.Controls.Add(_ItemEditorControl);            
         }
-
-
-        /// <summary>
-        /// Loads a list of item objects into the GUI of this control.
-        /// The list of items should be retrieved from the repository first and then passed into this method.
-        /// </summary>
-        /// <param name="areaList"></param>
-        private void LoadContent(List<ItemDTO> itemList)
-        {
-            using (UndoRedoManager.StartInvisible("Load Item Tree List"))
-            {
-                foreach (ItemDTO currentItem in itemList)
-                {
-                    TreeNode node = new TreeNode();
-                    node.Text = currentItem.Name;
-                    node.Tag = currentItem;
-
-                    treeViewItems.Nodes[0].Nodes.Add(node);
-                }
-                UndoRedoManager.Commit();
-            }
-        }
     }
 }

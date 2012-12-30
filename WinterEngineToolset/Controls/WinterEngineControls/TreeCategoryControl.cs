@@ -35,8 +35,8 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         #region Properties
 
         [Description("The resource type to add the category to.")]
-        [DefaultValue(ResourceTypeEnum.Area)]
-        public ResourceTypeEnum ResourceType
+        [Browsable(true)]
+        public ResourceTypeEnum WinterObjectResourceType
         {
             get { return _resourceTypeEnum; }
             set { _resourceTypeEnum = value; }
@@ -44,7 +44,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
 
         #endregion
 
-        #region Delegate and Events
+        #region Delegates and Events
 
         #endregion
 
@@ -53,8 +53,6 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         public TreeCategoryControl()
         {
             InitializeComponent();
-            _resourceTypeEnum = ResourceTypeEnum.Area;
-            
         }
         #endregion
 
@@ -84,7 +82,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             {
                 ResourceCategoryDTO resourceCategoryDTO = new ResourceCategoryDTO();
                 resourceCategoryDTO.ResourceName = inputText;
-                resourceCategoryDTO.ResourceTypeID = (int)ResourceType;
+                resourceCategoryDTO.ResourceTypeID = (int)WinterObjectResourceType;
 
                 success = repo.AddResourceCategory(resourceCategoryDTO);
                 UndoRedoManager.Commit();
@@ -126,7 +124,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             List<ResourceCategoryDTO> categoryList = new List<ResourceCategoryDTO>();
             using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
             {
-                categoryList = repo.GetAllResourceCategoriesByResourceType(ResourceType);
+                categoryList = repo.GetAllResourceCategoriesByResourceType(WinterObjectResourceType);
             }
 
             foreach (ResourceCategoryDTO category in categoryList)
@@ -336,7 +334,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             treeView.Nodes[0].Nodes.Clear();
             PopulateTreeViewCategories();
 
-            switch (ResourceType)
+            switch (WinterObjectResourceType)
             {
                 case ResourceTypeEnum.Area:
                     PopulateAreaTreeViewObjects();
@@ -397,7 +395,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             {
                 // Add options for category context menu
                 contextMenuStripNodes.Items.Clear();
-                contextMenuStripNodes.Items.Add("Create " + ResourceType.ToString());
+                contextMenuStripNodes.Items.Add("Create " + WinterObjectResourceType.ToString());
                 contextMenuStripNodes.Items.Add("-");
                 contextMenuStripNodes.Items.Add("Delete Category");
             }
@@ -405,7 +403,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             else
             {
                 contextMenuStripNodes.Items.Clear();
-                contextMenuStripNodes.Items.Add("Delete " + ResourceType.ToString());
+                contextMenuStripNodes.Items.Add("Delete " + WinterObjectResourceType.ToString());
             }
         }
 
@@ -422,5 +420,14 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             }
         }
 
+        /// <summary>
+        /// Sets the root node name to match the name of the resource type enumeration.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TreeCategoryControl_Load(object sender, EventArgs e)
+        {
+            treeView.Nodes[0].Text = _resourceTypeEnum.ToString();
+        }
     }
 }

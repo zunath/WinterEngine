@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tabControlAreaSubProperties = new System.Windows.Forms.TabControl();
-            this.tabPageAreaViewer = new System.Windows.Forms.TabPage();
+            this.tabPagePlaceableViewer = new System.Windows.Forms.TabPage();
             this.panelAreaEditorControl = new System.Windows.Forms.Panel();
-            this.tabPageAreaDetails = new System.Windows.Forms.TabPage();
+            this.tabPagePlaceableDetails = new System.Windows.Forms.TabPage();
             this.buttonDiscardChangesAreaDetails = new System.Windows.Forms.Button();
             this.buttonSaveChangesAreaDetails = new System.Windows.Forms.Button();
             this.labelAreaDetailsHeader = new System.Windows.Forms.Label();
@@ -42,13 +41,10 @@
             this.labelAreaResref = new System.Windows.Forms.Label();
             this.labelAreaTag = new System.Windows.Forms.Label();
             this.labelAreaName = new System.Windows.Forms.Label();
-            this.contextMenuTreeViewAreas = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.treeCategoryControl1 = new WinterEngine.Toolset.Controls.WinterEngineControls.TreeCategoryControl();
+            this.treeCategoryControlArea = new WinterEngine.Toolset.Controls.WinterEngineControls.TreeCategoryControl();
             this.tabControlAreaSubProperties.SuspendLayout();
-            this.tabPageAreaViewer.SuspendLayout();
-            this.tabPageAreaDetails.SuspendLayout();
-            this.contextMenuTreeViewAreas.SuspendLayout();
+            this.tabPagePlaceableViewer.SuspendLayout();
+            this.tabPagePlaceableDetails.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlAreaSubProperties
@@ -56,24 +52,24 @@
             this.tabControlAreaSubProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlAreaSubProperties.Controls.Add(this.tabPageAreaViewer);
-            this.tabControlAreaSubProperties.Controls.Add(this.tabPageAreaDetails);
-            this.tabControlAreaSubProperties.Location = new System.Drawing.Point(192, 0);
+            this.tabControlAreaSubProperties.Controls.Add(this.tabPagePlaceableViewer);
+            this.tabControlAreaSubProperties.Controls.Add(this.tabPagePlaceableDetails);
+            this.tabControlAreaSubProperties.Location = new System.Drawing.Point(194, 1);
             this.tabControlAreaSubProperties.Name = "tabControlAreaSubProperties";
             this.tabControlAreaSubProperties.SelectedIndex = 0;
             this.tabControlAreaSubProperties.Size = new System.Drawing.Size(375, 452);
-            this.tabControlAreaSubProperties.TabIndex = 1;
+            this.tabControlAreaSubProperties.TabIndex = 4;
             // 
-            // tabPageAreaViewer
+            // tabPagePlaceableViewer
             // 
-            this.tabPageAreaViewer.Controls.Add(this.panelAreaEditorControl);
-            this.tabPageAreaViewer.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAreaViewer.Name = "tabPageAreaViewer";
-            this.tabPageAreaViewer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAreaViewer.Size = new System.Drawing.Size(367, 426);
-            this.tabPageAreaViewer.TabIndex = 0;
-            this.tabPageAreaViewer.Text = "Viewer";
-            this.tabPageAreaViewer.UseVisualStyleBackColor = true;
+            this.tabPagePlaceableViewer.Controls.Add(this.panelAreaEditorControl);
+            this.tabPagePlaceableViewer.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlaceableViewer.Name = "tabPagePlaceableViewer";
+            this.tabPagePlaceableViewer.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePlaceableViewer.Size = new System.Drawing.Size(367, 426);
+            this.tabPagePlaceableViewer.TabIndex = 0;
+            this.tabPagePlaceableViewer.Text = "Viewer";
+            this.tabPagePlaceableViewer.UseVisualStyleBackColor = true;
             // 
             // panelAreaEditorControl
             // 
@@ -85,24 +81,24 @@
             this.panelAreaEditorControl.Size = new System.Drawing.Size(367, 430);
             this.panelAreaEditorControl.TabIndex = 8;
             // 
-            // tabPageAreaDetails
+            // tabPagePlaceableDetails
             // 
-            this.tabPageAreaDetails.Controls.Add(this.buttonDiscardChangesAreaDetails);
-            this.tabPageAreaDetails.Controls.Add(this.buttonSaveChangesAreaDetails);
-            this.tabPageAreaDetails.Controls.Add(this.labelAreaDetailsHeader);
-            this.tabPageAreaDetails.Controls.Add(this.textBoxAreaResref);
-            this.tabPageAreaDetails.Controls.Add(this.textBoxAreaTag);
-            this.tabPageAreaDetails.Controls.Add(this.textBoxAreaName);
-            this.tabPageAreaDetails.Controls.Add(this.labelAreaResref);
-            this.tabPageAreaDetails.Controls.Add(this.labelAreaTag);
-            this.tabPageAreaDetails.Controls.Add(this.labelAreaName);
-            this.tabPageAreaDetails.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAreaDetails.Name = "tabPageAreaDetails";
-            this.tabPageAreaDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAreaDetails.Size = new System.Drawing.Size(367, 426);
-            this.tabPageAreaDetails.TabIndex = 1;
-            this.tabPageAreaDetails.Text = "Details";
-            this.tabPageAreaDetails.UseVisualStyleBackColor = true;
+            this.tabPagePlaceableDetails.Controls.Add(this.buttonDiscardChangesAreaDetails);
+            this.tabPagePlaceableDetails.Controls.Add(this.buttonSaveChangesAreaDetails);
+            this.tabPagePlaceableDetails.Controls.Add(this.labelAreaDetailsHeader);
+            this.tabPagePlaceableDetails.Controls.Add(this.textBoxAreaResref);
+            this.tabPagePlaceableDetails.Controls.Add(this.textBoxAreaTag);
+            this.tabPagePlaceableDetails.Controls.Add(this.textBoxAreaName);
+            this.tabPagePlaceableDetails.Controls.Add(this.labelAreaResref);
+            this.tabPagePlaceableDetails.Controls.Add(this.labelAreaTag);
+            this.tabPagePlaceableDetails.Controls.Add(this.labelAreaName);
+            this.tabPagePlaceableDetails.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlaceableDetails.Name = "tabPagePlaceableDetails";
+            this.tabPagePlaceableDetails.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePlaceableDetails.Size = new System.Drawing.Size(367, 426);
+            this.tabPagePlaceableDetails.TabIndex = 1;
+            this.tabPagePlaceableDetails.Text = "Details";
+            this.tabPagePlaceableDetails.UseVisualStyleBackColor = true;
             // 
             // buttonDiscardChangesAreaDetails
             // 
@@ -188,49 +184,37 @@
             this.labelAreaName.TabIndex = 1;
             this.labelAreaName.Text = "Name:";
             // 
-            // contextMenuTreeViewAreas
+            // treeCategoryControlArea
             // 
-            this.contextMenuTreeViewAreas.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
-            this.contextMenuTreeViewAreas.Name = "contextMenuStrip1";
-            this.contextMenuTreeViewAreas.Size = new System.Drawing.Size(141, 26);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(140, 22);
-            this.toolStripMenuItem1.Text = "InitialOption";
-            // 
-            // treeCategoryControl1
-            // 
-            this.treeCategoryControl1.Location = new System.Drawing.Point(0, 3);
-            this.treeCategoryControl1.Name = "treeCategoryControl1";
-            this.treeCategoryControl1.Size = new System.Drawing.Size(194, 449);
-            this.treeCategoryControl1.TabIndex = 2;
+            this.treeCategoryControlArea.Location = new System.Drawing.Point(2, 4);
+            this.treeCategoryControlArea.Name = "treeCategoryControlArea";
+            this.treeCategoryControlArea.Size = new System.Drawing.Size(194, 449);
+            this.treeCategoryControlArea.TabIndex = 5;
+            this.treeCategoryControlArea.WinterObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Area;
             // 
             // AreaView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.treeCategoryControl1);
+            this.Controls.Add(this.treeCategoryControlArea);
             this.Controls.Add(this.tabControlAreaSubProperties);
             this.Name = "AreaView";
             this.Size = new System.Drawing.Size(570, 455);
             this.tabControlAreaSubProperties.ResumeLayout(false);
-            this.tabPageAreaViewer.ResumeLayout(false);
-            this.tabPageAreaDetails.ResumeLayout(false);
-            this.tabPageAreaDetails.PerformLayout();
-            this.contextMenuTreeViewAreas.ResumeLayout(false);
+            this.tabPagePlaceableViewer.ResumeLayout(false);
+            this.tabPagePlaceableDetails.ResumeLayout(false);
+            this.tabPagePlaceableDetails.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private Controls.WinterEngineControls.TreeCategoryControl treeCategoryControlArea;
         private System.Windows.Forms.TabControl tabControlAreaSubProperties;
-        private System.Windows.Forms.TabPage tabPageAreaViewer;
+        private System.Windows.Forms.TabPage tabPagePlaceableViewer;
         private System.Windows.Forms.Panel panelAreaEditorControl;
-        private System.Windows.Forms.TabPage tabPageAreaDetails;
+        private System.Windows.Forms.TabPage tabPagePlaceableDetails;
         private System.Windows.Forms.Button buttonDiscardChangesAreaDetails;
         private System.Windows.Forms.Button buttonSaveChangesAreaDetails;
         private System.Windows.Forms.Label labelAreaDetailsHeader;
@@ -240,9 +224,6 @@
         private System.Windows.Forms.Label labelAreaResref;
         private System.Windows.Forms.Label labelAreaTag;
         private System.Windows.Forms.Label labelAreaName;
-        private System.Windows.Forms.ContextMenuStrip contextMenuTreeViewAreas;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private Controls.WinterEngineControls.TreeCategoryControl treeCategoryControl1;
 
     }
 }

@@ -86,6 +86,7 @@
             this.Controls.Add(this.buttonAddCategory);
             this.Name = "TreeCategoryControl";
             this.Size = new System.Drawing.Size(194, 309);
+            this.Load += new System.EventHandler(this.TreeCategoryControl_Load);
             this.contextMenuStripNodes.ResumeLayout(false);
             this.ResumeLayout(false);
 

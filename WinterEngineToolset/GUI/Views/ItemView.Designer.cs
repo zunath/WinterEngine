@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Items");
             this.tabControlItemSubProperties = new System.Windows.Forms.TabControl();
             this.tabPageItemViewer = new System.Windows.Forms.TabPage();
             this.panelItemEditorControl = new System.Windows.Forms.Panel();
@@ -42,8 +41,7 @@
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
-            this.treeViewItems = new System.Windows.Forms.TreeView();
-            this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.TreeCategoryControl();
+            this.treeCategoryControlItem = new WinterEngine.Toolset.Controls.WinterEngineControls.TreeCategoryControl();
             this.tabControlItemSubProperties.SuspendLayout();
             this.tabPageItemViewer.SuspendLayout();
             this.tabPageItemDetails.SuspendLayout();
@@ -186,33 +184,19 @@
             this.labelItemName.TabIndex = 1;
             this.labelItemName.Text = "Name:";
             // 
-            // treeViewItems
+            // treeCategoryControlItem
             // 
-            this.treeViewItems.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.treeViewItems.Location = new System.Drawing.Point(4, 0);
-            this.treeViewItems.Name = "treeViewItems";
-            treeNode1.Name = "rootNode";
-            treeNode1.Text = "Items";
-            this.treeViewItems.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.treeViewItems.Size = new System.Drawing.Size(186, 423);
-            this.treeViewItems.TabIndex = 4;
-            // 
-            // buttonAddCategory
-            // 
-            this.buttonAddCategory.Location = new System.Drawing.Point(4, 426);
-            this.buttonAddCategory.Name = "buttonAddCategory";
-            this.buttonAddCategory.ResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Item;
-            this.buttonAddCategory.Size = new System.Drawing.Size(185, 26);
-            this.buttonAddCategory.TabIndex = 5;
+            this.treeCategoryControlItem.Location = new System.Drawing.Point(0, 3);
+            this.treeCategoryControlItem.Name = "treeCategoryControlItem";
+            this.treeCategoryControlItem.Size = new System.Drawing.Size(194, 449);
+            this.treeCategoryControlItem.TabIndex = 3;
+            this.treeCategoryControlItem.WinterObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Item;
             // 
             // ItemView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonAddCategory);
-            this.Controls.Add(this.treeViewItems);
+            this.Controls.Add(this.treeCategoryControlItem);
             this.Controls.Add(this.tabControlItemSubProperties);
             this.Name = "ItemView";
             this.Size = new System.Drawing.Size(570, 455);
@@ -239,8 +223,7 @@
         private System.Windows.Forms.Label labelItemResref;
         private System.Windows.Forms.Label labelItemTag;
         private System.Windows.Forms.Label labelItemName;
-        private System.Windows.Forms.TreeView treeViewItems;
-        private Controls.WinterEngineControls.TreeCategoryControl buttonAddCategory;
+        private Controls.WinterEngineControls.TreeCategoryControl treeCategoryControlItem;
 
     }
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Placeables");
             this.tabControlPlaceableSubProperties = new System.Windows.Forms.TabControl();
             this.tabPagePlaceableViewer = new System.Windows.Forms.TabPage();
             this.panelPlaceableEditorControl = new System.Windows.Forms.Panel();
@@ -42,8 +41,7 @@
             this.labelPlaceableResref = new System.Windows.Forms.Label();
             this.labelPlaceableTag = new System.Windows.Forms.Label();
             this.labelPlaceableName = new System.Windows.Forms.Label();
-            this.treeViewPlaceables = new System.Windows.Forms.TreeView();
-            this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.TreeCategoryControl();
+            this.treeCategoryControlPlaceable = new WinterEngine.Toolset.Controls.WinterEngineControls.TreeCategoryControl();
             this.tabControlPlaceableSubProperties.SuspendLayout();
             this.tabPagePlaceableViewer.SuspendLayout();
             this.tabPagePlaceableDetails.SuspendLayout();
@@ -186,33 +184,19 @@
             this.labelPlaceableName.TabIndex = 1;
             this.labelPlaceableName.Text = "Name:";
             // 
-            // treeViewPlaceables
+            // treeCategoryControlPlaceable
             // 
-            this.treeViewPlaceables.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.treeViewPlaceables.Location = new System.Drawing.Point(4, 0);
-            this.treeViewPlaceables.Name = "treeViewPlaceables";
-            treeNode1.Name = "rootNode";
-            treeNode1.Text = "Placeables";
-            this.treeViewPlaceables.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.treeViewPlaceables.Size = new System.Drawing.Size(186, 423);
-            this.treeViewPlaceables.TabIndex = 4;
-            // 
-            // buttonAddCategory
-            // 
-            this.buttonAddCategory.Location = new System.Drawing.Point(4, 426);
-            this.buttonAddCategory.Name = "buttonAddCategory";
-            this.buttonAddCategory.ResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Placeable;
-            this.buttonAddCategory.Size = new System.Drawing.Size(185, 26);
-            this.buttonAddCategory.TabIndex = 5;
+            this.treeCategoryControlPlaceable.Location = new System.Drawing.Point(0, 3);
+            this.treeCategoryControlPlaceable.Name = "treeCategoryControlPlaceable";
+            this.treeCategoryControlPlaceable.Size = new System.Drawing.Size(194, 449);
+            this.treeCategoryControlPlaceable.TabIndex = 3;
+            this.treeCategoryControlPlaceable.WinterObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Placeable;
             // 
             // PlaceableView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonAddCategory);
-            this.Controls.Add(this.treeViewPlaceables);
+            this.Controls.Add(this.treeCategoryControlPlaceable);
             this.Controls.Add(this.tabControlPlaceableSubProperties);
             this.Name = "PlaceableView";
             this.Size = new System.Drawing.Size(570, 455);
@@ -239,8 +223,7 @@
         private System.Windows.Forms.Label labelPlaceableResref;
         private System.Windows.Forms.Label labelPlaceableTag;
         private System.Windows.Forms.Label labelPlaceableName;
-        private System.Windows.Forms.TreeView treeViewPlaceables;
-        private Controls.WinterEngineControls.TreeCategoryControl buttonAddCategory;
+        private Controls.WinterEngineControls.TreeCategoryControl treeCategoryControlPlaceable;
 
     }
 }
