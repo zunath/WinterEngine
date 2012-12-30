@@ -68,14 +68,13 @@
             this.contextMenuStripNodes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.defaultOptionToolStripMenuItem});
             this.contextMenuStripNodes.Name = "contextMenuStripNodes";
-            this.contextMenuStripNodes.Size = new System.Drawing.Size(150, 26);
+            this.contextMenuStripNodes.Size = new System.Drawing.Size(153, 48);
             this.contextMenuStripNodes.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripNodes_Opening);
-            this.contextMenuStripNodes.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStripNodes_ItemClicked);
             // 
             // defaultOptionToolStripMenuItem
             // 
             this.defaultOptionToolStripMenuItem.Name = "defaultOptionToolStripMenuItem";
-            this.defaultOptionToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.defaultOptionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.defaultOptionToolStripMenuItem.Text = "DefaultOption";
             // 
             // TreeCategoryControl

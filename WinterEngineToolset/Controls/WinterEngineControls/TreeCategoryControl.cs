@@ -87,6 +87,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
                 success = repo.AddResourceCategory(resourceCategoryDTO);
                 UndoRedoManager.Commit();
 
+                RepopulateTreeView();
                 
             }
             
@@ -103,7 +104,6 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         {
             InputMessageBox inputBox = new InputMessageBox("Enter the category's name.", "New Category", MinCategoryNameLength, MaxCategoryNameLength, ValidationMethod, SuccessMethod, "Category Name");
             inputBox.ShowDialog();
-            RepopulateTreeView();
         }
 
         #endregion
@@ -376,48 +376,12 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
 
         #endregion
 
+        #region Tree view events
+
         private void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             // Highlight the selected node on all clicks.
             treeView.SelectedNode = e.Node;
-        }
-
-        private void contextMenuStripNodes_Opening(object sender, CancelEventArgs e)
-        {
-            // No context menu for the root node at this time.
-            if (treeView.SelectedNode == treeView.TopNode)
-            {
-                e.Cancel = true;
-            }
-            // Category node was selected. We know this because all categories fall under
-            // the root node.
-            else if (treeView.SelectedNode.Parent == treeView.TopNode)
-            {
-                // Add options for category context menu
-                contextMenuStripNodes.Items.Clear();
-                contextMenuStripNodes.Items.Add("Create " + WinterObjectResourceType.ToString());
-                contextMenuStripNodes.Items.Add("-");
-                contextMenuStripNodes.Items.Add("Delete Category");
-            }
-            // Otherwise, an area node was selected.
-            else
-            {
-                contextMenuStripNodes.Items.Clear();
-                contextMenuStripNodes.Items.Add("Delete " + WinterObjectResourceType.ToString());
-            }
-        }
-
-        private void contextMenuStripNodes_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            // An item in the context menu for a category was selected.
-            if (treeView.SelectedNode.Parent == treeView.TopNode)
-            {
-
-            }
-            // An item in the context menu for an object was selected.
-            else if (treeView.SelectedNode != treeView.TopNode)
-            {
-            }
         }
 
         /// <summary>
@@ -429,5 +393,87 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         {
             treeView.Nodes[0].Text = _resourceTypeEnum.ToString();
         }
+
+        #endregion
+
+        #region Context menu events
+        
+        /// <summary>
+        /// Populates the context menu when the user right clicks a node on the tree view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStripNodes_Opening(object sender, CancelEventArgs e)
+        {
+            contextMenuStripNodes.Items.Clear();
+            // No context menu for the root node at this time.
+            if (treeView.SelectedNode == treeView.TopNode)
+            {
+                ToolStripItem createCategory = contextMenuStripNodes.Items.Add("Create Category");
+                createCategory.Click += new EventHandler(contextMenuStripNodes_CreateCategory);
+            }
+            // Category node was selected. We know this because all categories fall under
+            // the root node.
+            else if (treeView.SelectedNode.Parent == treeView.TopNode)
+            {
+                // Add options for category context menu
+                ToolStripItem createObjectItem = contextMenuStripNodes.Items.Add("Create " + WinterObjectResourceType.ToString());
+                contextMenuStripNodes.Items.Add("-");
+                ToolStripItem deleteCategoryItem = contextMenuStripNodes.Items.Add("Delete Category");
+
+                // Add events to each item click event
+                createObjectItem.Click += new EventHandler(contextMenuStripNodes_CreateObject);
+                deleteCategoryItem.Click += new EventHandler(contextMenuStripNodes_DeleteCategory);
+
+            }
+            // Otherwise, an area node was selected.
+            else
+            {
+                ToolStripItem deleteObjectItem = contextMenuStripNodes.Items.Add("Delete " + WinterObjectResourceType.ToString());
+                deleteObjectItem.Click += new EventHandler(contextMenuStripNodes_DeleteObject);
+            }
+        }
+
+        /// <summary>
+        /// Event handler for creating a new object from context menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStripNodes_CreateObject(object sender, EventArgs e)
+        {
+            MessageBox.Show("Create object");
+        }
+
+        /// <summary>
+        /// Event handler for deleting an object from context menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStripNodes_DeleteObject(object sender, EventArgs e)
+        {
+            MessageBox.Show("Delete object");
+        }
+
+        /// <summary>
+        /// Event handler for creating a category from context menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStripNodes_CreateCategory(object sender, EventArgs e)
+        {
+            buttonAddCategory.PerformClick();
+        }
+
+        /// <summary>
+        /// Event handler for deleting a category from context menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStripNodes_DeleteCategory(object sender, EventArgs e)
+        {
+            MessageBox.Show("Delete category");
+        }
+
+        #endregion
     }
 }
