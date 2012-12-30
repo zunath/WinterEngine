@@ -126,12 +126,11 @@
     <Compile Include="Controls\ControlHelpers\InputMessageBox.Designer.cs">
       <DependentUpon>InputMessageBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ControlHelpers\TreeViewPopulator.cs" />
-    <Compile Include="Controls\WinterEngineControls\AddCategoryControl.cs">
+    <Compile Include="Controls\WinterEngineControls\TreeCategoryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WinterEngineControls\AddCategoryControl.Designer.cs">
-      <DependentUpon>AddCategoryControl.cs</DependentUpon>
+    <Compile Include="Controls\WinterEngineControls\TreeCategoryControl.Designer.cs">
+      <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomAutoMapping\CustomMappings.cs" />
     <Compile Include="DataLayer\Database\Area.cs">
@@ -233,8 +232,8 @@
     <EmbeddedResource Include="Controls\ControlHelpers\InputMessageBox.resx">
       <DependentUpon>InputMessageBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WinterEngineControls\AddCategoryControl.resx">
-      <DependentUpon>AddCategoryControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\WinterEngineControls\TreeCategoryControl.resx">
+      <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

@@ -43,7 +43,7 @@
             this.labelPlaceableTag = new System.Windows.Forms.Label();
             this.labelPlaceableName = new System.Windows.Forms.Label();
             this.treeViewPlaceables = new System.Windows.Forms.TreeView();
-            this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.AddCategoryControl();
+            this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.TreeCategoryControl();
             this.tabControlPlaceableSubProperties.SuspendLayout();
             this.tabPagePlaceableViewer.SuspendLayout();
             this.tabPagePlaceableDetails.SuspendLayout();
@@ -240,7 +240,7 @@
         private System.Windows.Forms.Label labelPlaceableTag;
         private System.Windows.Forms.Label labelPlaceableName;
         private System.Windows.Forms.TreeView treeViewPlaceables;
-        private Controls.WinterEngineControls.AddCategoryControl buttonAddCategory;
+        private Controls.WinterEngineControls.TreeCategoryControl buttonAddCategory;
 
     }
 }

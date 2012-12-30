@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Areas");
             this.tabControlAreaSubProperties = new System.Windows.Forms.TabControl();
             this.tabPageAreaViewer = new System.Windows.Forms.TabPage();
             this.panelAreaEditorControl = new System.Windows.Forms.Panel();
@@ -43,10 +42,9 @@
             this.labelAreaResref = new System.Windows.Forms.Label();
             this.labelAreaTag = new System.Windows.Forms.Label();
             this.labelAreaName = new System.Windows.Forms.Label();
-            this.treeViewAreas = new System.Windows.Forms.TreeView();
             this.contextMenuTreeViewAreas = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.AddCategoryControl();
+            this.treeCategoryControl1 = new WinterEngine.Toolset.Controls.WinterEngineControls.TreeCategoryControl();
             this.tabControlAreaSubProperties.SuspendLayout();
             this.tabPageAreaViewer.SuspendLayout();
             this.tabPageAreaDetails.SuspendLayout();
@@ -190,49 +188,31 @@
             this.labelAreaName.TabIndex = 1;
             this.labelAreaName.Text = "Name:";
             // 
-            // treeViewAreas
-            // 
-            this.treeViewAreas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.treeViewAreas.ContextMenuStrip = this.contextMenuTreeViewAreas;
-            this.treeViewAreas.Location = new System.Drawing.Point(4, 0);
-            this.treeViewAreas.Name = "treeViewAreas";
-            treeNode1.Name = "rootNode";
-            treeNode1.Text = "Areas";
-            this.treeViewAreas.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.treeViewAreas.Size = new System.Drawing.Size(186, 423);
-            this.treeViewAreas.TabIndex = 4;
-            this.treeViewAreas.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewAreas_NodeMouseClick);
-            // 
             // contextMenuTreeViewAreas
             // 
             this.contextMenuTreeViewAreas.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.contextMenuTreeViewAreas.Name = "contextMenuStrip1";
-            this.contextMenuTreeViewAreas.Size = new System.Drawing.Size(153, 48);
-            this.contextMenuTreeViewAreas.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuAreaNode_Opening);
-            this.contextMenuTreeViewAreas.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuTreeViewAreas_ItemClicked);
+            this.contextMenuTreeViewAreas.Size = new System.Drawing.Size(141, 26);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(140, 22);
             this.toolStripMenuItem1.Text = "InitialOption";
             // 
-            // buttonAddCategory
+            // treeCategoryControl1
             // 
-            this.buttonAddCategory.Location = new System.Drawing.Point(5, 426);
-            this.buttonAddCategory.Name = "buttonAddCategory";
-            this.buttonAddCategory.Size = new System.Drawing.Size(185, 26);
-            this.buttonAddCategory.TabIndex = 5;
+            this.treeCategoryControl1.Location = new System.Drawing.Point(0, 3);
+            this.treeCategoryControl1.Name = "treeCategoryControl1";
+            this.treeCategoryControl1.Size = new System.Drawing.Size(194, 449);
+            this.treeCategoryControl1.TabIndex = 2;
             // 
             // AreaView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonAddCategory);
-            this.Controls.Add(this.treeViewAreas);
+            this.Controls.Add(this.treeCategoryControl1);
             this.Controls.Add(this.tabControlAreaSubProperties);
             this.Name = "AreaView";
             this.Size = new System.Drawing.Size(570, 455);
@@ -260,10 +240,9 @@
         private System.Windows.Forms.Label labelAreaResref;
         private System.Windows.Forms.Label labelAreaTag;
         private System.Windows.Forms.Label labelAreaName;
-        private System.Windows.Forms.TreeView treeViewAreas;
-        private Controls.WinterEngineControls.AddCategoryControl buttonAddCategory;
         private System.Windows.Forms.ContextMenuStrip contextMenuTreeViewAreas;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private Controls.WinterEngineControls.TreeCategoryControl treeCategoryControl1;
 
     }
 }

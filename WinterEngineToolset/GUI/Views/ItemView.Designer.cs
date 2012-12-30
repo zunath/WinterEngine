@@ -43,7 +43,7 @@
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
             this.treeViewItems = new System.Windows.Forms.TreeView();
-            this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.AddCategoryControl();
+            this.buttonAddCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.TreeCategoryControl();
             this.tabControlItemSubProperties.SuspendLayout();
             this.tabPageItemViewer.SuspendLayout();
             this.tabPageItemDetails.SuspendLayout();
@@ -240,7 +240,7 @@
         private System.Windows.Forms.Label labelItemTag;
         private System.Windows.Forms.Label labelItemName;
         private System.Windows.Forms.TreeView treeViewItems;
-        private Controls.WinterEngineControls.AddCategoryControl buttonAddCategory;
+        private Controls.WinterEngineControls.TreeCategoryControl buttonAddCategory;
 
     }
 }

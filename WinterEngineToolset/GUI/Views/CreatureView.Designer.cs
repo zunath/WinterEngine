@@ -43,7 +43,7 @@
             this.labelCreatureTag = new System.Windows.Forms.Label();
             this.labelCreatureName = new System.Windows.Forms.Label();
             this.treeViewCreatures = new System.Windows.Forms.TreeView();
-            this.buttonAddCreatureCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.AddCategoryControl();
+            this.buttonAddCreatureCategory = new WinterEngine.Toolset.Controls.WinterEngineControls.TreeCategoryControl();
             this.tabControlCreatureSubProperties.SuspendLayout();
             this.tabPageCreatureViewer.SuspendLayout();
             this.tabPageCreatureDetails.SuspendLayout();
@@ -240,8 +240,8 @@
         private System.Windows.Forms.Label labelCreatureTag;
         private System.Windows.Forms.Label labelCreatureName;
         private System.Windows.Forms.TreeView treeViewCreatures;
-        private Controls.WinterEngineControls.AddCategoryControl buttonAddCategory;
-        private Controls.WinterEngineControls.AddCategoryControl buttonAddCreatureCategory;
+        private Controls.WinterEngineControls.TreeCategoryControl buttonAddCategory;
+        private Controls.WinterEngineControls.TreeCategoryControl buttonAddCreatureCategory;
 
     }
 }

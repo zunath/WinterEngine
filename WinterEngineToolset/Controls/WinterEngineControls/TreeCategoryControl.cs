@@ -1,27 +1,124 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
-using DejaVu;
+using System.Windows.Forms;
+using WinterEngine.Toolset.DataLayer.Database;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects;
+using AutoMapper;
+using DejaVu;
+using WinterEngine.Toolset.Controls.ControlHelpers;
 using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.Enumerations;
-using System.Windows.Forms;
 
-namespace WinterEngine.Toolset.Controls.ControlHelpers
+namespace WinterEngine.Toolset.Controls.WinterEngineControls
 {
-    /// <summary>
-    /// Helper class used to populating categories and objects in tree view controls.
-    /// </summary>
-    public class TreeViewPopulator
+    public partial class TreeCategoryControl : UserControl
     {
+        #region Constants
+
+        // Minimum and maximum lengths category names can be.
+        private const int MinCategoryNameLength = 1;
+        private const int MaxCategoryNameLength = 32;
+
+        #endregion
+
+        #region Fields
+
+        private ResourceTypeEnum _resourceTypeEnum;
+
+        #endregion
+
+        #region Properties
+
+        [Description("The resource type to add the category to.")]
+        [DefaultValue(ResourceTypeEnum.Area)]
+        public ResourceTypeEnum ResourceType
+        {
+            get { return _resourceTypeEnum; }
+            set { _resourceTypeEnum = value; }
+        }
+
+        #endregion
+
+        #region Delegate and Events
+
+        #endregion
+
+        #region Constructors
+
+        public TreeCategoryControl()
+        {
+            InitializeComponent();
+            _resourceTypeEnum = ResourceTypeEnum.Area;
+            
+        }
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Business layer validation for adding a new category.
+        /// </summary>
+        /// <param name="inputText"></param>
+        /// <returns></returns>
+        private bool ValidationMethod(string inputText)
+        {
+            bool isValid = true;
+
+            if (inputText.Length < MinCategoryNameLength) isValid = false;
+            if (inputText.Length > MaxCategoryNameLength) isValid = false;
+
+            return isValid;
+        }
+
+        public void SuccessMethod(string inputText)
+        {
+            bool success;
+            UndoRedoManager.Start("Add Category: " + inputText);
+
+            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+            {
+                ResourceCategoryDTO resourceCategoryDTO = new ResourceCategoryDTO();
+                resourceCategoryDTO.ResourceName = inputText;
+                resourceCategoryDTO.ResourceTypeID = (int)ResourceType;
+
+                success = repo.AddResourceCategory(resourceCategoryDTO);
+                UndoRedoManager.Commit();
+
+                
+            }
+            
+        }
+
+        /// <summary>
+        /// Handles popping up a modal dialog box which asks user to input a category name.
+        /// Once a category name has been entered, the database will be updated with the new category.
+        /// The tree view is refreshed to show the change.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonAddCategory_Click(object sender, EventArgs e)
+        {
+            InputMessageBox inputBox = new InputMessageBox("Enter the category's name.", "New Category", MinCategoryNameLength, MaxCategoryNameLength, ValidationMethod, SuccessMethod, "Category Name");
+            inputBox.ShowDialog();
+            RepopulateTreeView();
+        }
+
+        #endregion
+
+        #region Tree view helpers
+
         /// <summary>
         /// Populates a tree view with categories from the database.
         /// </summary>
         /// <param name="treeView"></param>
         /// <param name="resourceType"></param>
         /// <param name="generateUncategorizedCategory"></param>
-        public void PopulateTreeViewCategories(ref TreeView treeView, ResourceTypeEnum resourceType)
+        public void PopulateTreeViewCategories()
         {
             UndoRedoManager.StartInvisible("TreeView Category Population");
 
@@ -29,7 +126,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             List<ResourceCategoryDTO> categoryList = new List<ResourceCategoryDTO>();
             using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
             {
-                categoryList = repo.GetAllResourceCategoriesByResourceType(resourceType);
+                categoryList = repo.GetAllResourceCategoriesByResourceType(ResourceType);
             }
 
             foreach (ResourceCategoryDTO category in categoryList)
@@ -50,7 +147,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         /// Populates the tree view with area objects.
         /// Note that you must populate tree view categories first or none of these will be added.
         /// </summary>
-        public void PopulateAreaTreeViewObjects(ref TreeView treeView)
+        public void PopulateAreaTreeViewObjects()
         {
             UndoRedoManager.StartInvisible("TreeView object population");
             List<AreaDTO> areaList = new List<AreaDTO>();
@@ -70,7 +167,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
 
                 // Find the first category that matches this area's category ID.
                 ResourceCategoryDTO category = resourceDTOList.FirstOrDefault(val => val.ResourceCategoryID == area.ResourceCategoryID);
-                
+
                 // Unable to find category. Move this object to the first category on the list.
                 if (category == null)
                 {
@@ -96,7 +193,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         /// Populates the tree view with creature objects.
         /// Note that you must populate tree view categories first or none of these will be added.
         /// </summary>
-        public void PopulateCreatureTreeViewObjects(ref TreeView treeView)
+        public void PopulateCreatureTreeViewObjects()
         {
             UndoRedoManager.StartInvisible("TreeView object population");
             List<CreatureDTO> creatureList = new List<CreatureDTO>();
@@ -142,7 +239,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         /// Populates the tree view with item objects.
         /// Note that you must populate tree view categories first or none of these will be added.
         /// </summary>
-        public void PopulateItemTreeViewObjects(ref TreeView treeView)
+        public void PopulateItemTreeViewObjects()
         {
             UndoRedoManager.StartInvisible("TreeView object population");
             List<ItemDTO> itemList = new List<ItemDTO>();
@@ -188,7 +285,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         /// Populates the tree view with placeable objects.
         /// Note that you must populate tree view categories first or none of these will be added.
         /// </summary>
-        public void PopulatePlaceableTreeViewObjects(ref TreeView treeView)
+        public void PopulatePlaceableTreeViewObjects()
         {
             UndoRedoManager.StartInvisible("TreeView object population");
             List<PlaceableDTO> placeableList = new List<PlaceableDTO>();
@@ -234,31 +331,31 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         /// </summary>
         /// <param name="treeView"></param>
         /// <param name="resourceType"></param>
-        public void RepopulateTreeView(ref TreeView treeView, ResourceTypeEnum resourceType)
+        public void RepopulateTreeView()
         {
             treeView.Nodes[0].Nodes.Clear();
-            PopulateTreeViewCategories(ref treeView, resourceType);
-            
-            switch(resourceType)
+            PopulateTreeViewCategories();
+
+            switch (ResourceType)
             {
                 case ResourceTypeEnum.Area:
-                    PopulateAreaTreeViewObjects(ref treeView);
+                    PopulateAreaTreeViewObjects();
                     break;
                 case ResourceTypeEnum.Conversation:
                     break;
                 case ResourceTypeEnum.Creature:
-                    PopulateCreatureTreeViewObjects(ref treeView);
+                    PopulateCreatureTreeViewObjects();
                     break;
                 case ResourceTypeEnum.Item:
-                    PopulateItemTreeViewObjects(ref treeView);
+                    PopulateItemTreeViewObjects();
                     break;
                 case ResourceTypeEnum.Placeable:
-                    PopulatePlaceableTreeViewObjects(ref treeView);
+                    PopulatePlaceableTreeViewObjects();
                     break;
                 case ResourceTypeEnum.Script:
                     break;
             }
-        
+
         }
 
         /// <summary>
@@ -278,5 +375,52 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
 
             return objectList;
         }
+
+        #endregion
+
+        private void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            // Highlight the selected node on all clicks.
+            treeView.SelectedNode = e.Node;
+        }
+
+        private void contextMenuStripNodes_Opening(object sender, CancelEventArgs e)
+        {
+            // No context menu for the root node at this time.
+            if (treeView.SelectedNode == treeView.TopNode)
+            {
+                e.Cancel = true;
+            }
+            // Category node was selected. We know this because all categories fall under
+            // the root node.
+            else if (treeView.SelectedNode.Parent == treeView.TopNode)
+            {
+                // Add options for category context menu
+                contextMenuStripNodes.Items.Clear();
+                contextMenuStripNodes.Items.Add("Create " + ResourceType.ToString());
+                contextMenuStripNodes.Items.Add("-");
+                contextMenuStripNodes.Items.Add("Delete Category");
+            }
+            // Otherwise, an area node was selected.
+            else
+            {
+                contextMenuStripNodes.Items.Clear();
+                contextMenuStripNodes.Items.Add("Delete " + ResourceType.ToString());
+            }
+        }
+
+        private void contextMenuStripNodes_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            // An item in the context menu for a category was selected.
+            if (treeView.SelectedNode.Parent == treeView.TopNode)
+            {
+
+            }
+            // An item in the context menu for an object was selected.
+            else if (treeView.SelectedNode != treeView.TopNode)
+            {
+            }
+        }
+
     }
 }
