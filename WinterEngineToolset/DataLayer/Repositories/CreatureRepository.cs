@@ -14,13 +14,13 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class CreatureRepository : IDisposable
+    public class CreatureRepository : IWinterObjectRepository
     {
         /// <summary>
         /// Returns all creatures from the database.
         /// </summary>
         /// <returns></returns>
-        public List<CreatureDTO> GetAllCreatures()
+        public List<WinterObjectDTO> GetAllObjects()
         {
             List<CreatureDTO> _creatureList = new List<CreatureDTO>();
 
@@ -40,7 +40,36 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 MessageBox.Show("Error retrieving all creatures.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return _creatureList;
+            return _creatureList.ConvertAll(x => (WinterObjectDTO)x);;
+        }
+
+        /// <summary>
+        /// Returns all creatures that match a particular ResourceCategoryDTO's CategoryID field.
+        /// </summary>
+        /// <param name="resourceCategory"></param>
+        /// <returns></returns>
+        public List<WinterObjectDTO> GetAllObjectsByResourceCategory(ResourceCategoryDTO resourceCategory)
+        {
+            List<CreatureDTO> _creatureList = new List<CreatureDTO>();
+
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                {
+                    var query = from creature
+                                in context.Creatures
+                                where creature.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID)
+                                select creature;
+                    _creatureList = Mapper.Map(query.ToList<Creature>(), _creatureList);
+                }
+            }
+            catch (Exception ex)
+            {
+                _creatureList.Clear();
+                MessageBox.Show("Error retrieving creatures by resource category.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return _creatureList.ConvertAll(x => (WinterObjectDTO)x);
         }
 
         /// <summary>
@@ -48,7 +77,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         /// <param name="resref"></param>
         /// <returns></returns>
-        public CreatureDTO GetCreatureByResref(string resref)
+        public WinterObjectDTO GetObjectByResref(string resref)
         {
             CreatureDTO retCreature = new CreatureDTO();
 
@@ -70,7 +99,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 MessageBox.Show("Error retrieving specified creature (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return retCreature;
+            return retCreature as WinterObjectDTO;
         }
 
         public void Dispose()

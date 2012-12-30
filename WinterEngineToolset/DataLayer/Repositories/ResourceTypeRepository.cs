@@ -13,7 +13,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class ResourceTypeRepository: IDisposable
+    public class ResourceTypeRepository : IDisposable
     {
         public List<ResourceTypeDTO> GetAllResourceTypes()
         {

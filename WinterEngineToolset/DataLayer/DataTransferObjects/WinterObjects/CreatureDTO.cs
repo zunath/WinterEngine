@@ -6,7 +6,7 @@ using System.Text;
 namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
 {
     [Serializable]
-    public class CreatureDTO : WinterObjectDTO
+    public sealed class CreatureDTO : WinterObjectDTO
     {
         #region Fields
         #endregion

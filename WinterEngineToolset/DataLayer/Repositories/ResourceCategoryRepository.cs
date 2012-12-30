@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class ResourceCategoryRepository: IDisposable
+    public class ResourceCategoryRepository : IDisposable
     {
         /// <summary>
         /// Returns all resource categories from the database.
@@ -126,7 +126,37 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
 
             return success;
         }
-        
+
+        /// <summary>
+        /// Deletes a resource category from the database.
+        /// </summary>
+        /// <param name="resourceCategory"></param>
+        /// <returns></returns>
+        public bool DeleteResourceCategory(ResourceCategoryDTO resourceCategory)
+        {
+            bool success = true;
+
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                { 
+                    // Find the category in the database. CategoryID is a primary key so there will only ever be one.
+                    ResourceCategory category = context.ResourceCategories.FirstOrDefault(val => val.ResourceCategoryID == resourceCategory.ResourceCategoryID);
+                    context.ResourceCategories.Remove(category);
+
+                    context.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                MessageBox.Show("Error deleting resource category (ResourceCategory: " + resourceCategory.ResourceName + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return success;
+        }
+
         public void Dispose()
         {
         }

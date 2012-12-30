@@ -15,13 +15,13 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class AreaRepository : IDisposable
+    public class AreaRepository : IWinterObjectRepository
     {
         /// <summary>
         /// Returns all areas from the database.
         /// </summary>
         /// <returns></returns>
-        public List<AreaDTO> GetAllAreas()
+        public List<WinterObjectDTO> GetAllObjects()
         {
             List<AreaDTO> _areaList = new List<AreaDTO>();
 
@@ -41,7 +41,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 MessageBox.Show("Error retrieving all areas.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return _areaList;
+            return _areaList.ConvertAll(x => (WinterObjectDTO)x);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         /// <param name="resourceCategory"></param>
         /// <returns></returns>
-        public List<AreaDTO> GetAllAreasByResourceCategory(ResourceCategoryDTO resourceCategory)
+        public List<WinterObjectDTO> GetAllObjectsByResourceCategory(ResourceCategoryDTO resourceCategory)
         {
             List<AreaDTO> _areaList = new List<AreaDTO>();
 
@@ -67,10 +67,10 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             catch (Exception ex)
             {
                 _areaList.Clear();
-                MessageBox.Show("Error retrieving areas by resource type.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error retrieving areas by resource category.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return _areaList;
+            return _areaList.ConvertAll(x => (WinterObjectDTO)x);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         /// <param name="resref"></param>
         /// <returns></returns>
-        public AreaDTO GetAreaByResref(string resref)
+        public WinterObjectDTO GetObjectByResref(string resref)
         {
             AreaDTO retArea = new AreaDTO();
 
@@ -100,7 +100,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 MessageBox.Show("Error retrieving specified area (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return retArea;
+            return retArea as WinterObjectDTO;
         }
 
 

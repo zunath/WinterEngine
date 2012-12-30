@@ -14,13 +14,13 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class ItemRepository : IDisposable
+    public class ItemRepository : IWinterObjectRepository
     {
         /// <summary>
         /// Returns all items from the database.
         /// </summary>
         /// <returns></returns>
-        public List<ItemDTO> GetAllItems()
+        public List<WinterObjectDTO> GetAllObjects()
         {
             List<ItemDTO> _itemList = new List<ItemDTO>();
 
@@ -40,7 +40,36 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 MessageBox.Show("Error retrieving all items.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return _itemList;
+            return _itemList.ConvertAll(x => (WinterObjectDTO)x);
+        }
+
+        /// <summary>
+        /// Returns all items that match a particular ResourceCategoryDTO's CategoryID field.
+        /// </summary>
+        /// <param name="resourceCategory"></param>
+        /// <returns></returns>
+        public List<WinterObjectDTO> GetAllObjectsByResourceCategory(ResourceCategoryDTO resourceCategory)
+        {
+            List<ItemDTO> _itemList = new List<ItemDTO>();
+
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                {
+                    var query = from item
+                                in context.Items
+                                where item.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID)
+                                select item;
+                    _itemList = Mapper.Map(query.ToList<Item>(), _itemList);
+                }
+            }
+            catch (Exception ex)
+            {
+                _itemList.Clear();
+                MessageBox.Show("Error retrieving items by resource category.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return _itemList.ConvertAll(x => (WinterObjectDTO)x);
         }
 
         /// <summary>
@@ -48,7 +77,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         /// <param name="resref"></param>
         /// <returns></returns>
-        public ItemDTO GetItemByResref(string resref)
+        public WinterObjectDTO GetObjectByResref(string resref)
         {
             ItemDTO retItem = new ItemDTO();
 
@@ -70,7 +99,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 MessageBox.Show("Error retrieving specified item (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return retItem;
+            return retItem as WinterObjectDTO;
         }
 
         public void Dispose()

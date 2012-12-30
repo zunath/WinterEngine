@@ -89,7 +89,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
                 success = repo.AddResourceCategory(resourceCategoryDTO);
                 UndoRedoManager.Commit();
 
-                RepopulateTreeView();
+                RefreshTreeView();
                 
             }
             
@@ -145,15 +145,17 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
 
 
         /// <summary>
-        /// Populates the tree view with placeable objects.
+        /// Populates the tree view with WinterObjectDTO objects.
         /// Note that you must populate tree view categories first or none of these will be added.
         /// </summary>
         public void PopulateTreeViewObjects()
         {
             UndoRedoManager.StartInvisible("TreeView object population");
 
+            // Build a list of objects using the WinterObjectFactory
             WinterObjectFactory factory = new WinterObjectFactory();
-            List<WinterObjectDTO> objectList = factory.GetAllObjects(WinterObjectResourceType);
+            List<WinterObjectDTO> objectList = factory.GetAllObjectsByResourceType(WinterObjectResourceType);
+
             TreeNodeCollection nodeCollection = treeView.Nodes[0].Nodes;
             // Get list of DTOs from the tag of tree nodes
             List<ResourceCategoryDTO> resourceDTOList = GetTreeNodeTagResourceDTOs(nodeCollection);
@@ -163,14 +165,14 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
                 TreeNode treeNode = new TreeNode(currentObject.Name);
                 treeNode.Tag = currentObject;
 
-                // Find the first category that matches this creature's category ID.
+                // Find the first category that matches this object's category ID. There should only be one since CategoryID is a primary key.
                 ResourceCategoryDTO category = resourceDTOList.FirstOrDefault(val => val.ResourceCategoryID == currentObject.ResourceCategoryID);
 
                 // Unable to find category. Move this object to the first category on the list.
                 if (category == null)
                 {
-                    // If there are no categories at all, we won't load the placeable.
-                    if (treeView.Nodes[0].Nodes[0] != null)
+                    // If there are no categories at all, we won't load the object.
+                    if (ReferenceEquals(treeView.Nodes[0].Nodes, null))
                     {
                         treeView.Nodes[0].Nodes[0].Nodes.Add(treeNode);
                     }
@@ -191,7 +193,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         /// </summary>
         /// <param name="treeView"></param>
         /// <param name="resourceType"></param>
-        public void RepopulateTreeView()
+        public void RefreshTreeView()
         {
             treeView.Nodes[0].Nodes.Clear();
             PopulateTreeViewCategories();
@@ -268,7 +270,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
                 deleteCategoryItem.Click += new EventHandler(contextMenuStripNodes_DeleteCategory);
 
             }
-            // Otherwise, an area node was selected.
+            // Otherwise, an object node was selected.
             else
             {
                 ToolStripItem deleteObjectItem = contextMenuStripNodes.Items.Add("Delete " + WinterObjectResourceType.ToString());
@@ -319,14 +321,16 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             if (result == DialogResult.Yes)
             {
                 ResourceCategoryDTO resource = treeView.SelectedNode.Tag as ResourceCategoryDTO;
-
-                // Remove objects tied to this resource category and type
                 
+                // Remove the objects contained inside this category from the database
+                WinterObjectFactory factory = new WinterObjectFactory();
+                //factory.GetAllObjectsByResourceCategory();
 
-                // Remove the category itself
+                // Remove the category from the database
                 using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
                 {
-                    
+                    repo.DeleteResourceCategory(resource);
+                    RefreshTreeView();
                 }
             }
         }

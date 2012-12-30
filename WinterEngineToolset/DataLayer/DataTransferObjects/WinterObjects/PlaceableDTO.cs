@@ -6,7 +6,7 @@ using System.Text;
 namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
 {
     [Serializable]
-    public class PlaceableDTO : WinterObjectDTO
+    public sealed class PlaceableDTO : WinterObjectDTO
     {
         #region Fields
         #endregion

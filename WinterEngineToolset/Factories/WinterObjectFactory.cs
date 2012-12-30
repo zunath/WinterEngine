@@ -7,11 +7,12 @@ using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
 using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.Enumerations;
 using AutoMapper;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 
 namespace WinterEngine.Toolset.Factories
 {
     /// <summary>
-    /// Factory method for creating game objects.
+    /// Factory method for manipulating game objects.
     /// </summary>
     public class WinterObjectFactory
     {
@@ -42,11 +43,75 @@ namespace WinterEngine.Toolset.Factories
         }
 
         /// <summary>
+        /// Returns a list of all of the objects in the database for a specified resource category.
+        /// </summary>
+        /// <param name="resourceType"></param>
+        /// <returns></returns>
+        public List<WinterObjectDTO> GetAllObjectsByResourceType(ResourceCategoryDTO resourceCategory)
+        {
+            List<WinterObjectDTO> objectList = new List<WinterObjectDTO>();
+
+            switch (resourceCategory.ResourceTypeID)
+            {
+                case (int)ResourceTypeEnum.Area:
+                    {
+                        using (AreaRepository repo = new AreaRepository())
+                        {
+                            // Handles converting all of the AreaDTO objects into WinterObjectDTOs
+                            objectList = repo.GetAllObjectsByResourceCategory(resourceCategory).ConvertAll(x => (WinterObjectDTO)x);
+                        }
+                    break;
+                }
+                case (int)ResourceTypeEnum.Conversation:
+                {
+                    throw new NotImplementedException();
+                }
+                case (int)ResourceTypeEnum.Creature:
+                {
+                    using (CreatureRepository repo = new CreatureRepository())
+                    {
+                        // Handles converting all of the CreatureDTO objects into WinterObjectDTOs
+                        objectList = repo.GetAllObjectsByResourceCategory(resourceCategory).ConvertAll(x => (WinterObjectDTO)x);
+                    }
+                    break;
+                }
+                case (int)ResourceTypeEnum.Item:
+                {
+                    using (ItemRepository repo = new ItemRepository())
+                    {
+                        // Handles converting all of the ItemDTO objects into WinterObjectDTOs
+                        objectList = repo.GetAllObjectsByResourceCategory(resourceCategory).ConvertAll(x => (WinterObjectDTO)x);
+                    }
+                    break;
+                }
+                case (int)ResourceTypeEnum.Placeable:
+                {
+                    using (PlaceableRepository repo = new PlaceableRepository())
+                    {
+                        // Handles converting all of the PlaceableDTO objects into WinterObjectDTOs
+                        objectList = repo.GetAllObjectsByResourceCategory(resourceCategory).ConvertAll(x => (WinterObjectDTO)x);
+                    }
+
+                    break;
+                }
+                case (int)ResourceTypeEnum.Script:
+                {
+                    throw new NotImplementedException();
+                }
+                default: 
+                    objectList = null;
+                    break;
+            }
+
+            return objectList;
+        }
+
+        /// <summary>
         /// Returns a list of all of the objects in the database for a specified resource type.
         /// </summary>
         /// <param name="resourceType"></param>
         /// <returns></returns>
-        public List<WinterObjectDTO> GetAllObjects(ResourceTypeEnum resourceType)
+        public List<WinterObjectDTO> GetAllObjectsByResourceType(ResourceTypeEnum resourceType)
         {
             List<WinterObjectDTO> objectList = new List<WinterObjectDTO>();
 
@@ -57,50 +122,54 @@ namespace WinterEngine.Toolset.Factories
                         using (AreaRepository repo = new AreaRepository())
                         {
                             // Handles converting all of the AreaDTO objects into WinterObjectDTOs
-                            objectList = repo.GetAllAreas().ConvertAll(x => (WinterObjectDTO)x);
+                            objectList = repo.GetAllObjects().ConvertAll(x => (WinterObjectDTO)x);
                         }
-                    break;
-                }
+                        break;
+                    }
                 case ResourceTypeEnum.Conversation:
-                {
-                    throw new NotImplementedException();
-                }
+                    {
+                        throw new NotImplementedException();
+                    }
                 case ResourceTypeEnum.Creature:
-                {
-                    using (CreatureRepository repo = new CreatureRepository())
                     {
-                        // Handles converting all of the CreatureDTO objects into WinterObjectDTOs
-                        objectList = repo.GetAllCreatures().ConvertAll(x => (WinterObjectDTO)x);
+                        using (CreatureRepository repo = new CreatureRepository())
+                        {
+                            // Handles converting all of the CreatureDTO objects into WinterObjectDTOs
+                            objectList = repo.GetAllObjects().ConvertAll(x => (WinterObjectDTO)x);
+                        }
+                        break;
                     }
-                    break;
-                }
                 case ResourceTypeEnum.Item:
-                {
-                    using (ItemRepository repo = new ItemRepository())
                     {
-                        // Handles converting all of the ItemDTO objects into WinterObjectDTOs
-                        objectList = repo.GetAllItems().ConvertAll(x => (WinterObjectDTO)x);
+                        using (ItemRepository repo = new ItemRepository())
+                        {
+                            // Handles converting all of the ItemDTO objects into WinterObjectDTOs
+                            objectList = repo.GetAllObjects().ConvertAll(x => (WinterObjectDTO)x);
+                        }
+                        break;
                     }
-                    break;
-                }
                 case ResourceTypeEnum.Placeable:
-                {
-                    using (PlaceableRepository repo = new PlaceableRepository())
                     {
-                        // Handles converting all of the PlaceableDTO objects into WinterObjectDTOs
-                        objectList = repo.GetAllPlaceables().ConvertAll(x => (WinterObjectDTO)x);
-                    }
+                        using (PlaceableRepository repo = new PlaceableRepository())
+                        {
+                            // Handles converting all of the PlaceableDTO objects into WinterObjectDTOs
+                            objectList = repo.GetAllObjects().ConvertAll(x => (WinterObjectDTO)x);
+                        }
 
-                    break;
-                }
+                        break;
+                    }
                 case ResourceTypeEnum.Script:
-                {
-                    throw new NotImplementedException();
-                }
+                    {
+                        throw new NotImplementedException();
+                    }
+                default:
+                    objectList = null;
+                    break;
             }
 
             return objectList;
         }
+
 
     }
 }
