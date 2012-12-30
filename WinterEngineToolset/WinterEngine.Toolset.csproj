@@ -173,13 +173,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WinterEngineModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataLayer\Repositories\AreaRepository.cs" />
-    <Compile Include="DataLayer\Repositories\IWinterObjectRepository.cs" />
     <Compile Include="DataLayer\Repositories\ResourceTypeRepository.cs" />
     <Compile Include="DataLayer\Repositories\ResourceCategoryRepository.cs" />
-    <Compile Include="DataLayer\Repositories\PlaceableRepository.cs" />
-    <Compile Include="DataLayer\Repositories\ItemRepository.cs" />
-    <Compile Include="DataLayer\Repositories\CreatureRepository.cs" />
+    <Compile Include="DataLayer\Repositories\WinterObjectRepository.cs" />
     <Compile Include="Enumerations\ResourceTypeEnum.cs" />
     <Compile Include="Factories\WinterObjectFactory.cs" />
     <Compile Include="GUI\Views\AreaView.cs">

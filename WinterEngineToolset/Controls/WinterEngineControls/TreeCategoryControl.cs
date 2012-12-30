@@ -154,7 +154,12 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
 
             // Build a list of objects using the WinterObjectFactory
             WinterObjectFactory factory = new WinterObjectFactory();
-            List<WinterObjectDTO> objectList = factory.GetAllObjectsByResourceType(WinterObjectResourceType);
+            List<WinterObjectDTO> objectList;
+
+            using(WinterObjectRepository repo = new WinterObjectRepository())
+            {
+                objectList = repo.GetAllObjects(WinterObjectResourceType);
+            }
 
             TreeNodeCollection nodeCollection = treeView.Nodes[0].Nodes;
             // Get list of DTOs from the tag of tree nodes
@@ -320,16 +325,15 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             // User chose to delete the category. Remove all contained objects and delete the category.
             if (result == DialogResult.Yes)
             {
-                ResourceCategoryDTO resource = treeView.SelectedNode.Tag as ResourceCategoryDTO;
+                ResourceCategoryDTO category = treeView.SelectedNode.Tag as ResourceCategoryDTO;
                 
                 // Remove the objects contained inside this category from the database
-                WinterObjectFactory factory = new WinterObjectFactory();
-                //factory.GetAllObjectsByResourceCategory();
+
 
                 // Remove the category from the database
                 using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
                 {
-                    repo.DeleteResourceCategory(resource);
+                    repo.DeleteResourceCategory(category);
                     RefreshTreeView();
                 }
             }
