@@ -340,9 +340,9 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
                     using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
                     {
                         repo.DeleteResourceCategory(category);
-                        RefreshTreeView();
                     }
                     UndoRedoManager.Commit();
+                    RefreshTreeView();
                 }
                 catch (Exception ex)
                 {
