@@ -248,6 +248,91 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             return null;
         }
 
+        /// <summary>
+        /// Removes all objects in a specified category.
+        /// </summary>
+        /// <param name="resourceType"></param>
+        /// <param name="resourceCategory"></param>
+        public void RemoveAllObjectsInCategory(ResourceTypeEnum resourceType, ResourceCategoryDTO resourceCategory)
+        {
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                {
+                    List<WinterObjectDTO> objectList = GetAllObjectsByResourceCategory(resourceType, resourceCategory);
+
+                    foreach (WinterObjectDTO currentObject in objectList)
+                    {
+                        RemoveObject(resourceType, currentObject.Resref);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error deleting specified objects.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Removes a specified object by its resref.
+        /// </summary>
+        /// <param name="resourceType"></param>
+        /// <param name="resref"></param>
+        public void RemoveObject(ResourceTypeEnum resourceType, string resref)
+        {
+            try
+            {
+
+                using (WinterContext context = new WinterContext())
+                {
+                    WinterObjectDTO obj = GetObjectByResref(resourceType, resref);
+
+                    if (resourceType == ResourceTypeEnum.Area)
+                    {
+                        Area area = new Area();
+                        Mapper.Map(obj as AreaDTO, area);
+                        area = context.Areas.Find(area);
+                        area = context.Areas.First(a => a.Resref == resref);  
+                        context.Areas.Remove(area);
+                    }
+                    else if (resourceType == ResourceTypeEnum.Conversation)
+                    {
+                        throw new NotImplementedException();
+                    }
+                    else if (resourceType == ResourceTypeEnum.Creature)
+                    {
+                        Creature creature = new Creature();
+                        Mapper.Map(obj as CreatureDTO, creature);
+                        creature = context.Creatures.First(c => c.Resref == resref);  
+                        context.Creatures.Remove(creature);
+                    }
+                    else if (resourceType == ResourceTypeEnum.Item)
+                    {
+                        Item item = new Item();
+                        Mapper.Map(obj as ItemDTO, item);
+                        item = context.Items.First(i => i.Resref == resref);    
+                        context.Items.Remove(item);
+                    }
+                    else if (resourceType == ResourceTypeEnum.Placeable)
+                    {
+                        Placeable placeable = new Placeable();
+                        Mapper.Map(obj as PlaceableDTO, placeable);
+                        placeable = context.Placeables.First(r => r.Resref == resref);                        
+                        context.Placeables.Remove(placeable);
+                    }
+                    else if (resourceType == ResourceTypeEnum.Script)
+                    {
+                        throw new NotImplementedException();
+                    }
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error deleting specified object (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+            }
+        }
 
         public void Dispose()
         {

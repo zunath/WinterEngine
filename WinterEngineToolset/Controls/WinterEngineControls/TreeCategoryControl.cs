@@ -326,16 +326,30 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             if (result == DialogResult.Yes)
             {
                 ResourceCategoryDTO category = treeView.SelectedNode.Tag as ResourceCategoryDTO;
-                
-                // Remove the objects contained inside this category from the database
+                UndoRedoManager.Start("Remove category - " + category.ResourceName);
 
-
-                // Remove the category from the database
-                using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+                try
                 {
-                    repo.DeleteResourceCategory(category);
-                    RefreshTreeView();
+                    // Remove the objects contained inside this category from the database
+                    using (WinterObjectRepository repo = new WinterObjectRepository())
+                    {
+                        repo.RemoveAllObjectsInCategory(WinterObjectResourceType, category);
+                    }
+
+                    // Remove the category from the database
+                    using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+                    {
+                        repo.DeleteResourceCategory(category);
+                        RefreshTreeView();
+                    }
+                    UndoRedoManager.Commit();
                 }
+                catch (Exception ex)
+                {
+                    UndoRedoManager.Cancel();
+                    MessageBox.Show("Error deleting specified category (Method: contextMenuStripNodes_DeleteCategory).\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
         }
 
