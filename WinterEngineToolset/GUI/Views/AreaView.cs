@@ -47,10 +47,7 @@ namespace WinterEngine.Toolset.GUI.Views
         private void RefreshTreeViewGUI()
         {
             TreeViewPopulator populator = new TreeViewPopulator();
-
-            treeViewAreas.Nodes[0].Nodes.Clear(); // Remove all but root node
-            populator.PopulateTreeViewCategories(ref treeViewAreas, ResourceTypeEnum.Area); // Repopulate categories
-            populator.PopulateAreaTreeViewObjects(ref treeViewAreas, ResourceTypeEnum.Area); // Repopulate objects
+            populator.RepopulateTreeView(ref treeViewAreas, ResourceTypeEnum.Area);
         }
 
         /// <summary>

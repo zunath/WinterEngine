@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Areas");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Uncategorized");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Areas", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
             this.tabControlAreaSubProperties = new System.Windows.Forms.TabControl();
             this.tabPageAreaViewer = new System.Windows.Forms.TabPage();
             this.panelAreaEditorControl = new System.Windows.Forms.Panel();
@@ -192,10 +194,12 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeViewAreas.Location = new System.Drawing.Point(4, 0);
             this.treeViewAreas.Name = "treeViewAreas";
-            treeNode1.Name = "rootNode";
-            treeNode1.Text = "Areas";
+            treeNode1.Name = "nodeUncategorized";
+            treeNode1.Text = "Uncategorized";
+            treeNode2.Name = "rootNode";
+            treeNode2.Text = "Areas";
             this.treeViewAreas.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.treeViewAreas.Size = new System.Drawing.Size(186, 423);
             this.treeViewAreas.TabIndex = 4;
             // 
