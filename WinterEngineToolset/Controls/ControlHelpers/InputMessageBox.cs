@@ -94,5 +94,18 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             }
         }
 
+        /// <summary>
+        /// Press the OK button if the enter key is pressed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonOK.PerformClick();
+            }
+        }
+
     }
 }

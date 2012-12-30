@@ -41,6 +41,7 @@
             this.textBoxInput.Name = "textBoxInput";
             this.textBoxInput.Size = new System.Drawing.Size(329, 20);
             this.textBoxInput.TabIndex = 0;
+            this.textBoxInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxInput_KeyDown);
             // 
             // labelMessage
             // 
