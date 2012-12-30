@@ -133,52 +133,52 @@
       <DependentUpon>AddCategoryControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomAutoMapping\CustomMappings.cs" />
-    <Compile Include="Data\Database\Area.cs">
+    <Compile Include="DataLayer\Database\Area.cs">
       <DependentUpon>WinterEngineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Database\Creature.cs">
+    <Compile Include="DataLayer\Database\Creature.cs">
       <DependentUpon>WinterEngineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Database\Item.cs">
+    <Compile Include="DataLayer\Database\Item.cs">
       <DependentUpon>WinterEngineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Database\Placeable.cs">
+    <Compile Include="DataLayer\Database\Placeable.cs">
       <DependentUpon>WinterEngineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\DataTransferObjects\AreaDTO.cs" />
-    <Compile Include="Data\DataTransferObjects\ResourceTypeDTO.cs" />
-    <Compile Include="Data\DataTransferObjects\ResourceCategoryDTO.cs" />
-    <Compile Include="Data\DataTransferObjects\CreatureDTO.cs" />
-    <Compile Include="Data\DataTransferObjects\PlaceableDTO.cs" />
-    <Compile Include="Data\DataTransferObjects\WinterEngineObjectDTOBase.cs" />
-    <Compile Include="Data\DataTransferObjects\ItemDTO.cs" />
-    <Compile Include="Data\Database\ResourceCategory.cs">
+    <Compile Include="DataLayer\DataTransferObjects\AreaDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\ResourceTypeDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\ResourceCategoryDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\CreatureDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\PlaceableDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterEngineObjectDTOBase.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\ItemDTO.cs" />
+    <Compile Include="DataLayer\Database\ResourceCategory.cs">
       <DependentUpon>WinterEngineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Database\ResourceType.cs">
+    <Compile Include="DataLayer\Database\ResourceType.cs">
       <DependentUpon>WinterEngineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Database\WinterEngineModel.Context.cs">
+    <Compile Include="DataLayer\Database\WinterEngineModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WinterEngineModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Database\WinterEngineModel.cs">
+    <Compile Include="DataLayer\Database\WinterEngineModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WinterEngineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Database\WinterEngineModel.Designer.cs">
+    <Compile Include="DataLayer\Database\WinterEngineModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WinterEngineModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Data\Repositories\AreaRepository.cs" />
-    <Compile Include="Data\Repositories\ResourceTypeRepository.cs" />
-    <Compile Include="Data\Repositories\ResourceCategoryRepository.cs" />
-    <Compile Include="Data\Repositories\PlaceableRepository.cs" />
-    <Compile Include="Data\Repositories\ItemRepository.cs" />
-    <Compile Include="Data\Repositories\CreatureRepository.cs" />
+    <Compile Include="DataLayer\Repositories\AreaRepository.cs" />
+    <Compile Include="DataLayer\Repositories\ResourceTypeRepository.cs" />
+    <Compile Include="DataLayer\Repositories\ResourceCategoryRepository.cs" />
+    <Compile Include="DataLayer\Repositories\PlaceableRepository.cs" />
+    <Compile Include="DataLayer\Repositories\ItemRepository.cs" />
+    <Compile Include="DataLayer\Repositories\CreatureRepository.cs" />
     <Compile Include="Enumerations\ResourceTypeEnum.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -188,28 +188,28 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\AreaView.cs">
+    <Compile Include="GUI\Views\AreaView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\AreaView.Designer.cs">
+    <Compile Include="GUI\Views\AreaView.Designer.cs">
       <DependentUpon>AreaView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreatureView.cs">
+    <Compile Include="GUI\Views\CreatureView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\CreatureView.Designer.cs">
+    <Compile Include="GUI\Views\CreatureView.Designer.cs">
       <DependentUpon>CreatureView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlaceableView.cs">
+    <Compile Include="GUI\Views\PlaceableView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\PlaceableView.Designer.cs">
+    <Compile Include="GUI\Views\PlaceableView.Designer.cs">
       <DependentUpon>PlaceableView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ItemView.cs">
+    <Compile Include="GUI\Views\ItemView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\ItemView.Designer.cs">
+    <Compile Include="GUI\Views\ItemView.Designer.cs">
       <DependentUpon>ItemView.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\XnaControls\AreaEditorControl.cs">
@@ -248,30 +248,30 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Views\AreaView.resx">
+    <EmbeddedResource Include="GUI\Views\AreaView.resx">
       <DependentUpon>AreaView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\CreatureView.resx">
+    <EmbeddedResource Include="GUI\Views\CreatureView.resx">
       <DependentUpon>CreatureView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PlaceableView.resx">
+    <EmbeddedResource Include="GUI\Views\PlaceableView.resx">
       <DependentUpon>PlaceableView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ItemView.resx">
+    <EmbeddedResource Include="GUI\Views\ItemView.resx">
       <DependentUpon>ItemView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="Data\Database\WinterEngineModel.edmx">
+    <EntityDeploy Include="DataLayer\Database\WinterEngineModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>WinterEngineModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Data\Database\WinterEngineModel.Context.tt">
+    <None Include="DataLayer\Database\WinterEngineModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WinterEngineModel.Context.cs</LastGenOutput>
     </None>
-    <None Include="Data\Database\WinterEngineModel.tt">
+    <None Include="DataLayer\Database\WinterEngineModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WinterEngineModel.cs</LastGenOutput>
     </None>

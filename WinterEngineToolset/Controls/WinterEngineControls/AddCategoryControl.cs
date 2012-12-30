@@ -6,12 +6,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WinterEngine.Toolset.Data.Database;
-using WinterEngine.Toolset.Data.DataTransferObjects;
+using WinterEngine.Toolset.DataLayer.Database;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects;
 using AutoMapper;
 using DejaVu;
 using WinterEngine.Toolset.Controls.ControlHelpers;
-using WinterEngine.Toolset.Data.Repositories;
+using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.Enumerations;
 
 namespace WinterEngine.Toolset.Controls.WinterEngineControls

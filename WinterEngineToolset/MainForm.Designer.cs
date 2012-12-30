@@ -57,12 +57,12 @@
             this.winterEngineWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageCreatures = new System.Windows.Forms.TabPage();
-            this.creatureView = new WinterEngine.Toolset.Views.CreatureView();
+            this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAreas = new System.Windows.Forms.TabPage();
-            this.areaView = new WinterEngine.Toolset.Views.AreaView();
+            this.areaView = new WinterEngine.Toolset.GUI.Views.AreaView();
             this.tabPageItems = new System.Windows.Forms.TabPage();
-            this.itemView1 = new WinterEngine.Toolset.Views.ItemView();
+            this.itemView1 = new WinterEngine.Toolset.GUI.Views.ItemView();
             this.tabPagePlaceables = new System.Windows.Forms.TabPage();
             this.tabPageConversations = new System.Windows.Forms.TabPage();
             this.panelConversationControl = new System.Windows.Forms.Panel();
@@ -72,7 +72,7 @@
             this.panelScriptControl = new System.Windows.Forms.Panel();
             this.buttonAddScriptCategory = new System.Windows.Forms.Button();
             this.treeViewScripts = new System.Windows.Forms.TreeView();
-            this.placeableView = new WinterEngine.Toolset.Views.PlaceableView();
+            this.placeableView = new WinterEngine.Toolset.GUI.Views.PlaceableView();
             this.menuStripMain.SuspendLayout();
             this.tabPageCreatures.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -510,10 +510,10 @@
         private System.Windows.Forms.TreeView treeViewScripts;
         private System.Windows.Forms.Panel panelScriptControl;
         private System.Windows.Forms.Panel panelConversationControl;
-        private Views.AreaView areaView;
-        private Views.CreatureView creatureView;
-        private Views.ItemView itemView1;
-        private Views.PlaceableView placeableView;
+        private GUI.Views.AreaView areaView;
+        private GUI.Views.CreatureView creatureView;
+        private GUI.Views.ItemView itemView1;
+        private GUI.Views.PlaceableView placeableView;
     }
 }
 

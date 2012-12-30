@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.Toolset.Data.Database;
-using WinterEngine.Toolset.Data.DataTransferObjects;
+using WinterEngine.Toolset.DataLayer.Database;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects;
 using AutoMapper;
 
 namespace WinterEngine.Toolset.CustomAutoMapping

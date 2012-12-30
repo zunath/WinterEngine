@@ -8,8 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using WinterEngine.Toolset.Controls.XnaControls;
-using WinterEngine.Toolset.Data;
-using WinterEngine.Toolset.Views;
+using WinterEngine.Toolset.GUI.Views;
 using DejaVu;
 using WinterEngine.Toolset.CustomAutoMapping;
 
