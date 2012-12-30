@@ -19,9 +19,9 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// Returns all placeables from the database.
         /// </summary>
         /// <returns></returns>
-        public List<PlaceableRepository> GetAllPlaceables()
+        public List<PlaceableDTO> GetAllPlaceables()
         {
-            List<PlaceableRepository> _placeableList = new List<PlaceableRepository>();
+            List<PlaceableDTO> _placeableList = new List<PlaceableDTO>();
 
             try
             {
