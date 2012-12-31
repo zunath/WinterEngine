@@ -50,7 +50,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         #endregion
 
         #region Methods
-        private bool Validation()
+        private bool Validation(bool usePopUpForResrefDuplicate = false)
         {
             errorProvider.Clear();
 
@@ -80,6 +80,19 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                 succeed = false;
             }
 
+            using (WinterObjectRepository repo = new WinterObjectRepository())
+            {
+                if (repo.DoesObjectExist(ResourceType, resrefText))
+                {
+                    errorProvider.SetError(resrefTextBoxEntry, "This resref is already in use!");
+
+                    if (usePopUpForResrefDuplicate)
+                        MessageBox.Show("This resref is already in use. Please select another.", "Resref in Use!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    succeed = false;
+                }
+            }
+
             return succeed;
         }
 
@@ -91,7 +104,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         /// <param name="e"></param>
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            bool succeed = Validation();
+            bool succeed = Validation(true);
 
             if (succeed)
             {
@@ -117,17 +130,17 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
 
         private void nameTextBoxEntry_Leave(object sender, EventArgs e)
         {
-            Validation();
+            Validation(false);
         }
 
         private void tagTextBoxEntry_Leave(object sender, EventArgs e)
         {
-            Validation();
+            Validation(false);
         }
 
         private void resrefTextBoxEntry_Leave(object sender, EventArgs e)
         {
-            Validation();
+            Validation(false);
         }
         #endregion
     }

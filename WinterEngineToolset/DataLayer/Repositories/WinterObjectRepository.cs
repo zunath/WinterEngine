@@ -340,6 +340,12 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             try
             {
+                // Do not attempt to add a resource with the same resref.
+                if (DoesObjectExist(resourceType, resref))
+                {
+                    return;
+                }
+
                 using (WinterContext context = new WinterContext())
                 {
                     switch (resourceType)
@@ -407,6 +413,46 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             catch (Exception ex)
             {
                 MessageBox.Show("Error adding specified object to database (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether or not an object exists in the database.
+        /// Returns True if an entry is found. Returns false otherwise.
+        /// </summary>
+        /// <param name="resourceType"></param>
+        /// <param name="resref"></param>
+        /// <returns></returns>
+        public bool DoesObjectExist(ResourceTypeEnum resourceType, string resref)
+        {
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                {
+                    switch (resourceType)
+                    {
+                        // Look for an object in the database table with the resref. Then, if it's null return false. Otherwise return true.
+                        case ResourceTypeEnum.Area:
+                            return !Object.ReferenceEquals(context.Areas.FirstOrDefault(a => a.Resref.Equals(resref)), null);
+                        case ResourceTypeEnum.Conversation:
+                            throw new NotImplementedException();
+                        case ResourceTypeEnum.Creature:
+                            return !Object.ReferenceEquals(context.Creatures.FirstOrDefault(c => c.Resref.Equals(resref)), null);
+                        case ResourceTypeEnum.Item:
+                            return !Object.ReferenceEquals(context.Items.FirstOrDefault(i => i.Resref.Equals(resref)), null);
+                        case ResourceTypeEnum.Placeable:
+                            return !Object.ReferenceEquals(context.Placeables.FirstOrDefault(p => p.Resref.Equals(resref)), null);
+                        case ResourceTypeEnum.Script:
+                            throw new NotImplementedException();
+                        default:
+                            return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error finding specified object in database (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 
