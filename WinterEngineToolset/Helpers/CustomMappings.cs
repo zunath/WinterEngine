@@ -7,7 +7,7 @@ using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using AutoMapper;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
 
-namespace WinterEngine.Toolset.CustomAutoMapping
+namespace WinterEngine.Toolset.Helpers
 {
     public static class CustomMappings
     {

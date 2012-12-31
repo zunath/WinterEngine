@@ -126,13 +126,31 @@
     <Compile Include="Controls\ControlHelpers\InputMessageBox.Designer.cs">
       <DependentUpon>InputMessageBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ControlHelpers\NewObjectEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ControlHelpers\NewObjectEntry.Designer.cs">
+      <DependentUpon>NewObjectEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WinterEngineControls\TagTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WinterEngineControls\TagTextBox.Designer.cs">
+      <DependentUpon>TagTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WinterEngineControls\ResrefTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WinterEngineControls\ResrefTextBox.Designer.cs">
+      <DependentUpon>ResrefTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\WinterEngineControls\TreeCategoryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\WinterEngineControls\TreeCategoryControl.Designer.cs">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomAutoMapping\CustomMappings.cs" />
+    <Compile Include="Helpers\CustomMappings.cs" />
     <Compile Include="DataLayer\Database\Area.cs">
       <DependentUpon>WinterEngineModel.tt</DependentUpon>
     </Compile>
@@ -184,6 +202,7 @@
     <Compile Include="GUI\Views\AreaView.Designer.cs">
       <DependentUpon>AreaView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\TextHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -229,6 +248,15 @@
     <Compile Include="Controls\XnaControls\Shared\ServiceContainer.cs" />
     <EmbeddedResource Include="Controls\ControlHelpers\InputMessageBox.resx">
       <DependentUpon>InputMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ControlHelpers\NewObjectEntry.resx">
+      <DependentUpon>NewObjectEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WinterEngineControls\TagTextBox.resx">
+      <DependentUpon>TagTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WinterEngineControls\ResrefTextBox.resx">
+      <DependentUpon>ResrefTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\WinterEngineControls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>

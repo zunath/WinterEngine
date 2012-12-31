@@ -291,8 +291,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     {
                         Area area = new Area();
                         Mapper.Map(obj as AreaDTO, area);
-                        area = context.Areas.Find(area);
-                        area = context.Areas.First(a => a.Resref == resref);  
+                        area = context.Areas.First(a => a.Resref == resref);
                         context.Areas.Remove(area);
                     }
                     else if (resourceType == ResourceTypeEnum.Conversation)

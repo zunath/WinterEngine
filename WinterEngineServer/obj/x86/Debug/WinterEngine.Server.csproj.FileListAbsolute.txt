@@ -7,6 +7,7 @@ C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineSe
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineServer\bin\Debug\EntityFramework.dll
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineServer\bin\Debug\AutoMapper.xml
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineServer\bin\Debug\EntityFramework.xml
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngine.Server.csprojResolveAssemblyReference.cache
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.Properties.Resources.resources
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngine.Server.csproj.GenerateResource.Cache
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.exe

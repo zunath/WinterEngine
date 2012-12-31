@@ -54,7 +54,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlAreaSubProperties.Controls.Add(this.tabPagePlaceableViewer);
             this.tabControlAreaSubProperties.Controls.Add(this.tabPagePlaceableDetails);
-            this.tabControlAreaSubProperties.Location = new System.Drawing.Point(194, 1);
+            this.tabControlAreaSubProperties.Location = new System.Drawing.Point(192, 0);
             this.tabControlAreaSubProperties.Name = "tabControlAreaSubProperties";
             this.tabControlAreaSubProperties.SelectedIndex = 0;
             this.tabControlAreaSubProperties.Size = new System.Drawing.Size(375, 452);
@@ -186,7 +186,7 @@
             // 
             // treeCategoryControlArea
             // 
-            this.treeCategoryControlArea.Location = new System.Drawing.Point(2, 4);
+            this.treeCategoryControlArea.Location = new System.Drawing.Point(0, 4);
             this.treeCategoryControlArea.Name = "treeCategoryControlArea";
             this.treeCategoryControlArea.Size = new System.Drawing.Size(194, 449);
             this.treeCategoryControlArea.TabIndex = 5;

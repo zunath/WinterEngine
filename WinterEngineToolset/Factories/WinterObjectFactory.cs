@@ -12,7 +12,7 @@ using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 namespace WinterEngine.Toolset.Factories
 {
     /// <summary>
-    /// Factory method for manipulating game objects.
+    /// Factory method for creating game objects.
     /// </summary>
     public class WinterObjectFactory
     {

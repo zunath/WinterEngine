@@ -290,7 +290,8 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         /// <param name="e"></param>
         private void contextMenuStripNodes_CreateObject(object sender, EventArgs e)
         {
-            MessageBox.Show("Create object");
+            NewObjectEntry newObjectEntryForm = new NewObjectEntry();
+            newObjectEntryForm.ShowDialog();
         }
 
         /// <summary>
@@ -300,7 +301,30 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         /// <param name="e"></param>
         private void contextMenuStripNodes_DeleteObject(object sender, EventArgs e)
         {
-            MessageBox.Show("Delete object");
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this " + WinterObjectResourceType.ToString().ToLower() + "?", "Delete " + WinterObjectResourceType.ToString(), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+            // User chose to delete the category. Remove all contained objects and delete the category.
+            if (result == DialogResult.Yes)
+            {
+                WinterObjectDTO obj = treeView.SelectedNode.Tag as WinterObjectDTO;
+                UndoRedoManager.Start("Remove " + WinterObjectResourceType.ToString() + " - " + obj.Name);
+
+                try
+                {
+                    // Remove this object from the database
+                    using (WinterObjectRepository repo = new WinterObjectRepository())
+                    {
+                        repo.RemoveObject(WinterObjectResourceType, obj.Resref);
+                    }
+                    UndoRedoManager.Commit();
+                    RefreshTreeView();
+                }
+                catch (Exception ex)
+                {
+                    UndoRedoManager.Cancel();
+                    MessageBox.Show("Error deleting specified " + WinterObjectResourceType.ToString() + " (Method: contextMenuStripNodes_DeleteObject).\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         /// <summary>
@@ -353,6 +377,41 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             }
         }
 
+        /// <summary>
+        /// Handles key input when the treeview is selected.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void treeView_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Delete key was pressed.
+            if (e.KeyCode == Keys.Delete)
+            {
+                TreeNode selectedNode = treeView.SelectedNode;
+
+                // Be sure that a node is selected
+                if (!Object.ReferenceEquals(treeView.SelectedNode, null))
+                {
+                    // Root node selected - do nothing.
+                    if (selectedNode == treeView.TopNode)
+                    {
+                    }
+                    // Parent is the root node. User selected a category node.
+                    else if (selectedNode.Parent == treeView.TopNode)
+                    {
+                        contextMenuStripNodes_DeleteCategory(this, null);
+                    }
+                    // Otherwise an object node was selected.
+                    else
+                    {
+                        contextMenuStripNodes_DeleteObject(this, null);
+                    }
+                }
+            }
+        }
+
         #endregion
+
+
     }
 }

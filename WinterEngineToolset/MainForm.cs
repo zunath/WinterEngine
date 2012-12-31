@@ -10,7 +10,7 @@ using System.Data.SQLite;
 using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.GUI.Views;
 using DejaVu;
-using WinterEngine.Toolset.CustomAutoMapping;
+using WinterEngine.Toolset.Helpers;
 
 namespace WinterEngine.Toolset
 {

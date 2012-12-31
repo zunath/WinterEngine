@@ -62,19 +62,20 @@
             this.treeView.Size = new System.Drawing.Size(186, 268);
             this.treeView.TabIndex = 5;
             this.treeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseClick);
+            this.treeView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.treeView_KeyDown);
             // 
             // contextMenuStripNodes
             // 
             this.contextMenuStripNodes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.defaultOptionToolStripMenuItem});
             this.contextMenuStripNodes.Name = "contextMenuStripNodes";
-            this.contextMenuStripNodes.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuStripNodes.Size = new System.Drawing.Size(150, 26);
             this.contextMenuStripNodes.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripNodes_Opening);
             // 
             // defaultOptionToolStripMenuItem
             // 
             this.defaultOptionToolStripMenuItem.Name = "defaultOptionToolStripMenuItem";
-            this.defaultOptionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.defaultOptionToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.defaultOptionToolStripMenuItem.Text = "DefaultOption";
             // 
             // TreeCategoryControl
