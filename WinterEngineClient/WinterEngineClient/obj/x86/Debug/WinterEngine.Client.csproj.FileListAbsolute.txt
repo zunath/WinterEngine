@@ -2,6 +2,14 @@ C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineCl
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\AwesomiumProcess.exe
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\icudt42.dll
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\locales\en-US.dll
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Content\Models\cat.xnb
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Content\Models\wedge_p2_diff_v1.xnb
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Content\Models\Cats.xnb
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Content\Models\Cylinder.xnb
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Content\Models\SpaceShip.xnb
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Content\Models\Sphere.xnb
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Content\Models\cat_0.xnb
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Content\Models\wedge_p2_diff_v1_0.xnb
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Client.exe
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Client.pdb
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\AutoMapper.dll

@@ -1,6 +1,138 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline" xmlns:Framework="Microsoft.Xna.Framework" xmlns:Processors="Microsoft.Xna.Framework.Content.Pipeline.Processors">
   <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Models\cat.tga</Source>
+      <Name>Models\cat</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\Models\cat.xnb</Output>
+      <Time>2012-12-31T14:10:02.5457222-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\wedge_p2_diff_v1.tga</Source>
+      <Name>Models\wedge_p2_diff_v1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\Models\wedge_p2_diff_v1.xnb</Output>
+      <Time>2012-12-31T14:10:02.5613223-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Cats.fbx</Source>
+      <Name>Models\Cats</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\Models\Cats.xnb</Output>
+      <Time>2012-12-31T14:10:02.5457222-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Cats_0.xml</Key>
+        <Value>2012-12-31T15:20:26.7749897-05:00</Value>
+      </Dependency>
+      <Request>C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\Models\cat_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\Cylinder.fbx</Source>
+      <Name>Models\Cylinder</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\Models\Cylinder.xnb</Output>
+      <Time>2012-12-31T14:10:02.5457222-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Cylinder_0.xml</Key>
+        <Value>2012-12-31T15:20:26.9933901-05:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\SpaceShip.fbx</Source>
+      <Name>Models\SpaceShip</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\Models\SpaceShip.xnb</Output>
+      <Time>2012-12-31T14:10:02.5613223-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\SpaceShip_0.xml</Key>
+        <Value>2012-12-31T15:20:28.116592-05:00</Value>
+      </Dependency>
+      <Request>C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\Models\wedge_p2_diff_v1_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\Sphere.fbx</Source>
+      <Name>Models\Sphere</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\Models\Sphere.xnb</Output>
+      <Time>2012-12-31T14:10:02.5613223-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Sphere_0.xml</Key>
+        <Value>2012-12-31T15:20:28.4597926-05:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\Cats.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\Cats_0.xml</Output>
+      <Time>2012-12-31T14:10:02.5457222-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\cat.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\Models\cat_0.xnb</Output>
+      <Time>2012-12-31T14:10:02.5457222-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Cylinder.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\Cylinder_0.xml</Output>
+      <Time>2012-12-31T14:10:02.5457222-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\SpaceShip.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\SpaceShip_0.xml</Output>
+      <Time>2012-12-31T14:10:02.5613223-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\wedge_p2_diff_v1.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\Models\wedge_p2_diff_v1_0.xnb</Output>
+      <Time>2012-12-31T14:10:02.5613223-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Sphere.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\Sphere_0.xml</Output>
+      <Time>2012-12-31T14:10:02.5613223-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
@@ -13,6 +145,30 @@
       <OutputDirectory>C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\</OutputDirectory>
     </Settings>
     <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T12:41:18-04:00</Value>
+      </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
         <Value>2012-06-11T12:25:14.7018018-04:00</Value>

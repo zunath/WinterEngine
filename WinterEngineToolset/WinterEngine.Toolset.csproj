@@ -11,7 +11,8 @@
     <RootNamespace>WinterEngine.Toolset</RootNamespace>
     <AssemblyName>WinterEngine.Toolset</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -58,6 +59,8 @@
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.dll</HintPath>
@@ -180,7 +183,12 @@
     <Compile Include="Controls\ViewControls\TreeCategoryControl.Designer.cs">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\XnaControls\Shared\ContentBuilder.cs" />
     <Compile Include="Controls\XnaControls\ObjectViewer3D.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\XnaControls\Shared\ErrorLogger.cs" />
+    <Compile Include="Controls\XnaControls\Shared\ModelViewerControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Helpers\CustomMappings.cs" />

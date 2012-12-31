@@ -31,6 +31,11 @@ namespace WinterEngine.Toolset.Controls.XnaControls
             content = new ContentManager(Services, "Content");
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            LoadContent();
+        }
+
+        private void LoadContent()
+        {
         }
 
         protected override void Dispose(bool disposing)
@@ -66,7 +71,7 @@ namespace WinterEngine.Toolset.Controls.XnaControls
 
             spriteBatch.Begin();
 
-
+            
             // End the sprite batch
             spriteBatch.End();
 
