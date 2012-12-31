@@ -18,7 +18,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         public PlaceableViewControl()
         {
             InitializeComponent();
-            AddXNAViewerControl();
+            //AddXNAViewerControl();
         }
 
         private void AddXNAViewerControl()

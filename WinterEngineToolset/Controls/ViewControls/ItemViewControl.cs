@@ -18,7 +18,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         public ItemViewControl()
         {
             InitializeComponent();
-            AddXNAViewerControl();
+            //AddXNAViewerControl();
         }
 
         private void AddXNAViewerControl()

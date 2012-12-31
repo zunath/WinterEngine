@@ -183,10 +183,13 @@
     <Compile Include="Controls\ViewControls\TreeCategoryControl.Designer.cs">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XnaControls\Shared\ContentBuilder.cs" />
     <Compile Include="Controls\XnaControls\ObjectViewer3D.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\XnaControls\ObjectViewer3D.Designer.cs">
+      <DependentUpon>ObjectViewer3D.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\XnaControls\Shared\ContentBuilder.cs" />
     <Compile Include="Controls\XnaControls\Shared\ErrorLogger.cs" />
     <Compile Include="Controls\XnaControls\Shared\ModelViewerControl.cs">
       <SubType>Component</SubType>
@@ -307,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ViewControls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\XnaControls\ObjectViewer3D.resx">
+      <DependentUpon>ObjectViewer3D.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Views\AreaView.resx">
       <DependentUpon>AreaView.cs</DependentUpon>

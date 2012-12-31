@@ -10,15 +10,18 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls.Shared;
+using System;
 
 namespace WinterEngine.Toolset.Controls.XnaControls
 {
-    public class ObjectViewer3D : GraphicsDeviceControl
+    public partial class ObjectViewer3D : UserControl
     {
         #region Variables
-        ContentManager content;
-        SpriteBatch spriteBatch;
-        
+
+        private ModelViewerControl _modelViewer;
+        private ContentBuilder _contentBuilder;
+        private ContentManager _contentManager;
+
         #endregion
 
         #region Properties
@@ -26,57 +29,67 @@ namespace WinterEngine.Toolset.Controls.XnaControls
         #endregion
 
         #region Overrides
-        protected override void Initialize()
+        public ObjectViewer3D()
         {
-            content = new ContentManager(Services, "Content");
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            InitializeComponent();
+            AddXNAViewerControl();
 
-            LoadContent();
+            _contentBuilder = new ContentBuilder();
+            _contentManager = new ContentManager(_modelViewer.Services, _contentBuilder.OutputDirectory);
+
+            this.Load += LoadContent;
         }
 
-        private void LoadContent()
+        private void LoadContent(object sender, EventArgs e)
         {
+            LoadModel("C:\\Users\\Tyler\\Desktop\\Debugging\\Cats.fbx");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                content.Unload();
-
-            base.Dispose(disposing);
-        }
         #endregion
 
         #region Methods
 
-        /// <summary>
-        /// Handles updating the XNA embedded window. Call this whenever the user performs an action
-        /// such as clicking the window or scrolling the view area.
-        /// </summary>
-        internal void XNAUpdate()
+
+        private void AddXNAViewerControl()
         {
-            // Invalidating this control causes the Draw() method to fire.
-            // I found out that you can't simply call Draw() because it doesn't actually repaint.
-            // So basically the changes were taking effect but they weren't being drawn to the screen.
-            // Go figure.
-            Invalidate();
+            _modelViewer = new ModelViewerControl();
+            _modelViewer.Dock = DockStyle.Fill;
+            panelObjectViewer.Controls.Add(_modelViewer);
         }
 
-        /// <summary>
-        /// Handles drawing to the editor control.
-        /// </summary>
-        protected override void Draw()
+
+        void LoadModel(string fileName)
         {
-            GraphicsDevice.Clear(Color.LightGray);
+            Cursor = Cursors.WaitCursor;
 
-            spriteBatch.Begin();
+            // Unload any existing model.
+            _modelViewer.Model = null;
+            _contentManager.Unload();
 
-            
-            // End the sprite batch
-            spriteBatch.End();
+            // Tell the ContentBuilder what to build.
+            _contentBuilder.Clear();
+            _contentBuilder.Add(fileName, "Model", null, "ModelProcessor");
 
+            // Build this new model data.
+            string buildError = _contentBuilder.Build();
+
+            if (string.IsNullOrEmpty(buildError))
+            {
+                // If the build succeeded, use the ContentManager to
+                // load the temporary .xnb file that we just created.
+
+                _modelViewer.Model = _contentManager.Load<Model>("Model");
+            }
+            else
+            {
+                // If the build failed, display an error message.
+                MessageBox.Show(buildError, "Error");
+            }
+
+            Cursor = Cursors.Arrow;
         }
 
         #endregion
+
     }
 }

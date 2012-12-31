@@ -18,7 +18,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         public CreatureViewControl()
         {
             InitializeComponent();
-            AddXNAViewerControl();
+            //AddXNAViewerControl();
         }
 
         private void AddXNAViewerControl()
