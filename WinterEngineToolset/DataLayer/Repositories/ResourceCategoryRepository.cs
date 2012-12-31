@@ -128,6 +128,40 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         }
 
         /// <summary>
+        /// Updates an existing resource category with new values.
+        /// </summary>
+        /// <param name="resourceCategory"></param>
+        /// <returns></returns>
+        public bool UpdateResourceCategory(ResourceCategoryDTO resourceCategory)
+        {
+            bool success = true;
+
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                {
+                    // Find the resource in the database that matches the passed-in resource's category ID (primary key)
+                    ResourceCategory dbResource = context.ResourceCategories.FirstOrDefault(r => r.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID));
+
+                    // Unable to find a matching resource. Do not attempt to update.
+                    if (!Object.ReferenceEquals(dbResource, null))
+                    {
+                        // Map the DTO to the database object, replacing the existing object. Then save changes.
+                        dbResource = Mapper.Map(resourceCategory, dbResource);
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                MessageBox.Show("Error renaming existing resource category (ResourceCategory: " + resourceCategory.ResourceName + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return success;
+        }
+
+        /// <summary>
         /// Deletes a resource category from the database.
         /// </summary>
         /// <param name="resourceCategory"></param>

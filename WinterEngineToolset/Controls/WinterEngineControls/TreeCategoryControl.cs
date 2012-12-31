@@ -75,24 +75,55 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
             return isValid;
         }
 
-        public void SuccessMethod(string inputText)
+        private void AddCategorySuccessMethod(string inputText)
         {
             bool success;
             UndoRedoManager.Start("Add Category: " + inputText);
 
-            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+            try
             {
-                ResourceCategoryDTO resourceCategoryDTO = new ResourceCategoryDTO();
-                resourceCategoryDTO.ResourceName = inputText;
-                resourceCategoryDTO.ResourceTypeID = (int)WinterObjectResourceType;
+                using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+                {
+                    ResourceCategoryDTO resourceCategoryDTO = new ResourceCategoryDTO();
+                    resourceCategoryDTO.ResourceName = inputText;
+                    resourceCategoryDTO.ResourceTypeID = (int)WinterObjectResourceType;
 
-                success = repo.AddResourceCategory(resourceCategoryDTO);
-                UndoRedoManager.Commit();
+                    success = repo.AddResourceCategory(resourceCategoryDTO);
+                    UndoRedoManager.Commit();
 
-                RefreshTreeView();
-                
+                    RefreshTreeView();
+
+                }
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding specified category. (Method: AddCategorySuccessMethod).\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
+            }
+        }
+
+        private void RenameCategorySuccessMethod(string inputText)
+        {
+            UndoRedoManager.Start("Rename category: " + inputText);
+
+            try
+            {
+                using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+                {
+                    ResourceCategoryDTO resourceCategoryDTO = treeView.SelectedNode.Tag as ResourceCategoryDTO;
+                    resourceCategoryDTO.ResourceName = inputText;
+                    repo.UpdateResourceCategory(resourceCategoryDTO);
+
+                    UndoRedoManager.Commit();
+
+                    RefreshTreeView();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error renaming specified category. (Method: RenameCategorySuccessMethod).\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UndoRedoManager.Cancel();
+            }
         }
 
         /// <summary>
@@ -104,7 +135,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         /// <param name="e"></param>
         private void buttonAddCategory_Click(object sender, EventArgs e)
         {
-            InputMessageBox inputBox = new InputMessageBox("Enter the category's name.", "New Category", MinCategoryNameLength, MaxCategoryNameLength, ValidationMethod, SuccessMethod, "Category Name");
+            InputMessageBox inputBox = new InputMessageBox("Enter the category's name.", "New Category", MinCategoryNameLength, MaxCategoryNameLength, ValidationMethod, AddCategorySuccessMethod, "Category Name");
             inputBox.ShowDialog();
         }
 
@@ -278,10 +309,12 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
                 // Add options for category context menu
                 ToolStripItem createObjectItem = contextMenuStripNodes.Items.Add("Create " + WinterObjectResourceType.ToString());
                 contextMenuStripNodes.Items.Add("-");
+                ToolStripItem renameCategoryItem = contextMenuStripNodes.Items.Add("Rename");
                 ToolStripItem deleteCategoryItem = contextMenuStripNodes.Items.Add("Delete Category");
 
                 // Add events to each item click event
                 createObjectItem.Click += new EventHandler(contextMenuStripNodes_CreateObject);
+                renameCategoryItem.Click += new EventHandler(contextMenuStripNodes_RenameCategory);
                 deleteCategoryItem.Click += new EventHandler(contextMenuStripNodes_DeleteCategory);
 
             }
@@ -348,6 +381,17 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         private void contextMenuStripNodes_CreateCategory(object sender, EventArgs e)
         {
             buttonAddCategory.PerformClick();
+        }
+
+        /// <summary>
+        /// Event handler for renaming a category from context menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStripNodes_RenameCategory(object sender, EventArgs e)
+        {
+            InputMessageBox inputBox = new InputMessageBox("Please enter a new category name.", "Rename Category", MinCategoryNameLength, MaxCategoryNameLength, ValidationMethod, RenameCategorySuccessMethod, treeView.SelectedNode.Text);
+            inputBox.Show();
         }
 
         /// <summary>

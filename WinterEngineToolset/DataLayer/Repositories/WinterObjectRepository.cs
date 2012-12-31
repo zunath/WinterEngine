@@ -340,12 +340,6 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             try
             {
-                // Do not attempt to add a resource with the same resref.
-                if (DoesObjectExist(resourceType, resref))
-                {
-                    return;
-                }
-
                 using (WinterContext context = new WinterContext())
                 {
                     switch (resourceType)
