@@ -36,9 +36,9 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.resrefTextBoxEntry = new WinterEngine.Toolset.Controls.Controls.ResrefTextBox();
-            this.tagTextBoxEntry = new WinterEngine.Toolset.Controls.Controls.TagTextBox();
-            this.nameTextBoxEntry = new WinterEngine.Toolset.Controls.Controls.NameTextBox();
+            this.resrefTextBoxEntry = new WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox();
+            this.tagTextBoxEntry = new WinterEngine.Toolset.Controls.GenericControls.TagTextBox();
+            this.nameTextBoxEntry = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -167,9 +167,9 @@
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ErrorProvider errorProvider;
-        private Controls.ResrefTextBox resrefTextBoxEntry;
-        private Controls.TagTextBox tagTextBoxEntry;
-        private Controls.NameTextBox nameTextBoxEntry;
+        private GenericControls.ResrefTextBox resrefTextBoxEntry;
+        private GenericControls.TagTextBox tagTextBoxEntry;
+        private GenericControls.NameTextBox nameTextBoxEntry;
 
     }
 }

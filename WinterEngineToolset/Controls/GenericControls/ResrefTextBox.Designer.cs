@@ -1,4 +1,4 @@
-﻿namespace WinterEngine.Toolset.Controls.Controls
+﻿namespace WinterEngine.Toolset.Controls.GenericControls
 {
     partial class ResrefTextBox
     {

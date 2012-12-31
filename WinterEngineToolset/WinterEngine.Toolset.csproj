@@ -132,29 +132,56 @@
     <Compile Include="Controls\ControlHelpers\NewObjectEntry.Designer.cs">
       <DependentUpon>NewObjectEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WinterEngineControls\NameTextBox.cs">
+    <Compile Include="Controls\ViewControls\AreaViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WinterEngineControls\NameTextBox.Designer.cs">
+    <Compile Include="Controls\ViewControls\AreaViewControl.Designer.cs">
+      <DependentUpon>AreaViewControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ViewControls\CreatureViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ViewControls\CreatureViewControl.Designer.cs">
+      <DependentUpon>CreatureViewControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ViewControls\ItemViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ViewControls\ItemViewControl.Designer.cs">
+      <DependentUpon>ItemViewControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GenericControls\NameTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\GenericControls\NameTextBox.Designer.cs">
       <DependentUpon>NameTextBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WinterEngineControls\TagTextBox.cs">
+    <Compile Include="Controls\GenericControls\TagTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WinterEngineControls\TagTextBox.Designer.cs">
+    <Compile Include="Controls\GenericControls\TagTextBox.Designer.cs">
       <DependentUpon>TagTextBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WinterEngineControls\ResrefTextBox.cs">
+    <Compile Include="Controls\GenericControls\ResrefTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WinterEngineControls\ResrefTextBox.Designer.cs">
+    <Compile Include="Controls\GenericControls\ResrefTextBox.Designer.cs">
       <DependentUpon>ResrefTextBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WinterEngineControls\TreeCategoryControl.cs">
+    <Compile Include="Controls\ViewControls\PlaceableViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\WinterEngineControls\TreeCategoryControl.Designer.cs">
+    <Compile Include="Controls\ViewControls\PlaceableViewControl.Designer.cs">
+      <DependentUpon>PlaceableViewControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ViewControls\TreeCategoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ViewControls\TreeCategoryControl.Designer.cs">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\XnaControls\ObjectViewer3D.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Helpers\CustomMappings.cs" />
     <Compile Include="DataLayer\Database\Area.cs">
@@ -235,16 +262,7 @@
     <Compile Include="GUI\Views\ItemView.Designer.cs">
       <DependentUpon>ItemView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XnaControls\AreaEditorControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\XnaControls\PlaceableEditorControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\XnaControls\ItemEditorControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\XnaControls\CreatureEditorControl.cs">
+    <Compile Include="Controls\XnaControls\ObjectViewer2D.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceControl.cs">
@@ -258,16 +276,28 @@
     <EmbeddedResource Include="Controls\ControlHelpers\NewObjectEntry.resx">
       <DependentUpon>NewObjectEntry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WinterEngineControls\NameTextBox.resx">
+    <EmbeddedResource Include="Controls\ViewControls\AreaViewControl.resx">
+      <DependentUpon>AreaViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ViewControls\CreatureViewControl.resx">
+      <DependentUpon>CreatureViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ViewControls\ItemViewControl.resx">
+      <DependentUpon>ItemViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\GenericControls\NameTextBox.resx">
       <DependentUpon>NameTextBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WinterEngineControls\TagTextBox.resx">
+    <EmbeddedResource Include="Controls\GenericControls\TagTextBox.resx">
       <DependentUpon>TagTextBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WinterEngineControls\ResrefTextBox.resx">
+    <EmbeddedResource Include="Controls\GenericControls\ResrefTextBox.resx">
       <DependentUpon>ResrefTextBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WinterEngineControls\TreeCategoryControl.resx">
+    <EmbeddedResource Include="Controls\ViewControls\PlaceableViewControl.resx">
+      <DependentUpon>PlaceableViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ViewControls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Views\AreaView.resx">

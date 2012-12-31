@@ -16,7 +16,7 @@ using WinterEngine.Toolset.Enumerations;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
 using WinterEngine.Toolset.Factories;
 
-namespace WinterEngine.Toolset.Controls.WinterEngineControls
+namespace WinterEngine.Toolset.Controls.ViewControls
 {
     public partial class TreeCategoryControl : UserControl
     {

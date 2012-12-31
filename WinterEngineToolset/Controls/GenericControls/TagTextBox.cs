@@ -9,17 +9,16 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using WinterEngine.Toolset.Helpers;
 
-namespace WinterEngine.Toolset.Controls.Controls
+namespace WinterEngine.Toolset.Controls.GenericControls
 {
-    public partial class ResrefTextBox : UserControl
+    public partial class TagTextBox : UserControl
     {
-
         public string Text
         {
-            get { return textBoxResref.Text; }
+            get { return textBoxTag.Text; }
         }
 
-        public ResrefTextBox()
+        public TagTextBox()
         {
             InitializeComponent();
         }
@@ -34,11 +33,11 @@ namespace WinterEngine.Toolset.Controls.Controls
         {
             Regex lettersOnly = new Regex("^[a-zA-Z0-9_]*$");
             TextHelper textHelper = new TextHelper();
-            Tuple<string, int, int> retValue = textHelper.Validate(textBoxResref.Text, lettersOnly, textBoxResref.SelectionStart, textBoxResref.SelectionLength, false);
+            Tuple<string, int, int> retValue = textHelper.Validate(textBoxTag.Text, lettersOnly, textBoxTag.SelectionStart, textBoxTag.SelectionLength, true);
 
-            textBoxResref.Text = retValue.Item1;
-            textBoxResref.SelectionStart = retValue.Item2;
-            textBoxResref.SelectionLength = retValue.Item3;
+            textBoxTag.Text = retValue.Item1;
+            textBoxTag.SelectionStart = retValue.Item2;
+            textBoxTag.SelectionLength = retValue.Item3;
         }
     }
 }

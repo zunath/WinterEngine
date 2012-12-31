@@ -1,6 +1,6 @@
-﻿namespace WinterEngine.Toolset.Controls.Controls
+﻿namespace WinterEngine.Toolset.Controls.GenericControls
 {
-    partial class NameTextBox
+    partial class TagTextBox
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,24 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxName = new System.Windows.Forms.TextBox();
+            this.textBoxTag = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // textBoxName
+            // textBoxTag
             // 
-            this.textBoxName.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.textBoxName.Location = new System.Drawing.Point(0, 8);
-            this.textBoxName.MaxLength = 64;
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(150, 20);
-            this.textBoxName.TabIndex = 0;
+            this.textBoxTag.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBoxTag.Location = new System.Drawing.Point(0, 8);
+            this.textBoxTag.MaxLength = 32;
+            this.textBoxTag.Name = "textBoxTag";
+            this.textBoxTag.Size = new System.Drawing.Size(150, 20);
+            this.textBoxTag.TabIndex = 0;
+            this.textBoxTag.TextChanged += new System.EventHandler(this.textBoxResref_TextChanged);
             // 
-            // NameTextBox
+            // TagTextBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.textBoxName);
-            this.Name = "NameTextBox";
+            this.Controls.Add(this.textBoxTag);
+            this.Name = "TagTextBox";
             this.Size = new System.Drawing.Size(150, 28);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -54,6 +55,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxName;
+        private System.Windows.Forms.TextBox textBoxTag;
     }
 }

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using WinterEngine.Toolset.Helpers;
 
-namespace WinterEngine.Toolset.Controls.Controls
+namespace WinterEngine.Toolset.Controls.GenericControls
 {
     public partial class NameTextBox : UserControl
     {

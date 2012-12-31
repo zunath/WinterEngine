@@ -1,4 +1,4 @@
-﻿namespace WinterEngine.Toolset.Controls.WinterEngineControls
+﻿namespace WinterEngine.Toolset.Controls.ViewControls
 {
     partial class TreeCategoryControl
     {

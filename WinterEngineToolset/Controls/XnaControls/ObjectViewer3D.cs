@@ -13,7 +13,7 @@ using WinterEngine.Toolset.Controls.XnaControls.Shared;
 
 namespace WinterEngine.Toolset.Controls.XnaControls
 {
-    public class ItemEditorControl : GraphicsDeviceControl
+    public class ObjectViewer3D : GraphicsDeviceControl
     {
         #region Variables
         ContentManager content;
