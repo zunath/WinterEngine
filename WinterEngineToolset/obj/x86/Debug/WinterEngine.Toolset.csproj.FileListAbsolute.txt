@@ -31,3 +31,5 @@ C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.csproj.GenerateResource.Cache
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.dll
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.xml

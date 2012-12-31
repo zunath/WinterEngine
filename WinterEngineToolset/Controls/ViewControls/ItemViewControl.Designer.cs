@@ -42,8 +42,10 @@
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
             this.tabPageItemProperties = new System.Windows.Forms.TabPage();
+            this.panelItemObjectViewer = new System.Windows.Forms.Panel();
             this.tabControlProperties.SuspendLayout();
             this.tabPageItemViewer.SuspendLayout();
+            this.panelItemEditorControl.SuspendLayout();
             this.tabPageItemDetails.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,6 +79,7 @@
             this.panelItemEditorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelItemEditorControl.Controls.Add(this.panelItemObjectViewer);
             this.panelItemEditorControl.Location = new System.Drawing.Point(0, 0);
             this.panelItemEditorControl.Name = "panelItemEditorControl";
             this.panelItemEditorControl.Size = new System.Drawing.Size(367, 430);
@@ -194,6 +197,13 @@
             this.tabPageItemProperties.Text = "Properties";
             this.tabPageItemProperties.UseVisualStyleBackColor = true;
             // 
+            // panelItemObjectViewer
+            // 
+            this.panelItemObjectViewer.Location = new System.Drawing.Point(0, 2);
+            this.panelItemObjectViewer.Name = "panelItemObjectViewer";
+            this.panelItemObjectViewer.Size = new System.Drawing.Size(367, 426);
+            this.panelItemObjectViewer.TabIndex = 1;
+            // 
             // ItemViewControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,6 +213,7 @@
             this.Size = new System.Drawing.Size(375, 452);
             this.tabControlProperties.ResumeLayout(false);
             this.tabPageItemViewer.ResumeLayout(false);
+            this.panelItemEditorControl.ResumeLayout(false);
             this.tabPageItemDetails.ResumeLayout(false);
             this.tabPageItemDetails.PerformLayout();
             this.ResumeLayout(false);
@@ -225,5 +236,6 @@
         private System.Windows.Forms.Label labelItemTag;
         private System.Windows.Forms.Label labelItemName;
         private System.Windows.Forms.TabPage tabPageItemProperties;
+        private System.Windows.Forms.Panel panelItemObjectViewer;
     }
 }

@@ -40,7 +40,7 @@
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
-            this.objectViewer3D1 = new WinterEngine.Toolset.Controls.XnaControls.ObjectViewer3D();
+            this.panelAreaObjectViewer = new System.Windows.Forms.Panel();
             this.tabControlProperties.SuspendLayout();
             this.tabPageItemViewer.SuspendLayout();
             this.tabPageItemDetails.SuspendLayout();
@@ -61,7 +61,7 @@
             // 
             // tabPageItemViewer
             // 
-            this.tabPageItemViewer.Controls.Add(this.objectViewer3D1);
+            this.tabPageItemViewer.Controls.Add(this.panelAreaObjectViewer);
             this.tabPageItemViewer.Location = new System.Drawing.Point(4, 22);
             this.tabPageItemViewer.Name = "tabPageItemViewer";
             this.tabPageItemViewer.Padding = new System.Windows.Forms.Padding(3);
@@ -173,13 +173,12 @@
             this.labelItemName.TabIndex = 1;
             this.labelItemName.Text = "Name:";
             // 
-            // objectViewer3D1
+            // panelAreaObjectViewer
             // 
-            this.objectViewer3D1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.objectViewer3D1.Location = new System.Drawing.Point(0, 1);
-            this.objectViewer3D1.Name = "objectViewer3D1";
-            this.objectViewer3D1.Size = new System.Drawing.Size(367, 426);
-            this.objectViewer3D1.TabIndex = 0;
+            this.panelAreaObjectViewer.Location = new System.Drawing.Point(0, 0);
+            this.panelAreaObjectViewer.Name = "panelAreaObjectViewer";
+            this.panelAreaObjectViewer.Size = new System.Drawing.Size(367, 426);
+            this.panelAreaObjectViewer.TabIndex = 0;
             // 
             // AreaViewControl
             // 
@@ -210,7 +209,7 @@
         private System.Windows.Forms.Label labelItemResref;
         private System.Windows.Forms.Label labelItemTag;
         private System.Windows.Forms.Label labelItemName;
-        private XnaControls.ObjectViewer3D objectViewer3D1;
+        private System.Windows.Forms.Panel panelAreaObjectViewer;
 
     }
 }

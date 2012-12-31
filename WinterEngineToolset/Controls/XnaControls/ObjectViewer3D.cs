@@ -21,10 +21,17 @@ namespace WinterEngine.Toolset.Controls.XnaControls
         private ModelViewerControl _modelViewer;
         private ContentBuilder _contentBuilder;
         private ContentManager _contentManager;
+        private string _modelPathName;
 
         #endregion
 
         #region Properties
+
+        public string ModelPathName
+        {
+            get { return _modelPathName; }
+            set { _modelPathName = value; }
+        }
 
         #endregion
 
@@ -42,7 +49,11 @@ namespace WinterEngine.Toolset.Controls.XnaControls
 
         private void LoadContent(object sender, EventArgs e)
         {
-            LoadModel("C:\\Users\\Tyler\\Desktop\\Debugging\\Cats.fbx");
+            // Only look for a model if the model path name has been set.
+            if (!Object.ReferenceEquals(ModelPathName, null) && ModelPathName != "")
+            {
+                LoadModel(ModelPathName);
+            }
         }
 
         #endregion

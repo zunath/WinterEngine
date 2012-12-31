@@ -12,20 +12,17 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 {
     public partial class ItemViewControl : UserControl
     {
-        // Custom controls are defined here due to a bug with the Visual Studio 2010 designer.
         private ObjectViewer3D _objectViewer;
 
         public ItemViewControl()
         {
             InitializeComponent();
-            //AddXNAViewerControl();
-        }
 
-        private void AddXNAViewerControl()
-        {
+            // Designer in VS2010 has issues with custom controls.
+            // Manually add the 3D object viewer when the program runs.
             _objectViewer = new ObjectViewer3D();
             _objectViewer.Dock = DockStyle.Fill;
-            panelItemEditorControl.Controls.Add(_objectViewer);            
+            panelItemObjectViewer.Controls.Add(_objectViewer);
         }
     }
 }

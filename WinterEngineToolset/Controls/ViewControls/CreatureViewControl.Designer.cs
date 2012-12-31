@@ -41,8 +41,10 @@
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
+            this.panelCreatureObjectViewer = new System.Windows.Forms.Panel();
             this.tabControlProperties.SuspendLayout();
             this.tabPageItemViewer.SuspendLayout();
+            this.panelObjectViewer.SuspendLayout();
             this.tabPageItemDetails.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,6 +77,7 @@
             this.panelObjectViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelObjectViewer.Controls.Add(this.panelCreatureObjectViewer);
             this.panelObjectViewer.Location = new System.Drawing.Point(0, 0);
             this.panelObjectViewer.Name = "panelObjectViewer";
             this.panelObjectViewer.Size = new System.Drawing.Size(367, 430);
@@ -183,6 +186,13 @@
             this.labelItemName.TabIndex = 1;
             this.labelItemName.Text = "Name:";
             // 
+            // panelCreatureObjectViewer
+            // 
+            this.panelCreatureObjectViewer.Location = new System.Drawing.Point(0, 2);
+            this.panelCreatureObjectViewer.Name = "panelCreatureObjectViewer";
+            this.panelCreatureObjectViewer.Size = new System.Drawing.Size(367, 426);
+            this.panelCreatureObjectViewer.TabIndex = 1;
+            // 
             // CreatureViewControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -192,6 +202,7 @@
             this.Size = new System.Drawing.Size(375, 452);
             this.tabControlProperties.ResumeLayout(false);
             this.tabPageItemViewer.ResumeLayout(false);
+            this.panelObjectViewer.ResumeLayout(false);
             this.tabPageItemDetails.ResumeLayout(false);
             this.tabPageItemDetails.PerformLayout();
             this.ResumeLayout(false);
@@ -213,5 +224,6 @@
         private System.Windows.Forms.Label labelItemResref;
         private System.Windows.Forms.Label labelItemTag;
         private System.Windows.Forms.Label labelItemName;
+        private System.Windows.Forms.Panel panelCreatureObjectViewer;
     }
 }

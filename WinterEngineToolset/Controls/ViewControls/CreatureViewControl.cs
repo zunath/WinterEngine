@@ -12,20 +12,17 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 {
     public partial class CreatureViewControl : UserControl
     {
-        // Custom controls are defined here due to a bug with the Visual Studio 2010 designer.
         private ObjectViewer3D _objectViewer;
 
         public CreatureViewControl()
         {
             InitializeComponent();
-            //AddXNAViewerControl();
-        }
 
-        private void AddXNAViewerControl()
-        {
+            // Designer in VS2010 has issues with custom controls.
+            // Manually add the 3D object viewer when the program runs.
             _objectViewer = new ObjectViewer3D();
             _objectViewer.Dock = DockStyle.Fill;
-            panelObjectViewer.Controls.Add(_objectViewer);
+            panelCreatureObjectViewer.Controls.Add(_objectViewer);
         }
     }
 }
