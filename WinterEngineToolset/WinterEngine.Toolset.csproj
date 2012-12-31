@@ -132,6 +132,12 @@
     <Compile Include="Controls\ControlHelpers\NewObjectEntry.Designer.cs">
       <DependentUpon>NewObjectEntry.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WinterEngineControls\NameTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WinterEngineControls\NameTextBox.Designer.cs">
+      <DependentUpon>NameTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\WinterEngineControls\TagTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -251,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ControlHelpers\NewObjectEntry.resx">
       <DependentUpon>NewObjectEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WinterEngineControls\NameTextBox.resx">
+      <DependentUpon>NameTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\WinterEngineControls\TagTextBox.resx">
       <DependentUpon>TagTextBox.cs</DependentUpon>

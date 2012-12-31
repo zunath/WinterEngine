@@ -28,39 +28,148 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.labelResref = new System.Windows.Forms.Label();
+            this.labelTag = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelName = new System.Windows.Forms.Label();
+            this.buttonOK = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.resrefTextBoxEntry = new WinterEngine.Toolset.Controls.Controls.ResrefTextBox();
-            this.resrefTextBox1 = new WinterEngine.Toolset.Controls.Controls.ResrefTextBox();
+            this.tagTextBoxEntry = new WinterEngine.Toolset.Controls.Controls.TagTextBox();
+            this.nameTextBoxEntry = new WinterEngine.Toolset.Controls.Controls.NameTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
+            // 
+            // labelResref
+            // 
+            this.labelResref.AutoSize = true;
+            this.labelResref.Location = new System.Drawing.Point(12, 125);
+            this.labelResref.Name = "labelResref";
+            this.labelResref.Size = new System.Drawing.Size(41, 13);
+            this.labelResref.TabIndex = 5;
+            this.labelResref.Text = "Resref:";
+            // 
+            // labelTag
+            // 
+            this.labelTag.AutoSize = true;
+            this.labelTag.Location = new System.Drawing.Point(12, 96);
+            this.labelTag.Name = "labelTag";
+            this.labelTag.Size = new System.Drawing.Size(29, 13);
+            this.labelTag.TabIndex = 3;
+            this.labelTag.Text = "Tag:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(69, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(165, 31);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "New Object";
+            // 
+            // labelName
+            // 
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(12, 66);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(38, 13);
+            this.labelName.TabIndex = 1;
+            this.labelName.Text = "Name:";
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(132, 181);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(75, 23);
+            this.buttonOK.TabIndex = 7;
+            this.buttonOK.Text = "OK";
+            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Location = new System.Drawing.Point(220, 181);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 8;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkRate = 0;
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
             // 
             // resrefTextBoxEntry
             // 
-            this.resrefTextBoxEntry.Location = new System.Drawing.Point(40, 49);
+            this.resrefTextBoxEntry.Location = new System.Drawing.Point(75, 114);
             this.resrefTextBoxEntry.Name = "resrefTextBoxEntry";
-            this.resrefTextBoxEntry.Size = new System.Drawing.Size(232, 24);
-            this.resrefTextBoxEntry.TabIndex = 0;
+            this.resrefTextBoxEntry.Size = new System.Drawing.Size(220, 28);
+            this.resrefTextBoxEntry.TabIndex = 6;
+            this.resrefTextBoxEntry.Leave += new System.EventHandler(this.resrefTextBoxEntry_Leave);
             // 
-            // resrefTextBox1
+            // tagTextBoxEntry
             // 
-            this.resrefTextBox1.Location = new System.Drawing.Point(30, 71);
-            this.resrefTextBox1.Name = "resrefTextBox1";
-            this.resrefTextBox1.Size = new System.Drawing.Size(230, 28);
-            this.resrefTextBox1.TabIndex = 0;
+            this.tagTextBoxEntry.Location = new System.Drawing.Point(75, 84);
+            this.tagTextBoxEntry.Name = "tagTextBoxEntry";
+            this.tagTextBoxEntry.Size = new System.Drawing.Size(220, 28);
+            this.tagTextBoxEntry.TabIndex = 4;
+            this.tagTextBoxEntry.Leave += new System.EventHandler(this.tagTextBoxEntry_Leave);
+            // 
+            // nameTextBoxEntry
+            // 
+            this.nameTextBoxEntry.Location = new System.Drawing.Point(75, 56);
+            this.nameTextBoxEntry.Name = "nameTextBoxEntry";
+            this.nameTextBoxEntry.Size = new System.Drawing.Size(220, 28);
+            this.nameTextBoxEntry.TabIndex = 2;
+            this.nameTextBoxEntry.Leave += new System.EventHandler(this.nameTextBoxEntry_Leave);
             // 
             // NewObjectEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.CancelButton = this.buttonCancel;
+            this.ClientSize = new System.Drawing.Size(322, 216);
             this.Controls.Add(this.resrefTextBoxEntry);
+            this.Controls.Add(this.tagTextBoxEntry);
+            this.Controls.Add(this.nameTextBoxEntry);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonOK);
+            this.Controls.Add(this.labelName);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelTag);
+            this.Controls.Add(this.labelResref);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "NewObjectEntry";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "NewObjectEntry";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private Controls.ResrefTextBox resrefTextBox1;
+        private System.Windows.Forms.Label labelResref;
+        private System.Windows.Forms.Label labelTag;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.ErrorProvider errorProvider;
         private Controls.ResrefTextBox resrefTextBoxEntry;
+        private Controls.TagTextBox tagTextBoxEntry;
+        private Controls.NameTextBox nameTextBoxEntry;
+
     }
 }

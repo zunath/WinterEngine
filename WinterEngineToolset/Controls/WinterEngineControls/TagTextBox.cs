@@ -13,6 +13,11 @@ namespace WinterEngine.Toolset.Controls.Controls
 {
     public partial class TagTextBox : UserControl
     {
+        public string Text
+        {
+            get { return textBoxTag.Text; }
+        }
+
         public TagTextBox()
         {
             InitializeComponent();

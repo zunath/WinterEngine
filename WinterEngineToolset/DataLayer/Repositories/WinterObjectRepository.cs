@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using AutoMapper;
 using WinterEngine.Toolset.DataLayer.Database;
@@ -86,7 +85,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error retrieving all objects.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error retrieving all objects from database.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return null;
@@ -165,7 +164,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error retrieving objects by resource category.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error retrieving objects by resource category from database.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return null;
         }
@@ -243,7 +242,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error retrieving specified object (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error retrieving specified object from database. (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return null;
         }
@@ -269,7 +268,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error deleting specified objects.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error deleting specified objects from database.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -328,8 +327,86 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error deleting specified object (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            
+                MessageBox.Show("Error deleting specified object from database (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Adds a new object to the appropriate database table.
+        /// </summary>
+        /// <param name="resourceType"></param>
+        /// <param name="winterObject"></param>
+        public void AddObject(ResourceTypeEnum resourceType, int categoryID, string name, string tag, string resref)
+        {
+            try
+            {
+                using (WinterContext context = new WinterContext())
+                {
+                    switch (resourceType)
+                    {
+                        case ResourceTypeEnum.Area:
+                        {
+                            Area area = new Area();
+                            area.Name = name;
+                            area.Tag = tag;
+                            area.Resref = resref;
+                            area.ResourceCategoryID = categoryID;
+                            context.Areas.Add(area);
+                            context.SaveChanges();
+                            break;
+                        }
+
+                        case ResourceTypeEnum.Conversation:
+                        {
+                            throw new NotImplementedException();
+                        }
+
+                        case ResourceTypeEnum.Creature:
+                        {
+                            Creature creature = new Creature();
+                            creature.Name = name;
+                            creature.Tag = tag;
+                            creature.Resref = resref;
+                            creature.ResourceCategoryID = categoryID;
+                            context.Creatures.Add(creature);
+                            context.SaveChanges();
+                            break;
+                        }
+
+                        case ResourceTypeEnum.Item:
+                        {
+                            Item item = new Item();
+                            item.Name = name;
+                            item.Tag = tag;
+                            item.Resref = resref;
+                            item.ResourceCategoryID = categoryID;
+                            context.Items.Add(item);
+                            context.SaveChanges();
+                            break;
+                        }
+
+                        case ResourceTypeEnum.Placeable:
+                        {
+                            Placeable placeable = new Placeable();
+                            placeable.Name = name;
+                            placeable.Tag = tag;
+                            placeable.Resref = resref;
+                            placeable.ResourceCategoryID = categoryID;
+                            context.Placeables.Add(placeable);
+                            context.SaveChanges();
+                            break;
+                        }
+
+                        case ResourceTypeEnum.Script:
+                        {
+                            throw new NotImplementedException();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding specified object to database (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

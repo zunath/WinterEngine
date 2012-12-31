@@ -13,6 +13,12 @@ namespace WinterEngine.Toolset.Controls.Controls
 {
     public partial class ResrefTextBox : UserControl
     {
+
+        public string Text
+        {
+            get { return textBoxResref.Text; }
+        }
+
         public ResrefTextBox()
         {
             InitializeComponent();

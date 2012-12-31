@@ -206,6 +206,16 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         }
 
         /// <summary>
+        /// Method used by children to refresh the tree view.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void RefreshTreeView(object sender, EventArgs e)
+        {
+            RefreshTreeView();
+        }
+
+        /// <summary>
         /// Retrieves a list of tags from a tree node collection
         /// </summary>
         /// <param name="treeNodeCollection"></param>
@@ -290,7 +300,9 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
         /// <param name="e"></param>
         private void contextMenuStripNodes_CreateObject(object sender, EventArgs e)
         {
-            NewObjectEntry newObjectEntryForm = new NewObjectEntry();
+            NewObjectEntry newObjectEntryForm = new NewObjectEntry(WinterObjectResourceType, treeView.SelectedNode.Tag as ResourceCategoryDTO);
+            newObjectEntryForm.Text = "New " + WinterObjectResourceType.ToString();
+            newObjectEntryForm.RefreshParentGUI += new EventHandler(RefreshTreeView);
             newObjectEntryForm.ShowDialog();
         }
 
@@ -318,6 +330,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
                     }
                     UndoRedoManager.Commit();
                     RefreshTreeView();
+                    treeView.SelectedNode = treeView.TopNode;
                 }
                 catch (Exception ex)
                 {
@@ -367,6 +380,7 @@ namespace WinterEngine.Toolset.Controls.WinterEngineControls
                     }
                     UndoRedoManager.Commit();
                     RefreshTreeView();
+                    treeView.SelectedNode = treeView.TopNode;
                 }
                 catch (Exception ex)
                 {
