@@ -115,7 +115,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 {
                     ResourceCategory category = new ResourceCategory();
                     category = Mapper.Map(resourceCategory, category);
-                    context.ResourceCategories.Add(category);
+                    context.AddToResourceCategories(category);
                     context.SaveChanges();
                 }
             }
@@ -177,7 +177,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 { 
                     // Find the category in the database. CategoryID is a primary key so there will only ever be one.
                     ResourceCategory category = context.ResourceCategories.FirstOrDefault(val => val.ResourceCategoryID == resourceCategory.ResourceCategoryID);
-                    context.ResourceCategories.Remove(category);
+                    context.DeleteObject(category);
 
                     context.SaveChanges();
                 }

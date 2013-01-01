@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WinterEngineDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="WinterContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Areas" EntityType="WinterEngineDatabaseModel.Area" />
+    <EntitySet Name="Creatures" EntityType="WinterEngineDatabaseModel.Creature" />
+    <EntitySet Name="Items" EntityType="WinterEngineDatabaseModel.Item" />
+    <EntitySet Name="Placeables" EntityType="WinterEngineDatabaseModel.Placeable" />
+    <EntitySet Name="ResourceCategories" EntityType="WinterEngineDatabaseModel.ResourceCategory" />
+    <EntitySet Name="ResourceTypes" EntityType="WinterEngineDatabaseModel.ResourceType" />
+  </EntityContainer>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="Resref" />
+    </Key>
+    <Property Name="Resref" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+    <Property Name="Tag" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+    <Property Name="ResourceCategoryID" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Creature">
+    <Key>
+      <PropertyRef Name="Resref" />
+    </Key>
+    <Property Name="Resref" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+    <Property Name="Tag" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+    <Property Name="ResourceCategoryID" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="Resref" />
+    </Key>
+    <Property Name="Resref" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+    <Property Name="Tag" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+    <Property Name="ResourceCategoryID" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Placeable">
+    <Key>
+      <PropertyRef Name="Resref" />
+    </Key>
+    <Property Name="Resref" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+    <Property Name="Tag" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+    <Property Name="ResourceCategoryID" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ResourceCategory">
+    <Key>
+      <PropertyRef Name="ResourceCategoryID" />
+    </Key>
+    <Property Name="ResourceCategoryID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ResourceTypeID" Type="Int64" Nullable="false" />
+    <Property Name="ResourceName" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ResourceType">
+    <Key>
+      <PropertyRef Name="ResourceTypeID" />
+    </Key>
+    <Property Name="ResourceTypeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ResourceName" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+  </EntityType>
+</Schema>

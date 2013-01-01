@@ -203,24 +203,17 @@
     <Compile Include="Controls\XnaControls\Shared\ModelViewerControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DataLayer\Database\WinterDatabaseModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WinterDatabaseModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="DataLayer\Repositories\ModuleRepository.cs" />
     <Compile Include="Enumerations\FileType.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="Helpers\ErrorHelper.cs" />
     <Compile Include="Helpers\WinterFileHelper.cs" />
     <Compile Include="Helpers\CustomMappings.cs" />
-    <Compile Include="DataLayer\Database\Area.cs">
-      <DependentUpon>WinterEngineModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Database\Creature.cs">
-      <DependentUpon>WinterEngineModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Database\Item.cs">
-      <DependentUpon>WinterEngineModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Database\Placeable.cs">
-      <DependentUpon>WinterEngineModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataLayer\DataTransferObjects\WinterObjects\AreaDTO.cs" />
     <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceTypeDTO.cs" />
     <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceCategoryDTO.cs" />
@@ -228,27 +221,6 @@
     <Compile Include="DataLayer\DataTransferObjects\WinterObjects\PlaceableDTO.cs" />
     <Compile Include="DataLayer\DataTransferObjects\WinterObjects\WinterObjectDTO.cs" />
     <Compile Include="DataLayer\DataTransferObjects\WinterObjects\ItemDTO.cs" />
-    <Compile Include="DataLayer\Database\ResourceCategory.cs">
-      <DependentUpon>WinterEngineModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Database\ResourceType.cs">
-      <DependentUpon>WinterEngineModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Database\WinterEngineModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WinterEngineModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Database\WinterEngineModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WinterEngineModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\Database\WinterEngineModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WinterEngineModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="DataLayer\Repositories\ResourceTypeRepository.cs" />
     <Compile Include="DataLayer\Repositories\ResourceCategoryRepository.cs" />
     <Compile Include="DataLayer\Repositories\WinterObjectRepository.cs" />
@@ -359,18 +331,10 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="DataLayer\Database\WinterEngineModel.edmx">
+    <EntityDeploy Include="DataLayer\Database\WinterDatabaseModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>WinterEngineModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>WinterDatabaseModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DataLayer\Database\WinterEngineModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WinterEngineModel.Context.cs</LastGenOutput>
-    </None>
-    <None Include="DataLayer\Database\WinterEngineModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WinterEngineModel.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

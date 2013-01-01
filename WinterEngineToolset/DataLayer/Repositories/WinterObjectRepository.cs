@@ -292,7 +292,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                         Area area = new Area();
                         Mapper.Map(obj as AreaDTO, area);
                         area = context.Areas.First(a => a.Resref == resref);
-                        context.Areas.Remove(area);
+                        context.DeleteObject(area);
                     }
                     else if (resourceType == ResourceTypeEnum.Conversation)
                     {
@@ -302,22 +302,22 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     {
                         Creature creature = new Creature();
                         Mapper.Map(obj as CreatureDTO, creature);
-                        creature = context.Creatures.First(c => c.Resref == resref);  
-                        context.Creatures.Remove(creature);
+                        creature = context.Creatures.First(c => c.Resref == resref);
+                        context.DeleteObject(creature);
                     }
                     else if (resourceType == ResourceTypeEnum.Item)
                     {
                         Item item = new Item();
                         Mapper.Map(obj as ItemDTO, item);
-                        item = context.Items.First(i => i.Resref == resref);    
-                        context.Items.Remove(item);
+                        item = context.Items.First(i => i.Resref == resref);
+                        context.DeleteObject(item);
                     }
                     else if (resourceType == ResourceTypeEnum.Placeable)
                     {
                         Placeable placeable = new Placeable();
                         Mapper.Map(obj as PlaceableDTO, placeable);
-                        placeable = context.Placeables.First(r => r.Resref == resref);                        
-                        context.Placeables.Remove(placeable);
+                        placeable = context.Placeables.First(r => r.Resref == resref);
+                        context.DeleteObject(placeable);
                     }
                     else if (resourceType == ResourceTypeEnum.Script)
                     {
@@ -352,7 +352,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                             area.Tag = tag;
                             area.Resref = resref;
                             area.ResourceCategoryID = categoryID;
-                            context.Areas.Add(area);
+                            context.AddToAreas(area);
                             context.SaveChanges();
                             break;
                         }
@@ -369,7 +369,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                             creature.Tag = tag;
                             creature.Resref = resref;
                             creature.ResourceCategoryID = categoryID;
-                            context.Creatures.Add(creature);
+                            context.AddToCreatures(creature);
                             context.SaveChanges();
                             break;
                         }
@@ -381,7 +381,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                             item.Tag = tag;
                             item.Resref = resref;
                             item.ResourceCategoryID = categoryID;
-                            context.Items.Add(item);
+                            context.AddToItems(item);
                             context.SaveChanges();
                             break;
                         }
@@ -393,7 +393,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                             placeable.Tag = tag;
                             placeable.Resref = resref;
                             placeable.ResourceCategoryID = categoryID;
-                            context.Placeables.Add(placeable);
+                            context.AddToPlaceables(placeable);
                             context.SaveChanges();
                             break;
                         }

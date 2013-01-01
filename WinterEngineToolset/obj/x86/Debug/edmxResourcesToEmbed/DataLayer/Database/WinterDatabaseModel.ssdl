@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WinterEngineDatabaseModel.Store" Alias="Self" Provider="System.Data.SQLite" ProviderManifestToken="ISO8601" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="WinterEngineDatabaseModelStoreContainer">
+    <EntitySet Name="Areas" EntityType="WinterEngineDatabaseModel.Store.Areas" store:Type="Tables" />
+    <EntitySet Name="Creatures" EntityType="WinterEngineDatabaseModel.Store.Creatures" store:Type="Tables" />
+    <EntitySet Name="Items" EntityType="WinterEngineDatabaseModel.Store.Items" store:Type="Tables" />
+    <EntitySet Name="Placeables" EntityType="WinterEngineDatabaseModel.Store.Placeables" store:Type="Tables" />
+    <EntitySet Name="ResourceCategories" EntityType="WinterEngineDatabaseModel.Store.ResourceCategories" store:Type="Tables" />
+    <EntitySet Name="ResourceTypes" EntityType="WinterEngineDatabaseModel.Store.ResourceTypes" store:Type="Tables" />
+  </EntityContainer>
+  <EntityType Name="Areas">
+    <Key>
+      <PropertyRef Name="Resref" />
+    </Key>
+    <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Creatures">
+    <Key>
+      <PropertyRef Name="Resref" />
+    </Key>
+    <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Items">
+    <Key>
+      <PropertyRef Name="Resref" />
+    </Key>
+    <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Placeables">
+    <Key>
+      <PropertyRef Name="Resref" />
+    </Key>
+    <Property Name="Resref" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="Tag" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="ResourceCategoryID" Type="integer" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ResourceCategories">
+    <Key>
+      <PropertyRef Name="ResourceCategoryID" />
+    </Key>
+    <Property Name="ResourceCategoryID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ResourceTypeID" Type="integer" Nullable="false" />
+    <Property Name="ResourceName" Type="nvarchar" Nullable="false" MaxLength="32" />
+  </EntityType>
+  <EntityType Name="ResourceTypes">
+    <Key>
+      <PropertyRef Name="ResourceTypeID" />
+    </Key>
+    <Property Name="ResourceTypeID" Type="integer" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ResourceName" Type="nvarchar" Nullable="false" MaxLength="32" />
+  </EntityType>
+</Schema>
