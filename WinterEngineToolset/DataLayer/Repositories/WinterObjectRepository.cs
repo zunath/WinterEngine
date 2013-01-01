@@ -7,6 +7,7 @@ using WinterEngine.Toolset.DataLayer.Database;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
 using WinterEngine.Toolset.Enumerations;
+using WinterEngine.Toolset.Helpers;
 
 namespace WinterEngine.Toolset.DataLayer.Repositories
 {
@@ -85,7 +86,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error retrieving all objects from database.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error retrieving all objects from database.", ex); 
             }
 
             return null;
@@ -164,7 +165,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error retrieving objects by resource category from database.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error retrieving objects by resource category from database.", ex); 
             }
             return null;
         }
@@ -242,7 +243,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error retrieving specified object from database. (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error retrieving specified object from database. (Resref: " + resref + ").", ex);
             }
             return null;
         }
@@ -268,7 +269,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error deleting specified objects from database.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error deleting specified objects from database.", ex);
             }
         }
 
@@ -327,7 +328,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error deleting specified object from database (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error deleting specified object from database (Resref: " + resref + ").", ex);
             }
         }
 
@@ -406,7 +407,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error adding specified object to database (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error adding specified object to database (Resref: " + resref + ").", ex);
             }
         }
 
@@ -445,7 +446,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error finding specified object in database (Resref: " + resref + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error finding specified object in database (Resref: " + resref + ").", ex);
                 return false;
             }
         }

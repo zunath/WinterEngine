@@ -7,6 +7,7 @@ using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using WinterEngine.Toolset.Enumerations;
 using AutoMapper;
 using System.Windows.Forms;
+using WinterEngine.Toolset.Helpers;
 
 namespace WinterEngine.Toolset.DataLayer.Repositories
 {
@@ -36,8 +37,8 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
+                ErrorHelper.ShowErrorDialog("Error retrieving all resource categories.", ex);
                 _resourceCategoryList.Clear();
-                MessageBox.Show("Error retrieving all resource categories.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return _resourceCategoryList;
@@ -68,7 +69,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error retrieving specified resource category (CategoryID: " + resourceCategoryID + ", ResourceTypeID: " + resourceTypeID + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error retrieving specified resource category (CategoryID: " + resourceCategoryID + ", ResourceTypeID: " + resourceTypeID + ").", ex);
             }
 
             return retResourceCategoryDTO;
@@ -94,7 +95,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error retrieving specified resource categories (ResourceType: " + resourceType + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error retrieving specified resource categories (ResourceType: " + resourceType + ")", ex);
             }
 
             return categoryList;
@@ -121,7 +122,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             catch (Exception ex)
             {
                 success = false;
-                MessageBox.Show("Error adding new resource category (ResourceCategory: " + resourceCategory.ResourceName + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error adding new resource category (ResourceCategory: " + resourceCategory.ResourceName + ").", ex);
             }
 
             return success;
@@ -155,7 +156,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             catch (Exception ex)
             {
                 success = false;
-                MessageBox.Show("Error renaming existing resource category (ResourceCategory: " + resourceCategory.ResourceName + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error renaming existing resource category (ResourceCategory: " + resourceCategory.ResourceName + ").", ex);
             }
 
             return success;
@@ -185,7 +186,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             catch (Exception ex)
             {
                 success = false;
-                MessageBox.Show("Error deleting resource category (ResourceCategory: " + resourceCategory.ResourceName + ").\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error deleting resource category (ResourceCategory: " + resourceCategory.ResourceName + ").", ex);
             }
 
             return success;

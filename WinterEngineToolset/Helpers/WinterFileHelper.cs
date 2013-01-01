@@ -25,7 +25,8 @@ namespace WinterEngine.Toolset.Helpers
         #region Methods
 
         /// <summary>
-        /// Returns the extension for the specified file type
+        /// Returns the extension for the specified file type, including the period.
+        /// Example: .wmod
         /// </summary>
         /// <param name="fileType">The type of file to retrieve an extension for.</param>
         /// <returns></returns>
@@ -57,14 +58,27 @@ namespace WinterEngine.Toolset.Helpers
         /// <param name="outputDirectory">The directory to create the file in.</param>
         /// <param name="fileName">The name of the file without an extension</param>
         /// <param name="fileType">The type of file to create.</param>
-        private void CreateFileFromDirectory(string inputDirectory, string outputDirectory, string fileName, FileType fileType, CompressionLevel compressionLevel)
+        private bool CreateFileFromDirectory(string inputDirectory, string outputDirectory, string fileName, FileType fileType, CompressionLevel compressionLevel)
         {
-            using (ZipFile file = new ZipFile(outputDirectory + "\\" + fileName + "." + getFileExtension(fileType)))
+            bool success = true;
+            string filePath = outputDirectory + "\\" + fileName + getFileExtension(fileType);
+
+            try
             {
-                file.CompressionLevel = compressionLevel;
-                file.AddDirectory(inputDirectory);
-                file.Save();
+                using (ZipFile file = new ZipFile(filePath))
+                {
+                    file.CompressionLevel = compressionLevel;
+                    file.AddDirectory(inputDirectory);
+                    file.Save();
+                }
             }
+            catch (Exception ex)
+            {
+                success = false;
+                ErrorHelper.ShowErrorDialog("Error creating file from directory: " + filePath, ex);
+            }
+
+            return success;
         }
 
         /// <summary>
@@ -74,9 +88,9 @@ namespace WinterEngine.Toolset.Helpers
         /// <param name="fileName">The name of the file without an extension.</param>
         /// <param name="inputDirectory">The directory of files to add.</param>
         /// <param name="outputDirectory">The directory to place the hakpak in.</param>
-        public void CreateHakPak(string inputDirectory, string outputDirectory, string fileName)
+        public bool CreateHakPak(string inputDirectory, string outputDirectory, string fileName)
         {
-            CreateFileFromDirectory(inputDirectory, outputDirectory, fileName, FileType.Hakpak, CompressionLevel.None);
+            return CreateFileFromDirectory(inputDirectory, outputDirectory, fileName, FileType.Hakpak, CompressionLevel.None);
         }
 
         /// <summary>
@@ -85,13 +99,25 @@ namespace WinterEngine.Toolset.Helpers
         /// </summary>
         /// <param name="hakPakPath">The path to the hakpak file, including the file's extension</param>
         /// <param name="outputDirectory">The directory to decompress to.</param>
-        public void DecompressHakPak(string hakPakPath, string outputDirectory)
+        public bool DecompressHakPak(string hakPakPath, string outputDirectory)
         {
-            using (ZipFile file = new ZipFile(hakPakPath))
+            bool success = true;
+
+            try
             {
-                file.CompressionLevel = CompressionLevel.None;
-                file.ExtractAll(outputDirectory);
+                using (ZipFile file = new ZipFile(hakPakPath))
+                {
+                    file.CompressionLevel = CompressionLevel.None;
+                    file.ExtractAll(outputDirectory);
+                }
             }
+            catch (Exception ex)
+            {
+                success = false;
+                ErrorHelper.ShowErrorDialog("Error decompressing hakpak to directory: " + outputDirectory, ex);
+            }
+
+            return success;
         }
 
         /// <summary>
@@ -100,20 +126,32 @@ namespace WinterEngine.Toolset.Helpers
         /// <param name="databaseFilePath">The path to the database file, excluding the extension</param>
         /// <param name="outputDirectory">The directory to output the module file to</param>
         /// <param name="additionalFiles">List of file paths, including file extensions, to add to the module.</param>
-        public void CreateModule(string databaseFilePath, string outputDirectory, string fileName, IEnumerable<string> additionalFiles = null)
+        public bool CreateModule(string databaseFilePath, string outputDirectory, string fileName, IEnumerable<string> additionalFiles = null)
         {
-            using (ZipFile file = new ZipFile(outputDirectory + "\\" + fileName + "." + getFileExtension(FileType.Module)))
+            bool success = true;
+            string filePath = outputDirectory + "\\" + fileName + "." + getFileExtension(FileType.Module);
+            try
             {
-                file.AddFile(databaseFilePath);
-
-                // Add additional files, if any
-                if (additionalFiles != null)
+                using (ZipFile file = new ZipFile(filePath))
                 {
-                    file.AddFiles(additionalFiles);
-                }
+                    file.AddFile(databaseFilePath);
 
-                file.Save();
+                    // Add additional files, if any
+                    if (additionalFiles != null)
+                    {
+                        file.AddFiles(additionalFiles);
+                    }
+
+                    file.Save();
+                }
             }
+            catch (Exception ex)
+            {
+                success = false;
+                ErrorHelper.ShowErrorDialog("Error creating module file: " + filePath, ex);
+            }
+
+            return success;
         }
 
         /// <summary>
@@ -121,12 +159,23 @@ namespace WinterEngine.Toolset.Helpers
         /// </summary>
         /// <param name="moduleFilePath">The path to the module, including the file's extension.</param>
         /// <param name="outputDirectory">The directory to decompress the files to.</param>
-        public void DecompressModule(string moduleFilePath, string outputDirectory)
+        public bool DecompressModule(string moduleFilePath, string outputDirectory)
         {
-            using (ZipFile file = new ZipFile(moduleFilePath))
+            bool success = true;
+
+            try
             {
-                file.ExtractAll(outputDirectory);
+                using (ZipFile file = new ZipFile(moduleFilePath))
+                {
+                    file.ExtractAll(outputDirectory);
+                }
             }
+            catch (Exception ex)
+            {
+                success = false;
+                ErrorHelper.ShowErrorDialog("Error decompressing module file to directory: " + outputDirectory, ex);
+            }
+            return success;
         }
 
         #endregion

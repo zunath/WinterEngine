@@ -7,6 +7,7 @@ using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
 using DejaVu;
 using WinterEngine.Toolset.Factories;
+using WinterEngine.Toolset.Helpers;
 
 namespace WinterEngine.Toolset.Controls.ControlHelpers
 {
@@ -123,7 +124,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                 catch (Exception ex)
                 {
                     UndoRedoManager.Cancel();
-                    MessageBox.Show("Error adding new object. (Method: buttonOK_Click).\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ErrorHelper.ShowErrorDialog("Error adding new object. (Method: buttonOK_Click)", ex);
                 }
             }
         }

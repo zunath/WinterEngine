@@ -15,6 +15,7 @@ using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.Enumerations;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
 using WinterEngine.Toolset.Factories;
+using WinterEngine.Toolset.Helpers;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
@@ -97,7 +98,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error adding specified category. (Method: AddCategorySuccessMethod).\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error adding specified category. (Method: AddCategorySuccessMethod).", ex);
                 UndoRedoManager.Cancel();
             }
         }
@@ -121,7 +122,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error renaming specified category. (Method: RenameCategorySuccessMethod).\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error renaming specified category. (Method: RenameCategorySuccessMethod).", ex);
                 UndoRedoManager.Cancel();
             }
         }
@@ -367,8 +368,8 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 }
                 catch (Exception ex)
                 {
+                    ErrorHelper.ShowErrorDialog("Error deleting specified " + WinterObjectResourceType.ToString() + " (Method: contextMenuStripNodes_DeleteObject).\n\n", ex);
                     UndoRedoManager.Cancel();
-                    MessageBox.Show("Error deleting specified " + WinterObjectResourceType.ToString() + " (Method: contextMenuStripNodes_DeleteObject).\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -428,8 +429,8 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 }
                 catch (Exception ex)
                 {
+                    ErrorHelper.ShowErrorDialog("Error deleting specified category (Method: contextMenuStripNodes_DeleteCategory).", ex);
                     UndoRedoManager.Cancel();
-                    MessageBox.Show("Error deleting specified category (Method: contextMenuStripNodes_DeleteCategory).\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }

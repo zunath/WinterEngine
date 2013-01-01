@@ -6,10 +6,12 @@ C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\AutoMapper.dll
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\ContentLibrary.dll
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.dll
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.dll
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\ContentLibrary.pdb
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\AutoMapper.xml
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.xml
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.xml
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.csprojResolveAssemblyReference.cache
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.InputMessageBox.resources
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.NewObjectEntry.resources
@@ -31,5 +33,3 @@ C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.csproj.GenerateResource.Cache
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb
-C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.dll
-C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.xml

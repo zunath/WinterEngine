@@ -198,6 +198,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Enumerations\FileType.cs" />
+    <Compile Include="Helpers\ErrorHelper.cs" />
     <Compile Include="Helpers\WinterFileHelper.cs" />
     <Compile Include="Helpers\CustomMappings.cs" />
     <Compile Include="DataLayer\Database\Area.cs">

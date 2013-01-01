@@ -6,6 +6,7 @@ using WinterEngine.Toolset.DataLayer.Database;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using AutoMapper;
 using System.Windows.Forms;
+using WinterEngine.Toolset.Helpers;
 
 namespace WinterEngine.Toolset.DataLayer.Repositories
 {
@@ -32,7 +33,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             catch (Exception ex)
             {
                 _resourceTypeList.Clear();
-                MessageBox.Show("Error retrieving all resource types.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHelper.ShowErrorDialog("Error retrieving all resource types.", ex);
             }
 
             return _resourceTypeList;
