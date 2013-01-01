@@ -178,6 +178,36 @@ namespace WinterEngine.Toolset.Helpers
             return success;
         }
 
+        /// <summary>
+        /// Creates a temporary directory in the same folder as the executable.
+        /// New directory's name is "temp" + uniqueID
+        /// </summary>
+        /// <param name="directoryUniqueName"></param>
+        /// <returns></returns>
+        public string CreateTemporaryDirectory()
+        {
+            string directoryPath = "./temp";
+            int uniqueID = 0;
+
+            try
+            {
+                // Generate a unique ID
+                while(Directory.Exists(directoryPath + uniqueID))
+                {
+                    uniqueID++;
+                }
+
+                // Attach unique ID on to directory
+                return Directory.CreateDirectory(directoryPath + uniqueID + "/").FullName;
+                
+            }
+            catch (Exception ex)
+            {
+                ErrorHelper.ShowErrorDialog("Error creating temporary directory: ", ex);
+                return "";
+            }
+        }
+
         #endregion
     }
 }

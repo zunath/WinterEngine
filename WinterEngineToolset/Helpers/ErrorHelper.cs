@@ -12,7 +12,9 @@ namespace WinterEngine.Toolset.Helpers
         {
             string finalMessage = message + "\n\n";
             message += ex.Message + "\n\n";
-            message += ex.InnerException.Message + "\n";
+
+            if(!Object.ReferenceEquals(ex.InnerException, null))
+                message += ex.InnerException.Message + "\n";
 
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 

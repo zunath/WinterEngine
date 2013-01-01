@@ -13,21 +13,47 @@ using DejaVu;
 using WinterEngine.Toolset.Helpers;
 using WinterEngine.Toolset.Enumerations;
 using System.IO;
+using WinterEngine.Toolset.Controls.ControlHelpers;
+using WinterEngine.Toolset.ExtendedEventArgs;
 
 namespace WinterEngine.Toolset
 {
     public partial class MainForm : Form
     {
+        #region Fields
+
+        private string _temporaryDirectory;
+        
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the temporary directory used by the module.
+        /// The temporary directory contains all module files (database, additional files, but not graphics)
+        /// and are modified as changes are made by user. Changes are not copied over to the real module
+        /// file until the user clicks "Save".
+        /// </summary>
+        public string TemporaryDirectory
+        {
+            get { return _temporaryDirectory; }
+            set { _temporaryDirectory = value; }
+        }
+
+        #endregion
+
+
+        #region Constructors
 
         public MainForm()
         {
             CustomMappings.Initialize();
             InitializeComponent();
         }
+        
+        #endregion
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
+        #region Menu Strip methods
 
         /// <summary>
         /// Opens module selection window. If user selects a module file,
@@ -37,9 +63,6 @@ namespace WinterEngine.Toolset
         /// <param name="e"></param>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Change openFileDialog's settings before opening it.
-            openFileDialog.RestoreDirectory = false;
-
             WinterFileHelper fileHelper = new WinterFileHelper();
             string fileExtension = fileHelper.getFileExtension(FileType.Module);
             openFileDialog.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
@@ -54,6 +77,7 @@ namespace WinterEngine.Toolset
                 try
                 {
                     fileHelper.DecompressModule(openFileDialog.FileName, directoryInfo.FullName);
+                    // TO-DO: load into toolset.
                 }
                 catch (Exception ex)
                 {
@@ -63,17 +87,41 @@ namespace WinterEngine.Toolset
 
         }
 
-        private void buttonSaveChangesAreaDetails_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Displays the New Module form which the user can use to create a new module.
+        /// Once created, the module is loaded into the toolset.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemNewModule_Click(object sender, EventArgs e)
         {
-            using (UndoRedoManager.Start("Changed"))
-            {
-                UndoRedoManager.Commit();
-            }
+            NewModuleEntry newModuleEntryForm = new NewModuleEntry();
+            newModuleEntryForm.OnModuleCreationSuccess += new EventHandler<ModuleCreationEventArgs>(LoadModule);
+            newModuleEntryForm.ShowDialog();
         }
 
-        private void buttonDiscardChangesAreaDetails_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Pops up a text box giving some information about the toolset.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemAbout_Click(object sender, EventArgs e)
         {
-            UndoRedoManager.Undo();
+            // Not much info to display right now. Version number and other details to be added later.
+            MessageBox.Show("Winter Engine Toolset\n\nDeveloped by Zunath.", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        /// <summary>
+        /// When module is created in child form, this form's TemporaryDirectory property
+        /// must get set so that the toolset knows where to modify files.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoadModule(object sender, ModuleCreationEventArgs e)
+        {
+            this.TemporaryDirectory = e.TemporaryPathDirectory;
+        }
+
+        #endregion
     }
 }

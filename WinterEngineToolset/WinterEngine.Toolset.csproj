@@ -126,6 +126,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ControlHelpers\NewModuleEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ControlHelpers\NewModuleEntry.Designer.cs">
+      <DependentUpon>NewModuleEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ControlHelpers\InputMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,7 +203,9 @@
     <Compile Include="Controls\XnaControls\Shared\ModelViewerControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DataLayer\Repositories\ModuleRepository.cs" />
     <Compile Include="Enumerations\FileType.cs" />
+    <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="Helpers\ErrorHelper.cs" />
     <Compile Include="Helpers\WinterFileHelper.cs" />
     <Compile Include="Helpers\CustomMappings.cs" />
@@ -287,6 +295,9 @@
     </Compile>
     <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceService.cs" />
     <Compile Include="Controls\XnaControls\Shared\ServiceContainer.cs" />
+    <EmbeddedResource Include="Controls\ControlHelpers\NewModuleEntry.resx">
+      <DependentUpon>NewModuleEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ControlHelpers\InputMessageBox.resx">
       <DependentUpon>InputMessageBox.cs</DependentUpon>
     </EmbeddedResource>

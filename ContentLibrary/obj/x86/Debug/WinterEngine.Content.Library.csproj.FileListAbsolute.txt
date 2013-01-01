@@ -3,3 +3,4 @@ C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\obj\x86\Debug\ContentLibrary.dll
 C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\obj\x86\Debug\ContentLibrary.pdb
+C:\Users\Tyler\documents\visual studio 2010\Projects\WinterEngine\ContentLibrary\obj\x86\Debug\WinterEngine.Content.Library.csprojResolveAssemblyReference.cache
