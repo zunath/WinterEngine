@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Ionic.Zip;
-using WinterEngine.Toolset.Enumerations;
 using Ionic.Zlib;
 using System.IO;
 using WinterEngine.Toolset.DataLayer.Contexts;
+using WinterEngine.Library.Enumerations;
+using WinterEngine.Library.Helpers;
 
 namespace WinterEngine.Toolset.Helpers
 {
@@ -25,33 +26,6 @@ namespace WinterEngine.Toolset.Helpers
         #region Methods
 
         /// <summary>
-        /// Returns the extension for the specified file type, including the period.
-        /// Example: .wmod
-        /// </summary>
-        /// <param name="fileType">The type of file to retrieve an extension for.</param>
-        /// <returns></returns>
-        public string getFileExtension(FileType fileType)
-        {
-            switch (fileType)
-            {
-                // Contains end-user's custom models, textures, etc
-                case FileType.Hakpak:
-                    return ".whak";
-                // Contains database information specific to an end-user's module
-                case FileType.Module:
-                    return ".wmod";
-                // Contains transportable database information
-                case FileType.Erf:
-                    return ".werf";
-                // Contains the engine's built-in models, textures, etc
-                case FileType.WinterResource:
-                    return ".wrsc";
-                default:
-                    return "";
-            }
-        }
-
-        /// <summary>
         /// Internal class method to assist with common functionality among all file creation.
         /// </summary>
         /// <param name="inputDirectory">The directory to take files from.</param>
@@ -60,8 +34,9 @@ namespace WinterEngine.Toolset.Helpers
         /// <param name="fileType">The type of file to create.</param>
         private bool CreateFileFromDirectory(string inputDirectory, string outputDirectory, string fileName, FileType fileType, CompressionLevel compressionLevel)
         {
+            WinterFileExtensions winterExtensions = new WinterFileExtensions();
             bool success = true;
-            string filePath = outputDirectory + "\\" + fileName + getFileExtension(fileType);
+            string filePath = outputDirectory + "\\" + fileName + winterExtensions.getFileExtension(fileType);
 
             try
             {
@@ -128,8 +103,9 @@ namespace WinterEngine.Toolset.Helpers
         /// <param name="additionalFiles">List of file paths, including file extensions, to add to the module.</param>
         public bool CreateModule(string databaseFilePath, string outputDirectory, string fileName, IEnumerable<string> additionalFiles = null)
         {
+            WinterFileExtensions winterExtensions = new WinterFileExtensions();
             bool success = true;
-            string filePath = outputDirectory + "\\" + fileName + "." + getFileExtension(FileType.Module);
+            string filePath = outputDirectory + "\\" + fileName + "." + winterExtensions.getFileExtension(FileType.Module);
             try
             {
                 using (ZipFile file = new ZipFile(filePath))

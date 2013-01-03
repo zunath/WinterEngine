@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace WinterEngine.Toolset.Helpers
+namespace WinterEngine.Library.Helpers
 {
     public class TextHelper
     {

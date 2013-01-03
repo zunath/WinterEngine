@@ -214,11 +214,8 @@
     <Compile Include="DataLayer\Contexts\WinterContext.cs" />
     <Compile Include="DataLayer\Initializers\WinterDatabaseInitializer.cs" />
     <Compile Include="DataLayer\Repositories\ModuleRepository.cs" />
-    <Compile Include="Enumerations\FileType.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="Helpers\DatabaseHelper.cs" />
-    <Compile Include="Helpers\ErrorHelper.cs" />
-    <Compile Include="Helpers\WinterFileHelper.cs" />
     <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Area.cs" />
     <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceType.cs" />
     <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceCategory.cs" />
@@ -229,7 +226,6 @@
     <Compile Include="DataLayer\Repositories\ResourceTypeRepository.cs" />
     <Compile Include="DataLayer\Repositories\ResourceCategoryRepository.cs" />
     <Compile Include="DataLayer\Repositories\WinterObjectRepository.cs" />
-    <Compile Include="Enumerations\ResourceTypeEnum.cs" />
     <Compile Include="Factories\WinterObjectFactory.cs" />
     <Compile Include="GUI\Views\AreaView.cs">
       <SubType>UserControl</SubType>
@@ -237,7 +233,7 @@
     <Compile Include="GUI\Views\AreaView.Designer.cs">
       <DependentUpon>AreaView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\TextHelper.cs" />
+    <Compile Include="Helpers\ErrorHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -272,6 +268,7 @@
     </Compile>
     <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceService.cs" />
     <Compile Include="Controls\XnaControls\Shared\ServiceContainer.cs" />
+    <Compile Include="Helpers\WinterFileHelper.cs" />
     <EmbeddedResource Include="Controls\ControlHelpers\NewModuleEntry.resx">
       <DependentUpon>NewModuleEntry.cs</DependentUpon>
     </EmbeddedResource>

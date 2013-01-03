@@ -10,11 +10,12 @@ using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.GUI.Views;
 using DejaVu;
 using WinterEngine.Toolset.Helpers;
-using WinterEngine.Toolset.Enumerations;
+using WinterEngine.Library.Enumerations;
 using System.IO;
 using WinterEngine.Toolset.Controls.ControlHelpers;
 using WinterEngine.Toolset.ExtendedEventArgs;
 using WinterEngine.Hakpak.Builder;
+using WinterEngine.Library.Helpers;
 
 namespace WinterEngine.Toolset
 {
@@ -64,8 +65,9 @@ namespace WinterEngine.Toolset
         /// <param name="e"></param>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            WinterFileExtensions winterExtensions = new WinterFileExtensions();
             WinterFileHelper fileHelper = new WinterFileHelper();
-            string fileExtension = fileHelper.getFileExtension(FileType.Module);
+            string fileExtension = winterExtensions.getFileExtension(FileType.Module);
             openFileDialog.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
 
             DialogResult result = openFileDialog.ShowDialog();

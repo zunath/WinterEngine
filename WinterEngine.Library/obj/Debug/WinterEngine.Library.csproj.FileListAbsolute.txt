@@ -1,0 +1,7 @@
+C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.Library.dll
+C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.Library.pdb
+C:\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.dll
+C:\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.pdb
+C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Ionic.Zip.dll
+C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Ionic.Zip.xml
+C:\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.csprojResolveAssemblyReference.cache
