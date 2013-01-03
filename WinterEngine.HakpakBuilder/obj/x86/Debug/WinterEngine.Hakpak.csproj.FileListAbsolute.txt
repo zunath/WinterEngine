@@ -1,0 +1,10 @@
+C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\WinterEngine.HakpakBuilder.exe
+C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\WinterEngine.HakpakBuilder.pdb
+C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\WinterEngine.Library.dll
+C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\WinterEngine.Library.pdb
+C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.Hakpak.csprojResolveAssemblyReference.cache
+C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.Hakpak.Builder.HakBuilder.resources
+C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.Properties.Resources.resources
+C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.Hakpak.csproj.GenerateResource.Cache
+C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.exe
+C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.pdb

@@ -29,7 +29,7 @@ C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Win
 C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\System.Data.SqlServerCe.dll
 C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Library.dll
 C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Library.pdb
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.csprojResolveAssemblyReference.cache
 C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.exe
 C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.pdb
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.csprojResolveAssemblyReference.cache

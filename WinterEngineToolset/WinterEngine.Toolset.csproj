@@ -350,9 +350,9 @@
       <Project>{5A451205-2CE5-4B5A-A92F-3806523CD8A7}</Project>
       <Name>WinterEngine.Content.Library</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.HakpakBuilder\WinterEngine.HakpakBuilder.csproj">
+    <ProjectReference Include="..\WinterEngine.HakpakBuilder\WinterEngine.Hakpak.csproj">
       <Project>{CB8FC1F9-0EA1-4F21-90EF-9776B8AE8337}</Project>
-      <Name>WinterEngine.HakpakBuilder</Name>
+      <Name>WinterEngine.Hakpak</Name>
     </ProjectReference>
     <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
       <Project>{483CD518-A771-4FDA-A97E-DC2E42AEF780}</Project>

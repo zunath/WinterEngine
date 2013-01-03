@@ -30,6 +30,12 @@ namespace WinterEngine.Library.Helpers
                 // Contains the engine's built-in models, textures, etc
                 case FileType.WinterResource:
                     return ".wrsc";
+                // Model graphics
+                case FileType.Model:
+                    return ".fbx";
+                // Texture graphics
+                case FileType.Texture:
+                    return ".tga";
                 default:
                     return "";
             }

@@ -99,7 +99,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>A86BPhDvU4q5lXMzflU6GHUc/Xs=</dsig:DigestValue>
+        <dsig:DigestValue>XoPl+cPtGWfcgPmSP1PJdzaTd6k=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -171,19 +171,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>pY0KtwoMEzPMn1VQ5IonTPgPNjE=</dsig:DigestValue>
+        <dsig:DigestValue>CH1toGufIjVYVzY9UXgLATw4c+w=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Library.dll" size="5120">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Library.dll" size="5632">
       <assemblyIdentity name="WinterEngine.Library" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>bTKyydjzo6z/jb/kP8gTb11QbtQ=</dsig:DigestValue>
+        <dsig:DigestValue>GZ+dH3bZmfxa1zYOTtY7SRGfltc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -195,7 +195,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>CBMnjqQek0PXA0/Rbmj2vPCwtVI=</dsig:DigestValue>
+        <dsig:DigestValue>c8nywYYTV9wkFrK8u/tMhaM7r08=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

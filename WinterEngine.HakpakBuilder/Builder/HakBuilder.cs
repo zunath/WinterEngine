@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Library.Enumerations;
+using WinterEngine.Library.Helpers;
 
 namespace WinterEngine.Hakpak.Builder
 {
@@ -24,7 +25,12 @@ namespace WinterEngine.Hakpak.Builder
 
         private void buttonAddFiles_Click(object sender, EventArgs e)
         {
-            openFileDialog.Filter = "Model Files (*." + FileType.Model + ")|*." + FileType.Model + "";
+            WinterFileExtensions extensions = new WinterFileExtensions();
+            string modelFileExtension = extensions.getFileExtension(FileType.Model);
+            string textureFileExtension = extensions.getFileExtension(FileType.Texture);
+
+            openFileDialog.Filter = "Model Files (*" + modelFileExtension + ")|*" + modelFileExtension + "|" + 
+                                    "Texture Files (*" + textureFileExtension + ")|*" + textureFileExtension;
             openFileDialog.ShowDialog();
         }
 

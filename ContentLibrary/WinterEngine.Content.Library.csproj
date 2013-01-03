@@ -97,7 +97,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Content\WinterEngine.Content.contentproj">
       <Project>{145C8D33-D0ED-4BE8-8EE4-6FAA76073349}</Project>
-      <Name>Content</Name>
+      <Name>WinterEngine.Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>

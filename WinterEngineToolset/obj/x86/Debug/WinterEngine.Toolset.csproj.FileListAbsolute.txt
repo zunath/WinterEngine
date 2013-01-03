@@ -78,8 +78,6 @@ C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.config
-C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
-C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.manifest
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.application
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe
@@ -118,3 +116,5 @@ C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.csproj.GenerateResource.Cache
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe.manifest
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.application
+C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
+C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb

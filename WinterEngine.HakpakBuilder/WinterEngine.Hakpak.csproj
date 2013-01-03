@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,15 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HakBuilder.cs">
+    <Compile Include="Builder\HakBuilder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HakBuilder.Designer.cs">
+    <Compile Include="Builder\HakBuilder.Designer.cs">
       <DependentUpon>HakBuilder.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="HakBuilder.resx">
+    <EmbeddedResource Include="Builder\HakBuilder.resx">
       <DependentUpon>HakBuilder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

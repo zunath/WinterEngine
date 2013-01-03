@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Server", "Wint
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Client", "WinterEngineClient\WinterEngineClient\WinterEngine.Client.csproj", "{3FA2AFB9-6378-4E9F-9359-FAD5FF5B8F38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.HakpakBuilder", "WinterEngine.HakpakBuilder\WinterEngine.HakpakBuilder.csproj", "{CB8FC1F9-0EA1-4F21-90EF-9776B8AE8337}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Hakpak", "WinterEngine.HakpakBuilder\WinterEngine.Hakpak.csproj", "{CB8FC1F9-0EA1-4F21-90EF-9776B8AE8337}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Library", "WinterEngine.Library\WinterEngine.Library.csproj", "{483CD518-A771-4FDA-A97E-DC2E42AEF780}"
 EndProject
