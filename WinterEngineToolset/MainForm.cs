@@ -14,6 +14,7 @@ using WinterEngine.Toolset.Enumerations;
 using System.IO;
 using WinterEngine.Toolset.Controls.ControlHelpers;
 using WinterEngine.Toolset.ExtendedEventArgs;
+using WinterEngine.Hakpak.Builder;
 
 namespace WinterEngine.Toolset
 {
@@ -22,7 +23,7 @@ namespace WinterEngine.Toolset
         #region Fields
 
         private string _temporaryDirectory;
-        private HakpakBuilder hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
+        private Hakpak.Builder.HakBuilder hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
 
 
         #endregion
@@ -134,7 +135,7 @@ namespace WinterEngine.Toolset
             // Not instantiated or has been disposed
             if (isNull || hakpakBuilder.IsDisposed)
             {
-                hakpakBuilder = new HakpakBuilder();
+                hakpakBuilder = new HakBuilder();
                 hakpakBuilder.Show();
             }
             // Window is already open. Focus on it.

@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace WinterEngine.Toolset.Controls.ControlHelpers
+namespace WinterEngine.Hakpak.Builder
 {
-    public partial class HakpakBuilder : Form
+    public partial class HakBuilder : Form
     {
-        public HakpakBuilder()
+        public HakBuilder()
         {
             InitializeComponent();
         }

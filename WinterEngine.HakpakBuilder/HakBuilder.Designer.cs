@@ -1,6 +1,6 @@
-﻿namespace WinterEngine.Toolset.Controls.ControlHelpers
+﻿namespace WinterEngine.Hakpak.Builder
 {
-    partial class HakpakBuilder
+    partial class HakBuilder
     {
         /// <summary>
         /// Required designer variable.

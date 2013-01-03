@@ -134,12 +134,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\ControlHelpers\HakpakBuilder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\ControlHelpers\HakpakBuilder.Designer.cs">
-      <DependentUpon>HakpakBuilder.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ControlHelpers\NewModuleEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -278,9 +272,6 @@
     </Compile>
     <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceService.cs" />
     <Compile Include="Controls\XnaControls\Shared\ServiceContainer.cs" />
-    <EmbeddedResource Include="Controls\ControlHelpers\HakpakBuilder.resx">
-      <DependentUpon>HakpakBuilder.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ControlHelpers\NewModuleEntry.resx">
       <DependentUpon>NewModuleEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -361,6 +352,10 @@
     <ProjectReference Include="..\ContentLibrary\WinterEngine.Content.Library.csproj">
       <Project>{5A451205-2CE5-4B5A-A92F-3806523CD8A7}</Project>
       <Name>WinterEngine.Content.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.HakpakBuilder\WinterEngine.HakpakBuilder.csproj">
+      <Project>{CB8FC1F9-0EA1-4F21-90EF-9776B8AE8337}</Project>
+      <Name>WinterEngine.HakpakBuilder</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
