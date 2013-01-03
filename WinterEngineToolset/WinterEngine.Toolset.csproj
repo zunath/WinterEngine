@@ -357,6 +357,10 @@
       <Project>{CB8FC1F9-0EA1-4F21-90EF-9776B8AE8337}</Project>
       <Name>WinterEngine.HakpakBuilder</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
+      <Project>{483CD518-A771-4FDA-A97E-DC2E42AEF780}</Project>
+      <Name>WinterEngine.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

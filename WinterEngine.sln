@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Client", "Wint
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.HakpakBuilder", "WinterEngine.HakpakBuilder\WinterEngine.HakpakBuilder.csproj", "{CB8FC1F9-0EA1-4F21-90EF-9776B8AE8337}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Library", "WinterEngine.Library\WinterEngine.Library.csproj", "{483CD518-A771-4FDA-A97E-DC2E42AEF780}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,16 @@ Global
 		{CB8FC1F9-0EA1-4F21-90EF-9776B8AE8337}.Release|Mixed Platforms.Build.0 = Release|x86
 		{CB8FC1F9-0EA1-4F21-90EF-9776B8AE8337}.Release|x86.ActiveCfg = Release|x86
 		{CB8FC1F9-0EA1-4F21-90EF-9776B8AE8337}.Release|x86.Build.0 = Release|x86
+		{483CD518-A771-4FDA-A97E-DC2E42AEF780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{483CD518-A771-4FDA-A97E-DC2E42AEF780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{483CD518-A771-4FDA-A97E-DC2E42AEF780}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{483CD518-A771-4FDA-A97E-DC2E42AEF780}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{483CD518-A771-4FDA-A97E-DC2E42AEF780}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{483CD518-A771-4FDA-A97E-DC2E42AEF780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{483CD518-A771-4FDA-A97E-DC2E42AEF780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{483CD518-A771-4FDA-A97E-DC2E42AEF780}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{483CD518-A771-4FDA-A97E-DC2E42AEF780}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{483CD518-A771-4FDA-A97E-DC2E42AEF780}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
