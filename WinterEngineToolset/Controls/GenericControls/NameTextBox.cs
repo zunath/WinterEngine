@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.Controls.GenericControls
     public partial class NameTextBox : UserControl
     {
 
-        public string Text
+        public string NameText
         {
             get { return textBoxName.Text; }
         }

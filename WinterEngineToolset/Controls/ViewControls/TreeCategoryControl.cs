@@ -6,9 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WinterEngine.Toolset.DataLayer.Database;
+using WinterEngine.Toolset.DataLayer.Contexts;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
-using AutoMapper;
 using DejaVu;
 using WinterEngine.Toolset.Controls.ControlHelpers;
 using WinterEngine.Toolset.DataLayer.Repositories;
@@ -85,7 +84,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             {
                 using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
                 {
-                    ResourceCategoryDTO resourceCategoryDTO = new ResourceCategoryDTO();
+                    ResourceCategory resourceCategoryDTO = new ResourceCategory();
                     resourceCategoryDTO.ResourceName = inputText;
                     resourceCategoryDTO.ResourceTypeID = (int)WinterObjectResourceType;
 
@@ -111,7 +110,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             {
                 using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
                 {
-                    ResourceCategoryDTO resourceCategoryDTO = treeView.SelectedNode.Tag as ResourceCategoryDTO;
+                    ResourceCategory resourceCategoryDTO = treeView.SelectedNode.Tag as ResourceCategory;
                     resourceCategoryDTO.ResourceName = inputText;
                     repo.UpdateResourceCategory(resourceCategoryDTO);
 
@@ -155,13 +154,13 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             UndoRedoManager.StartInvisible("TreeView Category Population");
 
             // Retrieve list of ResourceCategoryDTO from the database by way of the data access layer and repositories.
-            List<ResourceCategoryDTO> categoryList = new List<ResourceCategoryDTO>();
+            List<ResourceCategory> categoryList = new List<ResourceCategory>();
             using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
             {
                 categoryList = repo.GetAllResourceCategoriesByResourceType(WinterObjectResourceType);
             }
 
-            foreach (ResourceCategoryDTO category in categoryList)
+            foreach (ResourceCategory category in categoryList)
             {
                 TreeNode treeNode = new TreeNode(category.ResourceName);
                 treeNode.Name = "" + category.ResourceCategoryID;
@@ -186,7 +185,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
             // Build a list of objects using the WinterObjectFactory
             WinterObjectFactory factory = new WinterObjectFactory();
-            List<WinterObjectDTO> objectList;
+            List<WinterObject> objectList;
 
             using(WinterObjectRepository repo = new WinterObjectRepository())
             {
@@ -195,15 +194,15 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
             TreeNodeCollection nodeCollection = treeView.Nodes[0].Nodes;
             // Get list of DTOs from the tag of tree nodes
-            List<ResourceCategoryDTO> resourceDTOList = GetTreeNodeTagResourceDTOs(nodeCollection);
+            List<ResourceCategory> resourceDTOList = GetTreeNodeTagResourceDTOs(nodeCollection);
 
-            foreach (WinterObjectDTO currentObject in objectList)
+            foreach (WinterObject currentObject in objectList)
             {
                 TreeNode treeNode = new TreeNode(currentObject.Name);
                 treeNode.Tag = currentObject;
 
                 // Find the first category that matches this object's category ID. There should only be one since CategoryID is a primary key.
-                ResourceCategoryDTO category = resourceDTOList.FirstOrDefault(val => val.ResourceCategoryID == currentObject.ResourceCategoryID);
+                ResourceCategory category = resourceDTOList.FirstOrDefault(val => val.ResourceCategoryID == currentObject.ResourceCategoryID);
 
                 // Unable to find category. Move this object to the first category on the list.
                 if (category == null)
@@ -252,13 +251,13 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// </summary>
         /// <param name="treeNodeCollection"></param>
         /// <returns></returns>
-        private List<ResourceCategoryDTO> GetTreeNodeTagResourceDTOs(TreeNodeCollection treeNodeCollection)
+        private List<ResourceCategory> GetTreeNodeTagResourceDTOs(TreeNodeCollection treeNodeCollection)
         {
-            List<ResourceCategoryDTO> objectList = new List<ResourceCategoryDTO>();
+            List<ResourceCategory> objectList = new List<ResourceCategory>();
 
             foreach (TreeNode currentObject in treeNodeCollection)
             {
-                ResourceCategoryDTO tag = currentObject.Tag as ResourceCategoryDTO;
+                ResourceCategory tag = currentObject.Tag as ResourceCategory;
                 objectList.Add(tag);
             }
 
@@ -334,7 +333,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void contextMenuStripNodes_CreateObject(object sender, EventArgs e)
         {
-            NewObjectEntry newObjectEntryForm = new NewObjectEntry(WinterObjectResourceType, treeView.SelectedNode.Tag as ResourceCategoryDTO);
+            NewObjectEntry newObjectEntryForm = new NewObjectEntry(WinterObjectResourceType, treeView.SelectedNode.Tag as ResourceCategory);
             newObjectEntryForm.Text = "New " + WinterObjectResourceType.ToString();
             newObjectEntryForm.RefreshParentGUI += new EventHandler(RefreshTreeView);
             newObjectEntryForm.ShowDialog();
@@ -352,7 +351,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             // User chose to delete the category. Remove all contained objects and delete the category.
             if (result == DialogResult.Yes)
             {
-                WinterObjectDTO obj = treeView.SelectedNode.Tag as WinterObjectDTO;
+                WinterObject obj = treeView.SelectedNode.Tag as WinterObject;
                 UndoRedoManager.Start("Remove " + WinterObjectResourceType.ToString() + " - " + obj.Name);
 
                 try
@@ -407,7 +406,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             // User chose to delete the category. Remove all contained objects and delete the category.
             if (result == DialogResult.Yes)
             {
-                ResourceCategoryDTO category = treeView.SelectedNode.Tag as ResourceCategoryDTO;
+                ResourceCategory category = treeView.SelectedNode.Tag as ResourceCategory;
                 UndoRedoManager.Start("Remove category - " + category.ResourceName);
 
                 try

@@ -15,7 +15,7 @@
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>C:\Users\Tyler\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -25,9 +25,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -49,10 +50,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>6FEB510DD09D4D2F5A2A851A7F8D9BB5C71F46A8</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>WinterEngine.Toolset_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=2.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="Dejavu">
       <HintPath>..\..\..\..\..\Desktop\Dejavu.dll</HintPath>
     </Reference>
@@ -110,11 +120,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\packages\System.Data.SQLite.1.0.82.0\lib\net40\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite.Linq">
-      <HintPath>..\packages\System.Data.SQLite.1.0.82.0\lib\net40\System.Data.SQLite.Linq.dll</HintPath>
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -126,6 +134,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ControlHelpers\HakpakBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ControlHelpers\HakpakBuilder.Designer.cs">
+      <DependentUpon>HakpakBuilder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ControlHelpers\NewModuleEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,24 +217,21 @@
     <Compile Include="Controls\XnaControls\Shared\ModelViewerControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DataLayer\Database\WinterDatabaseModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WinterDatabaseModel.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="DataLayer\Contexts\WinterContext.cs" />
+    <Compile Include="DataLayer\Initializers\WinterDatabaseInitializer.cs" />
     <Compile Include="DataLayer\Repositories\ModuleRepository.cs" />
     <Compile Include="Enumerations\FileType.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
+    <Compile Include="Helpers\DatabaseHelper.cs" />
     <Compile Include="Helpers\ErrorHelper.cs" />
     <Compile Include="Helpers\WinterFileHelper.cs" />
-    <Compile Include="Helpers\CustomMappings.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\AreaDTO.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceTypeDTO.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceCategoryDTO.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\CreatureDTO.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\PlaceableDTO.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\WinterObjectDTO.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\ItemDTO.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Area.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceType.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceCategory.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Creature.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Placeable.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\WinterObject.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Item.cs" />
     <Compile Include="DataLayer\Repositories\ResourceTypeRepository.cs" />
     <Compile Include="DataLayer\Repositories\ResourceCategoryRepository.cs" />
     <Compile Include="DataLayer\Repositories\WinterObjectRepository.cs" />
@@ -267,6 +278,9 @@
     </Compile>
     <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceService.cs" />
     <Compile Include="Controls\XnaControls\Shared\ServiceContainer.cs" />
+    <EmbeddedResource Include="Controls\ControlHelpers\HakpakBuilder.resx">
+      <DependentUpon>HakpakBuilder.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ControlHelpers\NewModuleEntry.resx">
       <DependentUpon>NewModuleEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -331,10 +345,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="DataLayer\Database\WinterDatabaseModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>WinterDatabaseModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -345,20 +355,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="WinterEngine.Toolset_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContentLibrary\WinterEngine.Content.Library.csproj">
       <Project>{5A451205-2CE5-4B5A-A92F-3806523CD8A7}</Project>
       <Name>WinterEngine.Content.Library</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="x64\SQLite.Interop.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\SQLite.Interop.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -392,6 +395,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.Toolset.DataLayer.Database;
+using WinterEngine.Toolset.DataLayer.Contexts;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using WinterEngine.Toolset.Enumerations;
-using AutoMapper;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Helpers;
 
@@ -21,9 +20,9 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// Returns all resource categories from the database.
         /// </summary>
         /// <returns></returns>
-        public List<ResourceCategoryDTO> GetAllResourceCategories()
+        public List<ResourceCategory> GetAllResourceCategories()
         {
-            List<ResourceCategoryDTO> _resourceCategoryList = new List<ResourceCategoryDTO>();
+            List<ResourceCategory> _resourceCategoryList = new List<ResourceCategory>();
 
             try
             {
@@ -32,7 +31,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     var query = from resourceCategory
                                 in context.ResourceCategories
                                 select resourceCategory;
-                    _resourceCategoryList = Mapper.Map(query.ToList<ResourceCategory>(), _resourceCategoryList);
+                    _resourceCategoryList = query.ToList();
                 }
             }
             catch (Exception ex)
@@ -50,9 +49,9 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// <param name="resourceCategoryID"></param>
         /// <param name="resourceTypeID"></param>
         /// <returns></returns>
-        public ResourceCategoryDTO GetResourceCategoryByID(int resourceCategoryID, int resourceTypeID)
+        public ResourceCategory GetResourceCategoryByID(int resourceCategoryID, int resourceTypeID)
         {
-            ResourceCategoryDTO retResourceCategoryDTO = new ResourceCategoryDTO();
+            ResourceCategory retResourceCategoryDTO = new ResourceCategory();
 
             try
             {
@@ -63,8 +62,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                                 where resourceCategory.ResourceCategoryID.Equals(resourceCategoryID) && 
                                       resourceCategory.ResourceTypeID.Equals(resourceTypeID)
                                 select resourceCategory;
-                    List<ResourceCategory> resultResourceCategories = query.ToList<ResourceCategory>();
-                    retResourceCategoryDTO = Mapper.Map(resultResourceCategories[0], retResourceCategoryDTO);
+                    retResourceCategoryDTO = query.ToList()[0];
                 }
             }
             catch (Exception ex)
@@ -75,9 +73,9 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             return retResourceCategoryDTO;
         }
 
-        public List<ResourceCategoryDTO> GetAllResourceCategoriesByResourceType(ResourceTypeEnum resourceType)
+        public List<ResourceCategory> GetAllResourceCategoriesByResourceType(ResourceTypeEnum resourceType)
         {
-            List<ResourceCategoryDTO> categoryList = new List<ResourceCategoryDTO>();
+            List<ResourceCategory> categoryList = new List<ResourceCategory>();
 
             try
             {
@@ -88,8 +86,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                                 where resourceCategory.ResourceTypeID.Equals((int)resourceType)
                                 select resourceCategory;
 
-                    List<ResourceCategory> resultResourceCategories = query.ToList<ResourceCategory>();
-                    categoryList = Mapper.Map(resultResourceCategories, categoryList);
+                    categoryList = query.ToList<ResourceCategory>();
 
                 }
             }
@@ -106,7 +103,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         /// <param name="resourceCategory"></param>
         /// <returns></returns>
-        public bool AddResourceCategory(ResourceCategoryDTO resourceCategory)
+        public bool AddResourceCategory(ResourceCategory resourceCategory)
         {
             bool success = true;
             try
@@ -114,8 +111,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 using (WinterContext context = new WinterContext())
                 {
                     ResourceCategory category = new ResourceCategory();
-                    category = Mapper.Map(resourceCategory, category);
-                    context.AddToResourceCategories(category);
+                    context.ResourceCategories.Add(category);
                     context.SaveChanges();
                 }
             }
@@ -133,7 +129,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         /// <param name="resourceCategory"></param>
         /// <returns></returns>
-        public bool UpdateResourceCategory(ResourceCategoryDTO resourceCategory)
+        public bool UpdateResourceCategory(ResourceCategory resourceCategory)
         {
             bool success = true;
 
@@ -148,7 +144,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     if (!Object.ReferenceEquals(dbResource, null))
                     {
                         // Map the DTO to the database object, replacing the existing object. Then save changes.
-                        dbResource = Mapper.Map(resourceCategory, dbResource);
+                        dbResource = resourceCategory;
                         context.SaveChanges();
                     }
                 }
@@ -167,7 +163,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         /// <param name="resourceCategory"></param>
         /// <returns></returns>
-        public bool DeleteResourceCategory(ResourceCategoryDTO resourceCategory)
+        public bool DeleteResourceCategory(ResourceCategory resourceCategory)
         {
             bool success = true;
 
@@ -177,7 +173,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 { 
                     // Find the category in the database. CategoryID is a primary key so there will only ever be one.
                     ResourceCategory category = context.ResourceCategories.FirstOrDefault(val => val.ResourceCategoryID == resourceCategory.ResourceCategoryID);
-                    context.DeleteObject(category);
+                    context.ResourceCategories.Remove(category);
 
                     context.SaveChanges();
                 }

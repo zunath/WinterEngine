@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.Toolset.DataLayer.Database;
+using WinterEngine.Toolset.DataLayer.Contexts;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
 using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.Enumerations;
-using AutoMapper;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 
 namespace WinterEngine.Toolset.Factories
@@ -21,20 +20,20 @@ namespace WinterEngine.Toolset.Factories
         /// </summary>
         /// <param name="resourceType"></param>
         /// <returns></returns>
-        public WinterObjectDTO CreateObject(ResourceTypeEnum resourceType)
+        public WinterObject CreateObject(ResourceTypeEnum resourceType)
         {
             switch (resourceType)
             {
                 case ResourceTypeEnum.Area:
-                    return new AreaDTO();
+                    return new Area();
                 case ResourceTypeEnum.Conversation:
                     return null;
                 case ResourceTypeEnum.Creature:
-                    return new CreatureDTO();
+                    return new Creature();
                 case ResourceTypeEnum.Item:
-                    return new ItemDTO();
+                    return new Item();
                 case ResourceTypeEnum.Placeable:
-                    return new PlaceableDTO();
+                    return new Placeable();
                 case ResourceTypeEnum.Script:
                     return null;
                 default:

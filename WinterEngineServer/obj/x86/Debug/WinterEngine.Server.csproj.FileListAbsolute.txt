@@ -11,3 +11,15 @@ C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineSe
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngine.Server.csproj.GenerateResource.Cache
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.exe
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.pdb
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\bin\Debug\WinterEngineServer.exe.config
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\bin\Debug\WinterEngineServer.exe
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\bin\Debug\WinterEngineServer.pdb
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\bin\Debug\EntityFramework.dll
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\bin\Debug\System.Data.SqlServerCe.dll
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\bin\Debug\EntityFramework.xml
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\obj\x86\Debug\WinterEngineServer.Properties.Resources.resources
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\obj\x86\Debug\WinterEngineServer.exe
+C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineServer\obj\x86\Debug\WinterEngineServer.pdb

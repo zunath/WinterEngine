@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using AutoMapper;
-using WinterEngine.Toolset.DataLayer.Database;
+using WinterEngine.Toolset.DataLayer.Contexts;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
 using WinterEngine.Toolset.Enumerations;
@@ -21,7 +20,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// Returns all objects from the database for a particular resource type.
         /// </summary>
         /// <returns></returns>
-        public List<WinterObjectDTO> GetAllObjects(ResourceTypeEnum resourceType)
+        public List<WinterObject> GetAllObjects(ResourceTypeEnum resourceType)
         {
             try
             {
@@ -30,12 +29,12 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     // Retrieve areas
                     if (resourceType == ResourceTypeEnum.Area)
                     {
-                        List<AreaDTO> _objectList = new List<AreaDTO>();
+                        List<Area> _objectList = new List<Area>();
                         var query = from area
                                     in context.Areas
                                     select area;
-                        _objectList = Mapper.Map(query.ToList<Area>(), _objectList);
-                        return _objectList.ConvertAll(x => (WinterObjectDTO)x);
+                        _objectList = query.ToList<Area>();
+                        return _objectList.ConvertAll(x => (WinterObject)x);
                     }
 
                     // Retrieve conversations
@@ -47,34 +46,34 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     // Retrieve creatures
                     else if (resourceType == ResourceTypeEnum.Creature)
                     {
-                        List<CreatureDTO> _objectList = new List<CreatureDTO>();
+                        List<Creature> _objectList = new List<Creature>();
                         var query = from creature
                                     in context.Creatures
                                     select creature;
-                        _objectList = Mapper.Map(query.ToList<Creature>(), _objectList);
-                        return _objectList.ConvertAll(x => (WinterObjectDTO)x);
+                        _objectList = query.ToList<Creature>();
+                        return _objectList.ConvertAll(x => (WinterObject)x);
                     }
 
                     // Retrieve items
                     else if (resourceType == ResourceTypeEnum.Item)
                     {
-                        List<ItemDTO> _objectList = new List<ItemDTO>();
+                        List<Item> _objectList = new List<Item>();
                         var query = from item
                                     in context.Items
                                     select item;
-                        _objectList = Mapper.Map(query.ToList<Item>(), _objectList);
-                        return _objectList.ConvertAll(x => (WinterObjectDTO)x);
+                        _objectList = query.ToList<Item>();
+                        return _objectList.ConvertAll(x => (WinterObject)x);
                     }
 
                     // Retrieve placeables
                     else if (resourceType == ResourceTypeEnum.Placeable)
                     {
-                        List<PlaceableDTO> _objectList = new List<PlaceableDTO>();
+                        List<Placeable> _objectList = new List<Placeable>();
                         var query = from placeable
                                     in context.Placeables
                                     select placeable;
-                        _objectList = Mapper.Map(query.ToList<Placeable>(), _objectList);
-                        return _objectList.ConvertAll(x => (WinterObjectDTO)x);
+                        _objectList = query.ToList<Placeable>();
+                        return _objectList.ConvertAll(x => (WinterObject)x);
                     }
 
                     // Retrieve scripts
@@ -97,7 +96,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         /// <param name="resourceCategory"></param>
         /// <returns></returns>
-        public List<WinterObjectDTO> GetAllObjectsByResourceCategory(ResourceTypeEnum resourceType, ResourceCategoryDTO resourceCategory)
+        public List<WinterObject> GetAllObjectsByResourceCategory(ResourceTypeEnum resourceType, ResourceCategory resourceCategory)
         {
             try
             {
@@ -107,13 +106,13 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     if (resourceType == ResourceTypeEnum.Area)
                     {
 
-                        List<AreaDTO> _areaList = new List<AreaDTO>();
+                        List<Area> _areaList = new List<Area>();
                         var query = from area
                                     in context.Areas
                                     where area.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID)
                                     select area;
-                        _areaList = Mapper.Map(query.ToList<Area>(), _areaList);
-                        return _areaList.ConvertAll(x => (WinterObjectDTO)x);
+                        _areaList = query.ToList<Area>();
+                        return _areaList.ConvertAll(x => (WinterObject)x);
                     }
                     // Retrieve conversations
                     else if (resourceType == ResourceTypeEnum.Conversation)
@@ -123,37 +122,37 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     // Retrieve creatures
                     else if (resourceType == ResourceTypeEnum.Creature)
                     {
-                        List<CreatureDTO> _creatureList = new List<CreatureDTO>();
+                        List<Creature> _creatureList = new List<Creature>();
                         var query = from creature
                                     in context.Creatures
                                     where creature.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID)
                                     select creature;
-                        _creatureList = Mapper.Map(query.ToList<Creature>(), _creatureList);
-                        return _creatureList.ConvertAll(x => (WinterObjectDTO)x);
+                        _creatureList = query.ToList<Creature>();
+                        return _creatureList.ConvertAll(x => (WinterObject)x);
                     }
 
                     // Retrieve items
                     else if (resourceType == ResourceTypeEnum.Item)
                     {
-                        List<ItemDTO> _objectList = new List<ItemDTO>();
+                        List<Item> _objectList = new List<Item>();
                         var query = from item
                                     in context.Items
                                     where item.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID)
                                     select item;
-                        _objectList = Mapper.Map(query.ToList<Item>(), _objectList);
-                        return _objectList.ConvertAll(x => (WinterObjectDTO)x);
+                        _objectList = query.ToList<Item>();
+                        return _objectList.ConvertAll(x => (WinterObject)x);
                     }
 
                     // Retrieve placeables
                     else if (resourceType == ResourceTypeEnum.Placeable)
                     {
-                        List<PlaceableDTO> _objectList = new List<PlaceableDTO>();
+                        List<Placeable> _objectList = new List<Placeable>();
                         var query = from placeable
                                     in context.Placeables
                                     where placeable.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID)
                                     select placeable;
-                        _objectList = Mapper.Map(query.ToList<Placeable>(), _objectList);
-                        return _objectList.ConvertAll(x => (WinterObjectDTO)x);
+                        _objectList = query.ToList<Placeable>();
+                        return _objectList.ConvertAll(x => (WinterObject)x);
                     }
 
                     // Retrieve scripts
@@ -175,7 +174,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         /// <param name="resref"></param>
         /// <returns></returns>
-        public WinterObjectDTO GetObjectByResref(ResourceTypeEnum resourceType, string resref)
+        public WinterObject GetObjectByResref(ResourceTypeEnum resourceType, string resref)
         {
             try
             {
@@ -185,13 +184,12 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     // Retrieve areas
                     if (resourceType == ResourceTypeEnum.Area)
                     {
-                        AreaDTO retArea = new AreaDTO();
+                        Area retArea = new Area();
                         var query = from area
                                     in context.Areas
                                     where area.Resref.Equals(resref) // Must match the resref - primary key in database
                                     select area;
-                        List<Area> resultAreas = query.ToList<Area>();
-                        return Mapper.Map(resultAreas[0], retArea);
+                        return query.ToList<Area>()[0];
                     }
                     // Retrieve conversations
                     else if (resourceType == ResourceTypeEnum.Conversation)
@@ -201,37 +199,34 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     // Retrieve creatures
                     else if (resourceType == ResourceTypeEnum.Creature)
                     {
-                        CreatureDTO retCreature = new CreatureDTO();
+                        Creature retCreature = new Creature();
                         var query = from creature
                                     in context.Creatures
                                     where creature.Resref.Equals(resref) // Must match the resref - primary key in database
                                     select creature;
-                        List<Creature> resultCreatures = query.ToList<Creature>();
-                        return Mapper.Map(resultCreatures[0], retCreature);
+                        return query.ToList<Creature>()[0];
                     }
 
                     // Retrieve items
                     else if (resourceType == ResourceTypeEnum.Item)
                     {
-                        ItemDTO retItem = new ItemDTO();
+                        Item retItem = new Item();
                         var query = from item
                                     in context.Items
                                     where item.Resref.Equals(resref) // Must match the resref - primary key in database
                                     select item;
-                        List<Item> resultItems = query.ToList<Item>();
-                        return Mapper.Map(resultItems[0], retItem);
+                        return query.ToList<Item>()[0];
                     }
 
                     // Retrieve placeables
                     else if (resourceType == ResourceTypeEnum.Placeable)
                     {
-                        PlaceableDTO retPlaceable = new PlaceableDTO();
+                        Placeable retPlaceable = new Placeable();
                         var query = from placeable
                                     in context.Placeables
                                     where placeable.Resref.Equals(resref) // Must match the resref - primary key in database
                                     select placeable;
-                        List<Placeable> resultPlaceables = query.ToList<Placeable>();
-                        return Mapper.Map(resultPlaceables[0], retPlaceable);
+                        return query.ToList<Placeable>()[0];
                     }
 
                     // Retrieve scripts
@@ -253,15 +248,15 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         /// <param name="resourceType"></param>
         /// <param name="resourceCategory"></param>
-        public void RemoveAllObjectsInCategory(ResourceTypeEnum resourceType, ResourceCategoryDTO resourceCategory)
+        public void RemoveAllObjectsInCategory(ResourceTypeEnum resourceType, ResourceCategory resourceCategory)
         {
             try
             {
                 using (WinterContext context = new WinterContext())
                 {
-                    List<WinterObjectDTO> objectList = GetAllObjectsByResourceCategory(resourceType, resourceCategory);
+                    List<WinterObject> objectList = GetAllObjectsByResourceCategory(resourceType, resourceCategory);
 
-                    foreach (WinterObjectDTO currentObject in objectList)
+                    foreach (WinterObject currentObject in objectList)
                     {
                         RemoveObject(resourceType, currentObject.Resref);
                     }
@@ -285,14 +280,13 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
 
                 using (WinterContext context = new WinterContext())
                 {
-                    WinterObjectDTO obj = GetObjectByResref(resourceType, resref);
+                    WinterObject obj = GetObjectByResref(resourceType, resref);
 
                     if (resourceType == ResourceTypeEnum.Area)
                     {
                         Area area = new Area();
-                        Mapper.Map(obj as AreaDTO, area);
                         area = context.Areas.First(a => a.Resref == resref);
-                        context.DeleteObject(area);
+                        context.Areas.Remove(area);
                     }
                     else if (resourceType == ResourceTypeEnum.Conversation)
                     {
@@ -301,23 +295,20 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     else if (resourceType == ResourceTypeEnum.Creature)
                     {
                         Creature creature = new Creature();
-                        Mapper.Map(obj as CreatureDTO, creature);
                         creature = context.Creatures.First(c => c.Resref == resref);
-                        context.DeleteObject(creature);
+                        context.Creatures.Remove(creature);
                     }
                     else if (resourceType == ResourceTypeEnum.Item)
                     {
                         Item item = new Item();
-                        Mapper.Map(obj as ItemDTO, item);
                         item = context.Items.First(i => i.Resref == resref);
-                        context.DeleteObject(item);
+                        context.Items.Remove(item);
                     }
                     else if (resourceType == ResourceTypeEnum.Placeable)
                     {
                         Placeable placeable = new Placeable();
-                        Mapper.Map(obj as PlaceableDTO, placeable);
                         placeable = context.Placeables.First(r => r.Resref == resref);
-                        context.DeleteObject(placeable);
+                        context.Placeables.Remove(placeable);
                     }
                     else if (resourceType == ResourceTypeEnum.Script)
                     {
@@ -352,7 +343,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                             area.Tag = tag;
                             area.Resref = resref;
                             area.ResourceCategoryID = categoryID;
-                            context.AddToAreas(area);
+                            context.Areas.Add(area);
                             context.SaveChanges();
                             break;
                         }
@@ -369,7 +360,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                             creature.Tag = tag;
                             creature.Resref = resref;
                             creature.ResourceCategoryID = categoryID;
-                            context.AddToCreatures(creature);
+                            context.Creatures.Add(creature);
                             context.SaveChanges();
                             break;
                         }
@@ -381,7 +372,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                             item.Tag = tag;
                             item.Resref = resref;
                             item.ResourceCategoryID = categoryID;
-                            context.AddToItems(item);
+                            context.Items.Add(item);
                             context.SaveChanges();
                             break;
                         }
@@ -393,7 +384,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                             placeable.Tag = tag;
                             placeable.Resref = resref;
                             placeable.ResourceCategoryID = categoryID;
-                            context.AddToPlaceables(placeable);
+                            context.Placeables.Add(placeable);
                             context.SaveChanges();
                             break;
                         }

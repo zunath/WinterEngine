@@ -13,7 +13,7 @@ namespace WinterEngine.Toolset.Controls.GenericControls
 {
     public partial class TagTextBox : UserControl
     {
-        public string Text
+        public string TagText
         {
             get { return textBoxTag.Text; }
         }

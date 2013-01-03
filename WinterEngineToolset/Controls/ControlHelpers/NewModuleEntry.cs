@@ -40,8 +40,8 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         {
             errorProvider.Clear();
 
-            string nameText = nameTextBoxEntry.Text;
-            string tagText = tagTextBoxEntry.Text;
+            string nameText = nameTextBoxEntry.NameText;
+            string tagText = tagTextBoxEntry.TagText;
             Regex tagRegex = new Regex("^[a-zA-Z0-9_]*$");
             bool succeed = true;
 
@@ -82,7 +82,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                     // Create the database file and build tables.
                     using (ModuleRepository repo = new ModuleRepository())
                     {
-                        repo.CreateNewDatabase(eventArgs.TemporaryPathDirectory);
+                        repo.CreateNewDatabase(eventArgs.TemporaryPathDirectory, "TempDB");
                     }
 
                     // Pass the temporary directory's path via event.

@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.SQLite;
 using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.GUI.Views;
 using DejaVu;
@@ -23,7 +22,9 @@ namespace WinterEngine.Toolset
         #region Fields
 
         private string _temporaryDirectory;
-        
+        private HakpakBuilder hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
+
+
         #endregion
 
         #region Properties
@@ -47,7 +48,6 @@ namespace WinterEngine.Toolset
 
         public MainForm()
         {
-            CustomMappings.Initialize();
             InitializeComponent();
         }
         
@@ -122,6 +122,30 @@ namespace WinterEngine.Toolset
             this.TemporaryDirectory = e.TemporaryPathDirectory;
         }
 
+        /// <summary>
+        /// Opens the Hakpak Builder form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemHakpakBuilder_Click(object sender, EventArgs e)
+        {
+            bool isNull = Object.ReferenceEquals(hakpakBuilder, null);
+
+            // Not instantiated or has been disposed
+            if (isNull || hakpakBuilder.IsDisposed)
+            {
+                hakpakBuilder = new HakpakBuilder();
+                hakpakBuilder.Show();
+            }
+            // Window is already open. Focus on it.
+            else if (!isNull)
+            {
+                hakpakBuilder.Focus();
+            }
+        }
+
         #endregion
+
+
     }
 }

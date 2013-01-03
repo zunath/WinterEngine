@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.Toolset.DataLayer.Database;
+using WinterEngine.Toolset.DataLayer.Contexts;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
-using AutoMapper;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Helpers;
 
@@ -16,9 +15,9 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// </summary>
     public class ResourceTypeRepository : IDisposable
     {
-        public List<ResourceTypeDTO> GetAllResourceTypes()
+        public List<ResourceType> GetAllResourceTypes()
         {
-            List<ResourceTypeDTO> _resourceTypeList = new List<ResourceTypeDTO>();
+            List<ResourceType> _resourceTypeList = new List<ResourceType>();
 
             try
             {
@@ -27,7 +26,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                     var query = from resourceType
                                 in context.ResourceTypes
                                 select resourceType;
-                    _resourceTypeList = Mapper.Map(query.ToList<ResourceType>(), _resourceTypeList);
+                    _resourceTypeList = query.ToList<ResourceType>();
                 }
             }
             catch (Exception ex)

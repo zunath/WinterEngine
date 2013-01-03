@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.Controls.GenericControls
     public partial class ResrefTextBox : UserControl
     {
 
-        public string Text
+        public string ResrefText
         {
             get { return textBoxResref.Text; }
         }

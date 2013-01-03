@@ -16,7 +16,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         #region Fields
         
         private ResourceTypeEnum _resourceType;
-        private ResourceCategoryDTO _resourceCategory;
+        private ResourceCategory _resourceCategory;
         
         #endregion
 
@@ -28,7 +28,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             set { _resourceType = value; }
         }
 
-        public ResourceCategoryDTO ResourceCategory
+        public ResourceCategory ResourceCategory
         {
             get { return _resourceCategory; }
             set { _resourceCategory = value; }
@@ -36,7 +36,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         #endregion
 
         #region Constructors
-        public NewObjectEntry(ResourceTypeEnum resourceType, ResourceCategoryDTO resourceCategory)
+        public NewObjectEntry(ResourceTypeEnum resourceType, ResourceCategory resourceCategory)
         {
             InitializeComponent();
             this.ResourceType = resourceType;
@@ -55,9 +55,9 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         {
             errorProvider.Clear();
 
-            string nameText = nameTextBoxEntry.Text;
-            string tagText = tagTextBoxEntry.Text;
-            string resrefText = resrefTextBoxEntry.Text;
+            string nameText = nameTextBoxEntry.NameText;
+            string tagText = tagTextBoxEntry.TagText;
+            string resrefText = resrefTextBoxEntry.ResrefText;
             Regex tagRegex = new Regex("^[a-zA-Z0-9_]*$");
             Regex resrefRegex = new Regex("^[a-zA-Z0-9_]*$");
             bool succeed = true;
@@ -115,7 +115,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
 
                     using (WinterObjectRepository repo = new WinterObjectRepository())
                     {
-                        repo.AddObject(_resourceType, ResourceCategory.ResourceCategoryID, nameTextBoxEntry.Text, tagTextBoxEntry.Text, resrefTextBoxEntry.Text);
+                        repo.AddObject(_resourceType, ResourceCategory.ResourceCategoryID, nameTextBoxEntry.NameText, tagTextBoxEntry.TagText, resrefTextBoxEntry.ResrefText);
                     }
                     UndoRedoManager.Commit();
                     RefreshParentGUI(null, null);
