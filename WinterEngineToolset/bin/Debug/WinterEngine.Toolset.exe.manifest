@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1">
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
   <asmv1:assemblyIdentity name="WinterEngine.Toolset.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
   <application />
   <entryPoint>
@@ -99,7 +99,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Ory86SnUaQrVMcQApNjeUgkcoss=</dsig:DigestValue>
+        <dsig:DigestValue>L3ZPI+lpy0Ex5vWhoTZTHnJ8xwk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -164,26 +164,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.HakpakBuilder.exe" size="18432">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.HakpakBuilder.exe" size="19456">
       <assemblyIdentity name="WinterEngine.HakpakBuilder" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>np1k0VWWB0INmOiG12bqgPNZn54=</dsig:DigestValue>
+        <dsig:DigestValue>wXTe8e37OWTfnwORqjryHoe6TJ4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Library.dll" size="12288">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Library.dll" size="12800">
       <assemblyIdentity name="WinterEngine.Library" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>zZ2kcfgbFKAGRfA3IWpl9wHH4qQ=</dsig:DigestValue>
+        <dsig:DigestValue>szqp7dGP/bqPf2bhj+Fp+iJiZRA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -195,17 +195,17 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>6sHlVMuAZDUlW/1DhXRP8GySKlo=</dsig:DigestValue>
+        <dsig:DigestValue>aJpLc/E8bjT60GlSHaR9kUKRDVg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="WinterEngine.Toolset.exe.config" size="605">
+  <file name="WinterEngine.Toolset.exe.config" size="614">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>0LaY351yo0fhVhv2Ox22+0ReDkw=</dsig:DigestValue>
+      <dsig:DigestValue>G0tzDcD8/YYAXYYDTHVUMbd5xHA=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

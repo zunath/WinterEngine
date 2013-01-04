@@ -53,9 +53,14 @@ namespace WinterEngine.Hakpak.Builder
             FileExtensionFactory extensions = new FileExtensionFactory();
             string modelFileExtension = extensions.GetFileExtension(FileType.Model);
             string textureFileExtension = extensions.GetFileExtension(FileType.Texture);
+            string soundFileExtension = extensions.GetFileExtension(FileType.Sound);
+            string musicFileExtension = extensions.GetFileExtension(FileType.Music);
 
-            openFileDialogBuilder.Filter = "Model Files (*" + modelFileExtension + ")|*" + modelFileExtension + "|" + 
-                                    "Texture Files (*" + textureFileExtension + ")|*" + textureFileExtension;
+            openFileDialogBuilder.Filter = "All Available Types|*" + textureFileExtension + ";*" + modelFileExtension + ";*" + soundFileExtension + "|" +
+                                      "Texture Files|*" + textureFileExtension + "|" +
+                                      "Model Files|*" + modelFileExtension + "|" +
+                                      "Audio Files|*" + soundFileExtension;
+
             openFileDialogBuilder.ShowDialog();
 
             // At least one file was selected
@@ -157,8 +162,22 @@ namespace WinterEngine.Hakpak.Builder
             // Add each file in the list to the builder
             foreach (string file in listBoxResources.Items)
             {
-                // Take the file's base name and remove the extension. When building gets done, the .xnb extension will be applied
-                builder.Add(file, Path.GetFileNameWithoutExtension(new DirectoryInfo(file).Name), null, null);
+                DirectoryInfo dirInfo = new DirectoryInfo(file);
+                string fileNameNoExtension = Path.GetFileNameWithoutExtension(dirInfo.Name);
+                string extension = Path.GetExtension(file);
+                string processorType = GetProcessorType(extension);
+
+                // Only add to the builder if a processor type is found for the material.
+                if (!String.IsNullOrEmpty(processorType))
+                {
+                    // Take the file's base name and remove the extension. When building gets done, the .xnb extension will be applied
+                    builder.Add(file, fileNameNoExtension, "Mp3Importer", "SongProcessor");
+                }
+                // If no processor type was found, alert the user
+                else
+                {
+                    MessageBox.Show("Error: Invalid file type\n\n" + file, "Error Building", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             backgroundWorkerProcess.ReportProgress(30);
@@ -241,6 +260,41 @@ namespace WinterEngine.Hakpak.Builder
         private void toolStripMenuItemBuild_Click(object sender, EventArgs e)
         {
             buttonBuild.PerformClick();
+        }
+
+        /// <summary>
+        /// Returns the string used by the content builder to determine the type of processing
+        /// it needs to perform.
+        /// </summary>
+        /// <param name="fileType"></param>
+        /// <returns></returns>
+        private string GetProcessorType(string fileExtension)
+        {
+            FileExtensionFactory factory = new FileExtensionFactory();
+            FileType fileType = factory.GetFileType(fileExtension);
+            string processorType = "NONE";
+
+
+            switch (fileType)
+            {
+                case FileType.Music:
+                    processorType = "SongContent";
+                    break;
+                case FileType.Sound:
+                    processorType = "SoundEffectProcessor";
+                    break;
+                case FileType.Model:
+                    processorType = "ModelProcessor";
+                    break;
+                case FileType.Texture:
+                    processorType = "TextureProcessor";
+                    break;
+                default:
+                    processorType = null;
+                    break;
+            }
+
+            return processorType;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)

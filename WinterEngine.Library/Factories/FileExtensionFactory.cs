@@ -42,8 +42,50 @@ namespace WinterEngine.Library.Factories
                 // Uncompiled hakpak files
                 case FileType.UncompiledHakpak:
                     return ".wuch";
+                // Music files
+                case FileType.Music:
+                    return ".mp3";
+                // Sound files
+                case FileType.Sound:
+                    return ".wav";
                 default:
                     return "";
+            }
+        }
+
+        public FileType GetFileType(string fileExtension)
+        {
+            switch (fileExtension)
+            {
+                case ".whak":
+                    return FileType.Hakpak;
+                case ".wmod":
+                    return FileType.Module;
+                case ".werf":
+                    return FileType.Erf;
+                // Contains the engine's built-in models, textures, etc
+                case ".wrsc":
+                    return FileType.WinterResource;
+                // Model graphics
+                case ".fbx":
+                    return FileType.Model;
+                // Texture graphics
+                case ".tga":
+                    return FileType.Texture;
+                // XNA compiled files
+                case ".xnb":
+                    return FileType.XNACompiledFile;
+                // Uncompiled hakpak files
+                case ".wuch":
+                    return FileType.UncompiledHakpak;
+                // Music files
+                case ".mp3":
+                    return FileType.Music;
+                // Sound files
+                case ".wav":
+                    return FileType.Sound;
+                default:
+                    return FileType.Invalid;
             }
         }
     }

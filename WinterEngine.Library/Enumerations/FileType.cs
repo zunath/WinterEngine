@@ -7,6 +7,7 @@ namespace WinterEngine.Library.Enumerations
 {
     public enum FileType
     {
+        Invalid = 0,          // Invalid file type
         Module = 1,           // .wmod - Contains database file(s)
         Hakpak = 2,           // .whak - Contains end-user's custom models, textures, etc
         Erf = 3,              // .werf - Contains data for individual objects that may be imported to other modules
@@ -14,6 +15,8 @@ namespace WinterEngine.Library.Enumerations
         Model = 5,            // .fbx  - Model files
         Texture = 6,          // .tga  - Texture files
         XNACompiledFile = 7,  // .xnb  - XNA framework's compiled resource files
-        UncompiledHakpak = 8  // .wuch - Uncompiled hakpak. Used by the hakpak editor and contains uncompiled resources
+        UncompiledHakpak = 8, // .wuch - Uncompiled hakpak. Used by the hakpak editor and contains uncompiled resources
+        Music = 9,            // .mp3  - Music files
+        Sound = 10            // .wav  - Sound files
     }
 }
