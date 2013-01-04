@@ -39,6 +39,9 @@ namespace WinterEngine.Library.Factories
                 // XNA compiled files
                 case FileType.XNACompiledFile:
                     return ".xnb";
+                // Uncompiled hakpak files
+                case FileType.UncompiledHakpak:
+                    return ".wuch";
                 default:
                     return "";
             }
