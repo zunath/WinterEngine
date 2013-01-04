@@ -7,7 +7,7 @@ using Ionic.Zlib;
 using System.IO;
 using WinterEngine.Toolset.DataLayer.Contexts;
 using WinterEngine.Library.Enumerations;
-using WinterEngine.Library.Helpers;
+using WinterEngine.Library.Factories;
 
 namespace WinterEngine.Toolset.Helpers
 {
@@ -34,9 +34,9 @@ namespace WinterEngine.Toolset.Helpers
         /// <param name="fileType">The type of file to create.</param>
         private bool CreateFileFromDirectory(string inputDirectory, string outputDirectory, string fileName, FileType fileType, CompressionLevel compressionLevel)
         {
-            WinterFileExtensions winterExtensions = new WinterFileExtensions();
+            FileExtensionFactory winterExtensions = new FileExtensionFactory();
             bool success = true;
-            string filePath = outputDirectory + "\\" + fileName + winterExtensions.getFileExtension(fileType);
+            string filePath = outputDirectory + "\\" + fileName + winterExtensions.GetFileExtension(fileType);
 
             try
             {
@@ -103,9 +103,9 @@ namespace WinterEngine.Toolset.Helpers
         /// <param name="additionalFiles">List of file paths, including file extensions, to add to the module.</param>
         public bool CreateModule(string databaseFilePath, string outputDirectory, string fileName, IEnumerable<string> additionalFiles = null)
         {
-            WinterFileExtensions winterExtensions = new WinterFileExtensions();
+            FileExtensionFactory winterExtensions = new FileExtensionFactory();
             bool success = true;
-            string filePath = outputDirectory + "\\" + fileName + "." + winterExtensions.getFileExtension(FileType.Module);
+            string filePath = outputDirectory + "\\" + fileName + "." + winterExtensions.GetFileExtension(FileType.Module);
             try
             {
                 using (ZipFile file = new ZipFile(filePath))

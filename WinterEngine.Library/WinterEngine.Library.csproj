@@ -34,6 +34,8 @@
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,11 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentBuilder.cs" />
     <Compile Include="Enumerations\FileType.cs" />
     <Compile Include="Enumerations\ResourceTypeEnum.cs" />
+    <Compile Include="ErrorLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\TextHelper.cs" />
-    <Compile Include="Helpers\WinterFileExtensions.cs" />
+    <Compile Include="Factories\FileExtensionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

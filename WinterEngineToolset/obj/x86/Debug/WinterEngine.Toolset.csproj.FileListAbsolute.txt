@@ -37,46 +37,6 @@ C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineToolset\obj\x86\Debug\Win
 C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
 C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb
 C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.HakpakBuilder.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.NewModuleEntry.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.InputMessageBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.NewObjectEntry.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.AreaViewControl.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.CreatureViewControl.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.ItemViewControl.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.GenericControls.NameTextBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.GenericControls.TagTextBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.PlaceableViewControl.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.TreeCategoryControl.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.XnaControls.ObjectViewer3D.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.AreaView.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.MainForm.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Properties.Resources.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.CreatureView.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.PlaceableView.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.ItemView.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\GenerateResource.read.1.tlog
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\GenerateResource.write.1.tlog
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.config
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.manifest
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.application
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.pdb
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\ContentLibrary.dll
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.dll
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.dll
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\System.Data.SqlServerCe.dll
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.HakpakBuilder.exe
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\ContentLibrary.pdb
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.HakpakBuilder.pdb
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.xml
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.xml
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe.manifest
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.application
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.config
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.manifest
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.application
@@ -118,3 +78,45 @@ C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.application
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.config
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.manifest
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.application
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.pdb
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\ContentLibrary.dll
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.dll
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.dll
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\System.Data.SqlServerCe.dll
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.HakpakBuilder.exe
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Library.dll
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\ContentLibrary.pdb
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.HakpakBuilder.pdb
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Library.pdb
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.xml
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.xml
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.NewModuleEntry.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.InputMessageBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.NewObjectEntry.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.AreaViewControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.CreatureViewControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.ItemViewControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.GenericControls.NameTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.GenericControls.TagTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.PlaceableViewControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.TreeCategoryControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.XnaControls.ObjectViewer3D.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.AreaView.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.MainForm.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Properties.Resources.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.CreatureView.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.PlaceableView.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.ItemView.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe.manifest
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.application
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb

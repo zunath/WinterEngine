@@ -18,7 +18,7 @@ using Microsoft.Build.Execution;
 using Microsoft.Build.Framework;
 #endregion
 
-namespace WinterEngine.Toolset.Controls.XnaControls.Shared
+namespace WinterEngine.Library
 {
     /// <summary>
     /// This class wraps the MSBuild functionality needed to build XNA Framework
@@ -28,10 +28,9 @@ namespace WinterEngine.Toolset.Controls.XnaControls.Shared
     /// in a temporary directory. After the build finishes, you can use a regular
     /// ContentManager to load these temporary .xnb files in the usual way.
     /// </summary>
-    class ContentBuilder : IDisposable
+    public class ContentBuilder : IDisposable
     {
         #region Fields
-
 
         // What importers or processors should we load?
         const string xnaVersion = ", Version=4.0.0.0, PublicKeyToken=842cf8be1de50553";

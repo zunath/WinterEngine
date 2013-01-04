@@ -1,4 +1,6 @@
-﻿namespace WinterEngine.Toolset.GUI.Views
+﻿using WinterEngine.Library;
+
+namespace WinterEngine.Toolset.GUI.Views
 {
     partial class AreaView
     {

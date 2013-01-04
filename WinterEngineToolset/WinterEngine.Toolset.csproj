@@ -206,8 +206,6 @@
     <Compile Include="Controls\XnaControls\ObjectViewer3D.Designer.cs">
       <DependentUpon>ObjectViewer3D.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XnaControls\Shared\ContentBuilder.cs" />
-    <Compile Include="Controls\XnaControls\Shared\ErrorLogger.cs" />
     <Compile Include="Controls\XnaControls\Shared\ModelViewerControl.cs">
       <SubType>Component</SubType>
     </Compile>

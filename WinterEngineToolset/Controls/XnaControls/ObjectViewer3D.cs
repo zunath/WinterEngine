@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Net;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls.Shared;
 using System;
+using WinterEngine.Library;
 
 namespace WinterEngine.Toolset.Controls.XnaControls
 {
@@ -41,8 +42,7 @@ namespace WinterEngine.Toolset.Controls.XnaControls
             InitializeComponent();
             AddXNAViewerControl();
 
-            _contentBuilder = new ContentBuilder();
-            _contentManager = new ContentManager(_modelViewer.Services, _contentBuilder.OutputDirectory);
+            _contentManager = new ContentManager(_modelViewer.Services);
 
             this.Load += LoadContent;
         }

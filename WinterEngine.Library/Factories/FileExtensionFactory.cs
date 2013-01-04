@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using WinterEngine.Library.Enumerations;
 
-namespace WinterEngine.Library.Helpers
+namespace WinterEngine.Library.Factories
 {
-    public class WinterFileExtensions
+    public class FileExtensionFactory
     {
         /// <summary>
         /// Returns the extension for the specified file type, including the period.
@@ -14,7 +14,7 @@ namespace WinterEngine.Library.Helpers
         /// </summary>
         /// <param name="fileType">The type of file to retrieve an extension for.</param>
         /// <returns></returns>
-        public string getFileExtension(FileType fileType)
+        public string GetFileExtension(FileType fileType)
         {
             switch (fileType)
             {
@@ -36,6 +36,9 @@ namespace WinterEngine.Library.Helpers
                 // Texture graphics
                 case FileType.Texture:
                     return ".tga";
+                // XNA compiled files
+                case FileType.XNACompiledFile:
+                    return ".xnb";
                 default:
                     return "";
             }

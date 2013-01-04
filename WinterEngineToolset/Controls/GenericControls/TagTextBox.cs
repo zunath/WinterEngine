@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using WinterEngine.Toolset.Helpers;
-using WinterEngine.Library.Helpers;
+using WinterEngine.Library.Factories;
 
 namespace WinterEngine.Toolset.Controls.GenericControls
 {

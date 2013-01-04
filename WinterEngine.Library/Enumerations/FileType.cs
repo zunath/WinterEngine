@@ -12,6 +12,7 @@ namespace WinterEngine.Library.Enumerations
         Erf = 3,            // .werf - Contains data for individual objects that may be imported to other modules
         WinterResource = 4, // .wrsc - Contains models, textures, etc that are built in to the engine
         Model = 5,          // .fbx  - Model files
-        Texture = 6         // .tga  - Texture files
+        Texture = 6,        // .tga  - Texture files
+        XNACompiledFile = 7 // .xnb  - XNA framework's compiled resource files
     }
 }

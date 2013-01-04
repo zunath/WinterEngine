@@ -48,22 +48,27 @@
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelDescription = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
-            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonRemoveFiles = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonAddFiles = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.backgroundWorkerProcess = new System.ComponentModel.BackgroundWorker();
+            this.progressBarBuild = new System.Windows.Forms.ProgressBar();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBoxResources
             // 
+            this.listBoxResources.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxResources.FormattingEnabled = true;
             this.listBoxResources.Location = new System.Drawing.Point(12, 184);
             this.listBoxResources.Name = "listBoxResources";
             this.listBoxResources.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.listBoxResources.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxResources.Size = new System.Drawing.Size(255, 186);
+            this.listBoxResources.Size = new System.Drawing.Size(255, 199);
             this.listBoxResources.TabIndex = 0;
             // 
             // mainMenuStrip
@@ -166,7 +171,8 @@
             // 
             // buttonBuild
             // 
-            this.buttonBuild.Location = new System.Drawing.Point(192, 376);
+            this.buttonBuild.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBuild.Location = new System.Drawing.Point(192, 389);
             this.buttonBuild.Name = "buttonBuild";
             this.buttonBuild.Size = new System.Drawing.Size(75, 23);
             this.buttonBuild.TabIndex = 2;
@@ -185,6 +191,8 @@
             // 
             // textBoxName
             // 
+            this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxName.Location = new System.Drawing.Point(12, 53);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(255, 20);
@@ -201,21 +209,24 @@
             // 
             // textBoxDescription
             // 
+            this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDescription.Location = new System.Drawing.Point(12, 103);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(255, 49);
             this.textBoxDescription.TabIndex = 6;
             // 
-            // buttonSave
+            // buttonRemoveFiles
             // 
-            this.buttonSave.Location = new System.Drawing.Point(98, 376);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(88, 23);
-            this.buttonSave.TabIndex = 7;
-            this.buttonSave.Text = "Remove File(s)";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonRemoveFiles.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonRemoveFiles.Location = new System.Drawing.Point(98, 389);
+            this.buttonRemoveFiles.Name = "buttonRemoveFiles";
+            this.buttonRemoveFiles.Size = new System.Drawing.Size(88, 23);
+            this.buttonRemoveFiles.TabIndex = 7;
+            this.buttonRemoveFiles.Text = "Remove File(s)";
+            this.buttonRemoveFiles.UseVisualStyleBackColor = true;
+            this.buttonRemoveFiles.Click += new System.EventHandler(this.buttonRemoveFiles_Click);
             // 
             // label1
             // 
@@ -228,7 +239,8 @@
             // 
             // buttonAddFiles
             // 
-            this.buttonAddFiles.Location = new System.Drawing.Point(17, 376);
+            this.buttonAddFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAddFiles.Location = new System.Drawing.Point(17, 389);
             this.buttonAddFiles.Name = "buttonAddFiles";
             this.buttonAddFiles.Size = new System.Drawing.Size(75, 23);
             this.buttonAddFiles.TabIndex = 9;
@@ -238,16 +250,30 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.Multiselect = true;
+            // 
+            // backgroundWorkerProcess
+            // 
+            this.backgroundWorkerProcess.WorkerReportsProgress = true;
+            // 
+            // progressBarBuild
+            // 
+            this.progressBarBuild.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progressBarBuild.Location = new System.Drawing.Point(0, 422);
+            this.progressBarBuild.Name = "progressBarBuild";
+            this.progressBarBuild.Size = new System.Drawing.Size(279, 22);
+            this.progressBarBuild.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBarBuild.TabIndex = 10;
             // 
             // HakBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(279, 410);
+            this.ClientSize = new System.Drawing.Size(279, 444);
+            this.Controls.Add(this.progressBarBuild);
             this.Controls.Add(this.buttonAddFiles);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.buttonRemoveFiles);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.textBoxName);
@@ -255,9 +281,9 @@
             this.Controls.Add(this.buttonBuild);
             this.Controls.Add(this.listBoxResources);
             this.Controls.Add(this.mainMenuStrip);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.mainMenuStrip;
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(295, 482);
             this.Name = "HakBuilder";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -289,12 +315,14 @@
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.TextBox textBoxDescription;
-        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button buttonRemoveFiles;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonAddFiles;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerProcess;
+        private System.Windows.Forms.ProgressBar progressBarBuild;
     }
 }

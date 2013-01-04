@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using Microsoft.Build.Framework;
 #endregion
 
-namespace WinterEngine.Toolset.Controls.XnaControls.Shared
+namespace WinterEngine.Library
 {
     /// <summary>
     /// Custom implementation of the MSBuild ILogger interface records
