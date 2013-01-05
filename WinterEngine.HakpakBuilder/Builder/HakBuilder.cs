@@ -36,11 +36,7 @@ namespace WinterEngine.Hakpak.Builder
         public HakBuilder()
         {
             InitializeComponent();
-
-            // Set filters for the Save/Open dialog boxes
-            FileExtensionFactory factory = new FileExtensionFactory();
-            string extension = factory.GetFileExtension(FileType.UncompiledHakpak);
-            saveFileDialogSaveAs.Filter = "Uncompiled Hakpak (*" + extension + ")|*" + extension;
+            InitializeFileDialogFilters();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,24 +89,33 @@ namespace WinterEngine.Hakpak.Builder
         /// <param name="e"></param>
         private void buttonBuild_Click(object sender, EventArgs e)
         {
+            // Must have at least one resource to build
+            if (listBoxResources.Items.Count <= 0)
+            {
+                MessageBox.Show("Please select files to build by pressing the \"Add File(s)...\" button", "Build Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             FileExtensionFactory extensions = new FileExtensionFactory();
             string fileExtension = extensions.GetFileExtension(FileType.Hakpak);
             saveFileDialog.Filter = "Hakpak Files (*" + fileExtension + ")|*" + fileExtension;
-            saveFileDialog.ShowDialog();
 
-            if (!Object.ReferenceEquals(saveFileDialog.FileName, null))
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Disable all controls while building is in progress.
-                buttonAddFiles.Enabled = false;
-                buttonBuild.Enabled = false;
-                buttonRemoveFiles.Enabled = false;
-                textBoxDescription.Enabled = false;
-                textBoxName.Enabled = false;
-                listBoxResources.Enabled = false;
+                if (!Object.ReferenceEquals(saveFileDialog.FileName, null))
+                {
+                    // Disable all controls while building is in progress.
+                    buttonAddFiles.Enabled = false;
+                    buttonBuild.Enabled = false;
+                    buttonRemoveFiles.Enabled = false;
+                    textBoxDescription.Enabled = false;
+                    textBoxName.Enabled = false;
+                    listBoxResources.Enabled = false;
 
-                // Start the build process on a separate thread so that the GUI does not lock up during
-                // heavy processing.
-                backgroundWorkerProcess.RunWorkerAsync();
+                    // Start the build process on a separate thread so that the GUI does not lock up during
+                    // heavy processing.
+                    backgroundWorkerProcess.RunWorkerAsync();
+                }
             }
         }
 
@@ -158,6 +163,7 @@ namespace WinterEngine.Hakpak.Builder
                 
             ContentBuilder builder = new ContentBuilder();
             string destinationDirectory = new DirectoryInfo(saveFileDialog.FileName).Parent.FullName;
+            Dictionary<string, string> modifiedFileNameDictionary = GenerateUniqueFileNameList();
 
             // Add each file in the list to the builder
             foreach (string file in listBoxResources.Items)
@@ -170,8 +176,8 @@ namespace WinterEngine.Hakpak.Builder
                 // Only add to the builder if a processor type is found for the material.
                 if (!String.IsNullOrEmpty(processorType))
                 {
-                    // Take the file's base name and remove the extension. When building gets done, the .xnb extension will be applied
-                    builder.Add(file, fileNameNoExtension, "Mp3Importer", "SongProcessor");
+                    // Take the file's base name and remove the extension. When building gets done, the .xnb extension will be applied.
+                    builder.Add(file, modifiedFileNameDictionary[file], null, processorType);
                 }
                 // If no processor type was found, alert the user
                 else
@@ -329,14 +335,20 @@ namespace WinterEngine.Hakpak.Builder
         {
             if (!String.IsNullOrEmpty(SaveFilePath))
             {
+                // Delete the existing uncompiled hakpak at the specified location, if any
                 File.Delete(SaveFilePath);
 
+                // Create a new zip file at the specified location
                 using (ZipFile file = new ZipFile(SaveFilePath))
                 {
+                    // Set compression level to none - this is in order to speed up processing
+                    // in-game and in the toolset
                     file.CompressionLevel = CompressionLevel.None;
 
+                    // Loop through each file in the selected items list and add them to the zip file
                     foreach (string listFile in listBoxResources.Items)
                     {
+                        // Note that the "" means put all files in the root of the archive.
                         file.AddFile(listFile, "");
                     }
 
@@ -344,5 +356,87 @@ namespace WinterEngine.Hakpak.Builder
                 }
             }
         }
+
+        /// <summary>
+        /// Initializes the filters on the Open/Save file dialog boxes.
+        /// </summary>
+        private void InitializeFileDialogFilters()
+        {
+            FileExtensionFactory extensions = new FileExtensionFactory();
+            string modelFileExtension = extensions.GetFileExtension(FileType.Model);
+            string textureFileExtension = extensions.GetFileExtension(FileType.Texture);
+            string soundFileExtension = extensions.GetFileExtension(FileType.Sound);
+            string musicFileExtension = extensions.GetFileExtension(FileType.Music);
+            string uncompiledHakpakFileExtension = extensions.GetFileExtension(FileType.UncompiledHakpak);
+
+            openFileDialogBuilder.Filter = "All Available Types|*" + textureFileExtension + ";*" + modelFileExtension + ";*" + soundFileExtension + "|" +
+                                      "Texture Files|*" + textureFileExtension + "|" +
+                                      "Model Files|*" + modelFileExtension + "|" +
+                                      "Audio Files|*" + soundFileExtension;
+
+            saveFileDialogSaveAs.Filter = "Uncompiled Hakpak (*" + uncompiledHakpakFileExtension + ")|*" + uncompiledHakpakFileExtension;
+
+        }
+
+        /// <summary>
+        /// Loops through the list of selected resources and appends unique ID numbers to the end
+        /// of the file name. This is done because once compiled, all files have the .xnb extension and may
+        /// cause name collisions.
+        /// Returns a dictionary of the modified file names. The key is the full path name, including extension.
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<string, string> GenerateUniqueFileNameList()
+        {
+            List<string> fileNameList = new List<string>();
+            List<string> modifiedFileNameList = new List<string>();
+            Dictionary<string, string> dictionaryFileNames = new Dictionary<string, string>();
+
+            // Move the items into a separate list for easy processing
+            foreach (string current in listBoxResources.Items)
+            {
+                fileNameList.Add(current);
+            }
+
+            // Generate unique ID numbers, if necessary.
+            foreach (string current in fileNameList)
+            {
+                string pureFileName = Path.GetFileNameWithoutExtension(new DirectoryInfo(current).Name);
+                string modFileName = pureFileName;
+                
+                // Append a unique ID number to the end of the file's name if it already exists in either list
+                int index = 0;
+                while (fileNameList.Exists(x => x == modFileName) || modifiedFileNameList.Exists(x => x == modFileName))
+                {
+                    index++;
+                    modFileName = pureFileName + index;
+                }
+
+                // The file now has a unique name. Add it to the modified list.
+                modifiedFileNameList.Add(modFileName);
+
+                // And add it to the dictionary we will be returning once completed.
+                dictionaryFileNames.Add(current, modFileName);
+            }
+
+            // We're finished - return the modified file list
+            return dictionaryFileNames;
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FileExtensionFactory extensions = new FileExtensionFactory();
+            string uncompiledHakpakFileExtension = extensions.GetFileExtension(FileType.UncompiledHakpak);
+
+            openFileDialogBuilder.Filter = "Uncompiled Hakpak (*" + uncompiledHakpakFileExtension + ")|*" + uncompiledHakpakFileExtension;
+
+            if (openFileDialogBuilder.ShowDialog() == DialogResult.OK)
+            {
+                using (ZipFile zipFile = new ZipFile(openFileDialogBuilder.FileName))
+                {
+                    
+                }
+            }
+        }
+
     }
 }
