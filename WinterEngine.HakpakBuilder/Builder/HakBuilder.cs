@@ -20,6 +20,8 @@ namespace WinterEngine.Hakpak.Builder
         #region Fields
 
         private string _saveFilePath;
+        private bool _uncompiledArchiveOpened;
+        private string _openFilePath;
 
         #endregion
 
@@ -31,12 +33,25 @@ namespace WinterEngine.Hakpak.Builder
             set { _saveFilePath = value; }
         }
 
+        private bool UncompiledArchivedOpened
+        {
+            get { return _uncompiledArchiveOpened; }
+            set { _uncompiledArchiveOpened = value; }
+        }
+
+        private string OpenFilePath
+        {
+            get { return _openFilePath; }
+            set { _openFilePath = value; }
+        }
+
         #endregion
 
         public HakBuilder()
         {
             InitializeComponent();
             InitializeFileDialogFilters();
+            UncompiledArchivedOpened = false;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -150,8 +165,18 @@ namespace WinterEngine.Hakpak.Builder
             }
         }
 
+        /// <summary>
+        /// Handles the heavy-lifting of compiling files.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void backgroundWorkerProcess_DoWork(object sender, DoWorkEventArgs e)
         {
+            ContentBuilder builder = new ContentBuilder();
+            List<string> fileList = new List<string>();
+            string destinationDirectory = new DirectoryInfo(saveFileDialog.FileName).Parent.FullName;
+            DirectoryInfo tempDirectoryInfo = Directory.CreateDirectory(destinationDirectory + "\\temp");
+
             // Report progress throughout the process so that the GUI thread gets updated.
             backgroundWorkerProcess.ReportProgress(0);
 
@@ -160,13 +185,37 @@ namespace WinterEngine.Hakpak.Builder
             {
                 File.Delete(saveFileDialog.FileName);
             }
-                
-            ContentBuilder builder = new ContentBuilder();
-            string destinationDirectory = new DirectoryInfo(saveFileDialog.FileName).Parent.FullName;
-            Dictionary<string, string> modifiedFileNameDictionary = GenerateUniqueFileNameList();
+
+            // All of the files are contained inside of an archive (an uncompiled hakpak)
+            if (UncompiledArchivedOpened)
+            {
+                using(ZipFile zipFile = new ZipFile(OpenFilePath))
+                {
+                    // Extract files to the temporary directory
+                    zipFile.ExtractAll(tempDirectoryInfo.FullName);
+
+                    // Add each file path to the list
+                    foreach (string current in Directory.GetFiles(tempDirectoryInfo.FullName))
+                    {
+                        fileList.Add(current);
+                    }
+                }
+            }
+            // Otherwise, all of the files have different file paths
+            else
+            {
+                // Put the path names listed in the list box into the file list
+                foreach (string current in listBoxResources.Items)
+                {
+                    fileList.Add(current);
+                }
+            }
+
+
+            Dictionary<string, string> modifiedFileNameDictionary = GenerateUniqueFileNameList(fileList);
 
             // Add each file in the list to the builder
-            foreach (string file in listBoxResources.Items)
+            foreach (string file in fileList)
             {
                 DirectoryInfo dirInfo = new DirectoryInfo(file);
                 string fileNameNoExtension = Path.GetFileNameWithoutExtension(dirInfo.Name);
@@ -189,6 +238,9 @@ namespace WinterEngine.Hakpak.Builder
             backgroundWorkerProcess.ReportProgress(30);
             // Perform the build, capturing any error information
             string buildError = builder.Build();
+            
+            // Remove the temporary directory, if available
+            tempDirectoryInfo.Delete(true);
 
             backgroundWorkerProcess.ReportProgress(70);
 
@@ -255,7 +307,9 @@ namespace WinterEngine.Hakpak.Builder
             textBoxName.Text = "";
             textBoxDescription.Text = "";
             SaveFilePath = "";
+            OpenFilePath = "";
             listBoxResources.Items.Clear();
+            UncompiledArchivedOpened = false;
         }
 
         /// <summary>
@@ -385,27 +439,20 @@ namespace WinterEngine.Hakpak.Builder
         /// Returns a dictionary of the modified file names. The key is the full path name, including extension.
         /// </summary>
         /// <returns></returns>
-        private Dictionary<string, string> GenerateUniqueFileNameList()
+        private Dictionary<string, string> GenerateUniqueFileNameList(List<string> fileList)
         {
-            List<string> fileNameList = new List<string>();
             List<string> modifiedFileNameList = new List<string>();
             Dictionary<string, string> dictionaryFileNames = new Dictionary<string, string>();
 
-            // Move the items into a separate list for easy processing
-            foreach (string current in listBoxResources.Items)
-            {
-                fileNameList.Add(current);
-            }
-
             // Generate unique ID numbers, if necessary.
-            foreach (string current in fileNameList)
+            foreach (string current in fileList)
             {
                 string pureFileName = Path.GetFileNameWithoutExtension(new DirectoryInfo(current).Name);
                 string modFileName = pureFileName;
                 
                 // Append a unique ID number to the end of the file's name if it already exists in either list
                 int index = 0;
-                while (fileNameList.Exists(x => x == modFileName) || modifiedFileNameList.Exists(x => x == modFileName))
+                while (fileList.Exists(x => x == modFileName) || modifiedFileNameList.Exists(x => x == modFileName))
                 {
                     index++;
                     modFileName = pureFileName + index;
@@ -431,12 +478,21 @@ namespace WinterEngine.Hakpak.Builder
 
             if (openFileDialogBuilder.ShowDialog() == DialogResult.OK)
             {
-                using (ZipFile zipFile = new ZipFile(openFileDialogBuilder.FileName))
+                // Clear out existing data
+                listBoxResources.Items.Clear();
+                textBoxDescription.Text = "";
+                textBoxName.Text = "";
+                UncompiledArchivedOpened = true;
+                OpenFilePath = openFileDialogBuilder.FileName;
+
+                using (ZipFile zipFile = ZipFile.Read(openFileDialogBuilder.FileName))
                 {
-                    
+                    foreach(ZipEntry current in zipFile)
+                    {
+                        listBoxResources.Items.Add(current.FileName);
+                    }
                 }
             }
         }
-
     }
 }
