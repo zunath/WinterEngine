@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Toolset.DataLayer.Contexts;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
-using DejaVu;
 using WinterEngine.Toolset.Controls.ControlHelpers;
 using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.Enumerations;
@@ -78,8 +77,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         private void AddCategorySuccessMethod(string inputText)
         {
             bool success;
-            UndoRedoManager.Start("Add Category: " + inputText);
-
             try
             {
                 using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
@@ -89,8 +86,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     resourceCategoryDTO.ResourceTypeID = (int)WinterObjectResourceType;
 
                     success = repo.AddResourceCategory(resourceCategoryDTO);
-                    UndoRedoManager.Commit();
-
                     RefreshTreeView();
 
                 }
@@ -98,14 +93,11 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             catch (Exception ex)
             {
                 ErrorHelper.ShowErrorDialog("Error adding specified category. (Method: AddCategorySuccessMethod).", ex);
-                UndoRedoManager.Cancel();
             }
         }
 
         private void RenameCategorySuccessMethod(string inputText)
         {
-            UndoRedoManager.Start("Rename category: " + inputText);
-
             try
             {
                 using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
@@ -114,15 +106,12 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     resourceCategoryDTO.ResourceName = inputText;
                     repo.UpdateResourceCategory(resourceCategoryDTO);
 
-                    UndoRedoManager.Commit();
-
                     RefreshTreeView();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHelper.ShowErrorDialog("Error renaming specified category. (Method: RenameCategorySuccessMethod).", ex);
-                UndoRedoManager.Cancel();
             }
         }
 
@@ -151,8 +140,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="generateUncategorizedCategory"></param>
         public void PopulateTreeViewCategories()
         {
-            UndoRedoManager.StartInvisible("TreeView Category Population");
-
+            
             // Retrieve list of ResourceCategoryDTO from the database by way of the data access layer and repositories.
             List<ResourceCategory> categoryList = new List<ResourceCategory>();
             using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
@@ -170,8 +158,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
             treeView.Sort();
             treeView.ExpandAll();
-
-            UndoRedoManager.Commit();
         }
 
 
@@ -181,8 +167,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// </summary>
         public void PopulateTreeViewObjects()
         {
-            UndoRedoManager.StartInvisible("TreeView object population");
-
             // Build a list of objects using the WinterObjectFactory
             WinterObjectFactory factory = new WinterObjectFactory();
             List<WinterObject> objectList;
@@ -221,7 +205,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 }
             }
 
-            UndoRedoManager.Commit();
         }
 
         /// <summary>
@@ -352,8 +335,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             if (result == DialogResult.Yes)
             {
                 WinterObject obj = treeView.SelectedNode.Tag as WinterObject;
-                UndoRedoManager.Start("Remove " + WinterObjectResourceType.ToString() + " - " + obj.Name);
-
                 try
                 {
                     // Remove this object from the database
@@ -361,14 +342,12 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     {
                         repo.RemoveObject(WinterObjectResourceType, obj.Resref);
                     }
-                    UndoRedoManager.Commit();
                     RefreshTreeView();
                     treeView.SelectedNode = treeView.TopNode;
                 }
                 catch (Exception ex)
                 {
                     ErrorHelper.ShowErrorDialog("Error deleting specified " + WinterObjectResourceType.ToString() + " (Method: contextMenuStripNodes_DeleteObject).\n\n", ex);
-                    UndoRedoManager.Cancel();
                 }
             }
         }
@@ -407,7 +386,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             if (result == DialogResult.Yes)
             {
                 ResourceCategory category = treeView.SelectedNode.Tag as ResourceCategory;
-                UndoRedoManager.Start("Remove category - " + category.ResourceName);
 
                 try
                 {
@@ -422,14 +400,12 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     {
                         repo.DeleteResourceCategory(category);
                     }
-                    UndoRedoManager.Commit();
                     RefreshTreeView();
                     treeView.SelectedNode = treeView.TopNode;
                 }
                 catch (Exception ex)
                 {
                     ErrorHelper.ShowErrorDialog("Error deleting specified category (Method: contextMenuStripNodes_DeleteCategory).", ex);
-                    UndoRedoManager.Cancel();
                 }
 
             }

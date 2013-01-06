@@ -8,9 +8,9 @@
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
       <RootDirectory>C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\</LoggerRootDirectory>
+      <LoggerRootDirectory>C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\ContentLibrary\</LoggerRootDirectory>
       <IntermediateDirectory>C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\Content\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Content\</OutputDirectory>
+      <OutputDirectory>C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\ContentLibrary\bin\x86\Debug\WinterEngine.Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

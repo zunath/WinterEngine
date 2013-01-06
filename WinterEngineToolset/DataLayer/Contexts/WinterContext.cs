@@ -16,5 +16,10 @@ namespace WinterEngine.Toolset.DataLayer.Contexts
         public DbSet<Placeable> Placeables { get; set; }
         public DbSet<ResourceType> ResourceTypes { get; set; }
         public DbSet<ResourceCategory> ResourceCategories { get; set; }
+
+        public WinterContext(string connString) : base(connString)
+        {
+        }
+
     }
 }

@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class ResourceCategoryRepository : IDisposable
+    public class ResourceCategoryRepository : RepositoryBase
     {
         /// <summary>
         /// Returns all resource categories from the database.
@@ -26,7 +26,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
 
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     var query = from resourceCategory
                                 in context.ResourceCategories
@@ -55,7 +55,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
 
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     var query = from resourceCategory
                                 in context.ResourceCategories
@@ -79,7 +79,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
 
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     var query = from resourceCategory
                                 in context.ResourceCategories
@@ -108,7 +108,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             bool success = true;
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     ResourceCategory category = new ResourceCategory();
                     context.ResourceCategories.Add(category);
@@ -135,7 +135,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
 
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     // Find the resource in the database that matches the passed-in resource's category ID (primary key)
                     ResourceCategory dbResource = context.ResourceCategories.FirstOrDefault(r => r.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID));
@@ -169,7 +169,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
 
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 { 
                     // Find the category in the database. CategoryID is a primary key so there will only ever be one.
                     ResourceCategory category = context.ResourceCategories.FirstOrDefault(val => val.ResourceCategoryID == resourceCategory.ResourceCategoryID);

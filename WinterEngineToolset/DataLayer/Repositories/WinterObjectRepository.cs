@@ -14,8 +14,15 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class WinterObjectRepository : IDisposable
+    public class WinterObjectRepository : RepositoryBase
     {
+
+        #region Constructors
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Returns all objects from the database for a particular resource type.
         /// </summary>
@@ -24,7 +31,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     // Retrieve areas
                     if (resourceType == ResourceTypeEnum.Area)
@@ -100,7 +107,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     // Retrieve areas
                     if (resourceType == ResourceTypeEnum.Area)
@@ -178,7 +185,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
 
                     // Retrieve areas
@@ -252,7 +259,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     List<WinterObject> objectList = GetAllObjectsByResourceCategory(resourceType, resourceCategory);
 
@@ -278,7 +285,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             try
             {
 
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     WinterObject obj = GetObjectByResref(resourceType, resref);
 
@@ -332,7 +339,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     switch (resourceType)
                     {
@@ -413,7 +420,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     switch (resourceType)
                     {
@@ -441,10 +448,9 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 return false;
             }
         }
+        #endregion
 
-        public void Dispose()
-        {
-        }
+
 
     }
 }

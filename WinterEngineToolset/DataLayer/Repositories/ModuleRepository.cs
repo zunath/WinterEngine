@@ -11,7 +11,9 @@ using System.Data.SqlServerCe;
 using System.Data.Entity;
 using WinterEngine.Toolset.DataLayer.Initializers;
 using System.Data.Entity.Infrastructure;
-using DejaVu;
+using System.Data.SqlClient;
+using WinterEngine.Toolset.Enumerations;
+using System.Windows.Forms;
 
 namespace WinterEngine.Toolset.DataLayer.Repositories
 {
@@ -19,78 +21,41 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class. Handles creating new database files for modules 
     /// and generating the standard tables that the rest of the toolset uses.
     /// </summary>
-    public class ModuleRepository : IDisposable
+    public class ModuleRepository : RepositoryBase
     {
 
+        /// <summary>
+        /// Creates a new database file at the specified path with the specified file name.
+        /// The ".sdf" extension will be added to the file. Do not pass it in the file name.
+        /// </summary>
+        /// <param name="databaseFilePath">The path to the file, excluding the file's name</param>
+        /// <param name="databaseFileName">The name of the new database file. Exclude the .sdf extension - it will be added automatically.</param>
         public void CreateNewDatabase(string databaseFilePath, string databaseFileName)
         {
             databaseFileName += ".sdf";
-            using (WinterContext context = new WinterContext())
+
+            // Create a new database file at the specified location with the specified name.
+            using (SqlCeEngine db = new SqlCeEngine())
             {
-                // This part works correctly - it creates the file in the correct directory.
-                SqlCeEngine db = new SqlCeEngine();
-                db.LocalConnectionString = "Data Source=" + databaseFilePath + "\\" + databaseFileName + ";Persist Security Info=False;";
+                string path = databaseFilePath + "\\" + databaseFileName;
+                db.LocalConnectionString = "Data Source=" + databaseFilePath + ";Persist Security Info=False;";
                 db.CreateDatabase();
-                db.Dispose();
-                
 
-
-                // This is where things get sketchy - I've tried a bunch of different things but none have worked.
-                SqlCeConnectionStringBuilder builder = new SqlCeConnectionStringBuilder();
-                
-                builder.DataSource = databaseFilePath + "\\" + databaseFileName;
-
-                context.Database.Connection.ConnectionString = builder.ConnectionString;
-
-                Database.SetInitializer(new WinterDatabaseInitializer());
-                Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0", databaseFilePath, databaseFileName);
-                Database.DefaultConnectionFactory.CreateConnection(builder.ConnectionString);
-                
-            }
-
-            // Attempting to add data to the new connection doesn't work...
-            using (WinterContext context = new WinterContext())
-            {
-                context.Areas.Add(new Area { Name = "Test", ResourceCategoryID = 1, Resref = "testresref", Tag = "testag" });
-                context.SaveChanges();
-            }
-
-
-        }
-
-
-        /// <summary>
-        /// Opens an in-memory database connection
-        /// </summary>
-        public void OpenSQLiteConnection()
-        {
-            EntityConnectionStringBuilder ee = new System.Data.EntityClient.EntityConnectionStringBuilder();
-            ee.Provider = "System.Data.SQLite";
-            ee.Metadata = @"res://*/DataLayer.Database.WinterEngineModel.csdl|res://*/DataLayer.Database.WinterEngineModel.ssdl|res://*/DataLayer.Database.WinterEngineModel.msl";
-            ee.ProviderConnectionString = @"data source=:memory:;";
-
-            using (WinterContext context = new WinterContext())
-            {
-                //context.Database.Connection.ConnectionString = ee.ToString();
-                //context.Database.Connection.Open();
+                // Change the active connection to point to this new database.
+                ChangeDatabaseConnection(databaseFilePath);
             }
         }
 
         /// <summary>
-        /// Closes the SQLite connection to the in-memory database.
-        /// Once closed, ALL data in memory will be lost!
+        /// Changes the database connection to the specified path. All subsequent database calls
+        /// will utilize this connection until changed.
         /// </summary>
-        public void CloseSQLiteConnection()
+        /// <param name="databaseFilePath">The full path to the database file to which the conection will be changed.</param>
+        public void ChangeDatabaseConnection(string databaseFilePath)
         {
-            using (WinterContext context = new WinterContext())
-            {
-                //context.Database.Connection.Close();
-            }
+            // Change the active connection to point to this new database.
+            WinterConnectionInformation.ActiveConnectionString = "Data Source=" + databaseFilePath + ";Persist Security Info=False;";
         }
 
-
-        public void Dispose()
-        {
-        }
     }
 }

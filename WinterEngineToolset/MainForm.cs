@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.GUI.Views;
-using DejaVu;
 using WinterEngine.Toolset.Helpers;
 using WinterEngine.Library.Enumerations;
 using System.IO;
@@ -16,6 +15,7 @@ using WinterEngine.Toolset.Controls.ControlHelpers;
 using WinterEngine.Toolset.ExtendedEventArgs;
 using WinterEngine.Hakpak.Builder;
 using WinterEngine.Library.Factories;
+using WinterEngine.Toolset.DataLayer.Contexts;
 
 namespace WinterEngine.Toolset
 {
@@ -123,6 +123,7 @@ namespace WinterEngine.Toolset
         private void LoadModule(object sender, ModuleCreationEventArgs e)
         {
             this.TemporaryDirectory = e.TemporaryPathDirectory;
+
         }
 
         /// <summary>

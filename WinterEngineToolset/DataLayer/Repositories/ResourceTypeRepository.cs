@@ -13,7 +13,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class ResourceTypeRepository : IDisposable
+    public class ResourceTypeRepository : RepositoryBase
     {
         public List<ResourceType> GetAllResourceTypes()
         {
@@ -21,7 +21,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
 
             try
             {
-                using (WinterContext context = new WinterContext())
+                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     var query = from resourceType
                                 in context.ResourceTypes
@@ -36,10 +36,6 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
 
             return _resourceTypeList;
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

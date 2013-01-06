@@ -5,7 +5,6 @@ using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using WinterEngine.Toolset.Enumerations;
 using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
-using DejaVu;
 using WinterEngine.Toolset.Factories;
 using WinterEngine.Toolset.Helpers;
 
@@ -111,19 +110,15 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             {
                 try
                 {
-                    UndoRedoManager.Start("Adding new object");
-
                     using (WinterObjectRepository repo = new WinterObjectRepository())
                     {
                         repo.AddObject(_resourceType, ResourceCategory.ResourceCategoryID, nameTextBoxEntry.NameText, tagTextBoxEntry.TagText, resrefTextBoxEntry.ResrefText);
                     }
-                    UndoRedoManager.Commit();
                     RefreshParentGUI(null, null);
                     this.Dispose();
                 }
                 catch (Exception ex)
                 {
-                    UndoRedoManager.Cancel();
                     ErrorHelper.ShowErrorDialog("Error adding new object. (Method: buttonOK_Click)", ex);
                 }
             }

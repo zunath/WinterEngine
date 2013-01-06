@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DejaVu;
 using System.ComponentModel.DataAnnotations;
 
 namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
@@ -15,10 +14,10 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
     {
         #region Fields
 
-        readonly UndoRedo<string> _name = new UndoRedo<string>();
-        readonly UndoRedo<string> _tag = new UndoRedo<string>();
-        readonly UndoRedo<string> _resref = new UndoRedo<string>();
-        readonly UndoRedo<int> _resourceCategoryID = new UndoRedo<int>();
+        string _name;
+        string _tag;
+        string _resref;
+        int _resourceCategoryID;
 
         #endregion
 
@@ -30,8 +29,8 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
         [MaxLength(64)]
         public string Name
         {
-            get { return _name.Value; }
-            set { _name.Value = value; }
+            get { return _name; }
+            set { _name = value; }
         }
 
         /// <summary>
@@ -40,8 +39,8 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
         [MaxLength(32)]
         public string Tag
         {
-            get { return _tag.Value; }
-            set { _tag.Value = value; }
+            get { return _tag; }
+            set { _tag = value; }
         }
 
         /// <summary>
@@ -55,22 +54,22 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
         {
             get 
             {
-                if (_resref.Value == null)
+                if (_resref == null)
                 {
-                    return _resref.Value;
+                    return _resref;
                 }
                 else
                 {
-                    return _resref.Value.ToLower(); 
+                    return _resref.ToLower(); 
                 }
             }
-            set { _resref.Value = value.ToLower(); }
+            set { _resref = value.ToLower(); }
         }
 
         public int ResourceCategoryID
         {
-            get { return _resourceCategoryID.Value; }
-            set { _resourceCategoryID.Value = value; }
+            get { return _resourceCategoryID; }
+            set { _resourceCategoryID = value; }
         }
 
         #endregion

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DejaVu;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,9 +13,9 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
     {
         #region Fields
 
-        readonly UndoRedo<int> _resourceCategoryID = new UndoRedo<int>();
-        readonly UndoRedo<int> _resourceTypeID = new UndoRedo<int>();
-        readonly UndoRedo<string> _resourceName = new UndoRedo<string>();
+        int _resourceCategoryID;
+        int _resourceTypeID;
+        string _resourceName;
 
         #endregion
 
@@ -25,21 +24,21 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
         [Key]
         public int ResourceCategoryID
         {
-            get { return _resourceCategoryID.Value; }
-            set { _resourceCategoryID.Value = value; }
+            get { return _resourceCategoryID; }
+            set { _resourceCategoryID = value; }
         }
 
         public int ResourceTypeID
         {
-            get { return _resourceTypeID.Value; }
-            set { _resourceTypeID.Value = value; }
+            get { return _resourceTypeID; }
+            set { _resourceTypeID = value; }
         }
 
         [MaxLength(64)]
         public string ResourceName
         {
-            get { return _resourceName.Value; }
-            set { _resourceName.Value = value; }
+            get { return _resourceName; }
+            set { _resourceName = value; }
         }
 
         #endregion

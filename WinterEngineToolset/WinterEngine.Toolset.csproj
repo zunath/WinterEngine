@@ -63,9 +63,6 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dejavu">
-      <HintPath>..\..\..\..\..\Desktop\Dejavu.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -212,6 +209,8 @@
     <Compile Include="DataLayer\Contexts\WinterContext.cs" />
     <Compile Include="DataLayer\Initializers\WinterDatabaseInitializer.cs" />
     <Compile Include="DataLayer\Repositories\ModuleRepository.cs" />
+    <Compile Include="DataLayer\Repositories\RepositoryBase.cs" />
+    <Compile Include="DataLayer\WinterConnectionInformation.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="Helpers\DatabaseHelper.cs" />
     <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Area.cs" />
