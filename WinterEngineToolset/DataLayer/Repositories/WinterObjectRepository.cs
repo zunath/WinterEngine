@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class WinterObjectRepository : IRepository, IDisposable
+    public class WinterObjectRepository : IWinterObjectRepository, IDisposable
     {
 
         #region Constructors
@@ -24,8 +24,9 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         #region Methods
 
         /// <summary>
-        /// Returns all objects from the database for a particular resource type.
+        /// Returns all objects for a particular resource type.
         /// </summary>
+        /// <param name="resourceType">The type of resource to return objects for.</param>
         /// <returns></returns>
         public List<WinterObject> GetAllObjects(ResourceTypeEnum resourceType)
         {
@@ -99,9 +100,10 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         }
 
         /// <summary>
-        /// Returns all areas that match a particular ResourceCategoryDTO's CategoryID field.
+        /// Returns all areas that match a particular ResourceCategory's CategoryID field.
         /// </summary>
-        /// <param name="resourceCategory"></param>
+        /// <param name="resourceCategory">The resource category to use for the search.</param>
+        /// <param name="resourceType">The type of resource to look through.</param>
         /// <returns></returns>
         public List<WinterObject> GetAllObjectsByResourceCategory(ResourceTypeEnum resourceType, ResourceCategory resourceCategory)
         {
@@ -179,7 +181,8 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// <summary>
         /// Returns a specified area by resref from the database
         /// </summary>
-        /// <param name="resref"></param>
+        /// <param name="resourceType">The type of resource to look for.</param>
+        /// <param name="resref">The resource reference to search for.</param>
         /// <returns></returns>
         public WinterObject GetObjectByResref(ResourceTypeEnum resourceType, string resref)
         {
@@ -253,8 +256,8 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// <summary>
         /// Removes all objects in a specified category.
         /// </summary>
-        /// <param name="resourceType"></param>
-        /// <param name="resourceCategory"></param>
+        /// <param name="resourceType">The type of resource to look for.</param>
+        /// <param name="resourceCategory">The resource category to look through.</param>
         public void RemoveAllObjectsInCategory(ResourceTypeEnum resourceType, ResourceCategory resourceCategory)
         {
             try
@@ -278,8 +281,8 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// <summary>
         /// Removes a specified object by its resref.
         /// </summary>
-        /// <param name="resourceType"></param>
-        /// <param name="resref"></param>
+        /// <param name="resourceType">The type of resource to look for.</param>
+        /// <param name="resref">The resource reference to search for.</param>
         public void RemoveObject(ResourceTypeEnum resourceType, string resref)
         {
             try
@@ -333,8 +336,8 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// <summary>
         /// Adds a new object to the appropriate database table.
         /// </summary>
-        /// <param name="resourceType"></param>
-        /// <param name="winterObject"></param>
+        /// <param name="resourceType">The type of resource to add.</param>
+        /// <param name="winterObject">The actual object to add to the database.</param>
         public void AddObject(ResourceTypeEnum resourceType, int categoryID, string name, string tag, string resref)
         {
             try
@@ -409,12 +412,14 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
         }
 
+
+
         /// <summary>
         /// Determines whether or not an object exists in the database.
         /// Returns True if an entry is found. Returns false otherwise.
         /// </summary>
-        /// <param name="resourceType"></param>
-        /// <param name="resref"></param>
+        /// <param name="resourceType">The type of resource to look for.</param>
+        /// <param name="resref">The resource reference to search for.</param>
         /// <returns></returns>
         public bool DoesObjectExist(ResourceTypeEnum resourceType, string resref)
         {

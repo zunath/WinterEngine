@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class ResourceCategoryRepository : IRepository, IDisposable
+    public class ResourceCategoryRepository : IDisposable
     {
         /// <summary>
         /// Returns all resource categories from the database.
@@ -44,35 +44,10 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         }
 
         /// <summary>
-        /// Returns a specified resource category by ResourceCategoryID and ResourceTypeID from the database.
+        /// Returns all of the resource categories for a particular resource type.
         /// </summary>
-        /// <param name="resourceCategoryID"></param>
-        /// <param name="resourceTypeID"></param>
+        /// <param name="resourceType">The type of resources to get.</param>
         /// <returns></returns>
-        public ResourceCategory GetResourceCategoryByID(int resourceCategoryID, int resourceTypeID)
-        {
-            ResourceCategory retResourceCategoryDTO = new ResourceCategory();
-
-            try
-            {
-                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
-                {
-                    var query = from resourceCategory
-                                in context.ResourceCategories
-                                where resourceCategory.ResourceCategoryID.Equals(resourceCategoryID) && 
-                                      resourceCategory.ResourceTypeID.Equals(resourceTypeID)
-                                select resourceCategory;
-                    retResourceCategoryDTO = query.ToList()[0];
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorHelper.ShowErrorDialog("Error retrieving specified resource category (CategoryID: " + resourceCategoryID + ", ResourceTypeID: " + resourceTypeID + ").", ex);
-            }
-
-            return retResourceCategoryDTO;
-        }
-
         public List<ResourceCategory> GetAllResourceCategoriesByResourceType(ResourceTypeEnum resourceType)
         {
             List<ResourceCategory> categoryList = new List<ResourceCategory>();
@@ -146,6 +121,11 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                         dbResource = resourceCategory;
                         context.SaveChanges();
                     }
+                    // Unable to find a matching resource. Return false.
+                    else
+                    {
+                        success = false;    
+                    }
                 }
             }
             catch (Exception ex)
@@ -160,7 +140,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// <summary>
         /// Deletes a resource category from the database.
         /// </summary>
-        /// <param name="resourceCategory"></param>
+        /// <param name="resourceCategory">The resource category to delete.</param>
         /// <returns></returns>
         public bool DeleteResourceCategory(ResourceCategory resourceCategory)
         {
@@ -169,14 +149,21 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             try
             {
                 using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
-                { 
+                {
                     // Find the category in the database. CategoryID is a primary key so there will only ever be one.
                     ResourceCategory category = context.ResourceCategories.FirstOrDefault(val => val.ResourceCategoryID == resourceCategory.ResourceCategoryID);
-                    context.ResourceCategories.Remove(category);
 
-                    context.SaveChanges();
+                    if (!Object.ReferenceEquals(category, null))
+                    {
+                        context.ResourceCategories.Remove(category);
+                        context.SaveChanges();
+                    }
+                    // Unable to locate a resource in the database. Return false.
+                    else
+                    {
+                        success = false;
+                    }
                 }
-
             }
             catch (Exception ex)
             {

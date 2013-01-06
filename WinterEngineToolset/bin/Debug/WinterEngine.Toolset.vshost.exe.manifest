@@ -99,7 +99,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>An9gozvdjcwE6uqMeAK7q2k266w=</dsig:DigestValue>
+        <dsig:DigestValue>0K1b7cq69RaLCOakgBSy9n2BBPo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -159,7 +159,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>rs/jEPSUmSabwE5z/vf1r6IGNR8=</dsig:DigestValue>
+        <dsig:DigestValue>0Fy/0txBjIchz/qcKSaoYFbkHUw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -171,19 +171,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Hdk3q9iyt5OByvmTUyH4swU5L4s=</dsig:DigestValue>
+        <dsig:DigestValue>gIFjhy6Ty6NcpuqLlnpD4HTDHkM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="91648">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="89600">
       <assemblyIdentity name="WinterEngine.Toolset" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>a54b+gQBsztOUqecvX5L8i7jcvc=</dsig:DigestValue>
+        <dsig:DigestValue>x1iRWo+8nhvr+a4yK17NuKXRLms=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

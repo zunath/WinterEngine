@@ -23,7 +23,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class. Handles creating new database files for modules 
     /// and generating the standard tables that the rest of the toolset uses.
     /// </summary>
-    public class ModuleRepository : IRepository, IDisposable
+    public class ModuleRepository : IDisposable
     {
 
         /// <summary>

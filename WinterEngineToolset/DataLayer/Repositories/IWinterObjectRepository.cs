@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WinterEngine.Toolset.DataLayer.Repositories
 {
-    interface IRepository
+    interface IWinterObjectRepository
     {
         
     }
