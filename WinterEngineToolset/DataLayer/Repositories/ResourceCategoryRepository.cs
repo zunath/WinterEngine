@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class ResourceCategoryRepository : RepositoryBase
+    public class ResourceCategoryRepository : IRepository, IDisposable
     {
         /// <summary>
         /// Returns all resource categories from the database.
@@ -110,8 +110,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             {
                 using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
-                    ResourceCategory category = new ResourceCategory();
-                    context.ResourceCategories.Add(category);
+                    context.ResourceCategories.Add(resourceCategory);
                     context.SaveChanges();
                 }
             }

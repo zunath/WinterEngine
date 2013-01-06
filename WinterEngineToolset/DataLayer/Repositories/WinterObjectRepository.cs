@@ -14,7 +14,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class WinterObjectRepository : RepositoryBase
+    public class WinterObjectRepository : IRepository, IDisposable
     {
 
         #region Constructors
@@ -448,6 +448,11 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 return false;
             }
         }
+
+        public void Dispose()
+        {
+        }
+
         #endregion
 
 

@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using WinterEngine.Toolset.Controls.XnaControls;
-using WinterEngine.Toolset.GUI.Views;
-using WinterEngine.Toolset.Helpers;
-using WinterEngine.Library.Enumerations;
 using System.IO;
-using WinterEngine.Toolset.Controls.ControlHelpers;
-using WinterEngine.Toolset.ExtendedEventArgs;
+using System.Windows.Forms;
 using WinterEngine.Hakpak.Builder;
+using WinterEngine.Library.Enumerations;
 using WinterEngine.Library.Factories;
-using WinterEngine.Toolset.DataLayer.Contexts;
+using WinterEngine.Toolset.Controls.ControlHelpers;
+using WinterEngine.Toolset.DataLayer.Repositories;
+using WinterEngine.Toolset.ExtendedEventArgs;
+using WinterEngine.Toolset.Helpers;
 
 namespace WinterEngine.Toolset
 {
@@ -23,25 +15,12 @@ namespace WinterEngine.Toolset
     {
         #region Fields
 
-        private string _temporaryDirectory;
-        private Hakpak.Builder.HakBuilder hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
+        private HakBuilder hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
 
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the temporary directory used by the module.
-        /// The temporary directory contains all module files (database, additional files, but not graphics)
-        /// and are modified as changes are made by user. Changes are not copied over to the real module
-        /// file until the user clicks "Save".
-        /// </summary>
-        public string TemporaryDirectory
-        {
-            get { return _temporaryDirectory; }
-            set { _temporaryDirectory = value; }
-        }
 
         #endregion
 
@@ -99,7 +78,7 @@ namespace WinterEngine.Toolset
         private void toolStripMenuItemNewModule_Click(object sender, EventArgs e)
         {
             NewModuleEntry newModuleEntryForm = new NewModuleEntry();
-            newModuleEntryForm.OnModuleCreationSuccess += new EventHandler<ModuleCreationEventArgs>(LoadModule);
+            newModuleEntryForm.OnModuleCreationSuccess += new EventHandler<ModuleCreationEventArgs>(LoadModuleDataIntoToolset);
             newModuleEntryForm.ShowDialog();
         }
 
@@ -115,15 +94,39 @@ namespace WinterEngine.Toolset
         }
 
         /// <summary>
-        /// When module is created in child form, this form's TemporaryDirectory property
-        /// must get set so that the toolset knows where to modify files.
+        /// Enables all controls related to module editing.
+        /// Loads all data from the database into the appropriate controls.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LoadModule(object sender, ModuleCreationEventArgs e)
+        private void LoadModuleDataIntoToolset(object sender, ModuleCreationEventArgs e)
         {
-            this.TemporaryDirectory = e.TemporaryPathDirectory;
+            areaView.RefreshControls();
+            itemView.RefreshControls();
+            creatureView.RefreshControls();
+            placeableView.RefreshControls();
+            ToggleModuleControlsEnabled(true);
+        }
 
+        /// <summary>
+        /// Enables or disables all module-related controls.
+        /// </summary>
+        /// <param name="enabled"></param>
+        private void ToggleModuleControlsEnabled(bool enabled)
+        {
+            toolStripMenuItemCloseModule.Enabled = enabled;
+            toolStripMenuItemSaveModule.Enabled = enabled;
+            toolStripMenuItemSaveAsModule.Enabled = enabled;
+            toolStripMenuItemImportERF.Enabled = enabled;
+            toolStripMenuItemExportERF.Enabled = enabled;
+            toolStripMenuItemUndo.Enabled = enabled;
+            toolStripMenuItemRedo.Enabled = enabled;
+            toolStripMenuItemCopy.Enabled = enabled;
+            toolStripMenuItemCut.Enabled = enabled;
+            toolStripMenuItemPaste.Enabled = enabled;
+            toolStripMenuItemModuleProperties.Enabled = enabled;
+            toolStripMenuItemManageHakPaks.Enabled = enabled;
+            tabControlMain.Enabled = enabled;
         }
 
         /// <summary>

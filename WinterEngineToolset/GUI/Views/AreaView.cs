@@ -1,13 +1,18 @@
 ﻿using System.Windows.Forms;
-using WinterEngine.Library;
 
 namespace WinterEngine.Toolset.GUI.Views
 {
-    public partial class AreaView : UserControl
+    public partial class AreaView : UserControl, IViewControls
     {
         public AreaView()
         {
             InitializeComponent();
         }
+
+        public void RefreshControls()
+        {
+            treeCategoryControlArea.RefreshTreeView();
+        }
+
     }
 }

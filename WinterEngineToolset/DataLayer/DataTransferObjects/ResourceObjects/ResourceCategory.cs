@@ -35,6 +35,7 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
         }
 
         [MaxLength(64)]
+        
         public string ResourceName
         {
             get { return _resourceName; }

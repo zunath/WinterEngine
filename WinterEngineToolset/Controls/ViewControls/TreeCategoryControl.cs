@@ -81,13 +81,12 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             {
                 using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
                 {
-                    ResourceCategory resourceCategoryDTO = new ResourceCategory();
-                    resourceCategoryDTO.ResourceName = inputText;
-                    resourceCategoryDTO.ResourceTypeID = (int)WinterObjectResourceType;
+                    ResourceCategory resourceCategory = new ResourceCategory();
+                    resourceCategory.ResourceName = inputText;
+                    resourceCategory.ResourceTypeID = (int)WinterObjectResourceType;
 
-                    success = repo.AddResourceCategory(resourceCategoryDTO);
+                    success = repo.AddResourceCategory(resourceCategory);
                     RefreshTreeView();
-
                 }
             }
             catch (Exception ex)
