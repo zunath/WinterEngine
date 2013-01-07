@@ -1,21 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using WinterEngine.Toolset.DataLayer.Contexts;
-using System.Data.EntityClient;
-using System.Configuration;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
-using WinterEngine.Toolset.Helpers;
-using System.Data.SqlServerCe;
 using System.Data.Entity;
-using WinterEngine.Toolset.DataLayer.Initializers;
 using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
-using WinterEngine.Toolset.Enumerations;
-using System.Windows.Forms;
-using Ionic.Zip;
 using System.IO;
+using Ionic.Zip;
+using WinterEngine.Toolset.DataLayer.Contexts;
 
 namespace WinterEngine.Toolset.DataLayer.Repositories
 {

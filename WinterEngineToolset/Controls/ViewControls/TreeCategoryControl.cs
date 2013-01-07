@@ -168,12 +168,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         {
             // Build a list of objects using the WinterObjectFactory
             WinterObjectFactory factory = new WinterObjectFactory();
-            List<WinterObject> objectList;
-
-            using(WinterObjectRepository repo = new WinterObjectRepository())
-            {
-                objectList = repo.GetAllObjects(WinterObjectResourceType);
-            }
+            List<WinterObject> objectList = factory.GetAllFromDatabase(WinterObjectResourceType);
 
             TreeNodeCollection nodeCollection = treeView.Nodes[0].Nodes;
             // Get list of DTOs from the tag of tree nodes
@@ -337,10 +332,9 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 try
                 {
                     // Remove this object from the database
-                    using (WinterObjectRepository repo = new WinterObjectRepository())
-                    {
-                        repo.RemoveObject(WinterObjectResourceType, obj.Resref);
-                    }
+                    WinterObjectFactory factory = new WinterObjectFactory();
+                    factory.DeleteFromDatabase(obj.Resref, WinterObjectResourceType);
+                    
                     RefreshTreeView();
                     treeView.SelectedNode = treeView.TopNode;
                 }
@@ -389,11 +383,9 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 try
                 {
                     // Remove the objects contained inside this category from the database
-                    using (WinterObjectRepository repo = new WinterObjectRepository())
-                    {
-                        repo.RemoveAllObjectsInCategory(WinterObjectResourceType, category);
-                    }
-
+                    WinterObjectFactory factory = new WinterObjectFactory();
+                    factory.DeleteFromDatabaseByCategory(category, WinterObjectResourceType);
+                    
                     // Remove the category from the database
                     using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
                     {

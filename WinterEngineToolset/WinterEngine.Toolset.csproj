@@ -208,8 +208,11 @@
     </Compile>
     <Compile Include="DataLayer\Contexts\WinterContext.cs" />
     <Compile Include="DataLayer\Initializers\WinterDatabaseInitializer.cs" />
-    <Compile Include="DataLayer\Repositories\IWinterObjectRepository.cs" />
+    <Compile Include="DataLayer\Repositories\AreaRepository.cs" />
+    <Compile Include="DataLayer\Repositories\CreatureRepository.cs" />
+    <Compile Include="DataLayer\Repositories\ItemRepository.cs" />
     <Compile Include="DataLayer\Repositories\ModuleRepository.cs" />
+    <Compile Include="DataLayer\Repositories\PlaceableRepository.cs" />
     <Compile Include="DataLayer\WinterConnectionInformation.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="GUI\Views\IViewControls.cs" />
@@ -221,7 +224,6 @@
     <Compile Include="DataLayer\DataTransferObjects\WinterObjects\WinterObject.cs" />
     <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Item.cs" />
     <Compile Include="DataLayer\Repositories\ResourceCategoryRepository.cs" />
-    <Compile Include="DataLayer\Repositories\WinterObjectRepository.cs" />
     <Compile Include="Factories\WinterObjectFactory.cs" />
     <Compile Include="GUI\Views\AreaView.cs">
       <SubType>UserControl</SubType>

@@ -80,18 +80,19 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                 succeed = false;
             }
 
-            using (WinterObjectRepository repo = new WinterObjectRepository())
+            WinterObjectFactory factory = new WinterObjectFactory();
+            if(factory.DoesObjectExistInDatabase(resrefText, ResourceType))  
             {
-                if (repo.DoesObjectExist(ResourceType, resrefText))
+                errorProvider.SetError(resrefTextBoxEntry, "This resref is already in use!");
+
+                if (usePopUpForResrefDuplicate)
                 {
-                    errorProvider.SetError(resrefTextBoxEntry, "This resref is already in use!");
-
-                    if (usePopUpForResrefDuplicate)
-                        MessageBox.Show("This resref is already in use. Please select another.", "Resref in Use!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    succeed = false;
+                    MessageBox.Show("This resref is already in use. Please select another.", "Resref in Use!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+
+                succeed = false;
             }
+            
 
             return succeed;
         }
@@ -110,10 +111,18 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             {
                 try
                 {
-                    using (WinterObjectRepository repo = new WinterObjectRepository())
-                    {
-                        repo.AddObject(_resourceType, ResourceCategory.ResourceCategoryID, nameTextBoxEntry.NameText, tagTextBoxEntry.TagText, resrefTextBoxEntry.ResrefText);
-                    }
+                    // Build a new object
+                    WinterObjectFactory factory = new WinterObjectFactory();
+                    WinterObject winterObject = factory.CreateObject(ResourceType);
+                    winterObject.Name = nameTextBoxEntry.NameText;
+                    winterObject.Tag = tagTextBoxEntry.TagText;
+                    winterObject.Resref = resrefTextBoxEntry.ResrefText;
+                    winterObject.ResourceCategoryID = ResourceCategory.ResourceCategoryID;
+
+                    // Add it to the database.
+                    factory.AddToDatabase(winterObject, ResourceType);
+
+                    // Refresh the GUI and dispose of this form.
                     RefreshParentGUI(null, null);
                     this.Dispose();
                 }
