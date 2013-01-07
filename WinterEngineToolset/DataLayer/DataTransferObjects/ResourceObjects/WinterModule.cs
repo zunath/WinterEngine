@@ -230,8 +230,9 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
             // Reset object properties for next use.
             this.ModulePath = "";
             this.TemporaryDirectoryPath = "";
-
-            OnModuleClosed(this, new EventArgs());
+            EventArgs e = new EventArgs();
+            
+            OnModuleClosed(this, e);
         }
 
         #endregion
