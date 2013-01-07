@@ -20,6 +20,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
                 context.Placeables.Add(placeable);
+                context.SaveChanges();
             }
         }
 
@@ -34,6 +35,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             {
                 Placeable placeable = context.Placeables.First(a => a.Resref == resref);
                 context.Placeables.Remove(placeable);
+                context.SaveChanges();
             }
         }
 
@@ -86,14 +88,19 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         public void DeleteAllByCategory(ResourceCategory resourceCategory)
         {
-            List<Placeable> objectList = GetAllByResourceCategory(resourceCategory);
-
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                foreach (Placeable currentObject in objectList)
+                var query = from item
+                            in context.Items
+                            where item.ResourceCategoryID == resourceCategory.ResourceCategoryID
+                            select item;
+                List<Item> itemList = query.ToList<Item>();
+
+                foreach (Item item in itemList)
                 {
-                    Delete(currentObject.Resref);
+                    context.Items.Remove(item);
                 }
+                context.SaveChanges();
             }
         }
 

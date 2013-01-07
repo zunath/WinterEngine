@@ -20,6 +20,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
                 context.Items.Add(item);
+                context.SaveChanges();
             }
         }
 
@@ -34,6 +35,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             {
                 Item item = context.Items.First(a => a.Resref == resref);
                 context.Items.Remove(item);
+                context.SaveChanges();
             }
         }
 
@@ -86,14 +88,19 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         /// </summary>
         public void DeleteAllByCategory(ResourceCategory resourceCategory)
         {
-            List<Item> objectList = GetAllByResourceCategory(resourceCategory);
-
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                foreach (Item currentObject in objectList)
+                var query = from item
+                            in context.Items
+                            where item.ResourceCategoryID == resourceCategory.ResourceCategoryID
+                            select item;
+                List<Item> itemList = query.ToList<Item>();
+
+                foreach (Item item in itemList)
                 {
-                    Delete(currentObject.Resref);
+                    context.Items.Remove(item);
                 }
+                context.SaveChanges();
             }
         }
 
