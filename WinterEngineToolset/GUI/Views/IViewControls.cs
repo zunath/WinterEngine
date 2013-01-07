@@ -8,5 +8,6 @@ namespace WinterEngine.Toolset.GUI.Views
     public interface IViewControls
     {
         void RefreshControls();
+        void UnloadControls();
     }
 }

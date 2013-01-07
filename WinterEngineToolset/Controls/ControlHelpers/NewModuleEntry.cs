@@ -74,16 +74,9 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             {
                 try
                 {
-                    // Create the directory using the WinterFileHelper
-                    WinterFileHelper fileHelper = new WinterFileHelper();
-                    eventArgs.TemporaryPathDirectory = fileHelper.CreateTemporaryDirectory();
-
-                    // The module repository will handle creating the database file, linking to it,
-                    // and initializing the tables.
-                    using (ModuleRepository repo = new ModuleRepository())
-                    {
-                        repo.CreateNewModule(eventArgs.TemporaryPathDirectory, "TempDB");
-                    }
+                    WinterModule module = new WinterModule();
+                    module.CreateModule();
+                    eventArgs.Module = module;
 
                     // Pass the temporary directory's path via event.
                     OnModuleCreationSuccess(this, eventArgs);

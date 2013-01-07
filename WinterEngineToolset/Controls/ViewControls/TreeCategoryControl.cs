@@ -214,6 +214,14 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         }
 
         /// <summary>
+        /// Clears out all nodes on the treeView, leaving only the root node
+        /// </summary>
+        public void UnloadTreeView()
+        {
+            treeView.Nodes[0].Nodes.Clear();
+        }
+
+        /// <summary>
         /// Method used by children to refresh the tree view.
         /// </summary>
         /// <param name="sender"></param>

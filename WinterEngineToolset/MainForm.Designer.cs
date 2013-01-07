@@ -60,14 +60,10 @@
             this.toolStripMenuItemWebsite = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageCreatures = new System.Windows.Forms.TabPage();
-            this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAreas = new System.Windows.Forms.TabPage();
-            this.areaView = new WinterEngine.Toolset.GUI.Views.AreaView();
             this.tabPageItems = new System.Windows.Forms.TabPage();
-            this.itemView = new WinterEngine.Toolset.GUI.Views.ItemView();
             this.tabPagePlaceables = new System.Windows.Forms.TabPage();
-            this.placeableView = new WinterEngine.Toolset.GUI.Views.PlaceableView();
             this.tabPageConversations = new System.Windows.Forms.TabPage();
             this.panelConversationControl = new System.Windows.Forms.Panel();
             this.buttonAddConversationCategory = new System.Windows.Forms.Button();
@@ -78,6 +74,10 @@
             this.treeViewScripts = new System.Windows.Forms.TreeView();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.areaView = new WinterEngine.Toolset.GUI.Views.AreaView();
+            this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
+            this.itemView = new WinterEngine.Toolset.GUI.Views.ItemView();
+            this.placeableView = new WinterEngine.Toolset.GUI.Views.PlaceableView();
             this.menuStripMain.SuspendLayout();
             this.tabPageCreatures.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -205,6 +205,7 @@
             this.toolStripMenuItemExit.Name = "toolStripMenuItemExit";
             this.toolStripMenuItemExit.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItemExit.Text = "Exit";
+            this.toolStripMenuItemExit.Click += new System.EventHandler(this.toolStripMenuItemExit_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -334,13 +335,6 @@
             this.tabPageCreatures.Text = "Creatures";
             this.tabPageCreatures.UseVisualStyleBackColor = true;
             // 
-            // creatureView
-            // 
-            this.creatureView.Location = new System.Drawing.Point(0, 7);
-            this.creatureView.Name = "creatureView";
-            this.creatureView.Size = new System.Drawing.Size(570, 455);
-            this.creatureView.TabIndex = 0;
-            // 
             // tabControlMain
             // 
             this.tabControlMain.Controls.Add(this.tabPageAreas);
@@ -368,13 +362,6 @@
             this.tabPageAreas.Text = "Areas";
             this.tabPageAreas.UseVisualStyleBackColor = true;
             // 
-            // areaView
-            // 
-            this.areaView.Location = new System.Drawing.Point(0, 7);
-            this.areaView.Name = "areaView";
-            this.areaView.Size = new System.Drawing.Size(570, 455);
-            this.areaView.TabIndex = 0;
-            // 
             // tabPageItems
             // 
             this.tabPageItems.Controls.Add(this.itemView);
@@ -386,13 +373,6 @@
             this.tabPageItems.Text = "Items";
             this.tabPageItems.UseVisualStyleBackColor = true;
             // 
-            // itemView
-            // 
-            this.itemView.Location = new System.Drawing.Point(0, 7);
-            this.itemView.Name = "itemView";
-            this.itemView.Size = new System.Drawing.Size(570, 455);
-            this.itemView.TabIndex = 0;
-            // 
             // tabPagePlaceables
             // 
             this.tabPagePlaceables.Controls.Add(this.placeableView);
@@ -402,13 +382,6 @@
             this.tabPagePlaceables.TabIndex = 2;
             this.tabPagePlaceables.Text = "Placeables";
             this.tabPagePlaceables.UseVisualStyleBackColor = true;
-            // 
-            // placeableView
-            // 
-            this.placeableView.Location = new System.Drawing.Point(0, 7);
-            this.placeableView.Name = "placeableView";
-            this.placeableView.Size = new System.Drawing.Size(570, 455);
-            this.placeableView.TabIndex = 0;
             // 
             // tabPageConversations
             // 
@@ -486,6 +459,34 @@
             this.treeViewScripts.Size = new System.Drawing.Size(186, 416);
             this.treeViewScripts.TabIndex = 4;
             // 
+            // areaView
+            // 
+            this.areaView.Location = new System.Drawing.Point(0, 7);
+            this.areaView.Name = "areaView";
+            this.areaView.Size = new System.Drawing.Size(570, 455);
+            this.areaView.TabIndex = 0;
+            // 
+            // creatureView
+            // 
+            this.creatureView.Location = new System.Drawing.Point(0, 7);
+            this.creatureView.Name = "creatureView";
+            this.creatureView.Size = new System.Drawing.Size(570, 455);
+            this.creatureView.TabIndex = 0;
+            // 
+            // itemView
+            // 
+            this.itemView.Location = new System.Drawing.Point(0, 7);
+            this.itemView.Name = "itemView";
+            this.itemView.Size = new System.Drawing.Size(570, 455);
+            this.itemView.TabIndex = 0;
+            // 
+            // placeableView
+            // 
+            this.placeableView.Location = new System.Drawing.Point(0, 7);
+            this.placeableView.Name = "placeableView";
+            this.placeableView.Size = new System.Drawing.Size(570, 455);
+            this.placeableView.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -497,6 +498,7 @@
             this.MinimumSize = new System.Drawing.Size(780, 550);
             this.Name = "MainForm";
             this.Text = "Winter Engine Toolset";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.tabPageCreatures.ResumeLayout(false);

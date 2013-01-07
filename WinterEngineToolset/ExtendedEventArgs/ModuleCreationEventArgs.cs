@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 
 namespace WinterEngine.Toolset.ExtendedEventArgs
 {
     public class ModuleCreationEventArgs : EventArgs
     {
-        private string _temporaryPathDirectory;
+        private WinterModule _module;
 
-        public string TemporaryPathDirectory
+        /// <summary>
+        /// Gets or sets the module returned in the event args
+        /// </summary>
+        public WinterModule Module
         {
-            get { return _temporaryPathDirectory; }
-            set { _temporaryPathDirectory = value; }
+            get { return _module; }
+            set { _module = value; }
         }
     }
 }

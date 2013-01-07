@@ -13,5 +13,10 @@ namespace WinterEngine.Toolset.GUI.Views
         {
             treeCategoryControlPlaceable.RefreshTreeView();
         }
+
+        public void UnloadControls()
+        {
+            treeCategoryControlPlaceable.UnloadTreeView();
+        }
     }
 }

@@ -14,5 +14,10 @@ namespace WinterEngine.Toolset.GUI.Views
             treeCategoryControlCreature.RefreshTreeView();
         }
 
+        public void UnloadControls()
+        {
+            treeCategoryControlCreature.UnloadTreeView();
+        }
+
     }
 }

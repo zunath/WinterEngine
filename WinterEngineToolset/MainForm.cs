@@ -10,6 +10,7 @@ using WinterEngine.Toolset.ExtendedEventArgs;
 using WinterEngine.Toolset.Helpers;
 using Ionic.Zip;
 using Ionic.Zlib;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 
 namespace WinterEngine.Toolset
 {
@@ -18,12 +19,20 @@ namespace WinterEngine.Toolset
         #region Fields
 
         private HakBuilder _hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
-        private string _saveFilePath;
-        private string _temporaryDirectory;
+        private WinterModule _activeModule;
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the active module object used by this form.
+        /// </summary>
+        private WinterModule ActiveModule
+        {
+            get { return _activeModule; }
+            set { _activeModule = value; }
+        }
 
         #endregion
 
@@ -33,8 +42,43 @@ namespace WinterEngine.Toolset
         public MainForm()
         {
             InitializeComponent();
+            ActiveModule = new WinterModule();
+            ActiveModule.OnModuleClosed += new EventHandler(OnModuleClosed);
+            ActiveModule.OnModuleOpened += new EventHandler(OnModuleOpened);
+            ActiveModule.OnModuleSaved += new EventHandler(OnModuleSaved);
+
+            FileExtensionFactory winterExtensions = new FileExtensionFactory();
+            string fileExtension = winterExtensions.GetFileExtension(FileType.Module);
+            openFileDialog.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
+            saveFileDialog.Filter = openFileDialog.Filter;
         }
         
+        #endregion
+
+        #region GUI methods
+
+        /// <summary>
+        /// Unloads all data in tree views and other controls.
+        /// </summary>
+        private void UnloadAllControls()
+        {
+            areaView.UnloadControls();
+            itemView.UnloadControls();
+            creatureView.UnloadControls();
+            placeableView.UnloadControls();
+        }
+
+        /// <summary>
+        /// Reloads all controls on the main form.
+        /// </summary>
+        private void RefreshAllControls()
+        {
+            areaView.RefreshControls();
+            itemView.RefreshControls();
+            creatureView.RefreshControls();
+            placeableView.RefreshControls();
+        }
+
         #endregion
 
         #region Menu Strip methods
@@ -47,28 +91,17 @@ namespace WinterEngine.Toolset
         /// <param name="e"></param>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FileExtensionFactory winterExtensions = new FileExtensionFactory();
-            string fileExtension = winterExtensions.GetFileExtension(FileType.Module);
-            openFileDialog.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
-
-            DialogResult result = openFileDialog.ShowDialog();
-            // Pop up file selection dialog box.
-            if (result == DialogResult.OK)
+            try
             {
-                // File was selected. Attempt to load it.
-                try
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    using (ModuleRepository repo = new ModuleRepository())
-                    {
-                        repo.OpenModule(openFileDialog.FileName);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ErrorHelper.ShowErrorDialog("Error opening module. " , ex);
+                    ActiveModule.OpenModule(openFileDialog.FileName);
                 }
             }
-
+            catch (Exception ex)
+            {
+                ErrorHelper.ShowErrorDialog("Error opening module. ", ex);
+            }
         }
 
         /// <summary>
@@ -80,7 +113,7 @@ namespace WinterEngine.Toolset
         private void toolStripMenuItemNewModule_Click(object sender, EventArgs e)
         {
             NewModuleEntry newModuleEntryForm = new NewModuleEntry();
-            newModuleEntryForm.OnModuleCreationSuccess += new EventHandler<ModuleCreationEventArgs>(LoadModuleDataIntoToolset);
+            newModuleEntryForm.OnModuleCreationSuccess += new EventHandler<ModuleCreationEventArgs>(OnModuleCreated);
             newModuleEntryForm.ShowDialog();
         }
 
@@ -95,25 +128,6 @@ namespace WinterEngine.Toolset
             MessageBox.Show("Winter Engine Toolset\n\nDeveloped by Zunath.", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        /// <summary>
-        /// Enables all controls related to module editing.
-        /// Loads all data from the database into the appropriate controls.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LoadModuleDataIntoToolset(object sender, ModuleCreationEventArgs e)
-        {
-            // Copy the temporary directory over, since we will need to reference it later.
-            _temporaryDirectory = e.TemporaryPathDirectory;
-
-            // Refresh the controls for all views. This will populate the tree views
-            // and perform other GUI-related tasks.
-            areaView.RefreshControls();
-            itemView.RefreshControls();
-            creatureView.RefreshControls();
-            placeableView.RefreshControls();
-            ToggleModuleControlsEnabled(true);
-        }
 
         /// <summary>
         /// Enables or disables all module-related controls.
@@ -166,15 +180,8 @@ namespace WinterEngine.Toolset
         private void toolStripMenuItemCloseModule_Click(object sender, EventArgs e)
         {
             ToggleModuleControlsEnabled(false);
-            // TO-DO: Unload module resources
-            
+            ActiveModule.CloseModule();
 
-            // Delete the temporary directory
-            Directory.Delete(_temporaryDirectory, true);
-
-            // Reset the file paths for the module and temporary directory
-            _saveFilePath = null;
-            _temporaryDirectory = null;
         }
 
         /// <summary>
@@ -185,17 +192,15 @@ namespace WinterEngine.Toolset
         /// <param name="e"></param>
         private void toolStripMenuItemSaveModule_Click(object sender, EventArgs e)
         {
-            // No location set - perform a click on the Save As button.
-            if (String.IsNullOrEmpty(_saveFilePath))
+            // Path to module has not been set - prompt user to define it
+            if (String.IsNullOrEmpty(ActiveModule.ModulePath))
             {
                 toolStripMenuItemSaveAsModule.PerformClick();
             }
+            // Otherwise, use the existing path.
             else
             {
-                using (ModuleRepository repo = new ModuleRepository())
-                {
-                    repo.SaveModule(_temporaryDirectory, _saveFilePath);
-                }
+                ActiveModule.SaveModule();
             }
         }
 
@@ -207,25 +212,101 @@ namespace WinterEngine.Toolset
         /// <param name="e"></param>
         private void toolStripMenuItemSaveAsModule_Click(object sender, EventArgs e)
         {
-            // Set the filter
-            FileExtensionFactory factory = new FileExtensionFactory();
-            string extension = factory.GetFileExtension(FileType.Module);
-            saveFileDialog.Filter = "Module Files (*" + extension + ")|*" + extension;
-
-            // Display the save file pop-up.
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Update the path to the module file
-                _saveFilePath = saveFileDialog.FileName;
-
-                // Actually perform the save now.
-                using (ModuleRepository repo = new ModuleRepository())
-                {
-                    repo.SaveModule(_temporaryDirectory, _saveFilePath);
-                }
+                ActiveModule.SaveModule(saveFileDialog.FileName);
             }
         }
 
         #endregion
+
+        #region Module event methods
+
+        /// <summary>
+        /// Enables all controls related to module editing.
+        /// Loads all data from the database into the appropriate controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnModuleCreated(object sender, ModuleCreationEventArgs e)
+        {
+            ActiveModule = e.Module;
+
+            // Refresh the controls for all views. This will populate the tree views
+            // and perform other GUI-related tasks.
+            RefreshAllControls();
+
+            ToggleModuleControlsEnabled(true);
+        }
+
+        /// <summary>
+        /// Runs when the module is saved successfully.
+        /// Handles updating references to the active module.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnModuleSaved(object sender, EventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Runs when the module is opened successfully.
+        /// Handles updating the GUI with new data.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnModuleOpened(object sender, EventArgs e)
+        {
+            ToggleModuleControlsEnabled(true);
+            RefreshAllControls();
+        }
+
+        /// <summary>
+        /// Runs when the module is closed successfully.
+        /// Handles unloading the GUI with data.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnModuleClosed(object sender, EventArgs e)
+        {
+            ToggleModuleControlsEnabled(false);
+            UnloadAllControls();
+        }
+
+        #endregion
+
+        #region Form action methods
+
+        /// <summary>
+        /// Handles closing the form.
+        /// Will fire the CloseModule methods when called normally.
+        /// Normally = User-initiated, windows, or any parent forms closing.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // We only want to do this if the application closes down normally
+            if (e.CloseReason == CloseReason.FormOwnerClosing || e.CloseReason == CloseReason.MdiFormClosing ||
+                e.CloseReason == CloseReason.UserClosing || e.CloseReason == CloseReason.WindowsShutDown)
+            {
+                // Close the module before the form closes. This will ensure that the temporary directory will be
+                // deleted.
+                toolStripMenuItemCloseModule.PerformClick();
+            }
+        }
+
+        /// <summary>
+        /// Handles closing the form. This is the same as clicking the X button at the top right of the form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        #endregion
+
     }
 }
