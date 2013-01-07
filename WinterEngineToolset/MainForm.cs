@@ -8,6 +8,8 @@ using WinterEngine.Toolset.Controls.ControlHelpers;
 using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.ExtendedEventArgs;
 using WinterEngine.Toolset.Helpers;
+using Ionic.Zip;
+using Ionic.Zlib;
 
 namespace WinterEngine.Toolset
 {
@@ -15,8 +17,9 @@ namespace WinterEngine.Toolset
     {
         #region Fields
 
-        private HakBuilder hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
-
+        private HakBuilder _hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
+        private string _saveFilePath;
+        private string _temporaryDirectory;
 
         #endregion
 
@@ -101,6 +104,11 @@ namespace WinterEngine.Toolset
         /// <param name="e"></param>
         private void LoadModuleDataIntoToolset(object sender, ModuleCreationEventArgs e)
         {
+            // Copy the temporary directory over, since we will need to reference it later.
+            _temporaryDirectory = e.TemporaryPathDirectory;
+
+            // Refresh the controls for all views. This will populate the tree views
+            // and perform other GUI-related tasks.
             areaView.RefreshControls();
             itemView.RefreshControls();
             creatureView.RefreshControls();
@@ -136,23 +144,133 @@ namespace WinterEngine.Toolset
         /// <param name="e"></param>
         private void toolStripMenuItemHakpakBuilder_Click(object sender, EventArgs e)
         {
-            bool isNull = Object.ReferenceEquals(hakpakBuilder, null);
+            bool isNull = Object.ReferenceEquals(_hakpakBuilder, null);
 
             // Not instantiated or has been disposed
-            if (isNull || hakpakBuilder.IsDisposed)
+            if (isNull || _hakpakBuilder.IsDisposed)
             {
-                hakpakBuilder = new HakBuilder();
-                hakpakBuilder.Show();
+                _hakpakBuilder = new HakBuilder();
+                _hakpakBuilder.Show();
             }
             // Window is already open. Focus on it.
             else if (!isNull)
             {
-                hakpakBuilder.Focus();
+                _hakpakBuilder.Focus();
+            }
+        }
+
+        /// <summary>
+        /// Closes the module.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemCloseModule_Click(object sender, EventArgs e)
+        {
+            ToggleModuleControlsEnabled(false);
+            // TO-DO: Unload module resources
+            
+
+            // Delete the temporary directory
+            Directory.Delete(_temporaryDirectory);
+
+            // Reset the file paths for the module and temporary directory
+            _saveFilePath = null;
+            _temporaryDirectory = null;
+        }
+
+        /// <summary>
+        /// Handles saving the module.
+        /// Copies the temporary directory to a zip file and replaces any existing file.
+        /// </summary>
+        private void SaveModule()
+        {
+            int index = 0;
+            try
+            {
+                // Generate a unique file name just in case another one already exists.
+                // This is used just in case something goes wrong during the new save.
+                while (File.Exists(_saveFilePath + index))
+                {
+                    index++;
+                }
+
+                // Make a back up of the module file just in case something goes wrong.
+                if (File.Exists(_saveFilePath))
+                {
+                    File.Copy(_saveFilePath, _saveFilePath + index);
+                }
+
+                File.Delete(_saveFilePath);
+
+                using (ZipFile zipFile = new ZipFile(_saveFilePath))
+                {
+                    // Change compression level to none (speeds up loading in-game and toolset)
+                    // Add the directory and save the zip file.
+                    zipFile.CompressionLevel = CompressionLevel.None;
+                    zipFile.AddDirectory(_temporaryDirectory, "");
+                    zipFile.Save();
+
+                    // Delete the backup since the new save was successful.
+                    File.Delete(_saveFilePath + index);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Something screwed up during the save. Delete the new zip file, if any
+                // and then move the backup back to where it was.
+                if (File.Exists(_saveFilePath + index))
+                {
+                    File.Delete(_saveFilePath);
+                    File.Move(_saveFilePath + index, _saveFilePath);
+                }
+
+                ErrorHelper.ShowErrorDialog("Error saving module: ", ex);
+            }
+        }
+
+        /// <summary>
+        /// Saves a module at the set location. If no location has been set,
+        /// the "Save As" button will fire instead.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemSaveModule_Click(object sender, EventArgs e)
+        {
+            // No location set - perform a click on the Save As button.
+            if (String.IsNullOrEmpty(_saveFilePath))
+            {
+                toolStripMenuItemSaveAsModule.PerformClick();
+            }
+            else
+            {
+                SaveModule();
+            }
+        }
+
+        /// <summary>
+        /// Handles taking a user's specified location and saving the module at the
+        /// destination chosen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemSaveAsModule_Click(object sender, EventArgs e)
+        {
+            // Set the filter
+            FileExtensionFactory factory = new FileExtensionFactory();
+            string extension = factory.GetFileExtension(FileType.Module);
+            saveFileDialog.Filter = "Module Files (*" + extension + ")|*" + extension;
+
+            // Display the save file pop-up.
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Update the path to the module file
+                _saveFilePath = saveFileDialog.FileName;
+
+                // Actually perform the save now.
+                SaveModule();
             }
         }
 
         #endregion
-
-
     }
 }
