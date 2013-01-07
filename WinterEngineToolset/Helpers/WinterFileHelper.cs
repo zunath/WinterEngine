@@ -131,30 +131,6 @@ namespace WinterEngine.Toolset.Helpers
         }
 
         /// <summary>
-        /// Decompresses a module to the specified directory.
-        /// </summary>
-        /// <param name="moduleFilePath">The path to the module, including the file's extension.</param>
-        /// <param name="outputDirectory">The directory to decompress the files to.</param>
-        public bool DecompressModule(string moduleFilePath, string outputDirectory)
-        {
-            bool success = true;
-
-            try
-            {
-                using (ZipFile file = new ZipFile(moduleFilePath))
-                {
-                    file.ExtractAll(outputDirectory);
-                }
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                ErrorHelper.ShowErrorDialog("Error decompressing module file to directory: " + outputDirectory, ex);
-            }
-            return success;
-        }
-
-        /// <summary>
         /// Creates a temporary directory in the same folder as the executable.
         /// New directory's name is "temp" + uniqueID
         /// </summary>

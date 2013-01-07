@@ -48,7 +48,6 @@ namespace WinterEngine.Toolset
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileExtensionFactory winterExtensions = new FileExtensionFactory();
-            WinterFileHelper fileHelper = new WinterFileHelper();
             string fileExtension = winterExtensions.GetFileExtension(FileType.Module);
             openFileDialog.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
 
@@ -56,17 +55,17 @@ namespace WinterEngine.Toolset
             // Pop up file selection dialog box.
             if (result == DialogResult.OK)
             {
-                // Create temporary directory to decompress files to
-                DirectoryInfo directoryInfo = Directory.CreateDirectory("./WE_Temp");
                 // File was selected. Attempt to load it.
                 try
                 {
-                    fileHelper.DecompressModule(openFileDialog.FileName, directoryInfo.FullName);
-                    // TO-DO: load into toolset.
+                    using (ModuleRepository repo = new ModuleRepository())
+                    {
+                        repo.OpenModule(openFileDialog.FileName);
+                    }
                 }
                 catch (Exception ex)
                 {
-                    ErrorHelper.ShowErrorDialog("Error opening module. Path: " + directoryInfo.FullName, ex);
+                    ErrorHelper.ShowErrorDialog("Error opening module. " , ex);
                 }
             }
 
@@ -171,61 +170,11 @@ namespace WinterEngine.Toolset
             
 
             // Delete the temporary directory
-            Directory.Delete(_temporaryDirectory);
+            Directory.Delete(_temporaryDirectory, true);
 
             // Reset the file paths for the module and temporary directory
             _saveFilePath = null;
             _temporaryDirectory = null;
-        }
-
-        /// <summary>
-        /// Handles saving the module.
-        /// Copies the temporary directory to a zip file and replaces any existing file.
-        /// </summary>
-        private void SaveModule()
-        {
-            int index = 0;
-            try
-            {
-                // Generate a unique file name just in case another one already exists.
-                // This is used just in case something goes wrong during the new save.
-                while (File.Exists(_saveFilePath + index))
-                {
-                    index++;
-                }
-
-                // Make a back up of the module file just in case something goes wrong.
-                if (File.Exists(_saveFilePath))
-                {
-                    File.Copy(_saveFilePath, _saveFilePath + index);
-                }
-
-                File.Delete(_saveFilePath);
-
-                using (ZipFile zipFile = new ZipFile(_saveFilePath))
-                {
-                    // Change compression level to none (speeds up loading in-game and toolset)
-                    // Add the directory and save the zip file.
-                    zipFile.CompressionLevel = CompressionLevel.None;
-                    zipFile.AddDirectory(_temporaryDirectory, "");
-                    zipFile.Save();
-
-                    // Delete the backup since the new save was successful.
-                    File.Delete(_saveFilePath + index);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Something screwed up during the save. Delete the new zip file, if any
-                // and then move the backup back to where it was.
-                if (File.Exists(_saveFilePath + index))
-                {
-                    File.Delete(_saveFilePath);
-                    File.Move(_saveFilePath + index, _saveFilePath);
-                }
-
-                ErrorHelper.ShowErrorDialog("Error saving module: ", ex);
-            }
         }
 
         /// <summary>
@@ -243,7 +192,10 @@ namespace WinterEngine.Toolset
             }
             else
             {
-                SaveModule();
+                using (ModuleRepository repo = new ModuleRepository())
+                {
+                    repo.SaveModule(_temporaryDirectory, _saveFilePath);
+                }
             }
         }
 
@@ -267,7 +219,10 @@ namespace WinterEngine.Toolset
                 _saveFilePath = saveFileDialog.FileName;
 
                 // Actually perform the save now.
-                SaveModule();
+                using (ModuleRepository repo = new ModuleRepository())
+                {
+                    repo.SaveModule(_temporaryDirectory, _saveFilePath);
+                }
             }
         }
 

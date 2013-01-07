@@ -48,6 +48,9 @@ namespace WinterEngine.Library.Factories
                 // Sound files
                 case FileType.Sound:
                     return ".wav";
+                // Database files
+                case FileType.Database:
+                    return ".sdf";
                 default:
                     return "";
             }
@@ -84,6 +87,9 @@ namespace WinterEngine.Library.Factories
                 // Sound files
                 case ".wav":
                     return FileType.Sound;
+                // Database files
+                case ".sdf":
+                    return FileType.Database;
                 default:
                     return FileType.Invalid;
             }

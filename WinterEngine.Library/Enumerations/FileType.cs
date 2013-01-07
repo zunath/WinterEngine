@@ -17,6 +17,7 @@ namespace WinterEngine.Library.Enumerations
         XNACompiledFile = 7,  // .xnb  - XNA framework's compiled resource files
         UncompiledHakpak = 8, // .wuch - Uncompiled hakpak. Used by the hakpak editor and contains uncompiled resources
         Music = 9,            // .mp3  - Music files
-        Sound = 10            // .wav  - Sound files
+        Sound = 10,           // .wav  - Sound files
+        Database = 11         // .sdf  - Database files  
     }
 }
