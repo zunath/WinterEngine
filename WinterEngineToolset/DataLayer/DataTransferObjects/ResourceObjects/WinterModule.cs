@@ -20,6 +20,9 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
     {
         #region Fields
 
+        private string _moduleName;
+        private string _moduleTag;
+
         private string _modulePath;
         private string _tempDirectoryPath;
 
@@ -27,12 +30,36 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the module's name.
+        /// </summary>
+        public string ModuleName
+        {
+            get { return _moduleName; }
+            set { _moduleName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the module's tag.
+        /// </summary>
+        public string ModuleTag
+        {
+            get { return _moduleTag; }
+            set { _moduleTag = value; }
+        }
+        
+        /// <summary>
+        /// Gets or sets the path to the module file.
+        /// </summary>
         public string ModulePath
         {
             get { return _modulePath; }
             set { _modulePath = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the path to the temporary directory for the module.
+        /// </summary>
         public string TemporaryDirectoryPath
         {
             get { return _tempDirectoryPath; }
@@ -77,16 +104,27 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
         private ModuleSaved _moduleSavedMethod;
         private ModuleClosed _moduleClosedMethod;
 
+        /// <summary>
+        /// Gets or sets the method fired when the module has finished opening.
+        /// </summary>
         public ModuleOpened ModuleOpenedMethod
         {
             get { return _moduleOpenedMethod; }
             set { _moduleOpenedMethod = value; }
         }
+
+        /// <summary>
+        /// Gets or sets the method fired when the module has finished saving.
+        /// </summary>
         public ModuleSaved ModuleSavedMethod
         {
             get { return _moduleSavedMethod; }
             set { _moduleSavedMethod = value; }
         }
+
+        /// <summary>
+        /// Gets or sets the method fired when the module has finished closing.
+        /// </summary>
         public ModuleClosed ModuleClosedMethod
         {
             get { return _moduleClosedMethod; }
