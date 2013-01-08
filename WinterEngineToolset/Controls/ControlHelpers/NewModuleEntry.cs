@@ -75,6 +75,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                 try
                 {
                     WinterModule module = new WinterModule();
+
                     module.CreateModule();
                     eventArgs.Module = module;
 

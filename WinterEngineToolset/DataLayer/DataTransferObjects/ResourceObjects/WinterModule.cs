@@ -43,17 +43,55 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
 
         #region Constructors
 
+        /// <summary>
+        /// Constructor which creates a blank WinterModule.
+        /// Be sure to set the ModuleOpened, ModuleSaved, and ModuleClosed delegates
+        /// or you will get a null reference exception.
+        /// </summary>
         public WinterModule()
         {
+        }
+
+        /// <summary>
+        /// Constructor which builds a WinterModule object.
+        /// </summary>
+        /// <param name="OnModuleOpened">The method to fire when the module is opened/</param>
+        /// <param name="OnModuleSaved">The method to fire when the module is saved.</param>
+        /// <param name="OnModuleClosed">The method to fire when the module is closed.</param>
+        public WinterModule(ModuleOpened OnModuleOpened, ModuleSaved OnModuleSaved, ModuleClosed OnModuleClosed)
+        {
+            _moduleClosedMethod = OnModuleClosed;
+            _moduleOpenedMethod = OnModuleOpened;
+            _moduleSavedMethod = OnModuleSaved;
         }
 
         #endregion
 
         #region Events / Delegates
         
-        public event EventHandler OnModuleOpened;
-        public event EventHandler OnModuleSaved;
-        public event EventHandler OnModuleClosed;
+        public delegate void ModuleOpened();
+        public delegate void ModuleSaved();
+        public delegate void ModuleClosed();
+
+        private ModuleOpened _moduleOpenedMethod;
+        private ModuleSaved _moduleSavedMethod;
+        private ModuleClosed _moduleClosedMethod;
+
+        public ModuleOpened ModuleOpenedMethod
+        {
+            get { return _moduleOpenedMethod; }
+            set { _moduleOpenedMethod = value; }
+        }
+        public ModuleSaved ModuleSavedMethod
+        {
+            get { return _moduleSavedMethod; }
+            set { _moduleSavedMethod = value; }
+        }
+        public ModuleClosed ModuleClosedMethod
+        {
+            get { return _moduleClosedMethod; }
+            set { _moduleClosedMethod = value; }
+        }
 
         #endregion
 
@@ -127,6 +165,7 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
             {
                 repo.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB");
             }
+
         }
 
         /// <summary>
@@ -162,7 +201,7 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
                 File.Delete(backupPath);
             }
 
-            OnModuleSaved(this, new EventArgs());
+            _moduleSavedMethod();
         }
 
         /// <summary>
@@ -213,7 +252,7 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
                 repo.ChangeDatabaseConnection(databaseFilePath);
             }
 
-            OnModuleOpened(this, new EventArgs());
+            _moduleOpenedMethod();
         }
 
         /// <summary>
@@ -230,9 +269,8 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
             // Reset object properties for next use.
             this.ModulePath = "";
             this.TemporaryDirectoryPath = "";
-            EventArgs e = new EventArgs();
-            
-            OnModuleClosed(this, e);
+
+            _moduleClosedMethod();
         }
 
         #endregion

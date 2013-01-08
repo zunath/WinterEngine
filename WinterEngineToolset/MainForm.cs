@@ -42,10 +42,9 @@ namespace WinterEngine.Toolset
         public MainForm()
         {
             InitializeComponent();
-            ActiveModule = new WinterModule();
-            ActiveModule.OnModuleClosed += new EventHandler(OnModuleClosed);
-            ActiveModule.OnModuleOpened += new EventHandler(OnModuleOpened);
-            ActiveModule.OnModuleSaved += new EventHandler(OnModuleSaved);
+            ActiveModule = new WinterModule(OnModuleOpened, OnModuleSaved, OnModuleClosed);
+
+
 
             FileExtensionFactory winterExtensions = new FileExtensionFactory();
             string fileExtension = winterExtensions.GetFileExtension(FileType.Module);
@@ -231,6 +230,9 @@ namespace WinterEngine.Toolset
         private void OnModuleCreated(object sender, ModuleCreationEventArgs e)
         {
             ActiveModule = e.Module;
+            ActiveModule.ModuleClosedMethod = OnModuleClosed;
+            ActiveModule.ModuleOpenedMethod = OnModuleOpened;
+            ActiveModule.ModuleSavedMethod = OnModuleSaved;
 
             // Refresh the controls for all views. This will populate the tree views
             // and perform other GUI-related tasks.
@@ -245,7 +247,7 @@ namespace WinterEngine.Toolset
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnModuleSaved(object sender, EventArgs e)
+        private void OnModuleSaved()
         {
         }
 
@@ -255,7 +257,7 @@ namespace WinterEngine.Toolset
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnModuleOpened(object sender, EventArgs e)
+        private void OnModuleOpened()
         {
             ToggleModuleControlsEnabled(true);
             RefreshAllControls();
@@ -267,7 +269,7 @@ namespace WinterEngine.Toolset
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnModuleClosed(object sender, EventArgs e)
+        private void OnModuleClosed()
         {
             ToggleModuleControlsEnabled(false);
             UnloadAllControls();
