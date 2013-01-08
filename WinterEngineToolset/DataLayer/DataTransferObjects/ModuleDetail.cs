@@ -29,7 +29,7 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects
         /// Gets or sets the unique detail ID for a module detail.
         /// </summary>
         [Key]
-        [MaxLength(16)]
+        [MaxLength(32)]
         public string DetailName
         {
             get { return _detailUniqueName; }
@@ -39,7 +39,7 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects
         /// <summary>
         /// Gets or sets the detail value for a module detail.
         /// </summary>
-        [MaxLength(32)]
+        [MaxLength(64)]
         public string DetailValue
         {
             get { return _detailValue; }

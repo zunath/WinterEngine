@@ -99,7 +99,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>/SdpEj1n3u17I+y1EpCFEo3Lpn4=</dsig:DigestValue>
+        <dsig:DigestValue>0IyDk/6fVkZOytK/m+wkvAgvunk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -159,7 +159,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>yRZyH2Az7fcEXNr/5QcVCl0M8UU=</dsig:DigestValue>
+        <dsig:DigestValue>DhZFtVJHCaZWcepRFgFBQqNVsJ4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -171,19 +171,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>SPW0FHNFX5r3GsT2hYXjbc9x8D8=</dsig:DigestValue>
+        <dsig:DigestValue>2wBdc8xeWILngTCFlJ8vvCFyi70=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="97792">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="100864">
       <assemblyIdentity name="WinterEngine.Toolset" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>rRZQgqFmstNU6ATXi2Yrl2Lgq8Q=</dsig:DigestValue>
+        <dsig:DigestValue>+xBhWKTTZjkS5J9EkZvvLfIUrpU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

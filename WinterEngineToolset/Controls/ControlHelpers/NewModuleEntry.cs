@@ -74,11 +74,8 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             {
                 try
                 {
-                    WinterModule module = new WinterModule();
-
+                    WinterModule module = new WinterModule(nameTextBoxEntry.NameText, tagTextBoxEntry.TagText);
                     module.CreateModule();
-                    module.ModuleName = nameTextBoxEntry.NameText;
-                    module.ModuleTag = tagTextBoxEntry.TagText;
                     eventArgs.Module = module;
 
                     // Pass the temporary directory's path via event.

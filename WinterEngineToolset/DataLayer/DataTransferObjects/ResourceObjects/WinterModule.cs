@@ -75,8 +75,10 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
         /// Be sure to set the ModuleOpened, ModuleSaved, and ModuleClosed delegates
         /// or you will get a null reference exception.
         /// </summary>
-        public WinterModule()
+        public WinterModule(string moduleName, string moduleTag)
         {
+            ModuleName = moduleName;
+            ModuleTag = moduleTag;
         }
 
         /// <summary>
@@ -85,8 +87,10 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
         /// <param name="OnModuleOpened">The method to fire when the module is opened/</param>
         /// <param name="OnModuleSaved">The method to fire when the module is saved.</param>
         /// <param name="OnModuleClosed">The method to fire when the module is closed.</param>
-        public WinterModule(ModuleOpened OnModuleOpened, ModuleSaved OnModuleSaved, ModuleClosed OnModuleClosed)
+        public WinterModule(string moduleName, string moduleTag, ModuleOpened OnModuleOpened, ModuleSaved OnModuleSaved, ModuleClosed OnModuleClosed)
         {
+            ModuleName = moduleName;
+            ModuleTag = moduleTag;
             _moduleClosedMethod = OnModuleClosed;
             _moduleOpenedMethod = OnModuleOpened;
             _moduleSavedMethod = OnModuleSaved;
@@ -202,6 +206,9 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
             using (ModuleRepository repo = new ModuleRepository())
             {
                 repo.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB");
+
+                repo.AddModuleDetail("Name", ModuleName);
+                repo.AddModuleDetail("Tag", ModuleTag);
             }
 
         }

@@ -42,7 +42,7 @@ namespace WinterEngine.Toolset
         public MainForm()
         {
             InitializeComponent();
-            ActiveModule = new WinterModule(OnModuleOpened, OnModuleSaved, OnModuleClosed);
+            ActiveModule = new WinterModule("", "", OnModuleOpened, OnModuleSaved, OnModuleClosed);
 
 
 

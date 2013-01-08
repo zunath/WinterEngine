@@ -207,7 +207,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataLayer\Contexts\WinterContext.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\ModuleDetails.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\ModuleDetail.cs" />
     <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\WinterModule.cs" />
     <Compile Include="DataLayer\Initializers\WinterDatabaseInitializer.cs" />
     <Compile Include="DataLayer\Repositories\AreaRepository.cs" />
