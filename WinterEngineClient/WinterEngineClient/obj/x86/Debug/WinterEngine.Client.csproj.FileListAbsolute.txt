@@ -9,17 +9,6 @@ C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineClient\WinterEngineClient
 C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineClient\WinterEngineClient\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.exe
 C:\Users\Tyler\Desktop\WinterEngine-master\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.pdb
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\Awesomium.dll
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\AwesomiumProcess.exe
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\icudt42.dll
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\locales\en-US.dll
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Client.exe
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Client.pdb
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\System.Data.SqlServerCe.dll
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.csprojResolveAssemblyReference.cache
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.exe
-C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.pdb
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\Awesomium.dll
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\AwesomiumProcess.exe
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\icudt42.dll
@@ -31,3 +20,14 @@ C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineCl
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.exe
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.pdb
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\Awesomium.dll
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\AwesomiumProcess.exe
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\icudt42.dll
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\Awesomium\locales\en-US.dll
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Client.exe
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngine.Client.pdb
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\System.Data.SqlServerCe.dll
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.csprojResolveAssemblyReference.cache
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.exe
+C:\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngine.Client.pdb

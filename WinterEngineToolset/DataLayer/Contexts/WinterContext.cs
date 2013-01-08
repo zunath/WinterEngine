@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.Entity;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects;
 
 namespace WinterEngine.Toolset.DataLayer.Contexts
 {
@@ -15,6 +16,7 @@ namespace WinterEngine.Toolset.DataLayer.Contexts
         public DbSet<Item> Items { get; set; }
         public DbSet<Placeable> Placeables { get; set; }
         public DbSet<ResourceCategory> ResourceCategories { get; set; }
+        public DbSet<ModuleDetail> ModuleDetails { get; set; }
 
         public WinterContext(string connString) : base(connString)
         {

@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Data.Entity.Infrastructure;
-using System.IO;
-using Ionic.Zip;
 using WinterEngine.Toolset.DataLayer.Contexts;
-using WinterEngine.Toolset.Helpers;
-using WinterEngine.Library.Factories;
-using WinterEngine.Library.Enumerations;
-using Ionic.Zlib;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects;
 
 namespace WinterEngine.Toolset.DataLayer.Repositories
 {
@@ -49,6 +45,56 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
                 context.Database.Initialize(true);
+            }
+        }
+
+        /// <summary>
+        /// Adds a new module detail to the active module.
+        /// If the detail already exists, an exception will be thrown.
+        /// </summary>
+        /// <param name="detailName">The unique string used to identify the detail. (Max: 16 characters)</param>
+        /// <param name="detailValue">The value to store in the database. (Max: 32 characters)</param>
+        public void AddModuleDetail(string detailName, string detailValue)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                ModuleDetail detail = new ModuleDetail();
+                detail.DetailName = detailName;
+                detail.DetailValue = detailValue;
+
+                context.ModuleDetails.Add(detail);
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Updates an existing detail in the database.
+        /// If the detail does not exist, an exception will be thrown.
+        /// </summary>
+        /// <param name="detailName">The unique string used to identify the detail. (Max: 16 characters)</param>
+        /// <param name="detailNewValue">The value to store in the database. (Max: 32 characters)</param>
+        public void UpdateModuleDetail(string detailName, string detailNewValue)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                ModuleDetail detail = context.ModuleDetails.First(x => x.DetailName == detailName);
+                detail.DetailValue = detailNewValue;
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Deletes an existing detail from the database.
+        /// If the detail does not exist, nothing will happen.
+        /// </summary>
+        /// <param name="detailName"></param>
+        public void DeleteModuleDetail(string detailName)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                ModuleDetail detail = context.ModuleDetails.First(x => x.DetailName == detailName);
+                context.ModuleDetails.Remove(detail);
+                context.SaveChanges();
             }
         }
 
