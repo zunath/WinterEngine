@@ -25,6 +25,55 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         }
 
         /// <summary>
+        /// Updates an existing item in the database with new values.
+        /// If an item is not found by the specified resref, an exception will be thrown.
+        /// </summary>
+        /// <param name="resref">The resource reference to search for and update.</param>
+        /// <param name="newItem">The new item that will replace the item with the matching resref.</param>
+        public void Update(string resref, Item newItem)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                Item item = context.Items.First(x => x.Resref == resref);
+
+                if (Object.ReferenceEquals(item, null))
+                {
+                    throw new NullReferenceException("Unable to find item by specified resref.");
+                }
+                else
+                {
+                    item = newItem;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        /// <summary>
+        /// If an item with the same resref is in the database, it will be replaced with newItem.
+        /// If an item does not exist by newItem's resref, it will be added to the database.
+        /// </summary>
+        /// <param name="newItem">The new item to upsert.</param>
+        public void Upsert(Item newItem)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                Item item = context.Items.First(x => x.Resref == newItem.Resref);
+
+                // Didn't find an existing item. Insert a new one.
+                if (Object.ReferenceEquals(item, null))
+                {
+                    context.Items.Add(item);
+                }
+                else
+                {
+                    item = newItem;
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
         /// Deletes an item with the specified resref from the database.
         /// </summary>
         /// <param name="resref">The resource reference to search for and delete.</param>

@@ -209,7 +209,7 @@
     <Compile Include="DataLayer\Contexts\WinterContext.cs" />
     <Compile Include="DataLayer\DataTransferObjects\ModuleDetail.cs" />
     <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\WinterModule.cs" />
-    <Compile Include="DataLayer\Initializers\WinterDatabaseInitializer.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\ItemProperty.cs" />
     <Compile Include="DataLayer\Repositories\AreaRepository.cs" />
     <Compile Include="DataLayer\Repositories\CreatureRepository.cs" />
     <Compile Include="DataLayer\Repositories\ItemRepository.cs" />
@@ -218,7 +218,6 @@
     <Compile Include="DataLayer\WinterConnectionInformation.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="GUI\Views\IViewControls.cs" />
-    <Compile Include="Helpers\DatabaseHelper.cs" />
     <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Area.cs" />
     <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceCategory.cs" />
     <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Creature.cs" />

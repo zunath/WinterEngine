@@ -25,6 +25,55 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         }
 
         /// <summary>
+        /// Updates an existing placeable in the database with new values.
+        /// If a placeable is not found by the specified resref, an exception will be thrown.
+        /// </summary>
+        /// <param name="resref">The resource reference to search for and update.</param>
+        /// <param name="newItem">The new placeable that will replace the placeable with the matching resref.</param>
+        public void Update(string resref, Placeable newPlaceable)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                Placeable placeable = context.Placeables.First(x => x.Resref == resref);
+
+                if (Object.ReferenceEquals(placeable, null))
+                {
+                    throw new NullReferenceException("Unable to find placeable by specified resref.");
+                }
+                else
+                {
+                    placeable = newPlaceable;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        /// <summary>
+        /// If an placeable with the same resref is in the database, it will be replaced with newPlaceable.
+        /// If an placeable does not exist by newPlaceable's resref, it will be added to the database.
+        /// </summary>
+        /// <param name="newItem">The new placeable to upsert.</param>
+        public void Upsert(Placeable newPlaceable)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                Placeable placeable = context.Placeables.First(x => x.Resref == newPlaceable.Resref);
+
+                // Didn't find an existing creature. Insert a new one.
+                if (Object.ReferenceEquals(placeable, null))
+                {
+                    context.Placeables.Add(placeable);
+                }
+                else
+                {
+                    placeable = newPlaceable;
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
         /// Deletes a placeable with the specified resref from the database.
         /// </summary>
         /// <param name="resref">The resource reference to search for and delete.</param>

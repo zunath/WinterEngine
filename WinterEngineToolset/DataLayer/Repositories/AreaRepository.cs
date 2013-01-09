@@ -25,6 +25,55 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         }
 
         /// <summary>
+        /// Updates an existing area in the database with new values.
+        /// If an area is not found by the specified resref, an exception will be thrown.
+        /// </summary>
+        /// <param name="resref">The resource reference to search for and update.</param>
+        /// <param name="newItem">The new area that will replace the area with the matching resref.</param>
+        public void Update(string resref, Area newArea)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                Area area = context.Areas.First(x => x.Resref == resref);
+
+                if (Object.ReferenceEquals(area, null))
+                {
+                    throw new NullReferenceException("Unable to find area by specified resref.");
+                }
+                else
+                {
+                    area = newArea;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        /// <summary>
+        /// If an area with the same resref is in the database, it will be replaced with newArea.
+        /// If an area does not exist by newArea's resref, it will be added to the database.
+        /// </summary>
+        /// <param name="newItem">The new area to upsert.</param>
+        public void Upsert(Area newArea)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                Area area = context.Areas.First(x => x.Resref == newArea.Resref);
+
+                // Didn't find an existing area. Insert a new one.
+                if (Object.ReferenceEquals(area, null))
+                {
+                    context.Areas.Add(area);
+                }
+                else
+                {
+                    area = newArea;
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
         /// Deletes an area with the specified resref from the database.
         /// </summary>
         /// <param name="resref">The resource reference to search for and delete.</param>

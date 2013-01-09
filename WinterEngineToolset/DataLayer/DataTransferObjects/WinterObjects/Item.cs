@@ -17,6 +17,10 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
         private string _description;
         private int _price;
         private int _weight;
+        private bool _isUndroppable;
+        private bool _isPlot;
+        private bool _isStolen;
+        private List<ItemProperty> _itemProperties;
 
         #endregion
 
@@ -57,6 +61,42 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
         {
             get { return _weight; }
             set { _weight = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets whether or not an item can be dropped by a player.
+        /// </summary>
+        public bool IsUndroppable
+        {
+            get { return _isUndroppable; }
+            set { _isUndroppable = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the list of item properties for an item.
+        /// </summary>
+        public List<ItemProperty> ItemProperties
+        {
+            get { return _itemProperties; }
+            set { _itemProperties = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets whether or not an item is plot.
+        /// </summary>
+        public bool IsPlot
+        {
+            get { return _isPlot; }
+            set { _isPlot = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets whether or not an item is stolen.
+        /// </summary>
+        public bool IsStolen
+        {
+            get { return _isStolen; }
+            set { _isStolen = value; }
         }
 
         #endregion

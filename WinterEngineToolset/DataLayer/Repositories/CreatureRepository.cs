@@ -23,6 +23,56 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             }
         }
 
+
+        /// <summary>
+        /// Updates an existing creature in the database with new values.
+        /// If a creature is not found by the specified resref, an exception will be thrown.
+        /// </summary>
+        /// <param name="resref">The resource reference to search for and update.</param>
+        /// <param name="newItem">The new creature that will replace the creature with the matching resref.</param>
+        public void Update(string resref, Creature newCreature)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                Creature creature = context.Creatures.First(x => x.Resref == resref);
+
+                if (Object.ReferenceEquals(creature, null))
+                {
+                    throw new NullReferenceException("Unable to find creature by specified resref.");
+                }
+                else
+                {
+                    creature = newCreature;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        /// <summary>
+        /// If an creature with the same resref is in the database, it will be replaced with newCreature.
+        /// If an creature does not exist by newCreature's resref, it will be added to the database.
+        /// </summary>
+        /// <param name="newItem">The new creature to upsert.</param>
+        public void Upsert(Creature newCreature)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                Creature creature = context.Creatures.First(x => x.Resref == newCreature.Resref);
+
+                // Didn't find an existing creature. Insert a new one.
+                if (Object.ReferenceEquals(creature, null))
+                {
+                    context.Creatures.Add(creature);
+                }
+                else
+                {
+                    creature = newCreature;
+                }
+
+                context.SaveChanges();
+            }
+        }
+
         /// <summary>
         /// Deletes an creature with the specified resref from the database.
         /// </summary>
