@@ -278,7 +278,7 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects
             }
 
             FileInfo[] fileInfo = directoryInfo.GetFiles();
-            string extension = factory.GetFileExtension(FileType.Database);
+            string extension = factory.GetFileExtension(FileTypeEnum.Database);
             string databaseFilePath = "";
 
             foreach (FileInfo file in fileInfo)

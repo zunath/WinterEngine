@@ -32,7 +32,7 @@ namespace WinterEngine.Toolset.Helpers
         /// <param name="outputDirectory">The directory to create the file in.</param>
         /// <param name="fileName">The name of the file without an extension</param>
         /// <param name="fileType">The type of file to create.</param>
-        private bool CreateFileFromDirectory(string inputDirectory, string outputDirectory, string fileName, FileType fileType, CompressionLevel compressionLevel)
+        private bool CreateFileFromDirectory(string inputDirectory, string outputDirectory, string fileName, FileTypeEnum fileType, CompressionLevel compressionLevel)
         {
             FileExtensionFactory winterExtensions = new FileExtensionFactory();
             bool success = true;
@@ -65,7 +65,7 @@ namespace WinterEngine.Toolset.Helpers
         /// <param name="outputDirectory">The directory to place the hakpak in.</param>
         public bool CreateHakPak(string inputDirectory, string outputDirectory, string fileName)
         {
-            return CreateFileFromDirectory(inputDirectory, outputDirectory, fileName, FileType.Hakpak, CompressionLevel.None);
+            return CreateFileFromDirectory(inputDirectory, outputDirectory, fileName, FileTypeEnum.Hakpak, CompressionLevel.None);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace WinterEngine.Toolset.Helpers
         {
             FileExtensionFactory winterExtensions = new FileExtensionFactory();
             bool success = true;
-            string filePath = outputDirectory + "\\" + fileName + "." + winterExtensions.GetFileExtension(FileType.Module);
+            string filePath = outputDirectory + "\\" + fileName + "." + winterExtensions.GetFileExtension(FileTypeEnum.Module);
             try
             {
                 using (ZipFile file = new ZipFile(filePath))

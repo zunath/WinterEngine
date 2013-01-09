@@ -14,84 +14,84 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="fileType">The type of file to retrieve an extension for.</param>
         /// <returns></returns>
-        public string GetFileExtension(FileType fileType)
+        public string GetFileExtension(FileTypeEnum fileType)
         {
             switch (fileType)
             {
                 // Contains end-user's custom models, textures, etc
-                case FileType.Hakpak:
+                case FileTypeEnum.Hakpak:
                     return ".whak";
                 // Contains database information specific to an end-user's module
-                case FileType.Module:
+                case FileTypeEnum.Module:
                     return ".wmod";
                 // Contains transportable database information
-                case FileType.Erf:
+                case FileTypeEnum.Erf:
                     return ".werf";
                 // Contains the engine's built-in models, textures, etc
-                case FileType.WinterResource:
+                case FileTypeEnum.WinterResource:
                     return ".wrsc";
                 // Model graphics
-                case FileType.Model:
+                case FileTypeEnum.Model:
                     return ".fbx";
                 // Texture graphics
-                case FileType.Texture:
+                case FileTypeEnum.Texture:
                     return ".tga";
                 // XNA compiled files
-                case FileType.XNACompiledFile:
+                case FileTypeEnum.XNACompiledFile:
                     return ".xnb";
                 // Uncompiled hakpak files
-                case FileType.UncompiledHakpak:
+                case FileTypeEnum.UncompiledHakpak:
                     return ".wuch";
                 // Music files
-                case FileType.Music:
+                case FileTypeEnum.Music:
                     return ".mp3";
                 // Sound files
-                case FileType.Sound:
+                case FileTypeEnum.Sound:
                     return ".wav";
                 // Database files
-                case FileType.Database:
+                case FileTypeEnum.Database:
                     return ".sdf";
                 default:
                     return "";
             }
         }
 
-        public FileType GetFileType(string fileExtension)
+        public FileTypeEnum GetFileType(string fileExtension)
         {
             switch (fileExtension)
             {
                 case ".whak":
-                    return FileType.Hakpak;
+                    return FileTypeEnum.Hakpak;
                 case ".wmod":
-                    return FileType.Module;
+                    return FileTypeEnum.Module;
                 case ".werf":
-                    return FileType.Erf;
+                    return FileTypeEnum.Erf;
                 // Contains the engine's built-in models, textures, etc
                 case ".wrsc":
-                    return FileType.WinterResource;
+                    return FileTypeEnum.WinterResource;
                 // Model graphics
                 case ".fbx":
-                    return FileType.Model;
+                    return FileTypeEnum.Model;
                 // Texture graphics
                 case ".tga":
-                    return FileType.Texture;
+                    return FileTypeEnum.Texture;
                 // XNA compiled files
                 case ".xnb":
-                    return FileType.XNACompiledFile;
+                    return FileTypeEnum.XNACompiledFile;
                 // Uncompiled hakpak files
                 case ".wuch":
-                    return FileType.UncompiledHakpak;
+                    return FileTypeEnum.UncompiledHakpak;
                 // Music files
                 case ".mp3":
-                    return FileType.Music;
+                    return FileTypeEnum.Music;
                 // Sound files
                 case ".wav":
-                    return FileType.Sound;
+                    return FileTypeEnum.Sound;
                 // Database files
                 case ".sdf":
-                    return FileType.Database;
+                    return FileTypeEnum.Database;
                 default:
-                    return FileType.Invalid;
+                    return FileTypeEnum.Invalid;
             }
         }
     }

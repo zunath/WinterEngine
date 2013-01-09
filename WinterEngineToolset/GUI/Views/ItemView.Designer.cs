@@ -28,9 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.treeCategoryControlItem = new WinterEngine.Toolset.Controls.ViewControls.TreeCategoryControl();
             this.itemViewControl = new WinterEngine.Toolset.Controls.ViewControls.ItemViewControl();
+            this.treeCategoryControlItem = new WinterEngine.Toolset.Controls.ViewControls.TreeCategoryControl();
             this.SuspendLayout();
+            // 
+            // itemViewControl
+            // 
+            this.itemViewControl.Location = new System.Drawing.Point(192, 0);
+            this.itemViewControl.Name = "itemViewControl";
+            this.itemViewControl.Size = new System.Drawing.Size(375, 452);
+            this.itemViewControl.TabIndex = 4;
             // 
             // treeCategoryControlItem
             // 
@@ -39,13 +46,6 @@
             this.treeCategoryControlItem.Size = new System.Drawing.Size(194, 449);
             this.treeCategoryControlItem.TabIndex = 3;
             this.treeCategoryControlItem.WinterObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Item;
-            // 
-            // itemViewControl
-            // 
-            this.itemViewControl.Location = new System.Drawing.Point(192, 0);
-            this.itemViewControl.Name = "itemViewControl";
-            this.itemViewControl.Size = new System.Drawing.Size(375, 452);
-            this.itemViewControl.TabIndex = 4;
             // 
             // ItemView
             // 

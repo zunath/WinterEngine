@@ -60,10 +60,14 @@
             this.toolStripMenuItemWebsite = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageCreatures = new System.Windows.Forms.TabPage();
+            this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAreas = new System.Windows.Forms.TabPage();
+            this.areaView = new WinterEngine.Toolset.GUI.Views.AreaView();
             this.tabPageItems = new System.Windows.Forms.TabPage();
+            this.itemView = new WinterEngine.Toolset.GUI.Views.ItemView();
             this.tabPagePlaceables = new System.Windows.Forms.TabPage();
+            this.placeableView = new WinterEngine.Toolset.GUI.Views.PlaceableView();
             this.tabPageConversations = new System.Windows.Forms.TabPage();
             this.panelConversationControl = new System.Windows.Forms.Panel();
             this.buttonAddConversationCategory = new System.Windows.Forms.Button();
@@ -74,10 +78,6 @@
             this.treeViewScripts = new System.Windows.Forms.TreeView();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.areaView = new WinterEngine.Toolset.GUI.Views.AreaView();
-            this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
-            this.itemView = new WinterEngine.Toolset.GUI.Views.ItemView();
-            this.placeableView = new WinterEngine.Toolset.GUI.Views.PlaceableView();
             this.menuStripMain.SuspendLayout();
             this.tabPageCreatures.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -125,14 +125,14 @@
             // toolStripMenuItemNewModule
             // 
             this.toolStripMenuItemNewModule.Name = "toolStripMenuItemNewModule";
-            this.toolStripMenuItemNewModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemNewModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemNewModule.Text = "New Module";
             this.toolStripMenuItemNewModule.Click += new System.EventHandler(this.toolStripMenuItemNewModule_Click);
             // 
             // toolStripMenuItemOpenModule
             // 
             this.toolStripMenuItemOpenModule.Name = "toolStripMenuItemOpenModule";
-            this.toolStripMenuItemOpenModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemOpenModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemOpenModule.Text = "Open Module";
             this.toolStripMenuItemOpenModule.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -140,20 +140,20 @@
             // 
             this.toolStripMenuItemCloseModule.Enabled = false;
             this.toolStripMenuItemCloseModule.Name = "toolStripMenuItemCloseModule";
-            this.toolStripMenuItemCloseModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemCloseModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemCloseModule.Text = "Close Module";
             this.toolStripMenuItemCloseModule.Click += new System.EventHandler(this.toolStripMenuItemCloseModule_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemSaveModule
             // 
             this.toolStripMenuItemSaveModule.Enabled = false;
             this.toolStripMenuItemSaveModule.Name = "toolStripMenuItemSaveModule";
-            this.toolStripMenuItemSaveModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemSaveModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemSaveModule.Text = "Save";
             this.toolStripMenuItemSaveModule.Click += new System.EventHandler(this.toolStripMenuItemSaveModule_Click);
             // 
@@ -161,49 +161,49 @@
             // 
             this.toolStripMenuItemSaveAsModule.Enabled = false;
             this.toolStripMenuItemSaveAsModule.Name = "toolStripMenuItemSaveAsModule";
-            this.toolStripMenuItemSaveAsModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemSaveAsModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemSaveAsModule.Text = "Save As...";
             this.toolStripMenuItemSaveAsModule.Click += new System.EventHandler(this.toolStripMenuItemSaveAsModule_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemImportERF
             // 
             this.toolStripMenuItemImportERF.Enabled = false;
             this.toolStripMenuItemImportERF.Name = "toolStripMenuItemImportERF";
-            this.toolStripMenuItemImportERF.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemImportERF.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemImportERF.Text = "Import";
             // 
             // toolStripMenuItemExportERF
             // 
             this.toolStripMenuItemExportERF.Enabled = false;
             this.toolStripMenuItemExportERF.Name = "toolStripMenuItemExportERF";
-            this.toolStripMenuItemExportERF.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemExportERF.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemExportERF.Text = "Export";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemRecentFiles
             // 
             this.toolStripMenuItemRecentFiles.Name = "toolStripMenuItemRecentFiles";
-            this.toolStripMenuItemRecentFiles.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemRecentFiles.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemRecentFiles.Text = "Recent Files";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemExit
             // 
             this.toolStripMenuItemExit.Name = "toolStripMenuItemExit";
-            this.toolStripMenuItemExit.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemExit.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemExit.Text = "Exit";
             this.toolStripMenuItemExit.Click += new System.EventHandler(this.toolStripMenuItemExit_Click);
             // 
@@ -335,15 +335,27 @@
             this.tabPageCreatures.Text = "Creatures";
             this.tabPageCreatures.UseVisualStyleBackColor = true;
             // 
+            // creatureView
+            // 
+            this.creatureView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.creatureView.Location = new System.Drawing.Point(0, 7);
+            this.creatureView.Name = "creatureView";
+            this.creatureView.Size = new System.Drawing.Size(570, 455);
+            this.creatureView.TabIndex = 0;
+            // 
             // tabControlMain
             // 
+            this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlMain.Controls.Add(this.tabPageAreas);
             this.tabControlMain.Controls.Add(this.tabPageCreatures);
             this.tabControlMain.Controls.Add(this.tabPageItems);
             this.tabControlMain.Controls.Add(this.tabPagePlaceables);
             this.tabControlMain.Controls.Add(this.tabPageConversations);
             this.tabControlMain.Controls.Add(this.tabPageScripts);
-            this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Enabled = false;
             this.tabControlMain.Location = new System.Drawing.Point(0, 24);
             this.tabControlMain.Name = "tabControlMain";
@@ -362,6 +374,16 @@
             this.tabPageAreas.Text = "Areas";
             this.tabPageAreas.UseVisualStyleBackColor = true;
             // 
+            // areaView
+            // 
+            this.areaView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.areaView.Location = new System.Drawing.Point(0, 7);
+            this.areaView.Name = "areaView";
+            this.areaView.Size = new System.Drawing.Size(570, 455);
+            this.areaView.TabIndex = 0;
+            // 
             // tabPageItems
             // 
             this.tabPageItems.Controls.Add(this.itemView);
@@ -373,6 +395,16 @@
             this.tabPageItems.Text = "Items";
             this.tabPageItems.UseVisualStyleBackColor = true;
             // 
+            // itemView
+            // 
+            this.itemView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.itemView.Location = new System.Drawing.Point(0, 7);
+            this.itemView.Name = "itemView";
+            this.itemView.Size = new System.Drawing.Size(570, 455);
+            this.itemView.TabIndex = 0;
+            // 
             // tabPagePlaceables
             // 
             this.tabPagePlaceables.Controls.Add(this.placeableView);
@@ -382,6 +414,16 @@
             this.tabPagePlaceables.TabIndex = 2;
             this.tabPagePlaceables.Text = "Placeables";
             this.tabPagePlaceables.UseVisualStyleBackColor = true;
+            // 
+            // placeableView
+            // 
+            this.placeableView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.placeableView.Location = new System.Drawing.Point(0, 7);
+            this.placeableView.Name = "placeableView";
+            this.placeableView.Size = new System.Drawing.Size(570, 455);
+            this.placeableView.TabIndex = 0;
             // 
             // tabPageConversations
             // 
@@ -458,34 +500,6 @@
             this.treeViewScripts.Name = "treeViewScripts";
             this.treeViewScripts.Size = new System.Drawing.Size(186, 416);
             this.treeViewScripts.TabIndex = 4;
-            // 
-            // areaView
-            // 
-            this.areaView.Location = new System.Drawing.Point(0, 7);
-            this.areaView.Name = "areaView";
-            this.areaView.Size = new System.Drawing.Size(570, 455);
-            this.areaView.TabIndex = 0;
-            // 
-            // creatureView
-            // 
-            this.creatureView.Location = new System.Drawing.Point(0, 7);
-            this.creatureView.Name = "creatureView";
-            this.creatureView.Size = new System.Drawing.Size(570, 455);
-            this.creatureView.TabIndex = 0;
-            // 
-            // itemView
-            // 
-            this.itemView.Location = new System.Drawing.Point(0, 7);
-            this.itemView.Name = "itemView";
-            this.itemView.Size = new System.Drawing.Size(570, 455);
-            this.itemView.TabIndex = 0;
-            // 
-            // placeableView
-            // 
-            this.placeableView.Location = new System.Drawing.Point(0, 7);
-            this.placeableView.Name = "placeableView";
-            this.placeableView.Size = new System.Drawing.Size(570, 455);
-            this.placeableView.TabIndex = 0;
             // 
             // MainForm
             // 

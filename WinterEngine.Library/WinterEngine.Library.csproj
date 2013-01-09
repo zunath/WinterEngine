@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentBuilder.cs" />
-    <Compile Include="Enumerations\FileType.cs" />
+    <Compile Include="Enumerations\FileTypeEnum.cs" />
     <Compile Include="Enumerations\ResourceTypeEnum.cs" />
     <Compile Include="ErrorLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

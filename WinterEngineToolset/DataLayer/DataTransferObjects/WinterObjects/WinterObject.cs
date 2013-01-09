@@ -18,6 +18,7 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
         string _tag;
         string _resref;
         int _resourceCategoryID;
+        string _comment;
 
         #endregion
 
@@ -66,10 +67,23 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
             set { _resref = value.ToLower(); }
         }
 
+        /// <summary>
+        /// Gets or sets the resource category this object belongs to.
+        /// </summary>
         public int ResourceCategoryID
         {
             get { return _resourceCategoryID; }
             set { _resourceCategoryID = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the comment attached to an object in the toolset
+        /// </summary>
+        [MaxLength(4000)]
+        public string Comment
+        {
+            get { return _comment; }
+            set { _comment = value; }
         }
 
         #endregion

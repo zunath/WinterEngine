@@ -36,7 +36,6 @@ namespace WinterEngine.Toolset
 
         #endregion
 
-
         #region Constructors
 
         public MainForm()
@@ -47,7 +46,7 @@ namespace WinterEngine.Toolset
 
 
             FileExtensionFactory winterExtensions = new FileExtensionFactory();
-            string fileExtension = winterExtensions.GetFileExtension(FileType.Module);
+            string fileExtension = winterExtensions.GetFileExtension(FileTypeEnum.Module);
             openFileDialog.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
             saveFileDialog.Filter = openFileDialog.Filter;
         }

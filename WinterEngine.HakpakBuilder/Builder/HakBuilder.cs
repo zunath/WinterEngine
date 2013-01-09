@@ -62,10 +62,10 @@ namespace WinterEngine.Hakpak.Builder
         private void buttonAddFiles_Click(object sender, EventArgs e)
         {
             FileExtensionFactory extensions = new FileExtensionFactory();
-            string modelFileExtension = extensions.GetFileExtension(FileType.Model);
-            string textureFileExtension = extensions.GetFileExtension(FileType.Texture);
-            string soundFileExtension = extensions.GetFileExtension(FileType.Sound);
-            string musicFileExtension = extensions.GetFileExtension(FileType.Music);
+            string modelFileExtension = extensions.GetFileExtension(FileTypeEnum.Model);
+            string textureFileExtension = extensions.GetFileExtension(FileTypeEnum.Texture);
+            string soundFileExtension = extensions.GetFileExtension(FileTypeEnum.Sound);
+            string musicFileExtension = extensions.GetFileExtension(FileTypeEnum.Music);
 
             openFileDialogBuilder.Filter = "All Available Types|*" + textureFileExtension + ";*" + modelFileExtension + ";*" + soundFileExtension + "|" +
                                       "Texture Files|*" + textureFileExtension + "|" +
@@ -112,7 +112,7 @@ namespace WinterEngine.Hakpak.Builder
             }
 
             FileExtensionFactory extensions = new FileExtensionFactory();
-            string fileExtension = extensions.GetFileExtension(FileType.Hakpak);
+            string fileExtension = extensions.GetFileExtension(FileTypeEnum.Hakpak);
             saveFileDialog.Filter = "Hakpak Files (*" + fileExtension + ")|*" + fileExtension;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -253,7 +253,7 @@ namespace WinterEngine.Hakpak.Builder
                     zipFile.CompressionLevel = CompressionLevel.None;
                     // Retrieve the compiled files from memory 
                     string tempPath = builder.OutputDirectory;
-                    string xnaFileExtension = new FileExtensionFactory().GetFileExtension(FileType.XNACompiledFile);
+                    string xnaFileExtension = new FileExtensionFactory().GetFileExtension(FileTypeEnum.XNACompiledFile);
                     string[] files = Directory.GetFiles(tempPath, "*" + xnaFileExtension);
 
                     // Loop through the file list and add them to the zip file
@@ -331,22 +331,22 @@ namespace WinterEngine.Hakpak.Builder
         private string GetProcessorType(string fileExtension)
         {
             FileExtensionFactory factory = new FileExtensionFactory();
-            FileType fileType = factory.GetFileType(fileExtension);
+            FileTypeEnum fileType = factory.GetFileType(fileExtension);
             string processorType = "NONE";
 
 
             switch (fileType)
             {
-                case FileType.Music:
+                case FileTypeEnum.Music:
                     processorType = "SongContent";
                     break;
-                case FileType.Sound:
+                case FileTypeEnum.Sound:
                     processorType = "SoundEffectProcessor";
                     break;
-                case FileType.Model:
+                case FileTypeEnum.Model:
                     processorType = "ModelProcessor";
                     break;
-                case FileType.Texture:
+                case FileTypeEnum.Texture:
                     processorType = "TextureProcessor";
                     break;
                 default:
@@ -417,11 +417,11 @@ namespace WinterEngine.Hakpak.Builder
         private void InitializeFileDialogFilters()
         {
             FileExtensionFactory extensions = new FileExtensionFactory();
-            string modelFileExtension = extensions.GetFileExtension(FileType.Model);
-            string textureFileExtension = extensions.GetFileExtension(FileType.Texture);
-            string soundFileExtension = extensions.GetFileExtension(FileType.Sound);
-            string musicFileExtension = extensions.GetFileExtension(FileType.Music);
-            string uncompiledHakpakFileExtension = extensions.GetFileExtension(FileType.UncompiledHakpak);
+            string modelFileExtension = extensions.GetFileExtension(FileTypeEnum.Model);
+            string textureFileExtension = extensions.GetFileExtension(FileTypeEnum.Texture);
+            string soundFileExtension = extensions.GetFileExtension(FileTypeEnum.Sound);
+            string musicFileExtension = extensions.GetFileExtension(FileTypeEnum.Music);
+            string uncompiledHakpakFileExtension = extensions.GetFileExtension(FileTypeEnum.UncompiledHakpak);
 
             openFileDialogBuilder.Filter = "All Available Types|*" + textureFileExtension + ";*" + modelFileExtension + ";*" + soundFileExtension + "|" +
                                       "Texture Files|*" + textureFileExtension + "|" +
@@ -472,7 +472,7 @@ namespace WinterEngine.Hakpak.Builder
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileExtensionFactory extensions = new FileExtensionFactory();
-            string uncompiledHakpakFileExtension = extensions.GetFileExtension(FileType.UncompiledHakpak);
+            string uncompiledHakpakFileExtension = extensions.GetFileExtension(FileTypeEnum.UncompiledHakpak);
 
             openFileDialogBuilder.Filter = "Uncompiled Hakpak (*" + uncompiledHakpakFileExtension + ")|*" + uncompiledHakpakFileExtension;
 

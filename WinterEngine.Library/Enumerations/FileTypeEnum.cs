@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WinterEngine.Library.Enumerations
 {
-    public enum FileType
+    public enum FileTypeEnum
     {
         Invalid = 0,          // Invalid file type
         Module = 1,           // .wmod - Contains database file(s)
