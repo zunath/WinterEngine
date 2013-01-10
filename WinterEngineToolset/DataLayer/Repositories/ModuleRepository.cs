@@ -77,7 +77,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                ModuleDetail detail = context.ModuleDetails.First(x => x.DetailName == detailName);
+                ModuleDetail detail = context.ModuleDetails.SingleOrDefault(x => x.DetailName == detailName);
                 detail.DetailValue = detailNewValue;
                 context.SaveChanges();
             }
@@ -93,7 +93,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                ModuleDetail detail = context.ModuleDetails.First(x => x.DetailName == detailName);
+                ModuleDetail detail = context.ModuleDetails.SingleOrDefault(x => x.DetailName == detailName);
 
                 // Detail does not exist - create a new one with the specified value.
                 if (Object.ReferenceEquals(detail, null))
@@ -136,7 +136,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                ModuleDetail detail = context.ModuleDetails.First(x => x.DetailName == detailName);
+                ModuleDetail detail = context.ModuleDetails.SingleOrDefault(x => x.DetailName == detailName);
                 if (Object.ReferenceEquals(detail, null))
                 {
                     return false;

@@ -34,7 +34,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                Creature creature = context.Creatures.First(x => x.Resref == resref);
+                Creature creature = context.Creatures.SingleOrDefault(x => x.Resref == resref);
 
                 if (Object.ReferenceEquals(creature, null))
                 {
@@ -57,7 +57,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                Creature creature = context.Creatures.First(x => x.Resref == newCreature.Resref);
+                Creature creature = context.Creatures.SingleOrDefault(x => x.Resref == newCreature.Resref);
 
                 // Didn't find an existing creature. Insert a new one.
                 if (Object.ReferenceEquals(creature, null))

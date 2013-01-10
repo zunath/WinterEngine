@@ -34,7 +34,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                Item item = context.Items.First(x => x.Resref == resref);
+                Item item = context.Items.SingleOrDefault(x => x.Resref == resref);
 
                 if (Object.ReferenceEquals(item, null))
                 {
@@ -57,7 +57,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                Item item = context.Items.First(x => x.Resref == newItem.Resref);
+                Item item = context.Items.SingleOrDefault(x => x.Resref == newItem.Resref);
 
                 // Didn't find an existing item. Insert a new one.
                 if (Object.ReferenceEquals(item, null))

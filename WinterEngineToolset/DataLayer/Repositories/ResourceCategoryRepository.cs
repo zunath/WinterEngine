@@ -112,12 +112,11 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     // Find the resource in the database that matches the passed-in resource's category ID (primary key)
-                    ResourceCategory dbResource = context.ResourceCategories.FirstOrDefault(r => r.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID));
+                    ResourceCategory dbResource = context.ResourceCategories.SingleOrDefault(r => r.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID));
 
                     // Unable to find a matching resource. Do not attempt to update.
                     if (!Object.ReferenceEquals(dbResource, null))
                     {
-                        // Map the DTO to the database object, replacing the existing object. Then save changes.
                         dbResource = resourceCategory;
                         context.SaveChanges();
                     }
@@ -151,7 +150,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     // Find the category in the database. CategoryID is a primary key so there will only ever be one.
-                    ResourceCategory category = context.ResourceCategories.FirstOrDefault(val => val.ResourceCategoryID == resourceCategory.ResourceCategoryID);
+                    ResourceCategory category = context.ResourceCategories.SingleOrDefault(val => val.ResourceCategoryID == resourceCategory.ResourceCategoryID);
 
                     if (!Object.ReferenceEquals(category, null))
                     {

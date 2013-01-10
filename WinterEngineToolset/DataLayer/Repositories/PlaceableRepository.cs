@@ -34,7 +34,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                Placeable placeable = context.Placeables.First(x => x.Resref == resref);
+                Placeable placeable = context.Placeables.SingleOrDefault(x => x.Resref == resref);
 
                 if (Object.ReferenceEquals(placeable, null))
                 {
@@ -57,7 +57,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                Placeable placeable = context.Placeables.First(x => x.Resref == newPlaceable.Resref);
+                Placeable placeable = context.Placeables.SingleOrDefault(x => x.Resref == newPlaceable.Resref);
 
                 // Didn't find an existing creature. Insert a new one.
                 if (Object.ReferenceEquals(placeable, null))

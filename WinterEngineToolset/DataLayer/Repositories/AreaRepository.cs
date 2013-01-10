@@ -34,7 +34,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                Area area = context.Areas.First(x => x.Resref == resref);
+                Area area = context.Areas.SingleOrDefault(x => x.Resref == resref);
 
                 if (Object.ReferenceEquals(area, null))
                 {
@@ -57,7 +57,7 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                Area area = context.Areas.First(x => x.Resref == newArea.Resref);
+                Area area = context.Areas.SingleOrDefault(x => x.Resref == newArea.Resref);
 
                 // Didn't find an existing area. Insert a new one.
                 if (Object.ReferenceEquals(area, null))
