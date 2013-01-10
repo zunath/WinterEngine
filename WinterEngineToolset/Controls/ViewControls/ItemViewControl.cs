@@ -14,8 +14,26 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 {
     public partial class ItemViewControl : UserControl
     {
+        #region Fields
+
         private ObjectViewer3D _itemModel;
         private ObjectViewer2D _itemIcon;
+        private Item _backupItem;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the backup item which is used to revert changes.
+        /// </summary>
+        public Item BackupItem
+        {
+            get { return _backupItem; }
+            set { _backupItem = value; }
+        }
+
+        #endregion
 
         public ItemViewControl()
         {
@@ -50,12 +68,25 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 item.Price = (int)numericUpDownPrice.Value;
                 item.Weight = (int)numericUpDownWeight.Value;
 
-                repo.Update(textBoxItemResref.Text, item); 
+                repo.Update(textBoxItemResref.Text, item);
+                BackupItem = item;
             }
         }
 
+        /// <summary>
+        /// Handles reverting all input fields to the backup item's values.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonDiscardChangesItemDetails_Click(object sender, EventArgs e)
         {
+            textBoxComments.Text = BackupItem.Comment;
+            textBoxDescription.Text = BackupItem.Description;
+            textBoxItemName.Text = BackupItem.Name;
+            textBoxItemResref.Text = BackupItem.Resref;
+            textBoxItemTag.Text = BackupItem.Tag;
+            numericUpDownPrice.Value = BackupItem.Price;
+            numericUpDownWeight.Value = BackupItem.Weight;
 
         }
     }
