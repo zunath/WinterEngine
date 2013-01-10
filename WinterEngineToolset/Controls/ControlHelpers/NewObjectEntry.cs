@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using WinterEngine.Toolset.Enumerations;
 using WinterEngine.Toolset.DataLayer.Repositories;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
 using WinterEngine.Toolset.Factories;
 using WinterEngine.Toolset.Helpers;
 
@@ -113,7 +113,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                 {
                     // Build a new object
                     WinterObjectFactory factory = new WinterObjectFactory();
-                    WinterObject winterObject = factory.CreateObject(ResourceType);
+                    GameObject winterObject = factory.CreateObject(ResourceType);
                     winterObject.Name = nameTextBoxEntry.NameText;
                     winterObject.Tag = tagTextBoxEntry.TagText;
                     winterObject.Resref = resrefTextBoxEntry.ResrefText;

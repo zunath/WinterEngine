@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WinterEngine.Toolset.DataLayer.Contexts;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.Toolset.DataLayer.Repositories
 {

@@ -11,7 +11,7 @@ using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using WinterEngine.Toolset.Controls.ControlHelpers;
 using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.Enumerations;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
 using WinterEngine.Toolset.Factories;
 using WinterEngine.Toolset.Helpers;
 
@@ -168,13 +168,13 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         {
             // Build a list of objects using the WinterObjectFactory
             WinterObjectFactory factory = new WinterObjectFactory();
-            List<WinterObject> objectList = factory.GetAllFromDatabase(WinterObjectResourceType);
+            List<GameObject> objectList = factory.GetAllFromDatabase(WinterObjectResourceType);
 
             TreeNodeCollection nodeCollection = treeView.Nodes[0].Nodes;
             // Get list of DTOs from the tag of tree nodes
             List<ResourceCategory> resourceDTOList = GetTreeNodeTagResourceDTOs(nodeCollection);
 
-            foreach (WinterObject currentObject in objectList)
+            foreach (GameObject currentObject in objectList)
             {
                 TreeNode treeNode = new TreeNode(currentObject.Name);
                 treeNode.Tag = currentObject;
@@ -336,7 +336,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             // User chose to delete the category. Remove all contained objects and delete the category.
             if (result == DialogResult.Yes)
             {
-                WinterObject obj = treeView.SelectedNode.Tag as WinterObject;
+                GameObject obj = treeView.SelectedNode.Tag as GameObject;
                 try
                 {
                     // Remove this object from the database

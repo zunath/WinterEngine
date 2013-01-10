@@ -18,6 +18,7 @@ namespace WinterEngine.Toolset.Controls.GenericControls
         public string ResrefText
         {
             get { return textBoxResref.Text; }
+            set { textBoxResref.Text = value; }
         }
 
         public ResrefTextBox()

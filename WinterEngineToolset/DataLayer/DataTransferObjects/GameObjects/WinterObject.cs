@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
+namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects
 {
     /// <summary>
     /// Base abstract class for Winter Engine user interface data transfer objects. All UI object DTOs need to inherit this base class.
     /// </summary>
     [Serializable]
-    public abstract class WinterObject
+    public abstract class GameObject
     {
         #region Fields
 

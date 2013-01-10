@@ -7,12 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
+using WinterEngine.Toolset.DataLayer.Repositories;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
     public partial class CreatureViewControl : UserControl
     {
+        #region Fields
+
         private ObjectViewer3D _objectViewer;
+        private Creature _backupCreature;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the backup creature which is used to revert changes.
+        /// </summary>
+        public Creature BackupCreature
+        {
+            get { return _backupCreature; }
+            set { _backupCreature = value; }
+        }
+
+        #endregion
 
         public CreatureViewControl()
         {
@@ -23,6 +43,41 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             _objectViewer = new ObjectViewer3D();
             _objectViewer.Dock = DockStyle.Fill;
             panelCreatureObjectViewer.Controls.Add(_objectViewer);
+        }
+
+        /// <summary>
+        /// Handles updating a creature's entry in the database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonSaveChanges_Click(object sender, EventArgs e)
+        {
+            using (CreatureRepository repo = new CreatureRepository())
+            {
+                Creature creature = new Creature();
+                creature.Name = nameTextBoxItem.NameText;
+                creature.Tag = tagTextBoxItem.TagText;
+                creature.Resref = resrefTextBoxItem.ResrefText;
+                creature.Description = textBoxCreatureDescription.Text;
+                creature.Comment = textBoxCreatureComments.Text;
+
+                repo.Update(resrefTextBoxItem.ResrefText, creature);
+                BackupCreature = creature;
+            }
+        }
+
+        /// <summary>
+        /// Handles reverting all input fields to the backup creature's values.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonDiscardChanges_Click(object sender, EventArgs e)
+        {
+            nameTextBoxItem.NameText = BackupCreature.Name;
+            tagTextBoxItem.TagText = BackupCreature.Tag;
+            resrefTextBoxItem.ResrefText = BackupCreature.Resref;
+            textBoxCreatureComments.Text = BackupCreature.Comment;
+            textBoxCreatureDescription.Text = BackupCreature.Description;
         }
     }
 }

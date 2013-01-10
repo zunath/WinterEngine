@@ -17,6 +17,7 @@ namespace WinterEngine.Toolset.Controls.GenericControls
         public string TagText
         {
             get { return textBoxTag.Text; }
+            set { textBoxTag.Text = value; }
         }
 
         public TagTextBox()

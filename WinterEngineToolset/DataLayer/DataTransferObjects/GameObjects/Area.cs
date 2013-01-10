@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects
+namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects
 {
     [Serializable]
-    [Table("Creatures")]
-    public sealed class Creature : WinterObject
+    [Table("Areas")]
+    public sealed class Area : GameObject
     {
         #region Fields
         #endregion

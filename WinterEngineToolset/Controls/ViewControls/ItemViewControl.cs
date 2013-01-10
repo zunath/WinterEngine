@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.DataLayer.Repositories;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
@@ -60,15 +60,15 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             using (ItemRepository repo = new ItemRepository())
             {
                 Item item = new Item();
-                item.Comment = textBoxComments.Text;
-                item.Description = textBoxDescription.Text;
-                item.Name = textBoxItemName.Text;
-                item.Tag = textBoxItemTag.Text;
-                item.Resref = textBoxItemResref.Text;
+                item.Comment = textBoxItemComments.Text;
+                item.Description = textBoxItemDescription.Text;
+                item.Name = nameTextBoxItem.NameText;
+                item.Tag = tagTextBoxItem.TagText;
+                item.Resref = resrefTextBoxItem.ResrefText;
                 item.Price = (int)numericUpDownPrice.Value;
                 item.Weight = (int)numericUpDownWeight.Value;
 
-                repo.Update(textBoxItemResref.Text, item);
+                repo.Update(resrefTextBoxItem.ResrefText, item);
                 BackupItem = item;
             }
         }
@@ -80,11 +80,11 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonDiscardChangesItemDetails_Click(object sender, EventArgs e)
         {
-            textBoxComments.Text = BackupItem.Comment;
-            textBoxDescription.Text = BackupItem.Description;
-            textBoxItemName.Text = BackupItem.Name;
-            textBoxItemResref.Text = BackupItem.Resref;
-            textBoxItemTag.Text = BackupItem.Tag;
+            textBoxItemComments.Text = BackupItem.Comment;
+            textBoxItemDescription.Text = BackupItem.Description;
+            nameTextBoxItem.NameText = BackupItem.Name;
+            resrefTextBoxItem.ResrefText = BackupItem.Resref;
+            tagTextBoxItem.TagText = BackupItem.Tag;
             numericUpDownPrice.Value = BackupItem.Price;
             numericUpDownWeight.Value = BackupItem.Weight;
 

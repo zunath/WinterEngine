@@ -207,9 +207,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataLayer\Contexts\WinterContext.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\AttributeObjects\Ability.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\AttributeObjects\CharacterClass.cs" />
     <Compile Include="DataLayer\DataTransferObjects\ModuleDetail.cs" />
     <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\WinterModule.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\ItemProperty.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\AttributeObjects\ItemProperty.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\AttributeObjects\Race.cs" />
     <Compile Include="DataLayer\Repositories\AreaRepository.cs" />
     <Compile Include="DataLayer\Repositories\CreatureRepository.cs" />
     <Compile Include="DataLayer\Repositories\ItemRepository.cs" />
@@ -218,12 +221,12 @@
     <Compile Include="DataLayer\WinterConnectionInformation.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="GUI\Views\IViewControls.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Area.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\GameObjects\Area.cs" />
     <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceCategory.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Creature.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Placeable.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\WinterObject.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\WinterObjects\Item.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\GameObjects\Creature.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\GameObjects\Placeable.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\GameObjects\WinterObject.cs" />
+    <Compile Include="DataLayer\DataTransferObjects\GameObjects\Item.cs" />
     <Compile Include="DataLayer\Repositories\ResourceCategoryRepository.cs" />
     <Compile Include="Factories\WinterObjectFactory.cs" />
     <Compile Include="GUI\Views\AreaView.cs">

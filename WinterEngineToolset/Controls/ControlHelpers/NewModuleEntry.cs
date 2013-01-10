@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using WinterEngine.Toolset.Enumerations;
 using WinterEngine.Toolset.DataLayer.Repositories;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.WinterObjects;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
 using WinterEngine.Toolset.Factories;
 using WinterEngine.Toolset.Helpers;
 using WinterEngine.Toolset.ExtendedEventArgs;

@@ -29,8 +29,9 @@
         private void InitializeComponent()
         {
             this.tabControlProperties = new System.Windows.Forms.TabControl();
-            this.tabPageItemViewer = new System.Windows.Forms.TabPage();
+            this.tabPagePlaceableAppearance = new System.Windows.Forms.TabPage();
             this.panelObjectViewer = new System.Windows.Forms.Panel();
+            this.panelPlaceableObjectViewer = new System.Windows.Forms.Panel();
             this.tabPageItemDetails = new System.Windows.Forms.TabPage();
             this.buttonDiscardChangesItemDetails = new System.Windows.Forms.Button();
             this.buttonSaveChangesItemDetails = new System.Windows.Forms.Button();
@@ -41,9 +42,11 @@
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
-            this.panelPlaceableObjectViewer = new System.Windows.Forms.Panel();
+            this.tabPageDescription = new System.Windows.Forms.TabPage();
+            this.tabPageComments = new System.Windows.Forms.TabPage();
+            this.tabPageScripts = new System.Windows.Forms.TabPage();
             this.tabControlProperties.SuspendLayout();
-            this.tabPageItemViewer.SuspendLayout();
+            this.tabPagePlaceableAppearance.SuspendLayout();
             this.panelObjectViewer.SuspendLayout();
             this.tabPageItemDetails.SuspendLayout();
             this.SuspendLayout();
@@ -53,24 +56,27 @@
             this.tabControlProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlProperties.Controls.Add(this.tabPageItemViewer);
+            this.tabControlProperties.Controls.Add(this.tabPagePlaceableAppearance);
             this.tabControlProperties.Controls.Add(this.tabPageItemDetails);
+            this.tabControlProperties.Controls.Add(this.tabPageScripts);
+            this.tabControlProperties.Controls.Add(this.tabPageDescription);
+            this.tabControlProperties.Controls.Add(this.tabPageComments);
             this.tabControlProperties.Location = new System.Drawing.Point(3, 3);
             this.tabControlProperties.Name = "tabControlProperties";
             this.tabControlProperties.SelectedIndex = 0;
             this.tabControlProperties.Size = new System.Drawing.Size(375, 452);
             this.tabControlProperties.TabIndex = 3;
             // 
-            // tabPageItemViewer
+            // tabPagePlaceableAppearance
             // 
-            this.tabPageItemViewer.Controls.Add(this.panelObjectViewer);
-            this.tabPageItemViewer.Location = new System.Drawing.Point(4, 22);
-            this.tabPageItemViewer.Name = "tabPageItemViewer";
-            this.tabPageItemViewer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageItemViewer.Size = new System.Drawing.Size(367, 426);
-            this.tabPageItemViewer.TabIndex = 0;
-            this.tabPageItemViewer.Text = "Viewer";
-            this.tabPageItemViewer.UseVisualStyleBackColor = true;
+            this.tabPagePlaceableAppearance.Controls.Add(this.panelObjectViewer);
+            this.tabPagePlaceableAppearance.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlaceableAppearance.Name = "tabPagePlaceableAppearance";
+            this.tabPagePlaceableAppearance.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePlaceableAppearance.Size = new System.Drawing.Size(367, 426);
+            this.tabPagePlaceableAppearance.TabIndex = 0;
+            this.tabPagePlaceableAppearance.Text = "Appearance";
+            this.tabPagePlaceableAppearance.UseVisualStyleBackColor = true;
             // 
             // panelObjectViewer
             // 
@@ -82,6 +88,13 @@
             this.panelObjectViewer.Name = "panelObjectViewer";
             this.panelObjectViewer.Size = new System.Drawing.Size(367, 430);
             this.panelObjectViewer.TabIndex = 8;
+            // 
+            // panelPlaceableObjectViewer
+            // 
+            this.panelPlaceableObjectViewer.Location = new System.Drawing.Point(0, 2);
+            this.panelPlaceableObjectViewer.Name = "panelPlaceableObjectViewer";
+            this.panelPlaceableObjectViewer.Size = new System.Drawing.Size(367, 426);
+            this.panelPlaceableObjectViewer.TabIndex = 1;
             // 
             // tabPageItemDetails
             // 
@@ -126,11 +139,11 @@
             // 
             this.labelItemDetailsHeader.AutoSize = true;
             this.labelItemDetailsHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelItemDetailsHeader.Location = new System.Drawing.Point(101, 16);
+            this.labelItemDetailsHeader.Location = new System.Drawing.Point(75, 16);
             this.labelItemDetailsHeader.Name = "labelItemDetailsHeader";
-            this.labelItemDetailsHeader.Size = new System.Drawing.Size(158, 31);
+            this.labelItemDetailsHeader.Size = new System.Drawing.Size(224, 31);
             this.labelItemDetailsHeader.TabIndex = 7;
-            this.labelItemDetailsHeader.Text = "Item Details";
+            this.labelItemDetailsHeader.Text = "Placeable Details";
             // 
             // textBoxItemResref
             // 
@@ -186,12 +199,32 @@
             this.labelItemName.TabIndex = 1;
             this.labelItemName.Text = "Name:";
             // 
-            // panelPlaceableObjectViewer
+            // tabPageDescription
             // 
-            this.panelPlaceableObjectViewer.Location = new System.Drawing.Point(0, 2);
-            this.panelPlaceableObjectViewer.Name = "panelPlaceableObjectViewer";
-            this.panelPlaceableObjectViewer.Size = new System.Drawing.Size(367, 426);
-            this.panelPlaceableObjectViewer.TabIndex = 1;
+            this.tabPageDescription.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDescription.Name = "tabPageDescription";
+            this.tabPageDescription.Size = new System.Drawing.Size(367, 426);
+            this.tabPageDescription.TabIndex = 2;
+            this.tabPageDescription.Text = "Description";
+            this.tabPageDescription.UseVisualStyleBackColor = true;
+            // 
+            // tabPageComments
+            // 
+            this.tabPageComments.Location = new System.Drawing.Point(4, 22);
+            this.tabPageComments.Name = "tabPageComments";
+            this.tabPageComments.Size = new System.Drawing.Size(367, 426);
+            this.tabPageComments.TabIndex = 3;
+            this.tabPageComments.Text = "Comments";
+            this.tabPageComments.UseVisualStyleBackColor = true;
+            // 
+            // tabPageScripts
+            // 
+            this.tabPageScripts.Location = new System.Drawing.Point(4, 22);
+            this.tabPageScripts.Name = "tabPageScripts";
+            this.tabPageScripts.Size = new System.Drawing.Size(367, 426);
+            this.tabPageScripts.TabIndex = 4;
+            this.tabPageScripts.Text = "Scripts";
+            this.tabPageScripts.UseVisualStyleBackColor = true;
             // 
             // PlaceableViewControl
             // 
@@ -201,7 +234,7 @@
             this.Name = "PlaceableViewControl";
             this.Size = new System.Drawing.Size(375, 452);
             this.tabControlProperties.ResumeLayout(false);
-            this.tabPageItemViewer.ResumeLayout(false);
+            this.tabPagePlaceableAppearance.ResumeLayout(false);
             this.panelObjectViewer.ResumeLayout(false);
             this.tabPageItemDetails.ResumeLayout(false);
             this.tabPageItemDetails.PerformLayout();
@@ -212,7 +245,7 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControlProperties;
-        private System.Windows.Forms.TabPage tabPageItemViewer;
+        private System.Windows.Forms.TabPage tabPagePlaceableAppearance;
         private System.Windows.Forms.Panel panelObjectViewer;
         private System.Windows.Forms.TabPage tabPageItemDetails;
         private System.Windows.Forms.Button buttonDiscardChangesItemDetails;
@@ -225,5 +258,8 @@
         private System.Windows.Forms.Label labelItemTag;
         private System.Windows.Forms.Label labelItemName;
         private System.Windows.Forms.Panel panelPlaceableObjectViewer;
+        private System.Windows.Forms.TabPage tabPageScripts;
+        private System.Windows.Forms.TabPage tabPageDescription;
+        private System.Windows.Forms.TabPage tabPageComments;
     }
 }

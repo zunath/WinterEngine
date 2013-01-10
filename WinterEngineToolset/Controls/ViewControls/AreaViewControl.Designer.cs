@@ -29,8 +29,9 @@
         private void InitializeComponent()
         {
             this.tabControlProperties = new System.Windows.Forms.TabControl();
-            this.tabPageItemViewer = new System.Windows.Forms.TabPage();
-            this.tabPageItemDetails = new System.Windows.Forms.TabPage();
+            this.tabPageViewer = new System.Windows.Forms.TabPage();
+            this.panelAreaObjectViewer = new System.Windows.Forms.Panel();
+            this.tabPageAreaDetails = new System.Windows.Forms.TabPage();
             this.buttonDiscardChangesItemDetails = new System.Windows.Forms.Button();
             this.buttonSaveChangesItemDetails = new System.Windows.Forms.Button();
             this.labelItemDetailsHeader = new System.Windows.Forms.Label();
@@ -40,10 +41,11 @@
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
-            this.panelAreaObjectViewer = new System.Windows.Forms.Panel();
+            this.tabPageComments = new System.Windows.Forms.TabPage();
+            this.tabPageScripts = new System.Windows.Forms.TabPage();
             this.tabControlProperties.SuspendLayout();
-            this.tabPageItemViewer.SuspendLayout();
-            this.tabPageItemDetails.SuspendLayout();
+            this.tabPageViewer.SuspendLayout();
+            this.tabPageAreaDetails.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlProperties
@@ -51,43 +53,52 @@
             this.tabControlProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlProperties.Controls.Add(this.tabPageItemViewer);
-            this.tabControlProperties.Controls.Add(this.tabPageItemDetails);
+            this.tabControlProperties.Controls.Add(this.tabPageViewer);
+            this.tabControlProperties.Controls.Add(this.tabPageAreaDetails);
+            this.tabControlProperties.Controls.Add(this.tabPageScripts);
+            this.tabControlProperties.Controls.Add(this.tabPageComments);
             this.tabControlProperties.Location = new System.Drawing.Point(3, 3);
             this.tabControlProperties.Name = "tabControlProperties";
             this.tabControlProperties.SelectedIndex = 0;
             this.tabControlProperties.Size = new System.Drawing.Size(375, 452);
             this.tabControlProperties.TabIndex = 3;
             // 
-            // tabPageItemViewer
+            // tabPageViewer
             // 
-            this.tabPageItemViewer.Controls.Add(this.panelAreaObjectViewer);
-            this.tabPageItemViewer.Location = new System.Drawing.Point(4, 22);
-            this.tabPageItemViewer.Name = "tabPageItemViewer";
-            this.tabPageItemViewer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageItemViewer.Size = new System.Drawing.Size(367, 426);
-            this.tabPageItemViewer.TabIndex = 0;
-            this.tabPageItemViewer.Text = "Viewer";
-            this.tabPageItemViewer.UseVisualStyleBackColor = true;
+            this.tabPageViewer.Controls.Add(this.panelAreaObjectViewer);
+            this.tabPageViewer.Location = new System.Drawing.Point(4, 22);
+            this.tabPageViewer.Name = "tabPageViewer";
+            this.tabPageViewer.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageViewer.Size = new System.Drawing.Size(367, 426);
+            this.tabPageViewer.TabIndex = 0;
+            this.tabPageViewer.Text = "Viewer";
+            this.tabPageViewer.UseVisualStyleBackColor = true;
             // 
-            // tabPageItemDetails
+            // panelAreaObjectViewer
             // 
-            this.tabPageItemDetails.Controls.Add(this.buttonDiscardChangesItemDetails);
-            this.tabPageItemDetails.Controls.Add(this.buttonSaveChangesItemDetails);
-            this.tabPageItemDetails.Controls.Add(this.labelItemDetailsHeader);
-            this.tabPageItemDetails.Controls.Add(this.textBoxItemResref);
-            this.tabPageItemDetails.Controls.Add(this.textBoxItemTag);
-            this.tabPageItemDetails.Controls.Add(this.textBoxItemName);
-            this.tabPageItemDetails.Controls.Add(this.labelItemResref);
-            this.tabPageItemDetails.Controls.Add(this.labelItemTag);
-            this.tabPageItemDetails.Controls.Add(this.labelItemName);
-            this.tabPageItemDetails.Location = new System.Drawing.Point(4, 22);
-            this.tabPageItemDetails.Name = "tabPageItemDetails";
-            this.tabPageItemDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageItemDetails.Size = new System.Drawing.Size(367, 426);
-            this.tabPageItemDetails.TabIndex = 1;
-            this.tabPageItemDetails.Text = "Details";
-            this.tabPageItemDetails.UseVisualStyleBackColor = true;
+            this.panelAreaObjectViewer.Location = new System.Drawing.Point(0, 0);
+            this.panelAreaObjectViewer.Name = "panelAreaObjectViewer";
+            this.panelAreaObjectViewer.Size = new System.Drawing.Size(367, 426);
+            this.panelAreaObjectViewer.TabIndex = 0;
+            // 
+            // tabPageAreaDetails
+            // 
+            this.tabPageAreaDetails.Controls.Add(this.buttonDiscardChangesItemDetails);
+            this.tabPageAreaDetails.Controls.Add(this.buttonSaveChangesItemDetails);
+            this.tabPageAreaDetails.Controls.Add(this.labelItemDetailsHeader);
+            this.tabPageAreaDetails.Controls.Add(this.textBoxItemResref);
+            this.tabPageAreaDetails.Controls.Add(this.textBoxItemTag);
+            this.tabPageAreaDetails.Controls.Add(this.textBoxItemName);
+            this.tabPageAreaDetails.Controls.Add(this.labelItemResref);
+            this.tabPageAreaDetails.Controls.Add(this.labelItemTag);
+            this.tabPageAreaDetails.Controls.Add(this.labelItemName);
+            this.tabPageAreaDetails.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAreaDetails.Name = "tabPageAreaDetails";
+            this.tabPageAreaDetails.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAreaDetails.Size = new System.Drawing.Size(367, 426);
+            this.tabPageAreaDetails.TabIndex = 1;
+            this.tabPageAreaDetails.Text = "Details";
+            this.tabPageAreaDetails.UseVisualStyleBackColor = true;
             // 
             // buttonDiscardChangesItemDetails
             // 
@@ -173,12 +184,23 @@
             this.labelItemName.TabIndex = 1;
             this.labelItemName.Text = "Name:";
             // 
-            // panelAreaObjectViewer
+            // tabPageComments
             // 
-            this.panelAreaObjectViewer.Location = new System.Drawing.Point(0, 0);
-            this.panelAreaObjectViewer.Name = "panelAreaObjectViewer";
-            this.panelAreaObjectViewer.Size = new System.Drawing.Size(367, 426);
-            this.panelAreaObjectViewer.TabIndex = 0;
+            this.tabPageComments.Location = new System.Drawing.Point(4, 22);
+            this.tabPageComments.Name = "tabPageComments";
+            this.tabPageComments.Size = new System.Drawing.Size(367, 426);
+            this.tabPageComments.TabIndex = 2;
+            this.tabPageComments.Text = "Comments";
+            this.tabPageComments.UseVisualStyleBackColor = true;
+            // 
+            // tabPageScripts
+            // 
+            this.tabPageScripts.Location = new System.Drawing.Point(4, 22);
+            this.tabPageScripts.Name = "tabPageScripts";
+            this.tabPageScripts.Size = new System.Drawing.Size(367, 426);
+            this.tabPageScripts.TabIndex = 3;
+            this.tabPageScripts.Text = "Scripts";
+            this.tabPageScripts.UseVisualStyleBackColor = true;
             // 
             // AreaViewControl
             // 
@@ -188,9 +210,9 @@
             this.Name = "AreaViewControl";
             this.Size = new System.Drawing.Size(375, 452);
             this.tabControlProperties.ResumeLayout(false);
-            this.tabPageItemViewer.ResumeLayout(false);
-            this.tabPageItemDetails.ResumeLayout(false);
-            this.tabPageItemDetails.PerformLayout();
+            this.tabPageViewer.ResumeLayout(false);
+            this.tabPageAreaDetails.ResumeLayout(false);
+            this.tabPageAreaDetails.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -198,8 +220,8 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControlProperties;
-        private System.Windows.Forms.TabPage tabPageItemViewer;
-        private System.Windows.Forms.TabPage tabPageItemDetails;
+        private System.Windows.Forms.TabPage tabPageViewer;
+        private System.Windows.Forms.TabPage tabPageAreaDetails;
         private System.Windows.Forms.Button buttonDiscardChangesItemDetails;
         private System.Windows.Forms.Button buttonSaveChangesItemDetails;
         private System.Windows.Forms.Label labelItemDetailsHeader;
@@ -210,6 +232,8 @@
         private System.Windows.Forms.Label labelItemTag;
         private System.Windows.Forms.Label labelItemName;
         private System.Windows.Forms.Panel panelAreaObjectViewer;
+        private System.Windows.Forms.TabPage tabPageScripts;
+        private System.Windows.Forms.TabPage tabPageComments;
 
     }
 }

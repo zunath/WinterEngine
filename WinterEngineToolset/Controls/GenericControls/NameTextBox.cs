@@ -17,6 +17,7 @@ namespace WinterEngine.Toolset.Controls.GenericControls
         public string NameText
         {
             get { return textBoxName.Text; }
+            set { textBoxName.Text = value; }
         }
 
         public NameTextBox()
