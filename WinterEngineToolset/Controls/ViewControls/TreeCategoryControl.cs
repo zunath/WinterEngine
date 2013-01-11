@@ -188,7 +188,8 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         #region Tree view helpers
 
         /// <summary>
-        /// Clears out all nodes on the treeView and repopulates it based on data from the database.
+        /// Adds missing categories and objects to the tree view.
+        /// Removes deleted categories and objects from the tree view.
         /// </summary>
         /// <param name="treeView"></param>
         /// <param name="resourceType"></param>
@@ -255,17 +256,13 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     }
                 }
 
-
                 // Loop through all nodes in the tree and clear out any deleted categories or game objects.
-                //foreach (TreeNode currentCategory in treeView.Nodes[0].Nodes)
-                
                 for(int index = treeView.Nodes[0].Nodes.Count - 1; index >= 0; index--)
                 {
                     TreeNode categoryNode = treeView.Nodes[0].Nodes[index];
                     ResourceCategory resourceCategory = treeView.Nodes[0].Nodes[index].Tag as ResourceCategory;
                     if (!repo.Exists(resourceCategory))
                     {
-                        //currentCategory.Remove();
                         treeView.Nodes[0].Nodes.RemoveAt(index); ;
                     }
                     else
@@ -533,7 +530,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             {
                 ResourceCategory category = treeView.SelectedNode.Tag as ResourceCategory;
 
-                //try
+                try
                 {
                     // Remove the objects contained inside this category from the database
                     GameObjectFactory factory = new GameObjectFactory();
@@ -547,9 +544,9 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     RefreshTreeView();
                     treeView.SelectedNode = treeView.TopNode;
                 }
-                //catch (Exception ex)
+                catch (Exception ex)
                 {
-                    //ErrorHelper.ShowErrorDialog("Error deleting specified category (Method: contextMenuStripNodes_DeleteCategory).", ex);
+                    ErrorHelper.ShowErrorDialog("Error deleting specified category (Method: contextMenuStripNodes_DeleteCategory).", ex);
                 }
 
             }
@@ -589,8 +586,5 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         }
 
         #endregion
-
-
-
     }
 }
