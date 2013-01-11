@@ -219,6 +219,7 @@
     <Compile Include="DataLayer\Repositories\ModuleRepository.cs" />
     <Compile Include="DataLayer\Repositories\PlaceableRepository.cs" />
     <Compile Include="DataLayer\WinterConnectionInformation.cs" />
+    <Compile Include="ExtendedEventArgs\GameObjectEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="GUI\Views\IViewControls.cs" />
     <Compile Include="DataLayer\DataTransferObjects\GameObjects\Area.cs" />

@@ -34,6 +34,8 @@
             // 
             // itemViewControl
             // 
+            this.itemViewControl.BackupItem = null;
+            this.itemViewControl.Enabled = false;
             this.itemViewControl.Location = new System.Drawing.Point(192, 0);
             this.itemViewControl.Name = "itemViewControl";
             this.itemViewControl.Size = new System.Drawing.Size(375, 452);

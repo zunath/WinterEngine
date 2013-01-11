@@ -42,6 +42,8 @@
             // 
             // creatureViewControl
             // 
+            this.creatureViewControl.BackupCreature = null;
+            this.creatureViewControl.Enabled = false;
             this.creatureViewControl.Location = new System.Drawing.Point(192, 0);
             this.creatureViewControl.Name = "creatureViewControl";
             this.creatureViewControl.Size = new System.Drawing.Size(375, 452);

@@ -22,6 +22,8 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects
         private bool _isPlot;
         private bool _isStolen;
         private List<ItemProperty> _itemProperties;
+        private int _tileWidth;
+        private int _tileHeight;
 
         #endregion
 
@@ -98,6 +100,24 @@ namespace WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects
         {
             get { return _isStolen; }
             set { _isStolen = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the width of an inventory item.
+        /// </summary>
+        public int TileWidth
+        {
+            get { return _tileWidth; }
+            set { _tileWidth = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the height of an inventory item.
+        /// </summary>
+        public int TileHeight
+        {
+            get { return _tileHeight; }
+            set { _tileHeight = value; }
         }
 
         #endregion

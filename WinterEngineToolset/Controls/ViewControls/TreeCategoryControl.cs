@@ -14,6 +14,7 @@ using WinterEngine.Toolset.Enumerations;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
 using WinterEngine.Toolset.Factories;
 using WinterEngine.Toolset.Helpers;
+using WinterEngine.Toolset.ExtendedEventArgs;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
@@ -30,6 +31,14 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         #region Fields
 
         private ResourceTypeEnum _resourceTypeEnum;
+        private GameObject _activeGameObject;
+        private TreeNode _activeTreeNode;
+        
+        #endregion
+
+        #region Events / Delegates
+
+        public event EventHandler<GameObjectEventArgs> OnOpenObject;
 
         #endregion
 
@@ -43,9 +52,18 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             set { _resourceTypeEnum = value; }
         }
 
-        #endregion
-
-        #region Delegates and Events
+        /// <summary>
+        /// Gets or sets the active game object.
+        /// </summary>
+        public GameObject ActiveGameObject
+        {
+            get { return _activeGameObject; }
+            set 
+            {
+                _activeTreeNode.Tag = value;
+                _activeGameObject = value; 
+            }
+        }
 
         #endregion
 
@@ -58,6 +76,16 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Fires the OnOpenObject event. Subscribed events should load the object passed
+        /// into the toolset.
+        /// </summary>
+        private void LoadObject(GameObjectEventArgs eventArgs)
+        {
+            _activeTreeNode = treeView.SelectedNode;
+            OnOpenObject(this, eventArgs);
+        }
 
         /// <summary>
         /// Business layer validation for adding a new category.
@@ -74,6 +102,10 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             return isValid;
         }
 
+        /// <summary>
+        /// Method is fired when a category is added successfully.
+        /// </summary>
+        /// <param name="inputText"></param>
         private void AddCategorySuccessMethod(string inputText)
         {
             bool success;
@@ -95,6 +127,10 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             }
         }
 
+        /// <summary>
+        /// Method is fired when a category is renamed successfully.
+        /// </summary>
+        /// <param name="inputText"></param>
         private void RenameCategorySuccessMethod(string inputText)
         {
             try
@@ -249,14 +285,65 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             return objectList;
         }
 
+        /// <summary>
+        /// Cycles through all object nodes and refreshes their names,
+        /// based on the GameObject located on their "Tag" object
+        /// </summary>
+        public void RefreshNodeNames()
+        {
+            // Loop through all categories
+            foreach (TreeNode category in treeView.Nodes[0].Nodes)
+            {
+                // Loop through all game objects contained inside a category
+                foreach (TreeNode gameObjectNode in category.Nodes)
+                {
+                    if (!Object.ReferenceEquals(gameObjectNode.Tag, null))
+                    {
+                        GameObject gameObject = gameObjectNode.Tag as GameObject;
+                        gameObjectNode.Text = gameObject.Name;
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region Tree view events
 
+        /// <summary>
+        /// Event handler for node selection (single click)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             // Highlight the selected node on all clicks.
             treeView.SelectedNode = e.Node;
+        }
+
+        /// <summary>
+        /// Event handler for opening objects (double click)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void treeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            // Selected node was the root node.
+            if (e.Node == treeView.TopNode)
+            {
+            }
+            // Selected node was a category
+            else if (e.Node.Parent == treeView.TopNode)
+            {
+            }
+            // Selected node was an object
+            else
+            {
+                GameObjectEventArgs eventArgs = new GameObjectEventArgs();
+                eventArgs.GameObject = e.Node.Tag as GameObject;
+                _activeGameObject = eventArgs.GameObject;
+                LoadObject(eventArgs);
+            }
         }
 
         /// <summary>
@@ -281,7 +368,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         private void contextMenuStripNodes_Opening(object sender, CancelEventArgs e)
         {
             contextMenuStripNodes.Items.Clear();
-            // No context menu for the root node at this time.
+
             if (treeView.SelectedNode == treeView.TopNode)
             {
                 ToolStripItem createCategory = contextMenuStripNodes.Items.Add("Create Category");
@@ -306,7 +393,10 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             // Otherwise, an object node was selected.
             else
             {
+                ToolStripItem openObjectItem = contextMenuStripNodes.Items.Add("Open");
                 ToolStripItem deleteObjectItem = contextMenuStripNodes.Items.Add("Delete " + WinterObjectResourceType.ToString());
+
+                openObjectItem.Click += new EventHandler(contextMenuStripNodes_OpenObject);
                 deleteObjectItem.Click += new EventHandler(contextMenuStripNodes_DeleteObject);
             }
         }
@@ -322,6 +412,20 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             newObjectEntryForm.Text = "New " + WinterObjectResourceType.ToString();
             newObjectEntryForm.RefreshParentGUI += new EventHandler(RefreshTreeView);
             newObjectEntryForm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Event handler for opening an object from context menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStripNodes_OpenObject(object sender, EventArgs e)
+        {
+            GameObjectEventArgs eventArgs = new GameObjectEventArgs();
+            eventArgs.GameObject = treeView.SelectedNode.Tag as GameObject;
+            _activeGameObject = eventArgs.GameObject;
+
+            LoadObject(eventArgs);
         }
 
         /// <summary>
@@ -444,6 +548,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         }
 
         #endregion
+
 
 
     }

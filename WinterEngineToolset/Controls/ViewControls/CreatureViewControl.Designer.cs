@@ -42,6 +42,7 @@
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
+            this.tabPageEvents = new System.Windows.Forms.TabPage();
             this.tabPageCreatureDescription = new System.Windows.Forms.TabPage();
             this.labelCreatureDescription = new System.Windows.Forms.Label();
             this.textBoxCreatureDescription = new System.Windows.Forms.TextBox();
@@ -50,7 +51,6 @@
             this.textBoxCreatureComments = new System.Windows.Forms.TextBox();
             this.buttonDiscardChanges = new System.Windows.Forms.Button();
             this.buttonSaveChanges = new System.Windows.Forms.Button();
-            this.tabPageScripts = new System.Windows.Forms.TabPage();
             this.tabControlProperties.SuspendLayout();
             this.tabPageCreatureAppearance.SuspendLayout();
             this.panelObjectViewer.SuspendLayout();
@@ -66,7 +66,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlProperties.Controls.Add(this.tabPageCreatureAppearance);
             this.tabControlProperties.Controls.Add(this.tabPageCreatureDetails);
-            this.tabControlProperties.Controls.Add(this.tabPageScripts);
+            this.tabControlProperties.Controls.Add(this.tabPageEvents);
             this.tabControlProperties.Controls.Add(this.tabPageCreatureDescription);
             this.tabControlProperties.Controls.Add(this.tabPageCreatureComments);
             this.tabControlProperties.Location = new System.Drawing.Point(3, 3);
@@ -144,6 +144,7 @@
             // 
             // resrefTextBoxItem
             // 
+            this.resrefTextBoxItem.Enabled = false;
             this.resrefTextBoxItem.Location = new System.Drawing.Point(81, 112);
             this.resrefTextBoxItem.Name = "resrefTextBoxItem";
             this.resrefTextBoxItem.ResrefText = "";
@@ -202,6 +203,15 @@
             this.labelItemName.Size = new System.Drawing.Size(38, 13);
             this.labelItemName.TabIndex = 1;
             this.labelItemName.Text = "Name:";
+            // 
+            // tabPageEvents
+            // 
+            this.tabPageEvents.Location = new System.Drawing.Point(4, 22);
+            this.tabPageEvents.Name = "tabPageEvents";
+            this.tabPageEvents.Size = new System.Drawing.Size(367, 391);
+            this.tabPageEvents.TabIndex = 4;
+            this.tabPageEvents.Text = "Events";
+            this.tabPageEvents.UseVisualStyleBackColor = true;
             // 
             // tabPageCreatureDescription
             // 
@@ -287,15 +297,6 @@
             this.buttonSaveChanges.UseVisualStyleBackColor = true;
             this.buttonSaveChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
             // 
-            // tabPageScripts
-            // 
-            this.tabPageScripts.Location = new System.Drawing.Point(4, 22);
-            this.tabPageScripts.Name = "tabPageScripts";
-            this.tabPageScripts.Size = new System.Drawing.Size(367, 391);
-            this.tabPageScripts.TabIndex = 4;
-            this.tabPageScripts.Text = "Scripts";
-            this.tabPageScripts.UseVisualStyleBackColor = true;
-            // 
             // CreatureViewControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -342,6 +343,6 @@
         private System.Windows.Forms.TextBox textBoxCreatureDescription;
         private System.Windows.Forms.Label labelCreatureComments;
         private System.Windows.Forms.TextBox textBoxCreatureComments;
-        private System.Windows.Forms.TabPage tabPageScripts;
+        private System.Windows.Forms.TabPage tabPageEvents;
     }
 }

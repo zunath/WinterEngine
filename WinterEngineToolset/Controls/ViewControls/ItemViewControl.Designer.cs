@@ -51,6 +51,7 @@
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
+            this.tabPageEvents = new System.Windows.Forms.TabPage();
             this.tabPageItemProperties = new System.Windows.Forms.TabPage();
             this.labelAssignedItemProperties = new System.Windows.Forms.Label();
             this.labelAvailableItemProperties = new System.Windows.Forms.Label();
@@ -65,7 +66,6 @@
             this.labelItemComments = new System.Windows.Forms.Label();
             this.buttonDiscardChangesItemDetails = new System.Windows.Forms.Button();
             this.buttonSaveChangesItemDetails = new System.Windows.Forms.Button();
-            this.tabPageScripts = new System.Windows.Forms.TabPage();
             this.tabControlProperties.SuspendLayout();
             this.tabPageItemAppearance.SuspendLayout();
             this.panelItemEditorControl.SuspendLayout();
@@ -84,7 +84,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlProperties.Controls.Add(this.tabPageItemAppearance);
             this.tabControlProperties.Controls.Add(this.tabPageItemDetails);
-            this.tabControlProperties.Controls.Add(this.tabPageScripts);
+            this.tabControlProperties.Controls.Add(this.tabPageEvents);
             this.tabControlProperties.Controls.Add(this.tabPageItemProperties);
             this.tabControlProperties.Controls.Add(this.tabPageDescription);
             this.tabControlProperties.Controls.Add(this.tabPageComments);
@@ -205,6 +205,7 @@
             // 
             // resrefTextBoxItem
             // 
+            this.resrefTextBoxItem.Enabled = false;
             this.resrefTextBoxItem.Location = new System.Drawing.Point(81, 112);
             this.resrefTextBoxItem.Name = "resrefTextBoxItem";
             this.resrefTextBoxItem.ResrefText = "";
@@ -314,6 +315,15 @@
             this.labelItemName.Size = new System.Drawing.Size(38, 13);
             this.labelItemName.TabIndex = 1;
             this.labelItemName.Text = "Name:";
+            // 
+            // tabPageEvents
+            // 
+            this.tabPageEvents.Location = new System.Drawing.Point(4, 22);
+            this.tabPageEvents.Name = "tabPageEvents";
+            this.tabPageEvents.Size = new System.Drawing.Size(367, 391);
+            this.tabPageEvents.TabIndex = 5;
+            this.tabPageEvents.Text = "Events";
+            this.tabPageEvents.UseVisualStyleBackColor = true;
             // 
             // tabPageItemProperties
             // 
@@ -461,15 +471,6 @@
             this.buttonSaveChangesItemDetails.UseVisualStyleBackColor = true;
             this.buttonSaveChangesItemDetails.Click += new System.EventHandler(this.buttonSaveChangesItemDetails_Click);
             // 
-            // tabPageScripts
-            // 
-            this.tabPageScripts.Location = new System.Drawing.Point(4, 22);
-            this.tabPageScripts.Name = "tabPageScripts";
-            this.tabPageScripts.Size = new System.Drawing.Size(367, 391);
-            this.tabPageScripts.TabIndex = 5;
-            this.tabPageScripts.Text = "Scripts";
-            this.tabPageScripts.UseVisualStyleBackColor = true;
-            // 
             // ItemViewControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -536,6 +537,6 @@
         private GenericControls.NameTextBox nameTextBoxItem;
         private GenericControls.TagTextBox tagTextBoxItem;
         private GenericControls.ResrefTextBox resrefTextBoxItem;
-        private System.Windows.Forms.TabPage tabPageScripts;
+        private System.Windows.Forms.TabPage tabPageEvents;
     }
 }

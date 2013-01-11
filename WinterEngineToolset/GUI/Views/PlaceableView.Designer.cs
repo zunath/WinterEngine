@@ -42,6 +42,8 @@
             // 
             // placeableViewControl
             // 
+            this.placeableViewControl.BackupPlaceable = null;
+            this.placeableViewControl.Enabled = false;
             this.placeableViewControl.Location = new System.Drawing.Point(192, 0);
             this.placeableViewControl.Name = "placeableViewControl";
             this.placeableViewControl.Size = new System.Drawing.Size(375, 452);

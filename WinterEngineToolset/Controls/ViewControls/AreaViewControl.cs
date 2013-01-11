@@ -10,12 +10,39 @@ using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.Controls.XnaControls.Shared;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
+using WinterEngine.Toolset.DataLayer.Repositories;
+using WinterEngine.Toolset.ExtendedEventArgs;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
     public partial class AreaViewControl : UserControl
     {
+        #region Fields
+
         private ObjectViewer3D _objectViewer;
+        private Area _backupArea;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the backup item which is used to revert changes.
+        /// </summary>
+        public Area BackupArea
+        {
+            get { return _backupArea; }
+            set { _backupArea = value; }
+        }
+
+        #endregion
+
+        #region Events / Delegates
+
+        public event EventHandler<GameObjectEventArgs> OnSaveArea;
+
+        #endregion
 
         public AreaViewControl()
         {
@@ -27,5 +54,65 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             _objectViewer.Dock = DockStyle.Fill;
             panelAreaObjectViewer.Controls.Add(_objectViewer);
         }
+
+        /// <summary>
+        /// Populates all controls and fields with the area passed in.
+        /// </summary>
+        /// <param name="area"></param>
+        public void LoadArea(Area area)
+        {
+            BackupArea = area;
+
+            // Re-enable controls
+            tabControlProperties.Enabled = true;
+            buttonSaveChanges.Enabled = true;
+            buttonDiscardChanges.Enabled = true;
+
+            // Load data into controls
+            nameTextBoxArea.NameText = area.Name;
+            tagTextBoxArea.TagText = area.Tag;
+            resrefTextBoxArea.ResrefText = area.Resref;
+
+            textBoxAreaComments.Text = area.Comment;
+        }
+
+        /// <summary>
+        /// Handles updating an area's entry in the database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonSaveChanges_Click(object sender, EventArgs e)
+        {
+            using (AreaRepository repo = new AreaRepository())
+            {
+                Area area = new Area();
+                area.Comment = textBoxAreaComments.Text;
+                area.Name = nameTextBoxArea.NameText;
+                area.Tag = tagTextBoxArea.TagText;
+                area.Resref = resrefTextBoxArea.ResrefText;
+
+                repo.Update(BackupArea.Resref, area);
+                BackupArea = area;
+
+                GameObjectEventArgs eventArgs = new GameObjectEventArgs();
+                eventArgs.GameObject = area;
+                OnSaveArea(this, eventArgs);
+            }
+        }
+
+        /// <summary>
+        /// Handles reverting all input fields to the backup area's values.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonDiscardChanges_Click(object sender, EventArgs e)
+        {
+            textBoxAreaComments.Text = BackupArea.Comment;
+            nameTextBoxArea.NameText = BackupArea.Name;
+            tagTextBoxArea.TagText = BackupArea.Tag;
+            resrefTextBoxArea.ResrefText = BackupArea.Resref;
+
+        }
+
     }
 }
