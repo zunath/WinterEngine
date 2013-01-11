@@ -38,7 +38,7 @@
             this.treeCategoryControlPlaceable.Name = "treeCategoryControlPlaceable";
             this.treeCategoryControlPlaceable.Size = new System.Drawing.Size(194, 449);
             this.treeCategoryControlPlaceable.TabIndex = 3;
-            this.treeCategoryControlPlaceable.WinterObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Placeable;
+            this.treeCategoryControlPlaceable.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Placeable;
             // 
             // placeableViewControl
             // 

@@ -229,7 +229,7 @@
     <Compile Include="DataLayer\DataTransferObjects\GameObjects\WinterObject.cs" />
     <Compile Include="DataLayer\DataTransferObjects\GameObjects\Item.cs" />
     <Compile Include="DataLayer\Repositories\ResourceCategoryRepository.cs" />
-    <Compile Include="Factories\WinterObjectFactory.cs" />
+    <Compile Include="Factories\GameObjectFactory.cs" />
     <Compile Include="GUI\Views\AreaView.cs">
       <SubType>UserControl</SubType>
     </Compile>

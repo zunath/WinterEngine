@@ -38,7 +38,7 @@
             this.treeCategoryControlCreature.Name = "treeCategoryControlCreature";
             this.treeCategoryControlCreature.Size = new System.Drawing.Size(194, 449);
             this.treeCategoryControlCreature.TabIndex = 2;
-            this.treeCategoryControlCreature.WinterObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Creature;
+            this.treeCategoryControlCreature.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Creature;
             // 
             // creatureViewControl
             // 

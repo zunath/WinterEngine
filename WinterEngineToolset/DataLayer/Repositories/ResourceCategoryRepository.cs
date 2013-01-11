@@ -24,22 +24,14 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             List<ResourceCategory> _resourceCategoryList = new List<ResourceCategory>();
 
-            try
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
-                {
-                    var query = from resourceCategory
-                                in context.ResourceCategories
-                                select resourceCategory;
-                    _resourceCategoryList = query.ToList();
-                }
+                var query = from resourceCategory
+                            in context.ResourceCategories
+                            select resourceCategory;
+                _resourceCategoryList = query.ToList();
             }
-            catch (Exception ex)
-            {
-                ErrorHelper.ShowErrorDialog("Error retrieving all resource categories.", ex);
-                _resourceCategoryList.Clear();
-            }
-
+            
             return _resourceCategoryList;
         }
 
@@ -52,23 +44,17 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             List<ResourceCategory> categoryList = new List<ResourceCategory>();
 
-            try
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
-                {
-                    var query = from resourceCategory
-                                in context.ResourceCategories
-                                where resourceCategory.ResourceTypeID.Equals((int)resourceType)
-                                select resourceCategory;
+                var query = from resourceCategory
+                            in context.ResourceCategories
+                            where resourceCategory.ResourceTypeID.Equals((int)resourceType)
+                            select resourceCategory;
 
-                    categoryList = query.ToList<ResourceCategory>();
+                categoryList = query.ToList<ResourceCategory>();
 
-                }
             }
-            catch (Exception ex)
-            {
-                ErrorHelper.ShowErrorDialog("Error retrieving specified resource categories (ResourceType: " + resourceType + ")", ex);
-            }
+            
 
             return categoryList;
         }
@@ -81,19 +67,13 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         public bool AddResourceCategory(ResourceCategory resourceCategory)
         {
             bool success = true;
-            try
+            
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
-                {
-                    context.ResourceCategories.Add(resourceCategory);
-                    context.SaveChanges();
-                }
+                context.ResourceCategories.Add(resourceCategory);
+                context.SaveChanges();
             }
-            catch (Exception ex)
-            {
-                success = false;
-                ErrorHelper.ShowErrorDialog("Error adding new resource category (ResourceCategory: " + resourceCategory.ResourceName + ").", ex);
-            }
+            
 
             return success;
         }
@@ -107,33 +87,40 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             bool success = true;
 
-            try
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
-                {
-                    // Find the resource in the database that matches the passed-in resource's category ID (primary key)
-                    ResourceCategory dbResource = context.ResourceCategories.SingleOrDefault(r => r.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID));
+                // Find the resource in the database that matches the passed-in resource's category ID (primary key)
+                ResourceCategory dbResource = context.ResourceCategories.SingleOrDefault(r => r.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID));
 
-                    // Unable to find a matching resource. Do not attempt to update.
-                    if (!Object.ReferenceEquals(dbResource, null))
-                    {
-                        dbResource = resourceCategory;
-                        context.SaveChanges();
-                    }
-                    // Unable to find a matching resource. Return false.
-                    else
-                    {
-                        success = false;    
-                    }
+                // Unable to find a matching resource. Do not attempt to update.
+                if (!Object.ReferenceEquals(dbResource, null))
+                {
+                    dbResource = resourceCategory;
+                    context.SaveChanges();
+                }
+                // Unable to find a matching resource. Return false.
+                else
+                {
+                    success = false;    
                 }
             }
-            catch (Exception ex)
-            {
-                success = false;
-                ErrorHelper.ShowErrorDialog("Error renaming existing resource category (ResourceCategory: " + resourceCategory.ResourceName + ").", ex);
-            }
-
+        
             return success;
+        }
+
+        /// <summary>
+        /// Returns true if a resource category exists in the database.
+        /// Returns false if a resource category does not exist in the database.
+        /// </summary>
+        /// <param name="resourceCategory"></param>
+        /// <returns></returns>
+        public bool Exists(ResourceCategory resourceCategory)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                ResourceCategory dbResourceCategory = context.ResourceCategories.FirstOrDefault(r => r.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID));
+                return !Object.ReferenceEquals(dbResourceCategory, null);
+            }
         }
 
         /// <summary>
@@ -145,31 +132,23 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
         {
             bool success = true;
 
-            try
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
-                {
-                    // Find the category in the database. CategoryID is a primary key so there will only ever be one.
-                    ResourceCategory category = context.ResourceCategories.SingleOrDefault(val => val.ResourceCategoryID == resourceCategory.ResourceCategoryID);
+                // Find the category in the database. CategoryID is a primary key so there will only ever be one.
+                ResourceCategory category = context.ResourceCategories.SingleOrDefault(val => val.ResourceCategoryID == resourceCategory.ResourceCategoryID);
 
-                    if (!Object.ReferenceEquals(category, null))
-                    {
-                        context.ResourceCategories.Remove(category);
-                        context.SaveChanges();
-                    }
-                    // Unable to locate a resource in the database. Return false.
-                    else
-                    {
-                        success = false;
-                    }
+                if (!Object.ReferenceEquals(category, null))
+                {
+                    context.ResourceCategories.Remove(category);
+                    context.SaveChanges();
+                }
+                // Unable to locate a resource in the database. Return false.
+                else
+                {
+                    success = false;
                 }
             }
-            catch (Exception ex)
-            {
-                success = false;
-                ErrorHelper.ShowErrorDialog("Error deleting resource category (ResourceCategory: " + resourceCategory.ResourceName + ").", ex);
-            }
-
+            
             return success;
         }
 

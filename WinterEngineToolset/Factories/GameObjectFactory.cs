@@ -13,7 +13,7 @@ namespace WinterEngine.Toolset.Factories
     /// <summary>
     /// Factory method for creating game objects.
     /// </summary>
-    public class WinterObjectFactory
+    public class GameObjectFactory
     {
         #region Object creation methods
 

@@ -80,7 +80,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                 succeed = false;
             }
 
-            WinterObjectFactory factory = new WinterObjectFactory();
+            GameObjectFactory factory = new GameObjectFactory();
             if(factory.DoesObjectExistInDatabase(resrefText, ResourceType))  
             {
                 errorProvider.SetError(resrefTextBoxEntry, "This resref is already in use!");
@@ -112,7 +112,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                 try
                 {
                     // Build a new object
-                    WinterObjectFactory factory = new WinterObjectFactory();
+                    GameObjectFactory factory = new GameObjectFactory();
                     GameObject winterObject = factory.CreateObject(ResourceType);
                     winterObject.Name = nameTextBoxEntry.NameText;
                     winterObject.Tag = tagTextBoxEntry.TagText;

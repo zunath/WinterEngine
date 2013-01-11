@@ -47,7 +47,7 @@
             this.treeCategoryControlItem.Name = "treeCategoryControlItem";
             this.treeCategoryControlItem.Size = new System.Drawing.Size(194, 449);
             this.treeCategoryControlItem.TabIndex = 3;
-            this.treeCategoryControlItem.WinterObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Item;
+            this.treeCategoryControlItem.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Item;
             // 
             // ItemView
             // 
