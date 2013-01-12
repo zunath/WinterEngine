@@ -1,6 +1,6 @@
 ﻿namespace WinterEngine.Toolset.Controls.ViewControls
 {
-    partial class CreatureViewControl
+    partial class CreaturePropertiesControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -69,6 +69,7 @@
             this.tabControlProperties.Controls.Add(this.tabPageEvents);
             this.tabControlProperties.Controls.Add(this.tabPageCreatureDescription);
             this.tabControlProperties.Controls.Add(this.tabPageCreatureComments);
+            this.tabControlProperties.Enabled = false;
             this.tabControlProperties.Location = new System.Drawing.Point(3, 3);
             this.tabControlProperties.Name = "tabControlProperties";
             this.tabControlProperties.SelectedIndex = 0;
@@ -278,6 +279,7 @@
             // buttonDiscardChanges
             // 
             this.buttonDiscardChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDiscardChanges.Enabled = false;
             this.buttonDiscardChanges.Location = new System.Drawing.Point(207, 426);
             this.buttonDiscardChanges.Name = "buttonDiscardChanges";
             this.buttonDiscardChanges.Size = new System.Drawing.Size(102, 23);
@@ -289,6 +291,7 @@
             // buttonSaveChanges
             // 
             this.buttonSaveChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSaveChanges.Enabled = false;
             this.buttonSaveChanges.Location = new System.Drawing.Point(73, 426);
             this.buttonSaveChanges.Name = "buttonSaveChanges";
             this.buttonSaveChanges.Size = new System.Drawing.Size(91, 23);
@@ -297,14 +300,14 @@
             this.buttonSaveChanges.UseVisualStyleBackColor = true;
             this.buttonSaveChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
             // 
-            // CreatureViewControl
+            // CreaturePropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonDiscardChanges);
             this.Controls.Add(this.buttonSaveChanges);
             this.Controls.Add(this.tabControlProperties);
-            this.Name = "CreatureViewControl";
+            this.Name = "CreaturePropertiesControl";
             this.Size = new System.Drawing.Size(375, 452);
             this.tabControlProperties.ResumeLayout(false);
             this.tabPageCreatureAppearance.ResumeLayout(false);

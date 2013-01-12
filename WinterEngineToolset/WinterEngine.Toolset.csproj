@@ -149,23 +149,23 @@
     <Compile Include="Controls\ControlHelpers\NewObjectEntry.Designer.cs">
       <DependentUpon>NewObjectEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ViewControls\AreaViewControl.cs">
+    <Compile Include="Controls\ViewControls\AreaPropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ViewControls\AreaViewControl.Designer.cs">
-      <DependentUpon>AreaViewControl.cs</DependentUpon>
+    <Compile Include="Controls\ViewControls\AreaPropertiesControl.Designer.cs">
+      <DependentUpon>AreaPropertiesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ViewControls\CreatureViewControl.cs">
+    <Compile Include="Controls\ViewControls\CreaturePropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ViewControls\CreatureViewControl.Designer.cs">
-      <DependentUpon>CreatureViewControl.cs</DependentUpon>
+    <Compile Include="Controls\ViewControls\CreaturePropertiesControl.Designer.cs">
+      <DependentUpon>CreaturePropertiesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ViewControls\ItemViewControl.cs">
+    <Compile Include="Controls\ViewControls\ItemPropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ViewControls\ItemViewControl.Designer.cs">
-      <DependentUpon>ItemViewControl.cs</DependentUpon>
+    <Compile Include="Controls\ViewControls\ItemPropertiesControl.Designer.cs">
+      <DependentUpon>ItemPropertiesControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\GenericControls\NameTextBox.cs">
       <SubType>UserControl</SubType>
@@ -185,11 +185,11 @@
     <Compile Include="Controls\GenericControls\ResrefTextBox.Designer.cs">
       <DependentUpon>ResrefTextBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ViewControls\PlaceableViewControl.cs">
+    <Compile Include="Controls\ViewControls\PlaceablePropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ViewControls\PlaceableViewControl.Designer.cs">
-      <DependentUpon>PlaceableViewControl.cs</DependentUpon>
+    <Compile Include="Controls\ViewControls\PlaceablePropertiesControl.Designer.cs">
+      <DependentUpon>PlaceablePropertiesControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ViewControls\TreeCategoryControl.cs">
       <SubType>UserControl</SubType>
@@ -281,14 +281,14 @@
     <EmbeddedResource Include="Controls\ControlHelpers\NewObjectEntry.resx">
       <DependentUpon>NewObjectEntry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ViewControls\AreaViewControl.resx">
-      <DependentUpon>AreaViewControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ViewControls\AreaPropertiesControl.resx">
+      <DependentUpon>AreaPropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ViewControls\CreatureViewControl.resx">
-      <DependentUpon>CreatureViewControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ViewControls\CreaturePropertiesControl.resx">
+      <DependentUpon>CreaturePropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ViewControls\ItemViewControl.resx">
-      <DependentUpon>ItemViewControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ViewControls\ItemPropertiesControl.resx">
+      <DependentUpon>ItemPropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\GenericControls\NameTextBox.resx">
       <DependentUpon>NameTextBox.cs</DependentUpon>
@@ -299,8 +299,8 @@
     <EmbeddedResource Include="Controls\GenericControls\ResrefTextBox.resx">
       <DependentUpon>ResrefTextBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ViewControls\PlaceableViewControl.resx">
-      <DependentUpon>PlaceableViewControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ViewControls\PlaceablePropertiesControl.resx">
+      <DependentUpon>PlaceablePropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ViewControls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>

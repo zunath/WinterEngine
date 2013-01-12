@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.treeCategoryControlPlaceable = new WinterEngine.Toolset.Controls.ViewControls.TreeCategoryControl();
-            this.placeableViewControl = new WinterEngine.Toolset.Controls.ViewControls.PlaceableViewControl();
+            this.placeableViewControl = new WinterEngine.Toolset.Controls.ViewControls.PlaceablePropertiesControl();
             this.SuspendLayout();
             // 
             // treeCategoryControlPlaceable
@@ -64,7 +64,7 @@
         #endregion
 
         private Controls.ViewControls.TreeCategoryControl treeCategoryControlPlaceable;
-        private Controls.ViewControls.PlaceableViewControl placeableViewControl;
+        private Controls.ViewControls.PlaceablePropertiesControl placeableViewControl;
 
     }
 }

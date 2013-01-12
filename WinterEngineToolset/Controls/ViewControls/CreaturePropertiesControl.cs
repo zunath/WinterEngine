@@ -9,10 +9,11 @@ using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
 using WinterEngine.Toolset.DataLayer.Repositories;
+using WinterEngine.Toolset.ExtendedEventArgs;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
-    public partial class CreatureViewControl : UserControl
+    public partial class CreaturePropertiesControl : UserControl
     {
         #region Fields
 
@@ -34,7 +35,15 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         #endregion
 
-        public CreatureViewControl()
+        #region Events / Delegates
+
+        public event EventHandler<GameObjectEventArgs> OnSaveCreature;
+
+        #endregion
+
+        #region Constructors
+
+        public CreaturePropertiesControl()
         {
             InitializeComponent();
 
@@ -43,6 +52,31 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             _objectViewer = new ObjectViewer3D();
             _objectViewer.Dock = DockStyle.Fill;
             panelCreatureObjectViewer.Controls.Add(_objectViewer);
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Populates all controls and fields with the creature passed in.
+        /// </summary>
+        /// <param name="creature"></param>
+        public void LoadCreature(Creature creature)
+        {
+            BackupCreature = creature;
+
+            // Re-enable controls
+            tabControlProperties.Enabled = true;
+            buttonSaveChanges.Enabled = true;
+            buttonDiscardChanges.Enabled = true;
+
+            // Load data into controls
+            nameTextBoxItem.NameText = creature.Name;
+            tagTextBoxItem.TagText = creature.Tag;
+            resrefTextBoxItem.ResrefText = creature.Resref;
+
+            textBoxCreatureComments.Text = creature.Comment;
         }
 
         /// <summary>
@@ -60,9 +94,14 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 creature.Resref = resrefTextBoxItem.ResrefText;
                 creature.Description = textBoxCreatureDescription.Text;
                 creature.Comment = textBoxCreatureComments.Text;
+                creature.ResourceCategoryID = BackupCreature.ResourceCategoryID;
 
                 repo.Update(resrefTextBoxItem.ResrefText, creature);
                 BackupCreature = creature;
+
+                GameObjectEventArgs eventArgs = new GameObjectEventArgs();
+                eventArgs.GameObject = creature;
+                OnSaveCreature(this, eventArgs);
             }
         }
 
@@ -79,5 +118,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             textBoxCreatureComments.Text = BackupCreature.Comment;
             textBoxCreatureDescription.Text = BackupCreature.Description;
         }
+
+        #endregion
     }
 }

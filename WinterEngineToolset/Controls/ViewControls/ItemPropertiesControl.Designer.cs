@@ -1,6 +1,6 @@
 ﻿namespace WinterEngine.Toolset.Controls.ViewControls
 {
-    partial class ItemViewControl
+    partial class ItemPropertiesControl
     {
         /// <summary> 
         /// Required designer variable.

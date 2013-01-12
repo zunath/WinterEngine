@@ -1,6 +1,6 @@
 ﻿namespace WinterEngine.Toolset.Controls.ViewControls
 {
-    partial class AreaViewControl
+    partial class AreaPropertiesControl
     {
         /// <summary> 
         /// Required designer variable.

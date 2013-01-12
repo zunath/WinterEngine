@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.itemViewControl = new WinterEngine.Toolset.Controls.ViewControls.ItemViewControl();
+            this.itemViewControl = new WinterEngine.Toolset.Controls.ViewControls.ItemPropertiesControl();
             this.treeCategoryControlItem = new WinterEngine.Toolset.Controls.ViewControls.TreeCategoryControl();
             this.SuspendLayout();
             // 
@@ -64,7 +64,7 @@
         #endregion
 
         private Controls.ViewControls.TreeCategoryControl treeCategoryControlItem;
-        private Controls.ViewControls.ItemViewControl itemViewControl;
+        private Controls.ViewControls.ItemPropertiesControl itemViewControl;
 
     }
 }

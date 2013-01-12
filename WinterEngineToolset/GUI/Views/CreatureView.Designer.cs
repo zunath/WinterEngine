@@ -29,21 +29,21 @@
         private void InitializeComponent()
         {
             this.treeCategoryControlCreature = new WinterEngine.Toolset.Controls.ViewControls.TreeCategoryControl();
-            this.creatureViewControl = new WinterEngine.Toolset.Controls.ViewControls.CreatureViewControl();
+            this.creatureViewControl = new WinterEngine.Toolset.Controls.ViewControls.CreaturePropertiesControl();
             this.SuspendLayout();
             // 
             // treeCategoryControlCreature
             // 
+            this.treeCategoryControlCreature.ActiveGameObject = null;
+            this.treeCategoryControlCreature.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Creature;
             this.treeCategoryControlCreature.Location = new System.Drawing.Point(0, 3);
             this.treeCategoryControlCreature.Name = "treeCategoryControlCreature";
             this.treeCategoryControlCreature.Size = new System.Drawing.Size(194, 449);
             this.treeCategoryControlCreature.TabIndex = 2;
-            this.treeCategoryControlCreature.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Creature;
             // 
             // creatureViewControl
             // 
             this.creatureViewControl.BackupCreature = null;
-            this.creatureViewControl.Enabled = false;
             this.creatureViewControl.Location = new System.Drawing.Point(192, 0);
             this.creatureViewControl.Name = "creatureViewControl";
             this.creatureViewControl.Size = new System.Drawing.Size(375, 452);
@@ -65,7 +65,7 @@
 
         private Controls.ViewControls.TreeCategoryControl buttonAddCategory;
         private Controls.ViewControls.TreeCategoryControl treeCategoryControlCreature;
-        private Controls.ViewControls.CreatureViewControl creatureViewControl;
+        private Controls.ViewControls.CreaturePropertiesControl creatureViewControl;
 
     }
 }

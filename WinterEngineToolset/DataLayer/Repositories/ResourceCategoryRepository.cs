@@ -95,7 +95,8 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 // Unable to find a matching resource. Do not attempt to update.
                 if (!Object.ReferenceEquals(dbResource, null))
                 {
-                    dbResource = resourceCategory;
+                    context.ResourceCategories.Remove(dbResource);
+                    context.ResourceCategories.Add(resourceCategory);
                     context.SaveChanges();
                 }
                 // Unable to find a matching resource. Return false.

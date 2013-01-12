@@ -30,7 +30,7 @@ namespace WinterEngine.Toolset.GUI.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.areaViewControl = new WinterEngine.Toolset.Controls.ViewControls.AreaViewControl();
+            this.areaViewControl = new WinterEngine.Toolset.Controls.ViewControls.AreaPropertiesControl();
             this.treeCategoryControlArea = new WinterEngine.Toolset.Controls.ViewControls.TreeCategoryControl();
             this.SuspendLayout();
             // 
@@ -64,7 +64,7 @@ namespace WinterEngine.Toolset.GUI.Views
         #endregion
 
         private Controls.ViewControls.TreeCategoryControl treeCategoryControlArea;
-        private Controls.ViewControls.AreaViewControl areaViewControl;
+        private Controls.ViewControls.AreaPropertiesControl areaViewControl;
 
     }
 }

@@ -26,6 +26,5 @@ namespace WinterEngine.Toolset.DataLayer.Contexts
         public WinterContext(string connString) : base(connString)
         {
         }
-
     }
 }

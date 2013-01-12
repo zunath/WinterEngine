@@ -60,7 +60,10 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             get { return _activeGameObject; }
             set 
             {
-                _activeTreeNode.Tag = value;
+                if (!Object.ReferenceEquals(_activeTreeNode, null))
+                {
+                    _activeTreeNode.Tag = value;
+                }
                 _activeGameObject = value; 
             }
         }
@@ -200,7 +203,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
             {
                 // Retrieve all resource categories
-                List<ResourceCategory> resourceCategories = repo.GetAllResourceCategories();
+                List<ResourceCategory> resourceCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectResourceType);
                 
                 // Loop through each resource category
                 foreach (ResourceCategory category in resourceCategories)

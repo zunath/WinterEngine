@@ -1,6 +1,6 @@
 ﻿namespace WinterEngine.Toolset.Controls.ViewControls
 {
-    partial class PlaceableViewControl
+    partial class PlaceablePropertiesControl
     {
         /// <summary> 
         /// Required designer variable.

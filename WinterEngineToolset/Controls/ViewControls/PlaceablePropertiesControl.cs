@@ -12,7 +12,7 @@ using WinterEngine.Toolset.DataLayer.Repositories;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
-    public partial class PlaceableViewControl : UserControl
+    public partial class PlaceablePropertiesControl : UserControl
     {
 
         #region Fields
@@ -35,7 +35,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         #endregion
 
-        public PlaceableViewControl()
+        public PlaceablePropertiesControl()
         {
             InitializeComponent();
 

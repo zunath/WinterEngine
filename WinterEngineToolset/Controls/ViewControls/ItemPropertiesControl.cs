@@ -12,7 +12,7 @@ using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
-    public partial class ItemViewControl : UserControl
+    public partial class ItemPropertiesControl : UserControl
     {
         #region Fields
 
@@ -35,7 +35,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         #endregion
 
-        public ItemViewControl()
+        public ItemPropertiesControl()
         {
             InitializeComponent();
 

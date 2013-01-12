@@ -16,7 +16,7 @@ using WinterEngine.Toolset.ExtendedEventArgs;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
-    public partial class AreaViewControl : UserControl
+    public partial class AreaPropertiesControl : UserControl
     {
         #region Fields
 
@@ -35,7 +35,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             get { return _backupArea; }
             set { _backupArea = value; }
         }
-
+        
         #endregion
 
         #region Events / Delegates
@@ -44,7 +44,9 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         #endregion
 
-        public AreaViewControl()
+        #region Constructors
+
+        public AreaPropertiesControl()
         {
             InitializeComponent();
 
@@ -54,6 +56,10 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             _objectViewer.Dock = DockStyle.Fill;
             panelAreaObjectViewer.Controls.Add(_objectViewer);
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Populates all controls and fields with the area passed in.
@@ -90,6 +96,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 area.Name = nameTextBoxArea.NameText;
                 area.Tag = tagTextBoxArea.TagText;
                 area.Resref = resrefTextBoxArea.ResrefText;
+                area.ResourceCategoryID = BackupArea.ResourceCategoryID;
 
                 repo.Update(BackupArea.Resref, area);
                 BackupArea = area;
@@ -114,5 +121,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         }
 
+        #endregion
     }
 }

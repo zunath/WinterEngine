@@ -7,6 +7,16 @@ namespace WinterEngine.Toolset.GUI.Views
 {
     public partial class AreaView : UserControl, IViewControls
     {
+        #region Fields
+
+        #endregion
+
+        #region Properties
+
+        #endregion
+
+        #region Constructors
+
         public AreaView()
         {
             InitializeComponent();
@@ -16,6 +26,9 @@ namespace WinterEngine.Toolset.GUI.Views
             // Subscribe to the OnSaveObject event in the area view control.
             areaViewControl.OnSaveArea += new EventHandler<GameObjectEventArgs>(SaveArea);
         }
+        #endregion
+
+        #region Methods
 
         public void RefreshControls()
         {
@@ -48,5 +61,6 @@ namespace WinterEngine.Toolset.GUI.Views
             treeCategoryControlArea.RefreshNodeNames();
         }
 
+        #endregion
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using WinterEngine.Toolset.DataLayer.Contexts;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
+using System.Data;
 
 namespace WinterEngine.Toolset.DataLayer.Repositories
 {
@@ -35,14 +36,15 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
                 Creature creature = context.Creatures.SingleOrDefault(x => x.Resref == resref);
-
+                
                 if (Object.ReferenceEquals(creature, null))
                 {
                     throw new NullReferenceException("Unable to find creature by specified resref.");
                 }
                 else
                 {
-                    creature = newCreature;
+                    context.Creatures.Remove(creature);
+                    context.Creatures.Add(newCreature);
                     context.SaveChanges();
                 }
             }
@@ -62,11 +64,12 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 // Didn't find an existing creature. Insert a new one.
                 if (Object.ReferenceEquals(creature, null))
                 {
-                    context.Creatures.Add(creature);
+                    context.Creatures.Add(newCreature);
                 }
                 else
                 {
-                    creature = newCreature;
+                    context.Creatures.Remove(creature);
+                    context.Creatures.Add(newCreature);                
                 }
 
                 context.SaveChanges();

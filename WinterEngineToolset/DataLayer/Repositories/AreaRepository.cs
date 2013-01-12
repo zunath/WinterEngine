@@ -42,7 +42,8 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 }
                 else
                 {
-                    area = newArea;
+                    context.Areas.Remove(area);
+                    context.Areas.Add(newArea);
                     context.SaveChanges();
                 }
             }
@@ -66,7 +67,8 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 }
                 else
                 {
-                    area = newArea;
+                    context.Areas.Remove(area);
+                    context.Areas.Add(newArea);
                 }
 
                 context.SaveChanges();

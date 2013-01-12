@@ -42,7 +42,8 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 }
                 else
                 {
-                    placeable = newPlaceable;
+                    context.Placeables.Remove(placeable);
+                    context.Placeables.Add(newPlaceable);
                     context.SaveChanges();
                 }
             }
@@ -66,7 +67,8 @@ namespace WinterEngine.Toolset.DataLayer.Repositories
                 }
                 else
                 {
-                    placeable = newPlaceable;
+                    context.Placeables.Remove(placeable);
+                    context.Placeables.Add(newPlaceable);
                 }
 
                 context.SaveChanges();
