@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.DataLayer.Repositories;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
+using WinterEngine.Toolset.ExtendedEventArgs;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
@@ -35,6 +36,14 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         #endregion
 
+        #region Events / Delegates
+
+        public event EventHandler<GameObjectEventArgs> OnSaveItem;
+
+        #endregion
+
+        #region Constructors
+
         public ItemPropertiesControl()
         {
             InitializeComponent();
@@ -48,6 +57,31 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             _itemIcon = new ObjectViewer2D();
             _itemIcon.Dock = DockStyle.Fill;
             panelItemIconViewer.Controls.Add(_itemIcon);
+        }
+
+        #endregion
+
+        #region Methods
+
+
+        public void LoadItem(Item item)
+        {
+            BackupItem = item;
+
+            // Re-enable controls
+            tabControlProperties.Enabled = true;
+            buttonSaveChangesItemDetails.Enabled = true;
+            buttonDiscardChangesItemDetails.Enabled = true;
+
+            // Load data into controls
+            nameTextBoxItem.NameText = item.Name;
+            tagTextBoxItem.TagText = item.Tag;
+            resrefTextBoxItem.ResrefText = item.Resref;
+
+            textBoxItemComments.Text = item.Comment;
+            textBoxItemDescription.Text = item.Description;
+            numericUpDownPrice.Value = item.Price;
+            numericUpDownWeight.Value = item.Weight;
         }
 
         /// <summary>
@@ -67,9 +101,14 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 item.Resref = resrefTextBoxItem.ResrefText;
                 item.Price = (int)numericUpDownPrice.Value;
                 item.Weight = (int)numericUpDownWeight.Value;
+                item.ResourceCategoryID = BackupItem.ResourceCategoryID;
 
                 repo.Update(resrefTextBoxItem.ResrefText, item);
                 BackupItem = item;
+
+                GameObjectEventArgs eventArgs = new GameObjectEventArgs();
+                eventArgs.GameObject = item;
+                OnSaveItem(this, eventArgs);
             }
         }
 
@@ -89,5 +128,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             numericUpDownWeight.Value = BackupItem.Weight;
 
         }
+
+        #endregion
     }
 }

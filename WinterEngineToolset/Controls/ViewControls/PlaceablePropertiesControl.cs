@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
 using WinterEngine.Toolset.DataLayer.Repositories;
+using WinterEngine.Toolset.ExtendedEventArgs;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
@@ -35,6 +36,14 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         #endregion
 
+        #region Events / Delegates
+
+        public event EventHandler<GameObjectEventArgs> OnSavePlaceable;
+
+        #endregion
+
+        #region Constructors
+
         public PlaceablePropertiesControl()
         {
             InitializeComponent();
@@ -44,6 +53,34 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             _objectViewer = new ObjectViewer3D();
             _objectViewer.Dock = DockStyle.Fill;
             panelPlaceableObjectViewer.Controls.Add(_objectViewer);
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Populates all controls and fields with the placeable passed in.
+        /// </summary>
+        /// <param name="placeable"></param>
+        public void LoadPlaceable(Placeable placeable)
+        {
+            BackupPlaceable = placeable;
+
+            // Re-enable controls
+            tabControlProperties.Enabled = true;
+            buttonSaveChanges.Enabled = true;
+            buttonDiscardChanges.Enabled = true;
+
+            // Load data into controls
+            nameTextBoxPlaceable.NameText = placeable.Name;
+            tagTextBoxPlaceable.TagText = placeable.Tag;
+            resrefTextBoxPlaceable.ResrefText = placeable.Resref;
+
+            textBoxPlaceableComments.Text = placeable.Comment;
+            textBoxPlaceableDescription.Text = placeable.Description;
+            checkBoxHasInventory.Checked = placeable.HasInventory;
+            checkBoxUseable.Checked = placeable.IsUseable;
         }
 
         /// <summary>
@@ -63,9 +100,14 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 placeable.Comment = textBoxPlaceableComments.Text;
                 placeable.HasInventory = checkBoxHasInventory.Checked;
                 placeable.IsUseable = checkBoxUseable.Checked;
+                placeable.ResourceCategoryID = BackupPlaceable.ResourceCategoryID;
 
                 repo.Update(resrefTextBoxPlaceable.ResrefText, placeable);
                 BackupPlaceable = placeable;
+
+                GameObjectEventArgs eventArgs = new GameObjectEventArgs();
+                eventArgs.GameObject = placeable;
+                OnSavePlaceable(this, eventArgs);
             }
         }
 
@@ -84,5 +126,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             checkBoxHasInventory.Checked = BackupPlaceable.HasInventory;
             checkBoxUseable.Checked = BackupPlaceable.IsUseable;
         }
+
+        #endregion
     }
 }

@@ -34,16 +34,16 @@
             // 
             // treeCategoryControlPlaceable
             // 
+            this.treeCategoryControlPlaceable.ActiveGameObject = null;
+            this.treeCategoryControlPlaceable.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Placeable;
             this.treeCategoryControlPlaceable.Location = new System.Drawing.Point(0, 3);
             this.treeCategoryControlPlaceable.Name = "treeCategoryControlPlaceable";
             this.treeCategoryControlPlaceable.Size = new System.Drawing.Size(194, 449);
             this.treeCategoryControlPlaceable.TabIndex = 3;
-            this.treeCategoryControlPlaceable.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Placeable;
             // 
             // placeableViewControl
             // 
             this.placeableViewControl.BackupPlaceable = null;
-            this.placeableViewControl.Enabled = false;
             this.placeableViewControl.Location = new System.Drawing.Point(192, 0);
             this.placeableViewControl.Name = "placeableViewControl";
             this.placeableViewControl.Size = new System.Drawing.Size(375, 452);

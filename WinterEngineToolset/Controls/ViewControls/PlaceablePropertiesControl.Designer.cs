@@ -109,6 +109,7 @@
             this.tabControlProperties.Controls.Add(this.tabPageEvents);
             this.tabControlProperties.Controls.Add(this.tabPageDescription);
             this.tabControlProperties.Controls.Add(this.tabPageComments);
+            this.tabControlProperties.Enabled = false;
             this.tabControlProperties.Location = new System.Drawing.Point(3, 3);
             this.tabControlProperties.Name = "tabControlProperties";
             this.tabControlProperties.SelectedIndex = 0;
@@ -696,6 +697,7 @@
             // buttonDiscardChanges
             // 
             this.buttonDiscardChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDiscardChanges.Enabled = false;
             this.buttonDiscardChanges.Location = new System.Drawing.Point(207, 426);
             this.buttonDiscardChanges.Name = "buttonDiscardChanges";
             this.buttonDiscardChanges.Size = new System.Drawing.Size(102, 23);
@@ -707,6 +709,7 @@
             // buttonSaveChanges
             // 
             this.buttonSaveChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSaveChanges.Enabled = false;
             this.buttonSaveChanges.Location = new System.Drawing.Point(73, 426);
             this.buttonSaveChanges.Name = "buttonSaveChanges";
             this.buttonSaveChanges.Size = new System.Drawing.Size(91, 23);
@@ -715,14 +718,14 @@
             this.buttonSaveChanges.UseVisualStyleBackColor = true;
             this.buttonSaveChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
             // 
-            // PlaceableViewControl
+            // PlaceablePropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonDiscardChanges);
             this.Controls.Add(this.buttonSaveChanges);
             this.Controls.Add(this.tabControlProperties);
-            this.Name = "PlaceableViewControl";
+            this.Name = "PlaceablePropertiesControl";
             this.Size = new System.Drawing.Size(375, 452);
             this.tabControlProperties.ResumeLayout(false);
             this.tabPagePlaceableAppearance.ResumeLayout(false);

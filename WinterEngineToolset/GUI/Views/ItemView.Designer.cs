@@ -35,7 +35,6 @@
             // itemViewControl
             // 
             this.itemViewControl.BackupItem = null;
-            this.itemViewControl.Enabled = false;
             this.itemViewControl.Location = new System.Drawing.Point(192, 0);
             this.itemViewControl.Name = "itemViewControl";
             this.itemViewControl.Size = new System.Drawing.Size(375, 452);
@@ -43,11 +42,12 @@
             // 
             // treeCategoryControlItem
             // 
+            this.treeCategoryControlItem.ActiveGameObject = null;
+            this.treeCategoryControlItem.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Item;
             this.treeCategoryControlItem.Location = new System.Drawing.Point(0, 3);
             this.treeCategoryControlItem.Name = "treeCategoryControlItem";
             this.treeCategoryControlItem.Size = new System.Drawing.Size(194, 449);
             this.treeCategoryControlItem.TabIndex = 3;
-            this.treeCategoryControlItem.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Item;
             // 
             // ItemView
             // 

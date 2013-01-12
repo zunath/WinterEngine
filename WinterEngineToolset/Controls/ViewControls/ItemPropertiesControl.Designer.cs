@@ -88,6 +88,7 @@
             this.tabControlProperties.Controls.Add(this.tabPageItemProperties);
             this.tabControlProperties.Controls.Add(this.tabPageDescription);
             this.tabControlProperties.Controls.Add(this.tabPageComments);
+            this.tabControlProperties.Enabled = false;
             this.tabControlProperties.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.tabControlProperties.Location = new System.Drawing.Point(3, 3);
             this.tabControlProperties.Name = "tabControlProperties";
@@ -452,6 +453,7 @@
             // buttonDiscardChangesItemDetails
             // 
             this.buttonDiscardChangesItemDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDiscardChangesItemDetails.Enabled = false;
             this.buttonDiscardChangesItemDetails.Location = new System.Drawing.Point(207, 426);
             this.buttonDiscardChangesItemDetails.Name = "buttonDiscardChangesItemDetails";
             this.buttonDiscardChangesItemDetails.Size = new System.Drawing.Size(102, 23);
@@ -463,6 +465,7 @@
             // buttonSaveChangesItemDetails
             // 
             this.buttonSaveChangesItemDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSaveChangesItemDetails.Enabled = false;
             this.buttonSaveChangesItemDetails.Location = new System.Drawing.Point(73, 426);
             this.buttonSaveChangesItemDetails.Name = "buttonSaveChangesItemDetails";
             this.buttonSaveChangesItemDetails.Size = new System.Drawing.Size(91, 23);
@@ -471,14 +474,14 @@
             this.buttonSaveChangesItemDetails.UseVisualStyleBackColor = true;
             this.buttonSaveChangesItemDetails.Click += new System.EventHandler(this.buttonSaveChangesItemDetails_Click);
             // 
-            // ItemViewControl
+            // ItemPropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonDiscardChangesItemDetails);
             this.Controls.Add(this.tabControlProperties);
             this.Controls.Add(this.buttonSaveChangesItemDetails);
-            this.Name = "ItemViewControl";
+            this.Name = "ItemPropertiesControl";
             this.Size = new System.Drawing.Size(375, 452);
             this.tabControlProperties.ResumeLayout(false);
             this.tabPageItemAppearance.ResumeLayout(false);
