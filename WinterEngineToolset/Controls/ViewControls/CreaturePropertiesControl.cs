@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
-using WinterEngine.Toolset.DataLayer.Repositories;
+using WinterEngine.Library.DataAccess.DataTransferObjects.GameObjects;
+using WinterEngine.Library.DataAccess.Repositories;
 using WinterEngine.Toolset.ExtendedEventArgs;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
@@ -68,7 +68,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
             // Re-enable controls
             tabControlProperties.Enabled = true;
-            buttonSaveChanges.Enabled = true;
+            buttonApplyChanges.Enabled = true;
             buttonDiscardChanges.Enabled = true;
 
             // Load data into controls

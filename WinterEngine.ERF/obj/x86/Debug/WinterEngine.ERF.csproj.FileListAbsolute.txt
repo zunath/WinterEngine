@@ -1,0 +1,10 @@
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.ERF.exe
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.ERF.pdb
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.ExportERF.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.ImportERF.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.Properties.Resources.resources
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.exe
+C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.pdb

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using WinterEngine.Toolset.ExtendedEventArgs;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
+using WinterEngine.Library.DataAccess.DataTransferObjects.GameObjects;
 using System;
 
 namespace WinterEngine.Toolset.GUI.Views
@@ -22,9 +22,9 @@ namespace WinterEngine.Toolset.GUI.Views
             InitializeComponent();
 
             // Subscribe to the OnOpenObject event in the tree category control area.
-            treeCategoryControlArea.OnOpenObject += new EventHandler<GameObjectEventArgs>(LoadArea);
+            treeCategoryControlArea.OnOpenObject += new EventHandler<GameObjectEventArgs>(LoadObject);
             // Subscribe to the OnSaveObject event in the area view control.
-            areaViewControl.OnSaveArea += new EventHandler<GameObjectEventArgs>(SaveArea);
+            areaViewControl.OnSaveArea += new EventHandler<GameObjectEventArgs>(SaveObject);
         }
         #endregion
 
@@ -45,7 +45,7 @@ namespace WinterEngine.Toolset.GUI.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LoadArea(object sender, GameObjectEventArgs e)
+        public void LoadObject(object sender, GameObjectEventArgs e)
         {
             areaViewControl.LoadArea(e.GameObject as Area);
         }
@@ -55,7 +55,7 @@ namespace WinterEngine.Toolset.GUI.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SaveArea(object sender, GameObjectEventArgs e)
+        public void SaveObject(object sender, GameObjectEventArgs e)
         {
             treeCategoryControlArea.ActiveGameObject = e.GameObject;
             treeCategoryControlArea.RefreshNodeNames();

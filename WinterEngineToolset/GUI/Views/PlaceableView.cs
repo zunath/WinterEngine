@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using WinterEngine.Toolset.ExtendedEventArgs;
 using System;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
+using WinterEngine.Library.DataAccess.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.Toolset.GUI.Views
 {
@@ -20,9 +20,9 @@ namespace WinterEngine.Toolset.GUI.Views
             InitializeComponent();
 
             // Subscribe to the OnOpenObject event in the tree category control area.
-            treeCategoryControlPlaceable.OnOpenObject += new EventHandler<GameObjectEventArgs>(LoadPlaceable);
+            treeCategoryControlPlaceable.OnOpenObject += new EventHandler<GameObjectEventArgs>(LoadObject);
             // Subscribe to the OnSaveObject event in the area view control.
-            placeableViewControl.OnSavePlaceable += new EventHandler<GameObjectEventArgs>(SavePlaceable);
+            placeableViewControl.OnSavePlaceable += new EventHandler<GameObjectEventArgs>(SaveObject);
         }
         #endregion
 
@@ -43,7 +43,7 @@ namespace WinterEngine.Toolset.GUI.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LoadPlaceable(object sender, GameObjectEventArgs e)
+        public void LoadObject(object sender, GameObjectEventArgs e)
         {
             placeableViewControl.LoadPlaceable(e.GameObject as Placeable);
         }
@@ -53,7 +53,7 @@ namespace WinterEngine.Toolset.GUI.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SavePlaceable(object sender, GameObjectEventArgs e)
+        public void SaveObject(object sender, GameObjectEventArgs e)
         {
             treeCategoryControlPlaceable.ActiveGameObject = e.GameObject;
             treeCategoryControlPlaceable.RefreshNodeNames();

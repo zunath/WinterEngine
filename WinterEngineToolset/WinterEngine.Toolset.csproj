@@ -206,29 +206,9 @@
     <Compile Include="Controls\XnaControls\Shared\ModelViewerControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DataLayer\Contexts\WinterContext.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\AttributeObjects\Ability.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\AttributeObjects\CharacterClass.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\ModuleDetail.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\WinterModule.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\AttributeObjects\ItemProperty.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\AttributeObjects\Race.cs" />
-    <Compile Include="DataLayer\Repositories\AreaRepository.cs" />
-    <Compile Include="DataLayer\Repositories\CreatureRepository.cs" />
-    <Compile Include="DataLayer\Repositories\ItemRepository.cs" />
-    <Compile Include="DataLayer\Repositories\ModuleRepository.cs" />
-    <Compile Include="DataLayer\Repositories\PlaceableRepository.cs" />
-    <Compile Include="DataLayer\WinterConnectionInformation.cs" />
     <Compile Include="ExtendedEventArgs\GameObjectEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="GUI\Views\IViewControls.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\GameObjects\Area.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\ResourceObjects\ResourceCategory.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\GameObjects\Creature.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\GameObjects\Placeable.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\GameObjects\WinterObject.cs" />
-    <Compile Include="DataLayer\DataTransferObjects\GameObjects\Item.cs" />
-    <Compile Include="DataLayer\Repositories\ResourceCategoryRepository.cs" />
     <Compile Include="Factories\GameObjectFactory.cs" />
     <Compile Include="GUI\Views\AreaView.cs">
       <SubType>UserControl</SubType>
@@ -236,7 +216,6 @@
     <Compile Include="GUI\Views\AreaView.Designer.cs">
       <DependentUpon>AreaView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ErrorHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -271,7 +250,6 @@
     </Compile>
     <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceService.cs" />
     <Compile Include="Controls\XnaControls\Shared\ServiceContainer.cs" />
-    <Compile Include="Helpers\WinterFileHelper.cs" />
     <EmbeddedResource Include="Controls\ControlHelpers\NewModuleEntry.resx">
       <DependentUpon>NewModuleEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -353,6 +331,10 @@
       <Project>{5A451205-2CE5-4B5A-A92F-3806523CD8A7}</Project>
       <Name>WinterEngine.Content.Library</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.ERF\WinterEngine.ERF.csproj">
+      <Project>{71C617B1-E588-4187-8773-C0B6EF4569A1}</Project>
+      <Name>WinterEngine.ERF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.HakpakBuilder\WinterEngine.Hakpak.csproj">
       <Project>{CB8FC1F9-0EA1-4F21-90EF-9776B8AE8337}</Project>
       <Name>WinterEngine.Hakpak</Name>
@@ -389,7 +371,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

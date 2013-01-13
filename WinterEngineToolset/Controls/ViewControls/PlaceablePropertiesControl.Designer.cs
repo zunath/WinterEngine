@@ -89,7 +89,7 @@
             this.labelPlaceableComments = new System.Windows.Forms.Label();
             this.textBoxPlaceableComments = new System.Windows.Forms.TextBox();
             this.buttonDiscardChanges = new System.Windows.Forms.Button();
-            this.buttonSaveChanges = new System.Windows.Forms.Button();
+            this.buttonApplyChanges = new System.Windows.Forms.Button();
             this.tabControlProperties.SuspendLayout();
             this.tabPagePlaceableAppearance.SuspendLayout();
             this.panelObjectViewer.SuspendLayout();
@@ -706,24 +706,24 @@
             this.buttonDiscardChanges.UseVisualStyleBackColor = true;
             this.buttonDiscardChanges.Click += new System.EventHandler(this.buttonDiscardChanges_Click);
             // 
-            // buttonSaveChanges
+            // buttonApplyChanges
             // 
-            this.buttonSaveChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSaveChanges.Enabled = false;
-            this.buttonSaveChanges.Location = new System.Drawing.Point(73, 426);
-            this.buttonSaveChanges.Name = "buttonSaveChanges";
-            this.buttonSaveChanges.Size = new System.Drawing.Size(91, 23);
-            this.buttonSaveChanges.TabIndex = 12;
-            this.buttonSaveChanges.Text = "Save Changes";
-            this.buttonSaveChanges.UseVisualStyleBackColor = true;
-            this.buttonSaveChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
+            this.buttonApplyChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonApplyChanges.Enabled = false;
+            this.buttonApplyChanges.Location = new System.Drawing.Point(73, 426);
+            this.buttonApplyChanges.Name = "buttonApplyChanges";
+            this.buttonApplyChanges.Size = new System.Drawing.Size(91, 23);
+            this.buttonApplyChanges.TabIndex = 12;
+            this.buttonApplyChanges.Text = "Apply Changes";
+            this.buttonApplyChanges.UseVisualStyleBackColor = true;
+            this.buttonApplyChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
             // 
             // PlaceablePropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonDiscardChanges);
-            this.Controls.Add(this.buttonSaveChanges);
+            this.Controls.Add(this.buttonApplyChanges);
             this.Controls.Add(this.tabControlProperties);
             this.Name = "PlaceablePropertiesControl";
             this.Size = new System.Drawing.Size(375, 452);
@@ -757,7 +757,7 @@
         private System.Windows.Forms.TabPage tabPageDescription;
         private System.Windows.Forms.TabPage tabPageComments;
         private System.Windows.Forms.Button buttonDiscardChanges;
-        private System.Windows.Forms.Button buttonSaveChanges;
+        private System.Windows.Forms.Button buttonApplyChanges;
         private System.Windows.Forms.Label labelPlaceableComments;
         private System.Windows.Forms.TextBox textBoxPlaceableComments;
         private System.Windows.Forms.Label labelPlaceableDescription;

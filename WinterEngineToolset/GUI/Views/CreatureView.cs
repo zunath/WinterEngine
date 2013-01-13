@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using WinterEngine.Toolset.ExtendedEventArgs;
 using System;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
+using WinterEngine.Library.DataAccess.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.Toolset.GUI.Views
 {
@@ -22,9 +22,9 @@ namespace WinterEngine.Toolset.GUI.Views
             InitializeComponent();
 
             // Subscribe to the OnOpenObject event in the tree category control area
-            treeCategoryControlCreature.OnOpenObject += new EventHandler<GameObjectEventArgs>(LoadCreature);
+            treeCategoryControlCreature.OnOpenObject += new EventHandler<GameObjectEventArgs>(LoadObject);
             // Subscribe to the OnSaveObject event in the creature view control.
-            creatureViewControl.OnSaveCreature += new EventHandler<GameObjectEventArgs>(SaveCreature);
+            creatureViewControl.OnSaveCreature += new EventHandler<GameObjectEventArgs>(SaveObject);
         }
 
         #endregion
@@ -47,7 +47,7 @@ namespace WinterEngine.Toolset.GUI.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LoadCreature(object sender, GameObjectEventArgs e)
+        public void LoadObject(object sender, GameObjectEventArgs e)
         {
             creatureViewControl.LoadCreature(e.GameObject as Creature);
         }
@@ -57,7 +57,7 @@ namespace WinterEngine.Toolset.GUI.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SaveCreature(object sender, GameObjectEventArgs e)
+        public void SaveObject(object sender, GameObjectEventArgs e)
         {
             treeCategoryControlCreature.ActiveGameObject = e.GameObject;
             treeCategoryControlCreature.RefreshNodeNames();

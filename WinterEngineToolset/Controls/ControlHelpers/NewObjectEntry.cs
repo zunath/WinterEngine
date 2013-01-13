@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
+using WinterEngine.Library.DataAccess.DataTransferObjects.ResourceObjects;
 using WinterEngine.Toolset.Enumerations;
-using WinterEngine.Toolset.DataLayer.Repositories;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.GameObjects;
+using WinterEngine.Library.DataAccess.Repositories;
+using WinterEngine.Library.DataAccess.DataTransferObjects.GameObjects;
 using WinterEngine.Toolset.Factories;
-using WinterEngine.Toolset.Helpers;
+using WinterEngine.Library.Helpers;
 
 namespace WinterEngine.Toolset.Controls.ControlHelpers
 {

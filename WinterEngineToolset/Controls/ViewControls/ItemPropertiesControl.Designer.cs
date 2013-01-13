@@ -65,7 +65,7 @@
             this.textBoxItemComments = new System.Windows.Forms.TextBox();
             this.labelItemComments = new System.Windows.Forms.Label();
             this.buttonDiscardChangesItemDetails = new System.Windows.Forms.Button();
-            this.buttonSaveChangesItemDetails = new System.Windows.Forms.Button();
+            this.buttonApplyChangesItemDetails = new System.Windows.Forms.Button();
             this.tabControlProperties.SuspendLayout();
             this.tabPageItemAppearance.SuspendLayout();
             this.panelItemEditorControl.SuspendLayout();
@@ -462,17 +462,17 @@
             this.buttonDiscardChangesItemDetails.UseVisualStyleBackColor = true;
             this.buttonDiscardChangesItemDetails.Click += new System.EventHandler(this.buttonDiscardChangesItemDetails_Click);
             // 
-            // buttonSaveChangesItemDetails
+            // buttonApplyChangesItemDetails
             // 
-            this.buttonSaveChangesItemDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSaveChangesItemDetails.Enabled = false;
-            this.buttonSaveChangesItemDetails.Location = new System.Drawing.Point(73, 426);
-            this.buttonSaveChangesItemDetails.Name = "buttonSaveChangesItemDetails";
-            this.buttonSaveChangesItemDetails.Size = new System.Drawing.Size(91, 23);
-            this.buttonSaveChangesItemDetails.TabIndex = 8;
-            this.buttonSaveChangesItemDetails.Text = "Save Changes";
-            this.buttonSaveChangesItemDetails.UseVisualStyleBackColor = true;
-            this.buttonSaveChangesItemDetails.Click += new System.EventHandler(this.buttonSaveChangesItemDetails_Click);
+            this.buttonApplyChangesItemDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonApplyChangesItemDetails.Enabled = false;
+            this.buttonApplyChangesItemDetails.Location = new System.Drawing.Point(73, 426);
+            this.buttonApplyChangesItemDetails.Name = "buttonApplyChangesItemDetails";
+            this.buttonApplyChangesItemDetails.Size = new System.Drawing.Size(91, 23);
+            this.buttonApplyChangesItemDetails.TabIndex = 8;
+            this.buttonApplyChangesItemDetails.Text = "Apply Changes";
+            this.buttonApplyChangesItemDetails.UseVisualStyleBackColor = true;
+            this.buttonApplyChangesItemDetails.Click += new System.EventHandler(this.buttonSaveChangesItemDetails_Click);
             // 
             // ItemPropertiesControl
             // 
@@ -480,7 +480,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonDiscardChangesItemDetails);
             this.Controls.Add(this.tabControlProperties);
-            this.Controls.Add(this.buttonSaveChangesItemDetails);
+            this.Controls.Add(this.buttonApplyChangesItemDetails);
             this.Name = "ItemPropertiesControl";
             this.Size = new System.Drawing.Size(375, 452);
             this.tabControlProperties.ResumeLayout(false);
@@ -508,7 +508,7 @@
         private System.Windows.Forms.Panel panelItemEditorControl;
         private System.Windows.Forms.TabPage tabPageItemDetails;
         private System.Windows.Forms.Button buttonDiscardChangesItemDetails;
-        private System.Windows.Forms.Button buttonSaveChangesItemDetails;
+        private System.Windows.Forms.Button buttonApplyChangesItemDetails;
         private System.Windows.Forms.Label labelItemDetailsHeader;
         private System.Windows.Forms.Label labelItemResref;
         private System.Windows.Forms.Label labelItemTag;

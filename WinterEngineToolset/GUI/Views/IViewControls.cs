@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WinterEngine.Toolset.ExtendedEventArgs;
 
 namespace WinterEngine.Toolset.GUI.Views
 {
@@ -9,5 +10,7 @@ namespace WinterEngine.Toolset.GUI.Views
     {
         void RefreshControls();
         void UnloadControls();
+        void LoadObject(object sender, GameObjectEventArgs e);
+        void SaveObject(object sender, GameObjectEventArgs e);
     }
 }

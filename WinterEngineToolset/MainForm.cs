@@ -5,12 +5,13 @@ using WinterEngine.Hakpak.Builder;
 using WinterEngine.Library.Enumerations;
 using WinterEngine.Library.Factories;
 using WinterEngine.Toolset.Controls.ControlHelpers;
-using WinterEngine.Toolset.DataLayer.Repositories;
+using WinterEngine.Library.DataAccess.Repositories;
 using WinterEngine.Toolset.ExtendedEventArgs;
-using WinterEngine.Toolset.Helpers;
+using WinterEngine.Library.Helpers;
 using Ionic.Zip;
 using Ionic.Zlib;
-using WinterEngine.Toolset.DataLayer.DataTransferObjects.ResourceObjects;
+using WinterEngine.Library.DataAccess.DataTransferObjects.ResourceObjects;
+using WinterEngine.ERF;
 
 namespace WinterEngine.Toolset
 {
@@ -19,6 +20,8 @@ namespace WinterEngine.Toolset
         #region Fields
 
         private HakBuilder _hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
+        private ExportERF _exportERF;
+        private ImportERF _importERF;
         private WinterModule _activeModule;
 
         #endregion
@@ -216,6 +219,29 @@ namespace WinterEngine.Toolset
             }
         }
 
+
+        /// <summary>
+        /// Handles loading the import ERF form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemImportERF_Click(object sender, EventArgs e)
+        {
+            _importERF = new ImportERF();
+            _importERF.ShowDialog();
+        }
+
+        /// <summary>
+        /// Handles loading the export ERF form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemExportERF_Click(object sender, EventArgs e)
+        {
+            _exportERF = new ExportERF();
+            _exportERF.ShowDialog();
+        }
+
         #endregion
 
         #region Module event methods
@@ -308,6 +334,7 @@ namespace WinterEngine.Toolset
         }
 
         #endregion
+
 
     }
 }
