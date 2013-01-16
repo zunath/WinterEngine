@@ -140,26 +140,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataAccess.dll" size="26112">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataAccess.dll" size="24576">
       <assemblyIdentity name="WinterEngine.DataAccess" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>MQSs7E2UsXTcLwSG3j3a4D6jPqYp1oEJRBc8rAHZ14w=</dsig:DigestValue>
+        <dsig:DigestValue>/Yj0xywyIZP8/Vulj0TWt6nsjRkxKvOCuTw6HldEhUc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataTransferObjects.dll" size="11776">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataTransferObjects.dll" size="12288">
       <assemblyIdentity name="WinterEngine.DataTransferObjects" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>kj9szN1ZBWh8FB/o6GA8S63KzXoTH1zlzGVPfgcKOrI=</dsig:DigestValue>
+        <dsig:DigestValue>qz2m3qTxok3WSrgI1GAZDEw5Kzw6q6Jvlqblt/8jvn8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -171,7 +171,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SE32NMoZD7ASWTKoInYnNexWcwK0DI20zwf+1a6bpXM=</dsig:DigestValue>
+        <dsig:DigestValue>lV0u0LW7usrEAQJHxYYAOwb9is0DCts6CLS2yv+Z318=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -183,7 +183,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>7rkqQ8Ok7mcE4wL2RfXL8PPKB2CNKKb3cwfyc+jkW5M=</dsig:DigestValue>
+        <dsig:DigestValue>ILnSqZ7C5oeGMe8AxgXqJo+cp/JFnuv3BIU+T59kxtw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -195,19 +195,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4ebVrzKH5mbPvX1zQLjHp2rqS3F4L4lhxQGzfMY9Iq4=</dsig:DigestValue>
+        <dsig:DigestValue>WnEmxDEtOq0eaI+Ym6GoUx6w98BvsuNsOPyHWs6xOS8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="100864">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="137728">
       <assemblyIdentity name="WinterEngine.Toolset" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>hBUkFKovyBR3WnV0Y9qhTh5COyruTkhwFyOaFuUfMck=</dsig:DigestValue>
+        <dsig:DigestValue>dRVtq58PSTqEGwoMINTVm1sFNK+1WIBT9EZ+dE12HOw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

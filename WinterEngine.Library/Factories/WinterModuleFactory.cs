@@ -3,6 +3,7 @@ using System.IO;
 using Ionic.Zip;
 using Ionic.Zlib;
 using WinterEngine.DataAccess;
+using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Helpers;
@@ -200,8 +201,11 @@ namespace WinterEngine.Library.Factories
             {
                 repo.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB");
 
-                repo.AddModuleDetail("Name", ModuleName);
-                repo.AddModuleDetail("Tag", ModuleTag);
+                GameModule gameModule = new GameModule();
+                gameModule.ModuleName = ModuleName;
+                gameModule.ModuleTag = ModuleTag;
+
+                repo.Add(gameModule);
             }
 
         }

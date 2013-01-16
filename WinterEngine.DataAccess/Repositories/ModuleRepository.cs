@@ -49,102 +49,15 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// Adds a new module detail to the active module.
-        /// If the detail already exists, an exception will be thrown.
+        /// Adds a game module to the database. Note that there should only ever be one module
+        /// added to the database.
         /// </summary>
-        /// <param name="detailName">The unique string used to identify the detail. (Max: 32 characters)</param>
-        /// <param name="detailValue">The value to store in the database. (Max: 64 characters)</param>
-        public void AddModuleDetail(string detailName, string detailValue)
+        /// <param name="gameModule"></param>
+        public void Add(GameModule gameModule)
         {
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
-                ModuleDetail detail = new ModuleDetail();
-                detail.DetailName = detailName;
-                detail.DetailValue = detailValue;
-                
-                context.ModuleDetails.Add(detail);
-                context.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// Updates an existing detail in the database.
-        /// If the detail does not exist, an exception will be thrown.
-        /// </summary>
-        /// <param name="detailName">The unique string used to identify the detail. (Max: 32 characters)</param>
-        /// <param name="detailNewValue">The value to store in the database. (Max: 64 characters)</param>
-        public void UpdateModuleDetail(string detailName, string detailNewValue)
-        {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
-            {
-                ModuleDetail detail = context.ModuleDetails.SingleOrDefault(x => x.DetailName == detailName);
-                detail.DetailValue = detailNewValue;
-                context.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// If a module detail exists, its value will be updated.
-        /// If a module detail does not exist, a new one will be created with the specified value.
-        /// </summary>
-        /// <param name="detailName">The unique string used to identify the detail. (Max: 32 characters)</param>
-        /// <param name="detailNewValue">The value to store in the database. (Max: 64 characters)</param>
-        public void UpsertModuleDetail(string detailName, string detailNewValue)
-        {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
-            {
-                ModuleDetail detail = context.ModuleDetails.SingleOrDefault(x => x.DetailName == detailName);
-
-                // Detail does not exist - create a new one with the specified value.
-                if (Object.ReferenceEquals(detail, null))
-                {
-                    detail = new ModuleDetail();
-                    detail.DetailName = detailName;
-                    detail.DetailValue = detailNewValue;
-                }
-                // Detail exists - update the existing one.
-                else
-                {
-                    detail.DetailValue = detailNewValue;
-                }
-
-                context.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// Deletes an existing detail from the database.
-        /// If the detail does not exist, nothing will happen.
-        /// </summary>
-        /// <param name="detailName">The unique string used to identify the details. (Max: 32 characters)</param>
-        public void DeleteModuleDetail(string detailName)
-        {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
-            {
-                ModuleDetail detail = context.ModuleDetails.First(x => x.DetailName == detailName);
-                context.ModuleDetails.Remove(detail);
-                context.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// Returns true if a module detail exists in the database with the specified name.
-        /// </summary>
-        /// <param name="detailName">The unique string used to identify the details. (Max: 32 characters)</param>
-        /// <returns></returns>
-        public bool DoesModuleDetailExist(string detailName)
-        {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
-            {
-                ModuleDetail detail = context.ModuleDetails.SingleOrDefault(x => x.DetailName == detailName);
-                if (Object.ReferenceEquals(detail, null))
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
+                context.Modules.Add(gameModule);
             }
         }
 

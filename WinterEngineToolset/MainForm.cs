@@ -20,6 +20,7 @@ namespace WinterEngine.Toolset
         private HakBuilder _hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
         private ExportERF _exportERF;
         private ImportERF _importERF;
+        private ModuleProperties _moduleProperties;
         private WinterModuleFactory _activeModuleFactory;
 
         #endregion
@@ -43,8 +44,6 @@ namespace WinterEngine.Toolset
         {
             InitializeComponent();
             ActiveModuleFactory = new WinterModuleFactory("", "", OnModuleOpened, OnModuleSaved, OnModuleClosed);
-
-
 
             FileExtensionFactory winterExtensions = new FileExtensionFactory();
             string fileExtension = winterExtensions.GetFileExtension(FileTypeEnum.Module);
@@ -123,8 +122,8 @@ namespace WinterEngine.Toolset
         /// <param name="e"></param>
         private void toolStripMenuItemAbout_Click(object sender, EventArgs e)
         {
-            // Not much info to display right now. Version number and other details to be added later.
-            MessageBox.Show("Winter Engine Toolset\n\nDeveloped by Zunath.", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            AboutBox aboutBox = new AboutBox();
+            aboutBox.ShowDialog();
         }
 
 
@@ -240,6 +239,16 @@ namespace WinterEngine.Toolset
             _exportERF.ShowDialog();
         }
 
+        /// <summary>
+        /// Handles loading the Winter Engine website in the system's default web browser.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemWebsite_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://winterengine.proboards.com/");
+        }
+
         #endregion
 
         #region Module event methods
@@ -333,6 +342,15 @@ namespace WinterEngine.Toolset
 
         #endregion
 
+        /// <summary>
+        /// Handles displaying the module properties window which contains data about the module.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemModuleProperties_Click(object sender, EventArgs e)
+        {
+
+        }
 
     }
 }

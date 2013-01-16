@@ -38,6 +38,7 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineSe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineServer\bin\Debug\EntityFramework.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineServer\bin\Debug\System.Data.SqlServerCe.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineServer\bin\Debug\EntityFramework.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngine.Server.csprojResolveAssemblyReference.cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.Properties.Resources.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngine.Server.csproj.GenerateResource.Cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.exe

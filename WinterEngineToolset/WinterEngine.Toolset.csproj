@@ -134,6 +134,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ControlHelpers\ModuleProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ControlHelpers\ModuleProperties.Designer.cs">
+      <DependentUpon>ModuleProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ControlHelpers\NewModuleEntry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -252,6 +264,12 @@
     </Compile>
     <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceService.cs" />
     <Compile Include="Controls\XnaControls\Shared\ServiceContainer.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ControlHelpers\ModuleProperties.resx">
+      <DependentUpon>ModuleProperties.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ControlHelpers\NewModuleEntry.resx">
       <DependentUpon>NewModuleEntry.cs</DependentUpon>
     </EmbeddedResource>

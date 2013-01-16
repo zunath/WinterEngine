@@ -143,6 +143,8 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.AboutBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.ModuleProperties.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.NewModuleEntry.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.InputMessageBox.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.NewObjectEntry.resources

@@ -52,7 +52,6 @@
             this.toolStripMenuItemPaste = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemModuleProperties = new System.Windows.Forms.ToolStripMenuItem();
-            this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemManageHakPaks = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHakpakBuilder = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,12 +59,10 @@
             this.toolStripMenuItemWebsite = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageCreatures = new System.Windows.Forms.TabPage();
-            this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAreas = new System.Windows.Forms.TabPage();
             this.areaView = new WinterEngine.Toolset.GUI.Views.AreaView();
             this.tabPageItems = new System.Windows.Forms.TabPage();
-            this.itemView = new WinterEngine.Toolset.GUI.Views.ItemView();
             this.tabPagePlaceables = new System.Windows.Forms.TabPage();
             this.placeableView = new WinterEngine.Toolset.GUI.Views.PlaceableView();
             this.tabPageConversations = new System.Windows.Forms.TabPage();
@@ -78,6 +75,9 @@
             this.treeViewScripts = new System.Windows.Forms.TreeView();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
+            this.itemView = new WinterEngine.Toolset.GUI.Views.ItemView();
             this.menuStripMain.SuspendLayout();
             this.tabPageCreatures.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -93,7 +93,6 @@
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.databaseToolStripMenuItem,
             this.contentToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
@@ -125,14 +124,14 @@
             // toolStripMenuItemNewModule
             // 
             this.toolStripMenuItemNewModule.Name = "toolStripMenuItemNewModule";
-            this.toolStripMenuItemNewModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemNewModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemNewModule.Text = "New Module";
             this.toolStripMenuItemNewModule.Click += new System.EventHandler(this.toolStripMenuItemNewModule_Click);
             // 
             // toolStripMenuItemOpenModule
             // 
             this.toolStripMenuItemOpenModule.Name = "toolStripMenuItemOpenModule";
-            this.toolStripMenuItemOpenModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemOpenModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemOpenModule.Text = "Open Module";
             this.toolStripMenuItemOpenModule.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -140,20 +139,20 @@
             // 
             this.toolStripMenuItemCloseModule.Enabled = false;
             this.toolStripMenuItemCloseModule.Name = "toolStripMenuItemCloseModule";
-            this.toolStripMenuItemCloseModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemCloseModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemCloseModule.Text = "Close Module";
             this.toolStripMenuItemCloseModule.Click += new System.EventHandler(this.toolStripMenuItemCloseModule_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemSaveModule
             // 
             this.toolStripMenuItemSaveModule.Enabled = false;
             this.toolStripMenuItemSaveModule.Name = "toolStripMenuItemSaveModule";
-            this.toolStripMenuItemSaveModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemSaveModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemSaveModule.Text = "Save";
             this.toolStripMenuItemSaveModule.Click += new System.EventHandler(this.toolStripMenuItemSaveModule_Click);
             // 
@@ -161,20 +160,20 @@
             // 
             this.toolStripMenuItemSaveAsModule.Enabled = false;
             this.toolStripMenuItemSaveAsModule.Name = "toolStripMenuItemSaveAsModule";
-            this.toolStripMenuItemSaveAsModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemSaveAsModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemSaveAsModule.Text = "Save As...";
             this.toolStripMenuItemSaveAsModule.Click += new System.EventHandler(this.toolStripMenuItemSaveAsModule_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemImportERF
             // 
             this.toolStripMenuItemImportERF.Enabled = false;
             this.toolStripMenuItemImportERF.Name = "toolStripMenuItemImportERF";
-            this.toolStripMenuItemImportERF.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemImportERF.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemImportERF.Text = "Import";
             this.toolStripMenuItemImportERF.Click += new System.EventHandler(this.toolStripMenuItemImportERF_Click);
             // 
@@ -182,30 +181,30 @@
             // 
             this.toolStripMenuItemExportERF.Enabled = false;
             this.toolStripMenuItemExportERF.Name = "toolStripMenuItemExportERF";
-            this.toolStripMenuItemExportERF.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemExportERF.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemExportERF.Text = "Export";
             this.toolStripMenuItemExportERF.Click += new System.EventHandler(this.toolStripMenuItemExportERF_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemRecentFiles
             // 
             this.toolStripMenuItemRecentFiles.Name = "toolStripMenuItemRecentFiles";
-            this.toolStripMenuItemRecentFiles.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemRecentFiles.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemRecentFiles.Text = "Recent Files";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemExit
             // 
             this.toolStripMenuItemExit.Name = "toolStripMenuItemExit";
-            this.toolStripMenuItemExit.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemExit.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemExit.Text = "Exit";
             this.toolStripMenuItemExit.Click += new System.EventHandler(this.toolStripMenuItemExit_Click);
             // 
@@ -275,12 +274,7 @@
             this.toolStripMenuItemModuleProperties.Name = "toolStripMenuItemModuleProperties";
             this.toolStripMenuItemModuleProperties.Size = new System.Drawing.Size(171, 22);
             this.toolStripMenuItemModuleProperties.Text = "Module Properties";
-            // 
-            // databaseToolStripMenuItem
-            // 
-            this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.databaseToolStripMenuItem.Text = "Database";
+            this.toolStripMenuItemModuleProperties.Click += new System.EventHandler(this.toolStripMenuItemModuleProperties_Click);
             // 
             // contentToolStripMenuItem
             // 
@@ -318,6 +312,7 @@
             this.toolStripMenuItemWebsite.Name = "toolStripMenuItemWebsite";
             this.toolStripMenuItemWebsite.Size = new System.Drawing.Size(193, 22);
             this.toolStripMenuItemWebsite.Text = "Winter Engine Website";
+            this.toolStripMenuItemWebsite.Click += new System.EventHandler(this.toolStripMenuItemWebsite_Click);
             // 
             // toolStripMenuItemAbout
             // 
@@ -336,16 +331,6 @@
             this.tabPageCreatures.TabIndex = 0;
             this.tabPageCreatures.Text = "Creatures";
             this.tabPageCreatures.UseVisualStyleBackColor = true;
-            // 
-            // creatureView
-            // 
-            this.creatureView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.creatureView.Location = new System.Drawing.Point(0, 7);
-            this.creatureView.Name = "creatureView";
-            this.creatureView.Size = new System.Drawing.Size(570, 455);
-            this.creatureView.TabIndex = 0;
             // 
             // tabControlMain
             // 
@@ -378,9 +363,6 @@
             // 
             // areaView
             // 
-            this.areaView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.areaView.Location = new System.Drawing.Point(0, 7);
             this.areaView.Name = "areaView";
             this.areaView.Size = new System.Drawing.Size(570, 455);
@@ -396,16 +378,6 @@
             this.tabPageItems.TabIndex = 1;
             this.tabPageItems.Text = "Items";
             this.tabPageItems.UseVisualStyleBackColor = true;
-            // 
-            // itemView
-            // 
-            this.itemView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.itemView.Location = new System.Drawing.Point(0, 7);
-            this.itemView.Name = "itemView";
-            this.itemView.Size = new System.Drawing.Size(570, 455);
-            this.itemView.TabIndex = 0;
             // 
             // tabPagePlaceables
             // 
@@ -503,6 +475,25 @@
             this.treeViewScripts.Size = new System.Drawing.Size(186, 416);
             this.treeViewScripts.TabIndex = 4;
             // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(162, 6);
+            // 
+            // creatureView
+            // 
+            this.creatureView.Location = new System.Drawing.Point(0, 7);
+            this.creatureView.Name = "creatureView";
+            this.creatureView.Size = new System.Drawing.Size(570, 455);
+            this.creatureView.TabIndex = 0;
+            // 
+            // itemView
+            // 
+            this.itemView.Location = new System.Drawing.Point(0, 7);
+            this.itemView.Name = "itemView";
+            this.itemView.Size = new System.Drawing.Size(570, 455);
+            this.itemView.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -558,7 +549,6 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWebsite;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAbout;
-        private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPageCreatures;
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageAreas;
@@ -572,15 +562,16 @@
         private System.Windows.Forms.TreeView treeViewScripts;
         private System.Windows.Forms.Panel panelScriptControl;
         private System.Windows.Forms.Panel panelConversationControl;
-        private GUI.Views.AreaView areaView;
-        private GUI.Views.CreatureView creatureView;
-        private GUI.Views.ItemView itemView;
         private GUI.Views.PlaceableView placeableView;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.ToolStripMenuItem contentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemManageHakPaks;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHakpakBuilder;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private GUI.Views.AreaView areaView;
+        private GUI.Views.CreatureView creatureView;
+        private GUI.Views.ItemView itemView;
     }
 }
 
