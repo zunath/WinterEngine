@@ -2,16 +2,14 @@
 using System.IO;
 using System.Windows.Forms;
 using WinterEngine.Hakpak.Builder;
-using WinterEngine.Library.Enumerations;
 using WinterEngine.Library.Factories;
 using WinterEngine.Toolset.Controls.ControlHelpers;
-using WinterEngine.Library.DataAccess.Repositories;
 using WinterEngine.Toolset.ExtendedEventArgs;
 using WinterEngine.Library.Helpers;
 using Ionic.Zip;
 using Ionic.Zlib;
-using WinterEngine.Library.DataAccess.DataTransferObjects.ResourceObjects;
 using WinterEngine.ERF;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.Toolset
 {
@@ -22,7 +20,7 @@ namespace WinterEngine.Toolset
         private HakBuilder _hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
         private ExportERF _exportERF;
         private ImportERF _importERF;
-        private WinterModule _activeModule;
+        private WinterModuleFactory _activeModuleFactory;
 
         #endregion
 
@@ -31,10 +29,10 @@ namespace WinterEngine.Toolset
         /// <summary>
         /// Gets or sets the active module object used by this form.
         /// </summary>
-        private WinterModule ActiveModule
+        private WinterModuleFactory ActiveModuleFactory
         {
-            get { return _activeModule; }
-            set { _activeModule = value; }
+            get { return _activeModuleFactory; }
+            set { _activeModuleFactory = value; }
         }
 
         #endregion
@@ -44,7 +42,7 @@ namespace WinterEngine.Toolset
         public MainForm()
         {
             InitializeComponent();
-            ActiveModule = new WinterModule("", "", OnModuleOpened, OnModuleSaved, OnModuleClosed);
+            ActiveModuleFactory = new WinterModuleFactory("", "", OnModuleOpened, OnModuleSaved, OnModuleClosed);
 
 
 
@@ -96,7 +94,7 @@ namespace WinterEngine.Toolset
             {
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    ActiveModule.OpenModule(openFileDialog.FileName);
+                    ActiveModuleFactory.OpenModule(openFileDialog.FileName);
                 }
             }
             catch (Exception ex)
@@ -181,7 +179,7 @@ namespace WinterEngine.Toolset
         private void toolStripMenuItemCloseModule_Click(object sender, EventArgs e)
         {
             ToggleModuleControlsEnabled(false);
-            ActiveModule.CloseModule();
+            ActiveModuleFactory.CloseModule();
 
         }
 
@@ -194,14 +192,14 @@ namespace WinterEngine.Toolset
         private void toolStripMenuItemSaveModule_Click(object sender, EventArgs e)
         {
             // Path to module has not been set - prompt user to define it
-            if (String.IsNullOrEmpty(ActiveModule.ModulePath))
+            if (String.IsNullOrEmpty(ActiveModuleFactory.ModulePath))
             {
                 toolStripMenuItemSaveAsModule.PerformClick();
             }
             // Otherwise, use the existing path.
             else
             {
-                ActiveModule.SaveModule();
+                ActiveModuleFactory.SaveModule();
             }
         }
 
@@ -215,7 +213,7 @@ namespace WinterEngine.Toolset
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                ActiveModule.SaveModule(saveFileDialog.FileName);
+                ActiveModuleFactory.SaveModule(saveFileDialog.FileName);
             }
         }
 
@@ -254,10 +252,10 @@ namespace WinterEngine.Toolset
         /// <param name="e"></param>
         private void OnModuleCreated(object sender, ModuleCreationEventArgs e)
         {
-            ActiveModule = e.Module;
-            ActiveModule.ModuleClosedMethod = OnModuleClosed;
-            ActiveModule.ModuleOpenedMethod = OnModuleOpened;
-            ActiveModule.ModuleSavedMethod = OnModuleSaved;
+            ActiveModuleFactory = e.ModuleFactory;
+            ActiveModuleFactory.ModuleClosedMethod = OnModuleClosed;
+            ActiveModuleFactory.ModuleOpenedMethod = OnModuleOpened;
+            ActiveModuleFactory.ModuleSavedMethod = OnModuleSaved;
 
             // Refresh the controls for all views. This will populate the tree views
             // and perform other GUI-related tasks.

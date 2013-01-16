@@ -35,7 +35,7 @@
             // treeCategoryControlCreature
             // 
             this.treeCategoryControlCreature.ActiveGameObject = null;
-            this.treeCategoryControlCreature.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Creature;
+            this.treeCategoryControlCreature.GameObjectResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Creature;
             this.treeCategoryControlCreature.Location = new System.Drawing.Point(0, 3);
             this.treeCategoryControlCreature.Name = "treeCategoryControlCreature";
             this.treeCategoryControlCreature.Size = new System.Drawing.Size(194, 449);

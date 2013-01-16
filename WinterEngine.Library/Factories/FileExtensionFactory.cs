@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.Library.Enumerations;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.Library.Factories
 {

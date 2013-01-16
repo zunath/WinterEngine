@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinterEngine.Toolset</RootNamespace>
     <AssemblyName>WinterEngine.Toolset</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -40,6 +40,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -49,6 +50,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>6FEB510DD09D4D2F5A2A851A7F8D9BB5C71F46A8</ManifestCertificateThumbprint>
@@ -63,8 +65,9 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
@@ -209,7 +212,6 @@
     <Compile Include="ExtendedEventArgs\GameObjectEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="GUI\Views\IViewControls.cs" />
-    <Compile Include="Factories\GameObjectFactory.cs" />
     <Compile Include="GUI\Views\AreaView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -327,24 +329,6 @@
     <None Include="WinterEngine.Toolset_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ContentLibrary\WinterEngine.Content.Library.csproj">
-      <Project>{5A451205-2CE5-4B5A-A92F-3806523CD8A7}</Project>
-      <Name>WinterEngine.Content.Library</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.ERF\WinterEngine.ERF.csproj">
-      <Project>{71C617B1-E588-4187-8773-C0B6EF4569A1}</Project>
-      <Name>WinterEngine.ERF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.HakpakBuilder\WinterEngine.Hakpak.csproj">
-      <Project>{CB8FC1F9-0EA1-4F21-90EF-9776B8AE8337}</Project>
-      <Name>WinterEngine.Hakpak</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
-      <Project>{483CD518-A771-4FDA-A97E-DC2E42AEF780}</Project>
-      <Name>WinterEngine.Library</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
@@ -372,10 +356,29 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helpers\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <ProjectReference Include="..\WinterEngine.DataAccess\WinterEngine.DataAccess.csproj">
+      <Project>{0e481c4b-dd8f-4b26-84e7-cacda79288f0}</Project>
+      <Name>WinterEngine.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.DataTransferObjects\WinterEngine.DataTransferObjects.csproj">
+      <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>
+      <Name>WinterEngine.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.ERF\WinterEngine.ERF.csproj">
+      <Project>{71c617b1-e588-4187-8773-c0b6ef4569a1}</Project>
+      <Name>WinterEngine.ERF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.HakpakBuilder\WinterEngine.Hakpak.csproj">
+      <Project>{cb8fc1f9-0ea1-4f21-90ef-9776b8ae8337}</Project>
+      <Name>WinterEngine.Hakpak</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
+      <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
+      <Name>WinterEngine.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

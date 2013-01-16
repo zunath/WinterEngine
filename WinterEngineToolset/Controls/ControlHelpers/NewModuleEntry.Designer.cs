@@ -87,6 +87,7 @@
             this.buttonCancel.TabIndex = 8;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // errorProvider
             // 
@@ -100,12 +101,14 @@
             this.tagTextBoxEntry.Name = "tagTextBoxEntry";
             this.tagTextBoxEntry.Size = new System.Drawing.Size(220, 28);
             this.tagTextBoxEntry.TabIndex = 4;
+            this.tagTextBoxEntry.TagText = "";
             this.tagTextBoxEntry.Leave += new System.EventHandler(this.tagTextBoxEntry_Leave);
             // 
             // nameTextBoxEntry
             // 
             this.nameTextBoxEntry.Location = new System.Drawing.Point(75, 56);
             this.nameTextBoxEntry.Name = "nameTextBoxEntry";
+            this.nameTextBoxEntry.NameText = "";
             this.nameTextBoxEntry.Size = new System.Drawing.Size(220, 28);
             this.nameTextBoxEntry.TabIndex = 2;
             this.nameTextBoxEntry.Leave += new System.EventHandler(this.nameTextBoxEntry_Leave);

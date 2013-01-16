@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinterEngine.Library</RootNamespace>
     <AssemblyName>WinterEngine.Library</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,10 +31,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
@@ -45,36 +49,16 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentBuilder.cs" />
-    <Compile Include="DataAccess\Contexts\WinterContext.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\AttributeObjects\Ability.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\AttributeObjects\CharacterClass.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\AttributeObjects\ItemProperty.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\AttributeObjects\Race.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\GameObjects\Area.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\GameObjects\Creature.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\GameObjects\Item.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\GameObjects\Placeable.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\GameObjects\WinterObject.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\ModuleDetail.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\ResourceObjects\ResourceCategory.cs" />
-    <Compile Include="DataAccess\DataTransferObjects\ResourceObjects\WinterModule.cs" />
-    <Compile Include="DataAccess\Repositories\AreaRepository.cs" />
-    <Compile Include="DataAccess\Repositories\CreatureRepository.cs" />
-    <Compile Include="DataAccess\Repositories\ItemRepository.cs" />
-    <Compile Include="DataAccess\Repositories\ModuleRepository.cs" />
-    <Compile Include="DataAccess\Repositories\PlaceableRepository.cs" />
-    <Compile Include="DataAccess\Repositories\ResourceCategoryRepository.cs" />
-    <Compile Include="DataAccess\WinterConnectionInformation.cs" />
-    <Compile Include="Enumerations\FileTypeEnum.cs" />
-    <Compile Include="Enumerations\ResourceTypeEnum.cs" />
     <Compile Include="ErrorLogger.cs" />
+    <Compile Include="Factories\GameObjectFactory.cs" />
+    <Compile Include="Factories\WinterModuleFactory.cs" />
+    <Compile Include="Helpers\EnumerationHelper.cs" />
     <Compile Include="Helpers\ErrorHelper.cs" />
     <Compile Include="Helpers\WinterFileHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,6 +68,16 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WinterEngine.DataAccess\WinterEngine.DataAccess.csproj">
+      <Project>{0e481c4b-dd8f-4b26-84e7-cacda79288f0}</Project>
+      <Name>WinterEngine.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.DataTransferObjects\WinterEngine.DataTransferObjects.csproj">
+      <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>
+      <Name>WinterEngine.DataTransferObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

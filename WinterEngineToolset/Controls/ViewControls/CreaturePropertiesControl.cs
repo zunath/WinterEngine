@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls;
-using WinterEngine.Library.DataAccess.DataTransferObjects.GameObjects;
-using WinterEngine.Library.DataAccess.Repositories;
 using WinterEngine.Toolset.ExtendedEventArgs;
+using WinterEngine.DataAccess;
+using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {

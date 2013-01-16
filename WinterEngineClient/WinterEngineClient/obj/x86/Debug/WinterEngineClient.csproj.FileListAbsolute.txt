@@ -1,6 +1,0 @@
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngineClient.exe
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\bin\x86\Debug\WinterEngineClient.pdb
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngineClient.csprojResolveAssemblyReference.cache
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngineClient.exe
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineClient\WinterEngineClient\obj\x86\Debug\WinterEngineClient.pdb

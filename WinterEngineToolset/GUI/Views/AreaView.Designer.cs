@@ -47,7 +47,7 @@ namespace WinterEngine.Toolset.GUI.Views
             this.treeCategoryControlArea.Name = "treeCategoryControlArea";
             this.treeCategoryControlArea.Size = new System.Drawing.Size(194, 449);
             this.treeCategoryControlArea.TabIndex = 5;
-            this.treeCategoryControlArea.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Area;
+            this.treeCategoryControlArea.GameObjectResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
             // 
             // AreaView
             // 

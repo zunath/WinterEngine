@@ -43,7 +43,7 @@
             // treeCategoryControlItem
             // 
             this.treeCategoryControlItem.ActiveGameObject = null;
-            this.treeCategoryControlItem.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Item;
+            this.treeCategoryControlItem.GameObjectResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Item;
             this.treeCategoryControlItem.Location = new System.Drawing.Point(0, 3);
             this.treeCategoryControlItem.Name = "treeCategoryControlItem";
             this.treeCategoryControlItem.Size = new System.Drawing.Size(194, 449);

@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using WinterEngine.Library.DataAccess.DataTransferObjects.ResourceObjects;
-using WinterEngine.Toolset.Enumerations;
-using WinterEngine.Library.DataAccess.Repositories;
-using WinterEngine.Library.DataAccess.DataTransferObjects.GameObjects;
-using WinterEngine.Toolset.Factories;
+using WinterEngine.Library.Factories;
 using WinterEngine.Library.Helpers;
 using WinterEngine.Toolset.ExtendedEventArgs;
 
@@ -74,9 +70,9 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             {
                 try
                 {
-                    WinterModule module = new WinterModule(nameTextBoxEntry.NameText, tagTextBoxEntry.TagText);
-                    module.CreateModule();
-                    eventArgs.Module = module;
+                    WinterModuleFactory moduleFactory = new WinterModuleFactory(nameTextBoxEntry.NameText, tagTextBoxEntry.TagText);
+                    moduleFactory.CreateModule();
+                    eventArgs.ModuleFactory = moduleFactory;
 
                     // Pass the temporary directory's path via event.
                     OnModuleCreationSuccess(this, eventArgs);
@@ -110,6 +106,11 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         }
 
         #endregion
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
     }
 }

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using WinterEngine.Library.DataAccess.DataTransferObjects.ResourceObjects;
-using WinterEngine.Toolset.Enumerations;
-using WinterEngine.Library.DataAccess.Repositories;
-using WinterEngine.Library.DataAccess.DataTransferObjects.GameObjects;
-using WinterEngine.Toolset.Factories;
+using WinterEngine.Library.Factories;
 using WinterEngine.Library.Helpers;
+using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.Toolset.Controls.ControlHelpers
 {
@@ -118,6 +116,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                     winterObject.Tag = tagTextBoxEntry.TagText;
                     winterObject.Resref = resrefTextBoxEntry.ResrefText;
                     winterObject.ResourceCategoryID = ResourceCategory.ResourceCategoryID;
+                    winterObject.ResourceType = ResourceType;
 
                     // Add it to the database.
                     factory.AddToDatabase(winterObject, ResourceType);

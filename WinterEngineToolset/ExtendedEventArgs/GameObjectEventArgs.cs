@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.Library.DataAccess.DataTransferObjects.ResourceObjects;
-using WinterEngine.Library.DataAccess.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.Toolset.ExtendedEventArgs
 {

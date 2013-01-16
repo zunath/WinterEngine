@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Ionic.Zip;
 using Ionic.Zlib;
-using WinterEngine.Library.Enumerations;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Factories;
 
 namespace WinterEngine.Library.Helpers

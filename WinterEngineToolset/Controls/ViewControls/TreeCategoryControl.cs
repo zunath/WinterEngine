@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using WinterEngine.Library.DataAccess.DataTransferObjects.GameObjects;
-using WinterEngine.Library.DataAccess.DataTransferObjects.ResourceObjects;
-using WinterEngine.Library.DataAccess.Repositories;
 using WinterEngine.Library.Helpers;
 using WinterEngine.Toolset.Controls.ControlHelpers;
-using WinterEngine.Toolset.Enumerations;
 using WinterEngine.Toolset.ExtendedEventArgs;
-using WinterEngine.Toolset.Factories;
+using WinterEngine.Library.Factories;
+using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects;
+using WinterEngine.DataAccess;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {

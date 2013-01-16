@@ -10,8 +10,8 @@ using System.IO;
 using Ionic.Zip;
 using Ionic.Zlib;
 using WinterEngine.Library.Factories;
-using WinterEngine.Library.Enumerations;
 using WinterEngine.Library;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.Hakpak.Builder
 {

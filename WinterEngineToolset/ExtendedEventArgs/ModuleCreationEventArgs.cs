@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.Library.DataAccess.DataTransferObjects.ResourceObjects;
+using WinterEngine.Library.Factories;
 
 namespace WinterEngine.Toolset.ExtendedEventArgs
 {
     public class ModuleCreationEventArgs : EventArgs
     {
-        private WinterModule _module;
+        private WinterModuleFactory _moduleFactory;
 
         /// <summary>
-        /// Gets or sets the module returned in the event args
+        /// Gets or sets the module factory returned in the event args
         /// </summary>
-        public WinterModule Module
+        public WinterModuleFactory ModuleFactory
         {
-            get { return _module; }
-            set { _module = value; }
+            get { return _moduleFactory; }
+            set { _moduleFactory = value; }
         }
     }
 }

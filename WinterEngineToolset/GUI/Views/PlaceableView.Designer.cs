@@ -35,7 +35,7 @@
             // treeCategoryControlPlaceable
             // 
             this.treeCategoryControlPlaceable.ActiveGameObject = null;
-            this.treeCategoryControlPlaceable.GameObjectResourceType = WinterEngine.Toolset.Enumerations.ResourceTypeEnum.Placeable;
+            this.treeCategoryControlPlaceable.GameObjectResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Placeable;
             this.treeCategoryControlPlaceable.Location = new System.Drawing.Point(0, 3);
             this.treeCategoryControlPlaceable.Name = "treeCategoryControlPlaceable";
             this.treeCategoryControlPlaceable.Size = new System.Drawing.Size(194, 449);

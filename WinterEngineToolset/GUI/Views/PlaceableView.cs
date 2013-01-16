@@ -1,7 +1,8 @@
 ﻿using System.Windows.Forms;
 using WinterEngine.Toolset.ExtendedEventArgs;
 using System;
-using WinterEngine.Library.DataAccess.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects;
+using WinterEngine.DataAccess;
 
 namespace WinterEngine.Toolset.GUI.Views
 {
