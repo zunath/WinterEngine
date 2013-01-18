@@ -44,7 +44,6 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelAvailableResources = new System.Windows.Forms.Label();
             this.labelAdded = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -56,7 +55,7 @@
             // 
             this.labelHeader.AutoSize = true;
             this.labelHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHeader.Location = new System.Drawing.Point(107, 24);
+            this.labelHeader.Location = new System.Drawing.Point(132, 24);
             this.labelHeader.Name = "labelHeader";
             this.labelHeader.Size = new System.Drawing.Size(199, 25);
             this.labelHeader.TabIndex = 2;
@@ -64,30 +63,36 @@
             // 
             // listBoxAvailable
             // 
+            this.listBoxAvailable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxAvailable.FormattingEnabled = true;
             this.listBoxAvailable.HorizontalScrollbar = true;
             this.listBoxAvailable.Location = new System.Drawing.Point(12, 87);
             this.listBoxAvailable.Name = "listBoxAvailable";
             this.listBoxAvailable.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxAvailable.Size = new System.Drawing.Size(160, 303);
+            this.listBoxAvailable.Size = new System.Drawing.Size(184, 303);
             this.listBoxAvailable.Sorted = true;
             this.listBoxAvailable.TabIndex = 3;
             // 
             // listBoxAdded
             // 
+            this.listBoxAdded.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxAdded.FormattingEnabled = true;
             this.listBoxAdded.HorizontalScrollbar = true;
-            this.listBoxAdded.Location = new System.Drawing.Point(238, 87);
+            this.listBoxAdded.Location = new System.Drawing.Point(275, 87);
             this.listBoxAdded.Name = "listBoxAdded";
             this.listBoxAdded.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxAdded.Size = new System.Drawing.Size(160, 303);
+            this.listBoxAdded.Size = new System.Drawing.Size(184, 303);
             this.listBoxAdded.Sorted = true;
             this.listBoxAdded.TabIndex = 4;
             // 
             // buttonAdd
             // 
+            this.buttonAdd.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAdd.Location = new System.Drawing.Point(178, 152);
+            this.buttonAdd.Location = new System.Drawing.Point(209, 164);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(53, 23);
             this.buttonAdd.TabIndex = 5;
@@ -97,8 +102,9 @@
             // 
             // buttonRemove
             // 
+            this.buttonRemove.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.buttonRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemove.Location = new System.Drawing.Point(179, 210);
+            this.buttonRemove.Location = new System.Drawing.Point(210, 222);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(53, 23);
             this.buttonRemove.TabIndex = 6;
@@ -108,22 +114,23 @@
             // 
             // comboBoxResourceType
             // 
+            this.comboBoxResourceType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxResourceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxResourceType.FormattingEnabled = true;
             this.comboBoxResourceType.Location = new System.Drawing.Point(12, 396);
             this.comboBoxResourceType.Name = "comboBoxResourceType";
-            this.comboBoxResourceType.Size = new System.Drawing.Size(160, 21);
+            this.comboBoxResourceType.Size = new System.Drawing.Size(184, 21);
             this.comboBoxResourceType.TabIndex = 7;
             this.comboBoxResourceType.SelectedIndexChanged += new System.EventHandler(this.comboBoxResourceType_SelectedIndexChanged);
             // 
             // menuStripMain
             // 
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Size = new System.Drawing.Size(410, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(484, 24);
             this.menuStripMain.TabIndex = 8;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -194,12 +201,6 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
             // labelAvailableResources
             // 
             this.labelAvailableResources.AutoSize = true;
@@ -214,7 +215,7 @@
             // 
             this.labelAdded.AutoSize = true;
             this.labelAdded.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAdded.Location = new System.Drawing.Point(234, 64);
+            this.labelAdded.Location = new System.Drawing.Point(271, 64);
             this.labelAdded.Name = "labelAdded";
             this.labelAdded.Size = new System.Drawing.Size(60, 20);
             this.labelAdded.TabIndex = 13;
@@ -222,7 +223,8 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(238, 396);
+            this.buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonSave.Location = new System.Drawing.Point(275, 396);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 14;
@@ -232,7 +234,8 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(323, 396);
+            this.buttonExit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonExit.Location = new System.Drawing.Point(384, 396);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(75, 23);
             this.buttonExit.TabIndex = 15;
@@ -244,7 +247,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(410, 442);
+            this.ClientSize = new System.Drawing.Size(484, 442);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.labelAdded);
@@ -259,6 +262,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStripMain;
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(426, 480);
             this.Name = "ExportERF";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -290,7 +294,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Label labelAvailableResources;
         private System.Windows.Forms.Label labelAdded;
         private System.Windows.Forms.Button buttonSave;

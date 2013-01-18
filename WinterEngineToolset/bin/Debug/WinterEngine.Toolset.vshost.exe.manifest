@@ -164,14 +164,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.ERF.exe" size="16896">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.ERF.exe" size="17408">
       <assemblyIdentity name="WinterEngine.ERF" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>hUPUi8H0zu2M8oz04F4GT3dtv01PyGG2dkVqu1wCYUE=</dsig:DigestValue>
+        <dsig:DigestValue>r8IkxgvSKyD7lPnzM5I5QwoNZqR0CNrMRRass/puqTo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -207,7 +207,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>uNpGq4Erw4PFmV2F1Xr+4OK/Zk/B5EAYe0krG9ph1fQ=</dsig:DigestValue>
+        <dsig:DigestValue>zTGqn5bzyX6LruScn+Sa8Wj3l+ET98EnSqtUOHZYG5g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

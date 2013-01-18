@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using WinterEngine.Library.Helpers;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataAccess;
 
 namespace WinterEngine.ERF
 {
@@ -28,7 +29,6 @@ namespace WinterEngine.ERF
         }
 
         #endregion
-
 
         #region Constructors
 
@@ -117,14 +117,24 @@ namespace WinterEngine.ERF
         {
             foreach (var selectedObject in listBoxAvailable.SelectedItems)
             {
-                GameObject gameObject = selectedObject as GameObject;
+                GameObject selectedGameObject = selectedObject as GameObject;
 
-                bool exists = listBoxAdded.Items.Contains(gameObject);
-                
-                // Object doesn't exist - add it to the added list.
+                bool exists = false;
+                foreach (var addedObject in listBoxAdded.Items)
+                {
+                    GameObject addedGameObject = addedObject as GameObject;
+
+                    // Resrefs must be unique to individual resource types. It's OK if an area has the same resref as a creature.
+                    if (addedGameObject.Resref == selectedGameObject.Resref && addedGameObject.ResourceType == selectedGameObject.ResourceType)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+
                 if (!exists)
                 {
-                    listBoxAdded.Items.Add(gameObject);
+                    listBoxAdded.Items.Add(selectedGameObject);
                 }
             }
         }
@@ -197,12 +207,15 @@ namespace WinterEngine.ERF
             // then add them to the "Available" list.
             List<GameObject> gameObjects = factory.GetAllFromDatabase(resource.ResourceType);
 
-            foreach (GameObject currentGameObject in gameObjects)
+            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
             {
-                MessageBox.Show("" + currentGameObject.ResourceType);
-
-                currentGameObject.Name = EnumerationHelper.GetEnumerationDescription(currentGameObject.ResourceType) + "/" + currentGameObject.Name;
-                listBoxAvailable.Items.Add(currentGameObject);
+                foreach (GameObject currentGameObject in gameObjects)
+                {
+                    string resourceTypeName = EnumerationHelper.GetEnumerationDescription(currentGameObject.ResourceType);
+                    string categoryName = repo.GetByResourceCategoryID(currentGameObject.ResourceCategoryID).ResourceName;
+                    currentGameObject.Name = resourceTypeName + "/" + categoryName + "/" + currentGameObject.Name + " (" + currentGameObject.Resref + ")";
+                    listBoxAvailable.Items.Add(currentGameObject);
+                }
             }
         }
 

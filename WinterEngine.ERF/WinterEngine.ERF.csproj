@@ -98,6 +98,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WinterEngine.DataAccess\WinterEngine.DataAccess.csproj">
+      <Project>{0e481c4b-dd8f-4b26-84e7-cacda79288f0}</Project>
+      <Name>WinterEngine.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.DataTransferObjects\WinterEngine.DataTransferObjects.csproj">
       <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>
       <Name>WinterEngine.DataTransferObjects</Name>
