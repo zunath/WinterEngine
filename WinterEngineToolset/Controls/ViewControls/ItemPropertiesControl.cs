@@ -116,6 +116,14 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             else
             {
                 MessageBox.Show("Please enter a valid name and tag.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (!nameTextBoxItem.IsValid)
+                {
+                    nameTextBoxItem.Focus();
+                }
+                else
+                {
+                    tagTextBoxItem.Focus();
+                }
             }
         }
 

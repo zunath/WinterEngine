@@ -52,13 +52,6 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         #endregion
 
         #region Methods
-        private bool Validation(bool usePopUpForResrefDuplicate = false)
-        {
-            bool succeed = true;
-            
-
-            return succeed;
-        }
 
         /// <summary>
         /// Handles validation of user input one last time before sending to the data layer.
@@ -68,9 +61,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         /// <param name="e"></param>
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            bool succeed = Validation(true);
-
-            if (succeed)
+            if (nameTextBoxEntry.IsValid && tagTextBoxEntry.IsValid && resrefTextBoxEntry.IsValid)
             {
                 try
                 {
@@ -95,22 +86,25 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                     ErrorHelper.ShowErrorDialog("Error adding new object. (Method: buttonOK_Click)", ex);
                 }
             }
+            else
+            {
+                MessageBox.Show("Please enter a valid name, tag, and resref.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                if (!nameTextBoxEntry.IsValid)
+                {
+                    nameTextBoxEntry.Focus();
+                }
+                else if (!tagTextBoxEntry.IsValid)
+                {
+                    tagTextBoxEntry.Focus();
+                }
+                else if (!resrefTextBoxEntry.IsValid)
+                {
+                    resrefTextBoxEntry.Focus();
+                }
+            }
         }
 
-        private void nameTextBoxEntry_Leave(object sender, EventArgs e)
-        {
-            Validation(false);
-        }
-
-        private void tagTextBoxEntry_Leave(object sender, EventArgs e)
-        {
-            Validation(false);
-        }
-
-        private void resrefTextBoxEntry_Leave(object sender, EventArgs e)
-        {
-            Validation(false);
-        }
         #endregion
     }
 }
