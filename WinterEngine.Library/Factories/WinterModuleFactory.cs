@@ -197,10 +197,15 @@ namespace WinterEngine.Library.Factories
         {
             CreateTemporaryDirectory();
 
-            using (ModuleRepository repo = new ModuleRepository())
+            // Build a new database file and structure.
+            using (DatabaseRepository repo = new DatabaseRepository())
             {
                 repo.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB");
+            }
 
+            // Add the module details to the correct table.
+            using (ModuleRepository repo = new ModuleRepository())
+            {
                 GameModule gameModule = new GameModule();
                 gameModule.ModuleName = ModuleName;
                 gameModule.ModuleTag = ModuleTag;
@@ -288,8 +293,7 @@ namespace WinterEngine.Library.Factories
             }
 
             // Change the database connection to the file located in the extracted module folder.
-
-            using (ModuleRepository repo = new ModuleRepository())
+            using (DatabaseRepository repo = new DatabaseRepository())
             {
                 repo.ChangeDatabaseConnection(databaseFilePath);
             }

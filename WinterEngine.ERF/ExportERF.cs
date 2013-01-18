@@ -219,7 +219,29 @@ namespace WinterEngine.ERF
             }
         }
 
+        /// <summary>
+        /// Handles adding the selected item when it's double clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxAvailable_DoubleClick(object sender, EventArgs e)
+        {
+            buttonAdd.PerformClick();
+        }
+
+        /// <summary>
+        /// Handles removing the selected item when it's double clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxAdded_DoubleClick(object sender, EventArgs e)
+        {
+            buttonRemove.PerformClick();
+        }
+
         #endregion
+
+
 
     }
 }
