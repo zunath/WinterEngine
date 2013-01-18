@@ -127,9 +127,11 @@
             // 
             // tagTextBoxModule
             // 
+            this.tagTextBoxModule.IsValid = false;
             this.tagTextBoxModule.Location = new System.Drawing.Point(64, 85);
             this.tagTextBoxModule.Name = "tagTextBoxModule";
-            this.tagTextBoxModule.Size = new System.Drawing.Size(198, 28);
+            this.tagTextBoxModule.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxModule.Size = new System.Drawing.Size(220, 28);
             this.tagTextBoxModule.TabIndex = 2;
             this.tagTextBoxModule.TagText = "";
             // 
@@ -144,10 +146,11 @@
             // 
             // nameTextBoxModule
             // 
+            this.nameTextBoxModule.IsValid = false;
             this.nameTextBoxModule.Location = new System.Drawing.Point(64, 51);
             this.nameTextBoxModule.Name = "nameTextBoxModule";
             this.nameTextBoxModule.NameText = "";
-            this.nameTextBoxModule.Size = new System.Drawing.Size(198, 28);
+            this.nameTextBoxModule.Size = new System.Drawing.Size(220, 28);
             this.nameTextBoxModule.TabIndex = 0;
             // 
             // tabPageEvents
@@ -256,6 +259,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ModuleProperties";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModuleProperties";
             this.Load += new System.EventHandler(this.ModuleProperties_Load);
             this.tabControl1.ResumeLayout(false);

@@ -89,21 +89,36 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonSaveChanges_Click(object sender, EventArgs e)
         {
-            using (AreaRepository repo = new AreaRepository())
+            if (nameTextBoxArea.IsValid && tagTextBoxArea.IsValid && resrefTextBoxArea.IsValid)
             {
-                Area area = new Area();
-                area.Comment = textBoxAreaComments.Text;
-                area.Name = nameTextBoxArea.NameText;
-                area.Tag = tagTextBoxArea.TagText;
-                area.Resref = resrefTextBoxArea.ResrefText;
-                area.ResourceCategoryID = BackupArea.ResourceCategoryID;
+                using (AreaRepository repo = new AreaRepository())
+                {
+                    Area area = new Area();
+                    area.Comment = textBoxAreaComments.Text;
+                    area.Name = nameTextBoxArea.NameText;
+                    area.Tag = tagTextBoxArea.TagText;
+                    area.Resref = resrefTextBoxArea.ResrefText;
+                    area.ResourceCategoryID = BackupArea.ResourceCategoryID;
 
-                repo.Update(BackupArea.Resref, area);
-                BackupArea = area;
+                    repo.Update(BackupArea.Resref, area);
+                    BackupArea = area;
 
-                GameObjectEventArgs eventArgs = new GameObjectEventArgs();
-                eventArgs.GameObject = area;
-                OnSaveArea(this, eventArgs);
+                    GameObjectEventArgs eventArgs = new GameObjectEventArgs();
+                    eventArgs.GameObject = area;
+                    OnSaveArea(this, eventArgs);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid name and tag.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (!nameTextBoxArea.IsValid)
+                {
+                    nameTextBoxArea.Focus();
+                }
+                else
+                {
+                    tagTextBoxArea.Focus();
+                }
             }
         }
 

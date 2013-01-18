@@ -91,24 +91,31 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonSaveChangesItemDetails_Click(object sender, EventArgs e)
         {
-            using (ItemRepository repo = new ItemRepository())
+            if (nameTextBoxItem.IsValid && tagTextBoxItem.IsValid && resrefTextBoxItem.IsValid)
             {
-                Item item = new Item();
-                item.Comment = textBoxItemComments.Text;
-                item.Description = textBoxItemDescription.Text;
-                item.Name = nameTextBoxItem.NameText;
-                item.Tag = tagTextBoxItem.TagText;
-                item.Resref = resrefTextBoxItem.ResrefText;
-                item.Price = (int)numericUpDownPrice.Value;
-                item.Weight = (int)numericUpDownWeight.Value;
-                item.ResourceCategoryID = BackupItem.ResourceCategoryID;
+                using (ItemRepository repo = new ItemRepository())
+                {
+                    Item item = new Item();
+                    item.Comment = textBoxItemComments.Text;
+                    item.Description = textBoxItemDescription.Text;
+                    item.Name = nameTextBoxItem.NameText;
+                    item.Tag = tagTextBoxItem.TagText;
+                    item.Resref = resrefTextBoxItem.ResrefText;
+                    item.Price = (int)numericUpDownPrice.Value;
+                    item.Weight = (int)numericUpDownWeight.Value;
+                    item.ResourceCategoryID = BackupItem.ResourceCategoryID;
 
-                repo.Update(resrefTextBoxItem.ResrefText, item);
-                BackupItem = item;
+                    repo.Update(resrefTextBoxItem.ResrefText, item);
+                    BackupItem = item;
 
-                GameObjectEventArgs eventArgs = new GameObjectEventArgs();
-                eventArgs.GameObject = item;
-                OnSaveItem(this, eventArgs);
+                    GameObjectEventArgs eventArgs = new GameObjectEventArgs();
+                    eventArgs.GameObject = item;
+                    OnSaveItem(this, eventArgs);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid name and tag.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

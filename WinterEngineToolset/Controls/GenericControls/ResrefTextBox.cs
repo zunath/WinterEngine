@@ -11,7 +11,7 @@ namespace WinterEngine.Toolset.Controls.GenericControls
         #region Fields
 
         private bool _isValid;
-        private ResourceTypeEnum _resourceType;
+        private ResourceTypeEnum _resourceType = ResourceTypeEnum.Area;
 
         #endregion
 

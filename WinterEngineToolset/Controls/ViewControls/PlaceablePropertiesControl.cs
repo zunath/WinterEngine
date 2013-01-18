@@ -90,24 +90,39 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonSaveChanges_Click(object sender, EventArgs e)
         {
-            using (PlaceableRepository repo = new PlaceableRepository())
+            if (nameTextBoxPlaceable.IsValid && tagTextBoxPlaceable.IsValid && resrefTextBoxPlaceable.IsValid)
             {
-                Placeable placeable = new Placeable();
-                placeable.Name = nameTextBoxPlaceable.NameText;
-                placeable.Tag = tagTextBoxPlaceable.TagText;
-                placeable.Resref = resrefTextBoxPlaceable.ResrefText;
-                placeable.Description = textBoxPlaceableDescription.Text;
-                placeable.Comment = textBoxPlaceableComments.Text;
-                placeable.HasInventory = checkBoxHasInventory.Checked;
-                placeable.IsUseable = checkBoxUseable.Checked;
-                placeable.ResourceCategoryID = BackupPlaceable.ResourceCategoryID;
+                using (PlaceableRepository repo = new PlaceableRepository())
+                {
+                    Placeable placeable = new Placeable();
+                    placeable.Name = nameTextBoxPlaceable.NameText;
+                    placeable.Tag = tagTextBoxPlaceable.TagText;
+                    placeable.Resref = resrefTextBoxPlaceable.ResrefText;
+                    placeable.Description = textBoxPlaceableDescription.Text;
+                    placeable.Comment = textBoxPlaceableComments.Text;
+                    placeable.HasInventory = checkBoxHasInventory.Checked;
+                    placeable.IsUseable = checkBoxUseable.Checked;
+                    placeable.ResourceCategoryID = BackupPlaceable.ResourceCategoryID;
 
-                repo.Update(resrefTextBoxPlaceable.ResrefText, placeable);
-                BackupPlaceable = placeable;
+                    repo.Update(resrefTextBoxPlaceable.ResrefText, placeable);
+                    BackupPlaceable = placeable;
 
-                GameObjectEventArgs eventArgs = new GameObjectEventArgs();
-                eventArgs.GameObject = placeable;
-                OnSavePlaceable(this, eventArgs);
+                    GameObjectEventArgs eventArgs = new GameObjectEventArgs();
+                    eventArgs.GameObject = placeable;
+                    OnSavePlaceable(this, eventArgs);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid name and tag.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (!nameTextBoxPlaceable.IsValid)
+                {
+                    nameTextBoxPlaceable.Focus();
+                }
+                else
+                {
+                    tagTextBoxPlaceable.Focus();
+                }
             }
         }
 

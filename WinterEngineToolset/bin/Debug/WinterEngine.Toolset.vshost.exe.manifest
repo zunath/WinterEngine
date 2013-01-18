@@ -200,14 +200,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="142848">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="143872">
       <assemblyIdentity name="WinterEngine.Toolset" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>EUymTcJdn7879CpRL1wT7NlLYjNsDb5YeSisEq8e4lk=</dsig:DigestValue>
+        <dsig:DigestValue>z41DHh/oXbYXtjt1lyGz97fDA/aa+rlfJ7KGbW3bsk4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -31,19 +31,34 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         /// <param name="e"></param>
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            using (ModuleRepository repo = new ModuleRepository())
+            if (nameTextBoxModule.IsValid && tagTextBoxModule.IsValid)
             {
-                GameModule module = new GameModule();
-                module.Comment = textBoxComments.Text;
-                module.Description = textBoxDescription.Text;
-                module.MaxLevel = (int)numericUpDownMaxLevel.Value;
-                module.ModuleName = nameTextBoxModule.NameText;
-                module.ModuleTag = tagTextBoxModule.TagText;
+                using (ModuleRepository repo = new ModuleRepository())
+                {
+                    GameModule module = new GameModule();
+                    module.Comment = textBoxComments.Text;
+                    module.Description = textBoxDescription.Text;
+                    module.MaxLevel = (int)numericUpDownMaxLevel.Value;
+                    module.ModuleName = nameTextBoxModule.NameText;
+                    module.ModuleTag = tagTextBoxModule.TagText;
 
-                repo.UpdateModule(module);
+                    repo.UpdateModule(module);
+                }
+
+                this.Dispose();
             }
-
-            this.Dispose();
+            else
+            {
+                MessageBox.Show("Please enter a valid name and tag.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (!nameTextBoxModule.IsValid)
+                {
+                    nameTextBoxModule.Focus();
+                }
+                else
+                {
+                    tagTextBoxModule.Focus();
+                }
+            }
         }
 
         /// <summary>

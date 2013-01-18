@@ -72,9 +72,9 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             buttonDiscardChanges.Enabled = true;
 
             // Load data into controls
-            nameTextBoxItem.NameText = creature.Name;
-            tagTextBoxItem.TagText = creature.Tag;
-            resrefTextBoxItem.ResrefText = creature.Resref;
+            nameTextBoxCreature.NameText = creature.Name;
+            tagTextBoxCreature.TagText = creature.Tag;
+            resrefTextBoxCreature.ResrefText = creature.Resref;
 
             textBoxCreatureComments.Text = creature.Comment;
         }
@@ -86,22 +86,37 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonSaveChanges_Click(object sender, EventArgs e)
         {
-            using (CreatureRepository repo = new CreatureRepository())
+            if (nameTextBoxCreature.IsValid && tagTextBoxCreature.IsValid && resrefTextBoxCreature.IsValid)
             {
-                Creature creature = new Creature();
-                creature.Name = nameTextBoxItem.NameText;
-                creature.Tag = tagTextBoxItem.TagText;
-                creature.Resref = resrefTextBoxItem.ResrefText;
-                creature.Description = textBoxCreatureDescription.Text;
-                creature.Comment = textBoxCreatureComments.Text;
-                creature.ResourceCategoryID = BackupCreature.ResourceCategoryID;
+                using (CreatureRepository repo = new CreatureRepository())
+                {
+                    Creature creature = new Creature();
+                    creature.Name = nameTextBoxCreature.NameText;
+                    creature.Tag = tagTextBoxCreature.TagText;
+                    creature.Resref = resrefTextBoxCreature.ResrefText;
+                    creature.Description = textBoxCreatureDescription.Text;
+                    creature.Comment = textBoxCreatureComments.Text;
+                    creature.ResourceCategoryID = BackupCreature.ResourceCategoryID;
 
-                repo.Update(resrefTextBoxItem.ResrefText, creature);
-                BackupCreature = creature;
+                    repo.Update(resrefTextBoxCreature.ResrefText, creature);
+                    BackupCreature = creature;
 
-                GameObjectEventArgs eventArgs = new GameObjectEventArgs();
-                eventArgs.GameObject = creature;
-                OnSaveCreature(this, eventArgs);
+                    GameObjectEventArgs eventArgs = new GameObjectEventArgs();
+                    eventArgs.GameObject = creature;
+                    OnSaveCreature(this, eventArgs);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid name and tag.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (!nameTextBoxCreature.IsValid)
+                {
+                    nameTextBoxCreature.Focus();
+                }
+                else
+                {
+                    tagTextBoxCreature.Focus();
+                }
             }
         }
 
@@ -112,9 +127,9 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonDiscardChanges_Click(object sender, EventArgs e)
         {
-            nameTextBoxItem.NameText = BackupCreature.Name;
-            tagTextBoxItem.TagText = BackupCreature.Tag;
-            resrefTextBoxItem.ResrefText = BackupCreature.Resref;
+            nameTextBoxCreature.NameText = BackupCreature.Name;
+            tagTextBoxCreature.TagText = BackupCreature.Tag;
+            resrefTextBoxCreature.ResrefText = BackupCreature.Resref;
             textBoxCreatureComments.Text = BackupCreature.Comment;
             textBoxCreatureDescription.Text = BackupCreature.Description;
         }

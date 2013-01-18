@@ -35,9 +35,9 @@
             this.tabPageCreatureDetails = new System.Windows.Forms.TabPage();
             this.labelCreatureRace = new System.Windows.Forms.Label();
             this.listBoxCreatureRace = new System.Windows.Forms.ListBox();
-            this.resrefTextBoxItem = new WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox();
-            this.tagTextBoxItem = new WinterEngine.Toolset.Controls.GenericControls.TagTextBox();
-            this.nameTextBoxItem = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
+            this.resrefTextBoxCreature = new WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox();
+            this.tagTextBoxCreature = new WinterEngine.Toolset.Controls.GenericControls.TagTextBox();
+            this.nameTextBoxCreature = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
             this.labelItemDetailsHeader = new System.Windows.Forms.Label();
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
@@ -109,9 +109,9 @@
             // 
             this.tabPageCreatureDetails.Controls.Add(this.labelCreatureRace);
             this.tabPageCreatureDetails.Controls.Add(this.listBoxCreatureRace);
-            this.tabPageCreatureDetails.Controls.Add(this.resrefTextBoxItem);
-            this.tabPageCreatureDetails.Controls.Add(this.tagTextBoxItem);
-            this.tabPageCreatureDetails.Controls.Add(this.nameTextBoxItem);
+            this.tabPageCreatureDetails.Controls.Add(this.resrefTextBoxCreature);
+            this.tabPageCreatureDetails.Controls.Add(this.tagTextBoxCreature);
+            this.tabPageCreatureDetails.Controls.Add(this.nameTextBoxCreature);
             this.tabPageCreatureDetails.Controls.Add(this.labelItemDetailsHeader);
             this.tabPageCreatureDetails.Controls.Add(this.labelItemResref);
             this.tabPageCreatureDetails.Controls.Add(this.labelItemTag);
@@ -143,30 +143,35 @@
             this.listBoxCreatureRace.Sorted = true;
             this.listBoxCreatureRace.TabIndex = 19;
             // 
-            // resrefTextBoxItem
+            // resrefTextBoxCreature
             // 
-            this.resrefTextBoxItem.Enabled = false;
-            this.resrefTextBoxItem.Location = new System.Drawing.Point(81, 112);
-            this.resrefTextBoxItem.Name = "resrefTextBoxItem";
-            this.resrefTextBoxItem.ResrefText = "";
-            this.resrefTextBoxItem.Size = new System.Drawing.Size(265, 28);
-            this.resrefTextBoxItem.TabIndex = 18;
+            this.resrefTextBoxCreature.Enabled = false;
+            this.resrefTextBoxCreature.IsValid = false;
+            this.resrefTextBoxCreature.Location = new System.Drawing.Point(81, 112);
+            this.resrefTextBoxCreature.Name = "resrefTextBoxCreature";
+            this.resrefTextBoxCreature.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.resrefTextBoxCreature.ResrefText = "";
+            this.resrefTextBoxCreature.Size = new System.Drawing.Size(265, 28);
+            this.resrefTextBoxCreature.TabIndex = 18;
             // 
-            // tagTextBoxItem
+            // tagTextBoxCreature
             // 
-            this.tagTextBoxItem.Location = new System.Drawing.Point(81, 86);
-            this.tagTextBoxItem.Name = "tagTextBoxItem";
-            this.tagTextBoxItem.Size = new System.Drawing.Size(265, 28);
-            this.tagTextBoxItem.TabIndex = 17;
-            this.tagTextBoxItem.TagText = "";
+            this.tagTextBoxCreature.IsValid = false;
+            this.tagTextBoxCreature.Location = new System.Drawing.Point(81, 86);
+            this.tagTextBoxCreature.Name = "tagTextBoxCreature";
+            this.tagTextBoxCreature.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxCreature.Size = new System.Drawing.Size(265, 28);
+            this.tagTextBoxCreature.TabIndex = 17;
+            this.tagTextBoxCreature.TagText = "";
             // 
-            // nameTextBoxItem
+            // nameTextBoxCreature
             // 
-            this.nameTextBoxItem.Location = new System.Drawing.Point(81, 58);
-            this.nameTextBoxItem.Name = "nameTextBoxItem";
-            this.nameTextBoxItem.NameText = "";
-            this.nameTextBoxItem.Size = new System.Drawing.Size(265, 28);
-            this.nameTextBoxItem.TabIndex = 16;
+            this.nameTextBoxCreature.IsValid = false;
+            this.nameTextBoxCreature.Location = new System.Drawing.Point(81, 58);
+            this.nameTextBoxCreature.Name = "nameTextBoxCreature";
+            this.nameTextBoxCreature.NameText = "";
+            this.nameTextBoxCreature.Size = new System.Drawing.Size(265, 28);
+            this.nameTextBoxCreature.TabIndex = 16;
             // 
             // labelItemDetailsHeader
             // 
@@ -337,9 +342,9 @@
         private System.Windows.Forms.TabPage tabPageCreatureComments;
         private System.Windows.Forms.Button buttonDiscardChanges;
         private System.Windows.Forms.Button buttonApplyChanges;
-        private GenericControls.ResrefTextBox resrefTextBoxItem;
-        private GenericControls.TagTextBox tagTextBoxItem;
-        private GenericControls.NameTextBox nameTextBoxItem;
+        private GenericControls.ResrefTextBox resrefTextBoxCreature;
+        private GenericControls.TagTextBox tagTextBoxCreature;
+        private GenericControls.NameTextBox nameTextBoxCreature;
         private System.Windows.Forms.Label labelCreatureRace;
         private System.Windows.Forms.ListBox listBoxCreatureRace;
         private System.Windows.Forms.Label labelCreatureDescription;
