@@ -97,21 +97,22 @@
             // 
             // tagTextBoxEntry
             // 
+            this.tagTextBoxEntry.IsValid = false;
             this.tagTextBoxEntry.Location = new System.Drawing.Point(75, 84);
             this.tagTextBoxEntry.Name = "tagTextBoxEntry";
-            this.tagTextBoxEntry.Size = new System.Drawing.Size(220, 28);
+            this.tagTextBoxEntry.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxEntry.Size = new System.Drawing.Size(247, 28);
             this.tagTextBoxEntry.TabIndex = 4;
             this.tagTextBoxEntry.TagText = "";
-            this.tagTextBoxEntry.Leave += new System.EventHandler(this.tagTextBoxEntry_Leave);
             // 
             // nameTextBoxEntry
             // 
+            this.nameTextBoxEntry.IsValid = false;
             this.nameTextBoxEntry.Location = new System.Drawing.Point(75, 56);
             this.nameTextBoxEntry.Name = "nameTextBoxEntry";
             this.nameTextBoxEntry.NameText = "";
-            this.nameTextBoxEntry.Size = new System.Drawing.Size(220, 28);
+            this.nameTextBoxEntry.Size = new System.Drawing.Size(247, 28);
             this.nameTextBoxEntry.TabIndex = 2;
-            this.nameTextBoxEntry.Leave += new System.EventHandler(this.nameTextBoxEntry_Leave);
             // 
             // NewModuleEntry
             // 

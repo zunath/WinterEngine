@@ -58,6 +58,51 @@ namespace WinterEngine.DataAccess
             using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
             {
                 context.Modules.Add(gameModule);
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Returns the module object from the database. Note that there should only ever be one module
+        /// in the database.
+        /// </summary>
+        /// <returns></returns>
+        public GameModule GetModule()
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                var query = from module
+                            in context.Modules
+                            select module;
+                return query.ToList()[0];
+            }
+        }
+
+        /// <summary>
+        /// Updates the module object in the database. Note that there should only ever be on module
+        /// in the database.
+        /// </summary>
+        /// <param name="module"></param>
+        public void UpdateModule(GameModule module)
+        {
+            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            {
+                var query = from mod
+                            in context.Modules
+                            select mod;
+
+                GameModule dbModule = query.ToList()[0];
+
+                if (Object.ReferenceEquals(dbModule, null))
+                {
+                    throw new NullReferenceException("Unable to find module object.");
+                }
+                else
+                {
+                    context.Modules.Remove(dbModule);
+                    context.Modules.Add(module);
+                    context.SaveChanges();
+                }
             }
         }
 

@@ -28,18 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.labelResref = new System.Windows.Forms.Label();
             this.labelTag = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.resrefTextBoxEntry = new WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox();
             this.tagTextBoxEntry = new WinterEngine.Toolset.Controls.GenericControls.TagTextBox();
             this.nameTextBoxEntry = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // labelResref
@@ -99,35 +96,34 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // errorProvider
-            // 
-            this.errorProvider.BlinkRate = 0;
-            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.errorProvider.ContainerControl = this;
-            // 
             // resrefTextBoxEntry
             // 
-            this.resrefTextBoxEntry.Location = new System.Drawing.Point(75, 114);
+            this.resrefTextBoxEntry.IsValid = false;
+            this.resrefTextBoxEntry.Location = new System.Drawing.Point(75, 110);
             this.resrefTextBoxEntry.Name = "resrefTextBoxEntry";
-            this.resrefTextBoxEntry.Size = new System.Drawing.Size(220, 28);
+            this.resrefTextBoxEntry.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.resrefTextBoxEntry.ResrefText = "";
+            this.resrefTextBoxEntry.Size = new System.Drawing.Size(247, 28);
             this.resrefTextBoxEntry.TabIndex = 6;
-            this.resrefTextBoxEntry.Leave += new System.EventHandler(this.resrefTextBoxEntry_Leave);
             // 
             // tagTextBoxEntry
             // 
-            this.tagTextBoxEntry.Location = new System.Drawing.Point(75, 84);
+            this.tagTextBoxEntry.IsValid = false;
+            this.tagTextBoxEntry.Location = new System.Drawing.Point(75, 82);
             this.tagTextBoxEntry.Name = "tagTextBoxEntry";
-            this.tagTextBoxEntry.Size = new System.Drawing.Size(220, 28);
+            this.tagTextBoxEntry.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxEntry.Size = new System.Drawing.Size(247, 28);
             this.tagTextBoxEntry.TabIndex = 4;
-            this.tagTextBoxEntry.Leave += new System.EventHandler(this.tagTextBoxEntry_Leave);
+            this.tagTextBoxEntry.TagText = "";
             // 
             // nameTextBoxEntry
             // 
-            this.nameTextBoxEntry.Location = new System.Drawing.Point(75, 56);
+            this.nameTextBoxEntry.IsValid = false;
+            this.nameTextBoxEntry.Location = new System.Drawing.Point(75, 54);
             this.nameTextBoxEntry.Name = "nameTextBoxEntry";
-            this.nameTextBoxEntry.Size = new System.Drawing.Size(220, 28);
+            this.nameTextBoxEntry.NameText = "";
+            this.nameTextBoxEntry.Size = new System.Drawing.Size(247, 28);
             this.nameTextBoxEntry.TabIndex = 2;
-            this.nameTextBoxEntry.Leave += new System.EventHandler(this.nameTextBoxEntry_Leave);
             // 
             // NewObjectEntry
             // 
@@ -135,9 +131,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(322, 216);
-            this.Controls.Add(this.resrefTextBoxEntry);
-            this.Controls.Add(this.tagTextBoxEntry);
             this.Controls.Add(this.nameTextBoxEntry);
+            this.Controls.Add(this.tagTextBoxEntry);
+            this.Controls.Add(this.resrefTextBoxEntry);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.labelName);
@@ -152,7 +148,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "NewObjectEntry";
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,7 +161,6 @@
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.ErrorProvider errorProvider;
         private GenericControls.ResrefTextBox resrefTextBoxEntry;
         private GenericControls.TagTextBox tagTextBoxEntry;
         private GenericControls.NameTextBox nameTextBoxEntry;

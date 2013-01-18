@@ -22,7 +22,11 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         public ResourceTypeEnum ResourceType
         {
             get { return _resourceType; }
-            set { _resourceType = value; }
+            set 
+            {
+                resrefTextBoxEntry.ResourceType = value;
+                _resourceType = value; 
+            }
         }
 
         public ResourceCategory ResourceCategory
@@ -50,46 +54,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         #region Methods
         private bool Validation(bool usePopUpForResrefDuplicate = false)
         {
-            errorProvider.Clear();
-
-            string nameText = nameTextBoxEntry.NameText;
-            string tagText = tagTextBoxEntry.TagText;
-            string resrefText = resrefTextBoxEntry.ResrefText;
-            Regex tagRegex = new Regex("^[a-zA-Z0-9_]*$");
-            Regex resrefRegex = new Regex("^[a-zA-Z0-9_]*$");
             bool succeed = true;
-
-            // No character restrictions on the name field. It just can't be blank
-            if (nameText == "")
-            {
-                errorProvider.SetError(nameTextBoxEntry, "Invalid Name");
-                succeed = false;
-            }
-
-            if (!tagRegex.IsMatch(tagText) || tagText == "")
-            {
-                errorProvider.SetError(tagTextBoxEntry, "Invalid Tag");
-                succeed = false;
-            }
-
-            if (!resrefRegex.IsMatch(resrefText) || resrefText == "")
-            {
-                errorProvider.SetError(resrefTextBoxEntry, "Invalid Resref");
-                succeed = false;
-            }
-
-            GameObjectFactory factory = new GameObjectFactory();
-            if(factory.DoesObjectExistInDatabase(resrefText, ResourceType))  
-            {
-                errorProvider.SetError(resrefTextBoxEntry, "This resref is already in use!");
-
-                if (usePopUpForResrefDuplicate)
-                {
-                    MessageBox.Show("This resref is already in use. Please select another.", "Resref in Use!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
-                succeed = false;
-            }
             
 
             return succeed;

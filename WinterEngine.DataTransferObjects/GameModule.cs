@@ -19,6 +19,7 @@ namespace WinterEngine.DataTransferObjects
         private string _moduleName;
         private string _description;
         private string _comment;
+        private int _maxLevel;
 
         #endregion
 
@@ -72,6 +73,15 @@ namespace WinterEngine.DataTransferObjects
         {
             get { return _comment; }
             set { _comment = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the module's max level.
+        /// </summary>
+        public int MaxLevel
+        {
+            get { return _maxLevel; }
+            set { _maxLevel = value; }
         }
 
         #endregion

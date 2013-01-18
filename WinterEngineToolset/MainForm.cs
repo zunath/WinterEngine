@@ -249,6 +249,21 @@ namespace WinterEngine.Toolset
             System.Diagnostics.Process.Start("http://winterengine.proboards.com/");
         }
 
+        /// <summary>
+        /// Handles displaying the module properties window which contains data about the module.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemModuleProperties_Click(object sender, EventArgs e)
+        {
+            if (Object.ReferenceEquals(_moduleProperties, null) || _moduleProperties.IsDisposed)
+            {
+                _moduleProperties = new ModuleProperties();
+            }
+
+            _moduleProperties.Show();
+        }
+
         #endregion
 
         #region Module event methods
@@ -342,15 +357,6 @@ namespace WinterEngine.Toolset
 
         #endregion
 
-        /// <summary>
-        /// Handles displaying the module properties window which contains data about the module.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void toolStripMenuItemModuleProperties_Click(object sender, EventArgs e)
-        {
-
-        }
 
     }
 }

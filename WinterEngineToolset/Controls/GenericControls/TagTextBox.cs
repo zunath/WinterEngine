@@ -9,21 +9,107 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using WinterEngine.Library.Helpers;
 using WinterEngine.Library.Factories;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.Toolset.Controls.GenericControls
 {
     public partial class TagTextBox : UserControl
     {
+
+        #region Fields
+
+        private bool _isValid;
+        private ResourceTypeEnum _resourceType;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets whether or not the data entered is valid.
+        /// </summary>
+        public bool IsValid
+        {
+            get { return _isValid; }
+            set { _isValid = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the text of the tag box.
+        /// </summary>
         public string TagText
         {
             get { return textBoxTag.Text; }
             set { textBoxTag.Text = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the resource type for this text box.
+        /// </summary>
+        public ResourceTypeEnum ResourceType
+        {
+            get { return _resourceType; }
+            set { _resourceType = value; }
+        }
+
+        #endregion
+
+        #region Events / Delegates
+
+        private event EventHandler OnValidationSucceeded;
+        private event EventHandler OnValidationFailed;
+
+        #endregion
+
+        #region Constructors
+
         public TagTextBox()
         {
             InitializeComponent();
         }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles validating the text entered to the text box.
+        /// </summary>
+        /// <returns></returns>
+        public void Validation()
+        {
+            errorProvider.Clear();
+
+            Regex tagRegex = new Regex("^[a-zA-Z0-9_]*$");
+            _isValid = true;
+
+            if (!tagRegex.IsMatch(TagText) || TagText == "")
+            {
+                errorProvider.SetError(textBoxTag, "Invalid Tag");
+                _isValid = false;
+            }
+
+            
+            // Handle firing events for all subscribers.
+            if (_isValid)
+            {
+                if (!Object.ReferenceEquals(OnValidationSucceeded, null))
+                {
+                    OnValidationSucceeded(this, new EventArgs());
+                }
+            }
+            else
+            {
+                if (!Object.ReferenceEquals(OnValidationFailed, null))
+                {
+                    OnValidationFailed(this, new EventArgs());
+                }
+            }
+        }
+
+        #endregion
+
+        #region Event handlers
 
         /// <summary>
         /// Handles validation whenever text in the resref text box is changed.
@@ -41,5 +127,20 @@ namespace WinterEngine.Toolset.Controls.GenericControls
             textBoxTag.SelectionStart = retValue.Item2;
             textBoxTag.SelectionLength = retValue.Item3;
         }
+
+        /// <summary>
+        /// Handles validation of text entered when the control loses focus.
+        /// If data is invalid, the error provider will display.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxTag_Leave(object sender, EventArgs e)
+        {
+            Validation();
+        }
+
+        #endregion
+
+
     }
 }

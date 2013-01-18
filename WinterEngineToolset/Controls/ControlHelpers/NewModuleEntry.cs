@@ -31,31 +31,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         #endregion
 
         #region Methods
-        private bool Validation()
-        {
-            errorProvider.Clear();
-
-            string nameText = nameTextBoxEntry.NameText;
-            string tagText = tagTextBoxEntry.TagText;
-            Regex tagRegex = new Regex("^[a-zA-Z0-9_]*$");
-            bool succeed = true;
-
-            // No character restrictions on the name field. It just can't be blank
-            if (nameText == "")
-            {
-                errorProvider.SetError(nameTextBoxEntry, "Invalid Name");
-                succeed = false;
-            }
-
-            if (!tagRegex.IsMatch(tagText) || tagText == "")
-            {
-                errorProvider.SetError(tagTextBoxEntry, "Invalid Tag");
-                succeed = false;
-            }
-
-            return succeed;
-        }
-
+        
         /// <summary>
         /// Handles validation of user input one last time before creating the module.
         /// </summary>
@@ -63,10 +39,9 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         /// <param name="e"></param>
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            bool succeed = Validation();
             ModuleCreationEventArgs eventArgs = new ModuleCreationEventArgs();
 
-            if (succeed)
+            if (nameTextBoxEntry.IsValid && tagTextBoxEntry.IsValid)
             {
                 try
                 {
@@ -85,32 +60,14 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             }
         }
 
-        /// <summary>
-        /// Handles validation for the page when the control loses focus.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void nameTextBoxEntry_Leave(object sender, EventArgs e)
-        {
-            Validation();
-        }
-
-        /// <summary>
-        /// Handles validation for the page when control loses focus.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tagTextBoxEntry_Leave(object sender, EventArgs e)
-        {
-            Validation();
-        }
-
-        #endregion
-
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        #endregion
+
+        
 
     }
 }
