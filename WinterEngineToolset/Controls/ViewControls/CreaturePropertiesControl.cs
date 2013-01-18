@@ -86,7 +86,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonSaveChanges_Click(object sender, EventArgs e)
         {
-            if (nameTextBoxCreature.IsValid && tagTextBoxCreature.IsValid && resrefTextBoxCreature.IsValid)
+            if (nameTextBoxCreature.IsValid && tagTextBoxCreature.IsValid)
             {
                 using (CreatureRepository repo = new CreatureRepository())
                 {

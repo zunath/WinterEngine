@@ -91,7 +91,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonSaveChangesItemDetails_Click(object sender, EventArgs e)
         {
-            if (nameTextBoxItem.IsValid && tagTextBoxItem.IsValid && resrefTextBoxItem.IsValid)
+            if (nameTextBoxItem.IsValid && tagTextBoxItem.IsValid)
             {
                 using (ItemRepository repo = new ItemRepository())
                 {

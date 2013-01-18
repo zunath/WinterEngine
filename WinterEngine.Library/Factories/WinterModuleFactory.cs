@@ -200,7 +200,7 @@ namespace WinterEngine.Library.Factories
             // Build a new database file and structure.
             using (DatabaseRepository repo = new DatabaseRepository())
             {
-                repo.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB");
+                repo.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB", true);
             }
 
             // Add the module details to the correct table.

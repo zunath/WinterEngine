@@ -156,7 +156,7 @@
             // 
             // tagTextBoxCreature
             // 
-            this.tagTextBoxCreature.IsValid = false;
+            this.tagTextBoxCreature.IsValid = true;
             this.tagTextBoxCreature.Location = new System.Drawing.Point(81, 86);
             this.tagTextBoxCreature.Name = "tagTextBoxCreature";
             this.tagTextBoxCreature.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
@@ -166,7 +166,7 @@
             // 
             // nameTextBoxCreature
             // 
-            this.nameTextBoxCreature.IsValid = false;
+            this.nameTextBoxCreature.IsValid = true;
             this.nameTextBoxCreature.Location = new System.Drawing.Point(81, 58);
             this.nameTextBoxCreature.Name = "nameTextBoxCreature";
             this.nameTextBoxCreature.NameText = "";

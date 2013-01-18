@@ -90,7 +90,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonSaveChanges_Click(object sender, EventArgs e)
         {
-            if (nameTextBoxPlaceable.IsValid && tagTextBoxPlaceable.IsValid && resrefTextBoxPlaceable.IsValid)
+            if (nameTextBoxPlaceable.IsValid && tagTextBoxPlaceable.IsValid)
             {
                 using (PlaceableRepository repo = new PlaceableRepository())
                 {

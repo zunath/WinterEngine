@@ -394,5 +394,66 @@ namespace WinterEngine.Library.Factories
         }
 
         #endregion
+
+        #region Object conversion methods
+
+
+        /// <summary>
+        /// Builds independent resource lists based on the gameObjectList passed in.
+        /// Item1 = Area List
+        /// Item2 = Creature List
+        /// Item3 = Item List
+        /// Item4 = Placeable List
+        /// Item5 = Conversation List
+        /// Item6 = Script List
+        /// </summary>
+        /// <param name="gameObjectList">The list of game objects that will be expanded.</param>
+        /// <returns></returns>
+        public Tuple<List<Area>, List<Creature>, List<Item>, List<Placeable>> ExpandGameObjectList(List<GameObject> gameObjectList)
+        {
+            List<Area> areaList = new List<Area>();
+            List<Item> itemList = new List<Item>();
+            List<Creature> creatureList = new List<Creature>();
+            List<Placeable> placeableList = new List<Placeable>();
+
+            foreach (var currentObject in gameObjectList)
+            {
+                GameObject gameObject = currentObject as GameObject;
+
+                if (gameObject.ResourceType == ResourceTypeEnum.Area)
+                {
+                    areaList.Add(gameObject as Area);
+                }
+                else if (gameObject.ResourceType == ResourceTypeEnum.Item)
+                {
+                    itemList.Add(gameObject as Item);
+                }
+                else if (gameObject.ResourceType == ResourceTypeEnum.Creature)
+                {
+                    creatureList.Add(gameObject as Creature);
+                }
+                else if (gameObject.ResourceType == ResourceTypeEnum.Placeable)
+                {
+                    placeableList.Add(gameObject as Placeable);
+                }
+                else if (gameObject.ResourceType == ResourceTypeEnum.Conversation)
+                {
+                    throw new NotImplementedException();
+                }
+                else if (gameObject.ResourceType == ResourceTypeEnum.Script)
+                {
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    throw new NotSupportedException("Resource type is not supported.");
+                }
+            }
+
+            return new Tuple<List<Area>, List<Creature>, List<Item>, List<Placeable>>(areaList, creatureList, itemList, placeableList);
+
+        }
+
+        #endregion
     }
 }

@@ -107,22 +107,27 @@
             // resrefTextBoxArea
             // 
             this.resrefTextBoxArea.Enabled = false;
+            this.resrefTextBoxArea.IsValid = false;
             this.resrefTextBoxArea.Location = new System.Drawing.Point(81, 112);
             this.resrefTextBoxArea.Name = "resrefTextBoxArea";
+            this.resrefTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
             this.resrefTextBoxArea.ResrefText = "";
             this.resrefTextBoxArea.Size = new System.Drawing.Size(265, 28);
             this.resrefTextBoxArea.TabIndex = 10;
             // 
             // tagTextBoxArea
             // 
+            this.tagTextBoxArea.IsValid = true;
             this.tagTextBoxArea.Location = new System.Drawing.Point(81, 86);
             this.tagTextBoxArea.Name = "tagTextBoxArea";
+            this.tagTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
             this.tagTextBoxArea.Size = new System.Drawing.Size(265, 28);
             this.tagTextBoxArea.TabIndex = 9;
             this.tagTextBoxArea.TagText = "";
             // 
             // nameTextBoxArea
             // 
+            this.nameTextBoxArea.IsValid = true;
             this.nameTextBoxArea.Location = new System.Drawing.Point(81, 58);
             this.nameTextBoxArea.Name = "nameTextBoxArea";
             this.nameTextBoxArea.NameText = "";

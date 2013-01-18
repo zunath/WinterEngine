@@ -89,7 +89,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonSaveChanges_Click(object sender, EventArgs e)
         {
-            if (nameTextBoxArea.IsValid && tagTextBoxArea.IsValid && resrefTextBoxArea.IsValid)
+            if (nameTextBoxArea.IsValid && tagTextBoxArea.IsValid)
             {
                 using (AreaRepository repo = new AreaRepository())
                 {

@@ -23,7 +23,17 @@ namespace WinterEngine.DataAccess
             Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0");
 
             // Change the active connection to point to this new database.
-            WinterConnectionInformation.ActiveConnectionString = "Data Source=" + databaseFilePath + ";Persist Security Info=False;";
+            WinterConnectionInformation.ActiveConnectionString = BuildConnectionString(databaseFilePath);
+        }
+
+        /// <summary>
+        /// Builds a connection string using the specified database file.
+        /// </summary>
+        /// <param name="databaseFilePath"></param>
+        /// <returns></returns>
+        public string BuildConnectionString(string databaseFilePath)
+        {
+            return "Data Source=" + databaseFilePath + ";Persist Security Info=False;";
         }
 
         /// <summary>
@@ -32,20 +42,34 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="databaseFilePath">The path to the file, excluding the file's name</param>
         /// <param name="databaseFileName">The name of the new database file. Exclude the .sdf extension - it will be added automatically.</param>
-        public void CreateNewDatabase(string databaseFilePath, string databaseFileName)
+        /// <param name="changeApplicationConnection">If true, the application's connection will be changed to this new database.</param>
+        /// <returns>Returns the full path to the database file.</returns>
+        public string CreateNewDatabase(string databaseFilePath, string databaseFileName, bool changeApplicationConnection)
         {
             string fullPath = databaseFilePath + "\\" + databaseFileName + ".sdf";
+            string connectionString;
 
             // Update connection settings and the active module directory path
-            ChangeDatabaseConnection(fullPath);
-            WinterConnectionInformation.ActiveModuleDirectoryPath = fullPath;
+            if (changeApplicationConnection)
+            {
+                ChangeDatabaseConnection(fullPath);
+                WinterConnectionInformation.ActiveModuleDirectoryPath = fullPath;
+                connectionString = WinterConnectionInformation.ActiveConnectionString;
+            }
+            // Otherwise we're simply creating a new database file. Build a connection string.
+            else
+            {
+                connectionString = BuildConnectionString(fullPath);
+            }
 
             // Initialize the database - will create the database file at the specified location.
             // Also creates tables based on the code-first model.
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(connectionString))
             {
                 context.Database.Initialize(true);
             }
+
+            return fullPath;
         }
 
         public void Dispose()
