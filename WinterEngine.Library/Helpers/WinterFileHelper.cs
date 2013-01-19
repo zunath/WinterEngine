@@ -54,77 +54,29 @@ namespace WinterEngine.Library.Helpers
         }
 
         /// <summary>
-        /// Takes all files in a directory and places them in an uncompressed zip file.
-        /// Files are not compressed to speed up loading in the toolset and game.
+        /// Finds and returns the path to the database file in a directory.
+        /// Returns "" if no file is found.
         /// </summary>
-        /// <param name="fileName">The name of the file without an extension.</param>
-        /// <param name="inputDirectory">The directory of files to add.</param>
-        /// <param name="outputDirectory">The directory to place the hakpak in.</param>
-        public bool CreateHakPak(string inputDirectory, string outputDirectory, string fileName)
+        /// <param name="directoryPath">The path to the directory that this method will check.</param>
+        /// <returns></returns>
+        public string GetDatabaseFileInDirectory(string directoryPath)
         {
-            return CreateFileFromDirectory(inputDirectory, outputDirectory, fileName, FileTypeEnum.Hakpak, CompressionLevel.None);
-        }
+            FileExtensionFactory factory = new FileExtensionFactory();
+            DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+            FileInfo[] fileInfo = directoryInfo.GetFiles();
+            string extension = factory.GetFileExtension(FileTypeEnum.Database);
+            string databaseFilePath = "";
 
-        /// <summary>
-        /// Takes a hakpak file and decompresses it to the specified directory.
-        /// Files are not compressed to speed up loading in the toolset and game.
-        /// </summary>
-        /// <param name="hakPakPath">The path to the hakpak file, including the file's extension</param>
-        /// <param name="outputDirectory">The directory to decompress to.</param>
-        public bool DecompressHakPak(string hakPakPath, string outputDirectory)
-        {
-            bool success = true;
-
-            try
+            foreach (FileInfo file in fileInfo)
             {
-                using (ZipFile file = new ZipFile(hakPakPath))
+                if (file.Extension == extension)
                 {
-                    file.CompressionLevel = CompressionLevel.None;
-                    file.ExtractAll(outputDirectory);
+                    databaseFilePath = file.FullName;
+                    break;
                 }
             }
-            catch (Exception ex)
-            {
-                success = false;
-                ErrorHelper.ShowErrorDialog("Error decompressing hakpak to directory: " + outputDirectory, ex);
-            }
 
-            return success;
-        }
-
-        /// <summary>
-        /// Encapsulates a database file and any additional files into a compressed file with the .wmod extension.
-        /// </summary>
-        /// <param name="databaseFilePath">The path to the database file, excluding the extension</param>
-        /// <param name="outputDirectory">The directory to output the module file to</param>
-        /// <param name="additionalFiles">List of file paths, including file extensions, to add to the module.</param>
-        public bool CreateModule(string databaseFilePath, string outputDirectory, string fileName, IEnumerable<string> additionalFiles = null)
-        {
-            FileExtensionFactory winterExtensions = new FileExtensionFactory();
-            bool success = true;
-            string filePath = outputDirectory + "\\" + fileName + "." + winterExtensions.GetFileExtension(FileTypeEnum.Module);
-            try
-            {
-                using (ZipFile file = new ZipFile(filePath))
-                {
-                    file.AddFile(databaseFilePath);
-
-                    // Add additional files, if any
-                    if (additionalFiles != null)
-                    {
-                        file.AddFiles(additionalFiles);
-                    }
-
-                    file.Save();
-                }
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                ErrorHelper.ShowErrorDialog("Error creating module file: " + filePath, ex);
-            }
-
-            return success;
+            return databaseFilePath;
         }
 
         /// <summary>

@@ -225,7 +225,7 @@ namespace WinterEngine.Toolset
         private void toolStripMenuItemImportERF_Click(object sender, EventArgs e)
         {
             _importERF = new ImportERF();
-            _importERF.ShowDialog();
+            _importERF.AttemptImport();
         }
 
         /// <summary>
@@ -276,6 +276,7 @@ namespace WinterEngine.Toolset
         /// <param name="e"></param>
         private void OnModuleCreated(object sender, ModuleCreationEventArgs e)
         {
+            ActiveModuleFactory.CloseModule();
             ActiveModuleFactory = e.ModuleFactory;
             ActiveModuleFactory.ModuleClosedMethod = OnModuleClosed;
             ActiveModuleFactory.ModuleOpenedMethod = OnModuleOpened;

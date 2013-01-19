@@ -36,6 +36,7 @@
             this.buttonSelectAll = new System.Windows.Forms.Button();
             this.buttonSelectNone = new System.Windows.Forms.Button();
             this.labelInstructions2 = new System.Windows.Forms.Label();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // buttonImport
@@ -151,5 +152,6 @@
         private System.Windows.Forms.Button buttonSelectAll;
         private System.Windows.Forms.Button buttonSelectNone;
         private System.Windows.Forms.Label labelInstructions2;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

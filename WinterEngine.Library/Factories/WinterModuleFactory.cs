@@ -139,10 +139,16 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         private void CreateTemporaryDirectory()
         {
+            // Remove the existing temporary directory, if it exists.
+            if (Directory.Exists(TemporaryDirectoryPath))
+            {
+                Directory.Delete(TemporaryDirectoryPath, true);
+            }
+
             TemporaryDirectoryPath = GenerateUniqueDirectoryID(Path.GetFullPath("./temp"));
 
             // Create the temporary directory
-            DirectoryInfo directoryInfo = Directory.CreateDirectory(TemporaryDirectoryPath);
+            Directory.CreateDirectory(TemporaryDirectoryPath);
         }
 
         /// <summary>
@@ -269,28 +275,14 @@ namespace WinterEngine.Library.Factories
             ModulePath = path;
             CreateTemporaryDirectory();
 
-            FileExtensionFactory factory = new FileExtensionFactory();
-            WinterFileHelper fileHelper = new WinterFileHelper();
-            DirectoryInfo directoryInfo = new DirectoryInfo(TemporaryDirectoryPath);
-
             // Extract all files contained in the module zip file to the temporary directory.
             using (ZipFile zipFile = new ZipFile(ModulePath))
             {
                 zipFile.ExtractAll(TemporaryDirectoryPath);
             }
-
-            FileInfo[] fileInfo = directoryInfo.GetFiles();
-            string extension = factory.GetFileExtension(FileTypeEnum.Database);
-            string databaseFilePath = "";
-
-            foreach (FileInfo file in fileInfo)
-            {
-                if (file.Extension == extension)
-                {
-                    databaseFilePath = file.FullName;
-                    break;
-                }
-            }
+            
+            WinterFileHelper fileHelper = new WinterFileHelper();
+            string databaseFilePath = fileHelper.GetDatabaseFileInDirectory(TemporaryDirectoryPath);
 
             // Change the database connection to the file located in the extracted module folder.
             using (DatabaseRepository repo = new DatabaseRepository())
