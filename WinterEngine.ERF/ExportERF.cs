@@ -55,6 +55,7 @@ namespace WinterEngine.ERF
         /// <returns></returns>
         private List<GameObject> ConvertAddedListObjectsToGameObjects()
         {
+            GameObjectFactory factory = new GameObjectFactory();
             List<GameObject> gameObjectList = new List<GameObject>();
             foreach (var currentObject in listBoxAdded.Items)
             {
@@ -83,14 +84,19 @@ namespace WinterEngine.ERF
 
                 string directoryPath = Path.GetDirectoryName(_fileLocation);
                 string databaseFilePath;
+                string connectionString;
                 GameObjectFactory factory = new GameObjectFactory();
-                Tuple<List<Area>, List<Creature>, List<Item>, List<Placeable>> objectTuple = factory.ExpandGameObjectList(ConvertAddedListObjectsToGameObjects());
+                List<GameObject> gameObjectList = ConvertAddedListObjectsToGameObjects();
 
                 // Create a new database file at the location specified
                 using (DatabaseRepository repo = new DatabaseRepository())
                 {
                     databaseFilePath = repo.CreateNewDatabase(directoryPath, "ERFDatabase", false);
+                    connectionString = repo.BuildConnectionString(databaseFilePath);
                 }
+
+                // Add the selected resources to the database.
+                factory.AddToDatabase(gameObjectList, connectionString);
 
                 // Remove the existing ERF file, if any.
                 if (File.Exists(_fileLocation))
@@ -103,14 +109,13 @@ namespace WinterEngine.ERF
                 {
                     zipFile.CompressionLevel = CompressionLevel.None;
 
-                    using (ERFRepository repo = new ERFRepository())
-                    {
-                        // To-Do: Add the resource selected to the ERF database file.
-                    }
-
-                    // Add the database file to the ERF file.
-                    zipFile.AddFile(databaseFilePath);
+                    // Add the database file to the ERF file's root directory.
+                    zipFile.AddFile(databaseFilePath, "");
+                    zipFile.Save();
                 }
+
+                // Clean up files
+                File.Delete(databaseFilePath);
             }
             catch (Exception ex)
             {
@@ -236,7 +241,7 @@ namespace WinterEngine.ERF
                 {
                     string resourceTypeName = EnumerationHelper.GetEnumerationDescription(currentGameObject.ResourceType);
                     string categoryName = repo.GetByResourceCategoryID(currentGameObject.ResourceCategoryID).ResourceName;
-                    currentGameObject.Name = resourceTypeName + "/" + categoryName + "/" + currentGameObject.Name + " (" + currentGameObject.Resref + ")";
+                    currentGameObject.TemporaryDisplayName = resourceTypeName + "/" + categoryName + "/" + currentGameObject.Name + " (" + currentGameObject.Resref + ")";
                     listBoxAvailable.Items.Add(currentGameObject);
                 }
             }

@@ -2,12 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using WinterEngine.DataAccess.Contexts;
+using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.DataAccess
 {
-    public class CreatureRepository : IDisposable
+    public class CreatureRepository : RepositoryBase, IDisposable
     {
+        #region Constructors
+        
+        public CreatureRepository(string connectionString = "")
+        {
+            if (String.IsNullOrWhiteSpace(connectionString))
+            {
+                connectionString = WinterConnectionInformation.ActiveConnectionString;
+            }
+            ConnectionString = connectionString;
+            
+        }
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Adds a creature to the database.
         /// </summary>
@@ -15,7 +32,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Add(Creature creature)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 context.Creatures.Add(creature);
                 context.SaveChanges();
@@ -31,7 +48,7 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new creature that will replace the creature with the matching resref.</param>
         public void Update(string resref, Creature newCreature)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Creature creature = context.Creatures.SingleOrDefault(x => x.Resref == resref);
                 
@@ -55,7 +72,7 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new creature to upsert.</param>
         public void Upsert(Creature newCreature)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Creature creature = context.Creatures.SingleOrDefault(x => x.Resref == newCreature.Resref);
 
@@ -81,7 +98,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(string resref)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Creature creature = context.Creatures.First(a => a.Resref == resref);
                 context.Creatures.Remove(creature);
@@ -95,7 +112,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Creature> GetAll()
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from creature
                             in context.Creatures
@@ -110,7 +127,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Creature> GetAllByResourceCategory(ResourceCategory resourceCategory)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from creature
                             in context.Creatures
@@ -127,7 +144,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Creature GetByResref(string resref)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 return context.Creatures.FirstOrDefault(x => x.Resref == resref);
             }
@@ -138,7 +155,7 @@ namespace WinterEngine.DataAccess
         /// </summary>
         public void DeleteAllByCategory(ResourceCategory resourceCategory)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from creature
                             in context.Creatures
@@ -162,7 +179,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Creature creature = context.Creatures.FirstOrDefault(a => a.Resref.Equals(resref));
                 return !Object.ReferenceEquals(creature, null);
@@ -174,5 +191,6 @@ namespace WinterEngine.DataAccess
         {
         }
 
+        #endregion
     }
 }

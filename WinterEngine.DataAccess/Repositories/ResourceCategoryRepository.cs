@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WinterEngine.DataAccess.Contexts;
+using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 
@@ -11,8 +12,24 @@ namespace WinterEngine.DataAccess
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class ResourceCategoryRepository : IDisposable
+    public class ResourceCategoryRepository : RepositoryBase, IDisposable
     {
+        #region Constructors
+
+        public ResourceCategoryRepository(string connectionString = "")
+        {
+            if (String.IsNullOrWhiteSpace(connectionString))
+            {
+                connectionString = WinterConnectionInformation.ActiveConnectionString;
+            }
+            ConnectionString = connectionString;
+            
+        }
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Returns all resource categories from the database.
         /// </summary>
@@ -21,7 +38,7 @@ namespace WinterEngine.DataAccess
         {
             List<ResourceCategory> _resourceCategoryList = new List<ResourceCategory>();
 
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from resourceCategory
                             in context.ResourceCategories
@@ -41,7 +58,7 @@ namespace WinterEngine.DataAccess
         {
             List<ResourceCategory> categoryList = new List<ResourceCategory>();
 
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from resourceCategory
                             in context.ResourceCategories
@@ -64,8 +81,8 @@ namespace WinterEngine.DataAccess
         public bool AddResourceCategory(ResourceCategory resourceCategory)
         {
             bool success = true;
-            
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 context.ResourceCategories.Add(resourceCategory);
                 context.SaveChanges();
@@ -84,7 +101,7 @@ namespace WinterEngine.DataAccess
         {
             bool success = true;
 
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 // Find the resource in the database that matches the passed-in resource's category ID (primary key)
                 ResourceCategory dbResource = context.ResourceCategories.SingleOrDefault(r => r.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID));
@@ -114,7 +131,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public ResourceCategory GetByResourceCategoryID(int resourceCategoryID)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 return context.ResourceCategories.FirstOrDefault(r => r.ResourceCategoryID == resourceCategoryID);
             }
@@ -128,7 +145,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(ResourceCategory resourceCategory)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 ResourceCategory dbResourceCategory = context.ResourceCategories.FirstOrDefault(r => r.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID));
                 return !Object.ReferenceEquals(dbResourceCategory, null);
@@ -144,7 +161,7 @@ namespace WinterEngine.DataAccess
         {
             bool success = true;
 
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 // Find the category in the database. CategoryID is a primary key so there will only ever be one.
                 ResourceCategory category = context.ResourceCategories.SingleOrDefault(val => val.ResourceCategoryID == resourceCategory.ResourceCategoryID);
@@ -167,5 +184,7 @@ namespace WinterEngine.DataAccess
         public void Dispose()
         {
         }
+
+        #endregion
     }
 }

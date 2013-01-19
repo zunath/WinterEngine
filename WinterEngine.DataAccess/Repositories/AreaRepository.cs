@@ -2,12 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using WinterEngine.DataAccess.Contexts;
+using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.DataAccess
 {
-    public class AreaRepository : IDisposable
+    public class AreaRepository : RepositoryBase, IDisposable
     {
+        #region Constructors
+
+        public AreaRepository(string connectionString = "")
+        {
+            if (String.IsNullOrWhiteSpace(connectionString))
+            {
+                connectionString = WinterConnectionInformation.ActiveConnectionString;
+            }
+            ConnectionString = connectionString;
+            
+        }
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Adds an area to the database.
         /// </summary>
@@ -15,7 +32,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Add(Area area)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 context.Areas.Add(area);
                 context.SaveChanges();
@@ -30,7 +47,7 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new area that will replace the area with the matching resref.</param>
         public void Update(string resref, Area newArea)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Area area = context.Areas.SingleOrDefault(x => x.Resref == resref);
 
@@ -54,7 +71,7 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new area to upsert.</param>
         public void Upsert(Area newArea)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Area area = context.Areas.SingleOrDefault(x => x.Resref == newArea.Resref);
 
@@ -80,7 +97,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(string resref)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Area area = context.Areas.First(a => a.Resref == resref);
                 context.Areas.Remove(area);
@@ -94,7 +111,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Area> GetAll()
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from area
                             in context.Areas
@@ -109,7 +126,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Area> GetAllByResourceCategory(ResourceCategory resourceCategory)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from area
                             in context.Areas
@@ -126,7 +143,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Area GetByResref(string resref)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 return context.Areas.FirstOrDefault(x => x.Resref == resref);                
             }
@@ -137,7 +154,7 @@ namespace WinterEngine.DataAccess
         /// </summary>
         public void DeleteAllByCategory(ResourceCategory resourceCategory)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from area
                             in context.Areas
@@ -161,7 +178,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Area area = context.Areas.FirstOrDefault(a => a.Resref.Equals(resref));
                 return !Object.ReferenceEquals(area, null);
@@ -172,5 +189,7 @@ namespace WinterEngine.DataAccess
         public void Dispose()
         {
         }
+
+        #endregion
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="Repositories\ModuleRepository.cs" />
     <Compile Include="Repositories\PlaceableRepository.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\ResourceCategoryRepository.cs" />
     <Compile Include="WinterConnectionInformation.cs" />
   </ItemGroup>

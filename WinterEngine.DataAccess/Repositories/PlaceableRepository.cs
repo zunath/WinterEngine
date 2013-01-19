@@ -2,12 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using WinterEngine.DataAccess.Contexts;
+using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.DataAccess
 {
-    public class PlaceableRepository : IDisposable
+    public class PlaceableRepository : RepositoryBase, IDisposable
     {
+        #region Constructors
+
+        public PlaceableRepository(string connectionString = "")
+        {
+            if (String.IsNullOrWhiteSpace(connectionString))
+            {
+                connectionString = WinterConnectionInformation.ActiveConnectionString;
+            }
+            ConnectionString = connectionString;
+            
+        }
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Adds a placeable to the database.
         /// </summary>
@@ -15,7 +32,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Add(Placeable placeable)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 context.Placeables.Add(placeable);
                 context.SaveChanges();
@@ -30,7 +47,7 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new placeable that will replace the placeable with the matching resref.</param>
         public void Update(string resref, Placeable newPlaceable)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Placeable placeable = context.Placeables.SingleOrDefault(x => x.Resref == resref);
 
@@ -54,7 +71,7 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new placeable to upsert.</param>
         public void Upsert(Placeable newPlaceable)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Placeable placeable = context.Placeables.SingleOrDefault(x => x.Resref == newPlaceable.Resref);
 
@@ -80,7 +97,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(string resref)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Placeable placeable = context.Placeables.First(a => a.Resref == resref);
                 context.Placeables.Remove(placeable);
@@ -94,7 +111,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Placeable> GetAll()
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from placeable
                             in context.Placeables
@@ -109,7 +126,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Placeable> GetAllByResourceCategory(ResourceCategory resourceCategory)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from placeable
                             in context.Placeables
@@ -126,7 +143,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Placeable GetByResref(string resref)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 return context.Placeables.FirstOrDefault(x => x.Resref == resref);
             }
@@ -137,7 +154,7 @@ namespace WinterEngine.DataAccess
         /// </summary>
         public void DeleteAllByCategory(ResourceCategory resourceCategory)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from item
                             in context.Items
@@ -161,7 +178,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (WinterContext context = new WinterContext(ConnectionString))
             {
                 Placeable placeable = context.Placeables.FirstOrDefault(a => a.Resref.Equals(resref));
                 return !Object.ReferenceEquals(placeable, null);
@@ -173,5 +190,6 @@ namespace WinterEngine.DataAccess
         {
         }
 
+        #endregion
     }
 }

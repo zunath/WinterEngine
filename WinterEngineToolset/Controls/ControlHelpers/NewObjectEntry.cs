@@ -75,7 +75,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                     winterObject.ResourceType = ResourceType;
 
                     // Add it to the database.
-                    factory.AddToDatabase(winterObject, ResourceType);
+                    factory.AddToDatabase(winterObject);
 
                     // Refresh the GUI and dispose of this form.
                     RefreshParentGUI(null, null);

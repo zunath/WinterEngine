@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects
@@ -12,12 +13,15 @@ namespace WinterEngine.DataTransferObjects
     {
         #region Fields
 
-        string _name;
-        string _tag;
-        string _resref;
-        ResourceTypeEnum _resourceType;
-        int _resourceCategoryID;
-        string _comment;
+        private string _name;
+        private string _tag;
+        private string _resref;
+        private ResourceTypeEnum _resourceType;
+        private int _resourceCategoryID;
+        private string _comment;
+
+        // Temporary fields (not stored in database)
+        private string _temporaryDisplayName;
 
         #endregion
 
@@ -94,6 +98,16 @@ namespace WinterEngine.DataTransferObjects
             set { _comment = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the temporary display name, for use with the ToString method.
+        /// </summary>
+        [NotMapped]
+        public string TemporaryDisplayName
+        {
+            get { return _temporaryDisplayName; }
+            set { _temporaryDisplayName = value; }
+        }
+
         #endregion
 
         #region Methods
@@ -103,7 +117,14 @@ namespace WinterEngine.DataTransferObjects
 
         public override string ToString()
         {
-            return Name;
+            if (String.IsNullOrWhiteSpace(TemporaryDisplayName))
+            {
+                return base.ToString();
+            }
+            else
+            {
+                return TemporaryDisplayName;
+            }
         }
 
         #endregion

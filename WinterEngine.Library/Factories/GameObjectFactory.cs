@@ -44,17 +44,73 @@ namespace WinterEngine.Library.Factories
         #region Database methods
 
         /// <summary>
-        /// Adds an object of a specified type to the database.
+        /// Adds a game object to the database.
         /// </summary>
-        /// <param name="winterObject">The winter object to add to the database. This will be type-converted and added to the correct table when run.</param>
-        /// <param name="resourceType">The type of resource to add.</param>
-        public void AddToDatabase(GameObject winterObject, ResourceTypeEnum resourceType)
+        /// <param name="winterObject">The game object to add to the database. This will be type-converted and added to the correct table when run.</param>
+        public void AddToDatabase(GameObject winterObject, string connectionString = "")
         {
-            if (resourceType == ResourceTypeEnum.Area)
+            if (winterObject.ResourceType == ResourceTypeEnum.Area)
             {
-                using (AreaRepository repo = new AreaRepository())
+                using (AreaRepository repo = new AreaRepository(connectionString))
                 {
                     repo.Add(winterObject as Area);
+                }
+            }
+            else if (winterObject.ResourceType == ResourceTypeEnum.Conversation)
+            {
+                throw new NotImplementedException();
+            }
+            else if (winterObject.ResourceType == ResourceTypeEnum.Creature)
+            {
+                using (CreatureRepository repo = new CreatureRepository(connectionString))
+                {
+                    repo.Add(winterObject as Creature);
+                }
+            }
+            else if (winterObject.ResourceType == ResourceTypeEnum.Item)
+            {
+                using (ItemRepository repo = new ItemRepository(connectionString))
+                {
+                    repo.Add(winterObject as Item);
+                }
+            }
+            else if (winterObject.ResourceType == ResourceTypeEnum.Placeable)
+            {
+                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
+                {
+                    repo.Add(winterObject as Placeable);
+                }
+            }
+            else if (winterObject.ResourceType == ResourceTypeEnum.Script)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Adds a list of game objects to the database. 
+        /// All objects in the list must be of the specified resourceType or errors may occur.
+        /// </summary>
+        /// <param name="gameObjectList"></param>
+        public void AddToDatabase(List<GameObject> gameObjectList, ResourceTypeEnum resourceType, string connectionString = "")
+        {
+            if (Object.ReferenceEquals(gameObjectList[0], null))
+            {
+                throw new NullReferenceException("gameObjectList is null.");
+            }
+
+            if (resourceType == ResourceTypeEnum.Area)
+            {
+                using (AreaRepository repo = new AreaRepository(connectionString))
+                {
+                    foreach (Area area in gameObjectList)
+                    {
+                        repo.Add(area);
+                    }
                 }
             }
             else if (resourceType == ResourceTypeEnum.Conversation)
@@ -63,23 +119,32 @@ namespace WinterEngine.Library.Factories
             }
             else if (resourceType == ResourceTypeEnum.Creature)
             {
-                using (CreatureRepository repo = new CreatureRepository())
+                using (CreatureRepository repo = new CreatureRepository(connectionString))
                 {
-                    repo.Add(winterObject as Creature);
+                    foreach (Creature creature in gameObjectList)
+                    {
+                        repo.Add(creature);
+                    }
                 }
             }
             else if (resourceType == ResourceTypeEnum.Item)
             {
-                using (ItemRepository repo = new ItemRepository())
+                using (ItemRepository repo = new ItemRepository(connectionString))
                 {
-                    repo.Add(winterObject as Item);
+                    foreach (Item item in gameObjectList)
+                    {
+                        repo.Add(item);
+                    }
                 }
             }
             else if (resourceType == ResourceTypeEnum.Placeable)
             {
-                using (PlaceableRepository repo = new PlaceableRepository())
+                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
                 {
-                    repo.Add(winterObject as Placeable);
+                    foreach (Placeable placeable in gameObjectList)
+                    {
+                        repo.Add(placeable);
+                    }
                 }
             }
             else if (resourceType == ResourceTypeEnum.Script)
@@ -93,15 +158,30 @@ namespace WinterEngine.Library.Factories
         }
 
         /// <summary>
+        /// Adds a list of game objects to the database.
+        /// Objects may be of different types.
+        /// Note that if all objects are of the same type, using the overloaded method which uses ResourceTypeEnum will be quicker on the processor.
+        /// </summary>
+        /// <param name="gameObjectList"></param>
+        /// <param name="connectionString"></param>
+        public void AddToDatabase(List<GameObject> gameObjectList, string connectionString = "")
+        {
+            foreach (GameObject gameObject in gameObjectList)
+            {
+                AddToDatabase(gameObject, connectionString);
+            }
+        }
+
+        /// <summary>
         /// Deletes an object with the specified resref from the database.
         /// </summary>
         /// <param name="winterObject"></param>
         /// <param name="resourceType"></param>
-        public void DeleteFromDatabase(string resref, ResourceTypeEnum resourceType)
+        public void DeleteFromDatabase(string resref, ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (resourceType == ResourceTypeEnum.Area)
             {
-                using (AreaRepository repo = new AreaRepository())
+                using (AreaRepository repo = new AreaRepository(connectionString))
                 {
                     repo.Delete(resref);
                 }
@@ -112,21 +192,21 @@ namespace WinterEngine.Library.Factories
             }
             else if (resourceType == ResourceTypeEnum.Creature)
             {
-                using (CreatureRepository repo = new CreatureRepository())
+                using (CreatureRepository repo = new CreatureRepository(connectionString))
                 {
                     repo.Delete(resref);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Item)
             {
-                using (ItemRepository repo = new ItemRepository())
+                using (ItemRepository repo = new ItemRepository(connectionString))
                 {
                     repo.Delete(resref);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Placeable)
             {
-                using (PlaceableRepository repo = new PlaceableRepository())
+                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
                 {
                     repo.Delete(resref);
                 }
@@ -147,11 +227,11 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="resourceType"></param>
         /// <returns></returns>
-        public List<GameObject> GetAllFromDatabase(ResourceTypeEnum resourceType)
+        public List<GameObject> GetAllFromDatabase(ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (resourceType == ResourceTypeEnum.Area)
             {
-                using (AreaRepository repo = new AreaRepository())
+                using (AreaRepository repo = new AreaRepository(connectionString))
                 {
                     return repo.GetAll().ConvertAll<GameObject>(x => (GameObject)x);
                 }
@@ -162,21 +242,21 @@ namespace WinterEngine.Library.Factories
             }
             else if (resourceType == ResourceTypeEnum.Creature)
             {
-                using (CreatureRepository repo = new CreatureRepository())
+                using (CreatureRepository repo = new CreatureRepository(connectionString))
                 {
                     return repo.GetAll().ConvertAll<GameObject>(x => (GameObject)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Item)
             {
-                using (ItemRepository repo = new ItemRepository())
+                using (ItemRepository repo = new ItemRepository(connectionString))
                 {
                     return repo.GetAll().ConvertAll<GameObject>(x => (GameObject)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Placeable)
             {
-                using (PlaceableRepository repo = new PlaceableRepository())
+                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
                 {
                     return repo.GetAll().ConvertAll<GameObject>(x => (GameObject)x);
                 }
@@ -197,13 +277,13 @@ namespace WinterEngine.Library.Factories
         /// <param name="resourceCategory">The resource category all return values must match</param>
         /// <param name="resourceType">The type of resource to look for.</param>
         /// <returns></returns>
-        public List<GameObject> GetAllFromDatabaseByResourceCategory(ResourceCategory resourceCategory, ResourceTypeEnum resourceType)
+        public List<GameObject> GetAllFromDatabaseByResourceCategory(ResourceCategory resourceCategory, ResourceTypeEnum resourceType, string connectionString = "")
         {
             List<GameObject> retList = new List<GameObject>();
 
             if (resourceType == ResourceTypeEnum.Area)
             {
-                using (AreaRepository repo = new AreaRepository())
+                using (AreaRepository repo = new AreaRepository(connectionString))
                 {
                     return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObject)x);
                 }
@@ -214,21 +294,21 @@ namespace WinterEngine.Library.Factories
             }
             else if (resourceType == ResourceTypeEnum.Creature)
             {
-                using (CreatureRepository repo = new CreatureRepository())
+                using (CreatureRepository repo = new CreatureRepository(connectionString))
                 {
                     return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObject)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Item)
             {
-                using (ItemRepository repo = new ItemRepository())
+                using (ItemRepository repo = new ItemRepository(connectionString))
                 {
                     return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObject)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Placeable)
             {
-                using (PlaceableRepository repo = new PlaceableRepository())
+                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
                 {
                     return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObject)x);
                 }
@@ -249,11 +329,11 @@ namespace WinterEngine.Library.Factories
         /// <param name="resref">The resource reference to search for.</param>
         /// <param name="resourceType">The type of resource to look for.</param>
         /// <returns></returns>
-        public GameObject GetFromDatabaseByResref(string resref, ResourceTypeEnum resourceType)
+        public GameObject GetFromDatabaseByResref(string resref, ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (resourceType == ResourceTypeEnum.Area)
             {
-                using (AreaRepository repo = new AreaRepository())
+                using (AreaRepository repo = new AreaRepository(connectionString))
                 {
                     return repo.GetByResref(resref);
                 }
@@ -264,21 +344,21 @@ namespace WinterEngine.Library.Factories
             }
             else if (resourceType == ResourceTypeEnum.Creature)
             {
-                using (CreatureRepository repo = new CreatureRepository())
+                using (CreatureRepository repo = new CreatureRepository(connectionString))
                 {
                     return repo.GetByResref(resref);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Item)
             {
-                using (ItemRepository repo = new ItemRepository())
+                using (ItemRepository repo = new ItemRepository(connectionString))
                 {
                     return repo.GetByResref(resref);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Placeable)
             {
-                using (PlaceableRepository repo = new PlaceableRepository())
+                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
                 {
                     return repo.GetByResref(resref);
                 }
@@ -298,11 +378,11 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="resourceCategory">The resource category to remove all objects from.</param>
         /// <param name="resourceType">The type of resource to look for.</param>
-        public void DeleteFromDatabaseByCategory(ResourceCategory resourceCategory, ResourceTypeEnum resourceType)
+        public void DeleteFromDatabaseByCategory(ResourceCategory resourceCategory, ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (resourceType == ResourceTypeEnum.Area)
             {
-                using (AreaRepository repo = new AreaRepository())
+                using (AreaRepository repo = new AreaRepository(connectionString))
                 {
                     repo.DeleteAllByCategory(resourceCategory);
                 }
@@ -313,21 +393,21 @@ namespace WinterEngine.Library.Factories
             }
             else if (resourceType == ResourceTypeEnum.Creature)
             {
-                using (CreatureRepository repo = new CreatureRepository())
+                using (CreatureRepository repo = new CreatureRepository(connectionString))
                 {
                     repo.DeleteAllByCategory(resourceCategory);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Item)
             {
-                using (ItemRepository repo = new ItemRepository())
+                using (ItemRepository repo = new ItemRepository(connectionString))
                 {
                     repo.DeleteAllByCategory(resourceCategory);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Placeable)
             {
-                using (PlaceableRepository repo = new PlaceableRepository())
+                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
                 {
                     repo.DeleteAllByCategory(resourceCategory);
                 }
@@ -349,11 +429,11 @@ namespace WinterEngine.Library.Factories
         /// <param name="resref">The resource reference to search for.</param>
         /// <param name="resourceType">The resource type to look for.</param>
         /// <returns></returns>
-        public bool DoesObjectExistInDatabase(string resref, ResourceTypeEnum resourceType)
+        public bool DoesObjectExistInDatabase(string resref, ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (resourceType == ResourceTypeEnum.Area)
             {
-                using (AreaRepository repo = new AreaRepository())
+                using (AreaRepository repo = new AreaRepository(connectionString))
                 {
                     return repo.Exists(resref);
                 }
@@ -364,21 +444,21 @@ namespace WinterEngine.Library.Factories
             }
             else if (resourceType == ResourceTypeEnum.Creature)
             {
-                using (CreatureRepository repo = new CreatureRepository())
+                using (CreatureRepository repo = new CreatureRepository(connectionString))
                 {
                     return repo.Exists(resref);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Item)
             {
-                using (ItemRepository repo = new ItemRepository())
+                using (ItemRepository repo = new ItemRepository(connectionString))
                 {
                     return repo.Exists(resref);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Placeable)
             {
-                using (PlaceableRepository repo = new PlaceableRepository())
+                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
                 {
                     return repo.Exists(resref);
                 }
@@ -396,7 +476,6 @@ namespace WinterEngine.Library.Factories
         #endregion
 
         #region Object conversion methods
-
 
         /// <summary>
         /// Builds independent resource lists based on the gameObjectList passed in.
