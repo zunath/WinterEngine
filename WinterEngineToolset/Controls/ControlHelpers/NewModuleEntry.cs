@@ -67,7 +67,5 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
 
         #endregion
 
-        
-
     }
 }

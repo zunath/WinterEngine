@@ -52,6 +52,7 @@
     <Compile Include="CharacterClass.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="Enumerations\FileTypeEnum.cs" />
+    <Compile Include="Enumerations\ObjectTreeTypeEnum.cs" />
     <Compile Include="Enumerations\ResourceTypeEnum.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Item.cs" />

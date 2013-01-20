@@ -16,9 +16,10 @@ namespace WinterEngine.ERF
     {
         #region Fields
 
-        List<GameObject> _duplicateList;
-        List<GameObject> _nonDuplicateList;
-        List<GameObject> _fullList;
+        private List<GameObject> _duplicateList;
+        private List<GameObject> _nonDuplicateList;
+        private List<GameObject> _fullList;
+        private string _tempDirectory;
 
         #endregion
 
@@ -50,6 +51,16 @@ namespace WinterEngine.ERF
             get { return _fullList; }
             set { _fullList = value; }
         }
+
+        /// <summary>
+        /// Gets or sets the temporary directory containing ERF files.
+        /// </summary>
+        public string TemporaryDirectory
+        {
+            get { return _tempDirectory; }
+            set { _tempDirectory = value; }
+        }
+
 
         #endregion
 
@@ -106,6 +117,11 @@ namespace WinterEngine.ERF
                 OnERFImported(this, eventArgs);
             }
 
+            if (Directory.Exists(TemporaryDirectory))
+            {
+                Directory.Delete(TemporaryDirectory, true);
+            }
+
             this.Dispose();
         }
 
@@ -117,22 +133,21 @@ namespace WinterEngine.ERF
         /// </summary>
         public void AttemptImport()
         {
-            string tempDirectory = "";
             try
             {
                 string erfDatabaseConnectionString = "";
                 WinterFileHelper fileHelper = new WinterFileHelper();
-                tempDirectory = fileHelper.CreateTemporaryDirectory("erf");
+                TemporaryDirectory = fileHelper.CreateTemporaryDirectory("erf");
                 string erfDatabaseFilePath = "";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     using (ZipFile zipFile = new ZipFile(openFileDialog.FileName))
                     {
-                        zipFile.ExtractAll(tempDirectory, ExtractExistingFileAction.OverwriteSilently);
+                        zipFile.ExtractAll(TemporaryDirectory, ExtractExistingFileAction.OverwriteSilently);
                     }
 
-                    erfDatabaseFilePath = fileHelper.GetDatabaseFileInDirectory(tempDirectory);
+                    erfDatabaseFilePath = fileHelper.GetDatabaseFileInDirectory(TemporaryDirectory);
 
                     using (DatabaseRepository repo = new DatabaseRepository())
                     {
@@ -170,9 +185,9 @@ namespace WinterEngine.ERF
             }
             catch (Exception ex)
             {
-                if (Directory.Exists(tempDirectory))
+                if (Directory.Exists(TemporaryDirectory))
                 {
-                    Directory.Delete(tempDirectory, true);
+                    Directory.Delete(TemporaryDirectory, true);
                 }
                 
                 ErrorHelper.ShowErrorDialog("Error importing encapsulated resource file", ex);

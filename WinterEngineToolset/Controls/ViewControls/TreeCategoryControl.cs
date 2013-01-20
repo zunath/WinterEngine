@@ -185,6 +185,27 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         #region Tree view helpers
 
         /// <summary>
+        /// Determines what type of node a tree node is.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        private ObjectTreeTypeEnum GetNodeType(TreeNode node)
+        {
+            if (node == treeView.TopNode)
+            {
+                return ObjectTreeTypeEnum.Root;
+            }
+            else if (node.Parent == treeView.TopNode)
+            {
+                return ObjectTreeTypeEnum.Category;
+            }
+            else
+            {
+                return ObjectTreeTypeEnum.Object;
+            }
+        }
+
+        /// <summary>
         /// Adds missing categories and objects to the tree view.
         /// Removes deleted categories and objects from the tree view.
         /// </summary>
@@ -359,16 +380,17 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void treeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            ObjectTreeTypeEnum nodeType = GetNodeType(e.Node);
             // Selected node was the root node.
-            if (e.Node == treeView.TopNode)
+            if (nodeType == ObjectTreeTypeEnum.Root)
             {
             }
             // Selected node was a category
-            else if (e.Node.Parent == treeView.TopNode)
+            else if (nodeType == ObjectTreeTypeEnum.Category)
             {
             }
             // Selected node was an object
-            else
+            else if (nodeType == ObjectTreeTypeEnum.Object)
             {
                 GameObjectEventArgs eventArgs = new GameObjectEventArgs();
                 eventArgs.GameObject = e.Node.Tag as GameObject;
@@ -399,7 +421,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         private void contextMenuStripNodes_Opening(object sender, CancelEventArgs e)
         {
             contextMenuStripNodes.Items.Clear();
-
+            
             if (treeView.SelectedNode == treeView.TopNode)
             {
                 ToolStripItem createCategory = contextMenuStripNodes.Items.Add("Create Category");
@@ -567,21 +589,83 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 // Be sure that a node is selected
                 if (!Object.ReferenceEquals(treeView.SelectedNode, null))
                 {
-                    // Root node selected - do nothing.
-                    if (selectedNode == treeView.TopNode)
+                    ObjectTreeTypeEnum nodeType = GetNodeType(selectedNode);
+                    
+                    if (nodeType == ObjectTreeTypeEnum.Root)
                     {
+                        // Left empty for future use.
                     }
-                    // Parent is the root node. User selected a category node.
-                    else if (selectedNode.Parent == treeView.TopNode)
+                    else if (nodeType == ObjectTreeTypeEnum.Category)
                     {
                         contextMenuStripNodes_DeleteCategory(this, null);
                     }
-                    // Otherwise an object node was selected.
-                    else
+                    else if(nodeType == ObjectTreeTypeEnum.Object)
                     {
                         contextMenuStripNodes_DeleteObject(this, null);
                     }
                 }
+            }
+        }
+
+        #endregion
+
+        #region Drag-Drop Event Handling
+
+        private void treeView_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            TreeNode treeNode = e.Item as TreeNode;
+
+            if(GetNodeType(treeNode) == ObjectTreeTypeEnum.Object)
+            {
+                DoDragDrop(e.Item, DragDropEffects.Move);
+            }
+        }
+
+        private void treeView_DragDrop(object sender, DragEventArgs e)
+        {
+
+            Point dropPoint = ((TreeView)sender).PointToClient(new Point(e.X, e.Y));
+            TreeNode destinationNode = treeView.GetNodeAt(dropPoint);
+            
+            if (GetNodeType(destinationNode) == ObjectTreeTypeEnum.Category)
+            {
+                GameObjectFactory factory = new GameObjectFactory();
+                ResourceCategory resourceCategory = destinationNode.Tag as ResourceCategory;
+                TreeNode newNode = e.Data.GetData(typeof(TreeNode)) as TreeNode;
+
+                // Update the game object's resource category ID and update the database.
+                GameObject gameObject = newNode.Tag as GameObject;
+                gameObject.ResourceCategoryID = resourceCategory.ResourceCategoryID;
+                factory.UpdateInDatabase(gameObject);
+
+                newNode.Remove();
+                destinationNode.Nodes.Add(newNode);
+
+            }
+
+            /*
+            TreeNode treeNode = e.Data as TreeNode;
+            Point pt = new Point(e.X, e.Y);
+            pt = treeView.PointToClient(pt);
+            TreeNode ParentNode = treeView.GetNodeAt(pt);
+
+            ParentNode.Nodes.Add(treeNode);
+            treeNode.Remove(); // need to remove the original version of the node 
+            */
+        }
+
+        private void treeView_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void treeView_DragOver(object sender, DragEventArgs e)
+        {
+            TreeNode node = treeView.GetNodeAt(treeView.PointToClient(new Point(e.X, e.Y)));
+
+            if (!Object.ReferenceEquals(node.Parent, null) && node.Parent == treeView.TopNode)
+            {
+                treeView.SelectedNode = node;
             }
         }
 
