@@ -4,6 +4,7 @@ using Ionic.Zip;
 using Ionic.Zlib;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Helpers;
 
 namespace WinterEngine.Library.Factories
@@ -188,7 +189,6 @@ namespace WinterEngine.Library.Factories
 
         #endregion
 
-
         #region Methods
 
         /// <summary>
@@ -217,6 +217,8 @@ namespace WinterEngine.Library.Factories
                 repo.Add(gameModule);
             }
 
+            InitializeData();
+            LoadResourcePacks();
         }
 
         /// <summary>
@@ -307,6 +309,41 @@ namespace WinterEngine.Library.Factories
             this.TemporaryDirectoryPath = "";
 
             _moduleClosedMethod();
+        }
+
+        #endregion
+
+        #region Module Initialization Methods
+
+        /// <summary>
+        /// Handles loading the standardized resource pack files into the database for the module.
+        /// </summary>
+        private void LoadResourcePacks()
+        {
+        }
+
+        /// <summary>
+        /// Handles inserting Winter Resource Packs which contains
+        /// blueprints for items, creatures, etc.
+        /// </summary>
+        private void InitializeData()
+        {
+            // Add the "Uncategorized" category for each resource type.
+            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+            {
+                ResourceCategory category = new ResourceCategory { ResourceName = "*Uncategorized", ResourceTypeID = (int)ResourceTypeEnum.Area, IsSystemCategory = true };
+                repo.AddResourceCategory(category);
+                category.ResourceTypeID = (int)ResourceTypeEnum.Conversation;
+                repo.AddResourceCategory(category);
+                category.ResourceTypeID = (int)ResourceTypeEnum.Creature;
+                repo.AddResourceCategory(category);
+                category.ResourceTypeID = (int)ResourceTypeEnum.Item;
+                repo.AddResourceCategory(category);
+                category.ResourceTypeID = (int)ResourceTypeEnum.Placeable;
+                repo.AddResourceCategory(category);
+                category.ResourceTypeID = (int)ResourceTypeEnum.Script;
+                repo.AddResourceCategory(category);
+            }
         }
 
         #endregion

@@ -87,6 +87,8 @@ namespace WinterEngine.ERF
         /// <param name="gameObjectList"></param>
         private void DoImport()
         {
+            GameObjectFactory factory = new GameObjectFactory();
+            factory.AddToDatabase(FullList);
         }
 
         /// <summary>

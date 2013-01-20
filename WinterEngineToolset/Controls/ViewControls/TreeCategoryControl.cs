@@ -188,8 +188,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// Adds missing categories and objects to the tree view.
         /// Removes deleted categories and objects from the tree view.
         /// </summary>
-        /// <param name="treeView"></param>
-        /// <param name="resourceType"></param>
         public void RefreshTreeView()
         {
             GameObjectFactory factory = new GameObjectFactory();
@@ -411,16 +409,21 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             // the root node.
             else if (treeView.SelectedNode.Parent == treeView.TopNode)
             {
-                // Add options for category context menu
+                ResourceCategory resourceCategory = treeView.SelectedNode.Tag as ResourceCategory;
+                // Add options for category context menu. 
+                // Note that system categories cannot be renamed or deleted
                 ToolStripItem createObjectItem = contextMenuStripNodes.Items.Add("Create " + GameObjectResourceType.ToString());
-                contextMenuStripNodes.Items.Add("-");
-                ToolStripItem renameCategoryItem = contextMenuStripNodes.Items.Add("Rename");
-                ToolStripItem deleteCategoryItem = contextMenuStripNodes.Items.Add("Delete Category");
 
-                // Add events to each item click event
+                if (!resourceCategory.IsSystemCategory)
+                {
+                    contextMenuStripNodes.Items.Add("-");
+                    ToolStripItem renameCategoryItem = contextMenuStripNodes.Items.Add("Rename");
+                    ToolStripItem deleteCategoryItem = contextMenuStripNodes.Items.Add("Delete Category");
+                    // Add events to each item click event
+                    renameCategoryItem.Click += new EventHandler(contextMenuStripNodes_RenameCategory);
+                    deleteCategoryItem.Click += new EventHandler(contextMenuStripNodes_DeleteCategory);
+                }
                 createObjectItem.Click += new EventHandler(contextMenuStripNodes_CreateObject);
-                renameCategoryItem.Click += new EventHandler(contextMenuStripNodes_RenameCategory);
-                deleteCategoryItem.Click += new EventHandler(contextMenuStripNodes_DeleteCategory);
 
             }
             // Otherwise, an object node was selected.

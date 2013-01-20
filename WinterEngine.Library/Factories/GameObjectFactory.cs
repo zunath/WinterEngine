@@ -47,6 +47,7 @@ namespace WinterEngine.Library.Factories
         /// Adds a game object to the database.
         /// </summary>
         /// <param name="winterObject">The game object to add to the database. This will be type-converted and added to the correct table when run.</param>
+        /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         public void AddToDatabase(GameObject winterObject, string connectionString = "")
         {
             if (winterObject.ResourceType == ResourceTypeEnum.Area)
@@ -89,6 +90,7 @@ namespace WinterEngine.Library.Factories
             {
                 throw new NotSupportedException();
             }
+
         }
 
         /// <summary>
@@ -96,6 +98,8 @@ namespace WinterEngine.Library.Factories
         /// All objects in the list must be of the specified resourceType or errors may occur.
         /// </summary>
         /// <param name="gameObjectList"></param>
+        /// <param name="connectionString"></param>
+        /// <param name="resourceType"></param>
         public void AddToDatabase(List<GameObject> gameObjectList, ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (Object.ReferenceEquals(gameObjectList[0], null))
