@@ -73,12 +73,23 @@ namespace WinterEngine.ERF
         {
             try
             {
+                // No objects added to the list
+                if (listBoxAdded.Items.Count <= 0)
+                {
+                    MessageBox.Show("Please add resources before saving the file.", "No files added!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // User must select a location, if not already set or if they are forced to.
                 if (String.IsNullOrEmpty(_fileLocation) || forceFileSelection)
                 {
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         _fileLocation = saveFileDialog.FileName;
+                    }
+                    else
+                    {
+                        return;
                     }
                 }
 

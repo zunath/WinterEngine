@@ -70,7 +70,6 @@ namespace WinterEngine.ERF
             }
             catch (Exception ex)
             {
-                // Remove the temporary directory, if it exists.
                 if (Directory.Exists(tempDirectory))
                 {
                     Directory.Delete(tempDirectory, true);

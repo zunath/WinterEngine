@@ -158,8 +158,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     ResourceCategory resourceCategoryDTO = treeView.SelectedNode.Tag as ResourceCategory;
                     resourceCategoryDTO.ResourceName = inputText;
                     repo.UpdateResourceCategory(resourceCategoryDTO);
-
-                    RefreshTreeView();
+                    treeView.SelectedNode.Text = resourceCategoryDTO.ResourceName;
                 }
             }
             catch (Exception ex)
