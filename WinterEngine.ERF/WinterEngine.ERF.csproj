@@ -58,7 +58,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ERFRepository.cs" />
     <Compile Include="ERFResource.cs" />
     <Compile Include="ExportERF.cs">
       <SubType>Form</SubType>

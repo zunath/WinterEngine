@@ -4,8 +4,6 @@ using Ionic.Zip;
 using Ionic.Zlib;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.Library.Factories;
 using WinterEngine.Library.Helpers;
 
 namespace WinterEngine.Library.Factories

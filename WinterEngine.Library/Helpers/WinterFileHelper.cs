@@ -81,13 +81,13 @@ namespace WinterEngine.Library.Helpers
 
         /// <summary>
         /// Creates a temporary directory in the same folder as the executable.
-        /// New directory's name is "temp" + uniqueID
+        /// New directory's name is "temp" + suffix + uniqueID
         /// </summary>
         /// <param name="directoryUniqueName"></param>
         /// <returns></returns>
-        public string CreateTemporaryDirectory()
+        public string CreateTemporaryDirectory(string suffix = "")
         {
-            string directoryPath = "./temp";
+            string directoryPath = "./temp" + suffix;
             int uniqueID = 0;
 
             try

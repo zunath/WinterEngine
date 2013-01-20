@@ -49,6 +49,7 @@
     <Compile Include="Repositories\AreaRepository.cs" />
     <Compile Include="Repositories\DatabaseRepository.cs" />
     <Compile Include="Repositories\CreatureRepository.cs" />
+    <Compile Include="Repositories\ERFRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="Repositories\ModuleRepository.cs" />
     <Compile Include="Repositories\PlaceableRepository.cs" />

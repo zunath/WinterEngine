@@ -246,7 +246,7 @@ namespace WinterEngine.Toolset
         /// <param name="e"></param>
         private void toolStripMenuItemWebsite_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://winterengine.proboards.com/");
+            System.Diagnostics.Process.Start("http://www.winterengine.com/");
         }
 
         /// <summary>
