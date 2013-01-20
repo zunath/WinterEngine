@@ -323,8 +323,8 @@ namespace WinterEngine.Library.Factories
         }
 
         /// <summary>
-        /// Handles inserting Winter Resource Packs which contains
-        /// blueprints for items, creatures, etc.
+        /// Handles setting up system data in the module's database.
+        /// These are core pieces of data needed to ensure everything runs correctly.
         /// </summary>
         private void InitializeData()
         {

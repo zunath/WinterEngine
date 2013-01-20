@@ -98,7 +98,7 @@ namespace WinterEngine.Library.Factories
         /// All objects in the list must be of the specified resourceType or errors may occur.
         /// </summary>
         /// <param name="gameObjectList"></param>
-        /// <param name="connectionString"></param>
+        /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         /// <param name="resourceType"></param>
         public void AddToDatabase(List<GameObject> gameObjectList, ResourceTypeEnum resourceType, string connectionString = "")
         {
@@ -167,7 +167,7 @@ namespace WinterEngine.Library.Factories
         /// Note that if all objects are of the same type, using the overloaded method which uses ResourceTypeEnum will be quicker on the processor.
         /// </summary>
         /// <param name="gameObjectList"></param>
-        /// <param name="connectionString"></param>
+        /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         public void AddToDatabase(List<GameObject> gameObjectList, string connectionString = "")
         {
             foreach (GameObject gameObject in gameObjectList)
@@ -177,10 +177,112 @@ namespace WinterEngine.Library.Factories
         }
 
         /// <summary>
+        /// Updates a gameObject's entry in the database.
+        /// An exception will be thrown if an object with a matching resref is not found.
+        /// </summary>
+        /// <param name="gameObject">The game object to update. Its resref will be searched for in the database.</param>
+        /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
+        public void UpdateInDatabase(GameObject gameObject, string connectionString = "")
+        {
+            if (gameObject.ResourceType == ResourceTypeEnum.Area)
+            {
+                using (AreaRepository repo = new AreaRepository(connectionString))
+                {
+                    repo.Update(gameObject.Resref, gameObject as Area);
+                }
+            }
+            else if (gameObject.ResourceType == ResourceTypeEnum.Conversation)
+            {
+                throw new NotImplementedException();
+            }
+            else if (gameObject.ResourceType == ResourceTypeEnum.Creature)
+            {
+                using (CreatureRepository repo = new CreatureRepository(connectionString))
+                {
+                    repo.Update(gameObject.Resref, gameObject as Creature);
+                }
+            }
+            else if (gameObject.ResourceType == ResourceTypeEnum.Item)
+            {
+                using (ItemRepository repo = new ItemRepository(connectionString))
+                {
+                    repo.Update(gameObject.Resref, gameObject as Item);
+                }
+            }
+            else if (gameObject.ResourceType == ResourceTypeEnum.Placeable)
+            {
+                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
+                {
+                    repo.Update(gameObject.Resref, gameObject as Placeable);
+                }
+            }
+            else if (gameObject.ResourceType == ResourceTypeEnum.Script)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
+        }
+
+
+        /// <summary>
+        /// Updates a gameObject's entry in the database.
+        /// If an object is not found, the object will be added to the database.
+        /// </summary>
+        /// <param name="gameObject">The game object to update. Its resref will be searched for in the database.</param>
+        /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
+        public void UpsertInDatabase(GameObject gameObject, string connectionString = "")
+        {
+            if (gameObject.ResourceType == ResourceTypeEnum.Area)
+            {
+                using (AreaRepository repo = new AreaRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Area);
+                }
+            }
+            else if (gameObject.ResourceType == ResourceTypeEnum.Conversation)
+            {
+                throw new NotImplementedException();
+            }
+            else if (gameObject.ResourceType == ResourceTypeEnum.Creature)
+            {
+                using (CreatureRepository repo = new CreatureRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Creature);
+                }
+            }
+            else if (gameObject.ResourceType == ResourceTypeEnum.Item)
+            {
+                using (ItemRepository repo = new ItemRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Item);
+                }
+            }
+            else if (gameObject.ResourceType == ResourceTypeEnum.Placeable)
+            {
+                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Placeable);
+                }
+            }
+            else if (gameObject.ResourceType == ResourceTypeEnum.Script)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
         /// Deletes an object with the specified resref from the database.
         /// </summary>
-        /// <param name="winterObject"></param>
-        /// <param name="resourceType"></param>
+        /// <param name="resref">The resource reference to search for.</param>
+        /// <param name="resourceType">The type of resource to remove.</param>
+        /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         public void DeleteFromDatabase(string resref, ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (resourceType == ResourceTypeEnum.Area)
@@ -230,6 +332,7 @@ namespace WinterEngine.Library.Factories
         /// Returns a list of all objects in the database of a specified resource type.
         /// </summary>
         /// <param name="resourceType"></param>
+        /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         /// <returns></returns>
         public List<GameObject> GetAllFromDatabase(ResourceTypeEnum resourceType, string connectionString = "")
         {
@@ -280,6 +383,7 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="resourceCategory">The resource category all return values must match</param>
         /// <param name="resourceType">The type of resource to look for.</param>
+        /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         /// <returns></returns>
         public List<GameObject> GetAllFromDatabaseByResourceCategory(ResourceCategory resourceCategory, ResourceTypeEnum resourceType, string connectionString = "")
         {
@@ -332,6 +436,7 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="resref">The resource reference to search for.</param>
         /// <param name="resourceType">The type of resource to look for.</param>
+        /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         /// <returns></returns>
         public GameObject GetFromDatabaseByResref(string resref, ResourceTypeEnum resourceType, string connectionString = "")
         {
@@ -382,6 +487,7 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="resourceCategory">The resource category to remove all objects from.</param>
         /// <param name="resourceType">The type of resource to look for.</param>
+        /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         public void DeleteFromDatabaseByCategory(ResourceCategory resourceCategory, ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (resourceType == ResourceTypeEnum.Area)
@@ -432,6 +538,7 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="resref">The resource reference to search for.</param>
         /// <param name="resourceType">The resource type to look for.</param>
+        /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         /// <returns></returns>
         public bool DoesObjectExistInDatabase(string resref, ResourceTypeEnum resourceType, string connectionString = "")
         {

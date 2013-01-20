@@ -419,7 +419,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     contextMenuStripNodes.Items.Add("-");
                     ToolStripItem renameCategoryItem = contextMenuStripNodes.Items.Add("Rename");
                     ToolStripItem deleteCategoryItem = contextMenuStripNodes.Items.Add("Delete Category");
-                    // Add events to each item click event
+
                     renameCategoryItem.Click += new EventHandler(contextMenuStripNodes_RenameCategory);
                     deleteCategoryItem.Click += new EventHandler(contextMenuStripNodes_DeleteCategory);
                 }

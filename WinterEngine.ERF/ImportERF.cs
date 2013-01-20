@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Ionic.Zip;
 using WinterEngine.DataAccess;
@@ -68,6 +63,12 @@ namespace WinterEngine.ERF
 
         #endregion
 
+        #region Events / Delegates
+
+        public event EventHandler OnERFImported;
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -87,8 +88,25 @@ namespace WinterEngine.ERF
         /// <param name="gameObjectList"></param>
         private void DoImport()
         {
+            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+            {
+                foreach (GameObject gameObject in FullList)
+                {
+                    gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.ResourceType).ResourceCategoryID;
+                }
+            }
+
             GameObjectFactory factory = new GameObjectFactory();
             factory.AddToDatabase(FullList);
+
+            if (!Object.ReferenceEquals(OnERFImported, null))
+            {
+                // Make a call back to subscribers. Typically this is used to update the TreeViews of the main form.
+                EventArgs eventArgs = new EventArgs();
+                OnERFImported(this, eventArgs);
+            }
+
+            this.Dispose();
         }
 
         /// <summary>
@@ -139,6 +157,10 @@ namespace WinterEngine.ERF
                 {
                     foreach (GameObject gameObject in DuplicateList)
                     {
+                        // Update the game object's TemporaryDisplayName so that the list view shows it properly
+                        string resourceTypeName = EnumerationHelper.GetEnumerationDescription(gameObject.ResourceType);
+                        gameObject.TemporaryDisplayName = resourceTypeName + "/" + gameObject.Name + " (" + gameObject.Resref + ")";
+                    
                         listBoxResources.Items.Add(gameObject);
                     }
 
@@ -158,7 +180,6 @@ namespace WinterEngine.ERF
         }
 
         #endregion
-
 
         #region Event handling
 
@@ -206,6 +227,30 @@ namespace WinterEngine.ERF
         /// <param name="e"></param>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            this.Dispose();
+        }
+
+        /// <summary>
+        /// Handles adding selected resources to the full list, which will then be imported.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonImport_Click(object sender, EventArgs e)
+        {
+            GameObjectFactory factory = new GameObjectFactory();
+
+            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+            {
+                foreach (GameObject gameObject in listBoxResources.SelectedItems)
+                {
+                    gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.ResourceType).ResourceCategoryID;
+                    factory.UpdateInDatabase(gameObject);
+                }
+            }
+            // Handle importing the non-duplicate objects.
+            FullList = NonDuplicateList;
+            DoImport();
+
             this.Dispose();
         }
 

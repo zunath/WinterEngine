@@ -87,7 +87,7 @@ namespace WinterEngine.DataAccess.Repositories
 
                     foreach (Item item in erfContext.Items)
                     {
-                        if (!Object.ReferenceEquals(mainContext.Creatures.FirstOrDefault(x => x.Resref == item.Resref), null))
+                        if (!Object.ReferenceEquals(mainContext.Items.FirstOrDefault(x => x.Resref == item.Resref), null))
                         {
                             duplicateList.Add(item);
                         }
@@ -100,7 +100,7 @@ namespace WinterEngine.DataAccess.Repositories
 
                     foreach (Placeable placeable in erfContext.Placeables)
                     {
-                        if (!Object.ReferenceEquals(mainContext.Creatures.FirstOrDefault(x => x.Resref == placeable.Resref), null))
+                        if (!Object.ReferenceEquals(mainContext.Placeables.FirstOrDefault(x => x.Resref == placeable.Resref), null))
                         {
                             duplicateList.Add(placeable);
                         }

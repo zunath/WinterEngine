@@ -47,6 +47,7 @@
             this.buttonImport.TabIndex = 0;
             this.buttonImport.Text = "Import";
             this.buttonImport.UseVisualStyleBackColor = true;
+            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
             // 
             // buttonCancel
             // 

@@ -225,6 +225,7 @@ namespace WinterEngine.Toolset
         private void toolStripMenuItemImportERF_Click(object sender, EventArgs e)
         {
             _importERF = new ImportERF();
+            _importERF.OnERFImported += OnERFImportedSuccessfully;
             _importERF.AttemptImport();
         }
 
@@ -321,6 +322,23 @@ namespace WinterEngine.Toolset
         {
             ToggleModuleControlsEnabled(false);
             UnloadAllControls();
+        }
+
+        #endregion
+
+        #region ERF Import/Export Methods
+
+        /// <summary>
+        /// Refreshes the tree views whenever an ERF is imported successfully.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnERFImportedSuccessfully(object sender, EventArgs e)
+        {
+            areaView.RefreshControls();
+            itemView.RefreshControls();
+            creatureView.RefreshControls();
+            placeableView.RefreshControls();
         }
 
         #endregion

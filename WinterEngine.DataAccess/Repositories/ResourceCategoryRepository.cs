@@ -181,6 +181,23 @@ namespace WinterEngine.DataAccess
             return success;
         }
 
+        /// <summary>
+        /// Returns the system category named "*Uncategorized" for a particular resource type.
+        /// </summary>
+        /// <param name="resourceType">The type of resource to look for.</param>
+        /// <returns></returns>
+        public ResourceCategory GetUncategorizedCategory(ResourceTypeEnum resourceType)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                var query = from category
+                            in context.ResourceCategories
+                            where category.IsSystemCategory == true && category.ResourceTypeID == (int)resourceType
+                            select category;
+                return query.ToList()[0];
+            }
+        }
+
         public void Dispose()
         {
         }
