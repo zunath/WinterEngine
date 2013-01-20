@@ -59,10 +59,12 @@
             this.toolStripMenuItemWebsite = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageCreatures = new System.Windows.Forms.TabPage();
+            this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAreas = new System.Windows.Forms.TabPage();
             this.areaView = new WinterEngine.Toolset.GUI.Views.AreaView();
             this.tabPageItems = new System.Windows.Forms.TabPage();
+            this.itemView = new WinterEngine.Toolset.GUI.Views.ItemView();
             this.tabPagePlaceables = new System.Windows.Forms.TabPage();
             this.placeableView = new WinterEngine.Toolset.GUI.Views.PlaceableView();
             this.tabPageConversations = new System.Windows.Forms.TabPage();
@@ -73,11 +75,11 @@
             this.panelScriptControl = new System.Windows.Forms.Panel();
             this.buttonAddScriptCategory = new System.Windows.Forms.Button();
             this.treeViewScripts = new System.Windows.Forms.TreeView();
+            this.tabPageAdvanced = new System.Windows.Forms.TabPage();
+            this.advancedView1 = new WinterEngine.Toolset.GUI.Views.AdvancedView();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
-            this.itemView = new WinterEngine.Toolset.GUI.Views.ItemView();
             this.menuStripMain.SuspendLayout();
             this.tabPageCreatures.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -86,6 +88,7 @@
             this.tabPagePlaceables.SuspendLayout();
             this.tabPageConversations.SuspendLayout();
             this.tabPageScripts.SuspendLayout();
+            this.tabPageAdvanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStripMain
@@ -332,6 +335,13 @@
             this.tabPageCreatures.Text = "Creatures";
             this.tabPageCreatures.UseVisualStyleBackColor = true;
             // 
+            // creatureView
+            // 
+            this.creatureView.Location = new System.Drawing.Point(0, 7);
+            this.creatureView.Name = "creatureView";
+            this.creatureView.Size = new System.Drawing.Size(570, 455);
+            this.creatureView.TabIndex = 0;
+            // 
             // tabControlMain
             // 
             this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -343,6 +353,7 @@
             this.tabControlMain.Controls.Add(this.tabPagePlaceables);
             this.tabControlMain.Controls.Add(this.tabPageConversations);
             this.tabControlMain.Controls.Add(this.tabPageScripts);
+            this.tabControlMain.Controls.Add(this.tabPageAdvanced);
             this.tabControlMain.Enabled = false;
             this.tabControlMain.Location = new System.Drawing.Point(0, 24);
             this.tabControlMain.Name = "tabControlMain";
@@ -378,6 +389,13 @@
             this.tabPageItems.TabIndex = 1;
             this.tabPageItems.Text = "Items";
             this.tabPageItems.UseVisualStyleBackColor = true;
+            // 
+            // itemView
+            // 
+            this.itemView.Location = new System.Drawing.Point(0, 7);
+            this.itemView.Name = "itemView";
+            this.itemView.Size = new System.Drawing.Size(570, 455);
+            this.itemView.TabIndex = 0;
             // 
             // tabPagePlaceables
             // 
@@ -475,24 +493,28 @@
             this.treeViewScripts.Size = new System.Drawing.Size(186, 416);
             this.treeViewScripts.TabIndex = 4;
             // 
+            // tabPageAdvanced
+            // 
+            this.tabPageAdvanced.Controls.Add(this.advancedView1);
+            this.tabPageAdvanced.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAdvanced.Name = "tabPageAdvanced";
+            this.tabPageAdvanced.Size = new System.Drawing.Size(756, 462);
+            this.tabPageAdvanced.TabIndex = 5;
+            this.tabPageAdvanced.Text = "Advanced";
+            this.tabPageAdvanced.UseVisualStyleBackColor = true;
+            // 
+            // advancedView1
+            // 
+            this.advancedView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.advancedView1.Location = new System.Drawing.Point(0, 0);
+            this.advancedView1.Name = "advancedView1";
+            this.advancedView1.Size = new System.Drawing.Size(756, 462);
+            this.advancedView1.TabIndex = 0;
+            // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(162, 6);
-            // 
-            // creatureView
-            // 
-            this.creatureView.Location = new System.Drawing.Point(0, 7);
-            this.creatureView.Name = "creatureView";
-            this.creatureView.Size = new System.Drawing.Size(570, 455);
-            this.creatureView.TabIndex = 0;
-            // 
-            // itemView
-            // 
-            this.itemView.Location = new System.Drawing.Point(0, 7);
-            this.itemView.Name = "itemView";
-            this.itemView.Size = new System.Drawing.Size(570, 455);
-            this.itemView.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -515,6 +537,7 @@
             this.tabPagePlaceables.ResumeLayout(false);
             this.tabPageConversations.ResumeLayout(false);
             this.tabPageScripts.ResumeLayout(false);
+            this.tabPageAdvanced.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -572,6 +595,8 @@
         private GUI.Views.AreaView areaView;
         private GUI.Views.CreatureView creatureView;
         private GUI.Views.ItemView itemView;
+        private System.Windows.Forms.TabPage tabPageAdvanced;
+        private GUI.Views.AdvancedView advancedView1;
     }
 }
 

@@ -4,6 +4,8 @@ using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess
 {
@@ -125,13 +127,13 @@ namespace WinterEngine.DataAccess
         /// Returns all of the creatures in a specified category from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Creature> GetAllByResourceCategory(ResourceCategory resourceCategory)
+        public List<Creature> GetAllByResourceCategory(Category resourceCategory)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from creature
                             in context.Creatures
-                            where creature.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID)
+                            where creature.ResourceCategoryID.Equals(resourceCategory.ResourceID)
                             select creature;
                 return query.ToList<Creature>();
             }
@@ -153,13 +155,13 @@ namespace WinterEngine.DataAccess
         /// <summary>
         /// Deletes all of the creatures attached to a specified category from the database.
         /// </summary>
-        public void DeleteAllByCategory(ResourceCategory resourceCategory)
+        public void DeleteAllByCategory(Category resourceCategory)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from creature
                             in context.Creatures
-                            where creature.ResourceCategoryID == resourceCategory.ResourceCategoryID
+                            where creature.ResourceCategoryID == resourceCategory.ResourceID
                             select creature;
                 List<Creature> creatureList = query.ToList<Creature>();
 

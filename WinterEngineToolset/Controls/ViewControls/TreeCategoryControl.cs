@@ -10,6 +10,8 @@ using WinterEngine.Library.Factories;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess;
+using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
@@ -131,8 +133,8 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             {
                 using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
                 {
-                    ResourceCategory resourceCategory = new ResourceCategory();
-                    resourceCategory.ResourceName = inputText;
+                    Category resourceCategory = new Category();
+                    resourceCategory.Name = inputText;
                     resourceCategory.ResourceTypeID = (int)GameObjectResourceType;
 
                     success = repo.AddResourceCategory(resourceCategory);
@@ -155,10 +157,10 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             {
                 using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
                 {
-                    ResourceCategory resourceCategoryDTO = treeView.SelectedNode.Tag as ResourceCategory;
-                    resourceCategoryDTO.ResourceName = inputText;
+                    Category resourceCategoryDTO = treeView.SelectedNode.Tag as Category;
+                    resourceCategoryDTO.Name = inputText;
                     repo.UpdateResourceCategory(resourceCategoryDTO);
-                    treeView.SelectedNode.Text = resourceCategoryDTO.ResourceName;
+                    treeView.SelectedNode.Text = resourceCategoryDTO.Name;
                 }
             }
             catch (Exception ex)
@@ -216,13 +218,13 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
             {
                 // Retrieve all resource categories
-                List<ResourceCategory> resourceCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectResourceType);
+                List<Category> resourceCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectResourceType);
                 
                 // Loop through each resource category
-                foreach (ResourceCategory category in resourceCategories)
+                foreach (Category category in resourceCategories)
                 {
                     // Generate the category's key (its ID in the database)
-                    string categoryKey = Convert.ToString(category.ResourceCategoryID);
+                    string categoryKey = Convert.ToString(category.ResourceID);
 
                     TreeNode[] categoryNodesList = treeView.Nodes[0].Nodes.Find(categoryKey, false);
                     TreeNode categoryTreeNode;
@@ -232,14 +234,14 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     {
                         categoryTreeNode = new TreeNode();
                         categoryTreeNode.Name = categoryKey;
-                        categoryTreeNode.Text = category.ResourceName;
+                        categoryTreeNode.Text = category.Name;
                         treeView.Nodes[0].Nodes.Add(categoryTreeNode);
                     }
                     // Category exists - update its text
                     else
                     {
                         categoryTreeNode = categoryNodesList[0];
-                        categoryTreeNode.Text = category.ResourceName;
+                        categoryTreeNode.Text = category.Name;
                     }
 
                     // Update the category object located on the object's tag
@@ -276,7 +278,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 for(int index = treeView.Nodes[0].Nodes.Count - 1; index >= 0; index--)
                 {
                     TreeNode categoryNode = treeView.Nodes[0].Nodes[index];
-                    ResourceCategory resourceCategory = treeView.Nodes[0].Nodes[index].Tag as ResourceCategory;
+                    Category resourceCategory = treeView.Nodes[0].Nodes[index].Tag as Category;
                     if (!repo.Exists(resourceCategory))
                     {
                         treeView.Nodes[0].Nodes.RemoveAt(index); ;
@@ -324,13 +326,13 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// </summary>
         /// <param name="treeNodeCollection"></param>
         /// <returns></returns>
-        private List<ResourceCategory> GetTreeNodeTagResourceDTOs(TreeNodeCollection treeNodeCollection)
+        private List<Category> GetTreeNodeTagResourceDTOs(TreeNodeCollection treeNodeCollection)
         {
-            List<ResourceCategory> objectList = new List<ResourceCategory>();
+            List<Category> objectList = new List<Category>();
 
             foreach (TreeNode currentObject in treeNodeCollection)
             {
-                ResourceCategory tag = currentObject.Tag as ResourceCategory;
+                Category tag = currentObject.Tag as Category;
                 objectList.Add(tag);
             }
 
@@ -431,7 +433,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             // the root node.
             else if (treeView.SelectedNode.Parent == treeView.TopNode)
             {
-                ResourceCategory resourceCategory = treeView.SelectedNode.Tag as ResourceCategory;
+                Category resourceCategory = treeView.SelectedNode.Tag as Category;
                 // Add options for category context menu. 
                 // Note that system categories cannot be renamed or deleted
                 ToolStripItem createObjectItem = contextMenuStripNodes.Items.Add("Create " + GameObjectResourceType.ToString());
@@ -468,7 +470,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void contextMenuStripNodes_CreateObject(object sender, EventArgs e)
         {
-            NewObjectEntry newObjectEntryForm = new NewObjectEntry(GameObjectResourceType, treeView.SelectedNode.Tag as ResourceCategory);
+            NewObjectEntry newObjectEntryForm = new NewObjectEntry(GameObjectResourceType, treeView.SelectedNode.Tag as Category);
             newObjectEntryForm.Text = "New " + GameObjectResourceType.ToString();
             newObjectEntryForm.RefreshParentGUI += new EventHandler(RefreshTreeView);
             newObjectEntryForm.ShowDialog();
@@ -550,7 +552,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             // User chose to delete the category. Remove all contained objects and delete the category.
             if (result == DialogResult.Yes)
             {
-                ResourceCategory category = treeView.SelectedNode.Tag as ResourceCategory;
+                Category category = treeView.SelectedNode.Tag as Category;
 
                 try
                 {
@@ -623,35 +625,25 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         private void treeView_DragDrop(object sender, DragEventArgs e)
         {
-
             Point dropPoint = ((TreeView)sender).PointToClient(new Point(e.X, e.Y));
             TreeNode destinationNode = treeView.GetNodeAt(dropPoint);
             
             if (GetNodeType(destinationNode) == ObjectTreeTypeEnum.Category)
             {
                 GameObjectFactory factory = new GameObjectFactory();
-                ResourceCategory resourceCategory = destinationNode.Tag as ResourceCategory;
+                Category resourceCategory = destinationNode.Tag as Category;
                 TreeNode newNode = e.Data.GetData(typeof(TreeNode)) as TreeNode;
 
                 // Update the game object's resource category ID and update the database.
                 GameObject gameObject = newNode.Tag as GameObject;
-                gameObject.ResourceCategoryID = resourceCategory.ResourceCategoryID;
+                gameObject.ResourceCategoryID = resourceCategory.ResourceID;
                 factory.UpdateInDatabase(gameObject);
 
                 newNode.Remove();
                 destinationNode.Nodes.Add(newNode);
-
+                destinationNode.Expand();
             }
 
-            /*
-            TreeNode treeNode = e.Data as TreeNode;
-            Point pt = new Point(e.X, e.Y);
-            pt = treeView.PointToClient(pt);
-            TreeNode ParentNode = treeView.GetNodeAt(pt);
-
-            ParentNode.Nodes.Add(treeNode);
-            treeNode.Remove(); // need to remove the original version of the node 
-            */
         }
 
         private void treeView_DragEnter(object sender, DragEventArgs e)

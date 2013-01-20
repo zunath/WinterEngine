@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace WinterEngine.DataTransferObjects
+namespace WinterEngine.DataTransferObjects.Resources
 {
     [Serializable]
-    [Table("Areas")]
-    public sealed class Area : GameObject
+    [Table("Races")]
+    public class Race : GameResource
     {
         #region Fields
+
         #endregion
 
         #region Properties
-        #endregion
 
-        #region Methods
         #endregion
     }
 }

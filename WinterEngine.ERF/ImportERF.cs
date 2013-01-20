@@ -7,6 +7,7 @@ using WinterEngine.DataAccess;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Helpers;
 
@@ -103,7 +104,7 @@ namespace WinterEngine.ERF
             {
                 foreach (GameObject gameObject in FullList)
                 {
-                    gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.ResourceType).ResourceCategoryID;
+                    gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.ResourceType).ResourceID;
                 }
             }
 
@@ -258,7 +259,7 @@ namespace WinterEngine.ERF
             {
                 foreach (GameObject gameObject in listBoxResources.SelectedItems)
                 {
-                    gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.ResourceType).ResourceCategoryID;
+                    gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.ResourceType).ResourceID;
                     factory.UpdateInDatabase(gameObject);
                 }
             }

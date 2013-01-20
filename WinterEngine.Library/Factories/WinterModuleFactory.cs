@@ -5,6 +5,7 @@ using Ionic.Zlib;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.Resources;
 using WinterEngine.Library.Helpers;
 
 namespace WinterEngine.Library.Factories
@@ -331,7 +332,7 @@ namespace WinterEngine.Library.Factories
             // Add the "Uncategorized" category for each resource type.
             using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
             {
-                ResourceCategory category = new ResourceCategory { ResourceName = "*Uncategorized", ResourceTypeID = (int)ResourceTypeEnum.Area, IsSystemCategory = true };
+                Category category = new Category { Name = "*Uncategorized", ResourceTypeID = (int)ResourceTypeEnum.Area, IsSystemCategory = true };
                 repo.AddResourceCategory(category);
                 category.ResourceTypeID = (int)ResourceTypeEnum.Conversation;
                 repo.AddResourceCategory(category);

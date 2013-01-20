@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.Library.Factories
 {
@@ -385,7 +387,7 @@ namespace WinterEngine.Library.Factories
         /// <param name="resourceType">The type of resource to look for.</param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         /// <returns></returns>
-        public List<GameObject> GetAllFromDatabaseByResourceCategory(ResourceCategory resourceCategory, ResourceTypeEnum resourceType, string connectionString = "")
+        public List<GameObject> GetAllFromDatabaseByResourceCategory(Category resourceCategory, ResourceTypeEnum resourceType, string connectionString = "")
         {
             List<GameObject> retList = new List<GameObject>();
 
@@ -488,7 +490,7 @@ namespace WinterEngine.Library.Factories
         /// <param name="resourceCategory">The resource category to remove all objects from.</param>
         /// <param name="resourceType">The type of resource to look for.</param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
-        public void DeleteFromDatabaseByCategory(ResourceCategory resourceCategory, ResourceTypeEnum resourceType, string connectionString = "")
+        public void DeleteFromDatabaseByCategory(Category resourceCategory, ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (resourceType == ResourceTypeEnum.Area)
             {

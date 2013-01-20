@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Resources;
 
-namespace WinterEngine.DataTransferObjects
+namespace WinterEngine.DataTransferObjects.GameObjects
 {
     [Serializable]
     [Table("Items")]
@@ -12,7 +13,7 @@ namespace WinterEngine.DataTransferObjects
     {
         #region Fields
 
-        private int _type;
+        private ItemType _type;
         private string _description;
         private int _price;
         private int _weight;
@@ -22,6 +23,7 @@ namespace WinterEngine.DataTransferObjects
         private List<ItemProperty> _itemProperties;
         private int _tileWidth;
         private int _tileHeight;
+       
 
         #endregion
 
@@ -30,7 +32,7 @@ namespace WinterEngine.DataTransferObjects
         /// <summary>
         /// Gets or sets the item type of a particular item.
         /// </summary>
-        public int Type
+        public ItemType Type
         {
             get { return _type; }
             set { _type = value; }

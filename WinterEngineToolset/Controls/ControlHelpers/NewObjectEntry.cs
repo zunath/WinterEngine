@@ -5,6 +5,8 @@ using WinterEngine.Library.Factories;
 using WinterEngine.Library.Helpers;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.Toolset.Controls.ControlHelpers
 {
@@ -13,7 +15,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         #region Fields
         
         private ResourceTypeEnum _resourceType;
-        private ResourceCategory _resourceCategory;
+        private Category _resourceCategory;
         
         #endregion
 
@@ -29,7 +31,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             }
         }
 
-        public ResourceCategory ResourceCategory
+        public Category ResourceCategory
         {
             get { return _resourceCategory; }
             set { _resourceCategory = value; }
@@ -37,7 +39,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
         #endregion
 
         #region Constructors
-        public NewObjectEntry(ResourceTypeEnum resourceType, ResourceCategory resourceCategory)
+        public NewObjectEntry(ResourceTypeEnum resourceType, Category resourceCategory)
         {
             InitializeComponent();
             this.ResourceType = resourceType;
@@ -71,7 +73,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
                     winterObject.Name = nameTextBoxEntry.NameText;
                     winterObject.Tag = tagTextBoxEntry.TagText;
                     winterObject.Resref = resrefTextBoxEntry.ResrefText;
-                    winterObject.ResourceCategoryID = ResourceCategory.ResourceCategoryID;
+                    winterObject.ResourceCategoryID = ResourceCategory.ResourceID;
                     winterObject.ResourceType = ResourceType;
 
                     // Add it to the database.

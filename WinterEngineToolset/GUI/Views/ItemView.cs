@@ -2,6 +2,7 @@
 using System;
 using WinterEngine.Toolset.ExtendedEventArgs;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.Toolset.GUI.Views
 {

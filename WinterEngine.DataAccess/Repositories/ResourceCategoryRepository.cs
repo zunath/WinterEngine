@@ -5,6 +5,7 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess
 {
@@ -34,9 +35,9 @@ namespace WinterEngine.DataAccess
         /// Returns all resource categories from the database.
         /// </summary>
         /// <returns></returns>
-        public List<ResourceCategory> GetAllResourceCategories()
+        public List<Category> GetAllResourceCategories()
         {
-            List<ResourceCategory> _resourceCategoryList = new List<ResourceCategory>();
+            List<Category> _resourceCategoryList = new List<Category>();
 
             using (WinterContext context = new WinterContext(ConnectionString))
             {
@@ -54,9 +55,9 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceType">The type of resources to get.</param>
         /// <returns></returns>
-        public List<ResourceCategory> GetAllResourceCategoriesByResourceType(ResourceTypeEnum resourceType)
+        public List<Category> GetAllResourceCategoriesByResourceType(ResourceTypeEnum resourceType)
         {
-            List<ResourceCategory> categoryList = new List<ResourceCategory>();
+            List<Category> categoryList = new List<Category>();
 
             using (WinterContext context = new WinterContext(ConnectionString))
             {
@@ -65,7 +66,7 @@ namespace WinterEngine.DataAccess
                             where resourceCategory.ResourceTypeID.Equals((int)resourceType)
                             select resourceCategory;
 
-                categoryList = query.ToList<ResourceCategory>();
+                categoryList = query.ToList<Category>();
 
             }
             
@@ -78,7 +79,7 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceCategory"></param>
         /// <returns></returns>
-        public bool AddResourceCategory(ResourceCategory resourceCategory)
+        public bool AddResourceCategory(Category resourceCategory)
         {
             bool success = true;
 
@@ -97,14 +98,14 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceCategory"></param>
         /// <returns></returns>
-        public bool UpdateResourceCategory(ResourceCategory resourceCategory)
+        public bool UpdateResourceCategory(Category resourceCategory)
         {
             bool success = true;
 
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 // Find the resource in the database that matches the passed-in resource's category ID (primary key)
-                ResourceCategory dbResource = context.ResourceCategories.SingleOrDefault(r => r.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID));
+                Category dbResource = context.ResourceCategories.SingleOrDefault(r => r.ResourceID.Equals(resourceCategory.ResourceID));
 
                 // Unable to find a matching resource. Do not attempt to update.
                 if (!Object.ReferenceEquals(dbResource, null))
@@ -129,11 +130,11 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceCategoryID"></param>
         /// <returns></returns>
-        public ResourceCategory GetByResourceCategoryID(int resourceCategoryID)
+        public Category GetByResourceCategoryID(int resourceCategoryID)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                return context.ResourceCategories.FirstOrDefault(r => r.ResourceCategoryID == resourceCategoryID);
+                return context.ResourceCategories.FirstOrDefault(r => r.ResourceID == resourceCategoryID);
             }
         }
 
@@ -143,11 +144,11 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceCategory"></param>
         /// <returns></returns>
-        public bool Exists(ResourceCategory resourceCategory)
+        public bool Exists(Category resourceCategory)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                ResourceCategory dbResourceCategory = context.ResourceCategories.FirstOrDefault(r => r.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID));
+                Category dbResourceCategory = context.ResourceCategories.FirstOrDefault(r => r.ResourceID.Equals(resourceCategory.ResourceID));
                 return !Object.ReferenceEquals(dbResourceCategory, null);
             }
         }
@@ -157,14 +158,14 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceCategory">The resource category to delete.</param>
         /// <returns></returns>
-        public bool DeleteResourceCategory(ResourceCategory resourceCategory)
+        public bool DeleteResourceCategory(Category resourceCategory)
         {
             bool success = true;
 
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 // Find the category in the database. CategoryID is a primary key so there will only ever be one.
-                ResourceCategory category = context.ResourceCategories.SingleOrDefault(val => val.ResourceCategoryID == resourceCategory.ResourceCategoryID);
+                Category category = context.ResourceCategories.SingleOrDefault(val => val.ResourceID == resourceCategory.ResourceID);
 
                 if (!Object.ReferenceEquals(category, null))
                 {
@@ -186,7 +187,7 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceType">The type of resource to look for.</param>
         /// <returns></returns>
-        public ResourceCategory GetUncategorizedCategory(ResourceTypeEnum resourceType)
+        public Category GetUncategorizedCategory(ResourceTypeEnum resourceType)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {

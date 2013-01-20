@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.DataAccess.Contexts
 {
@@ -13,7 +15,7 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<Creature> Creatures { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Placeable> Placeables { get; set; }
-        public DbSet<ResourceCategory> ResourceCategories { get; set; }
+        public DbSet<Category> ResourceCategories { get; set; }
         public DbSet<GameModule> Modules { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<ItemProperty> ItemProperties { get; set; }

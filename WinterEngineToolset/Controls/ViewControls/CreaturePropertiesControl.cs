@@ -10,6 +10,7 @@ using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.ExtendedEventArgs;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {

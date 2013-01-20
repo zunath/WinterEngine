@@ -9,6 +9,7 @@ using WinterEngine.DataAccess;
 using System.IO;
 using Ionic.Zip;
 using Ionic.Zlib;
+using WinterEngine.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.ERF
 {
@@ -251,7 +252,7 @@ namespace WinterEngine.ERF
                 foreach (GameObject currentGameObject in gameObjects)
                 {
                     string resourceTypeName = EnumerationHelper.GetEnumerationDescription(currentGameObject.ResourceType);
-                    string categoryName = repo.GetByResourceCategoryID(currentGameObject.ResourceCategoryID).ResourceName;
+                    string categoryName = repo.GetByResourceCategoryID(currentGameObject.ResourceCategoryID).Name;
                     currentGameObject.TemporaryDisplayName = resourceTypeName + "/" + categoryName + "/" + currentGameObject.Name + " (" + currentGameObject.Resref + ")";
                     listBoxAvailable.Items.Add(currentGameObject);
                 }

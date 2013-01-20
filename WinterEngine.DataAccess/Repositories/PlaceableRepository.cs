@@ -4,6 +4,8 @@ using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess
 {
@@ -124,13 +126,13 @@ namespace WinterEngine.DataAccess
         /// Returns all of the placeables in a specified category from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Placeable> GetAllByResourceCategory(ResourceCategory resourceCategory)
+        public List<Placeable> GetAllByResourceCategory(Category resourceCategory)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from placeable
                             in context.Placeables
-                            where placeable.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID)
+                            where placeable.ResourceCategoryID.Equals(resourceCategory.ResourceID)
                             select placeable;
                 return query.ToList<Placeable>();
             }
@@ -152,13 +154,13 @@ namespace WinterEngine.DataAccess
         /// <summary>
         /// Deletes all of the placeables attached to a specified category from the database.
         /// </summary>
-        public void DeleteAllByCategory(ResourceCategory resourceCategory)
+        public void DeleteAllByCategory(Category resourceCategory)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from item
                             in context.Items
-                            where item.ResourceCategoryID == resourceCategory.ResourceCategoryID
+                            where item.ResourceCategoryID == resourceCategory.ResourceID
                             select item;
                 List<Item> itemList = query.ToList<Item>();
 

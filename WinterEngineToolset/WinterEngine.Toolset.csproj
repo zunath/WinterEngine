@@ -223,6 +223,12 @@
     </Compile>
     <Compile Include="ExtendedEventArgs\GameObjectEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
+    <Compile Include="GUI\Views\AdvancedView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Views\AdvancedView.Designer.cs">
+      <DependentUpon>AdvancedView.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Views\IViewControls.cs" />
     <Compile Include="GUI\Views\AreaView.cs">
       <SubType>UserControl</SubType>
@@ -305,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\XnaControls\ObjectViewer3D.resx">
       <DependentUpon>ObjectViewer3D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Views\AdvancedView.resx">
+      <DependentUpon>AdvancedView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Views\AreaView.resx">
       <DependentUpon>AreaView.cs</DependentUpon>

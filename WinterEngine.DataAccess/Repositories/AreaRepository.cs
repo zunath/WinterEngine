@@ -4,6 +4,8 @@ using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess
 {
@@ -124,13 +126,13 @@ namespace WinterEngine.DataAccess
         /// Returns all of the areas in a specified category from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Area> GetAllByResourceCategory(ResourceCategory resourceCategory)
+        public List<Area> GetAllByResourceCategory(Category resourceCategory)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from area
                             in context.Areas
-                            where area.ResourceCategoryID.Equals(resourceCategory.ResourceCategoryID)
+                            where area.ResourceCategoryID.Equals(resourceCategory.ResourceID)
                             select area;
                 return query.ToList<Area>();
             }
@@ -152,13 +154,13 @@ namespace WinterEngine.DataAccess
         /// <summary>
         /// Deletes all of the areas attached to a specified category from the database.
         /// </summary>
-        public void DeleteAllByCategory(ResourceCategory resourceCategory)
+        public void DeleteAllByCategory(Category resourceCategory)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from area
                             in context.Areas
-                            where area.ResourceCategoryID == resourceCategory.ResourceCategoryID
+                            where area.ResourceCategoryID == resourceCategory.ResourceID
                             select area;
                 List<Area> areaList = query.ToList<Area>();
 
