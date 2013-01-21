@@ -162,26 +162,27 @@ namespace WinterEngine.ERF
                         DuplicateList = gameObjectTuple.Item2;
                         NonDuplicateList = gameObjectTuple.Item3;
                     }
-                }
 
-                // No duplicates found. Do the import.
-                if (DuplicateList.Count <= 0)
-                {
-                    DoImport();
-                }
-                else
-                {
-                    foreach (GameObject gameObject in DuplicateList)
+                    // No duplicates found. Do the import.
+                    if (DuplicateList.Count <= 0)
                     {
-                        // Update the game object's TemporaryDisplayName so that the list view shows it properly
-                        string resourceTypeName = EnumerationHelper.GetEnumerationDescription(gameObject.ResourceType);
-                        gameObject.TemporaryDisplayName = resourceTypeName + "/" + gameObject.Name + " (" + gameObject.Resref + ")";
-                    
-                        listBoxResources.Items.Add(gameObject);
+                        DoImport();
                     }
+                    else
+                    {
+                        foreach (GameObject gameObject in DuplicateList)
+                        {
+                            // Update the game object's TemporaryDisplayName so that the list view shows it properly
+                            string resourceTypeName = EnumerationHelper.GetEnumerationDescription(gameObject.ResourceType);
+                            gameObject.TemporaryDisplayName = resourceTypeName + "/" + gameObject.Name + " (" + gameObject.Resref + ")";
 
-                    this.Show();
+                            listBoxResources.Items.Add(gameObject);
+                        }
+
+                        this.Show();
+                    }
                 }
+
 
             }
             catch (Exception ex)

@@ -30,9 +30,9 @@
         {
             this.panelAdvancedDock = new System.Windows.Forms.Panel();
             this.dataGridViewAdvanced = new System.Windows.Forms.DataGridView();
-            this.buttonApplyChanges = new System.Windows.Forms.Button();
             this.comboBoxTable = new System.Windows.Forms.ComboBox();
-            this.buttonDiscardChanges = new System.Windows.Forms.Button();
+            this.buttonNewRow = new System.Windows.Forms.Button();
+            this.buttonDeleteRow = new System.Windows.Forms.Button();
             this.panelAdvancedDock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAdvanced)).BeginInit();
             this.SuspendLayout();
@@ -56,16 +56,8 @@
             this.dataGridViewAdvanced.Name = "dataGridViewAdvanced";
             this.dataGridViewAdvanced.Size = new System.Drawing.Size(465, 219);
             this.dataGridViewAdvanced.TabIndex = 0;
-            // 
-            // buttonApplyChanges
-            // 
-            this.buttonApplyChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonApplyChanges.Location = new System.Drawing.Point(239, 263);
-            this.buttonApplyChanges.Name = "buttonApplyChanges";
-            this.buttonApplyChanges.Size = new System.Drawing.Size(103, 23);
-            this.buttonApplyChanges.TabIndex = 1;
-            this.buttonApplyChanges.Text = "Apply Changes";
-            this.buttonApplyChanges.UseVisualStyleBackColor = true;
+            this.dataGridViewAdvanced.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAdvanced_CellEndEdit);
+            this.dataGridViewAdvanced.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewAdvanced_DataError);
             // 
             // comboBoxTable
             // 
@@ -78,23 +70,33 @@
             this.comboBoxTable.TabIndex = 3;
             this.comboBoxTable.SelectedIndexChanged += new System.EventHandler(this.comboBoxTable_SelectedIndexChanged);
             // 
-            // buttonDiscardChanges
+            // buttonNewRow
             // 
-            this.buttonDiscardChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDiscardChanges.Location = new System.Drawing.Point(348, 263);
-            this.buttonDiscardChanges.Name = "buttonDiscardChanges";
-            this.buttonDiscardChanges.Size = new System.Drawing.Size(103, 23);
-            this.buttonDiscardChanges.TabIndex = 4;
-            this.buttonDiscardChanges.Text = "Discard Changes";
-            this.buttonDiscardChanges.UseVisualStyleBackColor = true;
+            this.buttonNewRow.Location = new System.Drawing.Point(275, 9);
+            this.buttonNewRow.Name = "buttonNewRow";
+            this.buttonNewRow.Size = new System.Drawing.Size(75, 23);
+            this.buttonNewRow.TabIndex = 5;
+            this.buttonNewRow.Text = "New Row";
+            this.buttonNewRow.UseVisualStyleBackColor = true;
+            this.buttonNewRow.Click += new System.EventHandler(this.buttonNewRow_Click);
+            // 
+            // buttonDeleteRow
+            // 
+            this.buttonDeleteRow.Location = new System.Drawing.Point(356, 9);
+            this.buttonDeleteRow.Name = "buttonDeleteRow";
+            this.buttonDeleteRow.Size = new System.Drawing.Size(75, 23);
+            this.buttonDeleteRow.TabIndex = 6;
+            this.buttonDeleteRow.Text = "Delete Row";
+            this.buttonDeleteRow.UseVisualStyleBackColor = true;
+            this.buttonDeleteRow.Click += new System.EventHandler(this.buttonDeleteRow_Click);
             // 
             // AdvancedView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonDiscardChanges);
+            this.Controls.Add(this.buttonDeleteRow);
+            this.Controls.Add(this.buttonNewRow);
             this.Controls.Add(this.comboBoxTable);
-            this.Controls.Add(this.buttonApplyChanges);
             this.Controls.Add(this.panelAdvancedDock);
             this.Name = "AdvancedView";
             this.Size = new System.Drawing.Size(468, 289);
@@ -109,9 +111,9 @@
 
         private System.Windows.Forms.Panel panelAdvancedDock;
         private System.Windows.Forms.DataGridView dataGridViewAdvanced;
-        private System.Windows.Forms.Button buttonApplyChanges;
         private System.Windows.Forms.ComboBox comboBoxTable;
-        private System.Windows.Forms.Button buttonDiscardChanges;
+        private System.Windows.Forms.Button buttonNewRow;
+        private System.Windows.Forms.Button buttonDeleteRow;
 
 
     }

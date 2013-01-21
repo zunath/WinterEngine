@@ -17,6 +17,7 @@ namespace WinterEngine.DataTransferObjects.Resources
         private int _resourceTypeID;
         private string _name;
         private string _comment;
+        private bool _isSystemResource;
 
         #endregion
 
@@ -59,6 +60,16 @@ namespace WinterEngine.DataTransferObjects.Resources
         {
             get { return _comment; }
             set { _comment = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets whether or not a resource is a system resource.
+        /// System resources normally cannot be modified by the end user.
+        /// </summary>
+        public bool IsSystemResource
+        {
+            get { return _isSystemResource; }
+            set { _isSystemResource = value; }
         }
 
         #endregion

@@ -193,7 +193,7 @@ namespace WinterEngine.DataAccess
             {
                 var query = from category
                             in context.ResourceCategories
-                            where category.IsSystemCategory == true && category.ResourceTypeID == (int)resourceType
+                            where category.IsSystemResource == true && category.ResourceTypeID == (int)resourceType
                             select category;
                 return query.ToList()[0];
             }

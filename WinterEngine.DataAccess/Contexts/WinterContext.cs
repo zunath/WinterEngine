@@ -21,6 +21,7 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<ItemProperty> ItemProperties { get; set; }
         public DbSet<CharacterClass> CharacterClasses { get; set; }
         public DbSet<Ability> Abilities { get; set; }
+        public DbSet<ItemType> ItemTypes { get; set; }
 
         public WinterContext(string connString) : base(connString)
         {

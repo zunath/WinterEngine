@@ -438,7 +438,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 // Note that system categories cannot be renamed or deleted
                 ToolStripItem createObjectItem = contextMenuStripNodes.Items.Add("Create " + GameObjectResourceType.ToString());
 
-                if (!resourceCategory.IsSystemCategory)
+                if (!resourceCategory.IsSystemResource)
                 {
                     contextMenuStripNodes.Items.Add("-");
                     ToolStripItem renameCategoryItem = contextMenuStripNodes.Items.Add("Rename");

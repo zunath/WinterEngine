@@ -332,7 +332,7 @@ namespace WinterEngine.Library.Factories
             // Add the "Uncategorized" category for each resource type.
             using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
             {
-                Category category = new Category { Name = "*Uncategorized", ResourceTypeID = (int)ResourceTypeEnum.Area, IsSystemCategory = true };
+                Category category = new Category { Name = "*Uncategorized", ResourceTypeID = (int)ResourceTypeEnum.Area, IsSystemResource = true };
                 repo.AddResourceCategory(category);
                 category.ResourceTypeID = (int)ResourceTypeEnum.Conversation;
                 repo.AddResourceCategory(category);

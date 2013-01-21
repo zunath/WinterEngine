@@ -8,8 +8,8 @@ namespace WinterEngine.DataTransferObjects.Enumerations
 {
     public enum TableTypeEnum
     {
-        ItemPropertyTypes = 1,
-        ItemTypes = 2,
-        CharacterClassTypes = 3
+        ItemProperty = 1,
+        Item = 2,
+        CharacterClass = 3
     }
 }
