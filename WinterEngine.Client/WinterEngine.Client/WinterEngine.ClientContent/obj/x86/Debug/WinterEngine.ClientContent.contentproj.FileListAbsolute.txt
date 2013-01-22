@@ -1,0 +1,1 @@
+C:\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.ClientContent\obj\x86\Debug\WinterEngine.ClientContent.contentprojResolveAssemblyReference.cache

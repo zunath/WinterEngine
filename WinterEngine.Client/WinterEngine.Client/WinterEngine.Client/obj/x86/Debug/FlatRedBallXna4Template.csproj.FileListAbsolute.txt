@@ -1,0 +1,10 @@
+C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\bin\x86\Debug\redball.BMP
+C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\bin\x86\Debug\FlatRedBallXna4Template.exe.config
+C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\bin\x86\Debug\FlatRedBallXna4Template.exe
+C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\bin\x86\Debug\FlatRedBallXna4Template.pdb
+C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\bin\x86\Debug\FlatRedBall.dll
+C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\bin\x86\Debug\FlatRedBall.xml
+C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\obj\x86\Debug\FlatRedBallXna4Template.exe
+C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\obj\x86\Debug\FlatRedBallXna4Template.pdb

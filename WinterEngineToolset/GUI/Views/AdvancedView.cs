@@ -100,8 +100,6 @@ namespace WinterEngine.Toolset.GUI.Views
 
         #endregion
 
-        
-
         #region Methods
 
         /// <summary>
@@ -165,7 +163,8 @@ namespace WinterEngine.Toolset.GUI.Views
                     {
                         if (type == TableTypeEnum.CharacterClass)
                         {
-
+                            CharacterClass characterClass = row.DataBoundItem as CharacterClass;
+                            Context.CharacterClasses.Remove(characterClass);
                         }
                         else if (type == TableTypeEnum.Item)
                         {
@@ -174,6 +173,7 @@ namespace WinterEngine.Toolset.GUI.Views
                         {
                         }
                     }
+                    Context.SaveChanges();
                     RefreshDataGrid();
                 }
             }
