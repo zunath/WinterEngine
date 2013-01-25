@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataTransferObjects.GameObjects
 {
@@ -15,7 +16,9 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         private string _description;
         private bool _isUseable;
         private bool _hasInventory;
-        List<Item> _inventoryItems;
+        private List<Item> _inventoryItems;
+        private GraphicResource _portraitGraphic;
+        private GraphicResource _modelGraphic;
 
         #endregion
 
@@ -55,6 +58,24 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         {
             get { return _inventoryItems; }
             set { _inventoryItems = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the 3D model of a placeable.
+        /// </summary>
+        public GraphicResource ModelGraphic
+        {
+            get { return _modelGraphic; }
+            set { _modelGraphic = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the portrait of a placeable.
+        /// </summary>
+        public GraphicResource PortraitGraphic
+        {
+            get { return _portraitGraphic; }
+            set { _portraitGraphic = value; }
         }
 
         #endregion

@@ -13,6 +13,8 @@ namespace WinterEngine.DataTransferObjects.GameObjects
 
         private Race _race;
         private string _description;
+        private GraphicResource _modelGraphic;
+        private GraphicResource _portraitGraphic;
 
         #endregion
 
@@ -34,6 +36,24 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         {
             get { return _description; }
             set { _description = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the model of a creature.
+        /// </summary>
+        public GraphicResource ModelGraphic
+        {
+            get { return _modelGraphic; }
+            set { _modelGraphic = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the portrait of a creature.
+        /// </summary>
+        public GraphicResource PortraitGraphic
+        {
+            get { return _portraitGraphic; }
+            set { _portraitGraphic = value; }
         }
 
         #endregion

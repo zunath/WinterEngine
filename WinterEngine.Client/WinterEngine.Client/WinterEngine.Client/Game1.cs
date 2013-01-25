@@ -47,7 +47,7 @@ namespace WinterEngine.Client
             FlatRedBallServices.InitializeFlatRedBall(this, graphics);
 			GlobalContent.Initialize();
 
-			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Client.Screens.SplashScreen));
+			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Client.Screens.Demo));
 
             base.Initialize();
         }

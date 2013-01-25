@@ -19,6 +19,7 @@ using FlatRedBall.Localization;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
+using Microsoft.Xna.Framework;
 #endif
 
 namespace WinterEngine.Client.Screens
@@ -26,16 +27,21 @@ namespace WinterEngine.Client.Screens
 	public partial class Demo
 	{
 
+        CustomDrawableBatch batch;
+
 		void CustomInitialize()
 		{
-
-
+            batch = new CustomDrawableBatch();
+            SpriteManager.AddDrawableBatch(batch);
+            SpriteManager.AddPositionedObject(batch);
 		}
 
 		void CustomActivity(bool firstTimeCalled)
 		{
-
-
+            InputManager.Keyboard.ControlPositionedObject(batch);
+            float rotationSpeed = MathHelper.PiOver2 * TimeManager.SecondDifference;
+            if (InputManager.Keyboard.KeyDown(Keys.A)) batch.RotationZ += rotationSpeed;
+            if (InputManager.Keyboard.KeyDown(Keys.D)) batch.RotationZ -= rotationSpeed;
 		}
 
 		void CustomDestroy()

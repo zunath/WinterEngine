@@ -156,7 +156,7 @@ namespace WinterEngine.Client.Screens
 		public override void Destroy()
 		{
 			// Generated Destroy
-			if (this.UnloadsContentManagerWhenDestroyed && ContentManagerName != "Global")
+			if (this.UnloadsContentManagerWhenDestroyed)
 			{
 				SceneFile.RemoveFromManagers(ContentManagerName != "Global");
 			}

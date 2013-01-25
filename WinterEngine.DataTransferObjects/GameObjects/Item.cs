@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Ionic.Zip;
+using Microsoft.Xna.Framework.Graphics;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Resources;
 
@@ -23,7 +25,8 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         private List<ItemProperty> _itemProperties;
         private int _tileWidth;
         private int _tileHeight;
-       
+        private GraphicResource _inventoryIconGraphic;
+        private GraphicResource _modelGraphic;
 
         #endregion
 
@@ -120,9 +123,28 @@ namespace WinterEngine.DataTransferObjects.GameObjects
             set { _tileHeight = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the inventory icon graphic for the item.
+        /// </summary>
+        public GraphicResource InventoryIconGraphic
+        {
+            get { return _inventoryIconGraphic; }
+            set { _inventoryIconGraphic = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the inventory's 3D model graphic
+        /// </summary>
+        public GraphicResource ModelGraphic
+        {
+            get { return _modelGraphic; }
+            set { _modelGraphic = value; }
+        }
+
         #endregion
 
         #region Methods
+
         #endregion
     }
 }
