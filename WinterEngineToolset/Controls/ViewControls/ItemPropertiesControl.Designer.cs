@@ -34,7 +34,14 @@
             this.listBoxModels = new System.Windows.Forms.ListBox();
             this.labelModelSelection = new System.Windows.Forms.Label();
             this.panelItemModelViewer = new System.Windows.Forms.Panel();
+            this.tabPageItemIcon = new System.Windows.Forms.TabPage();
+            this.listBoxIcons = new System.Windows.Forms.ListBox();
+            this.labelItemIcon = new System.Windows.Forms.Label();
+            this.panelItemIconViewer = new System.Windows.Forms.Panel();
             this.tabPageItemDetails = new System.Windows.Forms.TabPage();
+            this.resrefTextBoxItem = new WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox();
+            this.tagTextBoxItem = new WinterEngine.Toolset.Controls.GenericControls.TagTextBox();
+            this.nameTextBoxItem = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
             this.numericUpDownWeight = new System.Windows.Forms.NumericUpDown();
             this.labelWeight = new System.Windows.Forms.Label();
             this.numericUpDownPrice = new System.Windows.Forms.NumericUpDown();
@@ -60,23 +67,16 @@
             this.labelItemComments = new System.Windows.Forms.Label();
             this.buttonDiscardChangesItemDetails = new System.Windows.Forms.Button();
             this.buttonApplyChangesItemDetails = new System.Windows.Forms.Button();
-            this.resrefTextBoxItem = new WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox();
-            this.tagTextBoxItem = new WinterEngine.Toolset.Controls.GenericControls.TagTextBox();
-            this.nameTextBoxItem = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
-            this.tabPageItemIcon = new System.Windows.Forms.TabPage();
-            this.listBoxIcons = new System.Windows.Forms.ListBox();
-            this.labelItemIcon = new System.Windows.Forms.Label();
-            this.panelItemIconViewer = new System.Windows.Forms.Panel();
             this.tabControlProperties.SuspendLayout();
             this.tabPageItemModel.SuspendLayout();
             this.panelItemEditorControl.SuspendLayout();
+            this.tabPageItemIcon.SuspendLayout();
             this.tabPageItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrice)).BeginInit();
             this.tabPageItemProperties.SuspendLayout();
             this.tabPageDescription.SuspendLayout();
             this.tabPageComments.SuspendLayout();
-            this.tabPageItemIcon.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlProperties
@@ -134,16 +134,17 @@
             this.listBoxModels.Size = new System.Drawing.Size(362, 108);
             this.listBoxModels.Sorted = true;
             this.listBoxModels.TabIndex = 7;
+            this.listBoxModels.SelectedIndexChanged += new System.EventHandler(this.listBoxModels_SelectedIndexChanged);
             // 
             // labelModelSelection
             // 
             this.labelModelSelection.AutoSize = true;
             this.labelModelSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelModelSelection.Location = new System.Drawing.Point(121, 16);
+            this.labelModelSelection.Location = new System.Drawing.Point(147, 16);
             this.labelModelSelection.Name = "labelModelSelection";
-            this.labelModelSelection.Size = new System.Drawing.Size(99, 24);
+            this.labelModelSelection.Size = new System.Drawing.Size(68, 24);
             this.labelModelSelection.TabIndex = 5;
-            this.labelModelSelection.Text = "3D Model";
+            this.labelModelSelection.Text = "Model";
             // 
             // panelItemModelViewer
             // 
@@ -151,6 +152,48 @@
             this.panelItemModelViewer.Name = "panelItemModelViewer";
             this.panelItemModelViewer.Size = new System.Drawing.Size(366, 231);
             this.panelItemModelViewer.TabIndex = 1;
+            // 
+            // tabPageItemIcon
+            // 
+            this.tabPageItemIcon.Controls.Add(this.listBoxIcons);
+            this.tabPageItemIcon.Controls.Add(this.labelItemIcon);
+            this.tabPageItemIcon.Controls.Add(this.panelItemIconViewer);
+            this.tabPageItemIcon.Location = new System.Drawing.Point(4, 22);
+            this.tabPageItemIcon.Name = "tabPageItemIcon";
+            this.tabPageItemIcon.Size = new System.Drawing.Size(367, 391);
+            this.tabPageItemIcon.TabIndex = 6;
+            this.tabPageItemIcon.Text = "Icon";
+            this.tabPageItemIcon.UseVisualStyleBackColor = true;
+            // 
+            // listBoxIcons
+            // 
+            this.listBoxIcons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listBoxIcons.FormattingEnabled = true;
+            this.listBoxIcons.HorizontalScrollbar = true;
+            this.listBoxIcons.Location = new System.Drawing.Point(3, 280);
+            this.listBoxIcons.Name = "listBoxIcons";
+            this.listBoxIcons.Size = new System.Drawing.Size(362, 108);
+            this.listBoxIcons.Sorted = true;
+            this.listBoxIcons.TabIndex = 11;
+            this.listBoxIcons.SelectedIndexChanged += new System.EventHandler(this.listBoxIcons_SelectedIndexChanged);
+            // 
+            // labelItemIcon
+            // 
+            this.labelItemIcon.AutoSize = true;
+            this.labelItemIcon.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelItemIcon.Location = new System.Drawing.Point(152, 16);
+            this.labelItemIcon.Name = "labelItemIcon";
+            this.labelItemIcon.Size = new System.Drawing.Size(50, 24);
+            this.labelItemIcon.TabIndex = 10;
+            this.labelItemIcon.Text = "Icon";
+            // 
+            // panelItemIconViewer
+            // 
+            this.panelItemIconViewer.Location = new System.Drawing.Point(0, 43);
+            this.panelItemIconViewer.Name = "panelItemIconViewer";
+            this.panelItemIconViewer.Size = new System.Drawing.Size(366, 231);
+            this.panelItemIconViewer.TabIndex = 9;
             // 
             // tabPageItemDetails
             // 
@@ -174,6 +217,36 @@
             this.tabPageItemDetails.TabIndex = 1;
             this.tabPageItemDetails.Text = "Details";
             this.tabPageItemDetails.UseVisualStyleBackColor = true;
+            // 
+            // resrefTextBoxItem
+            // 
+            this.resrefTextBoxItem.Enabled = false;
+            this.resrefTextBoxItem.IsValid = false;
+            this.resrefTextBoxItem.Location = new System.Drawing.Point(81, 112);
+            this.resrefTextBoxItem.Name = "resrefTextBoxItem";
+            this.resrefTextBoxItem.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.resrefTextBoxItem.ResrefText = "";
+            this.resrefTextBoxItem.Size = new System.Drawing.Size(265, 28);
+            this.resrefTextBoxItem.TabIndex = 15;
+            // 
+            // tagTextBoxItem
+            // 
+            this.tagTextBoxItem.IsValid = true;
+            this.tagTextBoxItem.Location = new System.Drawing.Point(81, 86);
+            this.tagTextBoxItem.Name = "tagTextBoxItem";
+            this.tagTextBoxItem.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxItem.Size = new System.Drawing.Size(265, 28);
+            this.tagTextBoxItem.TabIndex = 14;
+            this.tagTextBoxItem.TagText = "";
+            // 
+            // nameTextBoxItem
+            // 
+            this.nameTextBoxItem.IsValid = true;
+            this.nameTextBoxItem.Location = new System.Drawing.Point(81, 58);
+            this.nameTextBoxItem.Name = "nameTextBoxItem";
+            this.nameTextBoxItem.NameText = "";
+            this.nameTextBoxItem.Size = new System.Drawing.Size(265, 28);
+            this.nameTextBoxItem.TabIndex = 0;
             // 
             // numericUpDownWeight
             // 
@@ -420,77 +493,6 @@
             this.buttonApplyChangesItemDetails.UseVisualStyleBackColor = true;
             this.buttonApplyChangesItemDetails.Click += new System.EventHandler(this.buttonSaveChangesItemDetails_Click);
             // 
-            // resrefTextBoxItem
-            // 
-            this.resrefTextBoxItem.Enabled = false;
-            this.resrefTextBoxItem.IsValid = false;
-            this.resrefTextBoxItem.Location = new System.Drawing.Point(81, 112);
-            this.resrefTextBoxItem.Name = "resrefTextBoxItem";
-            this.resrefTextBoxItem.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
-            this.resrefTextBoxItem.ResrefText = "";
-            this.resrefTextBoxItem.Size = new System.Drawing.Size(265, 28);
-            this.resrefTextBoxItem.TabIndex = 15;
-            // 
-            // tagTextBoxItem
-            // 
-            this.tagTextBoxItem.IsValid = true;
-            this.tagTextBoxItem.Location = new System.Drawing.Point(81, 86);
-            this.tagTextBoxItem.Name = "tagTextBoxItem";
-            this.tagTextBoxItem.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
-            this.tagTextBoxItem.Size = new System.Drawing.Size(265, 28);
-            this.tagTextBoxItem.TabIndex = 14;
-            this.tagTextBoxItem.TagText = "";
-            // 
-            // nameTextBoxItem
-            // 
-            this.nameTextBoxItem.IsValid = true;
-            this.nameTextBoxItem.Location = new System.Drawing.Point(81, 58);
-            this.nameTextBoxItem.Name = "nameTextBoxItem";
-            this.nameTextBoxItem.NameText = "";
-            this.nameTextBoxItem.Size = new System.Drawing.Size(265, 28);
-            this.nameTextBoxItem.TabIndex = 0;
-            // 
-            // tabPageItemIcon
-            // 
-            this.tabPageItemIcon.Controls.Add(this.listBoxIcons);
-            this.tabPageItemIcon.Controls.Add(this.labelItemIcon);
-            this.tabPageItemIcon.Controls.Add(this.panelItemIconViewer);
-            this.tabPageItemIcon.Location = new System.Drawing.Point(4, 22);
-            this.tabPageItemIcon.Name = "tabPageItemIcon";
-            this.tabPageItemIcon.Size = new System.Drawing.Size(367, 391);
-            this.tabPageItemIcon.TabIndex = 6;
-            this.tabPageItemIcon.Text = "Icon";
-            this.tabPageItemIcon.UseVisualStyleBackColor = true;
-            // 
-            // listBoxIcons
-            // 
-            this.listBoxIcons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.listBoxIcons.FormattingEnabled = true;
-            this.listBoxIcons.HorizontalScrollbar = true;
-            this.listBoxIcons.Location = new System.Drawing.Point(3, 280);
-            this.listBoxIcons.Name = "listBoxIcons";
-            this.listBoxIcons.Size = new System.Drawing.Size(362, 108);
-            this.listBoxIcons.Sorted = true;
-            this.listBoxIcons.TabIndex = 11;
-            // 
-            // labelItemIcon
-            // 
-            this.labelItemIcon.AutoSize = true;
-            this.labelItemIcon.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelItemIcon.Location = new System.Drawing.Point(121, 16);
-            this.labelItemIcon.Name = "labelItemIcon";
-            this.labelItemIcon.Size = new System.Drawing.Size(81, 24);
-            this.labelItemIcon.TabIndex = 10;
-            this.labelItemIcon.Text = "2D Icon";
-            // 
-            // panelItemIconViewer
-            // 
-            this.panelItemIconViewer.Location = new System.Drawing.Point(0, 43);
-            this.panelItemIconViewer.Name = "panelItemIconViewer";
-            this.panelItemIconViewer.Size = new System.Drawing.Size(366, 231);
-            this.panelItemIconViewer.TabIndex = 9;
-            // 
             // ItemPropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -500,10 +502,13 @@
             this.Controls.Add(this.buttonApplyChangesItemDetails);
             this.Name = "ItemPropertiesControl";
             this.Size = new System.Drawing.Size(375, 452);
+            this.Load += new System.EventHandler(this.ItemPropertiesControl_Load);
             this.tabControlProperties.ResumeLayout(false);
             this.tabPageItemModel.ResumeLayout(false);
             this.panelItemEditorControl.ResumeLayout(false);
             this.panelItemEditorControl.PerformLayout();
+            this.tabPageItemIcon.ResumeLayout(false);
+            this.tabPageItemIcon.PerformLayout();
             this.tabPageItemDetails.ResumeLayout(false);
             this.tabPageItemDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).EndInit();
@@ -514,8 +519,6 @@
             this.tabPageDescription.PerformLayout();
             this.tabPageComments.ResumeLayout(false);
             this.tabPageComments.PerformLayout();
-            this.tabPageItemIcon.ResumeLayout(false);
-            this.tabPageItemIcon.PerformLayout();
             this.ResumeLayout(false);
 
         }

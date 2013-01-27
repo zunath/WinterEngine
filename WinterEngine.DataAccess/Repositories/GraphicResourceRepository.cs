@@ -57,7 +57,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<GraphicResource> GetAllGraphicResourcesByResourceType(ResourceTypeEnum resourceType)
         {
-            List<GraphicResource> categoryList = new List<GraphicResource>();
+            List<GraphicResource> resourceList = new List<GraphicResource>();
 
             using (WinterContext context = new WinterContext(ConnectionString))
             {
@@ -66,11 +66,54 @@ namespace WinterEngine.DataAccess
                             where resource.ResourceTypeID.Equals((int)resourceType)
                             select resource;
 
-                categoryList = query.ToList<GraphicResource>();
-
+                resourceList = query.ToList<GraphicResource>();
             }
 
-            return categoryList;
+            return resourceList;
+        }
+
+        /// <summary>
+        /// Returns a list of a resource type's 2D graphics. (Typically used for portraits or icons)
+        /// </summary>
+        /// <param name="resourceType">The type of resources to get.</param>
+        /// <returns></returns>
+        public List<GraphicResource> GetAll2DGraphics(ResourceTypeEnum resourceType)
+        {
+            List<GraphicResource> resourceList = new List<GraphicResource>();
+
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                var query = from resource
+                            in context.GraphicResources
+                            where resource.ResourceTypeID.Equals((int)resourceType) && resource.Is2DGraphic
+                            select resource;
+
+                resourceList = query.ToList<GraphicResource>();
+            }
+
+            return resourceList;
+        }
+
+        /// <summary>
+        /// Returns a list of a resource type's 3D graphics. (Typically used for models)
+        /// </summary>
+        /// <param name="resourceType">The type of resources to get.</param>
+        /// <returns></returns>
+        public List<GraphicResource> GetAll3DGraphics(ResourceTypeEnum resourceType)
+        {
+            List<GraphicResource> resourceList = new List<GraphicResource>();
+
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                var query = from resource
+                            in context.GraphicResources
+                            where resource.ResourceTypeID.Equals((int)resourceType) && !resource.Is2DGraphic
+                            select resource;
+
+                resourceList = query.ToList<GraphicResource>();
+            }
+
+            return resourceList;
         }
 
         /// <summary>
@@ -85,6 +128,28 @@ namespace WinterEngine.DataAccess
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 context.GraphicResources.Add(resource);
+                context.SaveChanges();
+            }
+
+            return success;
+        }
+
+        /// <summary>
+        /// Adds a list of graphic resources to the database.
+        /// </summary>
+        /// <param name="resourceList">The list of graphic resources to add to the database.</param>
+        /// <returns></returns>
+        public bool AddGraphicResourceList(List<GraphicResource> resourceList)
+        {
+            bool success = true;
+
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                foreach (GraphicResource resource in resourceList)
+                {
+                    context.GraphicResources.Add(resource);
+                }
+
                 context.SaveChanges();
             }
 

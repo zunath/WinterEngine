@@ -11,12 +11,43 @@ namespace WinterEngine.Library.Helpers
     /// <summary>
     /// File handling and manipulation for Winter Engine.
     /// </summary>
-    public class WinterFileHelper
+    public class WinterFileHelper : IDisposable
     {
         #region Fields
+
+        private string _tempDirectoryPath;
+
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the temporary directory path.
+        /// </summary>
+        public string TemporaryDirectoryPath
+        {
+            get { return _tempDirectoryPath; }
+            set { _tempDirectoryPath = value; }
+        }
+
+        #endregion
+
+
+        #region Constructors
+
+        public WinterFileHelper()
+        {
+        }
+
+        /// <summary>
+        /// Creates a temporary directory in the same folder as the executable.
+        /// New directory's name is "temp" + suffix + uniqueID
+        /// </summary>
+        /// <param name="suffix">The suffix to add on to the temporary directory.</param>
+        public WinterFileHelper(string tempDirectorySuffix)
+        {
+            CreateTemporaryDirectory(tempDirectorySuffix);
+        }
 
         #endregion
 
@@ -83,7 +114,7 @@ namespace WinterEngine.Library.Helpers
         /// Creates a temporary directory in the same folder as the executable.
         /// New directory's name is "temp" + suffix + uniqueID
         /// </summary>
-        /// <param name="directoryUniqueName"></param>
+        /// <param name="suffix">The suffix to add on to the temporary directory.</param>
         /// <returns></returns>
         public string CreateTemporaryDirectory(string suffix = "")
         {
@@ -99,13 +130,22 @@ namespace WinterEngine.Library.Helpers
                 }
 
                 // Attach unique ID on to directory
-                return Directory.CreateDirectory(directoryPath + uniqueID + "/").FullName;
-                
+                TemporaryDirectoryPath = Directory.CreateDirectory(directoryPath + uniqueID + "/").FullName;
+                return TemporaryDirectoryPath;
             }
             catch (Exception ex)
             {
                 ErrorHelper.ShowErrorDialog("Error creating temporary directory: ", ex);
                 return "";
+            }
+        }
+
+
+        public void Dispose()
+        {
+            if (Directory.Exists(TemporaryDirectoryPath))
+            {
+                Directory.Delete(TemporaryDirectoryPath, true);
             }
         }
 

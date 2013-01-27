@@ -14,8 +14,6 @@ C:\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Cl
 C:\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\bin\x86\Debug\Ionic.Zip.dll
 C:\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\bin\x86\Debug\EntityFramework.xml
 C:\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\bin\x86\Debug\Ionic.Zip.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\obj\x86\Debug\WinterEngine.Client.csprojResolveAssemblyReference.cache
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\bin\x86\Debug\redball.BMP
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\bin\x86\Debug\Content\Screens\SplashScreen\frblogo512.png
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\bin\x86\Debug\Content\Screens\SplashScreen\SceneFile.scnx
@@ -28,5 +26,7 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.C
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\bin\x86\Debug\EntityFramework.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\bin\x86\Debug\FlatRedBall.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\bin\x86\Debug\Ionic.Zip.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\obj\x86\Debug\WinterEngine.Client.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\obj\x86\Debug\WinterEngine.Client.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\obj\x86\Debug\WinterEngine.Client.pdb

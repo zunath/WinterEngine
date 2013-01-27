@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Ionic.Zip;
 using Ionic.Zlib;
@@ -317,24 +318,47 @@ namespace WinterEngine.Library.Factories
         #region Module Initialization Methods
 
         /// <summary>
+        /// Builds a list of graphic resources which are contained inside of a particular
+        /// archive at the specified path.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private List<GraphicResource> BuildGraphicResourceList(string path, ResourceTypeEnum resourceType, bool is2DGraphic)
+        {
+            List<GraphicResource> graphicResources = new List<GraphicResource>();
+            if (File.Exists(path))
+            {
+                using (ZipFile zipFile = new ZipFile(path))
+                {
+                    foreach (ZipEntry file in zipFile)
+                    {
+                        GraphicResource resource = new GraphicResource();
+                        resource.ResourceFileName = file.FileName;
+                        resource.ResourcePackagePath = path;
+                        resource.ResourceTypeID = (int)resourceType;
+                        resource.IsSystemResource = true;
+                        resource.Is2DGraphic = is2DGraphic;
+                        graphicResources.Add(resource);
+                    }
+                }
+            }
+            return graphicResources;
+        }
+
+        /// <summary>
         /// Handles loading the standardized resource pack files into the database for the module.
         /// These are graphic files for each resource type.
         /// </summary>
         private void LoadResourcePacks()
         {
-            string resourcePath = "./resources/WE_Items.wrsc";
-
-            // Load item icons
-            using (ZipFile zipFile = new ZipFile(resourcePath))
+            using (GraphicResourceRepository repo = new GraphicResourceRepository())
             {
-                foreach (ZipEntry file in zipFile)
-                {
-                    GraphicResource resource = new GraphicResource();
-                    resource.Name = file.FileName;
-                    resource.ResourcePackagePath = resourcePath;
-                    resource.ResourceTypeID = (int)ResourceTypeEnum.Item;
-                    resource.IsSystemResource = true;               
-                }
+                repo.AddGraphicResourceList(BuildGraphicResourceList("./resources/item_icons.wrsc", ResourceTypeEnum.Item, true));                 // Item icons
+                repo.AddGraphicResourceList(BuildGraphicResourceList("./resources/item_models.wrsc", ResourceTypeEnum.Item, false));               // Item models
+                repo.AddGraphicResourceList(BuildGraphicResourceList("./resources/creature_portraits.wrsc", ResourceTypeEnum.Creature, true));     // Creature portraits
+                repo.AddGraphicResourceList(BuildGraphicResourceList("./resources/creature_models.wrsc", ResourceTypeEnum.Creature, false));       // Creature models
+                repo.AddGraphicResourceList(BuildGraphicResourceList("./resources/placeable_portraits.wrsc", ResourceTypeEnum.Placeable, true));   // Placeable portraits
+                repo.AddGraphicResourceList(BuildGraphicResourceList("./resources/placeable_models.wrsc", ResourceTypeEnum.Placeable, false));     // Placeable models
             }
         }
 

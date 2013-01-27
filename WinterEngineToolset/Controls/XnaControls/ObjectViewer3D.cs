@@ -12,6 +12,10 @@ using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls.Shared;
 using System;
 using WinterEngine.Library;
+using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.Library.Helpers;
+using Ionic.Zip;
+using System.IO;
 
 namespace WinterEngine.Toolset.Controls.XnaControls
 {
@@ -20,43 +24,36 @@ namespace WinterEngine.Toolset.Controls.XnaControls
         #region Variables
 
         private ModelViewerControl _modelViewer;
-        private ContentBuilder _contentBuilder;
         private ContentManager _contentManager;
-        private string _modelPathName;
+        private GraphicResource _graphicResource;
 
         #endregion
 
         #region Properties
 
-        public string ModelPathName
+        /// <summary>
+        /// Gets or sets the graphic resource of this object viewer.
+        /// </summary>
+        public GraphicResource Resource
         {
-            get { return _modelPathName; }
-            set { _modelPathName = value; }
+            get { return _graphicResource; }
+            set { _graphicResource = value; }
         }
 
         #endregion
 
-        #region Overrides
+        #region Constructors
+        
         public ObjectViewer3D()
         {
             InitializeComponent();
             AddXNAViewerControl();
 
             _contentManager = new ContentManager(_modelViewer.Services);
-
-            this.Load += LoadContent;
-        }
-
-        private void LoadContent(object sender, EventArgs e)
-        {
-            // Only look for a model if the model path name has been set.
-            if (!Object.ReferenceEquals(ModelPathName, null) && ModelPathName != "")
-            {
-                LoadModel(ModelPathName);
-            }
         }
 
         #endregion
+
 
         #region Methods
 
@@ -68,36 +65,42 @@ namespace WinterEngine.Toolset.Controls.XnaControls
             panelObjectViewer.Controls.Add(_modelViewer);
         }
 
-
-        void LoadModel(string fileName)
+        /// <summary>
+        /// Loads a pre-built model into the panel.
+        /// </summary>
+        public void LoadModel()
         {
-            Cursor = Cursors.WaitCursor;
+            string resourcePath = "";
 
-            // Unload any existing model.
-            _modelViewer.Model = null;
-            _contentManager.Unload();
-
-            // Tell the ContentBuilder what to build.
-            _contentBuilder.Clear();
-            _contentBuilder.Add(fileName, "Model", null, "ModelProcessor");
-
-            // Build this new model data.
-            string buildError = _contentBuilder.Build();
-
-            if (string.IsNullOrEmpty(buildError))
+            try
             {
-                // If the build succeeded, use the ContentManager to
-                // load the temporary .xnb file that we just created.
+                Cursor = Cursors.WaitCursor;
 
-                _modelViewer.Model = _contentManager.Load<Model>("Model");
+                // Unload any existing model.
+                _modelViewer.Model = null;
+                _contentManager.Unload();
+
+                using (ZipFile zipFile = new ZipFile(Resource.ResourcePackagePath))
+                {
+                    resourcePath = "./" + Resource.ResourceFileName;
+
+                    ZipEntry entry = zipFile[Resource.ResourceFileName];
+                    entry.Extract();
+                    _modelViewer.Model = _contentManager.Load<Model>("./" + Path.GetFileNameWithoutExtension(entry.FileName));
+                    File.Delete("./" + entry.FileName);
+                }
+
+                Cursor = Cursors.Arrow;
             }
-            else
+            catch (Exception ex)
             {
-                // If the build failed, display an error message.
-                MessageBox.Show(buildError, "Error");
-            }
+                if (File.Exists(resourcePath))
+                {
+                    File.Delete(resourcePath);
+                }
 
-            Cursor = Cursors.Arrow;
+                ErrorHelper.ShowErrorDialog("Error loading graphic.", ex);
+            }
         }
 
         #endregion

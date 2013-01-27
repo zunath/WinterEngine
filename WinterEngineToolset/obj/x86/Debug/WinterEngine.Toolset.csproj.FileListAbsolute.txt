@@ -128,27 +128,6 @@ C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.application
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.config
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.manifest
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.application
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\System.Data.SqlServerCe.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.DataAccess.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.DataTransferObjects.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.ERF.exe
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.HakpakBuilder.exe
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Library.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.DataAccess.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.DataTransferObjects.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Library.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.ERF.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.HakpakBuilder.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.csprojResolveAssemblyReference.cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.AboutBox.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.ModuleProperties.resources
@@ -172,6 +151,27 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.PlaceableView.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.ItemView.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.csproj.GenerateResource.Cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.config
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.manifest
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.application
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\System.Data.SqlServerCe.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.DataAccess.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.DataTransferObjects.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.ERF.exe
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.HakpakBuilder.exe
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Library.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.DataAccess.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.DataTransferObjects.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Library.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.ERF.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.HakpakBuilder.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe.manifest
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.application
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe

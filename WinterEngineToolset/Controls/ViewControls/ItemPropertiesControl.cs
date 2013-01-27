@@ -11,6 +11,8 @@ using WinterEngine.Toolset.ExtendedEventArgs;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
@@ -35,6 +37,24 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             set { _backupItem = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the item icon 
+        /// </summary>
+        private ObjectViewer2D ItemIcon
+        {
+            get { return _itemIcon; }
+            set { _itemIcon = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the item model
+        /// </summary>
+        private ObjectViewer3D ItemModel
+        {
+            get { return _itemModel; }
+            set { _itemModel = value; }
+        }
+
         #endregion
 
         #region Events / Delegates
@@ -43,46 +63,36 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         #endregion
 
-        #region Constructors
+        #region Event Handling
 
-        public ItemPropertiesControl()
+        /// <summary>
+        /// Handles populating the list boxes with selectable graphic resources.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemPropertiesControl_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
-
-            // Designer in VS2010 has issues with custom controls.
-            // Manually add the 3D object viewer when the program runs.
-            _itemModel = new ObjectViewer3D();
-            _itemModel.Dock = DockStyle.Fill;
-            panelItemModelViewer.Controls.Add(_itemModel);
-
-            _itemIcon = new ObjectViewer2D();
-            _itemIcon.Dock = DockStyle.Fill;
-            panelItemIconViewer.Controls.Add(_itemIcon);
+            PopulateControls();
         }
 
-        #endregion
-
-        #region Methods
-
-
-        public void LoadItem(Item item)
+        /// <summary>
+        /// Handles loading a model in the model viewer panel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxModels_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BackupItem = item;
 
-            // Re-enable controls
-            tabControlProperties.Enabled = true;
-            buttonApplyChangesItemDetails.Enabled = true;
-            buttonDiscardChangesItemDetails.Enabled = true;
+        }
 
-            // Load data into controls
-            nameTextBoxItem.NameText = item.Name;
-            tagTextBoxItem.TagText = item.Tag;
-            resrefTextBoxItem.ResrefText = item.Resref;
-
-            textBoxItemComments.Text = item.Comment;
-            textBoxItemDescription.Text = item.Description;
-            numericUpDownPrice.Value = item.Price;
-            numericUpDownWeight.Value = item.Weight;
+        /// <summary>
+        /// Handles loading an icon in the icon viewer panel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxIcons_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ItemIcon.LoadGraphic(listBoxIcons.SelectedItem as GraphicResource);   
         }
 
         /// <summary>
@@ -146,5 +156,81 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         }
 
         #endregion
+
+        #region Constructors
+
+        public ItemPropertiesControl()
+        {
+            InitializeComponent();
+
+            // Designer in VS2010 has issues with custom controls.
+            // Manually add the 3D object viewer when the program runs.
+            _itemModel = new ObjectViewer3D();
+            _itemModel.Dock = DockStyle.Fill;
+            panelItemModelViewer.Controls.Add(_itemModel);
+
+            _itemIcon = new ObjectViewer2D();
+            _itemIcon.Dock = DockStyle.Fill;
+            panelItemIconViewer.Controls.Add(_itemIcon);
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Populates all controls with graphic resource options.
+        /// </summary>
+        public void PopulateControls()
+        {
+            using (GraphicResourceRepository repo = new GraphicResourceRepository())
+            {
+                List<GraphicResource> iconList = repo.GetAll2DGraphics(ResourceTypeEnum.Item);
+                List<GraphicResource> modelList = repo.GetAll3DGraphics(ResourceTypeEnum.Item);
+
+                foreach (GraphicResource resource in iconList)
+                {
+                    resource.TemporaryDisplayName = resource.ResourceFileName;
+                    listBoxIcons.Items.Add(resource);
+                }
+
+                foreach (GraphicResource resource in modelList)
+                {
+                    resource.TemporaryDisplayName = resource.ResourceFileName;
+                    listBoxModels.Items.Add(resource);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles enabling controls for item manipulation when an item is loaded.
+        /// </summary>
+        /// <param name="item"></param>
+        public void LoadItem(Item item)
+        {
+            BackupItem = item;
+
+            // Re-enable controls
+            tabControlProperties.Enabled = true;
+            buttonApplyChangesItemDetails.Enabled = true;
+            buttonDiscardChangesItemDetails.Enabled = true;
+
+            // Load data into controls
+            nameTextBoxItem.NameText = item.Name;
+            tagTextBoxItem.TagText = item.Tag;
+            resrefTextBoxItem.ResrefText = item.Resref;
+
+            textBoxItemComments.Text = item.Comment;
+            textBoxItemDescription.Text = item.Description;
+            numericUpDownPrice.Value = item.Price;
+            numericUpDownWeight.Value = item.Weight;
+        }
+
+        
+
+        #endregion
+
+
+
     }
 }
