@@ -100,7 +100,7 @@ namespace WinterEngine.ERF
         /// <param name="gameObjectList"></param>
         private void DoImport()
         {
-            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+            using (CategoryRepository repo = new CategoryRepository())
             {
                 foreach (GameObject gameObject in FullList)
                 {
@@ -256,7 +256,7 @@ namespace WinterEngine.ERF
         {
             GameObjectFactory factory = new GameObjectFactory();
 
-            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+            using (CategoryRepository repo = new CategoryRepository())
             {
                 foreach (GameObject gameObject in listBoxResources.SelectedItems)
                 {

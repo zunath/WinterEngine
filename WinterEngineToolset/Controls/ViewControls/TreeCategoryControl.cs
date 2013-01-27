@@ -131,7 +131,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             bool success;
             try
             {
-                using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+                using (CategoryRepository repo = new CategoryRepository())
                 {
                     Category resourceCategory = new Category();
                     resourceCategory.Name = inputText;
@@ -155,7 +155,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         {
             try
             {
-                using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+                using (CategoryRepository repo = new CategoryRepository())
                 {
                     Category resourceCategoryDTO = treeView.SelectedNode.Tag as Category;
                     resourceCategoryDTO.Name = inputText;
@@ -215,7 +215,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         {
             GameObjectFactory factory = new GameObjectFactory();
             
-            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+            using (CategoryRepository repo = new CategoryRepository())
             {
                 // Retrieve all resource categories
                 List<Category> resourceCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectResourceType);
@@ -561,7 +561,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     factory.DeleteFromDatabaseByCategory(category, GameObjectResourceType);
                     
                     // Remove the category from the database
-                    using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+                    using (CategoryRepository repo = new CategoryRepository())
                     {
                         repo.DeleteResourceCategory(category);
                     }

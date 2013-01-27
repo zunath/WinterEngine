@@ -247,7 +247,7 @@ namespace WinterEngine.ERF
             // then add them to the "Available" list.
             List<GameObject> gameObjects = factory.GetAllFromDatabase(resource.ResourceType);
 
-            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+            using (CategoryRepository repo = new CategoryRepository())
             {
                 foreach (GameObject currentGameObject in gameObjects)
                 {

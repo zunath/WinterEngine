@@ -318,9 +318,24 @@ namespace WinterEngine.Library.Factories
 
         /// <summary>
         /// Handles loading the standardized resource pack files into the database for the module.
+        /// These are graphic files for each resource type.
         /// </summary>
         private void LoadResourcePacks()
         {
+            string resourcePath = "./resources/WE_Items.wrsc";
+
+            // Load item icons
+            using (ZipFile zipFile = new ZipFile(resourcePath))
+            {
+                foreach (ZipEntry file in zipFile)
+                {
+                    GraphicResource resource = new GraphicResource();
+                    resource.Name = file.FileName;
+                    resource.ResourcePackagePath = resourcePath;
+                    resource.ResourceTypeID = (int)ResourceTypeEnum.Item;
+                    resource.IsSystemResource = true;               
+                }
+            }
         }
 
         /// <summary>
@@ -330,7 +345,7 @@ namespace WinterEngine.Library.Factories
         private void InitializeData()
         {
             // Add the "Uncategorized" category for each resource type.
-            using (ResourceCategoryRepository repo = new ResourceCategoryRepository())
+            using (CategoryRepository repo = new CategoryRepository())
             {
                 Category category = new Category { Name = "*Uncategorized", ResourceTypeID = (int)ResourceTypeEnum.Area, IsSystemResource = true };
                 repo.AddResourceCategory(category);
