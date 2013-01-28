@@ -76,23 +76,13 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         }
 
         /// <summary>
-        /// Handles loading a model in the model viewer panel.
+        /// Handles loading an icon and model in the respective viewer panels.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void listBoxModels_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxAppearance_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-        }
-
-        /// <summary>
-        /// Handles loading an icon in the icon viewer panel.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listBoxIcons_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ItemIcon.LoadGraphic(listBoxIcons.SelectedItem as GraphicResource);   
+            ItemIcon.LoadGraphic(listBoxAppearance.SelectedItem as GraphicResource);   
         }
 
         /// <summary>
@@ -191,13 +181,13 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 foreach (GraphicResource resource in iconList)
                 {
                     resource.TemporaryDisplayName = resource.ResourceFileName;
-                    listBoxIcons.Items.Add(resource);
+                    listBoxAppearance.Items.Add(resource);
                 }
 
                 foreach (GraphicResource resource in modelList)
                 {
                     resource.TemporaryDisplayName = resource.ResourceFileName;
-                    listBoxModels.Items.Add(resource);
+                    listBoxAppearance.Items.Add(resource);
                 }
             }
         }
@@ -229,6 +219,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         
 
         #endregion
+
 
 
 

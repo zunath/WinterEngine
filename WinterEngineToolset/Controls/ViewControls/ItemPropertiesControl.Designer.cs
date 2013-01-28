@@ -28,16 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControlProperties = new System.Windows.Forms.TabControl();
-            this.tabPageItemModel = new System.Windows.Forms.TabPage();
-            this.panelItemEditorControl = new System.Windows.Forms.Panel();
-            this.listBoxModels = new System.Windows.Forms.ListBox();
-            this.labelModelSelection = new System.Windows.Forms.Label();
-            this.panelItemModelViewer = new System.Windows.Forms.Panel();
-            this.tabPageItemIcon = new System.Windows.Forms.TabPage();
-            this.listBoxIcons = new System.Windows.Forms.ListBox();
-            this.labelItemIcon = new System.Windows.Forms.Label();
-            this.panelItemIconViewer = new System.Windows.Forms.Panel();
+            this.buttonDiscardChangesItemDetails = new System.Windows.Forms.Button();
+            this.buttonApplyChangesItemDetails = new System.Windows.Forms.Button();
+            this.tabPageComments = new System.Windows.Forms.TabPage();
+            this.textBoxItemComments = new System.Windows.Forms.TextBox();
+            this.labelItemComments = new System.Windows.Forms.Label();
+            this.tabPageDescription = new System.Windows.Forms.TabPage();
+            this.labelItemDescription = new System.Windows.Forms.Label();
+            this.textBoxItemDescription = new System.Windows.Forms.TextBox();
+            this.tabPageItemProperties = new System.Windows.Forms.TabPage();
+            this.labelAssignedItemProperties = new System.Windows.Forms.Label();
+            this.labelAvailableItemProperties = new System.Windows.Forms.Label();
+            this.listBoxAssignedItemProperties = new System.Windows.Forms.ListBox();
+            this.listBoxAvailableItemProperties = new System.Windows.Forms.ListBox();
+            this.labelItemProperties = new System.Windows.Forms.Label();
+            this.tabPageEvents = new System.Windows.Forms.TabPage();
             this.tabPageItemDetails = new System.Windows.Forms.TabPage();
             this.resrefTextBoxItem = new WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox();
             this.tagTextBoxItem = new WinterEngine.Toolset.Controls.GenericControls.TagTextBox();
@@ -52,148 +57,181 @@
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
-            this.tabPageEvents = new System.Windows.Forms.TabPage();
-            this.tabPageItemProperties = new System.Windows.Forms.TabPage();
-            this.labelAssignedItemProperties = new System.Windows.Forms.Label();
-            this.labelAvailableItemProperties = new System.Windows.Forms.Label();
-            this.listBoxAssignedItemProperties = new System.Windows.Forms.ListBox();
-            this.listBoxAvailableItemProperties = new System.Windows.Forms.ListBox();
-            this.labelItemProperties = new System.Windows.Forms.Label();
-            this.tabPageDescription = new System.Windows.Forms.TabPage();
-            this.labelItemDescription = new System.Windows.Forms.Label();
-            this.textBoxItemDescription = new System.Windows.Forms.TextBox();
-            this.tabPageComments = new System.Windows.Forms.TabPage();
-            this.textBoxItemComments = new System.Windows.Forms.TextBox();
-            this.labelItemComments = new System.Windows.Forms.Label();
-            this.buttonDiscardChangesItemDetails = new System.Windows.Forms.Button();
-            this.buttonApplyChangesItemDetails = new System.Windows.Forms.Button();
-            this.tabControlProperties.SuspendLayout();
-            this.tabPageItemModel.SuspendLayout();
-            this.panelItemEditorControl.SuspendLayout();
-            this.tabPageItemIcon.SuspendLayout();
+            this.tabPageItemAppearance = new System.Windows.Forms.TabPage();
+            this.panelItemEditorControl = new System.Windows.Forms.Panel();
+            this.comboBoxPartSelection = new System.Windows.Forms.ComboBox();
+            this.panelItemIconViewer = new System.Windows.Forms.Panel();
+            this.listBoxAppearance = new System.Windows.Forms.ListBox();
+            this.labelAppearance = new System.Windows.Forms.Label();
+            this.panelItemModelViewer = new System.Windows.Forms.Panel();
+            this.tabControlProperties = new System.Windows.Forms.TabControl();
+            this.tabPageComments.SuspendLayout();
+            this.tabPageDescription.SuspendLayout();
+            this.tabPageItemProperties.SuspendLayout();
             this.tabPageItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrice)).BeginInit();
-            this.tabPageItemProperties.SuspendLayout();
-            this.tabPageDescription.SuspendLayout();
-            this.tabPageComments.SuspendLayout();
+            this.tabPageItemAppearance.SuspendLayout();
+            this.panelItemEditorControl.SuspendLayout();
+            this.tabControlProperties.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControlProperties
+            // buttonDiscardChangesItemDetails
             // 
-            this.tabControlProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlProperties.Controls.Add(this.tabPageItemModel);
-            this.tabControlProperties.Controls.Add(this.tabPageItemIcon);
-            this.tabControlProperties.Controls.Add(this.tabPageItemDetails);
-            this.tabControlProperties.Controls.Add(this.tabPageEvents);
-            this.tabControlProperties.Controls.Add(this.tabPageItemProperties);
-            this.tabControlProperties.Controls.Add(this.tabPageDescription);
-            this.tabControlProperties.Controls.Add(this.tabPageComments);
-            this.tabControlProperties.Enabled = false;
-            this.tabControlProperties.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.tabControlProperties.Location = new System.Drawing.Point(3, 3);
-            this.tabControlProperties.Name = "tabControlProperties";
-            this.tabControlProperties.SelectedIndex = 0;
-            this.tabControlProperties.Size = new System.Drawing.Size(375, 417);
-            this.tabControlProperties.TabIndex = 2;
+            this.buttonDiscardChangesItemDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDiscardChangesItemDetails.Enabled = false;
+            this.buttonDiscardChangesItemDetails.Location = new System.Drawing.Point(207, 426);
+            this.buttonDiscardChangesItemDetails.Name = "buttonDiscardChangesItemDetails";
+            this.buttonDiscardChangesItemDetails.Size = new System.Drawing.Size(102, 23);
+            this.buttonDiscardChangesItemDetails.TabIndex = 9;
+            this.buttonDiscardChangesItemDetails.Text = "Discard Changes";
+            this.buttonDiscardChangesItemDetails.UseVisualStyleBackColor = true;
+            this.buttonDiscardChangesItemDetails.Click += new System.EventHandler(this.buttonDiscardChangesItemDetails_Click);
             // 
-            // tabPageItemModel
+            // buttonApplyChangesItemDetails
             // 
-            this.tabPageItemModel.Controls.Add(this.panelItemEditorControl);
-            this.tabPageItemModel.Location = new System.Drawing.Point(4, 22);
-            this.tabPageItemModel.Name = "tabPageItemModel";
-            this.tabPageItemModel.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageItemModel.Size = new System.Drawing.Size(367, 391);
-            this.tabPageItemModel.TabIndex = 0;
-            this.tabPageItemModel.Text = "Model";
-            this.tabPageItemModel.UseVisualStyleBackColor = true;
+            this.buttonApplyChangesItemDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonApplyChangesItemDetails.Enabled = false;
+            this.buttonApplyChangesItemDetails.Location = new System.Drawing.Point(73, 426);
+            this.buttonApplyChangesItemDetails.Name = "buttonApplyChangesItemDetails";
+            this.buttonApplyChangesItemDetails.Size = new System.Drawing.Size(91, 23);
+            this.buttonApplyChangesItemDetails.TabIndex = 8;
+            this.buttonApplyChangesItemDetails.Text = "Apply Changes";
+            this.buttonApplyChangesItemDetails.UseVisualStyleBackColor = true;
+            this.buttonApplyChangesItemDetails.Click += new System.EventHandler(this.buttonSaveChangesItemDetails_Click);
             // 
-            // panelItemEditorControl
+            // tabPageComments
             // 
-            this.panelItemEditorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelItemEditorControl.Controls.Add(this.listBoxModels);
-            this.panelItemEditorControl.Controls.Add(this.labelModelSelection);
-            this.panelItemEditorControl.Controls.Add(this.panelItemModelViewer);
-            this.panelItemEditorControl.Location = new System.Drawing.Point(0, 0);
-            this.panelItemEditorControl.Name = "panelItemEditorControl";
-            this.panelItemEditorControl.Size = new System.Drawing.Size(367, 391);
-            this.panelItemEditorControl.TabIndex = 8;
+            this.tabPageComments.Controls.Add(this.textBoxItemComments);
+            this.tabPageComments.Controls.Add(this.labelItemComments);
+            this.tabPageComments.Location = new System.Drawing.Point(4, 22);
+            this.tabPageComments.Name = "tabPageComments";
+            this.tabPageComments.Size = new System.Drawing.Size(367, 391);
+            this.tabPageComments.TabIndex = 4;
+            this.tabPageComments.Text = "Comments";
+            this.tabPageComments.UseVisualStyleBackColor = true;
             // 
-            // listBoxModels
+            // textBoxItemComments
             // 
-            this.listBoxModels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.listBoxModels.FormattingEnabled = true;
-            this.listBoxModels.HorizontalScrollbar = true;
-            this.listBoxModels.Location = new System.Drawing.Point(3, 280);
-            this.listBoxModels.Name = "listBoxModels";
-            this.listBoxModels.Size = new System.Drawing.Size(362, 108);
-            this.listBoxModels.Sorted = true;
-            this.listBoxModels.TabIndex = 7;
-            this.listBoxModels.SelectedIndexChanged += new System.EventHandler(this.listBoxModels_SelectedIndexChanged);
+            this.textBoxItemComments.Location = new System.Drawing.Point(3, 74);
+            this.textBoxItemComments.MaxLength = 4000;
+            this.textBoxItemComments.Multiline = true;
+            this.textBoxItemComments.Name = "textBoxItemComments";
+            this.textBoxItemComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxItemComments.Size = new System.Drawing.Size(361, 317);
+            this.textBoxItemComments.TabIndex = 10;
             // 
-            // labelModelSelection
+            // labelItemComments
             // 
-            this.labelModelSelection.AutoSize = true;
-            this.labelModelSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelModelSelection.Location = new System.Drawing.Point(147, 16);
-            this.labelModelSelection.Name = "labelModelSelection";
-            this.labelModelSelection.Size = new System.Drawing.Size(68, 24);
-            this.labelModelSelection.TabIndex = 5;
-            this.labelModelSelection.Text = "Model";
+            this.labelItemComments.AutoSize = true;
+            this.labelItemComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelItemComments.Location = new System.Drawing.Point(74, 16);
+            this.labelItemComments.Name = "labelItemComments";
+            this.labelItemComments.Size = new System.Drawing.Size(205, 31);
+            this.labelItemComments.TabIndex = 9;
+            this.labelItemComments.Text = "Item Comments";
             // 
-            // panelItemModelViewer
+            // tabPageDescription
             // 
-            this.panelItemModelViewer.Location = new System.Drawing.Point(0, 43);
-            this.panelItemModelViewer.Name = "panelItemModelViewer";
-            this.panelItemModelViewer.Size = new System.Drawing.Size(366, 231);
-            this.panelItemModelViewer.TabIndex = 1;
+            this.tabPageDescription.Controls.Add(this.labelItemDescription);
+            this.tabPageDescription.Controls.Add(this.textBoxItemDescription);
+            this.tabPageDescription.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDescription.Name = "tabPageDescription";
+            this.tabPageDescription.Size = new System.Drawing.Size(367, 391);
+            this.tabPageDescription.TabIndex = 3;
+            this.tabPageDescription.Text = "Description";
+            this.tabPageDescription.UseVisualStyleBackColor = true;
             // 
-            // tabPageItemIcon
+            // labelItemDescription
             // 
-            this.tabPageItemIcon.Controls.Add(this.listBoxIcons);
-            this.tabPageItemIcon.Controls.Add(this.labelItemIcon);
-            this.tabPageItemIcon.Controls.Add(this.panelItemIconViewer);
-            this.tabPageItemIcon.Location = new System.Drawing.Point(4, 22);
-            this.tabPageItemIcon.Name = "tabPageItemIcon";
-            this.tabPageItemIcon.Size = new System.Drawing.Size(367, 391);
-            this.tabPageItemIcon.TabIndex = 6;
-            this.tabPageItemIcon.Text = "Icon";
-            this.tabPageItemIcon.UseVisualStyleBackColor = true;
+            this.labelItemDescription.AutoSize = true;
+            this.labelItemDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelItemDescription.Location = new System.Drawing.Point(76, 16);
+            this.labelItemDescription.Name = "labelItemDescription";
+            this.labelItemDescription.Size = new System.Drawing.Size(211, 31);
+            this.labelItemDescription.TabIndex = 8;
+            this.labelItemDescription.Text = "Item Description";
             // 
-            // listBoxIcons
+            // textBoxItemDescription
             // 
-            this.listBoxIcons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.listBoxIcons.FormattingEnabled = true;
-            this.listBoxIcons.HorizontalScrollbar = true;
-            this.listBoxIcons.Location = new System.Drawing.Point(3, 280);
-            this.listBoxIcons.Name = "listBoxIcons";
-            this.listBoxIcons.Size = new System.Drawing.Size(362, 108);
-            this.listBoxIcons.Sorted = true;
-            this.listBoxIcons.TabIndex = 11;
-            this.listBoxIcons.SelectedIndexChanged += new System.EventHandler(this.listBoxIcons_SelectedIndexChanged);
+            this.textBoxItemDescription.Location = new System.Drawing.Point(3, 74);
+            this.textBoxItemDescription.MaxLength = 4000;
+            this.textBoxItemDescription.Multiline = true;
+            this.textBoxItemDescription.Name = "textBoxItemDescription";
+            this.textBoxItemDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxItemDescription.Size = new System.Drawing.Size(361, 317);
+            this.textBoxItemDescription.TabIndex = 0;
             // 
-            // labelItemIcon
+            // tabPageItemProperties
             // 
-            this.labelItemIcon.AutoSize = true;
-            this.labelItemIcon.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelItemIcon.Location = new System.Drawing.Point(152, 16);
-            this.labelItemIcon.Name = "labelItemIcon";
-            this.labelItemIcon.Size = new System.Drawing.Size(50, 24);
-            this.labelItemIcon.TabIndex = 10;
-            this.labelItemIcon.Text = "Icon";
+            this.tabPageItemProperties.Controls.Add(this.labelAssignedItemProperties);
+            this.tabPageItemProperties.Controls.Add(this.labelAvailableItemProperties);
+            this.tabPageItemProperties.Controls.Add(this.listBoxAssignedItemProperties);
+            this.tabPageItemProperties.Controls.Add(this.listBoxAvailableItemProperties);
+            this.tabPageItemProperties.Controls.Add(this.labelItemProperties);
+            this.tabPageItemProperties.Location = new System.Drawing.Point(4, 22);
+            this.tabPageItemProperties.Name = "tabPageItemProperties";
+            this.tabPageItemProperties.Size = new System.Drawing.Size(367, 391);
+            this.tabPageItemProperties.TabIndex = 2;
+            this.tabPageItemProperties.Text = "Properties";
+            this.tabPageItemProperties.UseVisualStyleBackColor = true;
             // 
-            // panelItemIconViewer
+            // labelAssignedItemProperties
             // 
-            this.panelItemIconViewer.Location = new System.Drawing.Point(0, 43);
-            this.panelItemIconViewer.Name = "panelItemIconViewer";
-            this.panelItemIconViewer.Size = new System.Drawing.Size(366, 231);
-            this.panelItemIconViewer.TabIndex = 9;
+            this.labelAssignedItemProperties.AutoSize = true;
+            this.labelAssignedItemProperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAssignedItemProperties.Location = new System.Drawing.Point(197, 66);
+            this.labelAssignedItemProperties.Name = "labelAssignedItemProperties";
+            this.labelAssignedItemProperties.Size = new System.Drawing.Size(79, 20);
+            this.labelAssignedItemProperties.TabIndex = 12;
+            this.labelAssignedItemProperties.Text = "Assigned:";
+            // 
+            // labelAvailableItemProperties
+            // 
+            this.labelAvailableItemProperties.AutoSize = true;
+            this.labelAvailableItemProperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAvailableItemProperties.Location = new System.Drawing.Point(25, 66);
+            this.labelAvailableItemProperties.Name = "labelAvailableItemProperties";
+            this.labelAvailableItemProperties.Size = new System.Drawing.Size(76, 20);
+            this.labelAvailableItemProperties.TabIndex = 11;
+            this.labelAvailableItemProperties.Text = "Available:";
+            // 
+            // listBoxAssignedItemProperties
+            // 
+            this.listBoxAssignedItemProperties.FormattingEnabled = true;
+            this.listBoxAssignedItemProperties.HorizontalScrollbar = true;
+            this.listBoxAssignedItemProperties.Location = new System.Drawing.Point(185, 87);
+            this.listBoxAssignedItemProperties.Name = "listBoxAssignedItemProperties";
+            this.listBoxAssignedItemProperties.Size = new System.Drawing.Size(180, 303);
+            this.listBoxAssignedItemProperties.TabIndex = 10;
+            // 
+            // listBoxAvailableItemProperties
+            // 
+            this.listBoxAvailableItemProperties.FormattingEnabled = true;
+            this.listBoxAvailableItemProperties.HorizontalScrollbar = true;
+            this.listBoxAvailableItemProperties.Location = new System.Drawing.Point(3, 87);
+            this.listBoxAvailableItemProperties.Name = "listBoxAvailableItemProperties";
+            this.listBoxAvailableItemProperties.Size = new System.Drawing.Size(180, 303);
+            this.listBoxAvailableItemProperties.TabIndex = 9;
+            // 
+            // labelItemProperties
+            // 
+            this.labelItemProperties.AutoSize = true;
+            this.labelItemProperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelItemProperties.Location = new System.Drawing.Point(78, 16);
+            this.labelItemProperties.Name = "labelItemProperties";
+            this.labelItemProperties.Size = new System.Drawing.Size(198, 31);
+            this.labelItemProperties.TabIndex = 8;
+            this.labelItemProperties.Text = "Item Properties";
+            // 
+            // tabPageEvents
+            // 
+            this.tabPageEvents.Location = new System.Drawing.Point(4, 22);
+            this.tabPageEvents.Name = "tabPageEvents";
+            this.tabPageEvents.Size = new System.Drawing.Size(367, 391);
+            this.tabPageEvents.TabIndex = 5;
+            this.tabPageEvents.Text = "Events";
+            this.tabPageEvents.UseVisualStyleBackColor = true;
             // 
             // tabPageItemDetails
             // 
@@ -336,162 +374,96 @@
             this.labelItemName.TabIndex = 1;
             this.labelItemName.Text = "Name:";
             // 
-            // tabPageEvents
+            // tabPageItemAppearance
             // 
-            this.tabPageEvents.Location = new System.Drawing.Point(4, 22);
-            this.tabPageEvents.Name = "tabPageEvents";
-            this.tabPageEvents.Size = new System.Drawing.Size(367, 391);
-            this.tabPageEvents.TabIndex = 5;
-            this.tabPageEvents.Text = "Events";
-            this.tabPageEvents.UseVisualStyleBackColor = true;
+            this.tabPageItemAppearance.Controls.Add(this.panelItemEditorControl);
+            this.tabPageItemAppearance.Location = new System.Drawing.Point(4, 22);
+            this.tabPageItemAppearance.Name = "tabPageItemAppearance";
+            this.tabPageItemAppearance.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageItemAppearance.Size = new System.Drawing.Size(367, 391);
+            this.tabPageItemAppearance.TabIndex = 0;
+            this.tabPageItemAppearance.Text = "Appearance";
+            this.tabPageItemAppearance.UseVisualStyleBackColor = true;
             // 
-            // tabPageItemProperties
+            // panelItemEditorControl
             // 
-            this.tabPageItemProperties.Controls.Add(this.labelAssignedItemProperties);
-            this.tabPageItemProperties.Controls.Add(this.labelAvailableItemProperties);
-            this.tabPageItemProperties.Controls.Add(this.listBoxAssignedItemProperties);
-            this.tabPageItemProperties.Controls.Add(this.listBoxAvailableItemProperties);
-            this.tabPageItemProperties.Controls.Add(this.labelItemProperties);
-            this.tabPageItemProperties.Location = new System.Drawing.Point(4, 22);
-            this.tabPageItemProperties.Name = "tabPageItemProperties";
-            this.tabPageItemProperties.Size = new System.Drawing.Size(367, 391);
-            this.tabPageItemProperties.TabIndex = 2;
-            this.tabPageItemProperties.Text = "Properties";
-            this.tabPageItemProperties.UseVisualStyleBackColor = true;
+            this.panelItemEditorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelItemEditorControl.Controls.Add(this.comboBoxPartSelection);
+            this.panelItemEditorControl.Controls.Add(this.panelItemIconViewer);
+            this.panelItemEditorControl.Controls.Add(this.listBoxAppearance);
+            this.panelItemEditorControl.Controls.Add(this.labelAppearance);
+            this.panelItemEditorControl.Controls.Add(this.panelItemModelViewer);
+            this.panelItemEditorControl.Location = new System.Drawing.Point(0, 0);
+            this.panelItemEditorControl.Name = "panelItemEditorControl";
+            this.panelItemEditorControl.Size = new System.Drawing.Size(367, 391);
+            this.panelItemEditorControl.TabIndex = 8;
             // 
-            // labelAssignedItemProperties
+            // comboBoxPartSelection
             // 
-            this.labelAssignedItemProperties.AutoSize = true;
-            this.labelAssignedItemProperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAssignedItemProperties.Location = new System.Drawing.Point(197, 66);
-            this.labelAssignedItemProperties.Name = "labelAssignedItemProperties";
-            this.labelAssignedItemProperties.Size = new System.Drawing.Size(79, 20);
-            this.labelAssignedItemProperties.TabIndex = 12;
-            this.labelAssignedItemProperties.Text = "Assigned:";
+            this.comboBoxPartSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPartSelection.FormattingEnabled = true;
+            this.comboBoxPartSelection.Location = new System.Drawing.Point(213, 43);
+            this.comboBoxPartSelection.Name = "comboBoxPartSelection";
+            this.comboBoxPartSelection.Size = new System.Drawing.Size(148, 21);
+            this.comboBoxPartSelection.TabIndex = 11;
             // 
-            // labelAvailableItemProperties
+            // panelItemIconViewer
             // 
-            this.labelAvailableItemProperties.AutoSize = true;
-            this.labelAvailableItemProperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAvailableItemProperties.Location = new System.Drawing.Point(25, 66);
-            this.labelAvailableItemProperties.Name = "labelAvailableItemProperties";
-            this.labelAvailableItemProperties.Size = new System.Drawing.Size(76, 20);
-            this.labelAvailableItemProperties.TabIndex = 11;
-            this.labelAvailableItemProperties.Text = "Available:";
+            this.panelItemIconViewer.Location = new System.Drawing.Point(0, 213);
+            this.panelItemIconViewer.Name = "panelItemIconViewer";
+            this.panelItemIconViewer.Size = new System.Drawing.Size(207, 172);
+            this.panelItemIconViewer.TabIndex = 10;
             // 
-            // listBoxAssignedItemProperties
+            // listBoxAppearance
             // 
-            this.listBoxAssignedItemProperties.FormattingEnabled = true;
-            this.listBoxAssignedItemProperties.HorizontalScrollbar = true;
-            this.listBoxAssignedItemProperties.Location = new System.Drawing.Point(185, 87);
-            this.listBoxAssignedItemProperties.Name = "listBoxAssignedItemProperties";
-            this.listBoxAssignedItemProperties.Size = new System.Drawing.Size(180, 303);
-            this.listBoxAssignedItemProperties.TabIndex = 10;
+            this.listBoxAppearance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listBoxAppearance.FormattingEnabled = true;
+            this.listBoxAppearance.HorizontalScrollbar = true;
+            this.listBoxAppearance.Location = new System.Drawing.Point(213, 69);
+            this.listBoxAppearance.Name = "listBoxAppearance";
+            this.listBoxAppearance.Size = new System.Drawing.Size(148, 316);
+            this.listBoxAppearance.Sorted = true;
+            this.listBoxAppearance.TabIndex = 7;
+            this.listBoxAppearance.SelectedIndexChanged += new System.EventHandler(this.listBoxAppearance_SelectedIndexChanged);
             // 
-            // listBoxAvailableItemProperties
+            // labelAppearance
             // 
-            this.listBoxAvailableItemProperties.FormattingEnabled = true;
-            this.listBoxAvailableItemProperties.HorizontalScrollbar = true;
-            this.listBoxAvailableItemProperties.Location = new System.Drawing.Point(3, 87);
-            this.listBoxAvailableItemProperties.Name = "listBoxAvailableItemProperties";
-            this.listBoxAvailableItemProperties.Size = new System.Drawing.Size(180, 303);
-            this.listBoxAvailableItemProperties.TabIndex = 9;
+            this.labelAppearance.AutoSize = true;
+            this.labelAppearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAppearance.Location = new System.Drawing.Point(129, 16);
+            this.labelAppearance.Name = "labelAppearance";
+            this.labelAppearance.Size = new System.Drawing.Size(124, 24);
+            this.labelAppearance.TabIndex = 5;
+            this.labelAppearance.Text = "Appearance";
             // 
-            // labelItemProperties
+            // panelItemModelViewer
             // 
-            this.labelItemProperties.AutoSize = true;
-            this.labelItemProperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelItemProperties.Location = new System.Drawing.Point(78, 16);
-            this.labelItemProperties.Name = "labelItemProperties";
-            this.labelItemProperties.Size = new System.Drawing.Size(198, 31);
-            this.labelItemProperties.TabIndex = 8;
-            this.labelItemProperties.Text = "Item Properties";
+            this.panelItemModelViewer.Location = new System.Drawing.Point(0, 43);
+            this.panelItemModelViewer.Name = "panelItemModelViewer";
+            this.panelItemModelViewer.Size = new System.Drawing.Size(207, 164);
+            this.panelItemModelViewer.TabIndex = 1;
             // 
-            // tabPageDescription
+            // tabControlProperties
             // 
-            this.tabPageDescription.Controls.Add(this.labelItemDescription);
-            this.tabPageDescription.Controls.Add(this.textBoxItemDescription);
-            this.tabPageDescription.Location = new System.Drawing.Point(4, 22);
-            this.tabPageDescription.Name = "tabPageDescription";
-            this.tabPageDescription.Size = new System.Drawing.Size(367, 391);
-            this.tabPageDescription.TabIndex = 3;
-            this.tabPageDescription.Text = "Description";
-            this.tabPageDescription.UseVisualStyleBackColor = true;
-            // 
-            // labelItemDescription
-            // 
-            this.labelItemDescription.AutoSize = true;
-            this.labelItemDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelItemDescription.Location = new System.Drawing.Point(76, 16);
-            this.labelItemDescription.Name = "labelItemDescription";
-            this.labelItemDescription.Size = new System.Drawing.Size(211, 31);
-            this.labelItemDescription.TabIndex = 8;
-            this.labelItemDescription.Text = "Item Description";
-            // 
-            // textBoxItemDescription
-            // 
-            this.textBoxItemDescription.Location = new System.Drawing.Point(3, 74);
-            this.textBoxItemDescription.MaxLength = 4000;
-            this.textBoxItemDescription.Multiline = true;
-            this.textBoxItemDescription.Name = "textBoxItemDescription";
-            this.textBoxItemDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxItemDescription.Size = new System.Drawing.Size(361, 317);
-            this.textBoxItemDescription.TabIndex = 0;
-            // 
-            // tabPageComments
-            // 
-            this.tabPageComments.Controls.Add(this.textBoxItemComments);
-            this.tabPageComments.Controls.Add(this.labelItemComments);
-            this.tabPageComments.Location = new System.Drawing.Point(4, 22);
-            this.tabPageComments.Name = "tabPageComments";
-            this.tabPageComments.Size = new System.Drawing.Size(367, 391);
-            this.tabPageComments.TabIndex = 4;
-            this.tabPageComments.Text = "Comments";
-            this.tabPageComments.UseVisualStyleBackColor = true;
-            // 
-            // textBoxItemComments
-            // 
-            this.textBoxItemComments.Location = new System.Drawing.Point(3, 74);
-            this.textBoxItemComments.MaxLength = 4000;
-            this.textBoxItemComments.Multiline = true;
-            this.textBoxItemComments.Name = "textBoxItemComments";
-            this.textBoxItemComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxItemComments.Size = new System.Drawing.Size(361, 317);
-            this.textBoxItemComments.TabIndex = 10;
-            // 
-            // labelItemComments
-            // 
-            this.labelItemComments.AutoSize = true;
-            this.labelItemComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelItemComments.Location = new System.Drawing.Point(74, 16);
-            this.labelItemComments.Name = "labelItemComments";
-            this.labelItemComments.Size = new System.Drawing.Size(205, 31);
-            this.labelItemComments.TabIndex = 9;
-            this.labelItemComments.Text = "Item Comments";
-            // 
-            // buttonDiscardChangesItemDetails
-            // 
-            this.buttonDiscardChangesItemDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDiscardChangesItemDetails.Enabled = false;
-            this.buttonDiscardChangesItemDetails.Location = new System.Drawing.Point(207, 426);
-            this.buttonDiscardChangesItemDetails.Name = "buttonDiscardChangesItemDetails";
-            this.buttonDiscardChangesItemDetails.Size = new System.Drawing.Size(102, 23);
-            this.buttonDiscardChangesItemDetails.TabIndex = 9;
-            this.buttonDiscardChangesItemDetails.Text = "Discard Changes";
-            this.buttonDiscardChangesItemDetails.UseVisualStyleBackColor = true;
-            this.buttonDiscardChangesItemDetails.Click += new System.EventHandler(this.buttonDiscardChangesItemDetails_Click);
-            // 
-            // buttonApplyChangesItemDetails
-            // 
-            this.buttonApplyChangesItemDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonApplyChangesItemDetails.Enabled = false;
-            this.buttonApplyChangesItemDetails.Location = new System.Drawing.Point(73, 426);
-            this.buttonApplyChangesItemDetails.Name = "buttonApplyChangesItemDetails";
-            this.buttonApplyChangesItemDetails.Size = new System.Drawing.Size(91, 23);
-            this.buttonApplyChangesItemDetails.TabIndex = 8;
-            this.buttonApplyChangesItemDetails.Text = "Apply Changes";
-            this.buttonApplyChangesItemDetails.UseVisualStyleBackColor = true;
-            this.buttonApplyChangesItemDetails.Click += new System.EventHandler(this.buttonSaveChangesItemDetails_Click);
+            this.tabControlProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlProperties.Controls.Add(this.tabPageItemAppearance);
+            this.tabControlProperties.Controls.Add(this.tabPageItemDetails);
+            this.tabControlProperties.Controls.Add(this.tabPageEvents);
+            this.tabControlProperties.Controls.Add(this.tabPageItemProperties);
+            this.tabControlProperties.Controls.Add(this.tabPageDescription);
+            this.tabControlProperties.Controls.Add(this.tabPageComments);
+            this.tabControlProperties.Enabled = false;
+            this.tabControlProperties.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.tabControlProperties.Location = new System.Drawing.Point(3, 3);
+            this.tabControlProperties.Name = "tabControlProperties";
+            this.tabControlProperties.SelectedIndex = 0;
+            this.tabControlProperties.Size = new System.Drawing.Size(375, 417);
+            this.tabControlProperties.TabIndex = 2;
             // 
             // ItemPropertiesControl
             // 
@@ -503,66 +475,62 @@
             this.Name = "ItemPropertiesControl";
             this.Size = new System.Drawing.Size(375, 452);
             this.Load += new System.EventHandler(this.ItemPropertiesControl_Load);
-            this.tabControlProperties.ResumeLayout(false);
-            this.tabPageItemModel.ResumeLayout(false);
-            this.panelItemEditorControl.ResumeLayout(false);
-            this.panelItemEditorControl.PerformLayout();
-            this.tabPageItemIcon.ResumeLayout(false);
-            this.tabPageItemIcon.PerformLayout();
+            this.tabPageComments.ResumeLayout(false);
+            this.tabPageComments.PerformLayout();
+            this.tabPageDescription.ResumeLayout(false);
+            this.tabPageDescription.PerformLayout();
+            this.tabPageItemProperties.ResumeLayout(false);
+            this.tabPageItemProperties.PerformLayout();
             this.tabPageItemDetails.ResumeLayout(false);
             this.tabPageItemDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrice)).EndInit();
-            this.tabPageItemProperties.ResumeLayout(false);
-            this.tabPageItemProperties.PerformLayout();
-            this.tabPageDescription.ResumeLayout(false);
-            this.tabPageDescription.PerformLayout();
-            this.tabPageComments.ResumeLayout(false);
-            this.tabPageComments.PerformLayout();
+            this.tabPageItemAppearance.ResumeLayout(false);
+            this.panelItemEditorControl.ResumeLayout(false);
+            this.panelItemEditorControl.PerformLayout();
+            this.tabControlProperties.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControlProperties;
-        private System.Windows.Forms.TabPage tabPageItemModel;
-        private System.Windows.Forms.Panel panelItemEditorControl;
-        private System.Windows.Forms.TabPage tabPageItemDetails;
         private System.Windows.Forms.Button buttonDiscardChangesItemDetails;
         private System.Windows.Forms.Button buttonApplyChangesItemDetails;
-        private System.Windows.Forms.Label labelItemDetailsHeader;
-        private System.Windows.Forms.Label labelItemResref;
-        private System.Windows.Forms.Label labelItemTag;
-        private System.Windows.Forms.Label labelItemName;
-        private System.Windows.Forms.TabPage tabPageItemProperties;
-        private System.Windows.Forms.Panel panelItemModelViewer;
-        private System.Windows.Forms.Label labelModelSelection;
-        private System.Windows.Forms.Label labelItemProperties;
-        private System.Windows.Forms.TabPage tabPageDescription;
-        private System.Windows.Forms.Label labelItemDescription;
-        private System.Windows.Forms.TextBox textBoxItemDescription;
         private System.Windows.Forms.TabPage tabPageComments;
         private System.Windows.Forms.TextBox textBoxItemComments;
         private System.Windows.Forms.Label labelItemComments;
-        private System.Windows.Forms.ListBox listBoxModels;
-        private System.Windows.Forms.Label labelItemType;
-        private System.Windows.Forms.ListBox listBoxItemType;
-        private System.Windows.Forms.NumericUpDown numericUpDownPrice;
-        private System.Windows.Forms.Label labelItemPrice;
-        private System.Windows.Forms.NumericUpDown numericUpDownWeight;
-        private System.Windows.Forms.Label labelWeight;
+        private System.Windows.Forms.TabPage tabPageDescription;
+        private System.Windows.Forms.Label labelItemDescription;
+        private System.Windows.Forms.TextBox textBoxItemDescription;
+        private System.Windows.Forms.TabPage tabPageItemProperties;
         private System.Windows.Forms.Label labelAssignedItemProperties;
         private System.Windows.Forms.Label labelAvailableItemProperties;
         private System.Windows.Forms.ListBox listBoxAssignedItemProperties;
         private System.Windows.Forms.ListBox listBoxAvailableItemProperties;
-        private GenericControls.NameTextBox nameTextBoxItem;
-        private GenericControls.TagTextBox tagTextBoxItem;
-        private GenericControls.ResrefTextBox resrefTextBoxItem;
+        private System.Windows.Forms.Label labelItemProperties;
         private System.Windows.Forms.TabPage tabPageEvents;
-        private System.Windows.Forms.TabPage tabPageItemIcon;
-        private System.Windows.Forms.ListBox listBoxIcons;
-        private System.Windows.Forms.Label labelItemIcon;
+        private System.Windows.Forms.TabPage tabPageItemDetails;
+        private GenericControls.ResrefTextBox resrefTextBoxItem;
+        private GenericControls.TagTextBox tagTextBoxItem;
+        private GenericControls.NameTextBox nameTextBoxItem;
+        private System.Windows.Forms.NumericUpDown numericUpDownWeight;
+        private System.Windows.Forms.Label labelWeight;
+        private System.Windows.Forms.NumericUpDown numericUpDownPrice;
+        private System.Windows.Forms.Label labelItemPrice;
+        private System.Windows.Forms.Label labelItemType;
+        private System.Windows.Forms.ListBox listBoxItemType;
+        private System.Windows.Forms.Label labelItemDetailsHeader;
+        private System.Windows.Forms.Label labelItemResref;
+        private System.Windows.Forms.Label labelItemTag;
+        private System.Windows.Forms.Label labelItemName;
+        private System.Windows.Forms.TabPage tabPageItemAppearance;
+        private System.Windows.Forms.Panel panelItemEditorControl;
+        private System.Windows.Forms.ComboBox comboBoxPartSelection;
         private System.Windows.Forms.Panel panelItemIconViewer;
+        private System.Windows.Forms.ListBox listBoxAppearance;
+        private System.Windows.Forms.Label labelAppearance;
+        private System.Windows.Forms.Panel panelItemModelViewer;
+        private System.Windows.Forms.TabControl tabControlProperties;
     }
 }

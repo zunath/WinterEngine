@@ -494,5 +494,54 @@ namespace WinterEngine.Hakpak.Builder
                 }
             }
         }
+
+        private void HakBuilder_Load(object sender, EventArgs e)
+        {
+            // Add all of the item part types to the combo box
+            foreach (ItemPartEnum itemPart in Enum.GetValues(typeof(ItemPartEnum)))
+            {
+                comboBoxResourceType.Items.Add(itemPart);
+            }
+            comboBoxResourceType.SelectedItem = comboBoxResourceType.Items[0];
+        }
+
+        private void comboBoxResourceType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (object.Equals(ResourceTypeEnum.Creature, comboBoxResourceType.SelectedItem))
+            {
+                listBoxLinkTo.Enabled = false;
+            }
+            else if (object.Equals(ResourceTypeEnum.Item, comboBoxResourceType.SelectedItem))
+            {
+                listBoxLinkTo.Enabled = true;
+            }
+            else if (object.Equals(ResourceTypeEnum.Placeable, comboBoxResourceType.SelectedItem))
+            {
+                listBoxLinkTo.Enabled = false;
+            }
+            else
+            {
+                listBoxLinkTo.Enabled = false;
+            }
+
+        }
+
+        private void checkBoxIsItem_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxIsItem.Checked)
+            {
+                listBoxLinkTo.Enabled = true;
+                radioButton2D.Enabled = true;
+                radioButton3D.Enabled = true;
+                comboBoxResourceType.Enabled = true;
+            }
+            else
+            {
+                listBoxLinkTo.Enabled = false;
+                radioButton2D.Enabled = false;
+                radioButton3D.Enabled = false;
+                comboBoxResourceType.Enabled = false;
+            }
+        }
     }
 }

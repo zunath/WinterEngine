@@ -63,6 +63,11 @@ namespace WinterEngine.DataTransferObjects.Resources
 
         #region Overrides
         
+        /// <summary>
+        /// Returns the temporary display name of the Graphic Resource, if available.
+        /// Otherwise it returns the base ToString() return value.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             if (String.IsNullOrWhiteSpace(TemporaryDisplayName))

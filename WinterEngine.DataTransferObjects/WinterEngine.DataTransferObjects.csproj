@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\ItemPartEnum.cs" />
     <Compile Include="Resources\Ability.cs" />
     <Compile Include="GameObjects\Area.cs" />
     <Compile Include="Resources\CharacterClass.cs" />

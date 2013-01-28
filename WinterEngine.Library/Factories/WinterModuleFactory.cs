@@ -384,6 +384,82 @@ namespace WinterEngine.Library.Factories
                 category.ResourceTypeID = (int)ResourceTypeEnum.Script;
                 repo.AddResourceCategory(category);
             }
+
+            // Build the basic item types
+            using (ItemTypeRepository repo = new ItemTypeRepository())
+            {
+                List<ItemType> itemTypes = new List<ItemType>();
+
+
+                // NOTE: This is a temporary solution. I will eventually be loading the initial data from a standardized database.
+                // However, as the data model is constantly changing I will not be able to migrate existing data quickly.
+                // Once most of the development is done, I will come back and fix this.
+                itemTypes.Add(new ItemType { Name = "Amulet", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = false, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Armor", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Arrow", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Bastard Sword", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Battleaxe", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Belt", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = false, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Bolt", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Book", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Boots", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = false, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Bracer", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Bullet", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = false, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Cloak", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = false, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Club", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Dagger", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Dart", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Dire Mace", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Double Axe", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Gauntlet", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Greataxe", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Greatsword", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Halberd", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Handaxe", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Heavy Crossbow", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Heavy Flail", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Helmet", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Kama", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Katana", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Key", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Kukri", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Lance", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Large Shield", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Light Crossbow", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Light Flail", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Light Hammer", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Longbow", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Longsword", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Mace", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Miscellaneous Large", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = false, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Miscellaneous Medium", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = false, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Miscellaneous Small", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = false, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Miscellaneous Thin", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = false, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Morningstar", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Potion", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Quarterstaff", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Rapier", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Ring", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Scimitar", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Scythe", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Short Sword", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Shortbow", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Shuriken", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Sickle", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Sling", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Small Shield", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Spear", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Throwing Axe", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Torch", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = false, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Tower Shield", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Trident", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Two-Bladed Sword", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Warhammer", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+                itemTypes.Add(new ItemType { Name = "Whip", ResourceTypeID = (int)ResourceTypeEnum.Item, Has2DIcon = true, Has3DModel = true, IconHeight = 32, IconWidth = 32, IsSystemResource = true, Comment = "" });
+
+                repo.Add(itemTypes);
+            }
+
         }
 
         #endregion
