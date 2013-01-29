@@ -12,6 +12,7 @@ using Ionic.Zlib;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.GUI;
 
 namespace WinterEngine.Hakpak.Builder
 {
@@ -47,6 +48,8 @@ namespace WinterEngine.Hakpak.Builder
 
         #endregion
 
+        #region Constructors
+
         public HakBuilder()
         {
             InitializeComponent();
@@ -54,11 +57,26 @@ namespace WinterEngine.Hakpak.Builder
             UncompiledArchivedOpened = false;
         }
 
+        #endregion
+
+        #region Event Handlers
+        
+        /// <summary>
+        /// Handles disposing of the form when the exit button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Dispose();
         }
 
+        /// <summary>
+        /// Handles prompting user to add resource files to the hakpak
+        /// and processes them accordingly.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonAddFiles_Click(object sender, EventArgs e)
         {
             FileExtensionFactory extensions = new FileExtensionFactory();
@@ -78,16 +96,17 @@ namespace WinterEngine.Hakpak.Builder
             if (!Object.ReferenceEquals(openFileDialogBuilder.FileNames, null))
             {
                 // Loop through the list of file names and add them to the list box
-                foreach(var currentFile in openFileDialogBuilder.FileNames)
+                foreach (string currentFile in openFileDialogBuilder.FileNames)
                 {
                     // Does the file exist?
                     if (File.Exists(currentFile))
                     {
+                        HakpakResource resource = new HakpakResource { FilePath = currentFile, IsItem = false, Is2D = false, ItemPartType = ItemPartEnum.None };
                         // Is the file in the list already?
-                        if (!DoesFileExistInListBox(currentFile))
+                        if (!DoesFileExistInListBox(resource))
                         {
                             // Add the file to the list box
-                            listBoxResources.Items.Add(currentFile);
+                            listBoxResources.Items.Add(resource);
                         }
                     }
                 }
@@ -111,6 +130,12 @@ namespace WinterEngine.Hakpak.Builder
                 return;
             }
 
+            if (!ValidateItemLinks())
+            {
+                MessageBox.Show("Please ensure that all items are properly linked.", "Missing Item Link", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             FileExtensionFactory extensions = new FileExtensionFactory();
             string fileExtension = extensions.GetFileExtension(FileTypeEnum.Hakpak);
             saveFileDialog.Filter = "Hakpak Files (*" + fileExtension + ")|*" + fileExtension;
@@ -126,28 +151,18 @@ namespace WinterEngine.Hakpak.Builder
                     textBoxDescription.Enabled = false;
                     textBoxName.Enabled = false;
                     listBoxResources.Enabled = false;
+                    textBoxResourceName.Enabled = false;
+                    checkBoxIsItem.Enabled = false;
+                    radioButton2D.Enabled = false;
+                    radioButton3D.Enabled = false;
+                    comboBoxItemPartType.Enabled = false;
+                    listBoxLinkTo.Enabled = false;
 
                     // Start the build process on a separate thread so that the GUI does not lock up during
                     // heavy processing.
                     backgroundWorkerProcess.RunWorkerAsync();
                 }
             }
-        }
-
-        /// <summary>
-        /// Simple search to see if a file name matches an item already in the list box.
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        private bool DoesFileExistInListBox(string fileName)
-        {
-            foreach (string currentItem in listBoxResources.Items)
-            {
-                if (currentItem == fileName)
-                    return true;
-            }
-
-            return false;
         }
 
         /// <summary>
@@ -163,6 +178,13 @@ namespace WinterEngine.Hakpak.Builder
                 // Remove the item at the correct index
                 listBoxResources.Items.RemoveAt(listBoxResources.SelectedIndices[current]);
             }
+
+            // Clear GUI
+            textBoxResourceName.Text = String.Empty;
+            comboBoxItemPartType.SelectedIndex = 0;
+            checkBoxIsItem.Checked = false;
+            radioButton2D.Checked = true;
+
         }
 
         /// <summary>
@@ -189,7 +211,7 @@ namespace WinterEngine.Hakpak.Builder
             // All of the files are contained inside of an archive (an uncompiled hakpak)
             if (UncompiledArchivedOpened)
             {
-                using(ZipFile zipFile = new ZipFile(OpenFilePath))
+                using (ZipFile zipFile = new ZipFile(OpenFilePath))
                 {
                     // Extract files to the temporary directory
                     zipFile.ExtractAll(tempDirectoryInfo.FullName);
@@ -238,7 +260,7 @@ namespace WinterEngine.Hakpak.Builder
             backgroundWorkerProcess.ReportProgress(30);
             // Perform the build, capturing any error information
             string buildError = builder.Build();
-            
+
             // Remove the temporary directory, if available
             tempDirectoryInfo.Delete(true);
 
@@ -273,9 +295,14 @@ namespace WinterEngine.Hakpak.Builder
                 // If the build failed, display an error message.
                 MessageBox.Show(buildError, "Error");
             }
-            
+
         }
 
+        /// <summary>
+        /// Updates the main form with the progress of the hakpak processor.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void backgroundWorkerProcess_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBarBuild.Value = e.ProgressPercentage;
@@ -295,6 +322,12 @@ namespace WinterEngine.Hakpak.Builder
             textBoxDescription.Enabled = true;
             textBoxName.Enabled = true;
             listBoxResources.Enabled = true;
+            textBoxResourceName.Enabled = true;
+            checkBoxIsItem.Enabled = true;
+            radioButton2D.Enabled = true;
+            radioButton3D.Enabled = true;
+            comboBoxItemPartType.Enabled = true;
+            listBoxLinkTo.Enabled = true;
         }
 
         /// <summary>
@@ -320,6 +353,311 @@ namespace WinterEngine.Hakpak.Builder
         private void toolStripMenuItemBuild_Click(object sender, EventArgs e)
         {
             buttonBuild.PerformClick();
+        }
+
+        /// <summary>
+        /// Handles saving the uncompiled hakpak.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // No save file path set or no valid file at destination - use the Save As method
+            if (String.IsNullOrEmpty(SaveFilePath) || !File.Exists(SaveFilePath))
+            {
+                saveAsToolStripMenuItem.PerformClick();
+            }
+            else
+            {
+                SaveUncompiledHakpak();
+            }
+        }
+
+        /// <summary>
+        /// Handles saving the uncompiled hakpak, prompting user to select the
+        /// location to save the file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Display the save as pop up menu and set the selected path to the SaveFilePath property
+            saveFileDialogSaveAs.ShowDialog();
+
+            if (!String.IsNullOrEmpty(saveFileDialogSaveAs.FileName))
+            {
+                SaveFilePath = saveFileDialogSaveAs.FileName;
+                SaveUncompiledHakpak();
+            }
+        }
+
+        /// <summary>
+        /// Handles prompting user to open an uncompiled hakpak and then
+        /// opens it into the editor.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FileExtensionFactory extensions = new FileExtensionFactory();
+            string uncompiledHakpakFileExtension = extensions.GetFileExtension(FileTypeEnum.UncompiledHakpak);
+
+            openFileDialogBuilder.Filter = "Uncompiled Hakpak (*" + uncompiledHakpakFileExtension + ")|*" + uncompiledHakpakFileExtension;
+
+            if (openFileDialogBuilder.ShowDialog() == DialogResult.OK)
+            {
+                // Clear out existing data
+                listBoxResources.Items.Clear();
+                textBoxDescription.Text = "";
+                textBoxName.Text = "";
+                UncompiledArchivedOpened = true;
+                OpenFilePath = openFileDialogBuilder.FileName;
+
+                using (ZipFile zipFile = ZipFile.Read(openFileDialogBuilder.FileName))
+                {
+                    foreach (ZipEntry current in zipFile)
+                    {
+                        listBoxResources.Items.Add(current.FileName);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles loading all of the item part types to the resource type combo box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HakBuilder_Load(object sender, EventArgs e)
+        {
+            foreach (ItemPartEnum itemPart in Enum.GetValues(typeof(ItemPartEnum)))
+            {
+                comboBoxItemPartType.Items.Add(itemPart);
+            }
+            comboBoxItemPartType.SelectedItem = comboBoxItemPartType.Items[0];
+        }
+
+        /// <summary>
+        /// Handles enabling or disabling the Item option controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBoxIsItem_CheckedChanged(object sender, EventArgs e)
+        {
+            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
+
+            if (!Object.ReferenceEquals(resource, null))
+            {
+                resource.IsItem = checkBoxIsItem.Checked;
+
+                if (checkBoxIsItem.Checked)
+                {
+                    listBoxLinkTo.Enabled = true;
+                    radioButton2D.Enabled = true;
+                    radioButton3D.Enabled = true;
+                    comboBoxItemPartType.Enabled = true;
+                }
+                else
+                {
+                    listBoxLinkTo.Enabled = false;
+                    radioButton2D.Enabled = false;
+                    radioButton3D.Enabled = false;
+                    comboBoxItemPartType.Enabled = false;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// When a resource is selected, load its data into the controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxResources_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
+
+            if (!Object.ReferenceEquals(resource, null))
+            {
+                textBoxResourceName.Text = resource.ResourceName;
+                checkBoxIsItem.Checked = resource.IsItem;
+                if (resource.Is2D)
+                {
+                    radioButton2D.Checked = true;
+                }
+                else
+                {
+                    radioButton3D.Checked = true;
+                }
+
+                comboBoxItemPartType.SelectedItem = resource.ItemPartType;
+
+                textBoxResourceName.Enabled = true;
+                checkBoxIsItem.Enabled = true;
+            }
+            else
+            {
+                textBoxResourceName.Enabled = false;
+                checkBoxIsItem.Checked = false;
+                checkBoxIsItem.Enabled = false;
+                radioButton2D.Enabled = false;
+                radioButton3D.Enabled = false;
+                listBoxLinkTo.Enabled = false;
+                comboBoxItemPartType.Enabled = false;
+            }
+
+            RepopulateLinkToListBox();
+        }
+
+        /// <summary>
+        /// Update the resource object's name as the text field changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxResourceName_TextChanged(object sender, EventArgs e)
+        {
+            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
+
+            if (!Object.ReferenceEquals(resource, null))
+            {
+                resource.ResourceName = textBoxResourceName.Text;
+            }
+        }
+
+        /// <summary>
+        /// Handles updating the selected hakpak resource's Is2D property.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void radioButton2D_CheckedChanged(object sender, EventArgs e)
+        {
+            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
+
+            if (!Object.ReferenceEquals(resource, null))
+            {
+                resource.Is2D = true;
+            }
+        }
+
+        /// <summary>
+        /// Handles updating the selected hakpak resource's Is2D property.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void radioButton3D_CheckedChanged(object sender, EventArgs e)
+        {
+            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
+
+            if (!Object.ReferenceEquals(resource, null))
+            {
+                resource.Is2D = false;
+            }
+        }
+
+        /// <summary>
+        /// Handles updating the selected hakpak resource's ItemPartType property.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void comboBoxItemPartType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
+
+            if (!Object.ReferenceEquals(resource, null))
+            {
+                resource.ItemPartType = (ItemPartEnum)comboBoxItemPartType.SelectedIndex + 1;
+
+                // If resource has no 3D model, it cannot be linked.
+                if (resource.ItemPartType == ItemPartEnum.None)
+                {
+                    resource.LinkedResource = null;
+                    listBoxLinkTo.Enabled = false;
+                }
+                else
+                {
+                    listBoxLinkTo.Enabled = true;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles repopulating the link to list box based on 
+        /// the currently selected item in the resources list box.
+        /// </summary>
+        private void RepopulateLinkToListBox()
+        {
+            listBoxLinkTo.Items.Clear();
+            if (!Object.ReferenceEquals(listBoxResources.SelectedItem, null))
+            {
+                FileExtensionFactory factory = new FileExtensionFactory();
+                HakpakResource selectedResource = listBoxResources.SelectedItem as HakpakResource;
+
+                foreach (HakpakResource resource in listBoxResources.Items)
+                {
+                    // If a resource is already linked, it will not appear in the list.
+                    if ((selectedResource != resource && Object.ReferenceEquals(resource.LinkedResource, null))
+                        || resource.LinkedResource == selectedResource)
+                    {
+                        // If a texture is selected, display only model files in the package.
+                        if (selectedResource.FileExtension == factory.GetFileExtension(FileTypeEnum.Texture)
+                            && resource.FileExtension == factory.GetFileExtension(FileTypeEnum.Model))
+                        {
+                            listBoxLinkTo.Items.Add(resource);
+                        }
+
+                        // If a model is selected, display only texture files in the package.
+                        else if (selectedResource.FileExtension == factory.GetFileExtension(FileTypeEnum.Model)
+                            && resource.FileExtension == factory.GetFileExtension(FileTypeEnum.Texture))
+                        {
+                            listBoxLinkTo.Items.Add(resource);
+                         
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns true if all item resources are valid (properly linked).
+        /// Returns false if an item resource is not valid.
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateItemLinks()
+        {
+            foreach (HakpakResource resource in listBoxResources.Items)
+            {
+                if (resource.IsItem)
+                {
+                    if (resource.ItemPartType != ItemPartEnum.None)
+                    {
+                        if (Object.ReferenceEquals(resource.LinkedResource, null))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Simple search to see if a file name matches an item already in the list box.
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        private bool DoesFileExistInListBox(HakpakResource resource)
+        {
+            foreach (HakpakResource currentItem in listBoxResources.Items)
+            {
+                if (currentItem.FilePath == resource.FilePath)
+                    return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -357,30 +695,6 @@ namespace WinterEngine.Hakpak.Builder
             return processorType;
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // No save file path set or no valid file at destination - use the Save As method
-            if (String.IsNullOrEmpty(SaveFilePath) || !File.Exists(SaveFilePath))
-            {
-                saveAsToolStripMenuItem.PerformClick();
-            }
-            else
-            {
-                SaveUncompiledHakpak();
-            }
-        }
-
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Display the save as pop up menu and set the selected path to the SaveFilePath property
-            saveFileDialogSaveAs.ShowDialog();
-
-            if (!String.IsNullOrEmpty(saveFileDialogSaveAs.FileName))
-            {
-                SaveFilePath = saveFileDialogSaveAs.FileName;
-                SaveUncompiledHakpak();
-            }
-        }
         /// <summary>
         /// Saves an uncompiled hakpak to the location set by the SaveFilePath property.
         /// If property is not set, this method will do nothing.
@@ -449,7 +763,7 @@ namespace WinterEngine.Hakpak.Builder
             {
                 string pureFileName = Path.GetFileNameWithoutExtension(new DirectoryInfo(current).Name);
                 string modFileName = pureFileName;
-                
+
                 // Append a unique ID number to the end of the file's name if it already exists in either list
                 int index = 0;
                 while (fileList.Exists(x => x == modFileName) || modifiedFileNameList.Exists(x => x == modFileName))
@@ -469,79 +783,12 @@ namespace WinterEngine.Hakpak.Builder
             return dictionaryFileNames;
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FileExtensionFactory extensions = new FileExtensionFactory();
-            string uncompiledHakpakFileExtension = extensions.GetFileExtension(FileTypeEnum.UncompiledHakpak);
+        #endregion
 
-            openFileDialogBuilder.Filter = "Uncompiled Hakpak (*" + uncompiledHakpakFileExtension + ")|*" + uncompiledHakpakFileExtension;
+        
 
-            if (openFileDialogBuilder.ShowDialog() == DialogResult.OK)
-            {
-                // Clear out existing data
-                listBoxResources.Items.Clear();
-                textBoxDescription.Text = "";
-                textBoxName.Text = "";
-                UncompiledArchivedOpened = true;
-                OpenFilePath = openFileDialogBuilder.FileName;
+        
+        
 
-                using (ZipFile zipFile = ZipFile.Read(openFileDialogBuilder.FileName))
-                {
-                    foreach(ZipEntry current in zipFile)
-                    {
-                        listBoxResources.Items.Add(current.FileName);
-                    }
-                }
-            }
-        }
-
-        private void HakBuilder_Load(object sender, EventArgs e)
-        {
-            // Add all of the item part types to the combo box
-            foreach (ItemPartEnum itemPart in Enum.GetValues(typeof(ItemPartEnum)))
-            {
-                comboBoxResourceType.Items.Add(itemPart);
-            }
-            comboBoxResourceType.SelectedItem = comboBoxResourceType.Items[0];
-        }
-
-        private void comboBoxResourceType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (object.Equals(ResourceTypeEnum.Creature, comboBoxResourceType.SelectedItem))
-            {
-                listBoxLinkTo.Enabled = false;
-            }
-            else if (object.Equals(ResourceTypeEnum.Item, comboBoxResourceType.SelectedItem))
-            {
-                listBoxLinkTo.Enabled = true;
-            }
-            else if (object.Equals(ResourceTypeEnum.Placeable, comboBoxResourceType.SelectedItem))
-            {
-                listBoxLinkTo.Enabled = false;
-            }
-            else
-            {
-                listBoxLinkTo.Enabled = false;
-            }
-
-        }
-
-        private void checkBoxIsItem_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxIsItem.Checked)
-            {
-                listBoxLinkTo.Enabled = true;
-                radioButton2D.Enabled = true;
-                radioButton3D.Enabled = true;
-                comboBoxResourceType.Enabled = true;
-            }
-            else
-            {
-                listBoxLinkTo.Enabled = false;
-                radioButton2D.Enabled = false;
-                radioButton3D.Enabled = false;
-                comboBoxResourceType.Enabled = false;
-            }
-        }
     }
 }
