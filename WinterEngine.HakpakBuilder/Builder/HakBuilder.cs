@@ -111,6 +111,7 @@ namespace WinterEngine.Hakpak.Builder
                     }
                 }
 
+                RepopulateLinkToListBox();
             }
         }
 
@@ -153,8 +154,6 @@ namespace WinterEngine.Hakpak.Builder
                     listBoxResources.Enabled = false;
                     textBoxResourceName.Enabled = false;
                     checkBoxIsItem.Enabled = false;
-                    radioButton2D.Enabled = false;
-                    radioButton3D.Enabled = false;
                     comboBoxItemPartType.Enabled = false;
                     listBoxLinkTo.Enabled = false;
 
@@ -183,7 +182,6 @@ namespace WinterEngine.Hakpak.Builder
             textBoxResourceName.Text = String.Empty;
             comboBoxItemPartType.SelectedIndex = 0;
             checkBoxIsItem.Checked = false;
-            radioButton2D.Checked = true;
 
         }
 
@@ -324,8 +322,6 @@ namespace WinterEngine.Hakpak.Builder
             listBoxResources.Enabled = true;
             textBoxResourceName.Enabled = true;
             checkBoxIsItem.Enabled = true;
-            radioButton2D.Enabled = true;
-            radioButton3D.Enabled = true;
             comboBoxItemPartType.Enabled = true;
             listBoxLinkTo.Enabled = true;
         }
@@ -450,20 +446,17 @@ namespace WinterEngine.Hakpak.Builder
             {
                 resource.IsItem = checkBoxIsItem.Checked;
 
-                if (checkBoxIsItem.Checked)
+                comboBoxItemPartType.Enabled = checkBoxIsItem.Checked;
+
+                if (resource.ItemPartType != ItemPartEnum.None && checkBoxIsItem.Checked)
                 {
                     listBoxLinkTo.Enabled = true;
-                    radioButton2D.Enabled = true;
-                    radioButton3D.Enabled = true;
-                    comboBoxItemPartType.Enabled = true;
                 }
                 else
                 {
                     listBoxLinkTo.Enabled = false;
-                    radioButton2D.Enabled = false;
-                    radioButton3D.Enabled = false;
-                    comboBoxItemPartType.Enabled = false;
                 }
+
             }
         }
         
@@ -480,15 +473,7 @@ namespace WinterEngine.Hakpak.Builder
             {
                 textBoxResourceName.Text = resource.ResourceName;
                 checkBoxIsItem.Checked = resource.IsItem;
-                if (resource.Is2D)
-                {
-                    radioButton2D.Checked = true;
-                }
-                else
-                {
-                    radioButton3D.Checked = true;
-                }
-
+                
                 comboBoxItemPartType.SelectedItem = resource.ItemPartType;
 
                 textBoxResourceName.Enabled = true;
@@ -499,8 +484,6 @@ namespace WinterEngine.Hakpak.Builder
                 textBoxResourceName.Enabled = false;
                 checkBoxIsItem.Checked = false;
                 checkBoxIsItem.Enabled = false;
-                radioButton2D.Enabled = false;
-                radioButton3D.Enabled = false;
                 listBoxLinkTo.Enabled = false;
                 comboBoxItemPartType.Enabled = false;
             }
@@ -520,36 +503,6 @@ namespace WinterEngine.Hakpak.Builder
             if (!Object.ReferenceEquals(resource, null))
             {
                 resource.ResourceName = textBoxResourceName.Text;
-            }
-        }
-
-        /// <summary>
-        /// Handles updating the selected hakpak resource's Is2D property.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void radioButton2D_CheckedChanged(object sender, EventArgs e)
-        {
-            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
-
-            if (!Object.ReferenceEquals(resource, null))
-            {
-                resource.Is2D = true;
-            }
-        }
-
-        /// <summary>
-        /// Handles updating the selected hakpak resource's Is2D property.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void radioButton3D_CheckedChanged(object sender, EventArgs e)
-        {
-            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
-
-            if (!Object.ReferenceEquals(resource, null))
-            {
-                resource.Is2D = false;
             }
         }
 
@@ -590,6 +543,9 @@ namespace WinterEngine.Hakpak.Builder
         private void RepopulateLinkToListBox()
         {
             listBoxLinkTo.Items.Clear();
+
+            listBoxLinkTo.Items.Add(new HakpakResource { ResourceName = "No Link" });
+
             if (!Object.ReferenceEquals(listBoxResources.SelectedItem, null))
             {
                 FileExtensionFactory factory = new FileExtensionFactory();
@@ -615,8 +571,22 @@ namespace WinterEngine.Hakpak.Builder
                             listBoxLinkTo.Items.Add(resource);
                          
                         }
+
+                        // Select the linked resource
+                        if (resource.LinkedResource == selectedResource)
+                        {
+                            listBoxLinkTo.SelectedItem = resource;
+                        }
+
                     }
                 }
+
+                // Resource has no linked resource - select the "No Link" option by default
+                if (Object.ReferenceEquals(selectedResource.LinkedResource, null))
+                {
+                    listBoxLinkTo.SelectedIndex = 0;
+                }
+
             }
         }
 
@@ -785,10 +755,43 @@ namespace WinterEngine.Hakpak.Builder
 
         #endregion
 
-        
+        /// <summary>
+        /// Link the selected resource with the selected linked object.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxLinkTo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
+            HakpakResource linkedResource = listBoxLinkTo.SelectedItem as HakpakResource;
 
-        
-        
+            if (!Object.ReferenceEquals(resource, null) && !Object.ReferenceEquals(linkedResource, null))
+            {
+                // Unlink previous resource
+                if (!Object.ReferenceEquals(resource.LinkedResource, null))
+                {
+                    resource.LinkedResource.LinkedResource = null;
+                }
 
+                // 0 represents the "No Link" option.
+                if (listBoxLinkTo.SelectedIndex != 0)
+                {
+                    linkedResource.ItemPartType = resource.ItemPartType;
+                    linkedResource.IsItem = resource.IsItem;
+
+                    resource.LinkedResource = linkedResource;
+                    linkedResource.LinkedResource = resource;
+                }
+                // "No Link" option was selected. Mark linked resources to null.
+                else
+                {
+                    if (!Object.ReferenceEquals(resource.LinkedResource, null))
+                    {
+                        resource.LinkedResource.LinkedResource = null;
+                        resource.LinkedResource = null;
+                    }
+                }
+            }
+        }
     }
 }

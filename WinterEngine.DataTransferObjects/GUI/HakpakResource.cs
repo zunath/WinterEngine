@@ -95,11 +95,20 @@ namespace WinterEngine.DataTransferObjects.GUI
         {
             if (!String.IsNullOrWhiteSpace(ResourceName))
             {
-                return ResourceName;
+                string retString = ResourceName;
+                
+                // Display the file extension, if available.
+                if (!String.IsNullOrWhiteSpace(FilePath))
+                {
+                    FileInfo info = new FileInfo(FilePath);
+                    retString += "(" + info.Extension.ToUpper() + ")";
+                }
+
+                return retString;
             }
             else
             {
-                return FilePath;
+                return new FileInfo(FilePath).Directory.Name + "\\" + Path.GetFileName(FilePath);
             }
         }
 
