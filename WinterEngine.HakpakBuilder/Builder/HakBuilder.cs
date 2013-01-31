@@ -174,8 +174,14 @@ namespace WinterEngine.Hakpak.Builder
             // Removals must be in reverse order.
             for (int current = listBoxResources.SelectedItems.Count - 1; current >= 0; current--)
             {
+                int index = listBoxResources.SelectedIndices[current];
+
+                // Remove the link to this item that's being removed.
+                HakpakResource resource = listBoxResources.Items[index] as HakpakResource;
+                resource.LinkedResource.LinkedResource = null;
+
                 // Remove the item at the correct index
-                listBoxResources.Items.RemoveAt(listBoxResources.SelectedIndices[current]);
+                listBoxResources.Items.RemoveAt(index);
             }
 
             // Clear GUI
@@ -324,6 +330,9 @@ namespace WinterEngine.Hakpak.Builder
             checkBoxIsItem.Enabled = true;
             comboBoxItemPartType.Enabled = true;
             listBoxLinkTo.Enabled = true;
+
+            MessageBox.Show("Build complete!", "Build Complete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
         }
 
         /// <summary>
@@ -519,9 +528,19 @@ namespace WinterEngine.Hakpak.Builder
             {
                 resource.ItemPartType = (ItemPartEnum)comboBoxItemPartType.SelectedIndex + 1;
 
+                if (!Object.ReferenceEquals(resource.LinkedResource, null))
+                {
+                    resource.LinkedResource.ItemPartType = (ItemPartEnum)comboBoxItemPartType.SelectedIndex + 1;
+                }
+
                 // If resource has no 3D model, it cannot be linked.
                 if (resource.ItemPartType == ItemPartEnum.None)
                 {
+                    if (!Object.ReferenceEquals(resource.LinkedResource, null))
+                    {
+                        resource.LinkedResource.LinkedResource = null;
+                    }
+                     
                     resource.LinkedResource = null;
                     listBoxLinkTo.Enabled = false;
                 }

@@ -93,6 +93,20 @@ namespace WinterEngine.DataTransferObjects.GUI
 
         public override string ToString()
         {
+            if (!String.IsNullOrWhiteSpace(ResourceName) && String.IsNullOrWhiteSpace(FilePath))
+            {
+                return ResourceName;
+            }
+            else
+            {
+                return new FileInfo(FilePath).Directory.Name + "\\" + Path.GetFileName(FilePath);
+            }
+
+
+            // Removed 2013-1-30 because of consistency issues with the resource list box
+            // showing the path and the link to list box showing the resource name.
+            // Will return to this later to get a better solution.
+            /*
             if (!String.IsNullOrWhiteSpace(ResourceName))
             {
                 string retString = ResourceName;
@@ -110,6 +124,7 @@ namespace WinterEngine.DataTransferObjects.GUI
             {
                 return new FileInfo(FilePath).Directory.Name + "\\" + Path.GetFileName(FilePath);
             }
+            */
         }
 
         #endregion
