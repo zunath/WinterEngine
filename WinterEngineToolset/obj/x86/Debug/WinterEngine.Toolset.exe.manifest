@@ -43,6 +43,11 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Awesomium.Core" version="1.6.6.0" publicKeyToken="E1A0D7C8071A5214" language="neutral" processorArchitecture="x86" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
       <assemblyIdentity name="Microsoft.Xna.Framework" version="4.0.0.0" publicKeyToken="842CF8BE1DE50553" language="neutral" processorArchitecture="x86" />
     </dependentAssembly>
   </dependency>
@@ -104,6 +109,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FlatRedBall.dll" size="2039296">
+      <assemblyIdentity name="FlatRedBall" version="2013.1.21.1368" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>k1ZwxJ5TbPfB57RF2DwaKHDkTmEPr312kJ5M7TRYNdA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Ionic.Zip.dll" size="462336">
       <assemblyIdentity name="Ionic.Zip" version="1.9.1.8" publicKeyToken="EDBE51AD942A3F5C" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -140,26 +157,38 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataAccess.dll" size="35328">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Client.exe" size="29696">
+      <assemblyIdentity name="WinterEngine.Client" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>RvKyV1VmyhDT24sCu3PKkSpyyiAG0F5kyAWVcvqJBLo=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataAccess.dll" size="38400">
       <assemblyIdentity name="WinterEngine.DataAccess" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>l4srD0P0HW1IcjEEoam51R2wNWdyJHfvmTvud7HyCA0=</dsig:DigestValue>
+        <dsig:DigestValue>IsQLHP5nvq8QMtUCUefxqJooQA43Ysm0UM+oguaaR2g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataTransferObjects.dll" size="15872">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataTransferObjects.dll" size="17408">
       <assemblyIdentity name="WinterEngine.DataTransferObjects" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>tM/LPFBWE00CanDJBrvhkXzd/paXQmyjVnNSmuEv59s=</dsig:DigestValue>
+        <dsig:DigestValue>tlpFWzboe3/hFuQpkQrXy3KtfTnkP1EU+r7ZRnpH8rE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -171,53 +200,53 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>AdjalHeEeJAcffsBHt+fVbR7xADK3lF2YTDoVZAFfRk=</dsig:DigestValue>
+        <dsig:DigestValue>p6uYSo9dOkGkcyXm6kylcp68zmXcROrs3g83bf5+t5A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.HakpakBuilder.exe" size="27136">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.HakpakBuilder.exe" size="21504">
       <assemblyIdentity name="WinterEngine.HakpakBuilder" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>xSHBeu3jOOxqhAAgGmBnQ5enmQ8psQmmeFjqkbj0vG8=</dsig:DigestValue>
+        <dsig:DigestValue>5AYEE7tuciSN9eiey8+BKv/+7SLELk6ZbUSe+j+Uwug=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Library.dll" size="36864">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Library.dll" size="35840">
       <assemblyIdentity name="WinterEngine.Library" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>y1LSVg4NU9RkQ3/vck77lKI4DCecuW5Gm3jDxbHD0B4=</dsig:DigestValue>
+        <dsig:DigestValue>2UA1tCjD7xB6JzJ7DoRpCM5eJz3bFN5uRGvwY1U8ru8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="154624">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="158208">
       <assemblyIdentity name="WinterEngine.Toolset" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>0dfBr2gHOqd7ce+Hvp1hIGUofgLxXsRiWWN6X8pbYLI=</dsig:DigestValue>
+        <dsig:DigestValue>y5p4qivphiNe0gd/zdoFLf4769feZal9siDzPIAd1Sc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="WinterEngine.Toolset.exe.config" size="715">
+  <file name="WinterEngine.Toolset.exe.config" size="1303">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>2z3x1qEt3wYNbzNXDvf5/vsPTvTLCP4DOZp6G+xG/w8=</dsig:DigestValue>
+      <dsig:DigestValue>qB2qmG4AOjJEtxgiaoH5XzLxcC+h6dmPR+NT/XyVXN0=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

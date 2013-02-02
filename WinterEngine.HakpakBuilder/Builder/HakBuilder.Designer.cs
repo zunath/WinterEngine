@@ -53,28 +53,18 @@
             this.backgroundWorkerProcess = new System.ComponentModel.BackgroundWorker();
             this.progressBarBuild = new System.Windows.Forms.ProgressBar();
             this.saveFileDialogSaveAs = new System.Windows.Forms.SaveFileDialog();
-            this.labelResourceName = new System.Windows.Forms.Label();
-            this.labelItemPartType = new System.Windows.Forms.Label();
-            this.comboBoxItemPartType = new System.Windows.Forms.ComboBox();
-            this.textBoxResourceName = new System.Windows.Forms.TextBox();
-            this.labelLinksTo = new System.Windows.Forms.Label();
-            this.listBoxLinkTo = new System.Windows.Forms.ListBox();
-            this.checkBoxIsItem = new System.Windows.Forms.CheckBox();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBoxResources
             // 
-            this.listBoxResources.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxResources.FormattingEnabled = true;
             this.listBoxResources.HorizontalScrollbar = true;
             this.listBoxResources.Location = new System.Drawing.Point(12, 184);
             this.listBoxResources.Name = "listBoxResources";
             this.listBoxResources.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.listBoxResources.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxResources.Size = new System.Drawing.Size(255, 251);
+            this.listBoxResources.Size = new System.Drawing.Size(375, 225);
             this.listBoxResources.TabIndex = 0;
             this.listBoxResources.SelectedIndexChanged += new System.EventHandler(this.listBoxResources_SelectedIndexChanged);
             // 
@@ -84,7 +74,7 @@
             this.fileToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(592, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(411, 24);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "mainMenuStrip";
             // 
@@ -167,8 +157,7 @@
             // 
             // buttonBuild
             // 
-            this.buttonBuild.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBuild.Location = new System.Drawing.Point(505, 422);
+            this.buttonBuild.Location = new System.Drawing.Point(247, 422);
             this.buttonBuild.Name = "buttonBuild";
             this.buttonBuild.Size = new System.Drawing.Size(75, 23);
             this.buttonBuild.TabIndex = 2;
@@ -187,11 +176,9 @@
             // 
             // textBoxName
             // 
-            this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxName.Location = new System.Drawing.Point(12, 53);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(255, 20);
+            this.textBoxName.Size = new System.Drawing.Size(375, 20);
             this.textBoxName.TabIndex = 4;
             // 
             // labelDescription
@@ -205,18 +192,15 @@
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDescription.Location = new System.Drawing.Point(12, 103);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(255, 49);
+            this.textBoxDescription.Size = new System.Drawing.Size(375, 49);
             this.textBoxDescription.TabIndex = 6;
             // 
             // buttonRemoveFiles
             // 
-            this.buttonRemoveFiles.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonRemoveFiles.Location = new System.Drawing.Point(411, 422);
+            this.buttonRemoveFiles.Location = new System.Drawing.Point(153, 422);
             this.buttonRemoveFiles.Name = "buttonRemoveFiles";
             this.buttonRemoveFiles.Size = new System.Drawing.Size(88, 23);
             this.buttonRemoveFiles.TabIndex = 7;
@@ -235,8 +219,7 @@
             // 
             // buttonAddFiles
             // 
-            this.buttonAddFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAddFiles.Location = new System.Drawing.Point(330, 422);
+            this.buttonAddFiles.Location = new System.Drawing.Point(72, 422);
             this.buttonAddFiles.Name = "buttonAddFiles";
             this.buttonAddFiles.Size = new System.Drawing.Size(75, 23);
             this.buttonAddFiles.TabIndex = 9;
@@ -260,95 +243,15 @@
             this.progressBarBuild.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressBarBuild.Location = new System.Drawing.Point(0, 451);
             this.progressBarBuild.Name = "progressBarBuild";
-            this.progressBarBuild.Size = new System.Drawing.Size(592, 22);
+            this.progressBarBuild.Size = new System.Drawing.Size(411, 22);
             this.progressBarBuild.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBarBuild.TabIndex = 10;
-            // 
-            // labelResourceName
-            // 
-            this.labelResourceName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelResourceName.AutoSize = true;
-            this.labelResourceName.Location = new System.Drawing.Point(325, 37);
-            this.labelResourceName.Name = "labelResourceName";
-            this.labelResourceName.Size = new System.Drawing.Size(87, 13);
-            this.labelResourceName.TabIndex = 11;
-            this.labelResourceName.Text = "Resource Name:";
-            // 
-            // labelItemPartType
-            // 
-            this.labelItemPartType.AutoSize = true;
-            this.labelItemPartType.Location = new System.Drawing.Point(329, 116);
-            this.labelItemPartType.Name = "labelItemPartType";
-            this.labelItemPartType.Size = new System.Drawing.Size(56, 13);
-            this.labelItemPartType.TabIndex = 12;
-            this.labelItemPartType.Text = "Part Type:";
-            // 
-            // comboBoxItemPartType
-            // 
-            this.comboBoxItemPartType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxItemPartType.Enabled = false;
-            this.comboBoxItemPartType.FormattingEnabled = true;
-            this.comboBoxItemPartType.Location = new System.Drawing.Point(330, 132);
-            this.comboBoxItemPartType.Name = "comboBoxItemPartType";
-            this.comboBoxItemPartType.Size = new System.Drawing.Size(250, 21);
-            this.comboBoxItemPartType.TabIndex = 13;
-            this.comboBoxItemPartType.SelectedIndexChanged += new System.EventHandler(this.comboBoxItemPartType_SelectedIndexChanged);
-            // 
-            // textBoxResourceName
-            // 
-            this.textBoxResourceName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxResourceName.Enabled = false;
-            this.textBoxResourceName.Location = new System.Drawing.Point(328, 53);
-            this.textBoxResourceName.MaxLength = 64;
-            this.textBoxResourceName.Name = "textBoxResourceName";
-            this.textBoxResourceName.Size = new System.Drawing.Size(255, 20);
-            this.textBoxResourceName.TabIndex = 14;
-            this.textBoxResourceName.TextChanged += new System.EventHandler(this.textBoxResourceName_TextChanged);
-            // 
-            // labelLinksTo
-            // 
-            this.labelLinksTo.AutoSize = true;
-            this.labelLinksTo.Location = new System.Drawing.Point(325, 163);
-            this.labelLinksTo.Name = "labelLinksTo";
-            this.labelLinksTo.Size = new System.Drawing.Size(51, 13);
-            this.labelLinksTo.TabIndex = 18;
-            this.labelLinksTo.Text = "Links To:";
-            // 
-            // listBoxLinkTo
-            // 
-            this.listBoxLinkTo.Enabled = false;
-            this.listBoxLinkTo.FormattingEnabled = true;
-            this.listBoxLinkTo.HorizontalScrollbar = true;
-            this.listBoxLinkTo.Location = new System.Drawing.Point(328, 184);
-            this.listBoxLinkTo.Name = "listBoxLinkTo";
-            this.listBoxLinkTo.Size = new System.Drawing.Size(252, 225);
-            this.listBoxLinkTo.TabIndex = 21;
-            this.listBoxLinkTo.SelectedIndexChanged += new System.EventHandler(this.listBoxLinkTo_SelectedIndexChanged);
-            // 
-            // checkBoxIsItem
-            // 
-            this.checkBoxIsItem.AutoSize = true;
-            this.checkBoxIsItem.Enabled = false;
-            this.checkBoxIsItem.Location = new System.Drawing.Point(332, 87);
-            this.checkBoxIsItem.Name = "checkBoxIsItem";
-            this.checkBoxIsItem.Size = new System.Drawing.Size(46, 17);
-            this.checkBoxIsItem.TabIndex = 22;
-            this.checkBoxIsItem.Text = "Item";
-            this.checkBoxIsItem.UseVisualStyleBackColor = true;
-            this.checkBoxIsItem.CheckedChanged += new System.EventHandler(this.checkBoxIsItem_CheckedChanged);
             // 
             // HakBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(592, 473);
-            this.Controls.Add(this.checkBoxIsItem);
-            this.Controls.Add(this.listBoxLinkTo);
-            this.Controls.Add(this.labelLinksTo);
-            this.Controls.Add(this.textBoxResourceName);
-            this.Controls.Add(this.comboBoxItemPartType);
-            this.Controls.Add(this.labelItemPartType);
-            this.Controls.Add(this.labelResourceName);
+            this.ClientSize = new System.Drawing.Size(411, 473);
             this.Controls.Add(this.progressBarBuild);
             this.Controls.Add(this.buttonAddFiles);
             this.Controls.Add(this.labelResources);
@@ -368,7 +271,6 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Hakpak Builder";
-            this.Load += new System.EventHandler(this.HakBuilder_Load);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -403,12 +305,5 @@
         private System.ComponentModel.BackgroundWorker backgroundWorkerProcess;
         private System.Windows.Forms.ProgressBar progressBarBuild;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSaveAs;
-        private System.Windows.Forms.Label labelResourceName;
-        private System.Windows.Forms.Label labelItemPartType;
-        private System.Windows.Forms.ComboBox comboBoxItemPartType;
-        private System.Windows.Forms.TextBox textBoxResourceName;
-        private System.Windows.Forms.Label labelLinksTo;
-        private System.Windows.Forms.ListBox listBoxLinkTo;
-        private System.Windows.Forms.CheckBox checkBoxIsItem;
     }
 }

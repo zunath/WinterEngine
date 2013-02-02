@@ -65,8 +65,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
@@ -170,6 +169,12 @@
     <Compile Include="Controls\ViewControls\AreaPropertiesControl.Designer.cs">
       <DependentUpon>AreaPropertiesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ViewControls\GraphicPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ViewControls\GraphicPropertiesControl.Designer.cs">
+      <DependentUpon>GraphicPropertiesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ViewControls\CreaturePropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -212,12 +217,6 @@
     <Compile Include="Controls\ViewControls\TreeCategoryControl.Designer.cs">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XnaControls\ObjectViewer3D.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\XnaControls\ObjectViewer3D.Designer.cs">
-      <DependentUpon>ObjectViewer3D.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\XnaControls\Shared\ModelViewerControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -228,6 +227,12 @@
     </Compile>
     <Compile Include="GUI\Views\AdvancedView.Designer.cs">
       <DependentUpon>AdvancedView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Views\GraphicView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Views\GraphicView.Designer.cs">
+      <DependentUpon>GraphicView.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Views\IViewControls.cs" />
     <Compile Include="GUI\Views\AreaView.cs">
@@ -272,6 +277,7 @@
     <Compile Include="Controls\XnaControls\Shared\ServiceContainer.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ControlHelpers\ModuleProperties.resx">
       <DependentUpon>ModuleProperties.cs</DependentUpon>
@@ -287,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ViewControls\AreaPropertiesControl.resx">
       <DependentUpon>AreaPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ViewControls\GraphicPropertiesControl.resx">
+      <DependentUpon>GraphicPropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ViewControls\CreaturePropertiesControl.resx">
       <DependentUpon>CreaturePropertiesControl.cs</DependentUpon>
@@ -309,14 +318,14 @@
     <EmbeddedResource Include="Controls\ViewControls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\XnaControls\ObjectViewer3D.resx">
-      <DependentUpon>ObjectViewer3D.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Views\AdvancedView.resx">
       <DependentUpon>AdvancedView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Views\AreaView.resx">
       <DependentUpon>AreaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Views\GraphicView.resx">
+      <DependentUpon>GraphicView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -386,6 +395,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client.csproj">
+      <Project>{649de040-99c6-4838-ada3-533d0dbd4325}</Project>
+      <Name>WinterEngine.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.DataAccess\WinterEngine.DataAccess.csproj">
       <Project>{0e481c4b-dd8f-4b26-84e7-cacda79288f0}</Project>
       <Name>WinterEngine.DataAccess</Name>
@@ -409,11 +422,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    <PostBuildEvent>    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
     xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
     if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
-    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

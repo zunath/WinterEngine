@@ -100,4 +100,5 @@
   <CustomClasses />
   <TranslatedFiles />
   <ApplyToFixedResolutionPlatforms>true</ApplyToFixedResolutionPlatforms>
+  <ExternallyBuiltFileDirectory />
 </GlueProjectSave>

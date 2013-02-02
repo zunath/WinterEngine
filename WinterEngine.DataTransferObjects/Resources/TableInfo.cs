@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WinterEngine.DataTransferObjects.Enumerations;
 
-namespace WinterEngine.DataTransferObjects.Resources
+namespace WinterEngine.DataTransferObjects.Graphics
 {
     /// <summary>
     /// Data Transfer Object for use with the Advanced View.

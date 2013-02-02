@@ -18,7 +18,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
     {
         #region Fields
 
-        private ObjectViewer3D _objectViewer;
         private Creature _backupCreature;
 
         #endregion
@@ -48,11 +47,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         {
             InitializeComponent();
 
-            // Designer in VS2010 has issues with custom controls.
-            // Manually add the 3D object viewer when the program runs.
-            _objectViewer = new ObjectViewer3D();
-            _objectViewer.Dock = DockStyle.Fill;
-            panelCreatureObjectViewer.Controls.Add(_objectViewer);
         }
 
         #endregion

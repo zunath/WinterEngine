@@ -5,11 +5,11 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.GameObjects;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 
 namespace WinterEngine.DataAccess
 {
-    public class CreatureRepository : RepositoryBase, IDisposable
+    public class CreatureRepository : RepositoryBase, IGameObjectRepository<Creature>
     {
         #region Constructors
         
@@ -41,6 +41,17 @@ namespace WinterEngine.DataAccess
             }
         }
 
+        public void Add(List<Creature> creatureList)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                foreach (Creature creature in creatureList)
+                {
+                    context.Creatures.Add(creature);
+                }
+                context.SaveChanges();
+            }
+        }
 
         /// <summary>
         /// Updates an existing creature in the database with new values.

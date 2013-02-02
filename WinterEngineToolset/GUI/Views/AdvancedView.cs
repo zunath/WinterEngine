@@ -11,7 +11,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess;
 using WinterEngine.DataAccess.Contexts;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 
 namespace WinterEngine.Toolset.GUI.Views
 {

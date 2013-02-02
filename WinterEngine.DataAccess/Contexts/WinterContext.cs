@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.Resources;
 using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.Graphics;
+using WinterEngine.DataTransferObjects.Mapping;
 
 namespace WinterEngine.DataAccess.Contexts
 {
@@ -22,10 +19,15 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<CharacterClass> CharacterClasses { get; set; }
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
-        public DbSet<GraphicResource> GraphicResources { get; set; }
+        public DbSet<SpriteSheet> SpriteSheets { get; set; }
+        public DbSet<Tile> Tiles { get; set; }
+        public DbSet<Tileset> Tilesets { get; set; }
+        public DbSet<LayerRow> LayerRows { get; set; }
+        public DbSet<Layer> Layers { get; set; }
 
         public WinterContext(string connString) : base(connString)
         {
         }
+
     }
 }

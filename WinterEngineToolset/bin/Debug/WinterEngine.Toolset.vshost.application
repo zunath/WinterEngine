@@ -7,14 +7,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="WinterEngine.Toolset.exe.manifest" size="12731">
+    <dependentAssembly dependencyType="install" codebase="WinterEngine.Toolset.exe.manifest" size="14325">
       <assemblyIdentity name="WinterEngine.Toolset.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>qDLiOWRCSMupyfool7jobQWol2jcPhH0RPewZlHBrag=</dsig:DigestValue>
+        <dsig:DigestValue>t06p/3pqUSMP2i08pP9daTbnQprwaVcKSSCn3OvEyOM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

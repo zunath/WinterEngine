@@ -30,12 +30,9 @@ namespace WinterEngine.Library.Factories
                 // Contains the engine's built-in models, textures, etc
                 case FileTypeEnum.WinterResource:
                     return ".wrsc";
-                // Model graphics
-                case FileTypeEnum.Model:
-                    return ".fbx";
-                // Texture graphics
-                case FileTypeEnum.Texture:
-                    return ".tga";
+                // Sprite Sheet graphics
+                case FileTypeEnum.SpriteSheet:
+                    return ".png";
                 // XNA compiled files
                 case FileTypeEnum.XNACompiledFile:
                     return ".xnb";
@@ -69,12 +66,9 @@ namespace WinterEngine.Library.Factories
                 // Contains the engine's built-in models, textures, etc
                 case ".wrsc":
                     return FileTypeEnum.WinterResource;
-                // Model graphics
-                case ".fbx":
-                    return FileTypeEnum.Model;
-                // Texture graphics
-                case ".tga":
-                    return FileTypeEnum.Texture;
+                // Sprite sheet graphics
+                case ".png":
+                    return FileTypeEnum.SpriteSheet;
                 // XNA compiled files
                 case ".xnb":
                     return FileTypeEnum.XNACompiledFile;

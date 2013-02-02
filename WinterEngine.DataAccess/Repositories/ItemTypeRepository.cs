@@ -5,11 +5,11 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 
 namespace WinterEngine.DataAccess
 {
-    public class ItemTypeRepository : RepositoryBase, IDisposable
+    public class ItemTypeRepository : RepositoryBase, IResourceRepository<ItemType>
     {
         #region Constructors
 
@@ -52,17 +52,13 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="itemType"></param>
         /// <returns></returns>
-        public bool Add(ItemType itemType)
+        public void Add(ItemType itemType)
         {
-            bool success = true;
-
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 context.ItemTypes.Add(itemType);
                 context.SaveChanges();
             }
-            
-            return success;
         }
 
         /// <summary>
@@ -70,10 +66,8 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="itemTypeList"></param>
         /// <returns></returns>
-        public bool Add(List<ItemType> itemTypeList)
+        public void Add(List<ItemType> itemTypeList)
         {
-            bool success = true;
-
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 foreach (ItemType itemType in itemTypeList)
@@ -83,8 +77,6 @@ namespace WinterEngine.DataAccess
 
                 context.SaveChanges();
             }
-
-            return success;
         }
 
         /// <summary>
@@ -92,10 +84,8 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="itemType"></param>
         /// <returns></returns>
-        public bool Update(ItemType itemType)
+        public void Update(ItemType itemType)
         {
-            bool success = true;
-
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 // Find the resource in the database that matches the passed-in item type's ID (primary key)
@@ -107,14 +97,27 @@ namespace WinterEngine.DataAccess
                     context.ItemTypes.Add(itemType);
                     context.SaveChanges();
                 }
-                // Unable to find a matching resource. Return false.
+            }
+        }
+
+        public void Upsert(ItemType itemType)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                ItemType dbResource = context.ItemTypes.SingleOrDefault(r => r.ResourceID.Equals(itemType.ResourceID));
+
+                if (!Object.ReferenceEquals(dbResource, null))
+                {
+                    context.ItemTypes.Remove(dbResource);
+                    context.ItemTypes.Add(itemType);
+                    context.SaveChanges();
+                }
                 else
                 {
-                    success = false;    
+                    context.ItemTypes.Add(itemType);
+                    context.SaveChanges();
                 }
             }
-        
-            return success;
         }
 
         /// <summary>
@@ -151,10 +154,8 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="itemType">The item type to delete.</param>
         /// <returns></returns>
-        public bool Delete(ItemType itemType)
+        public void Delete(ItemType itemType)
         {
-            bool success = true;
-
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 // Find the item type in the database. CategoryID is a primary key so there will only ever be one.
@@ -165,13 +166,7 @@ namespace WinterEngine.DataAccess
                     context.ItemTypes.Remove(dbItemType);
                     context.SaveChanges();
                 }
-                else
-                {
-                    success = false;
-                }
             }
-            
-            return success;
         }
 
         public void Dispose()

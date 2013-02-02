@@ -5,11 +5,11 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.GameObjects;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 
 namespace WinterEngine.DataAccess
 {
-    public class PlaceableRepository : RepositoryBase, IDisposable
+    public class PlaceableRepository : RepositoryBase, IGameObjectRepository<Placeable>
     {
         #region Constructors
 
@@ -37,6 +37,18 @@ namespace WinterEngine.DataAccess
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 context.Placeables.Add(placeable);
+                context.SaveChanges();
+            }
+        }
+
+        public void Add(List<Placeable> placeableList)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                foreach (Placeable placeable in placeableList)
+                {
+                    context.Placeables.Add(placeable);
+                }
                 context.SaveChanges();
             }
         }

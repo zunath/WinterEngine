@@ -11,7 +11,7 @@ using WinterEngine.Toolset.ExtendedEventArgs;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects.GameObjects;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
@@ -20,7 +20,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
     {
         #region Fields
 
-        private ObjectViewer3D _itemModel;
         private ObjectViewer2D _itemIcon;
         private Item _backupItem;
 
@@ -44,15 +43,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         {
             get { return _itemIcon; }
             set { _itemIcon = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the item model
-        /// </summary>
-        private ObjectViewer3D ItemModel
-        {
-            get { return _itemModel; }
-            set { _itemModel = value; }
         }
 
         #endregion
@@ -82,7 +72,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void listBoxAppearance_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ItemIcon.LoadGraphic(listBoxAppearance.SelectedItem as GraphicResource);   
+            ItemIcon.LoadGraphic(listBoxAppearance.SelectedItem as SpriteSheet);   
         }
 
         /// <summary>
@@ -153,12 +143,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         {
             InitializeComponent();
 
-            // Designer in VS2010 has issues with custom controls.
-            // Manually add the 3D object viewer when the program runs.
-            _itemModel = new ObjectViewer3D();
-            _itemModel.Dock = DockStyle.Fill;
-            panelItemModelViewer.Controls.Add(_itemModel);
-
             _itemIcon = new ObjectViewer2D();
             _itemIcon.Dock = DockStyle.Fill;
             panelItemIconViewer.Controls.Add(_itemIcon);
@@ -173,23 +157,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// </summary>
         public void PopulateControls()
         {
-            using (GraphicResourceRepository repo = new GraphicResourceRepository())
-            {
-                List<GraphicResource> iconList = repo.GetAll2DGraphics(ResourceTypeEnum.Item);
-                List<GraphicResource> modelList = repo.GetAll3DGraphics(ResourceTypeEnum.Item);
-
-                foreach (GraphicResource resource in iconList)
-                {
-                    resource.TemporaryDisplayName = resource.ResourceFileName;
-                    listBoxAppearance.Items.Add(resource);
-                }
-
-                foreach (GraphicResource resource in modelList)
-                {
-                    resource.TemporaryDisplayName = resource.ResourceFileName;
-                    listBoxAppearance.Items.Add(resource);
-                }
-            }
         }
 
         /// <summary>

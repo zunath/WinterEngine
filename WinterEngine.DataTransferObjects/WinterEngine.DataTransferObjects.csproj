@@ -48,13 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerations\ItemPartEnum.cs" />
-    <Compile Include="GUI\HakpakResource.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="Mapping\Cell.cs" />
+    <Compile Include="Mapping\Layer.cs" />
+    <Compile Include="Mapping\LayerRow.cs" />
+    <Compile Include="Mapping\Tile.cs" />
+    <Compile Include="Mapping\Tileset.cs" />
     <Compile Include="Resources\Ability.cs" />
     <Compile Include="GameObjects\Area.cs" />
     <Compile Include="Resources\CharacterClass.cs" />
     <Compile Include="Resources\GameResource.cs" />
     <Compile Include="Enumerations\TableTypeEnum.cs" />
-    <Compile Include="Resources\GraphicResource.cs" />
+    <Compile Include="Graphics\SpriteSheet.cs" />
     <Compile Include="Resources\ItemType.cs" />
     <Compile Include="GameObjects\Creature.cs" />
     <Compile Include="Enumerations\FileTypeEnum.cs" />
@@ -76,6 +81,10 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

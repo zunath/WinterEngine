@@ -10,7 +10,7 @@ using WinterEngine.Library.Factories;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
@@ -128,7 +128,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="inputText"></param>
         private void AddCategorySuccessMethod(string inputText)
         {
-            bool success;
             try
             {
                 using (CategoryRepository repo = new CategoryRepository())
@@ -137,7 +136,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     resourceCategory.Name = inputText;
                     resourceCategory.ResourceTypeID = (int)GameObjectResourceType;
 
-                    success = repo.AddResourceCategory(resourceCategory);
+                    repo.Add(resourceCategory);
                     RefreshTreeView();
                 }
             }
@@ -159,7 +158,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 {
                     Category resourceCategoryDTO = treeView.SelectedNode.Tag as Category;
                     resourceCategoryDTO.Name = inputText;
-                    repo.UpdateResourceCategory(resourceCategoryDTO);
+                    repo.Update(resourceCategoryDTO);
                     treeView.SelectedNode.Text = resourceCategoryDTO.Name;
                 }
             }
@@ -563,7 +562,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     // Remove the category from the database
                     using (CategoryRepository repo = new CategoryRepository())
                     {
-                        repo.DeleteResourceCategory(category);
+                        repo.Delete(category);
                     }
                     RefreshTreeView();
                     treeView.SelectedNode = treeView.TopNode;

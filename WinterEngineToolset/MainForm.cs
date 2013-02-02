@@ -10,6 +10,7 @@ using Ionic.Zip;
 using Ionic.Zlib;
 using WinterEngine.ERF;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.Toolset.Controls.XnaControls;
 
 namespace WinterEngine.Toolset
 {

@@ -5,11 +5,11 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.GameObjects;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 
 namespace WinterEngine.DataAccess
 {
-    public class AreaRepository : RepositoryBase, IDisposable
+    public class AreaRepository : RepositoryBase, IGameObjectRepository<Area>
     {
         #region Constructors
 
@@ -39,6 +39,20 @@ namespace WinterEngine.DataAccess
                 context.Areas.Add(area);
                 context.SaveChanges();
             }
+        }
+
+        public void Add(List<Area> areaList)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                foreach (Area area in areaList)
+                {
+                    context.Areas.Add(area);
+                }
+
+                context.SaveChanges();
+            }
+
         }
 
         /// <summary>
@@ -186,7 +200,6 @@ namespace WinterEngine.DataAccess
                 return !Object.ReferenceEquals(area, null);
             }
         }
-
 
         public void Dispose()
         {

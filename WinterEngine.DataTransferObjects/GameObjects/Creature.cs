@@ -1,20 +1,20 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 
 namespace WinterEngine.DataTransferObjects.GameObjects
 {
     [Serializable]
     [Table("Creatures")]
-    public sealed class Creature : GameObject
+    public sealed class Creature : GameObject, IEntity
     {
         #region Fields
 
         private Race _race;
         private string _description;
-        private GraphicResource _modelGraphic;
-        private GraphicResource _portraitGraphic;
+        private SpriteSheet _modelGraphic;
+        private SpriteSheet _portraitGraphic;
 
         #endregion
 
@@ -41,7 +41,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         /// <summary>
         /// Gets or sets the model of a creature.
         /// </summary>
-        public GraphicResource ModelGraphic
+        public SpriteSheet ModelGraphic
         {
             get { return _modelGraphic; }
             set { _modelGraphic = value; }
@@ -50,7 +50,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         /// <summary>
         /// Gets or sets the portrait of a creature.
         /// </summary>
-        public GraphicResource PortraitGraphic
+        public SpriteSheet PortraitGraphic
         {
             get { return _portraitGraphic; }
             set { _portraitGraphic = value; }

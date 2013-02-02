@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.DataAccess
 {
-    public class ItemRepository : RepositoryBase, IDisposable
+    public class ItemRepository : RepositoryBase, IGameObjectRepository<Item>
     {
         #region Constructors
 
@@ -38,6 +38,18 @@ namespace WinterEngine.DataAccess
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 context.Items.Add(item);
+                context.SaveChanges();
+            }
+        }
+
+        public void Add(List<Item> itemList)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                foreach (Item item in itemList)
+                {
+                    context.Items.Add(item);
+                }
                 context.SaveChanges();
             }
         }

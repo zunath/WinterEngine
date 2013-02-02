@@ -19,7 +19,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         #region Fields
 
-        private ObjectViewer3D _objectViewer;
         private Placeable _backupPlaceable;
 
         #endregion
@@ -48,12 +47,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         public PlaceablePropertiesControl()
         {
             InitializeComponent();
-
-            // Designer in VS2010 has issues with custom controls.
-            // Manually add the 3D object viewer when the program runs.
-            _objectViewer = new ObjectViewer3D();
-            _objectViewer.Dock = DockStyle.Fill;
-            panelPlaceableObjectViewer.Controls.Add(_objectViewer);
         }
 
         #endregion

@@ -12,7 +12,6 @@ using Ionic.Zlib;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.GUI;
 
 namespace WinterEngine.Hakpak.Builder
 {
@@ -80,15 +79,9 @@ namespace WinterEngine.Hakpak.Builder
         private void buttonAddFiles_Click(object sender, EventArgs e)
         {
             FileExtensionFactory extensions = new FileExtensionFactory();
-            string modelFileExtension = extensions.GetFileExtension(FileTypeEnum.Model);
-            string textureFileExtension = extensions.GetFileExtension(FileTypeEnum.Texture);
+            string textureFileExtension = extensions.GetFileExtension(FileTypeEnum.SpriteSheet);
             string soundFileExtension = extensions.GetFileExtension(FileTypeEnum.Sound);
             string musicFileExtension = extensions.GetFileExtension(FileTypeEnum.Music);
-
-            openFileDialogBuilder.Filter = "All Available Types|*" + textureFileExtension + ";*" + modelFileExtension + ";*" + soundFileExtension + "|" +
-                                      "Texture Files|*" + textureFileExtension + "|" +
-                                      "Model Files|*" + modelFileExtension + "|" +
-                                      "Audio Files|*" + soundFileExtension;
 
             openFileDialogBuilder.ShowDialog();
 
@@ -101,17 +94,14 @@ namespace WinterEngine.Hakpak.Builder
                     // Does the file exist?
                     if (File.Exists(currentFile))
                     {
-                        HakpakResource resource = new HakpakResource { FilePath = currentFile, IsItem = false, Is2D = false, ItemPartType = ItemPartEnum.None };
                         // Is the file in the list already?
-                        if (!DoesFileExistInListBox(resource))
+                        if (!DoesFileExistInListBox(currentFile))
                         {
                             // Add the file to the list box
-                            listBoxResources.Items.Add(resource);
+                            listBoxResources.Items.Add(currentFile);
                         }
                     }
                 }
-
-                RepopulateLinkToListBox();
             }
         }
 
@@ -131,12 +121,6 @@ namespace WinterEngine.Hakpak.Builder
                 return;
             }
 
-            if (!ValidateItemLinks())
-            {
-                MessageBox.Show("Please ensure that all items are properly linked.", "Missing Item Link", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             FileExtensionFactory extensions = new FileExtensionFactory();
             string fileExtension = extensions.GetFileExtension(FileTypeEnum.Hakpak);
             saveFileDialog.Filter = "Hakpak Files (*" + fileExtension + ")|*" + fileExtension;
@@ -152,10 +136,6 @@ namespace WinterEngine.Hakpak.Builder
                     textBoxDescription.Enabled = false;
                     textBoxName.Enabled = false;
                     listBoxResources.Enabled = false;
-                    textBoxResourceName.Enabled = false;
-                    checkBoxIsItem.Enabled = false;
-                    comboBoxItemPartType.Enabled = false;
-                    listBoxLinkTo.Enabled = false;
 
                     // Start the build process on a separate thread so that the GUI does not lock up during
                     // heavy processing.
@@ -175,20 +155,8 @@ namespace WinterEngine.Hakpak.Builder
             for (int current = listBoxResources.SelectedItems.Count - 1; current >= 0; current--)
             {
                 int index = listBoxResources.SelectedIndices[current];
-
-                // Remove the link to this item that's being removed.
-                HakpakResource resource = listBoxResources.Items[index] as HakpakResource;
-                resource.LinkedResource.LinkedResource = null;
-
-                // Remove the item at the correct index
                 listBoxResources.Items.RemoveAt(index);
             }
-
-            // Clear GUI
-            textBoxResourceName.Text = String.Empty;
-            comboBoxItemPartType.SelectedIndex = 0;
-            checkBoxIsItem.Checked = false;
-
         }
 
         /// <summary>
@@ -326,10 +294,6 @@ namespace WinterEngine.Hakpak.Builder
             textBoxDescription.Enabled = true;
             textBoxName.Enabled = true;
             listBoxResources.Enabled = true;
-            textBoxResourceName.Enabled = true;
-            checkBoxIsItem.Enabled = true;
-            comboBoxItemPartType.Enabled = true;
-            listBoxLinkTo.Enabled = true;
 
             MessageBox.Show("Build complete!", "Build Complete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -429,220 +393,30 @@ namespace WinterEngine.Hakpak.Builder
         }
 
         /// <summary>
-        /// Handles loading all of the item part types to the resource type combo box
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void HakBuilder_Load(object sender, EventArgs e)
-        {
-            foreach (ItemPartEnum itemPart in Enum.GetValues(typeof(ItemPartEnum)))
-            {
-                comboBoxItemPartType.Items.Add(itemPart);
-            }
-            comboBoxItemPartType.SelectedItem = comboBoxItemPartType.Items[0];
-        }
-
-        /// <summary>
-        /// Handles enabling or disabling the Item option controls.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void checkBoxIsItem_CheckedChanged(object sender, EventArgs e)
-        {
-            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
-
-            if (!Object.ReferenceEquals(resource, null))
-            {
-                resource.IsItem = checkBoxIsItem.Checked;
-
-                comboBoxItemPartType.Enabled = checkBoxIsItem.Checked;
-
-                if (resource.ItemPartType != ItemPartEnum.None && checkBoxIsItem.Checked)
-                {
-                    listBoxLinkTo.Enabled = true;
-                }
-                else
-                {
-                    listBoxLinkTo.Enabled = false;
-                }
-
-            }
-        }
-        
-        /// <summary>
         /// When a resource is selected, load its data into the controls.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void listBoxResources_SelectedIndexChanged(object sender, EventArgs e)
         {
-            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
-
-            if (!Object.ReferenceEquals(resource, null))
-            {
-                textBoxResourceName.Text = resource.ResourceName;
-                checkBoxIsItem.Checked = resource.IsItem;
-                
-                comboBoxItemPartType.SelectedItem = resource.ItemPartType;
-
-                textBoxResourceName.Enabled = true;
-                checkBoxIsItem.Enabled = true;
-            }
-            else
-            {
-                textBoxResourceName.Enabled = false;
-                checkBoxIsItem.Checked = false;
-                checkBoxIsItem.Enabled = false;
-                listBoxLinkTo.Enabled = false;
-                comboBoxItemPartType.Enabled = false;
-            }
-
-            RepopulateLinkToListBox();
+            // To-Do: Load graphic file in window
         }
 
-        /// <summary>
-        /// Update the resource object's name as the text field changes.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void textBoxResourceName_TextChanged(object sender, EventArgs e)
-        {
-            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
-
-            if (!Object.ReferenceEquals(resource, null))
-            {
-                resource.ResourceName = textBoxResourceName.Text;
-            }
-        }
-
-        /// <summary>
-        /// Handles updating the selected hakpak resource's ItemPartType property.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void comboBoxItemPartType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
-
-            if (!Object.ReferenceEquals(resource, null))
-            {
-                resource.ItemPartType = (ItemPartEnum)comboBoxItemPartType.SelectedIndex + 1;
-
-                if (!Object.ReferenceEquals(resource.LinkedResource, null))
-                {
-                    resource.LinkedResource.ItemPartType = (ItemPartEnum)comboBoxItemPartType.SelectedIndex + 1;
-                }
-
-                // If resource has no 3D model, it cannot be linked.
-                if (resource.ItemPartType == ItemPartEnum.None)
-                {
-                    if (!Object.ReferenceEquals(resource.LinkedResource, null))
-                    {
-                        resource.LinkedResource.LinkedResource = null;
-                    }
-                     
-                    resource.LinkedResource = null;
-                    listBoxLinkTo.Enabled = false;
-                }
-                else
-                {
-                    listBoxLinkTo.Enabled = true;
-                }
-            }
-        }
 
         #endregion
 
         #region Methods
 
         /// <summary>
-        /// Handles repopulating the link to list box based on 
-        /// the currently selected item in the resources list box.
-        /// </summary>
-        private void RepopulateLinkToListBox()
-        {
-            listBoxLinkTo.Items.Clear();
-
-            listBoxLinkTo.Items.Add(new HakpakResource { ResourceName = "No Link" });
-
-            if (!Object.ReferenceEquals(listBoxResources.SelectedItem, null))
-            {
-                FileExtensionFactory factory = new FileExtensionFactory();
-                HakpakResource selectedResource = listBoxResources.SelectedItem as HakpakResource;
-
-                foreach (HakpakResource resource in listBoxResources.Items)
-                {
-                    // If a resource is already linked, it will not appear in the list.
-                    if ((selectedResource != resource && Object.ReferenceEquals(resource.LinkedResource, null))
-                        || resource.LinkedResource == selectedResource)
-                    {
-                        // If a texture is selected, display only model files in the package.
-                        if (selectedResource.FileExtension == factory.GetFileExtension(FileTypeEnum.Texture)
-                            && resource.FileExtension == factory.GetFileExtension(FileTypeEnum.Model))
-                        {
-                            listBoxLinkTo.Items.Add(resource);
-                        }
-
-                        // If a model is selected, display only texture files in the package.
-                        else if (selectedResource.FileExtension == factory.GetFileExtension(FileTypeEnum.Model)
-                            && resource.FileExtension == factory.GetFileExtension(FileTypeEnum.Texture))
-                        {
-                            listBoxLinkTo.Items.Add(resource);
-                         
-                        }
-
-                        // Select the linked resource
-                        if (resource.LinkedResource == selectedResource)
-                        {
-                            listBoxLinkTo.SelectedItem = resource;
-                        }
-
-                    }
-                }
-
-                // Resource has no linked resource - select the "No Link" option by default
-                if (Object.ReferenceEquals(selectedResource.LinkedResource, null))
-                {
-                    listBoxLinkTo.SelectedIndex = 0;
-                }
-
-            }
-        }
-
-        /// <summary>
-        /// Returns true if all item resources are valid (properly linked).
-        /// Returns false if an item resource is not valid.
-        /// </summary>
-        /// <returns></returns>
-        private bool ValidateItemLinks()
-        {
-            foreach (HakpakResource resource in listBoxResources.Items)
-            {
-                if (resource.IsItem)
-                {
-                    if (resource.ItemPartType != ItemPartEnum.None)
-                    {
-                        if (Object.ReferenceEquals(resource.LinkedResource, null))
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// Simple search to see if a file name matches an item already in the list box.
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        private bool DoesFileExistInListBox(HakpakResource resource)
+        private bool DoesFileExistInListBox(string resource)
         {
-            foreach (HakpakResource currentItem in listBoxResources.Items)
+            foreach (string currentItem in listBoxResources.Items)
             {
-                if (currentItem.FilePath == resource.FilePath)
+                if (currentItem == resource)
                     return true;
             }
 
@@ -670,10 +444,7 @@ namespace WinterEngine.Hakpak.Builder
                 case FileTypeEnum.Sound:
                     processorType = "SoundEffectProcessor";
                     break;
-                case FileTypeEnum.Model:
-                    processorType = "ModelProcessor";
-                    break;
-                case FileTypeEnum.Texture:
+                case FileTypeEnum.SpriteSheet:
                     processorType = "TextureProcessor";
                     break;
                 default:
@@ -720,15 +491,13 @@ namespace WinterEngine.Hakpak.Builder
         private void InitializeFileDialogFilters()
         {
             FileExtensionFactory extensions = new FileExtensionFactory();
-            string modelFileExtension = extensions.GetFileExtension(FileTypeEnum.Model);
-            string textureFileExtension = extensions.GetFileExtension(FileTypeEnum.Texture);
+            string spriteSheetFileExtension = extensions.GetFileExtension(FileTypeEnum.SpriteSheet);
             string soundFileExtension = extensions.GetFileExtension(FileTypeEnum.Sound);
             string musicFileExtension = extensions.GetFileExtension(FileTypeEnum.Music);
             string uncompiledHakpakFileExtension = extensions.GetFileExtension(FileTypeEnum.UncompiledHakpak);
 
-            openFileDialogBuilder.Filter = "All Available Types|*" + textureFileExtension + ";*" + modelFileExtension + ";*" + soundFileExtension + "|" +
-                                      "Texture Files|*" + textureFileExtension + "|" +
-                                      "Model Files|*" + modelFileExtension + "|" +
+            openFileDialogBuilder.Filter = "All Available Types|*" + spriteSheetFileExtension + ";*" + soundFileExtension + "|" +
+                                      "Sprite Sheet Files|*" + spriteSheetFileExtension + "|" +
                                       "Audio Files|*" + soundFileExtension;
 
             saveFileDialogSaveAs.Filter = "Uncompiled Hakpak (*" + uncompiledHakpakFileExtension + ")|*" + uncompiledHakpakFileExtension;
@@ -773,44 +542,5 @@ namespace WinterEngine.Hakpak.Builder
         }
 
         #endregion
-
-        /// <summary>
-        /// Link the selected resource with the selected linked object.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listBoxLinkTo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            HakpakResource resource = listBoxResources.SelectedItem as HakpakResource;
-            HakpakResource linkedResource = listBoxLinkTo.SelectedItem as HakpakResource;
-
-            if (!Object.ReferenceEquals(resource, null) && !Object.ReferenceEquals(linkedResource, null))
-            {
-                // Unlink previous resource
-                if (!Object.ReferenceEquals(resource.LinkedResource, null))
-                {
-                    resource.LinkedResource.LinkedResource = null;
-                }
-
-                // 0 represents the "No Link" option.
-                if (listBoxLinkTo.SelectedIndex != 0)
-                {
-                    linkedResource.ItemPartType = resource.ItemPartType;
-                    linkedResource.IsItem = resource.IsItem;
-
-                    resource.LinkedResource = linkedResource;
-                    linkedResource.LinkedResource = resource;
-                }
-                // "No Link" option was selected. Mark linked resources to null.
-                else
-                {
-                    if (!Object.ReferenceEquals(resource.LinkedResource, null))
-                    {
-                        resource.LinkedResource.LinkedResource = null;
-                        resource.LinkedResource = null;
-                    }
-                }
-            }
-        }
     }
 }

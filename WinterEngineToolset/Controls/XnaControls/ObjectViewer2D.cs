@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using System.Windows.Forms;
 using WinterEngine.Toolset.Controls.XnaControls.Shared;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 using System.IO;
 using System;
 using WinterEngine.Library.Helpers;
@@ -23,7 +23,7 @@ namespace WinterEngine.Toolset.Controls.XnaControls
         #region Variables
         private ContentManager _content;
         private SpriteBatch _spriteBatch;
-        private GraphicResource _resource;
+        private SpriteSheet _resource;
         private Texture2D _texture;
         
         #endregion
@@ -51,7 +51,7 @@ namespace WinterEngine.Toolset.Controls.XnaControls
         /// <summary>
         /// Gets or sets the graphic resource used by this control.
         /// </summary>
-        public GraphicResource Resource
+        public SpriteSheet Resource
         {
             get { return _resource; }
             set { _resource = value; }
@@ -100,7 +100,7 @@ namespace WinterEngine.Toolset.Controls.XnaControls
         /// Resource should be a 2D graphic file such as a TGA, PNG, etc
         /// </summary>
         /// <param name="graphic"></param>
-        public void LoadGraphic(GraphicResource graphic)
+        public void LoadGraphic(SpriteSheet graphic)
         {
             string resourcePath = "";
 

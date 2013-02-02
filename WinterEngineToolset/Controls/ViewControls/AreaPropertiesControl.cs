@@ -21,7 +21,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
     {
         #region Fields
 
-        private ObjectViewer3D _objectViewer;
         private Area _backupArea;
 
         #endregion
@@ -50,12 +49,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         public AreaPropertiesControl()
         {
             InitializeComponent();
-
-            // Designer in VS2010 has issues with custom controls.
-            // Manually add the 3D object viewer when the program runs.
-            _objectViewer = new ObjectViewer3D();
-            _objectViewer.Dock = DockStyle.Fill;
-            panelAreaObjectViewer.Controls.Add(_objectViewer);
         }
 
         #endregion

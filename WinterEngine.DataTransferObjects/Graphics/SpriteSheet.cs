@@ -5,17 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinterEngine.DataTransferObjects.Resources
+namespace WinterEngine.DataTransferObjects.Graphics
 {
     [Serializable]
-    [Table("GraphicResources")]
-    public sealed class GraphicResource : GameResource
+    [Table("SpriteSheets")]
+    public class SpriteSheet : GameResource, IEntity
     {
         #region Fields
 
         private string _resourcePackagePath;
         private string _resourceFileName;
-        private bool _is2DGraphic;
         private string _temporaryDisplayName;
 
         #endregion
@@ -23,7 +22,7 @@ namespace WinterEngine.DataTransferObjects.Resources
         #region Properties
 
         /// <summary>
-        /// Gets or sets the path to the package containing this GraphicResource
+        /// Gets or sets the path to the package containing this Sprite Sheet
         /// </summary>
         public string ResourcePackagePath
         {
@@ -32,21 +31,12 @@ namespace WinterEngine.DataTransferObjects.Resources
         }
 
         /// <summary>
-        /// Gets or sets the name of the resource file for this GraphicResource
+        /// Gets or sets the name of the resource file for this Sprite Sheet
         /// </summary>
         public string ResourceFileName
         {
             get { return _resourceFileName; }
             set { _resourceFileName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets whether or not this graphic resource is a 2-Dimensional graphic.
-        /// </summary>
-        public bool Is2DGraphic
-        {
-            get { return _is2DGraphic; }
-            set { _is2DGraphic = value; }
         }
 
         /// <summary>

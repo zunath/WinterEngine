@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 
 namespace WinterEngine.DataTransferObjects.GameObjects
 {
     [Serializable]
     [Table("Placeables")]
-    public sealed class Placeable : GameObject
+    public sealed class Placeable : GameObject, IEntity
     {
         #region Fields
 
@@ -17,8 +17,8 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         private bool _isUseable;
         private bool _hasInventory;
         private List<Item> _inventoryItems;
-        private GraphicResource _portraitGraphic;
-        private GraphicResource _modelGraphic;
+        private SpriteSheet _portraitGraphic;
+        private SpriteSheet _modelGraphic;
 
         #endregion
 
@@ -63,7 +63,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         /// <summary>
         /// Gets or sets the 3D model of a placeable.
         /// </summary>
-        public GraphicResource ModelGraphic
+        public SpriteSheet ModelGraphic
         {
             get { return _modelGraphic; }
             set { _modelGraphic = value; }
@@ -72,7 +72,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         /// <summary>
         /// Gets or sets the portrait of a placeable.
         /// </summary>
-        public GraphicResource PortraitGraphic
+        public SpriteSheet PortraitGraphic
         {
             get { return _portraitGraphic; }
             set { _portraitGraphic = value; }

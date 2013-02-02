@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace WinterEngine.DataTransferObjects.Enumerations
 {
     /// <summary>
-    /// Used by the custom User Controls. Refer to the values in the SQLite database for everything else.
+    /// Used by the custom User Controls. Refer to the values in the database for everything else.
     /// </summary>
     public enum ResourceTypeEnum
     {
@@ -22,6 +22,10 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("Scripts")]
         Script = 5,
         [Description("Items")]
-        Item = 6
+        Item = 6,
+        [Description("Tiles")]
+        Tile = 7,
+        [Description("Tilesets")]
+        Tileset = 8
     }
 }

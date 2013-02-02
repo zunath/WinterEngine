@@ -5,7 +5,7 @@ using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WinterEngine.DataTransferObjects.Resources
+namespace WinterEngine.DataTransferObjects.Graphics
 {
     [Serializable]
     [Table("ItemTypes")]
@@ -13,8 +13,7 @@ namespace WinterEngine.DataTransferObjects.Resources
     {
         #region Fields
 
-        private bool _has2DIcon;
-        private bool _has3DModel;
+        private bool _hasIcon;
         private int _iconWidth;
         private int _iconHeight;
 
@@ -23,22 +22,14 @@ namespace WinterEngine.DataTransferObjects.Resources
         #region Properties
 
         /// <summary>
-        /// Gets or sets whether an item type has a 2D icon.
+        /// Gets or sets whether an item type has a icon.
         /// </summary>
-        public bool Has2DIcon
+        public bool HasIcon
         {
-            get { return _has2DIcon; }
-            set { _has2DIcon = value; }
+            get { return _hasIcon; }
+            set { _hasIcon = value; }
         }
 
-        /// <summary>
-        /// Gets or sets whether an item type has a 3D model.
-        /// </summary>
-        public bool Has3DModel
-        {
-            get { return _has3DModel; }
-            set { _has3DModel = value; }
-        }
 
         /// <summary>
         /// Gets or sets the item type's icon width

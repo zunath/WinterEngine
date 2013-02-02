@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WinterEngine.DataTransferObjects.Enumerations;
 
-namespace WinterEngine.DataTransferObjects.Resources
+namespace WinterEngine.DataTransferObjects.Graphics
 {
     /// <summary>
     /// Base abstract class for Winter Engine game resources.
     /// </summary>
     [Serializable]
-    public abstract class GameResource
+    public abstract class GameResource : IEntity
     {
         #region Fields
 

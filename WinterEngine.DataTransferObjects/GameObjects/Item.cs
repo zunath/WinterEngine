@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Ionic.Zip;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 
 namespace WinterEngine.DataTransferObjects.GameObjects
 {
     [Serializable]
     [Table("Items")]
-    public sealed class Item : GameObject
+    public sealed class Item : GameObject, IEntity
     {
         #region Fields
 
@@ -24,8 +24,8 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         private List<ItemProperty> _itemProperties;
         private int _tileWidth;
         private int _tileHeight;
-        private GraphicResource _inventoryIconGraphic;
-        private GraphicResource _modelGraphic;
+        private SpriteSheet _inventoryIconGraphic;
+        private SpriteSheet _modelGraphic;
 
         #endregion
 
@@ -125,7 +125,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         /// <summary>
         /// Gets or sets the inventory icon graphic for the item.
         /// </summary>
-        public GraphicResource InventoryIconGraphic
+        public SpriteSheet InventoryIconGraphic
         {
             get { return _inventoryIconGraphic; }
             set { _inventoryIconGraphic = value; }
@@ -134,7 +134,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         /// <summary>
         /// Gets or sets the inventory's 3D model graphic
         /// </summary>
-        public GraphicResource ModelGraphic
+        public SpriteSheet ModelGraphic
         {
             get { return _modelGraphic; }
             set { _modelGraphic = value; }

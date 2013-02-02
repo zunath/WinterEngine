@@ -5,7 +5,7 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.Graphics;
 
 namespace WinterEngine.DataAccess
 {
@@ -13,7 +13,7 @@ namespace WinterEngine.DataAccess
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class CategoryRepository : RepositoryBase, IDisposable
+    public class CategoryRepository : RepositoryBase, IResourceRepository<Category>
     {
         #region Constructors
 
@@ -35,7 +35,7 @@ namespace WinterEngine.DataAccess
         /// Returns all resource categories from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Category> GetAllResourceCategories()
+        public List<Category> GetAll()
         {
             List<Category> _resourceCategoryList = new List<Category>();
 
@@ -79,18 +79,25 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceCategory"></param>
         /// <returns></returns>
-        public bool AddResourceCategory(Category resourceCategory)
+        public void Add(Category resourceCategory)
         {
-            bool success = true;
-
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 context.ResourceCategories.Add(resourceCategory);
                 context.SaveChanges();
             }
-            
+        }
 
-            return success;
+        public void Add(List<Category> categoryList)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                foreach (Category category in categoryList)
+                {
+                    context.ResourceCategories.Add(category);
+                }
+                context.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -98,30 +105,41 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceCategory"></param>
         /// <returns></returns>
-        public bool UpdateResourceCategory(Category resourceCategory)
+        public void Update(Category resourceCategory)
         {
-            bool success = true;
-
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 // Find the resource in the database that matches the passed-in resource's category ID (primary key)
                 Category dbResource = context.ResourceCategories.SingleOrDefault(r => r.ResourceID.Equals(resourceCategory.ResourceID));
 
-                // Unable to find a matching resource. Do not attempt to update.
                 if (!Object.ReferenceEquals(dbResource, null))
                 {
                     context.ResourceCategories.Remove(dbResource);
                     context.ResourceCategories.Add(resourceCategory);
                     context.SaveChanges();
                 }
-                // Unable to find a matching resource. Return false.
+            }
+        }
+
+        public void Upsert(Category category)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                // Find the resource in the database that matches the passed-in resource's category ID (primary key)
+                Category dbResource = context.ResourceCategories.SingleOrDefault(r => r.ResourceID.Equals(category.ResourceID));
+
+                if (!Object.ReferenceEquals(dbResource, null))
+                {
+                    context.ResourceCategories.Remove(dbResource);
+                    context.ResourceCategories.Add(category);
+                    context.SaveChanges();
+                }
                 else
                 {
-                    success = false;    
+                    context.ResourceCategories.Add(category);
+                    context.SaveChanges();
                 }
             }
-        
-            return success;
         }
 
         /// <summary>
@@ -158,10 +176,8 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceCategory">The resource category to delete.</param>
         /// <returns></returns>
-        public bool DeleteResourceCategory(Category resourceCategory)
+        public void Delete(Category resourceCategory)
         {
-            bool success = true;
-
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 // Find the category in the database. CategoryID is a primary key so there will only ever be one.
@@ -172,14 +188,7 @@ namespace WinterEngine.DataAccess
                     context.ResourceCategories.Remove(category);
                     context.SaveChanges();
                 }
-                // Unable to locate a resource in the database. Return false.
-                else
-                {
-                    success = false;
-                }
             }
-            
-            return success;
         }
 
         /// <summary>

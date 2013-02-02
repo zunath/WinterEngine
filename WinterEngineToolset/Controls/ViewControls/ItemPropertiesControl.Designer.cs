@@ -59,11 +59,9 @@
             this.labelItemName = new System.Windows.Forms.Label();
             this.tabPageItemAppearance = new System.Windows.Forms.TabPage();
             this.panelItemEditorControl = new System.Windows.Forms.Panel();
-            this.comboBoxPartSelection = new System.Windows.Forms.ComboBox();
             this.panelItemIconViewer = new System.Windows.Forms.Panel();
             this.listBoxAppearance = new System.Windows.Forms.ListBox();
             this.labelAppearance = new System.Windows.Forms.Label();
-            this.panelItemModelViewer = new System.Windows.Forms.Panel();
             this.tabControlProperties = new System.Windows.Forms.TabControl();
             this.tabPageComments.SuspendLayout();
             this.tabPageDescription.SuspendLayout();
@@ -390,28 +388,17 @@
             this.panelItemEditorControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelItemEditorControl.Controls.Add(this.comboBoxPartSelection);
             this.panelItemEditorControl.Controls.Add(this.panelItemIconViewer);
             this.panelItemEditorControl.Controls.Add(this.listBoxAppearance);
             this.panelItemEditorControl.Controls.Add(this.labelAppearance);
-            this.panelItemEditorControl.Controls.Add(this.panelItemModelViewer);
             this.panelItemEditorControl.Location = new System.Drawing.Point(0, 0);
             this.panelItemEditorControl.Name = "panelItemEditorControl";
             this.panelItemEditorControl.Size = new System.Drawing.Size(367, 391);
             this.panelItemEditorControl.TabIndex = 8;
             // 
-            // comboBoxPartSelection
-            // 
-            this.comboBoxPartSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPartSelection.FormattingEnabled = true;
-            this.comboBoxPartSelection.Location = new System.Drawing.Point(213, 43);
-            this.comboBoxPartSelection.Name = "comboBoxPartSelection";
-            this.comboBoxPartSelection.Size = new System.Drawing.Size(148, 21);
-            this.comboBoxPartSelection.TabIndex = 11;
-            // 
             // panelItemIconViewer
             // 
-            this.panelItemIconViewer.Location = new System.Drawing.Point(0, 213);
+            this.panelItemIconViewer.Location = new System.Drawing.Point(3, 69);
             this.panelItemIconViewer.Name = "panelItemIconViewer";
             this.panelItemIconViewer.Size = new System.Drawing.Size(207, 172);
             this.panelItemIconViewer.TabIndex = 10;
@@ -438,13 +425,6 @@
             this.labelAppearance.Size = new System.Drawing.Size(124, 24);
             this.labelAppearance.TabIndex = 5;
             this.labelAppearance.Text = "Appearance";
-            // 
-            // panelItemModelViewer
-            // 
-            this.panelItemModelViewer.Location = new System.Drawing.Point(0, 43);
-            this.panelItemModelViewer.Name = "panelItemModelViewer";
-            this.panelItemModelViewer.Size = new System.Drawing.Size(207, 164);
-            this.panelItemModelViewer.TabIndex = 1;
             // 
             // tabControlProperties
             // 
@@ -526,11 +506,9 @@
         private System.Windows.Forms.Label labelItemName;
         private System.Windows.Forms.TabPage tabPageItemAppearance;
         private System.Windows.Forms.Panel panelItemEditorControl;
-        private System.Windows.Forms.ComboBox comboBoxPartSelection;
         private System.Windows.Forms.Panel panelItemIconViewer;
         private System.Windows.Forms.ListBox listBoxAppearance;
         private System.Windows.Forms.Label labelAppearance;
-        private System.Windows.Forms.Panel panelItemModelViewer;
         private System.Windows.Forms.TabControl tabControlProperties;
     }
 }
