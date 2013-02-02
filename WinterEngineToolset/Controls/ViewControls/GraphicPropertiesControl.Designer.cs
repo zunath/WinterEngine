@@ -32,20 +32,20 @@
             this.buttonApplyChangesTilesetDetails = new System.Windows.Forms.Button();
             this.tabControlProperties = new System.Windows.Forms.TabControl();
             this.tabPageTilesets = new System.Windows.Forms.TabPage();
+            this.textBoxTilesetName = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
+            this.labelTilesetHeader = new System.Windows.Forms.Label();
+            this.labelSpriteSheet = new System.Windows.Forms.Label();
+            this.comboBoxSpriteSheet = new System.Windows.Forms.ComboBox();
             this.labelTilesetName = new System.Windows.Forms.Label();
             this.tabPageCharacters = new System.Windows.Forms.TabPage();
             this.tabPagePlaceables = new System.Windows.Forms.TabPage();
-            this.labelSpriteSheet = new System.Windows.Forms.Label();
-            this.comboBoxSpriteSheet = new System.Windows.Forms.ComboBox();
-            this.labelTilesetHeader = new System.Windows.Forms.Label();
-            this.textBoxTilesetName = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
             this.tabControlProperties.SuspendLayout();
             this.tabPageTilesets.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonDiscardChangesTilesetDetails
             // 
-            this.buttonDiscardChangesTilesetDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDiscardChangesTilesetDetails.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonDiscardChangesTilesetDetails.Enabled = false;
             this.buttonDiscardChangesTilesetDetails.Location = new System.Drawing.Point(151, 426);
             this.buttonDiscardChangesTilesetDetails.Name = "buttonDiscardChangesTilesetDetails";
@@ -57,7 +57,7 @@
             // 
             // buttonApplyChangesTilesetDetails
             // 
-            this.buttonApplyChangesTilesetDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonApplyChangesTilesetDetails.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonApplyChangesTilesetDetails.Enabled = false;
             this.buttonApplyChangesTilesetDetails.Location = new System.Drawing.Point(35, 426);
             this.buttonApplyChangesTilesetDetails.Name = "buttonApplyChangesTilesetDetails";
@@ -97,6 +97,49 @@
             this.tabPageTilesets.Text = "Tilesets";
             this.tabPageTilesets.UseVisualStyleBackColor = true;
             // 
+            // textBoxTilesetName
+            // 
+            this.textBoxTilesetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTilesetName.IsValid = false;
+            this.textBoxTilesetName.Location = new System.Drawing.Point(81, 58);
+            this.textBoxTilesetName.Name = "textBoxTilesetName";
+            this.textBoxTilesetName.NameText = "";
+            this.textBoxTilesetName.Size = new System.Drawing.Size(216, 28);
+            this.textBoxTilesetName.TabIndex = 12;
+            // 
+            // labelTilesetHeader
+            // 
+            this.labelTilesetHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTilesetHeader.AutoSize = true;
+            this.labelTilesetHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTilesetHeader.Location = new System.Drawing.Point(60, 19);
+            this.labelTilesetHeader.Name = "labelTilesetHeader";
+            this.labelTilesetHeader.Size = new System.Drawing.Size(186, 31);
+            this.labelTilesetHeader.TabIndex = 11;
+            this.labelTilesetHeader.Text = "Tileset Details";
+            // 
+            // labelSpriteSheet
+            // 
+            this.labelSpriteSheet.AutoSize = true;
+            this.labelSpriteSheet.Location = new System.Drawing.Point(6, 95);
+            this.labelSpriteSheet.Name = "labelSpriteSheet";
+            this.labelSpriteSheet.Size = new System.Drawing.Size(68, 13);
+            this.labelSpriteSheet.TabIndex = 10;
+            this.labelSpriteSheet.Text = "Sprite Sheet:";
+            // 
+            // comboBoxSpriteSheet
+            // 
+            this.comboBoxSpriteSheet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxSpriteSheet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSpriteSheet.FormattingEnabled = true;
+            this.comboBoxSpriteSheet.Location = new System.Drawing.Point(80, 92);
+            this.comboBoxSpriteSheet.Name = "comboBoxSpriteSheet";
+            this.comboBoxSpriteSheet.Size = new System.Drawing.Size(183, 21);
+            this.comboBoxSpriteSheet.TabIndex = 9;
+            // 
             // labelTilesetName
             // 
             this.labelTilesetName.AutoSize = true;
@@ -123,49 +166,6 @@
             this.tabPagePlaceables.TabIndex = 2;
             this.tabPagePlaceables.Text = "Placeables";
             this.tabPagePlaceables.UseVisualStyleBackColor = true;
-            // 
-            // labelSpriteSheet
-            // 
-            this.labelSpriteSheet.AutoSize = true;
-            this.labelSpriteSheet.Location = new System.Drawing.Point(6, 93);
-            this.labelSpriteSheet.Name = "labelSpriteSheet";
-            this.labelSpriteSheet.Size = new System.Drawing.Size(68, 13);
-            this.labelSpriteSheet.TabIndex = 10;
-            this.labelSpriteSheet.Text = "Sprite Sheet:";
-            // 
-            // comboBoxSpriteSheet
-            // 
-            this.comboBoxSpriteSheet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxSpriteSheet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSpriteSheet.FormattingEnabled = true;
-            this.comboBoxSpriteSheet.Location = new System.Drawing.Point(96, 90);
-            this.comboBoxSpriteSheet.Name = "comboBoxSpriteSheet";
-            this.comboBoxSpriteSheet.Size = new System.Drawing.Size(180, 21);
-            this.comboBoxSpriteSheet.TabIndex = 9;
-            // 
-            // labelTilesetHeader
-            // 
-            this.labelTilesetHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelTilesetHeader.AutoSize = true;
-            this.labelTilesetHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTilesetHeader.Location = new System.Drawing.Point(60, 19);
-            this.labelTilesetHeader.Name = "labelTilesetHeader";
-            this.labelTilesetHeader.Size = new System.Drawing.Size(186, 31);
-            this.labelTilesetHeader.TabIndex = 11;
-            this.labelTilesetHeader.Text = "Tileset Details";
-            // 
-            // textBoxTilesetName
-            // 
-            this.textBoxTilesetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTilesetName.IsValid = false;
-            this.textBoxTilesetName.Location = new System.Drawing.Point(96, 53);
-            this.textBoxTilesetName.Name = "textBoxTilesetName";
-            this.textBoxTilesetName.NameText = "";
-            this.textBoxTilesetName.Size = new System.Drawing.Size(216, 28);
-            this.textBoxTilesetName.TabIndex = 12;
             // 
             // GraphicPropertiesControl
             // 

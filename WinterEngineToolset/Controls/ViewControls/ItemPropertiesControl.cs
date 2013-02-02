@@ -66,16 +66,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         }
 
         /// <summary>
-        /// Handles loading an icon and model in the respective viewer panels.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listBoxAppearance_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ItemIcon.LoadGraphic(listBoxAppearance.SelectedItem as SpriteSheet);   
-        }
-
-        /// <summary>
         /// Handles updating an item's entry in the database.
         /// </summary>
         /// <param name="sender"></param>
@@ -142,10 +132,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         public ItemPropertiesControl()
         {
             InitializeComponent();
-
-            _itemIcon = new ObjectViewer2D();
-            _itemIcon.Dock = DockStyle.Fill;
-            panelItemIconViewer.Controls.Add(_itemIcon);
         }
 
         #endregion

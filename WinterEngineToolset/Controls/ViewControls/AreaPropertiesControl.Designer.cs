@@ -29,12 +29,9 @@
         private void InitializeComponent()
         {
             this.tabControlProperties = new System.Windows.Forms.TabControl();
-            this.tabPageViewer = new System.Windows.Forms.TabPage();
+            this.tabPageEditor = new System.Windows.Forms.TabPage();
             this.panelAreaObjectViewer = new System.Windows.Forms.Panel();
             this.tabPageAreaDetails = new System.Windows.Forms.TabPage();
-            this.resrefTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox();
-            this.tagTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.TagTextBox();
-            this.nameTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
             this.labelAreaDetailsHeader = new System.Windows.Forms.Label();
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
@@ -46,8 +43,11 @@
             this.textBoxAreaComments = new System.Windows.Forms.TextBox();
             this.buttonDiscardChanges = new System.Windows.Forms.Button();
             this.buttonApplyChanges = new System.Windows.Forms.Button();
+            this.resrefTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox();
+            this.tagTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.TagTextBox();
+            this.nameTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
             this.tabControlProperties.SuspendLayout();
-            this.tabPageViewer.SuspendLayout();
+            this.tabPageEditor.SuspendLayout();
             this.tabPageAreaDetails.SuspendLayout();
             this.tabPageComments.SuspendLayout();
             this.SuspendLayout();
@@ -57,7 +57,7 @@
             this.tabControlProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlProperties.Controls.Add(this.tabPageViewer);
+            this.tabControlProperties.Controls.Add(this.tabPageEditor);
             this.tabControlProperties.Controls.Add(this.tabPageAreaDetails);
             this.tabControlProperties.Controls.Add(this.tabPageAudio);
             this.tabControlProperties.Controls.Add(this.tabPageEvents);
@@ -66,19 +66,19 @@
             this.tabControlProperties.Location = new System.Drawing.Point(3, 3);
             this.tabControlProperties.Name = "tabControlProperties";
             this.tabControlProperties.SelectedIndex = 0;
-            this.tabControlProperties.Size = new System.Drawing.Size(375, 417);
+            this.tabControlProperties.Size = new System.Drawing.Size(302, 417);
             this.tabControlProperties.TabIndex = 3;
             // 
-            // tabPageViewer
+            // tabPageEditor
             // 
-            this.tabPageViewer.Controls.Add(this.panelAreaObjectViewer);
-            this.tabPageViewer.Location = new System.Drawing.Point(4, 22);
-            this.tabPageViewer.Name = "tabPageViewer";
-            this.tabPageViewer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageViewer.Size = new System.Drawing.Size(367, 391);
-            this.tabPageViewer.TabIndex = 0;
-            this.tabPageViewer.Text = "Viewer";
-            this.tabPageViewer.UseVisualStyleBackColor = true;
+            this.tabPageEditor.Controls.Add(this.panelAreaObjectViewer);
+            this.tabPageEditor.Location = new System.Drawing.Point(4, 22);
+            this.tabPageEditor.Name = "tabPageEditor";
+            this.tabPageEditor.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageEditor.Size = new System.Drawing.Size(294, 391);
+            this.tabPageEditor.TabIndex = 0;
+            this.tabPageEditor.Text = "Editor";
+            this.tabPageEditor.UseVisualStyleBackColor = true;
             // 
             // panelAreaObjectViewer
             // 
@@ -99,43 +99,15 @@
             this.tabPageAreaDetails.Location = new System.Drawing.Point(4, 22);
             this.tabPageAreaDetails.Name = "tabPageAreaDetails";
             this.tabPageAreaDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAreaDetails.Size = new System.Drawing.Size(367, 391);
+            this.tabPageAreaDetails.Size = new System.Drawing.Size(294, 391);
             this.tabPageAreaDetails.TabIndex = 1;
             this.tabPageAreaDetails.Text = "Details";
             this.tabPageAreaDetails.UseVisualStyleBackColor = true;
             // 
-            // resrefTextBoxArea
-            // 
-            this.resrefTextBoxArea.Enabled = false;
-            this.resrefTextBoxArea.IsValid = false;
-            this.resrefTextBoxArea.Location = new System.Drawing.Point(81, 112);
-            this.resrefTextBoxArea.Name = "resrefTextBoxArea";
-            this.resrefTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
-            this.resrefTextBoxArea.ResrefText = "";
-            this.resrefTextBoxArea.Size = new System.Drawing.Size(265, 28);
-            this.resrefTextBoxArea.TabIndex = 10;
-            // 
-            // tagTextBoxArea
-            // 
-            this.tagTextBoxArea.IsValid = true;
-            this.tagTextBoxArea.Location = new System.Drawing.Point(81, 86);
-            this.tagTextBoxArea.Name = "tagTextBoxArea";
-            this.tagTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
-            this.tagTextBoxArea.Size = new System.Drawing.Size(265, 28);
-            this.tagTextBoxArea.TabIndex = 9;
-            this.tagTextBoxArea.TagText = "";
-            // 
-            // nameTextBoxArea
-            // 
-            this.nameTextBoxArea.IsValid = true;
-            this.nameTextBoxArea.Location = new System.Drawing.Point(81, 58);
-            this.nameTextBoxArea.Name = "nameTextBoxArea";
-            this.nameTextBoxArea.NameText = "";
-            this.nameTextBoxArea.Size = new System.Drawing.Size(265, 28);
-            this.nameTextBoxArea.TabIndex = 8;
-            // 
             // labelAreaDetailsHeader
             // 
+            this.labelAreaDetailsHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAreaDetailsHeader.AutoSize = true;
             this.labelAreaDetailsHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAreaDetailsHeader.Location = new System.Drawing.Point(101, 16);
@@ -175,7 +147,7 @@
             // 
             this.tabPageAudio.Location = new System.Drawing.Point(4, 22);
             this.tabPageAudio.Name = "tabPageAudio";
-            this.tabPageAudio.Size = new System.Drawing.Size(367, 391);
+            this.tabPageAudio.Size = new System.Drawing.Size(294, 391);
             this.tabPageAudio.TabIndex = 4;
             this.tabPageAudio.Text = "Audio";
             this.tabPageAudio.UseVisualStyleBackColor = true;
@@ -184,7 +156,7 @@
             // 
             this.tabPageEvents.Location = new System.Drawing.Point(4, 22);
             this.tabPageEvents.Name = "tabPageEvents";
-            this.tabPageEvents.Size = new System.Drawing.Size(367, 391);
+            this.tabPageEvents.Size = new System.Drawing.Size(294, 391);
             this.tabPageEvents.TabIndex = 3;
             this.tabPageEvents.Text = "Events";
             this.tabPageEvents.UseVisualStyleBackColor = true;
@@ -195,13 +167,15 @@
             this.tabPageComments.Controls.Add(this.textBoxAreaComments);
             this.tabPageComments.Location = new System.Drawing.Point(4, 22);
             this.tabPageComments.Name = "tabPageComments";
-            this.tabPageComments.Size = new System.Drawing.Size(367, 391);
+            this.tabPageComments.Size = new System.Drawing.Size(294, 391);
             this.tabPageComments.TabIndex = 2;
             this.tabPageComments.Text = "Comments";
             this.tabPageComments.UseVisualStyleBackColor = true;
             // 
             // labelAreaComments
             // 
+            this.labelAreaComments.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAreaComments.AutoSize = true;
             this.labelAreaComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAreaComments.Location = new System.Drawing.Point(80, 16);
@@ -212,6 +186,9 @@
             // 
             // textBoxAreaComments
             // 
+            this.textBoxAreaComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAreaComments.Location = new System.Drawing.Point(3, 74);
             this.textBoxAreaComments.MaxLength = 4000;
             this.textBoxAreaComments.Multiline = true;
@@ -222,9 +199,9 @@
             // 
             // buttonDiscardChanges
             // 
-            this.buttonDiscardChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDiscardChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonDiscardChanges.Enabled = false;
-            this.buttonDiscardChanges.Location = new System.Drawing.Point(207, 426);
+            this.buttonDiscardChanges.Location = new System.Drawing.Point(151, 426);
             this.buttonDiscardChanges.Name = "buttonDiscardChanges";
             this.buttonDiscardChanges.Size = new System.Drawing.Size(102, 23);
             this.buttonDiscardChanges.TabIndex = 13;
@@ -234,15 +211,51 @@
             // 
             // buttonApplyChanges
             // 
-            this.buttonApplyChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonApplyChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonApplyChanges.Enabled = false;
-            this.buttonApplyChanges.Location = new System.Drawing.Point(73, 426);
+            this.buttonApplyChanges.Location = new System.Drawing.Point(35, 426);
             this.buttonApplyChanges.Name = "buttonApplyChanges";
             this.buttonApplyChanges.Size = new System.Drawing.Size(91, 23);
             this.buttonApplyChanges.TabIndex = 12;
             this.buttonApplyChanges.Text = "Apply Changes";
             this.buttonApplyChanges.UseVisualStyleBackColor = true;
             this.buttonApplyChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
+            // 
+            // resrefTextBoxArea
+            // 
+            this.resrefTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.resrefTextBoxArea.Enabled = false;
+            this.resrefTextBoxArea.IsValid = false;
+            this.resrefTextBoxArea.Location = new System.Drawing.Point(81, 112);
+            this.resrefTextBoxArea.Name = "resrefTextBoxArea";
+            this.resrefTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.resrefTextBoxArea.ResrefText = "";
+            this.resrefTextBoxArea.Size = new System.Drawing.Size(294, 28);
+            this.resrefTextBoxArea.TabIndex = 10;
+            // 
+            // tagTextBoxArea
+            // 
+            this.tagTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tagTextBoxArea.IsValid = true;
+            this.tagTextBoxArea.Location = new System.Drawing.Point(81, 86);
+            this.tagTextBoxArea.Name = "tagTextBoxArea";
+            this.tagTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxArea.Size = new System.Drawing.Size(294, 28);
+            this.tagTextBoxArea.TabIndex = 9;
+            this.tagTextBoxArea.TagText = "";
+            // 
+            // nameTextBoxArea
+            // 
+            this.nameTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nameTextBoxArea.IsValid = false;
+            this.nameTextBoxArea.Location = new System.Drawing.Point(81, 58);
+            this.nameTextBoxArea.Name = "nameTextBoxArea";
+            this.nameTextBoxArea.NameText = "";
+            this.nameTextBoxArea.Size = new System.Drawing.Size(294, 28);
+            this.nameTextBoxArea.TabIndex = 8;
             // 
             // AreaPropertiesControl
             // 
@@ -252,9 +265,9 @@
             this.Controls.Add(this.buttonApplyChanges);
             this.Controls.Add(this.tabControlProperties);
             this.Name = "AreaPropertiesControl";
-            this.Size = new System.Drawing.Size(375, 452);
+            this.Size = new System.Drawing.Size(308, 452);
             this.tabControlProperties.ResumeLayout(false);
-            this.tabPageViewer.ResumeLayout(false);
+            this.tabPageEditor.ResumeLayout(false);
             this.tabPageAreaDetails.ResumeLayout(false);
             this.tabPageAreaDetails.PerformLayout();
             this.tabPageComments.ResumeLayout(false);
@@ -266,7 +279,7 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControlProperties;
-        private System.Windows.Forms.TabPage tabPageViewer;
+        private System.Windows.Forms.TabPage tabPageEditor;
         private System.Windows.Forms.TabPage tabPageAreaDetails;
         private System.Windows.Forms.Label labelAreaDetailsHeader;
         private System.Windows.Forms.Label labelItemResref;

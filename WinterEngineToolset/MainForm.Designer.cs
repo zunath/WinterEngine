@@ -416,12 +416,10 @@
             // 
             // placeableView
             // 
-            this.placeableView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.placeableView.Location = new System.Drawing.Point(0, 7);
+            this.placeableView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.placeableView.Location = new System.Drawing.Point(0, 0);
             this.placeableView.Name = "placeableView";
-            this.placeableView.Size = new System.Drawing.Size(570, 455);
+            this.placeableView.Size = new System.Drawing.Size(756, 462);
             this.placeableView.TabIndex = 0;
             // 
             // tabPageConversations

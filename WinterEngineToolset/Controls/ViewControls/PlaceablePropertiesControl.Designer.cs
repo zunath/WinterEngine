@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.tabControlProperties = new System.Windows.Forms.TabControl();
-            this.tabPagePlaceableAppearance = new System.Windows.Forms.TabPage();
-            this.panelObjectViewer = new System.Windows.Forms.Panel();
-            this.panelPlaceableObjectViewer = new System.Windows.Forms.Panel();
             this.tabPageItemDetails = new System.Windows.Forms.TabPage();
             this.checkBoxHasInventory = new System.Windows.Forms.CheckBox();
             this.checkBoxUseable = new System.Windows.Forms.CheckBox();
@@ -91,8 +88,6 @@
             this.buttonDiscardChanges = new System.Windows.Forms.Button();
             this.buttonApplyChanges = new System.Windows.Forms.Button();
             this.tabControlProperties.SuspendLayout();
-            this.tabPagePlaceableAppearance.SuspendLayout();
-            this.panelObjectViewer.SuspendLayout();
             this.tabPageItemDetails.SuspendLayout();
             this.tabPageEvents.SuspendLayout();
             this.tabPageDescription.SuspendLayout();
@@ -104,7 +99,6 @@
             this.tabControlProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlProperties.Controls.Add(this.tabPagePlaceableAppearance);
             this.tabControlProperties.Controls.Add(this.tabPageItemDetails);
             this.tabControlProperties.Controls.Add(this.tabPageEvents);
             this.tabControlProperties.Controls.Add(this.tabPageDescription);
@@ -113,37 +107,8 @@
             this.tabControlProperties.Location = new System.Drawing.Point(3, 3);
             this.tabControlProperties.Name = "tabControlProperties";
             this.tabControlProperties.SelectedIndex = 0;
-            this.tabControlProperties.Size = new System.Drawing.Size(375, 417);
+            this.tabControlProperties.Size = new System.Drawing.Size(308, 417);
             this.tabControlProperties.TabIndex = 3;
-            // 
-            // tabPagePlaceableAppearance
-            // 
-            this.tabPagePlaceableAppearance.Controls.Add(this.panelObjectViewer);
-            this.tabPagePlaceableAppearance.Location = new System.Drawing.Point(4, 22);
-            this.tabPagePlaceableAppearance.Name = "tabPagePlaceableAppearance";
-            this.tabPagePlaceableAppearance.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePlaceableAppearance.Size = new System.Drawing.Size(367, 391);
-            this.tabPagePlaceableAppearance.TabIndex = 0;
-            this.tabPagePlaceableAppearance.Text = "Appearance";
-            this.tabPagePlaceableAppearance.UseVisualStyleBackColor = true;
-            // 
-            // panelObjectViewer
-            // 
-            this.panelObjectViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelObjectViewer.Controls.Add(this.panelPlaceableObjectViewer);
-            this.panelObjectViewer.Location = new System.Drawing.Point(0, 0);
-            this.panelObjectViewer.Name = "panelObjectViewer";
-            this.panelObjectViewer.Size = new System.Drawing.Size(367, 362);
-            this.panelObjectViewer.TabIndex = 8;
-            // 
-            // panelPlaceableObjectViewer
-            // 
-            this.panelPlaceableObjectViewer.Location = new System.Drawing.Point(0, 2);
-            this.panelPlaceableObjectViewer.Name = "panelPlaceableObjectViewer";
-            this.panelPlaceableObjectViewer.Size = new System.Drawing.Size(367, 391);
-            this.panelPlaceableObjectViewer.TabIndex = 1;
             // 
             // tabPageItemDetails
             // 
@@ -159,15 +124,16 @@
             this.tabPageItemDetails.Location = new System.Drawing.Point(4, 22);
             this.tabPageItemDetails.Name = "tabPageItemDetails";
             this.tabPageItemDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageItemDetails.Size = new System.Drawing.Size(367, 391);
+            this.tabPageItemDetails.Size = new System.Drawing.Size(300, 391);
             this.tabPageItemDetails.TabIndex = 1;
             this.tabPageItemDetails.Text = "Details";
             this.tabPageItemDetails.UseVisualStyleBackColor = true;
             // 
             // checkBoxHasInventory
             // 
+            this.checkBoxHasInventory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxHasInventory.AutoSize = true;
-            this.checkBoxHasInventory.Location = new System.Drawing.Point(237, 180);
+            this.checkBoxHasInventory.Location = new System.Drawing.Point(170, 180);
             this.checkBoxHasInventory.Name = "checkBoxHasInventory";
             this.checkBoxHasInventory.Size = new System.Drawing.Size(92, 17);
             this.checkBoxHasInventory.TabIndex = 12;
@@ -176,8 +142,9 @@
             // 
             // checkBoxUseable
             // 
+            this.checkBoxUseable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxUseable.AutoSize = true;
-            this.checkBoxUseable.Location = new System.Drawing.Point(237, 157);
+            this.checkBoxUseable.Location = new System.Drawing.Point(170, 157);
             this.checkBoxUseable.Name = "checkBoxUseable";
             this.checkBoxUseable.Size = new System.Drawing.Size(65, 17);
             this.checkBoxUseable.TabIndex = 11;
@@ -186,39 +153,47 @@
             // 
             // tagTextBoxPlaceable
             // 
+            this.tagTextBoxPlaceable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tagTextBoxPlaceable.IsValid = true;
             this.tagTextBoxPlaceable.Location = new System.Drawing.Point(81, 86);
             this.tagTextBoxPlaceable.Name = "tagTextBoxPlaceable";
             this.tagTextBoxPlaceable.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
-            this.tagTextBoxPlaceable.Size = new System.Drawing.Size(265, 28);
+            this.tagTextBoxPlaceable.Size = new System.Drawing.Size(216, 28);
             this.tagTextBoxPlaceable.TabIndex = 10;
             this.tagTextBoxPlaceable.TagText = "";
             // 
             // resrefTextBoxPlaceable
             // 
+            this.resrefTextBoxPlaceable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.resrefTextBoxPlaceable.Enabled = false;
             this.resrefTextBoxPlaceable.IsValid = false;
             this.resrefTextBoxPlaceable.Location = new System.Drawing.Point(81, 112);
             this.resrefTextBoxPlaceable.Name = "resrefTextBoxPlaceable";
             this.resrefTextBoxPlaceable.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
             this.resrefTextBoxPlaceable.ResrefText = "";
-            this.resrefTextBoxPlaceable.Size = new System.Drawing.Size(265, 28);
+            this.resrefTextBoxPlaceable.Size = new System.Drawing.Size(216, 28);
             this.resrefTextBoxPlaceable.TabIndex = 9;
             // 
             // nameTextBoxPlaceable
             // 
+            this.nameTextBoxPlaceable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nameTextBoxPlaceable.IsValid = true;
             this.nameTextBoxPlaceable.Location = new System.Drawing.Point(81, 58);
             this.nameTextBoxPlaceable.Name = "nameTextBoxPlaceable";
             this.nameTextBoxPlaceable.NameText = "";
-            this.nameTextBoxPlaceable.Size = new System.Drawing.Size(265, 28);
+            this.nameTextBoxPlaceable.Size = new System.Drawing.Size(216, 28);
             this.nameTextBoxPlaceable.TabIndex = 8;
             // 
             // labelItemDetailsHeader
             // 
+            this.labelItemDetailsHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelItemDetailsHeader.AutoSize = true;
             this.labelItemDetailsHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelItemDetailsHeader.Location = new System.Drawing.Point(75, 16);
+            this.labelItemDetailsHeader.Location = new System.Drawing.Point(47, 16);
             this.labelItemDetailsHeader.Name = "labelItemDetailsHeader";
             this.labelItemDetailsHeader.Size = new System.Drawing.Size(224, 31);
             this.labelItemDetailsHeader.TabIndex = 7;
@@ -294,7 +269,7 @@
             this.tabPageEvents.Controls.Add(this.labelOnClick);
             this.tabPageEvents.Location = new System.Drawing.Point(4, 22);
             this.tabPageEvents.Name = "tabPageEvents";
-            this.tabPageEvents.Size = new System.Drawing.Size(367, 391);
+            this.tabPageEvents.Size = new System.Drawing.Size(300, 391);
             this.tabPageEvents.TabIndex = 4;
             this.tabPageEvents.Text = "Events";
             this.tabPageEvents.UseVisualStyleBackColor = true;
@@ -310,10 +285,12 @@
             // 
             // comboBoxOnUserDefined
             // 
+            this.comboBoxOnUserDefined.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnUserDefined.FormattingEnabled = true;
             this.comboBoxOnUserDefined.Location = new System.Drawing.Point(116, 345);
             this.comboBoxOnUserDefined.Name = "comboBoxOnUserDefined";
-            this.comboBoxOnUserDefined.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnUserDefined.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnUserDefined.TabIndex = 37;
             // 
             // labelOnUserDefined
@@ -336,10 +313,12 @@
             // 
             // comboBoxOnUsed
             // 
+            this.comboBoxOnUsed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnUsed.FormattingEnabled = true;
             this.comboBoxOnUsed.Location = new System.Drawing.Point(116, 319);
             this.comboBoxOnUsed.Name = "comboBoxOnUsed";
-            this.comboBoxOnUsed.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnUsed.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnUsed.TabIndex = 34;
             // 
             // labelOnUsed
@@ -362,10 +341,12 @@
             // 
             // comboBoxOnUnLock
             // 
+            this.comboBoxOnUnLock.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnUnLock.FormattingEnabled = true;
             this.comboBoxOnUnLock.Location = new System.Drawing.Point(116, 295);
             this.comboBoxOnUnLock.Name = "comboBoxOnUnLock";
-            this.comboBoxOnUnLock.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnUnLock.Size = new System.Drawing.Size(182, 21);
             this.comboBoxOnUnLock.TabIndex = 31;
             // 
             // labelOnUnLock
@@ -388,10 +369,12 @@
             // 
             // comboBoxOnSpellCastAt
             // 
+            this.comboBoxOnSpellCastAt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnSpellCastAt.FormattingEnabled = true;
             this.comboBoxOnSpellCastAt.Location = new System.Drawing.Point(116, 270);
             this.comboBoxOnSpellCastAt.Name = "comboBoxOnSpellCastAt";
-            this.comboBoxOnSpellCastAt.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnSpellCastAt.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnSpellCastAt.TabIndex = 28;
             // 
             // labelOnSpellCastAt
@@ -414,10 +397,12 @@
             // 
             // comboBoxOnOpen
             // 
+            this.comboBoxOnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnOpen.FormattingEnabled = true;
             this.comboBoxOnOpen.Location = new System.Drawing.Point(116, 242);
             this.comboBoxOnOpen.Name = "comboBoxOnOpen";
-            this.comboBoxOnOpen.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnOpen.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnOpen.TabIndex = 25;
             // 
             // labelOnOpen
@@ -440,10 +425,12 @@
             // 
             // comboBoxOnPhysicalAttacked
             // 
+            this.comboBoxOnPhysicalAttacked.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnPhysicalAttacked.FormattingEnabled = true;
             this.comboBoxOnPhysicalAttacked.Location = new System.Drawing.Point(116, 216);
             this.comboBoxOnPhysicalAttacked.Name = "comboBoxOnPhysicalAttacked";
-            this.comboBoxOnPhysicalAttacked.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnPhysicalAttacked.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnPhysicalAttacked.TabIndex = 22;
             // 
             // labelOnPhysicalAttacked
@@ -466,10 +453,12 @@
             // 
             // comboBoxOnLock
             // 
+            this.comboBoxOnLock.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnLock.FormattingEnabled = true;
             this.comboBoxOnLock.Location = new System.Drawing.Point(116, 190);
             this.comboBoxOnLock.Name = "comboBoxOnLock";
-            this.comboBoxOnLock.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnLock.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnLock.TabIndex = 19;
             // 
             // labelOnLock
@@ -492,10 +481,12 @@
             // 
             // comboBoxOnDisturbed
             // 
+            this.comboBoxOnDisturbed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnDisturbed.FormattingEnabled = true;
             this.comboBoxOnDisturbed.Location = new System.Drawing.Point(116, 165);
             this.comboBoxOnDisturbed.Name = "comboBoxOnDisturbed";
-            this.comboBoxOnDisturbed.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnDisturbed.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnDisturbed.TabIndex = 16;
             // 
             // labelOnDisturbed
@@ -518,10 +509,12 @@
             // 
             // comboBoxOnHeartbeat
             // 
+            this.comboBoxOnHeartbeat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnHeartbeat.FormattingEnabled = true;
             this.comboBoxOnHeartbeat.Location = new System.Drawing.Point(116, 139);
             this.comboBoxOnHeartbeat.Name = "comboBoxOnHeartbeat";
-            this.comboBoxOnHeartbeat.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnHeartbeat.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnHeartbeat.TabIndex = 13;
             // 
             // labelOnHeartbeat
@@ -544,10 +537,12 @@
             // 
             // comboBoxOnDeath
             // 
+            this.comboBoxOnDeath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnDeath.FormattingEnabled = true;
             this.comboBoxOnDeath.Location = new System.Drawing.Point(116, 111);
             this.comboBoxOnDeath.Name = "comboBoxOnDeath";
-            this.comboBoxOnDeath.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnDeath.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnDeath.TabIndex = 10;
             // 
             // labelOnDeath
@@ -570,10 +565,12 @@
             // 
             // comboBoxOnDamaged
             // 
+            this.comboBoxOnDamaged.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnDamaged.FormattingEnabled = true;
             this.comboBoxOnDamaged.Location = new System.Drawing.Point(116, 82);
             this.comboBoxOnDamaged.Name = "comboBoxOnDamaged";
-            this.comboBoxOnDamaged.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnDamaged.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnDamaged.TabIndex = 7;
             // 
             // labelOnDamaged
@@ -596,10 +593,12 @@
             // 
             // comboBoxOnClose
             // 
+            this.comboBoxOnClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnClose.FormattingEnabled = true;
             this.comboBoxOnClose.Location = new System.Drawing.Point(116, 52);
             this.comboBoxOnClose.Name = "comboBoxOnClose";
-            this.comboBoxOnClose.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnClose.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnClose.TabIndex = 4;
             // 
             // labelOnClose
@@ -622,10 +621,12 @@
             // 
             // comboBoxOnClick
             // 
+            this.comboBoxOnClick.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOnClick.FormattingEnabled = true;
             this.comboBoxOnClick.Location = new System.Drawing.Point(116, 24);
             this.comboBoxOnClick.Name = "comboBoxOnClick";
-            this.comboBoxOnClick.Size = new System.Drawing.Size(195, 21);
+            this.comboBoxOnClick.Size = new System.Drawing.Size(181, 21);
             this.comboBoxOnClick.TabIndex = 1;
             // 
             // labelOnClick
@@ -643,7 +644,7 @@
             this.tabPageDescription.Controls.Add(this.textBoxPlaceableDescription);
             this.tabPageDescription.Location = new System.Drawing.Point(4, 22);
             this.tabPageDescription.Name = "tabPageDescription";
-            this.tabPageDescription.Size = new System.Drawing.Size(367, 391);
+            this.tabPageDescription.Size = new System.Drawing.Size(300, 391);
             this.tabPageDescription.TabIndex = 2;
             this.tabPageDescription.Text = "Description";
             this.tabPageDescription.UseVisualStyleBackColor = true;
@@ -652,7 +653,7 @@
             // 
             this.labelPlaceableDescription.AutoSize = true;
             this.labelPlaceableDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlaceableDescription.Location = new System.Drawing.Point(46, 16);
+            this.labelPlaceableDescription.Location = new System.Drawing.Point(15, 16);
             this.labelPlaceableDescription.Name = "labelPlaceableDescription";
             this.labelPlaceableDescription.Size = new System.Drawing.Size(277, 31);
             this.labelPlaceableDescription.TabIndex = 12;
@@ -665,7 +666,7 @@
             this.textBoxPlaceableDescription.Multiline = true;
             this.textBoxPlaceableDescription.Name = "textBoxPlaceableDescription";
             this.textBoxPlaceableDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxPlaceableDescription.Size = new System.Drawing.Size(361, 317);
+            this.textBoxPlaceableDescription.Size = new System.Drawing.Size(291, 317);
             this.textBoxPlaceableDescription.TabIndex = 11;
             // 
             // tabPageComments
@@ -674,7 +675,7 @@
             this.tabPageComments.Controls.Add(this.textBoxPlaceableComments);
             this.tabPageComments.Location = new System.Drawing.Point(4, 22);
             this.tabPageComments.Name = "tabPageComments";
-            this.tabPageComments.Size = new System.Drawing.Size(367, 391);
+            this.tabPageComments.Size = new System.Drawing.Size(300, 391);
             this.tabPageComments.TabIndex = 3;
             this.tabPageComments.Text = "Comments";
             this.tabPageComments.UseVisualStyleBackColor = true;
@@ -683,7 +684,7 @@
             // 
             this.labelPlaceableComments.AutoSize = true;
             this.labelPlaceableComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlaceableComments.Location = new System.Drawing.Point(46, 16);
+            this.labelPlaceableComments.Location = new System.Drawing.Point(15, 16);
             this.labelPlaceableComments.Name = "labelPlaceableComments";
             this.labelPlaceableComments.Size = new System.Drawing.Size(271, 31);
             this.labelPlaceableComments.TabIndex = 14;
@@ -696,14 +697,14 @@
             this.textBoxPlaceableComments.Multiline = true;
             this.textBoxPlaceableComments.Name = "textBoxPlaceableComments";
             this.textBoxPlaceableComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxPlaceableComments.Size = new System.Drawing.Size(361, 317);
+            this.textBoxPlaceableComments.Size = new System.Drawing.Size(291, 317);
             this.textBoxPlaceableComments.TabIndex = 13;
             // 
             // buttonDiscardChanges
             // 
-            this.buttonDiscardChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDiscardChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonDiscardChanges.Enabled = false;
-            this.buttonDiscardChanges.Location = new System.Drawing.Point(207, 426);
+            this.buttonDiscardChanges.Location = new System.Drawing.Point(151, 426);
             this.buttonDiscardChanges.Name = "buttonDiscardChanges";
             this.buttonDiscardChanges.Size = new System.Drawing.Size(102, 23);
             this.buttonDiscardChanges.TabIndex = 13;
@@ -713,9 +714,9 @@
             // 
             // buttonApplyChanges
             // 
-            this.buttonApplyChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonApplyChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonApplyChanges.Enabled = false;
-            this.buttonApplyChanges.Location = new System.Drawing.Point(73, 426);
+            this.buttonApplyChanges.Location = new System.Drawing.Point(35, 426);
             this.buttonApplyChanges.Name = "buttonApplyChanges";
             this.buttonApplyChanges.Size = new System.Drawing.Size(91, 23);
             this.buttonApplyChanges.TabIndex = 12;
@@ -731,10 +732,8 @@
             this.Controls.Add(this.buttonApplyChanges);
             this.Controls.Add(this.tabControlProperties);
             this.Name = "PlaceablePropertiesControl";
-            this.Size = new System.Drawing.Size(375, 452);
+            this.Size = new System.Drawing.Size(308, 452);
             this.tabControlProperties.ResumeLayout(false);
-            this.tabPagePlaceableAppearance.ResumeLayout(false);
-            this.panelObjectViewer.ResumeLayout(false);
             this.tabPageItemDetails.ResumeLayout(false);
             this.tabPageItemDetails.PerformLayout();
             this.tabPageEvents.ResumeLayout(false);
@@ -750,14 +749,11 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControlProperties;
-        private System.Windows.Forms.TabPage tabPagePlaceableAppearance;
-        private System.Windows.Forms.Panel panelObjectViewer;
         private System.Windows.Forms.TabPage tabPageItemDetails;
         private System.Windows.Forms.Label labelItemDetailsHeader;
         private System.Windows.Forms.Label labelItemResref;
         private System.Windows.Forms.Label labelItemTag;
         private System.Windows.Forms.Label labelItemName;
-        private System.Windows.Forms.Panel panelPlaceableObjectViewer;
         private System.Windows.Forms.TabPage tabPageEvents;
         private System.Windows.Forms.TabPage tabPageDescription;
         private System.Windows.Forms.TabPage tabPageComments;
