@@ -62,7 +62,7 @@ namespace WinterEngine.DataTransferObjects.Graphics
         {
             if (String.IsNullOrWhiteSpace(TemporaryDisplayName))
             {
-                return base.ToString();
+                return ResourceFileName;
             }
             else
             {

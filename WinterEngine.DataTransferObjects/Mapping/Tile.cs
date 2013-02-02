@@ -17,6 +17,7 @@ namespace WinterEngine.DataTransferObjects.Mapping
         private int _tileID;
         private int _spriteSheetX;
         private int _spriteSheetY;
+        private bool _isPassable;
         private const int _spriteSheetWidth = 64;
         private const int _spriteSheetHeight = 64;
 
@@ -51,6 +52,15 @@ namespace WinterEngine.DataTransferObjects.Mapping
         {
             get { return _spriteSheetY; }
             set { _spriteSheetY = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets whether the entire tile is passable by creatures.
+        /// </summary>
+        public bool IsPassable
+        {
+            get { return _isPassable; }
+            set { _isPassable = value; }
         }
 
         /// <summary>

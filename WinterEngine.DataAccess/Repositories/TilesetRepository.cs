@@ -8,115 +8,114 @@ using WinterEngine.DataTransferObjects.Mapping;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class TileRepository : RepositoryBase, IDisposable, IResourceRepository<Tile>
+    public class TilesetRepository : RepositoryBase, IDisposable, IResourceRepository<Tileset>
     {
         #region Constructors
 
-        public TileRepository(string connectionString = "")
+        public TilesetRepository(string connectionString = "")
         {
             if (String.IsNullOrWhiteSpace(connectionString))
             {
                 connectionString = WinterConnectionInformation.ActiveConnectionString;
             }
             ConnectionString = connectionString;
-            
         }
 
         #endregion
 
         #region Methods
 
-        public void Add(Tile tile)
+        public void Add(Tileset tileset)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                context.Tiles.Add(tile);
+                context.Tilesets.Add(tileset);
                 context.SaveChanges();
             }
         }
 
-        public void Add(List<Tile> tileList)
+        public void Add(List<Tileset> tilesetList)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                foreach (Tile tile in tileList)
+                foreach (Tileset tileset in tilesetList)
                 {
-                    context.Tiles.Add(tile);
+                    context.Tilesets.Add(tileset);
                 }
                 context.SaveChanges();
             }
         }
 
-        public void Update(Tile tile)
+        public void Update(Tileset tileset)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                Tile dbTile = context.Tiles.SingleOrDefault(r => r.ID.Equals(tile.ID));
+                Tileset dbTileset = context.Tilesets.SingleOrDefault(r => r.TilesetID.Equals(tileset.TilesetID));
 
-                if (!Object.ReferenceEquals(dbTile, null))
+                if (!Object.ReferenceEquals(dbTileset, null))
                 {
-                    context.Tiles.Remove(dbTile);
-                    context.Tiles.Add(dbTile);
+                    context.Tilesets.Remove(dbTileset);
+                    context.Tilesets.Add(dbTileset);
                     context.SaveChanges();
                 }
             }
         }
 
-        public void Upsert(Tile tile)
+        public void Upsert(Tileset tileset)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                Tile dbTile = context.Tiles.SingleOrDefault(r => r.ID.Equals(tile.ID));
+                Tileset dbTileset = context.Tilesets.SingleOrDefault(r => r.TilesetID.Equals(tileset.TilesetID));
 
-                if (!Object.ReferenceEquals(dbTile, null))
+                if (!Object.ReferenceEquals(dbTileset, null))
                 {
-                    context.Tiles.Remove(dbTile);
-                    context.Tiles.Add(dbTile);
+                    context.Tilesets.Remove(dbTileset);
+                    context.Tilesets.Add(dbTileset);
                     context.SaveChanges();
                 }
                 else
                 {
-                    context.Tiles.Add(tile);
+                    context.Tilesets.Add(tileset);
                     context.SaveChanges();
                 }
             }
         }
 
-        public void Delete(Tile tile)
+        public void Delete(Tileset tileset)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                Tile dbResource = context.Tiles.SingleOrDefault(val => val.ID == tile.ID);
+                Tileset dbTileset = context.Tilesets.SingleOrDefault(val => val.TilesetID == tileset.TilesetID);
 
-                if (!Object.ReferenceEquals(dbResource, null))
+                if (!Object.ReferenceEquals(dbTileset, null))
                 {
-                    context.Tiles.Remove(dbResource);
+                    context.Tilesets.Remove(dbTileset);
                     context.SaveChanges();
                 }
             }
         }
 
-        public List<Tile> GetAll()
+        public List<Tileset> GetAll()
         {
-            List<Tile> tileList = new List<Tile>();
+            List<Tileset> tilesetList = new List<Tileset>();
 
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                var query = from tile
-                            in context.Tiles
-                            select tile;
-                tileList = query.ToList();
+                var query = from tileset
+                            in context.Tilesets
+                            select tileset;
+                tilesetList = query.ToList();
             }
 
-            return tileList;
+            return tilesetList;
         }
 
-        public bool Exists(Tile tile)
+        public bool Exists(Tileset tileset)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                Tile dbTile = context.Tiles.FirstOrDefault(t => t.ID.Equals(tile.ID));
-                return !Object.ReferenceEquals(dbTile, null);
+                Tileset dbTileset = context.Tilesets.FirstOrDefault(t => t.TilesetID.Equals(tileset.TilesetID));
+                return !Object.ReferenceEquals(dbTileset, null);
             }
         }
 

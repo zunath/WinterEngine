@@ -34,16 +34,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         #region Event Handling
 
-        private void buttonAddTileset_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonDeleteTileset_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonApplyChangesTilesetDetails_Click(object sender, EventArgs e)
         {
 
@@ -54,10 +44,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         }
 
-        private void listBoxTilesets_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         #endregion
 

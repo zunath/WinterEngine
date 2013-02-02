@@ -50,27 +50,6 @@ namespace WinterEngine.DataAccess
             return _resourceList;
         }
 
-        /// <summary>
-        /// Returns all of the sprite sheets for a particular resource type.
-        /// </summary>
-        /// <param name="resourceType">The type of resources to get.</param>
-        /// <returns></returns>
-        public List<SpriteSheet> GetAllSpriteSheetsByResourceType(ResourceTypeEnum resourceType)
-        {
-            List<SpriteSheet> resourceList = new List<SpriteSheet>();
-
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                var query = from resource
-                            in context.SpriteSheets
-                            where resource.ResourceTypeID.Equals((int)resourceType)
-                            select resource;
-
-                resourceList = query.ToList<SpriteSheet>();
-            }
-
-            return resourceList;
-        }
 
         /// <summary>
         /// Adds a graphic resource to the database.
@@ -142,20 +121,6 @@ namespace WinterEngine.DataAccess
                     context.SpriteSheets.Add(resource);
                     context.SaveChanges();
                 }
-            }
-        }
-
-        /// <summary>
-        /// Returns the graphic resource matching the resourceCategoryID passed in.
-        /// Returns null if graphic resource does not exist.
-        /// </summary>
-        /// <param name="resourceID">The unique ID number of a graphic resource</param>
-        /// <returns></returns>
-        public SpriteSheet GetBySpriteSheetID(int resourceID)
-        {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                return context.SpriteSheets.FirstOrDefault(r => r.ResourceID == resourceID);
             }
         }
 

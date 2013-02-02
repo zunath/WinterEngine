@@ -61,9 +61,6 @@
             this.tabPageCreatures = new System.Windows.Forms.TabPage();
             this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
             this.tabControlMain = new System.Windows.Forms.TabControl();
-            this.tabPageGraphics = new System.Windows.Forms.TabPage();
-            this.panelFRBGraphics = new System.Windows.Forms.Panel();
-            this.graphicView1 = new WinterEngine.Toolset.GUI.Views.GraphicView();
             this.tabPageAreas = new System.Windows.Forms.TabPage();
             this.areaView = new WinterEngine.Toolset.GUI.Views.AreaView();
             this.tabPageItems = new System.Windows.Forms.TabPage();
@@ -78,6 +75,9 @@
             this.panelScriptControl = new System.Windows.Forms.Panel();
             this.buttonAddScriptCategory = new System.Windows.Forms.Button();
             this.treeViewScripts = new System.Windows.Forms.TreeView();
+            this.tabPageGraphics = new System.Windows.Forms.TabPage();
+            this.panelFRBGraphics = new System.Windows.Forms.Panel();
+            this.graphicView1 = new WinterEngine.Toolset.GUI.Views.GraphicView();
             this.tabPageAdvanced = new System.Windows.Forms.TabPage();
             this.advancedView1 = new WinterEngine.Toolset.GUI.Views.AdvancedView();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -86,13 +86,13 @@
             this.menuStripMain.SuspendLayout();
             this.tabPageCreatures.SuspendLayout();
             this.tabControlMain.SuspendLayout();
-            this.tabPageGraphics.SuspendLayout();
-            this.panelFRBGraphics.SuspendLayout();
             this.tabPageAreas.SuspendLayout();
             this.tabPageItems.SuspendLayout();
             this.tabPagePlaceables.SuspendLayout();
             this.tabPageConversations.SuspendLayout();
             this.tabPageScripts.SuspendLayout();
+            this.tabPageGraphics.SuspendLayout();
+            this.panelFRBGraphics.SuspendLayout();
             this.tabPageAdvanced.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -342,16 +342,14 @@
             // 
             // creatureView
             // 
-            this.creatureView.Location = new System.Drawing.Point(0, 7);
+            this.creatureView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.creatureView.Location = new System.Drawing.Point(3, 3);
             this.creatureView.Name = "creatureView";
-            this.creatureView.Size = new System.Drawing.Size(570, 455);
+            this.creatureView.Size = new System.Drawing.Size(750, 456);
             this.creatureView.TabIndex = 0;
             // 
             // tabControlMain
             // 
-            this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlMain.Controls.Add(this.tabPageAreas);
             this.tabControlMain.Controls.Add(this.tabPageCreatures);
             this.tabControlMain.Controls.Add(this.tabPageItems);
@@ -360,38 +358,13 @@
             this.tabControlMain.Controls.Add(this.tabPageScripts);
             this.tabControlMain.Controls.Add(this.tabPageGraphics);
             this.tabControlMain.Controls.Add(this.tabPageAdvanced);
+            this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Enabled = false;
             this.tabControlMain.Location = new System.Drawing.Point(0, 24);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.Size = new System.Drawing.Size(764, 488);
             this.tabControlMain.TabIndex = 0;
-            // 
-            // tabPageGraphics
-            // 
-            this.tabPageGraphics.Controls.Add(this.panelFRBGraphics);
-            this.tabPageGraphics.Location = new System.Drawing.Point(4, 22);
-            this.tabPageGraphics.Name = "tabPageGraphics";
-            this.tabPageGraphics.Size = new System.Drawing.Size(756, 462);
-            this.tabPageGraphics.TabIndex = 6;
-            this.tabPageGraphics.Text = "Graphics";
-            this.tabPageGraphics.UseVisualStyleBackColor = true;
-            // 
-            // panelFRBGraphics
-            // 
-            this.panelFRBGraphics.Controls.Add(this.graphicView1);
-            this.panelFRBGraphics.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelFRBGraphics.Location = new System.Drawing.Point(0, 0);
-            this.panelFRBGraphics.Name = "panelFRBGraphics";
-            this.panelFRBGraphics.Size = new System.Drawing.Size(756, 462);
-            this.panelFRBGraphics.TabIndex = 0;
-            // 
-            // graphicView1
-            // 
-            this.graphicView1.Location = new System.Drawing.Point(0, 7);
-            this.graphicView1.Name = "graphicView1";
-            this.graphicView1.Size = new System.Drawing.Size(570, 455);
-            this.graphicView1.TabIndex = 0;
             // 
             // tabPageAreas
             // 
@@ -406,9 +379,10 @@
             // 
             // areaView
             // 
-            this.areaView.Location = new System.Drawing.Point(0, 7);
+            this.areaView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.areaView.Location = new System.Drawing.Point(3, 3);
             this.areaView.Name = "areaView";
-            this.areaView.Size = new System.Drawing.Size(570, 455);
+            this.areaView.Size = new System.Drawing.Size(750, 456);
             this.areaView.TabIndex = 0;
             // 
             // tabPageItems
@@ -424,9 +398,10 @@
             // 
             // itemView
             // 
-            this.itemView.Location = new System.Drawing.Point(0, 7);
+            this.itemView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.itemView.Location = new System.Drawing.Point(3, 3);
             this.itemView.Name = "itemView";
-            this.itemView.Size = new System.Drawing.Size(570, 455);
+            this.itemView.Size = new System.Drawing.Size(750, 456);
             this.itemView.TabIndex = 0;
             // 
             // tabPagePlaceables
@@ -525,6 +500,33 @@
             this.treeViewScripts.Size = new System.Drawing.Size(186, 416);
             this.treeViewScripts.TabIndex = 4;
             // 
+            // tabPageGraphics
+            // 
+            this.tabPageGraphics.Controls.Add(this.panelFRBGraphics);
+            this.tabPageGraphics.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGraphics.Name = "tabPageGraphics";
+            this.tabPageGraphics.Size = new System.Drawing.Size(756, 462);
+            this.tabPageGraphics.TabIndex = 6;
+            this.tabPageGraphics.Text = "Graphics";
+            this.tabPageGraphics.UseVisualStyleBackColor = true;
+            // 
+            // panelFRBGraphics
+            // 
+            this.panelFRBGraphics.Controls.Add(this.graphicView1);
+            this.panelFRBGraphics.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFRBGraphics.Location = new System.Drawing.Point(0, 0);
+            this.panelFRBGraphics.Name = "panelFRBGraphics";
+            this.panelFRBGraphics.Size = new System.Drawing.Size(756, 462);
+            this.panelFRBGraphics.TabIndex = 0;
+            // 
+            // graphicView1
+            // 
+            this.graphicView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graphicView1.Location = new System.Drawing.Point(0, 0);
+            this.graphicView1.Name = "graphicView1";
+            this.graphicView1.Size = new System.Drawing.Size(756, 462);
+            this.graphicView1.TabIndex = 0;
+            // 
             // tabPageAdvanced
             // 
             this.tabPageAdvanced.Controls.Add(this.advancedView1);
@@ -565,13 +567,13 @@
             this.menuStripMain.PerformLayout();
             this.tabPageCreatures.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
-            this.tabPageGraphics.ResumeLayout(false);
-            this.panelFRBGraphics.ResumeLayout(false);
             this.tabPageAreas.ResumeLayout(false);
             this.tabPageItems.ResumeLayout(false);
             this.tabPagePlaceables.ResumeLayout(false);
             this.tabPageConversations.ResumeLayout(false);
             this.tabPageScripts.ResumeLayout(false);
+            this.tabPageGraphics.ResumeLayout(false);
+            this.panelFRBGraphics.ResumeLayout(false);
             this.tabPageAdvanced.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -627,14 +629,14 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHakpakBuilder;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private GUI.Views.AreaView areaView;
-        private GUI.Views.CreatureView creatureView;
-        private GUI.Views.ItemView itemView;
         private System.Windows.Forms.TabPage tabPageAdvanced;
         private GUI.Views.AdvancedView advancedView1;
         private System.Windows.Forms.TabPage tabPageGraphics;
         private System.Windows.Forms.Panel panelFRBGraphics;
         private GUI.Views.GraphicView graphicView1;
+        private GUI.Views.CreatureView creatureView;
+        private GUI.Views.AreaView areaView;
+        private GUI.Views.ItemView itemView;
     }
 }
 

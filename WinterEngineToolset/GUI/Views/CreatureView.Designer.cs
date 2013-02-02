@@ -63,7 +63,6 @@
 
         #endregion
 
-        private Controls.ViewControls.TreeCategoryControl buttonAddCategory;
         private Controls.ViewControls.TreeCategoryControl treeCategoryControlCreature;
         private Controls.ViewControls.CreaturePropertiesControl creatureViewControl;
 

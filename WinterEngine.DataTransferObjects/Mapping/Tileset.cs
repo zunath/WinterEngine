@@ -17,7 +17,6 @@ namespace WinterEngine.DataTransferObjects.Mapping
 
         private int _tilesetID;
         private string _tilesetName;
-        private SpriteSheet _spriteSheet;
         private Tile[][] _tiles;
 
         #endregion
@@ -48,6 +47,8 @@ namespace WinterEngine.DataTransferObjects.Mapping
             get { return _tiles; }
             set { _tiles = value; }
         }
+
+        public virtual SpriteSheet TilesetSpriteSheet { get; set; }
 
         #endregion
 

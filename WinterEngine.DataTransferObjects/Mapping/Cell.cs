@@ -63,6 +63,29 @@ namespace WinterEngine.DataTransferObjects.Mapping
             }
         }
 
+        /// <summary>
+        /// Gets the maximum width any tile may be.
+        /// </summary>
+        public int MaxTileWidth
+        {
+            get
+            {
+                Tile tile = new Tile();
+                return tile.SpriteSheetWidth;
+            }
+        }
+
+        /// <summary>
+        /// Gets the maximum height any time may be.
+        /// </summary>
+        public int MaxTileHeight
+        {
+            get
+            {
+                Tile tile = new Tile();
+                return tile.SpriteSheetHeight;
+            }
+        }
 
         #endregion
 

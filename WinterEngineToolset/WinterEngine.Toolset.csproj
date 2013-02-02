@@ -211,6 +211,12 @@
     <Compile Include="Controls\ViewControls\PlaceablePropertiesControl.Designer.cs">
       <DependentUpon>PlaceablePropertiesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ViewControls\TilesetViewerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ViewControls\TilesetViewerControl.Designer.cs">
+      <DependentUpon>TilesetViewerControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ViewControls\TreeCategoryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -314,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ViewControls\PlaceablePropertiesControl.resx">
       <DependentUpon>PlaceablePropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ViewControls\TilesetViewerControl.resx">
+      <DependentUpon>TilesetViewerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ViewControls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
