@@ -84,6 +84,7 @@ namespace WinterEngine.Toolset.Controls.ControlHelpers
             {
                 // Run success method.
                 _successMethod(textBoxInput.Text);
+                
                 // Dispose of window.
                 this.Dispose();
             }

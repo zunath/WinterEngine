@@ -228,6 +228,7 @@
     </Compile>
     <Compile Include="ExtendedEventArgs\GameObjectEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
+    <Compile Include="ExtendedEventArgs\TilesetEventArgs.cs" />
     <Compile Include="GUI\Views\AdvancedView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -273,7 +274,7 @@
     <Compile Include="GUI\Views\ItemView.Designer.cs">
       <DependentUpon>ItemView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XnaControls\ObjectViewer2D.cs">
+    <Compile Include="Controls\XnaControls\XNAControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceControl.cs">

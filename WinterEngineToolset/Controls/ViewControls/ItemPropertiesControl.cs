@@ -20,7 +20,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
     {
         #region Fields
 
-        private ObjectViewer2D _itemIcon;
+        private XNAControl _itemIcon;
         private Item _backupItem;
 
         #endregion
@@ -39,7 +39,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <summary>
         /// Gets or sets the item icon 
         /// </summary>
-        private ObjectViewer2D ItemIcon
+        private XNAControl ItemIcon
         {
             get { return _itemIcon; }
             set { _itemIcon = value; }

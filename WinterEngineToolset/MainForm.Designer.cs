@@ -77,7 +77,7 @@
             this.treeViewScripts = new System.Windows.Forms.TreeView();
             this.tabPageGraphics = new System.Windows.Forms.TabPage();
             this.panelFRBGraphics = new System.Windows.Forms.Panel();
-            this.graphicView1 = new WinterEngine.Toolset.GUI.Views.GraphicView();
+            this.graphicView = new WinterEngine.Toolset.GUI.Views.GraphicView();
             this.tabPageAdvanced = new System.Windows.Forms.TabPage();
             this.advancedView1 = new WinterEngine.Toolset.GUI.Views.AdvancedView();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -510,20 +510,20 @@
             // 
             // panelFRBGraphics
             // 
-            this.panelFRBGraphics.Controls.Add(this.graphicView1);
+            this.panelFRBGraphics.Controls.Add(this.graphicView);
             this.panelFRBGraphics.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFRBGraphics.Location = new System.Drawing.Point(0, 0);
             this.panelFRBGraphics.Name = "panelFRBGraphics";
             this.panelFRBGraphics.Size = new System.Drawing.Size(756, 462);
             this.panelFRBGraphics.TabIndex = 0;
             // 
-            // graphicView1
+            // graphicView
             // 
-            this.graphicView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphicView1.Location = new System.Drawing.Point(0, 0);
-            this.graphicView1.Name = "graphicView1";
-            this.graphicView1.Size = new System.Drawing.Size(756, 462);
-            this.graphicView1.TabIndex = 0;
+            this.graphicView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graphicView.Location = new System.Drawing.Point(0, 0);
+            this.graphicView.Name = "graphicView";
+            this.graphicView.Size = new System.Drawing.Size(756, 462);
+            this.graphicView.TabIndex = 0;
             // 
             // tabPageAdvanced
             // 
@@ -631,7 +631,7 @@
         private GUI.Views.AdvancedView advancedView1;
         private System.Windows.Forms.TabPage tabPageGraphics;
         private System.Windows.Forms.Panel panelFRBGraphics;
-        private GUI.Views.GraphicView graphicView1;
+        private GUI.Views.GraphicView graphicView;
         private GUI.Views.CreatureView creatureView;
         private GUI.Views.AreaView areaView;
         private GUI.Views.ItemView itemView;

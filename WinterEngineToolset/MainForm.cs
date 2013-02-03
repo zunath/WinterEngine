@@ -65,6 +65,7 @@ namespace WinterEngine.Toolset
             itemView.UnloadControls();
             creatureView.UnloadControls();
             placeableView.UnloadControls();
+            graphicView.UnloadControls();
         }
 
         /// <summary>
@@ -76,6 +77,7 @@ namespace WinterEngine.Toolset
             itemView.RefreshControls();
             creatureView.RefreshControls();
             placeableView.RefreshControls();
+            graphicView.RefreshControls();
         }
 
         #endregion

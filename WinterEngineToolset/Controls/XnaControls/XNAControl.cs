@@ -18,7 +18,7 @@ using Ionic.Zip;
 
 namespace WinterEngine.Toolset.Controls.XnaControls
 {
-    public class ObjectViewer2D : GraphicsDeviceControl
+    public class XNAControl : GraphicsDeviceControl
     {
         #region Variables
         private ContentManager _content;

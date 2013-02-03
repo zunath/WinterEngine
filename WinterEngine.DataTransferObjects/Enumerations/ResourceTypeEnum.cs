@@ -22,10 +22,6 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("Scripts")]
         Script = 5,
         [Description("Items")]
-        Item = 6,
-        [Description("Tiles")]
-        Tile = 7,
-        [Description("Tilesets")]
-        Tileset = 8
+        Item = 6
     }
 }

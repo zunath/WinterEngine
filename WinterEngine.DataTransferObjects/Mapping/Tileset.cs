@@ -59,6 +59,12 @@ namespace WinterEngine.DataTransferObjects.Mapping
         #endregion
 
         #region Overrides
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
         #endregion
     }
 }

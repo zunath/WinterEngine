@@ -28,24 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBoxTileset = new System.Windows.Forms.PictureBox();
             this.hScrollBarLeftRight = new System.Windows.Forms.HScrollBar();
             this.vScrollBarUpDown = new System.Windows.Forms.VScrollBar();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).BeginInit();
+            this.panelTilesetViewer = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // pictureBoxTileset
-            // 
-            this.pictureBoxTileset.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxTileset.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.pictureBoxTileset.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxTileset.Name = "pictureBoxTileset";
-            this.pictureBoxTileset.Size = new System.Drawing.Size(178, 452);
-            this.pictureBoxTileset.TabIndex = 2;
-            this.pictureBoxTileset.TabStop = false;
-            this.pictureBoxTileset.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBoxTileset_MouseClick);
             // 
             // hScrollBarLeftRight
             // 
@@ -67,25 +53,32 @@
             this.vScrollBarUpDown.Size = new System.Drawing.Size(17, 435);
             this.vScrollBarUpDown.TabIndex = 4;
             // 
+            // panelTilesetViewer
+            // 
+            this.panelTilesetViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTilesetViewer.Location = new System.Drawing.Point(0, 0);
+            this.panelTilesetViewer.Name = "panelTilesetViewer";
+            this.panelTilesetViewer.Size = new System.Drawing.Size(161, 435);
+            this.panelTilesetViewer.TabIndex = 5;
+            // 
             // TilesetViewerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panelTilesetViewer);
             this.Controls.Add(this.vScrollBarUpDown);
             this.Controls.Add(this.hScrollBarLeftRight);
-            this.Controls.Add(this.pictureBoxTileset);
             this.Name = "TilesetViewerControl";
             this.Size = new System.Drawing.Size(178, 452);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBoxTileset;
         private System.Windows.Forms.HScrollBar hScrollBarLeftRight;
         private System.Windows.Forms.VScrollBar vScrollBarUpDown;
+        private System.Windows.Forms.Panel panelTilesetViewer;
 
     }
 }

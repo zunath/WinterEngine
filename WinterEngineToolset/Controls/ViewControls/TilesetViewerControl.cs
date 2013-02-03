@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.DataTransferObjects.Mapping;
+using WinterEngine.Toolset.Controls.XnaControls;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
@@ -47,6 +48,8 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         public TilesetViewerControl()
         {
             InitializeComponent();
+
+            panelTilesetViewer.Controls.Add(new XNAControl());
         }
 
         #endregion
@@ -62,7 +65,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 cell.CellY = e.Y / cell.MaxTileHeight;
                 _selectedCell = cell;
 
-                MessageBox.Show("X = " + _selectedCell.CellX + ", Y = " + _selectedCell.CellY);
             }
         }
 
