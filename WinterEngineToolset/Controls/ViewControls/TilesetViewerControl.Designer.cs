@@ -70,6 +70,7 @@
             this.Controls.Add(this.hScrollBarLeftRight);
             this.Name = "TilesetViewerControl";
             this.Size = new System.Drawing.Size(178, 452);
+            this.Load += new System.EventHandler(this.TilesetViewerControl_Load);
             this.ResumeLayout(false);
 
         }

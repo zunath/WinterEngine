@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.DataTransferObjects.Mapping;
 using WinterEngine.Toolset.Controls.XnaControls;
+using WinterEngine.Toolset.ExtendedEventArgs;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
@@ -17,6 +18,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
     {
         #region Fields
 
+        private XNATilesetControl _tilesetControlXNA;
         private SpriteSheet _activeSpriteSheet;
         private Cell _selectedCell;
 
@@ -41,6 +43,15 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             get { return _selectedCell; }
         }
 
+        /// <summary>
+        /// Gets or sets the XNA control used by this control.
+        /// </summary>
+        public XNATilesetControl TilesetControlXNA
+        {
+            get { return _tilesetControlXNA; }
+            set { _tilesetControlXNA = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -48,24 +59,26 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         public TilesetViewerControl()
         {
             InitializeComponent();
-
-            panelTilesetViewer.Controls.Add(new XNAControl());
         }
+
+        #endregion
+
+        #region Events / Delegates
 
         #endregion
 
         #region Event Handling
 
-        private void pictureBoxTileset_MouseClick(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Handles loading the Tileset XNA control in the appropriate panel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TilesetViewerControl_Load(object sender, EventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                Cell cell = new Cell();
-                cell.CellX = e.X / cell.MaxTileWidth;
-                cell.CellY = e.Y / cell.MaxTileHeight;
-                _selectedCell = cell;
-
-            }
+            TilesetControlXNA = new XNATilesetControl();
+            TilesetControlXNA.Dock = DockStyle.Fill;
+            panelTilesetViewer.Controls.Add(TilesetControlXNA);
         }
 
         #endregion

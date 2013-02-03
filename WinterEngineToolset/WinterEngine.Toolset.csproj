@@ -224,7 +224,13 @@
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\XnaControls\Shared\ModelViewerControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\XnaControls\XNATilesetControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\XnaControls\XNATilesetControl.Designer.cs">
+      <DependentUpon>XNATilesetControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ExtendedEventArgs\GameObjectEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
@@ -274,11 +280,8 @@
     <Compile Include="GUI\Views\ItemView.Designer.cs">
       <DependentUpon>ItemView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XnaControls\XNAControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceService.cs" />
     <Compile Include="Controls\XnaControls\Shared\ServiceContainer.cs" />

@@ -16,7 +16,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         #region Fields
 
         private Tileset _backupTileset;
-
+        
         #endregion
 
         #region Properties
@@ -83,7 +83,10 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     repo.Update(tileset);
                 }
 
-                OnTilesetChanged(this, new TilesetEventArgs(tileset));
+                if (!Object.ReferenceEquals(OnTilesetChanged, null))
+                {
+                    OnTilesetChanged(this, new TilesetEventArgs(tileset));
+                }
             }
         }
 
@@ -154,12 +157,14 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         private void PopulateControls()
         {
+            
             using (SpriteSheetRepository repo = new SpriteSheetRepository())
             {
                 comboBoxSpriteSheet.Items.Clear();
                 comboBoxSpriteSheet.Items.Add("<No Sprite Sheet>");
                 comboBoxSpriteSheet.Items.AddRange(repo.GetAll().ToArray());
             }
+            
         }
 
         public void RefreshControls()

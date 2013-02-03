@@ -30,6 +30,8 @@
         {
             this.tabControlProperties = new System.Windows.Forms.TabControl();
             this.tabPageTilesets = new System.Windows.Forms.TabPage();
+            this.buttonDeleteTileset = new System.Windows.Forms.Button();
+            this.buttonNewTileset = new System.Windows.Forms.Button();
             this.listBoxTilesets = new System.Windows.Forms.ListBox();
             this.labelTilesetHeader = new System.Windows.Forms.Label();
             this.labelSpriteSheet = new System.Windows.Forms.Label();
@@ -39,8 +41,6 @@
             this.listBoxCharacters = new System.Windows.Forms.ListBox();
             this.tabPagePlaceables = new System.Windows.Forms.TabPage();
             this.listBoxPlaceables = new System.Windows.Forms.ListBox();
-            this.buttonNewTileset = new System.Windows.Forms.Button();
-            this.buttonDeleteTileset = new System.Windows.Forms.Button();
             this.textBoxTilesetName = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
             this.tabControlProperties.SuspendLayout();
             this.tabPageTilesets.SuspendLayout();
@@ -79,6 +79,28 @@
             this.tabPageTilesets.TabIndex = 0;
             this.tabPageTilesets.Text = "Tilesets";
             this.tabPageTilesets.UseVisualStyleBackColor = true;
+            // 
+            // buttonDeleteTileset
+            // 
+            this.buttonDeleteTileset.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonDeleteTileset.Location = new System.Drawing.Point(148, 193);
+            this.buttonDeleteTileset.Name = "buttonDeleteTileset";
+            this.buttonDeleteTileset.Size = new System.Drawing.Size(81, 23);
+            this.buttonDeleteTileset.TabIndex = 15;
+            this.buttonDeleteTileset.Text = "Delete Tileset";
+            this.buttonDeleteTileset.UseVisualStyleBackColor = true;
+            this.buttonDeleteTileset.Click += new System.EventHandler(this.buttonDeleteTileset_Click);
+            // 
+            // buttonNewTileset
+            // 
+            this.buttonNewTileset.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonNewTileset.Location = new System.Drawing.Point(67, 193);
+            this.buttonNewTileset.Name = "buttonNewTileset";
+            this.buttonNewTileset.Size = new System.Drawing.Size(75, 23);
+            this.buttonNewTileset.TabIndex = 14;
+            this.buttonNewTileset.Text = "New Tileset";
+            this.buttonNewTileset.UseVisualStyleBackColor = true;
+            this.buttonNewTileset.Click += new System.EventHandler(this.buttonNewTileset_Click);
             // 
             // listBoxTilesets
             // 
@@ -170,28 +192,6 @@
             this.listBoxPlaceables.Name = "listBoxPlaceables";
             this.listBoxPlaceables.Size = new System.Drawing.Size(294, 173);
             this.listBoxPlaceables.TabIndex = 14;
-            // 
-            // buttonNewTileset
-            // 
-            this.buttonNewTileset.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonNewTileset.Location = new System.Drawing.Point(67, 193);
-            this.buttonNewTileset.Name = "buttonNewTileset";
-            this.buttonNewTileset.Size = new System.Drawing.Size(75, 23);
-            this.buttonNewTileset.TabIndex = 14;
-            this.buttonNewTileset.Text = "New Tileset";
-            this.buttonNewTileset.UseVisualStyleBackColor = true;
-            this.buttonNewTileset.Click += new System.EventHandler(this.buttonNewTileset_Click);
-            // 
-            // buttonDeleteTileset
-            // 
-            this.buttonDeleteTileset.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonDeleteTileset.Location = new System.Drawing.Point(148, 193);
-            this.buttonDeleteTileset.Name = "buttonDeleteTileset";
-            this.buttonDeleteTileset.Size = new System.Drawing.Size(81, 23);
-            this.buttonDeleteTileset.TabIndex = 15;
-            this.buttonDeleteTileset.Text = "Delete Tileset";
-            this.buttonDeleteTileset.UseVisualStyleBackColor = true;
-            this.buttonDeleteTileset.Click += new System.EventHandler(this.buttonDeleteTileset_Click);
             // 
             // textBoxTilesetName
             // 

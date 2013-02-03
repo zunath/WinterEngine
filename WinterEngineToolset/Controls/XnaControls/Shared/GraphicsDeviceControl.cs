@@ -27,7 +27,7 @@ namespace WinterEngine.Toolset.Controls.XnaControls.Shared
     /// a Windows Form. Derived classes can override the Initialize and Draw
     /// methods to add their own drawing code.
     /// </summary>
-    abstract public class GraphicsDeviceControl : Control
+    abstract public class GraphicsDeviceControl : UserControl
     {
         #region Fields
 

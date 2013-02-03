@@ -323,7 +323,7 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        private List<SpriteSheet> BuildGraphicResourceList(string path, ResourceTypeEnum resourceType, bool is2DGraphic)
+        private List<SpriteSheet> BuildGraphicResourceList(string path, ResourceTypeEnum resourceType)
         {
             List<SpriteSheet> graphicResources = new List<SpriteSheet>();
             if (File.Exists(path))
@@ -352,12 +352,8 @@ namespace WinterEngine.Library.Factories
         {
             using (SpriteSheetRepository repo = new SpriteSheetRepository())
             {
-                repo.Add(BuildGraphicResourceList("./resources/item_icons.wrsc", ResourceTypeEnum.Item, true));                 // Item icons
-                repo.Add(BuildGraphicResourceList("./resources/item_models.wrsc", ResourceTypeEnum.Item, false));               // Item models
-                repo.Add(BuildGraphicResourceList("./resources/creature_portraits.wrsc", ResourceTypeEnum.Creature, true));     // Creature portraits
-                repo.Add(BuildGraphicResourceList("./resources/creature_models.wrsc", ResourceTypeEnum.Creature, false));       // Creature models
-                repo.Add(BuildGraphicResourceList("./resources/placeable_portraits.wrsc", ResourceTypeEnum.Placeable, true));   // Placeable portraits
-                repo.Add(BuildGraphicResourceList("./resources/placeable_models.wrsc", ResourceTypeEnum.Placeable, false));     // Placeable models
+                repo.Add(BuildGraphicResourceList("./resources/items.wrsc", ResourceTypeEnum.Item));                 // Item icons
+                repo.Add(BuildGraphicResourceList("./resources/tilesets.wrsc", ResourceTypeEnum.Item));               // Tilesets
             }
         }
 
