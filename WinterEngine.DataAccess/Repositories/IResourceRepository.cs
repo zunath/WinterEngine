@@ -16,5 +16,6 @@ namespace WinterEngine.DataAccess.Repositories
         void Delete(T entity);
         List<T> GetAll();
         bool Exists(T entity);
+        T GetByID(int entityID);
     }
 }

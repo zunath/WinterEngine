@@ -159,6 +159,14 @@ namespace WinterEngine.DataAccess
             }
         }
 
+        public SpriteSheet GetByID(int spriteSheetID)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                return context.SpriteSheets.FirstOrDefault(x => x.ResourceID == spriteSheetID);
+            }
+        }
+
         public void Dispose()
         {
         }

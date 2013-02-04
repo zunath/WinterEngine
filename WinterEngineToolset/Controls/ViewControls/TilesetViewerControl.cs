@@ -11,6 +11,7 @@ using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.DataTransferObjects.Mapping;
 using WinterEngine.Toolset.Controls.XnaControls;
 using WinterEngine.Toolset.ExtendedEventArgs;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.Toolset.Controls.ViewControls
 {
@@ -20,7 +21,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         private XNATilesetControl _tilesetControlXNA;
         private SpriteSheet _activeSpriteSheet;
-        private Cell _selectedCell;
 
         #endregion
 
@@ -33,14 +33,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         {
             get { return _activeSpriteSheet; }
             set { _activeSpriteSheet = value; }
-        }
-
-        /// <summary>
-        /// Gets the selected cell in the active sprite sheet.
-        /// </summary>
-        public Cell SelectedCell
-        {
-            get { return _selectedCell; }
         }
 
         /// <summary>
@@ -79,6 +71,12 @@ namespace WinterEngine.Toolset.Controls.ViewControls
             TilesetControlXNA = new XNATilesetControl();
             TilesetControlXNA.Dock = DockStyle.Fill;
             panelTilesetViewer.Controls.Add(TilesetControlXNA);
+        }
+
+
+        private void radioButtonPassage_CheckedChanged(object sender, EventArgs e)
+        {
+            TilesetControlXNA.Mode = TilesetEditorModeTypeEnum.Passage;
         }
 
         #endregion

@@ -11,18 +11,6 @@ namespace WinterEngine.DataTransferObjects.GameObjects
     [Table("Areas")]
     public class Area : GameObject, IEntity
     {
-        #region Fields
-
-        public virtual List<Layer> Layers { get; set; }
-
-        #endregion
-
-        #region Properties
-
-
-        #endregion
-
-        #region Methods
-        #endregion
+        public List<Layer> Layers { get; set; }
     }
 }

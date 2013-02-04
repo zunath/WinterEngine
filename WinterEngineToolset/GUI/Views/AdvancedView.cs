@@ -55,6 +55,7 @@ namespace WinterEngine.Toolset.GUI.Views
             comboBoxTable.Items.Add(new TableInfo { DisplayName = "Item Types", TableType = TableTypeEnum.Item });
 
             comboBoxTable.SelectedItem = comboBoxTable.Items[0];
+            
         }
 
         

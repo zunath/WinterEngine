@@ -31,6 +31,7 @@
             this.hScrollBarLeftRight = new System.Windows.Forms.HScrollBar();
             this.vScrollBarUpDown = new System.Windows.Forms.VScrollBar();
             this.panelTilesetViewer = new System.Windows.Forms.Panel();
+            this.radioButtonPassage = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // hScrollBarLeftRight
@@ -55,16 +56,34 @@
             // 
             // panelTilesetViewer
             // 
-            this.panelTilesetViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTilesetViewer.Location = new System.Drawing.Point(0, 0);
+            this.panelTilesetViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelTilesetViewer.Location = new System.Drawing.Point(0, 32);
             this.panelTilesetViewer.Name = "panelTilesetViewer";
-            this.panelTilesetViewer.Size = new System.Drawing.Size(161, 435);
+            this.panelTilesetViewer.Size = new System.Drawing.Size(161, 403);
             this.panelTilesetViewer.TabIndex = 5;
+            // 
+            // radioButtonPassage
+            // 
+            this.radioButtonPassage.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButtonPassage.AutoSize = true;
+            this.radioButtonPassage.Checked = true;
+            this.radioButtonPassage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.radioButtonPassage.Location = new System.Drawing.Point(3, 3);
+            this.radioButtonPassage.Name = "radioButtonPassage";
+            this.radioButtonPassage.Size = new System.Drawing.Size(58, 23);
+            this.radioButtonPassage.TabIndex = 7;
+            this.radioButtonPassage.TabStop = true;
+            this.radioButtonPassage.Text = "Passage";
+            this.radioButtonPassage.UseVisualStyleBackColor = true;
+            this.radioButtonPassage.CheckedChanged += new System.EventHandler(this.radioButtonPassage_CheckedChanged);
             // 
             // TilesetViewerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.radioButtonPassage);
             this.Controls.Add(this.panelTilesetViewer);
             this.Controls.Add(this.vScrollBarUpDown);
             this.Controls.Add(this.hScrollBarLeftRight);
@@ -72,6 +91,7 @@
             this.Size = new System.Drawing.Size(178, 452);
             this.Load += new System.EventHandler(this.TilesetViewerControl_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -80,6 +100,7 @@
         private System.Windows.Forms.HScrollBar hScrollBarLeftRight;
         private System.Windows.Forms.VScrollBar vScrollBarUpDown;
         private System.Windows.Forms.Panel panelTilesetViewer;
+        private System.Windows.Forms.RadioButton radioButtonPassage;
 
     }
 }

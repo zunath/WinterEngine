@@ -192,6 +192,19 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
+        /// Returns a category based on its ID
+        /// </summary>
+        /// <param name="categoryID"></param>
+        /// <returns></returns>
+        public Category GetByID(int categoryID)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                return context.ResourceCategories.FirstOrDefault(x => x.ResourceID == categoryID);
+            }
+        }
+
+        /// <summary>
         /// Returns the system category named "*Uncategorized" for a particular resource type.
         /// </summary>
         /// <param name="resourceType">The type of resource to look for.</param>

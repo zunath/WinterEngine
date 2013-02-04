@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerations\ItemPartEnum.cs" />
+    <Compile Include="Enumerations\TilesetEditorModeTypeEnum.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="Mapping\Cell.cs" />
     <Compile Include="Mapping\Layer.cs" />

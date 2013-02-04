@@ -120,6 +120,14 @@ namespace WinterEngine.DataAccess.Repositories
             }
         }
 
+        public Tile GetByID(int tileID)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                return context.Tiles.FirstOrDefault(x => x.ID == tileID);
+            }
+        }
+
         public void Dispose()
         {
         }

@@ -43,6 +43,7 @@ namespace WinterEngine.DataTransferObjects.Graphics
         /// Gets or sets the temporary display name. 
         /// If this is set, this object's ToString() method will return this value. 
         /// </summary>
+        [NotMapped]
         public string TemporaryDisplayName
         {
             get { return _temporaryDisplayName; }

@@ -67,7 +67,6 @@ namespace WinterEngine.Toolset.GUI.Views
             // 
             // graphicPropertiesControl
             // 
-            this.graphicPropertiesControl.BackupTileset = null;
             this.graphicPropertiesControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.graphicPropertiesControl.Location = new System.Drawing.Point(0, 0);
             this.graphicPropertiesControl.Name = "graphicPropertiesControl";

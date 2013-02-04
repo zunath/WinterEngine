@@ -13,49 +13,15 @@ namespace WinterEngine.DataTransferObjects.Mapping
     [Serializable]
     public class Tileset: IEntity
     {
-        #region Fields
-
-        private int _tilesetID;
-        private string _tilesetName;
-        private Tile[][] _tiles;
-
-        #endregion
-
         #region Properties
 
         [Key]
-        public int TilesetID
-        {
-            get { return _tilesetID; }
-            set { _tilesetID = value; }
-        }
+        public int TilesetID { get; set; }
+        public string Name { get; set; }
+        public Tile[][] Tiles { get; set; }
+        public int SpriteSheetID { get; set; }
+        public SpriteSheet SpriteSheet { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of a tileset
-        /// </summary>
-        public string Name
-        {
-            get { return _tilesetName; }
-            set { _tilesetName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the 2D array of tiles contained by the tileset.
-        /// </summary>
-        public Tile[][] Tiles
-        {
-            get { return _tiles; }
-            set { _tiles = value; }
-        }
-
-        public virtual SpriteSheet TilesetSpriteSheet { get; set; }
-
-        #endregion
-
-        #region Constructors
-        #endregion
-
-        #region Methods
         #endregion
 
         #region Overrides

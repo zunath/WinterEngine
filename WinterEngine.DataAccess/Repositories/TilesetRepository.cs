@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,10 +53,10 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Tileset dbTileset = context.Tilesets.SingleOrDefault(r => r.TilesetID.Equals(tileset.TilesetID));
 
-                if (!Object.ReferenceEquals(dbTileset, null))
-                {
+                if (!Object.ReferenceEquals(tileset, null))
+                { 
                     context.Tilesets.Remove(dbTileset);
-                    context.Tilesets.Add(dbTileset);
+                    context.Tilesets.Add(tileset);
                     context.SaveChanges();
                 }
             }
@@ -70,7 +71,7 @@ namespace WinterEngine.DataAccess.Repositories
                 if (!Object.ReferenceEquals(dbTileset, null))
                 {
                     context.Tilesets.Remove(dbTileset);
-                    context.Tilesets.Add(dbTileset);
+                    context.Tilesets.Add(tileset);
                     context.SaveChanges();
                 }
                 else
@@ -116,6 +117,14 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Tileset dbTileset = context.Tilesets.FirstOrDefault(t => t.TilesetID.Equals(tileset.TilesetID));
                 return !Object.ReferenceEquals(dbTileset, null);
+            }
+        }
+
+        public Tileset GetByID(int tilesetID)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                return context.Tilesets.FirstOrDefault(x => x.TilesetID == tilesetID);
             }
         }
 

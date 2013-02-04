@@ -33,6 +33,7 @@
             this.buttonDeleteTileset = new System.Windows.Forms.Button();
             this.buttonNewTileset = new System.Windows.Forms.Button();
             this.listBoxTilesets = new System.Windows.Forms.ListBox();
+            this.textBoxTilesetName = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
             this.labelTilesetHeader = new System.Windows.Forms.Label();
             this.labelSpriteSheet = new System.Windows.Forms.Label();
             this.comboBoxSpriteSheet = new System.Windows.Forms.ComboBox();
@@ -41,7 +42,8 @@
             this.listBoxCharacters = new System.Windows.Forms.ListBox();
             this.tabPagePlaceables = new System.Windows.Forms.TabPage();
             this.listBoxPlaceables = new System.Windows.Forms.ListBox();
-            this.textBoxTilesetName = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
+            this.buttonDiscardChanges = new System.Windows.Forms.Button();
+            this.buttonApplyChanges = new System.Windows.Forms.Button();
             this.tabControlProperties.SuspendLayout();
             this.tabPageTilesets.SuspendLayout();
             this.tabPageCharacters.SuspendLayout();
@@ -113,6 +115,18 @@
             this.listBoxTilesets.Size = new System.Drawing.Size(294, 173);
             this.listBoxTilesets.TabIndex = 13;
             this.listBoxTilesets.SelectedValueChanged += new System.EventHandler(this.listBoxTilesets_SelectedValueChanged);
+            // 
+            // textBoxTilesetName
+            // 
+            this.textBoxTilesetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTilesetName.Enabled = false;
+            this.textBoxTilesetName.IsValid = false;
+            this.textBoxTilesetName.Location = new System.Drawing.Point(81, 58);
+            this.textBoxTilesetName.Name = "textBoxTilesetName";
+            this.textBoxTilesetName.NameText = "";
+            this.textBoxTilesetName.Size = new System.Drawing.Size(216, 28);
+            this.textBoxTilesetName.TabIndex = 12;
             // 
             // labelTilesetHeader
             // 
@@ -193,26 +207,37 @@
             this.listBoxPlaceables.Size = new System.Drawing.Size(294, 173);
             this.listBoxPlaceables.TabIndex = 14;
             // 
-            // textBoxTilesetName
+            // buttonDiscardChanges
             // 
-            this.textBoxTilesetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTilesetName.Enabled = false;
-            this.textBoxTilesetName.IsValid = false;
-            this.textBoxTilesetName.Location = new System.Drawing.Point(81, 58);
-            this.textBoxTilesetName.Name = "textBoxTilesetName";
-            this.textBoxTilesetName.NameText = "";
-            this.textBoxTilesetName.Size = new System.Drawing.Size(216, 28);
-            this.textBoxTilesetName.TabIndex = 12;
+            this.buttonDiscardChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonDiscardChanges.Location = new System.Drawing.Point(151, 426);
+            this.buttonDiscardChanges.Name = "buttonDiscardChanges";
+            this.buttonDiscardChanges.Size = new System.Drawing.Size(102, 23);
+            this.buttonDiscardChanges.TabIndex = 15;
+            this.buttonDiscardChanges.Text = "Discard Changes";
+            this.buttonDiscardChanges.UseVisualStyleBackColor = true;
+            this.buttonDiscardChanges.Click += new System.EventHandler(this.buttonDiscardChanges_Click);
+            // 
+            // buttonApplyChanges
+            // 
+            this.buttonApplyChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonApplyChanges.Location = new System.Drawing.Point(35, 426);
+            this.buttonApplyChanges.Name = "buttonApplyChanges";
+            this.buttonApplyChanges.Size = new System.Drawing.Size(91, 23);
+            this.buttonApplyChanges.TabIndex = 14;
+            this.buttonApplyChanges.Text = "Apply Changes";
+            this.buttonApplyChanges.UseVisualStyleBackColor = true;
+            this.buttonApplyChanges.Click += new System.EventHandler(this.buttonApplyChanges_Click);
             // 
             // GraphicPropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonDiscardChanges);
+            this.Controls.Add(this.buttonApplyChanges);
             this.Controls.Add(this.tabControlProperties);
             this.Name = "GraphicPropertiesControl";
             this.Size = new System.Drawing.Size(308, 452);
-            this.Load += new System.EventHandler(this.GraphicPropertiesControl_Load);
             this.tabControlProperties.ResumeLayout(false);
             this.tabPageTilesets.ResumeLayout(false);
             this.tabPageTilesets.PerformLayout();
@@ -238,5 +263,7 @@
         private System.Windows.Forms.ListBox listBoxPlaceables;
         private System.Windows.Forms.Button buttonDeleteTileset;
         private System.Windows.Forms.Button buttonNewTileset;
+        private System.Windows.Forms.Button buttonDiscardChanges;
+        private System.Windows.Forms.Button buttonApplyChanges;
     }
 }

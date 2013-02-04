@@ -5,7 +5,9 @@ using Ionic.Zip;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Graphics;
+using WinterEngine.DataTransferObjects.Mapping;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Helpers;
 using WinterEngine.Toolset.Controls.XnaControls.Shared;
@@ -20,6 +22,8 @@ namespace WinterEngine.Toolset.Controls.XnaControls
         private SpriteBatch _spriteBatch;
         private SpriteSheet _spriteSheet;
         private Texture2D _texture;
+        private Cell _activeCell;
+        private TilesetEditorModeTypeEnum _modeType;
 
         #endregion
 
@@ -65,6 +69,24 @@ namespace WinterEngine.Toolset.Controls.XnaControls
             set { _texture = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the active cell.
+        /// </summary>
+        public Cell ActiveCell
+        {
+            get { return _activeCell; }
+            set { _activeCell = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the current mode of the tileset control.
+        /// </summary>
+        public TilesetEditorModeTypeEnum Mode
+        {
+            get { return _modeType; }
+            set { _modeType = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -72,6 +94,9 @@ namespace WinterEngine.Toolset.Controls.XnaControls
         public XNATilesetControl()
         {
             InitializeComponent();
+
+            // Invalidating the control will redraw graphics in the window.
+            Application.Idle += delegate { Invalidate(); };
         }
 
         #endregion
@@ -93,7 +118,7 @@ namespace WinterEngine.Toolset.Controls.XnaControls
 
         public void ChangeTileset(object sender, TilesetEventArgs e)
         {
-            GraphicResource = e.Tileset.TilesetSpriteSheet;
+            GraphicResource = e.SpriteSheet;
         }
 
         private void LoadSpriteSheet()
@@ -102,7 +127,6 @@ namespace WinterEngine.Toolset.Controls.XnaControls
             {
                 GraphicFactory factory = new GraphicFactory();
                 GraphicTexture = factory.GetSpriteSheet(Content, GraphicResource);
-                Invalidate();
             }
         }
 
