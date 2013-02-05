@@ -13,7 +13,7 @@ using WinterEngine.Library.Helpers;
 using WinterEngine.Toolset.Controls.XnaControls.Shared;
 using WinterEngine.Toolset.ExtendedEventArgs;
 
-namespace WinterEngine.Toolset.Controls.XnaControls
+namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
 {
     public partial class XNATilesetControl : GraphicsDeviceControl
     {
@@ -116,9 +116,24 @@ namespace WinterEngine.Toolset.Controls.XnaControls
 
         #region Methods
 
-        public void ChangeTileset(object sender, TilesetEventArgs e)
+        /// <summary>
+        /// Changes the graphic displayed in the XNA window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void ChangeTileset(object sender, TilesetEditorEventArgs e)
         {
             GraphicResource = e.SpriteSheet;
+        }
+
+        /// <summary>
+        /// Unloads the tileset in the XNA control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void UnloadTileset(object sender, EventArgs e)
+        {
+            GraphicResource = null;
         }
 
         private void LoadSpriteSheet()

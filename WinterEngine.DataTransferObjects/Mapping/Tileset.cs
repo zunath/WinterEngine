@@ -20,7 +20,6 @@ namespace WinterEngine.DataTransferObjects.Mapping
         public string Name { get; set; }
         public Tile[][] Tiles { get; set; }
         public int SpriteSheetID { get; set; }
-        public SpriteSheet SpriteSheet { get; set; }
 
         #endregion
 

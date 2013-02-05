@@ -229,15 +229,15 @@
     <Compile Include="Controls\XnaControls\Shared\ModelViewerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\XnaControls\XNATilesetControl.cs">
+    <Compile Include="Controls\XnaControls\TilesetEditor\XNATilesetControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\XnaControls\XNATilesetControl.Designer.cs">
+    <Compile Include="Controls\XnaControls\TilesetEditor\XNATilesetControl.Designer.cs">
       <DependentUpon>XNATilesetControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ExtendedEventArgs\GameObjectEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
-    <Compile Include="ExtendedEventArgs\TilesetEventArgs.cs" />
+    <Compile Include="ExtendedEventArgs\TilesetEditorEventArgs.cs" />
     <Compile Include="GUI\Views\AdvancedView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -368,6 +368,8 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Controls\XnaControls\TilesetEditor\TilesetEditor_NotPassable.xnb" />
+    <None Include="Controls\XnaControls\TilesetEditor\TilesetEditor_Passable.xnb" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

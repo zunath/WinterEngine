@@ -28,6 +28,7 @@ namespace WinterEngine.Toolset.GUI.Views
         private void GraphicView_Load(object sender, EventArgs e)
         {
             graphicPropertiesControl.OnTilesetChanged += spriteSheetViewerControl.TilesetControlXNA.ChangeTileset;
+            graphicPropertiesControl.OnUnloadTileset += spriteSheetViewerControl.TilesetControlXNA.UnloadTileset;
         }
 
         #endregion

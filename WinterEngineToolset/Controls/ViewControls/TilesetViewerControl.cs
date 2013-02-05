@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.DataTransferObjects.Mapping;
-using WinterEngine.Toolset.Controls.XnaControls;
+using WinterEngine.Toolset.Controls.XnaControls.TilesetEditor;
 using WinterEngine.Toolset.ExtendedEventArgs;
 using WinterEngine.DataTransferObjects.Enumerations;
 

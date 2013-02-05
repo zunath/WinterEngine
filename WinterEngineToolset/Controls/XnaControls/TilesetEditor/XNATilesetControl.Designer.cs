@@ -1,4 +1,4 @@
-﻿namespace WinterEngine.Toolset.Controls.XnaControls
+﻿namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
 {
     partial class XNATilesetControl
     {

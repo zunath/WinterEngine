@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using WinterEngine.Toolset.Controls.XnaControls;
+using WinterEngine.Toolset.Controls.XnaControls.TilesetEditor;
 using WinterEngine.Toolset.ExtendedEventArgs;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess;

@@ -8,7 +8,7 @@ using WinterEngine.DataTransferObjects.Mapping;
 
 namespace WinterEngine.Toolset.ExtendedEventArgs
 {
-    public class TilesetEventArgs : EventArgs
+    public class TilesetEditorEventArgs : EventArgs
     {
         private Tileset _tileset;
         private SpriteSheet _spriteSheet;
@@ -31,7 +31,7 @@ namespace WinterEngine.Toolset.ExtendedEventArgs
             set { _spriteSheet = value; }
         }
 
-        public TilesetEventArgs(Tileset tileset, SpriteSheet spriteSheet)
+        public TilesetEditorEventArgs(Tileset tileset, SpriteSheet spriteSheet)
         {
             this._tileset = tileset;
             this._spriteSheet = spriteSheet;

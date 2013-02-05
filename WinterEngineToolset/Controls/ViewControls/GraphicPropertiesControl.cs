@@ -16,15 +16,27 @@ namespace WinterEngine.Toolset.Controls.ViewControls
     {
         #region Fields
 
+        private Tileset _activeTileset;
+
         #endregion
 
         #region Properties
+
+        /// <summary>
+        ///  Gets or sets the active tileset.
+        /// </summary>
+        private Tileset ActiveTileset
+        {
+            get { return _activeTileset; }
+            set { _activeTileset = value; }
+        }
 
         #endregion
 
         #region Events / Delegates
 
-        public event EventHandler<TilesetEventArgs> OnTilesetChanged;
+        public event EventHandler<TilesetEditorEventArgs> OnTilesetChanged;
+        public event EventHandler OnUnloadTileset;
 
         #endregion
 
@@ -40,14 +52,20 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         {
             using (TilesetRepository repo = new TilesetRepository())
             {
-                Tileset tileset = listBoxTilesets.SelectedItem as Tileset;
-                tileset.Name = textBoxTilesetName.NameText;
+                ActiveTileset.Name = textBoxTilesetName.NameText;
 
                 SpriteSheet spriteSheet = comboBoxSpriteSheet.SelectedItem as SpriteSheet;
-                tileset.SpriteSheet = spriteSheet;
-                
 
-                repo.Update(tileset);
+                if (!Object.ReferenceEquals(spriteSheet, null))
+                {
+                    ActiveTileset.SpriteSheetID = spriteSheet.ResourceID;
+                }
+                else
+                {
+                    ActiveTileset.SpriteSheetID = 0;
+                }
+
+                repo.Update(ActiveTileset);
             }
         }
 
@@ -58,10 +76,8 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonDiscardChanges_Click(object sender, EventArgs e)
         {
-            Tileset tileset = listBoxTilesets.SelectedItem as Tileset;
-
-            textBoxTilesetName.NameText = tileset.Name;
-            comboBoxSpriteSheet.SelectedItem = tileset.SpriteSheet;
+            textBoxTilesetName.NameText = ActiveTileset.Name;
+            SelectMatchingSpritesheetItem(ActiveTileset.SpriteSheetID);
         }
 
         /// <summary>
@@ -82,15 +98,13 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void buttonDeleteTileset_Click(object sender, EventArgs e)
         {
-            Tileset tileset = listBoxTilesets.SelectedItem as Tileset;
-
-            if (!Object.ReferenceEquals(tileset, null))
+            if (!Object.ReferenceEquals(ActiveTileset, null))
             {
                 if (MessageBox.Show("Are you sure you want to delete this tileset?", "Delete Tileset?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     using (TilesetRepository repo = new TilesetRepository())
                     {
-                        repo.Delete(tileset);
+                        repo.Delete(ActiveTileset);
                     }
                     listBoxTilesets.Items.Remove(listBoxTilesets.SelectedItem);
                     textBoxTilesetName.NameText = String.Empty;
@@ -110,17 +124,20 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void comboBoxSpriteSheet_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Tileset tileset = listBoxTilesets.SelectedItem as Tileset;
             SpriteSheet spriteSheet = comboBoxSpriteSheet.SelectedItem as SpriteSheet;
-            
-            if (!Object.ReferenceEquals(tileset, null))
+
+            if (!Object.ReferenceEquals(ActiveTileset, null))
             {
                 if (!Object.ReferenceEquals(OnTilesetChanged, null))
                 {
                     // Note: The sprite sheet is passed separately from the tileset since we don't want
                     // to actually modify the object until the user presses Apply Changes.
-                    OnTilesetChanged(this, new TilesetEventArgs(tileset, spriteSheet));
+                    OnTilesetChanged(this, new TilesetEditorEventArgs(ActiveTileset, spriteSheet));
                 }
+            }
+            else
+            {
+                OnUnloadTileset(this, new EventArgs());
             }
         }
 
@@ -131,16 +148,20 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         /// <param name="e"></param>
         private void listBoxTilesets_SelectedValueChanged(object sender, EventArgs e)
         {
-            Tileset tileset = listBoxTilesets.SelectedItem as Tileset;
-
-            if (!Object.ReferenceEquals(tileset, null))
+            // This check prevents the active tileset from changing if the user doesn't actually
+            // select a new object.
+            if (!Object.Equals(ActiveTileset, listBoxTilesets.SelectedItem as Tileset))
             {
-                LoadTileset(tileset);
+                ActiveTileset = listBoxTilesets.SelectedItem as Tileset;
 
-                textBoxTilesetName.Enabled = true;
-                comboBoxSpriteSheet.Enabled = true;
+                if (!Object.ReferenceEquals(ActiveTileset, null))
+                {
+                    LoadTileset(ActiveTileset);
+
+                    textBoxTilesetName.Enabled = true;
+                    comboBoxSpriteSheet.Enabled = true;
+                }
             }
-            
         }
 
         #endregion
@@ -156,13 +177,30 @@ namespace WinterEngine.Toolset.Controls.ViewControls
 
         #region Methods
 
+        private void SelectMatchingSpritesheetItem(int spriteSheetID)
+        {
+            // To-Do: Optimize the search algorithm.
+            foreach (var current in comboBoxSpriteSheet.Items)
+            {
+                SpriteSheet spriteSheet = current as SpriteSheet;
+                if (!Object.ReferenceEquals(spriteSheet, null))
+                {
+                    if (spriteSheet.ResourceID == spriteSheetID)
+                    {
+                        comboBoxSpriteSheet.SelectedItem = current;
+                        break;
+                    }
+                }
+            }
+        }
+
         private void LoadTileset(Tileset tileset)
         {
             textBoxTilesetName.NameText = tileset.Name;
 
-            if (!Object.ReferenceEquals(tileset.SpriteSheet, null))
+            if (tileset.SpriteSheetID > 0)
             {
-                comboBoxSpriteSheet.SelectedItem = tileset.SpriteSheet;
+                SelectMatchingSpritesheetItem(tileset.SpriteSheetID);
             }
             else
             {
