@@ -24,6 +24,8 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
         private Texture2D _texture;
         private Cell _activeCell;
         private TilesetEditorModeTypeEnum _modeType;
+        private Texture2D _notPassableTexture;
+        private Texture2D _passableTexture;
 
         #endregion
 
@@ -87,6 +89,24 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
             set { _modeType = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the texture used for the "Non-Passable" icon.
+        /// </summary>
+        private Texture2D NotPassableTexture
+        {
+            get { return _notPassableTexture; }
+            set { _notPassableTexture = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the texture used for the "Passable" icon.
+        /// </summary>
+        private Texture2D PassableTexture
+        {
+            get { return _passableTexture; }
+            set { _passableTexture = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -110,6 +130,9 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
         {
             _content = new ContentManager(Services);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //NotPassableTexture = Content.Load<Texture2D>("./TilesetEditor_NotPassable");
+            //PassableTexture = Content.Load<Texture2D>("./TilesetEditor_Passable");
         }
 
         #endregion

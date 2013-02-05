@@ -368,6 +368,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Controls\XnaControls\TilesetEditor\TilesetEditor_InvalidDimensions.xnb" />
     <None Include="Controls\XnaControls\TilesetEditor\TilesetEditor_NotPassable.xnb" />
     <None Include="Controls\XnaControls\TilesetEditor\TilesetEditor_Passable.xnb" />
     <None Include="packages.config" />
@@ -437,6 +438,9 @@
       <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
       <Name>WinterEngine.Library</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
