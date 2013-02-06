@@ -115,7 +115,6 @@ C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox.resources
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.PlaceablePropertiesControl.resources
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.TreeCategoryControl.resources
-C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.XnaControls.ObjectViewer3D.resources
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.AdvancedView.resources
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.AreaView.resources
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.MainForm.resources
@@ -190,3 +189,18 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_InvalidDimensions.xnb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_NotPassable.xnb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_Passable.xnb
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Screens\SplashScreen\frblogo512.png
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Screens\SplashScreen\SceneFile.scnx
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\redball.BMP
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_InvalidDimensions.xnb
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_NotPassable.xnb
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_Passable.xnb
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\AutoMapper.dll
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Client.exe
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\FlatRedBall.dll
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Client.pdb
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\AutoMapper.xml
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\FlatRedBall.xml
+C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.GraphicPropertiesControl.resources
+C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.TilesetViewerControl.resources
+C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.GraphicView.resources

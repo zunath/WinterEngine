@@ -13,6 +13,7 @@ using WinterEngine.Library.Factories;
 using WinterEngine.Library;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.HakpakBuilder.Builder;
+using System.Xml;
 
 namespace WinterEngine.Hakpak.Builder
 {
@@ -173,6 +174,7 @@ namespace WinterEngine.Hakpak.Builder
             List<HakResource> fileList = new List<HakResource>();
             string destinationDirectory = new DirectoryInfo(saveFileDialog.FileName).Parent.FullName;
             DirectoryInfo tempDirectoryInfo = Directory.CreateDirectory(destinationDirectory + "\\temp");
+            string manifestPath = "";
 
             // Report progress throughout the process so that the GUI thread gets updated.
             backgroundWorkerProcess.ReportProgress(0);
@@ -234,6 +236,7 @@ namespace WinterEngine.Hakpak.Builder
             }
 
             backgroundWorkerProcess.ReportProgress(30);
+
             // Perform the build, capturing any error information
             string buildError = builder.Build();
 
@@ -247,19 +250,22 @@ namespace WinterEngine.Hakpak.Builder
                 // Create a new zip file disguised as a custom engine file at the location specified by user
                 using (ZipFile zipFile = new ZipFile(saveFileDialog.FileName))
                 {
-                    // Disable compression
+                    FileExtensionFactory fileExtensionFactory = new FileExtensionFactory();
                     zipFile.CompressionLevel = CompressionLevel.None;
-                    // Retrieve the compiled files from memory 
                     string tempPath = builder.OutputDirectory;
-                    string xnaFileExtension = new FileExtensionFactory().GetFileExtension(FileTypeEnum.XNACompiledFile);
+                    string xnaFileExtension = fileExtensionFactory.GetFileExtension(FileTypeEnum.XNACompiledFile);
                     string[] files = Directory.GetFiles(tempPath, "*" + xnaFileExtension);
-
-                    // Loop through the file list and add them to the zip file
+                    List<HakResource> hakResourceList = new List<HakResource>();
+                    manifestPath = CreateManifestFile(builder.OutputDirectory, fileList);
+                    
                     foreach (string file in files)
                     {
                         // Note that "" means add the file to the root of the archive
                         zipFile.AddFile(file, "");
                     }
+
+                    // Add the manifest file
+                    zipFile.AddFile(manifestPath, "");
 
                     // Save the zip file to disk.
                     zipFile.Save();
@@ -548,6 +554,41 @@ namespace WinterEngine.Hakpak.Builder
 
             // We're finished - return the modified file list
             return dictionaryFileNames;
+        }
+
+        /// <summary>
+        /// Builds a manifest file containing details about each individual resource.
+        /// Then returns the path to the file.
+        /// </summary>
+        private string CreateManifestFile(string directory, List<HakResource> resourceList)
+        {
+            string fileName = "Manifest.xml";
+            string path = directory + "/" + fileName;
+            int index = 1;
+
+            using (XmlWriter writer = XmlWriter.Create(path))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("HakpakResources");
+
+                foreach (HakResource resource in resourceList)
+                {
+                    writer.WriteStartElement("Resource");
+
+                    writer.WriteElementString("ID", Convert.ToString(index));
+                    writer.WriteElementString("Name", resource.ResourceName);
+                    writer.WriteElementString("Type", resource.ResourceType.ToString());
+
+                    writer.WriteEndElement();
+
+                    index++;
+                }
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
+
+            return path;
         }
 
         #endregion

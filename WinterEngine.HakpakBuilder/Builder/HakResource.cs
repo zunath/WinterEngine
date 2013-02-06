@@ -10,11 +10,21 @@ namespace WinterEngine.HakpakBuilder.Builder
     {
         #region Fields
 
+        private string _resourceName;
         private string _resourcePath;
         private HakResourceTypeEnum _resourceType;
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the name of the resource.
+        /// </summary>
+        public string ResourceName
+        {
+            get { return _resourceName; }
+            set { _resourceName = value; }
+        }
 
         /// <summary>
         /// Gets or sets the path to the resource.
@@ -42,6 +52,26 @@ namespace WinterEngine.HakpakBuilder.Builder
         {
             this.ResourcePath = resourcePath;
             this.ResourceType = resourceType;
+        }
+
+        #endregion
+
+        #region Overrides
+
+        /// <summary>
+        /// ToString override for use with the list boxes and other WinForms controls.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            string retValue = ResourcePath;
+
+            if (!String.IsNullOrWhiteSpace(ResourceName))
+            {
+                retValue = ResourceName;
+            }
+
+            return retValue;
         }
 
         #endregion
