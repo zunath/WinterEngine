@@ -53,9 +53,7 @@
             this.backgroundWorkerProcess = new System.ComponentModel.BackgroundWorker();
             this.progressBarBuild = new System.Windows.Forms.ProgressBar();
             this.saveFileDialogSaveAs = new System.Windows.Forms.SaveFileDialog();
-            this.radioButtonTileset = new System.Windows.Forms.RadioButton();
-            this.radioButtonCharacter = new System.Windows.Forms.RadioButton();
-            this.radioButtonAudio = new System.Windows.Forms.RadioButton();
+            this.resourceTypeControl = new WinterEngine.HakpakBuilder.Builder.ResourceTypeControl();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -250,47 +248,20 @@
             this.progressBarBuild.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBarBuild.TabIndex = 10;
             // 
-            // radioButtonTileset
+            // resourceTypeControl
             // 
-            this.radioButtonTileset.AutoSize = true;
-            this.radioButtonTileset.Location = new System.Drawing.Point(15, 389);
-            this.radioButtonTileset.Name = "radioButtonTileset";
-            this.radioButtonTileset.Size = new System.Drawing.Size(56, 17);
-            this.radioButtonTileset.TabIndex = 11;
-            this.radioButtonTileset.TabStop = true;
-            this.radioButtonTileset.Text = "Tileset";
-            this.radioButtonTileset.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonCharacter
-            // 
-            this.radioButtonCharacter.AutoSize = true;
-            this.radioButtonCharacter.Location = new System.Drawing.Point(77, 389);
-            this.radioButtonCharacter.Name = "radioButtonCharacter";
-            this.radioButtonCharacter.Size = new System.Drawing.Size(71, 17);
-            this.radioButtonCharacter.TabIndex = 12;
-            this.radioButtonCharacter.TabStop = true;
-            this.radioButtonCharacter.Text = "Character";
-            this.radioButtonCharacter.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonAudio
-            // 
-            this.radioButtonAudio.AutoSize = true;
-            this.radioButtonAudio.Location = new System.Drawing.Point(153, 389);
-            this.radioButtonAudio.Name = "radioButtonAudio";
-            this.radioButtonAudio.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonAudio.TabIndex = 13;
-            this.radioButtonAudio.TabStop = true;
-            this.radioButtonAudio.Text = "Audio";
-            this.radioButtonAudio.UseVisualStyleBackColor = true;
+            this.resourceTypeControl.Enabled = false;
+            this.resourceTypeControl.Location = new System.Drawing.Point(12, 390);
+            this.resourceTypeControl.Name = "resourceTypeControl";
+            this.resourceTypeControl.Size = new System.Drawing.Size(199, 26);
+            this.resourceTypeControl.TabIndex = 11;
             // 
             // HakBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(411, 473);
-            this.Controls.Add(this.radioButtonAudio);
-            this.Controls.Add(this.radioButtonCharacter);
-            this.Controls.Add(this.radioButtonTileset);
+            this.Controls.Add(this.resourceTypeControl);
             this.Controls.Add(this.progressBarBuild);
             this.Controls.Add(this.buttonAddFiles);
             this.Controls.Add(this.labelResources);
@@ -344,8 +315,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorkerProcess;
         private System.Windows.Forms.ProgressBar progressBarBuild;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSaveAs;
-        private System.Windows.Forms.RadioButton radioButtonTileset;
-        private System.Windows.Forms.RadioButton radioButtonCharacter;
-        private System.Windows.Forms.RadioButton radioButtonAudio;
+        private HakpakBuilder.Builder.ResourceTypeControl resourceTypeControl;
     }
 }

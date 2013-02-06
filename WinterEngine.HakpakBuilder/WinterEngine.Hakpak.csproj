@@ -68,10 +68,20 @@
     </Compile>
     <Compile Include="Builder\HakResource.cs" />
     <Compile Include="Builder\HakResourceTypeEnum.cs" />
+    <Compile Include="Builder\ResourceTypeChangedEventArgs.cs" />
+    <Compile Include="Builder\ResourceTypeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Builder\ResourceTypeControl.Designer.cs">
+      <DependentUpon>ResourceTypeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Builder\HakBuilder.resx">
       <DependentUpon>HakBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Builder\ResourceTypeControl.resx">
+      <DependentUpon>ResourceTypeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

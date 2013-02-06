@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WinterEngine.HakpakBuilder.Builder
 {
-    enum HakResourceTypeEnum
+    public enum HakResourceTypeEnum
     {
         Tileset = 1,
         Character = 2,

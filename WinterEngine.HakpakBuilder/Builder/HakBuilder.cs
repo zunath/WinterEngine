@@ -56,6 +56,8 @@ namespace WinterEngine.Hakpak.Builder
             InitializeComponent();
             InitializeFileDialogFilters();
             UncompiledArchivedOpened = false;
+
+            resourceTypeControl.OnResourceChanged += resourceTypeControl_OnResourceChanged;
         }
 
         #endregion
@@ -409,9 +411,39 @@ namespace WinterEngine.Hakpak.Builder
         /// <param name="e"></param>
         private void listBoxResources_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // To-Do: Load graphic file in window
+            int numberSelected = listBoxResources.SelectedItems.Count;
+            
+            if (numberSelected > 1)
+            {
+                resourceTypeControl.Enabled = false;
+            }
+            else
+            {
+                HakResource resource = listBoxResources.SelectedItem as HakResource;
+                resourceTypeControl.Enabled = false;
+
+                if (!Object.ReferenceEquals(resource, null))
+                {
+                    resourceTypeControl.Enabled = true;
+                    resourceTypeControl.ChangeResourceType(resource.ResourceType);
+                    
+                    // To-Do: Load graphic file in window
+                }
+            }
+
+            
         }
 
+        /// <summary>
+        /// Handles changing the resource type on a selected hak resource when the OnResourceChanged event is raised.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void resourceTypeControl_OnResourceChanged(object sender, ResourceTypeChangedEventArgs e)
+        {
+            HakResource resource = listBoxResources.SelectedItem as HakResource;
+            resource.ResourceType = e.ResourceType;
+        }
 
         #endregion
 
@@ -562,11 +594,15 @@ namespace WinterEngine.Hakpak.Builder
         /// </summary>
         private string CreateManifestFile(string directory, List<HakResource> resourceList)
         {
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.NewLineOnAttributes = true;
+
             string fileName = "Manifest.xml";
             string path = directory + "/" + fileName;
             int index = 1;
 
-            using (XmlWriter writer = XmlWriter.Create(path))
+            using (XmlWriter writer = XmlWriter.Create(path, settings))
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("HakpakResources");
@@ -577,6 +613,7 @@ namespace WinterEngine.Hakpak.Builder
 
                     writer.WriteElementString("ID", Convert.ToString(index));
                     writer.WriteElementString("Name", resource.ResourceName);
+                    writer.WriteElementString("Path", resource.ResourcePath);
                     writer.WriteElementString("Type", resource.ResourceType.ToString());
 
                     writer.WriteEndElement();

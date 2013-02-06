@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WinterEngine.HakpakBuilder.Builder
 {
-    class HakResource
+    public class HakResource
     {
         #region Fields
 
