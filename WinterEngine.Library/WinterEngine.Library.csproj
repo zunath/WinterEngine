@@ -60,6 +60,7 @@
     <Compile Include="ErrorLogger.cs" />
     <Compile Include="Factories\GameObjectFactory.cs" />
     <Compile Include="Factories\GraphicFactory.cs" />
+    <Compile Include="Factories\EngineResourceFactory.cs" />
     <Compile Include="Factories\WinterModuleFactory.cs" />
     <Compile Include="Helpers\EnumerationHelper.cs" />
     <Compile Include="Helpers\ErrorHelper.cs" />

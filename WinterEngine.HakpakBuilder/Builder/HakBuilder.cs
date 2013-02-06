@@ -12,6 +12,7 @@ using Ionic.Zlib;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.HakpakBuilder.Builder;
 
 namespace WinterEngine.Hakpak.Builder
 {
@@ -91,14 +92,16 @@ namespace WinterEngine.Hakpak.Builder
                 // Loop through the list of file names and add them to the list box
                 foreach (string currentFile in openFileDialogBuilder.FileNames)
                 {
+                    HakResource resource = new HakResource(currentFile, HakResourceTypeEnum.Tileset);
+                    
                     // Does the file exist?
                     if (File.Exists(currentFile))
                     {
                         // Is the file in the list already?
-                        if (!DoesFileExistInListBox(currentFile))
+                        if (!DoesFileExistInListBox(resource))
                         {
                             // Add the file to the list box
-                            listBoxResources.Items.Add(currentFile);
+                            listBoxResources.Items.Add(resource);
                         }
                     }
                 }
@@ -167,7 +170,7 @@ namespace WinterEngine.Hakpak.Builder
         private void backgroundWorkerProcess_DoWork(object sender, DoWorkEventArgs e)
         {
             ContentBuilder builder = new ContentBuilder();
-            List<string> fileList = new List<string>();
+            List<HakResource> fileList = new List<HakResource>();
             string destinationDirectory = new DirectoryInfo(saveFileDialog.FileName).Parent.FullName;
             DirectoryInfo tempDirectoryInfo = Directory.CreateDirectory(destinationDirectory + "\\temp");
 
@@ -191,7 +194,8 @@ namespace WinterEngine.Hakpak.Builder
                     // Add each file path to the list
                     foreach (string current in Directory.GetFiles(tempDirectoryInfo.FullName))
                     {
-                        fileList.Add(current);
+                        HakResource resource = new HakResource(current, HakResourceTypeEnum.Tileset);
+                        fileList.Add(resource);
                     }
                 }
             }
@@ -199,28 +203,28 @@ namespace WinterEngine.Hakpak.Builder
             else
             {
                 // Put the path names listed in the list box into the file list
-                foreach (string current in listBoxResources.Items)
+                foreach (HakResource current in listBoxResources.Items)
                 {
                     fileList.Add(current);
                 }
             }
 
 
-            Dictionary<string, string> modifiedFileNameDictionary = GenerateUniqueFileNameList(fileList);
+            Dictionary<HakResource, HakResource> modifiedFileNameDictionary = GenerateUniqueFileNameList(fileList);
 
             // Add each file in the list to the builder
-            foreach (string file in fileList)
+            foreach (HakResource file in fileList)
             {
-                DirectoryInfo dirInfo = new DirectoryInfo(file);
+                DirectoryInfo dirInfo = new DirectoryInfo(file.ResourcePath);
                 string fileNameNoExtension = Path.GetFileNameWithoutExtension(dirInfo.Name);
-                string extension = Path.GetExtension(file);
+                string extension = Path.GetExtension(file.ResourcePath);
                 string processorType = GetProcessorType(extension);
 
                 // Only add to the builder if a processor type is found for the material.
                 if (!String.IsNullOrEmpty(processorType))
                 {
                     // Take the file's base name and remove the extension. When building gets done, the .xnb extension will be applied.
-                    builder.Add(file, modifiedFileNameDictionary[file], null, processorType);
+                    builder.Add(file.ResourcePath, modifiedFileNameDictionary[file].ResourcePath, null, processorType);
                 }
                 // If no processor type was found, alert the user
                 else
@@ -408,19 +412,23 @@ namespace WinterEngine.Hakpak.Builder
         #region Methods
 
         /// <summary>
-        /// Simple search to see if a file name matches an item already in the list box.
+        /// Simple search to see if a resource file path matches an item already in the list box.
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        private bool DoesFileExistInListBox(string resource)
+        private bool DoesFileExistInListBox(HakResource resource)
         {
-            foreach (string currentItem in listBoxResources.Items)
+            bool exists = false;
+
+            foreach (HakResource currentItem in listBoxResources.Items)
             {
-                if (currentItem == resource)
-                    return true;
+                if (currentItem.ResourcePath == resource.ResourcePath)
+                {
+                    exists = true;
+                }
             }
 
-            return false;
+            return exists;
         }
 
         /// <summary>
@@ -511,30 +519,31 @@ namespace WinterEngine.Hakpak.Builder
         /// Returns a dictionary of the modified file names. The key is the full path name, including extension.
         /// </summary>
         /// <returns></returns>
-        private Dictionary<string, string> GenerateUniqueFileNameList(List<string> fileList)
+        private Dictionary<HakResource, HakResource> GenerateUniqueFileNameList(List<HakResource> fileList)
         {
-            List<string> modifiedFileNameList = new List<string>();
-            Dictionary<string, string> dictionaryFileNames = new Dictionary<string, string>();
+            List<HakResource> modifiedFileNameList = new List<HakResource>();
+            Dictionary<HakResource, HakResource> dictionaryFileNames = new Dictionary<HakResource, HakResource>();
 
             // Generate unique ID numbers, if necessary.
-            foreach (string current in fileList)
+            foreach (HakResource current in fileList)
             {
-                string pureFileName = Path.GetFileNameWithoutExtension(new DirectoryInfo(current).Name);
+                string pureFileName = Path.GetFileNameWithoutExtension(new DirectoryInfo(current.ResourcePath).Name);
                 string modFileName = pureFileName;
 
                 // Append a unique ID number to the end of the file's name if it already exists in either list
                 int index = 0;
-                while (fileList.Exists(x => x == modFileName) || modifiedFileNameList.Exists(x => x == modFileName))
+                while (fileList.Exists(x => x.ResourcePath == modFileName) || modifiedFileNameList.Exists(x => x.ResourcePath == modFileName))
                 {
                     index++;
                     modFileName = pureFileName + index;
                 }
 
                 // The file now has a unique name. Add it to the modified list.
-                modifiedFileNameList.Add(modFileName);
+                HakResource modFileResource = new HakResource(modFileName, current.ResourceType);
+                modifiedFileNameList.Add(modFileResource);
 
                 // And add it to the dictionary we will be returning once completed.
-                dictionaryFileNames.Add(current, modFileName);
+                dictionaryFileNames.Add(current, modFileResource);
             }
 
             // We're finished - return the modified file list

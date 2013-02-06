@@ -66,6 +66,8 @@
     <Compile Include="Builder\HakBuilder.Designer.cs">
       <DependentUpon>HakBuilder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Builder\HakResource.cs" />
+    <Compile Include="Builder\HakResourceTypeEnum.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Builder\HakBuilder.resx">

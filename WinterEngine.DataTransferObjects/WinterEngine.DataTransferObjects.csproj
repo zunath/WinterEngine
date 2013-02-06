@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\EngineResourceEnum.cs" />
     <Compile Include="Enumerations\ItemPartEnum.cs" />
     <Compile Include="Enumerations\TilesetEditorModeTypeEnum.cs" />
     <Compile Include="IEntity.cs" />

@@ -163,8 +163,15 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
         {
             if (!Object.ReferenceEquals(GraphicResource, null))
             {
-                GraphicFactory factory = new GraphicFactory();
-                GraphicTexture = factory.GetSpriteSheet(Content, GraphicResource);
+                GraphicFactory graphicFactory = new GraphicFactory();
+                EngineResourceFactory resourceFactory = new EngineResourceFactory();
+
+                GraphicTexture = graphicFactory.GetSpriteSheet(Content, GraphicResource);
+
+                if (GraphicTexture.Width % 64 > 0 || GraphicTexture.Height % 64 > 0)
+                {
+                    GraphicTexture = Content.Load<Texture2D>(resourceFactory.GetResourcePath(EngineResourceEnum.Icon_InvalidDimensions, false));
+                }
             }
         }
 

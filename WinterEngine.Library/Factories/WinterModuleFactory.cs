@@ -352,8 +352,8 @@ namespace WinterEngine.Library.Factories
         {
             using (SpriteSheetRepository repo = new SpriteSheetRepository())
             {
-                repo.Add(BuildGraphicResourceList("./resources/items.wrsc", ResourceTypeEnum.Item));                 // Item icons
-                repo.Add(BuildGraphicResourceList("./resources/tilesets.wrsc", ResourceTypeEnum.Item));               // Tilesets
+                repo.Add(BuildGraphicResourceList("./resources/items.wrsc", ResourceTypeEnum.SpriteSheet));                 // Item icons
+                repo.Add(BuildGraphicResourceList("./resources/tilesets.wrsc", ResourceTypeEnum.SpriteSheet));              // Tilesets
             }
         }
 

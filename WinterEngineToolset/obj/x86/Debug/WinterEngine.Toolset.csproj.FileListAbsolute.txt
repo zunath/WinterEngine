@@ -187,3 +187,6 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\AutoMapper.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\AutoMapper.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_InvalidDimensions.xnb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_NotPassable.xnb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_Passable.xnb
