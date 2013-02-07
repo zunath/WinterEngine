@@ -67,7 +67,6 @@
       <DependentUpon>HakBuilder.cs</DependentUpon>
     </Compile>
     <Compile Include="Builder\HakResource.cs" />
-    <Compile Include="Builder\HakResourceTypeEnum.cs" />
     <Compile Include="Builder\ResourceTypeChangedEventArgs.cs" />
     <Compile Include="Builder\ResourceTypeControl.cs">
       <SubType>UserControl</SubType>

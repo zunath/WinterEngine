@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinterEngine.HakpakBuilder.Builder
+namespace WinterEngine.DataTransferObjects.Enumerations
 {
-    public enum HakResourceTypeEnum
+    public enum SpriteSheetTypeEnum
     {
         Tileset = 1,
         Character = 2,

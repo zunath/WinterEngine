@@ -95,7 +95,7 @@ namespace WinterEngine.Hakpak.Builder
                 // Loop through the list of file names and add them to the list box
                 foreach (string currentFile in openFileDialogBuilder.FileNames)
                 {
-                    HakResource resource = new HakResource(currentFile, HakResourceTypeEnum.Tileset);
+                    HakResource resource = new HakResource(currentFile, SpriteSheetTypeEnum.Tileset);
                     
                     // Does the file exist?
                     if (File.Exists(currentFile))
@@ -198,7 +198,7 @@ namespace WinterEngine.Hakpak.Builder
                     // Add each file path to the list
                     foreach (string current in Directory.GetFiles(tempDirectoryInfo.FullName))
                     {
-                        HakResource resource = new HakResource(current, HakResourceTypeEnum.Tileset);
+                        HakResource resource = new HakResource(current, SpriteSheetTypeEnum.Tileset);
                         fileList.Add(resource);
                     }
                 }
@@ -224,9 +224,12 @@ namespace WinterEngine.Hakpak.Builder
                 string extension = Path.GetExtension(file.ResourcePath);
                 string processorType = GetProcessorType(extension);
 
+
                 // Only add to the builder if a processor type is found for the material.
                 if (!String.IsNullOrEmpty(processorType))
                 {
+                    string modifiedFileName = modifiedFileNameDictionary[file].ResourcePath;
+                    file.ResourceName = modifiedFileName;
                     // Take the file's base name and remove the extension. When building gets done, the .xnb extension will be applied.
                     builder.Add(file.ResourcePath, modifiedFileNameDictionary[file].ResourcePath, null, processorType);
                 }
@@ -425,7 +428,7 @@ namespace WinterEngine.Hakpak.Builder
                 if (!Object.ReferenceEquals(resource, null))
                 {
                     resourceTypeControl.Enabled = true;
-                    resourceTypeControl.ChangeResourceType(resource.ResourceType);
+                    resourceTypeControl.ChangeResourceType(resource.ResourceType, true);
                     
                     // To-Do: Load graphic file in window
                 }
@@ -613,7 +616,6 @@ namespace WinterEngine.Hakpak.Builder
 
                     writer.WriteElementString("ID", Convert.ToString(index));
                     writer.WriteElementString("Name", resource.ResourceName);
-                    writer.WriteElementString("Path", resource.ResourcePath);
                     writer.WriteElementString("Type", resource.ResourceType.ToString());
 
                     writer.WriteEndElement();

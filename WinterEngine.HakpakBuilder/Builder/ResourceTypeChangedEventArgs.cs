@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.HakpakBuilder.Builder
 {
@@ -10,7 +11,7 @@ namespace WinterEngine.HakpakBuilder.Builder
     {
         #region Fields
 
-        private HakResourceTypeEnum _resourceType;
+        private SpriteSheetTypeEnum _resourceType;
 
         #endregion
 
@@ -19,7 +20,7 @@ namespace WinterEngine.HakpakBuilder.Builder
         /// <summary>
         /// Gets or sets the resource type passed via event args
         /// </summary>
-        public HakResourceTypeEnum ResourceType
+        public SpriteSheetTypeEnum ResourceType
         {
             get { return _resourceType; }
             set { _resourceType = value; }

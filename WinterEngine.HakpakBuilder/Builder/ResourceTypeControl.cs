@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.HakpakBuilder.Builder
 {
@@ -14,20 +15,9 @@ namespace WinterEngine.HakpakBuilder.Builder
     {
         #region Fields
 
-        private bool _changingSelectedRadioButton;
-
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets whether this control is changing the selected radio button.
-        /// </summary>
-        private bool ChangingSelectedRadioButton
-        {
-            get { return _changingSelectedRadioButton; }
-            set { _changingSelectedRadioButton = value; }
-        }
 
         #endregion
 
@@ -50,23 +40,17 @@ namespace WinterEngine.HakpakBuilder.Builder
 
         private void radioButtonAudio_CheckedChanged(object sender, EventArgs e)
         {
-            ChangingSelectedRadioButton = true;
-            ChangeResourceType(HakResourceTypeEnum.Audio);
-            ChangingSelectedRadioButton = false;
+            ChangeResourceType(SpriteSheetTypeEnum.Audio, false);
         }
 
         private void radioButtonCharacter_CheckedChanged(object sender, EventArgs e)
         {
-            ChangingSelectedRadioButton = true;
-            ChangeResourceType(HakResourceTypeEnum.Character);
-            ChangingSelectedRadioButton = false;
+            ChangeResourceType(SpriteSheetTypeEnum.Character, false);
         }
 
         private void radioButtonTileset_CheckedChanged(object sender, EventArgs e)
         {
-            ChangingSelectedRadioButton = true;
-            ChangeResourceType(HakResourceTypeEnum.Tileset);
-            ChangingSelectedRadioButton = false;
+            ChangeResourceType(SpriteSheetTypeEnum.Tileset, false);
         }
 
         #endregion
@@ -76,31 +60,29 @@ namespace WinterEngine.HakpakBuilder.Builder
         /// Changes the selected radio button based on the resource type.
         /// </summary>
         /// <param name="resourceType"></param>
-        public void ChangeResourceType(HakResourceTypeEnum resourceType)
+        /// <param name="changeRadioButton">If true, the radio button will be selected. If false, only the OnResourceChanged event will be raised.</param>
+        public void ChangeResourceType(SpriteSheetTypeEnum resourceType, bool changeRadioButton = false)
         {
-            if (!ChangingSelectedRadioButton)
-            {
-                if (resourceType == HakResourceTypeEnum.Audio)
-                {
-                    radioButtonAudio.Checked = true;
-                }
-                else if (resourceType == HakResourceTypeEnum.Character)
-                {
-                    radioButtonCharacter.Checked = true;
-                }
-                else if (resourceType == HakResourceTypeEnum.Tileset)
-                {
-                    radioButtonTileset.Checked = true;
-                }
-                else
-                {
-                    radioButtonTileset.Checked = true;
-                }
+            ResourceTypeChangedEventArgs eventArgs = new ResourceTypeChangedEventArgs();
+            eventArgs.ResourceType = resourceType;
+            OnResourceChanged(this, eventArgs);
 
-                ResourceTypeChangedEventArgs eventArgs = new ResourceTypeChangedEventArgs();
-                eventArgs.ResourceType = resourceType;
-                OnResourceChanged(this, eventArgs);
+            if (changeRadioButton)
+            {
+                switch (resourceType)
+                {
+                    case SpriteSheetTypeEnum.Audio:
+                        radioButtonAudio.Checked = true;
+                        break;
+                    case SpriteSheetTypeEnum.Character:
+                        radioButtonCharacter.Checked = true;
+                        break;
+                    case SpriteSheetTypeEnum.Tileset:
+                        radioButtonTileset.Checked = true;
+                        break;
+                }
             }
+
         }
         #endregion
 

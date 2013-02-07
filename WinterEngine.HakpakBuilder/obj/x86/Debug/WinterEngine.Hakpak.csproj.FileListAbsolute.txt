@@ -52,3 +52,4 @@ C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\Ionic.Zip.xml
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\WinterEngine.DataAccess.pdb
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.exe
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.Builder.ResourceTypeControl.resources

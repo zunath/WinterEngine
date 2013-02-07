@@ -54,6 +54,7 @@
             this.progressBarBuild = new System.Windows.Forms.ProgressBar();
             this.saveFileDialogSaveAs = new System.Windows.Forms.SaveFileDialog();
             this.resourceTypeControl = new WinterEngine.HakpakBuilder.Builder.ResourceTypeControl();
+            this.panelHakpakBuilder = new System.Windows.Forms.Panel();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,7 +76,7 @@
             this.fileToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(411, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(810, 24);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "mainMenuStrip";
             // 
@@ -244,7 +245,7 @@
             this.progressBarBuild.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressBarBuild.Location = new System.Drawing.Point(0, 451);
             this.progressBarBuild.Name = "progressBarBuild";
-            this.progressBarBuild.Size = new System.Drawing.Size(411, 22);
+            this.progressBarBuild.Size = new System.Drawing.Size(810, 22);
             this.progressBarBuild.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBarBuild.TabIndex = 10;
             // 
@@ -256,11 +257,20 @@
             this.resourceTypeControl.Size = new System.Drawing.Size(199, 26);
             this.resourceTypeControl.TabIndex = 11;
             // 
+            // panelHakpakBuilder
+            // 
+            this.panelHakpakBuilder.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panelHakpakBuilder.Location = new System.Drawing.Point(393, 27);
+            this.panelHakpakBuilder.Name = "panelHakpakBuilder";
+            this.panelHakpakBuilder.Size = new System.Drawing.Size(405, 418);
+            this.panelHakpakBuilder.TabIndex = 12;
+            // 
             // HakBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 473);
+            this.ClientSize = new System.Drawing.Size(810, 473);
+            this.Controls.Add(this.panelHakpakBuilder);
             this.Controls.Add(this.resourceTypeControl);
             this.Controls.Add(this.progressBarBuild);
             this.Controls.Add(this.buttonAddFiles);
@@ -316,5 +326,6 @@
         private System.Windows.Forms.ProgressBar progressBarBuild;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSaveAs;
         private HakpakBuilder.Builder.ResourceTypeControl resourceTypeControl;
+        private System.Windows.Forms.Panel panelHakpakBuilder;
     }
 }

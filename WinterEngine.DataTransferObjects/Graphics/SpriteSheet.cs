@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects.Graphics
 {
@@ -13,6 +14,7 @@ namespace WinterEngine.DataTransferObjects.Graphics
     {
         #region Fields
 
+        private SpriteSheetTypeEnum _spriteSheetType;
         private string _resourcePackagePath;
         private string _resourceFileName;
         private string _temporaryDisplayName;
@@ -20,6 +22,15 @@ namespace WinterEngine.DataTransferObjects.Graphics
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the type of sprite sheet this object is.
+        /// </summary>
+        public SpriteSheetTypeEnum SpriteSheetType
+        {
+            get { return _spriteSheetType; }
+            set { _spriteSheetType = value; }
+        }
 
         /// <summary>
         /// Gets or sets the path to the package containing this Sprite Sheet

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Enumerations\EngineResourceEnum.cs" />
     <Compile Include="Enumerations\ItemPartEnum.cs" />
+    <Compile Include="Enumerations\SpriteSheetTypeEnum.cs" />
     <Compile Include="Enumerations\TilesetEditorModeTypeEnum.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="Mapping\Cell.cs" />
