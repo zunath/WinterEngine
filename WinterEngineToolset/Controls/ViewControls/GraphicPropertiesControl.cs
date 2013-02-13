@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using AutoMapper;
 using WinterEngine.DataAccess;
 using WinterEngine.DataAccess.Repositories;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.DataTransferObjects.Mapping;
 using WinterEngine.Toolset.Controls.ControlHelpers;
@@ -237,7 +238,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 {
                     comboBoxSpriteSheet.Items.Clear();
                     comboBoxSpriteSheet.Items.Add("<No Sprite Sheet>");
-                    comboBoxSpriteSheet.Items.AddRange(repo.GetAll().ToArray());
+                    comboBoxSpriteSheet.Items.AddRange(repo.GetAllBySpriteSheetType(SpriteSheetTypeEnum.Tileset).ToArray());
                 }
 
                 using (TilesetRepository repo = new TilesetRepository())

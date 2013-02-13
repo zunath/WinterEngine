@@ -50,6 +50,27 @@ namespace WinterEngine.DataAccess
             return _resourceList;
         }
 
+        /// <summary>
+        /// Returns all sprite sheet resources with a matching sprite sheet type
+        /// from the database.
+        /// </summary>
+        /// <param name="spriteSheetType"></param>
+        /// <returns></returns>
+        public List<SpriteSheet> GetAllBySpriteSheetType(SpriteSheetTypeEnum spriteSheetType)
+        {
+            List<SpriteSheet> _resourceList = new List<SpriteSheet>();
+
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                var query = from resource
+                            in context.SpriteSheets
+                            where resource.SpriteSheetType == spriteSheetType
+                            select resource;
+                _resourceList = query.ToList();
+            }
+
+            return _resourceList;
+        }
 
         /// <summary>
         /// Adds a graphic resource to the database.
