@@ -32,11 +32,12 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.H
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.Hakpak.csproj.GenerateResource.Cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.pdb
-C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.Hakpak.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.Builder.ResourceTypeControl.resources
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.Hakpak.Builder.HakBuilder.resources
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.Builder.ResourceTypeControl.resources
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.Properties.Resources.resources
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.Hakpak.csproj.GenerateResource.Cache
+C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.Hakpak.csprojResolveAssemblyReference.cache
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\WinterEngine.HakpakBuilder.exe.config
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\WinterEngine.HakpakBuilder.exe
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\WinterEngine.HakpakBuilder.pdb
@@ -52,4 +53,3 @@ C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\Ionic.Zip.xml
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\WinterEngine.DataAccess.pdb
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.exe
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.Builder.ResourceTypeControl.resources

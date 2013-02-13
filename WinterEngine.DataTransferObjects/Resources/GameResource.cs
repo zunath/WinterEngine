@@ -15,7 +15,7 @@ namespace WinterEngine.DataTransferObjects.Graphics
 
         private int _resourceID;
         private int _resourceTypeID;
-        private string _name;
+        private string _visibleName;
         private string _comment;
         private bool _isSystemResource;
 
@@ -37,10 +37,10 @@ namespace WinterEngine.DataTransferObjects.Graphics
         /// Gets/Sets the publicly viewable name for a resource.
         /// </summary>
         [MaxLength(64)]
-        public string Name
+        public string VisibleName
         {
-            get { return _name; }
-            set { _name = value; }
+            get { return _visibleName; }
+            set { _visibleName = value; }
         }
 
         /// <summary>

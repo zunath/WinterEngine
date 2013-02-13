@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
+using System.Xml.Linq;
 using Ionic.Zip;
 using Ionic.Zlib;
 using WinterEngine.DataAccess;
@@ -326,19 +328,33 @@ namespace WinterEngine.Library.Factories
         private List<SpriteSheet> BuildGraphicResourceList(string path, ResourceTypeEnum resourceType)
         {
             List<SpriteSheet> graphicResources = new List<SpriteSheet>();
+            
             if (File.Exists(path))
             {
                 using (ZipFile zipFile = new ZipFile(path))
                 {
-                    foreach (ZipEntry file in zipFile)
+                    string manifestPath = TemporaryDirectoryPath;
+                    zipFile["Manifest.xml"].Extract(manifestPath);
+                    manifestPath += "/Manifest.xml";
+
+                    foreach (XElement resourceElement in XElement.Load(manifestPath).Elements("Resource"))
                     {
                         SpriteSheet resource = new SpriteSheet();
-                        resource.ResourceFileName = file.FileName;
+
+                        // Convert the string representation of a SpriteSheetTypeEnum to an actual SpriteSheetTypeEnum enumeration object.
+                        SpriteSheetTypeEnum spriteSheetType = (SpriteSheetTypeEnum)Enum.Parse(typeof(SpriteSheetTypeEnum), resourceElement.Element("Type").Value);
+
+                        resource.VisibleName = resourceElement.Element("Name").Value;
+                        resource.ResourceFileName = resourceElement.Element("Name").Value + ".xnb";
                         resource.ResourcePackagePath = path;
                         resource.ResourceTypeID = (int)resourceType;
+                        resource.SpriteSheetType = spriteSheetType;
                         resource.IsSystemResource = true;
+                        
                         graphicResources.Add(resource);
                     }
+
+                    File.Delete(manifestPath);
                 }
             }
             return graphicResources;
@@ -352,7 +368,7 @@ namespace WinterEngine.Library.Factories
         {
             using (SpriteSheetRepository repo = new SpriteSheetRepository())
             {
-                repo.Add(BuildGraphicResourceList("./resources/items.wrsc", ResourceTypeEnum.SpriteSheet));                 // Item icons
+                //repo.Add(BuildGraphicResourceList("./resources/items.wrsc", ResourceTypeEnum.SpriteSheet));                 // Item icons
                 repo.Add(BuildGraphicResourceList("./resources/tilesets.wrsc", ResourceTypeEnum.SpriteSheet));              // Tilesets
             }
         }
@@ -366,7 +382,7 @@ namespace WinterEngine.Library.Factories
             // Add the "Uncategorized" category for each resource type.
             using (CategoryRepository repo = new CategoryRepository())
             {
-                Category category = new Category { Name = "*Uncategorized", ResourceTypeID = (int)ResourceTypeEnum.Area, IsSystemResource = true };
+                Category category = new Category { VisibleName = "*Uncategorized", ResourceTypeID = (int)ResourceTypeEnum.Area, IsSystemResource = true };
                 repo.Add(category);
                 category.ResourceTypeID = (int)ResourceTypeEnum.Conversation;
                 repo.Add(category);

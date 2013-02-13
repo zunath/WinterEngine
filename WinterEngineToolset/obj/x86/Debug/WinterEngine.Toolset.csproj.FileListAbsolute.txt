@@ -142,6 +142,7 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_InvalidDimensions.xnb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_NotPassable.xnb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_Passable.xnb
+C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.config
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.csprojResolveAssemblyReference.cache
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.AboutBox.resources
 C:\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.ModuleProperties.resources
@@ -173,7 +174,6 @@ C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\redball.BMP
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_InvalidDimensions.xnb
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_NotPassable.xnb
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_Passable.xnb
-C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.config
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.manifest
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.application
 C:\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe

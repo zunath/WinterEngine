@@ -34,6 +34,11 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.E
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.csproj.GenerateResource.Cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.pdb
+C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.csprojResolveAssemblyReference.cache
+C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.ExportERF.resources
+C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.ImportERF.resources
+C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.Properties.Resources.resources
+C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.csproj.GenerateResource.Cache
 C:\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.ERF.exe.config
 C:\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.ERF.exe
 C:\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.ERF.pdb
@@ -47,10 +52,5 @@ C:\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.DataTransferObj
 C:\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.Library.pdb
 C:\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\EntityFramework.xml
 C:\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\Ionic.Zip.xml
-C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.csprojResolveAssemblyReference.cache
-C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.ExportERF.resources
-C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.ImportERF.resources
-C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.Properties.Resources.resources
-C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.csproj.GenerateResource.Cache
 C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.exe
 C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.pdb

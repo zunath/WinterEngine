@@ -133,7 +133,7 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 using (CategoryRepository repo = new CategoryRepository())
                 {
                     Category resourceCategory = new Category();
-                    resourceCategory.Name = inputText;
+                    resourceCategory.VisibleName = inputText;
                     resourceCategory.ResourceTypeID = (int)GameObjectResourceType;
 
                     repo.Add(resourceCategory);
@@ -157,9 +157,9 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                 using (CategoryRepository repo = new CategoryRepository())
                 {
                     Category resourceCategoryDTO = treeView.SelectedNode.Tag as Category;
-                    resourceCategoryDTO.Name = inputText;
+                    resourceCategoryDTO.VisibleName = inputText;
                     repo.Update(resourceCategoryDTO);
-                    treeView.SelectedNode.Text = resourceCategoryDTO.Name;
+                    treeView.SelectedNode.Text = resourceCategoryDTO.VisibleName;
                 }
             }
             catch (Exception ex)
@@ -233,14 +233,14 @@ namespace WinterEngine.Toolset.Controls.ViewControls
                     {
                         categoryTreeNode = new TreeNode();
                         categoryTreeNode.Name = categoryKey;
-                        categoryTreeNode.Text = category.Name;
+                        categoryTreeNode.Text = category.VisibleName;
                         treeView.Nodes[0].Nodes.Add(categoryTreeNode);
                     }
                     // Category exists - update its text
                     else
                     {
                         categoryTreeNode = categoryNodesList[0];
-                        categoryTreeNode.Text = category.Name;
+                        categoryTreeNode.Text = category.VisibleName;
                     }
 
                     // Update the category object located on the object's tag

@@ -76,17 +76,17 @@ namespace WinterEngine.Toolset.GUI.Views
 
             if (type == TableTypeEnum.CharacterClass)
             {
-                CharacterClass characterClass = new CharacterClass { Name = "New Class", IsSystemResource = false, Comment = "" };
+                CharacterClass characterClass = new CharacterClass { VisibleName = "New Class", IsSystemResource = false, Comment = "" };
                 Context.CharacterClasses.Add(characterClass);
             }
             else if (type == TableTypeEnum.Item)
             {
-                ItemType itemType = new ItemType {Name = "New Item Type", IsSystemResource = false, Comment = "" };
+                ItemType itemType = new ItemType {VisibleName = "New Item Type", IsSystemResource = false, Comment = "" };
                 Context.ItemTypes.Add(itemType);
             }
             else if (type == TableTypeEnum.ItemProperty)
             {
-                ItemProperty itemProperty = new ItemProperty { Name = "New Item Property", IsSystemResource = false, Comment = "" };
+                ItemProperty itemProperty = new ItemProperty { VisibleName = "New Item Property", IsSystemResource = false, Comment = "" };
                 Context.ItemProperties.Add(itemProperty);
             }
 
