@@ -1,2 +1,2 @@
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.ClientContent\obj\x86\Debug\WinterEngine.ClientContent.contentprojResolveAssemblyReference.cache
 C:\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.ClientContent\obj\x86\Debug\WinterEngine.ClientContent.contentprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\WinterEngine.Client\WinterEngine.ClientContent\obj\x86\Debug\WinterEngine.ClientContent.contentprojResolveAssemblyReference.cache

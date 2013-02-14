@@ -53,6 +53,11 @@ namespace WinterEngine.HakpakBuilder.Builder
             ChangeResourceType(SpriteSheetTypeEnum.Tileset, false);
         }
 
+        private void radioButtonItem_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeResourceType(SpriteSheetTypeEnum.Item, false);
+        }
+
         #endregion
 
         #region Methods
@@ -80,11 +85,15 @@ namespace WinterEngine.HakpakBuilder.Builder
                     case SpriteSheetTypeEnum.Tileset:
                         radioButtonTileset.Checked = true;
                         break;
+                    case SpriteSheetTypeEnum.Item:
+                        radioButtonItem.Checked = true;
+                        break;
                 }
             }
 
         }
         #endregion
+
 
     }
 }

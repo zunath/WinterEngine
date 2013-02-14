@@ -53,8 +53,8 @@
             this.backgroundWorkerProcess = new System.ComponentModel.BackgroundWorker();
             this.progressBarBuild = new System.Windows.Forms.ProgressBar();
             this.saveFileDialogSaveAs = new System.Windows.Forms.SaveFileDialog();
-            this.resourceTypeControl = new WinterEngine.HakpakBuilder.Builder.ResourceTypeControl();
             this.panelHakpakBuilder = new System.Windows.Forms.Panel();
+            this.resourceTypeControl = new WinterEngine.HakpakBuilder.Builder.ResourceTypeControl();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -249,14 +249,6 @@
             this.progressBarBuild.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBarBuild.TabIndex = 10;
             // 
-            // resourceTypeControl
-            // 
-            this.resourceTypeControl.Enabled = false;
-            this.resourceTypeControl.Location = new System.Drawing.Point(12, 390);
-            this.resourceTypeControl.Name = "resourceTypeControl";
-            this.resourceTypeControl.Size = new System.Drawing.Size(199, 26);
-            this.resourceTypeControl.TabIndex = 11;
-            // 
             // panelHakpakBuilder
             // 
             this.panelHakpakBuilder.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -264,6 +256,14 @@
             this.panelHakpakBuilder.Name = "panelHakpakBuilder";
             this.panelHakpakBuilder.Size = new System.Drawing.Size(405, 418);
             this.panelHakpakBuilder.TabIndex = 12;
+            // 
+            // resourceTypeControl
+            // 
+            this.resourceTypeControl.Enabled = false;
+            this.resourceTypeControl.Location = new System.Drawing.Point(12, 390);
+            this.resourceTypeControl.Name = "resourceTypeControl";
+            this.resourceTypeControl.Size = new System.Drawing.Size(375, 26);
+            this.resourceTypeControl.TabIndex = 11;
             // 
             // HakBuilder
             // 

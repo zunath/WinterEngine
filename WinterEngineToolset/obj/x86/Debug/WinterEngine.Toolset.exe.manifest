@@ -176,7 +176,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>+R8ayU0wn9bKuBljwrcLYQ/l03ANpJ2YsJ+APcBH5sw=</dsig:DigestValue>
+        <dsig:DigestValue>FWsJqiW3XvLx1EfwEUxjWjoeITyNCGjzP0HIBl32MX4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -188,7 +188,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>j+0DPtsM2s0+ddsbFRUBGISfDHZ+3Q21pvbN4AJVjl0=</dsig:DigestValue>
+        <dsig:DigestValue>lXSLZ1PgxkZkxrynRA6fp0gGqA2W5XlnBzplmPrNVGg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -200,7 +200,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>UYvMn9+VINzkZhszOlAC/eBslhWlS1CjNUjD2uf+Ui4=</dsig:DigestValue>
+        <dsig:DigestValue>7rlVJUb9fSZyx4XmjfvmvNvAFQcDY1+r9HUk9C/zASI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -212,19 +212,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9U7rMItsC7RtgGzkkwm2bZZqo5/dpUN6jEkF+EMmxsc=</dsig:DigestValue>
+        <dsig:DigestValue>38U91u5UxuteLnUKKKB93ZZFncmCUXGK4N3pGo4Duls=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.HakpakBuilder.exe" size="26624">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.HakpakBuilder.exe" size="27136">
       <assemblyIdentity name="WinterEngine.HakpakBuilder" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>tsHTd7qbM0ocVApfVOb57t8ncXlSNTfiz1P98cyB4zQ=</dsig:DigestValue>
+        <dsig:DigestValue>jSIs3PrCVyiDv4rAGYjl92hVnYTIGTJl080ZGIxb/n4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -236,7 +236,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>k6eb0Orc+2bQ/85h7IYkLIlnxJ+do/+L46bqRdBza1o=</dsig:DigestValue>
+        <dsig:DigestValue>YiZRqCOg+w0R/e22SitqO4paIl0LO2ITgpL7i46TjaU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -248,7 +248,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>myvUL6OvDS2G/2y+l+iz+/lGadQbx/bnB6vXrYZo7yo=</dsig:DigestValue>
+        <dsig:DigestValue>f1cGP/aoCXhcOc6b3/rGTOQ0YUYGZfD4NGxZ+xlto4A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

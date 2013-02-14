@@ -325,7 +325,7 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        private List<SpriteSheet> BuildGraphicResourceList(string path, ResourceTypeEnum resourceType)
+        private List<SpriteSheet> BuildGraphicResourceList(string path)
         {
             List<SpriteSheet> graphicResources = new List<SpriteSheet>();
             
@@ -347,7 +347,7 @@ namespace WinterEngine.Library.Factories
                         resource.VisibleName = resourceElement.Element("Name").Value;
                         resource.ResourceFileName = resourceElement.Element("Name").Value + ".xnb";
                         resource.ResourcePackagePath = path;
-                        resource.ResourceTypeID = (int)resourceType;
+                        resource.ResourceTypeID = (int)ResourceTypeEnum.SpriteSheet;
                         resource.SpriteSheetType = spriteSheetType;
                         resource.IsSystemResource = true;
                         
@@ -368,8 +368,8 @@ namespace WinterEngine.Library.Factories
         {
             using (SpriteSheetRepository repo = new SpriteSheetRepository())
             {
-                //repo.Add(BuildGraphicResourceList("./resources/items.wrsc", ResourceTypeEnum.SpriteSheet));                 // Item icons
-                repo.Add(BuildGraphicResourceList("./resources/tilesets.wrsc", ResourceTypeEnum.SpriteSheet));              // Tilesets
+                repo.Add(BuildGraphicResourceList("./resources/items.wrsc"));                 // Item icons
+                repo.Add(BuildGraphicResourceList("./resources/tilesets.wrsc"));              // Tilesets
             }
         }
 

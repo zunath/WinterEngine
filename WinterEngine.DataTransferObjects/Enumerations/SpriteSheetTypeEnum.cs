@@ -10,6 +10,7 @@ namespace WinterEngine.DataTransferObjects.Enumerations
     {
         Tileset = 1,
         Character = 2,
-        Audio = 3
+        Audio = 3,
+        Item = 4
     }
 }

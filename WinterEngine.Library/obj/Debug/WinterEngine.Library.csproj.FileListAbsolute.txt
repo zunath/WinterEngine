@@ -8,24 +8,6 @@ C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.L
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.csprojResolveAssemblyReference.cache
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.dll
 C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.Library.dll.config
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.Library.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.Library.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\EntityFramework.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Ionic.Zip.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.Graphics.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.DataAccess.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.DataTransferObjects.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.DataAccess.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.DataTransferObjects.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\EntityFramework.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Ionic.Zip.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.Graphics.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.csprojResolveAssemblyReference.cache
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.pdb
 C:\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.csprojResolveAssemblyReference.cache
 C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.Library.dll.config
 C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.Library.dll
@@ -44,3 +26,21 @@ C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.
 C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.Graphics.xml
 C:\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.dll
 C:\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.Library.dll.config
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.Library.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.Library.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\EntityFramework.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Ionic.Zip.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.DataAccess.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.DataTransferObjects.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.DataAccess.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\WinterEngine.DataTransferObjects.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\EntityFramework.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Ionic.Zip.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.Graphics.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.pdb

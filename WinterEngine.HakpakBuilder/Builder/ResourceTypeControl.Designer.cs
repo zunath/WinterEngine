@@ -31,6 +31,7 @@
             this.radioButtonAudio = new System.Windows.Forms.RadioButton();
             this.radioButtonCharacter = new System.Windows.Forms.RadioButton();
             this.radioButtonTileset = new System.Windows.Forms.RadioButton();
+            this.radioButtonItem = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // radioButtonAudio
@@ -58,25 +59,37 @@
             // radioButtonTileset
             // 
             this.radioButtonTileset.AutoSize = true;
-            this.radioButtonTileset.Checked = true;
             this.radioButtonTileset.Location = new System.Drawing.Point(3, 3);
             this.radioButtonTileset.Name = "radioButtonTileset";
             this.radioButtonTileset.Size = new System.Drawing.Size(56, 17);
             this.radioButtonTileset.TabIndex = 14;
-            this.radioButtonTileset.TabStop = true;
             this.radioButtonTileset.Text = "Tileset";
             this.radioButtonTileset.UseVisualStyleBackColor = true;
             this.radioButtonTileset.CheckedChanged += new System.EventHandler(this.radioButtonTileset_CheckedChanged);
+            // 
+            // radioButtonItem
+            // 
+            this.radioButtonItem.AutoSize = true;
+            this.radioButtonItem.Checked = true;
+            this.radioButtonItem.Location = new System.Drawing.Point(199, 3);
+            this.radioButtonItem.Name = "radioButtonItem";
+            this.radioButtonItem.Size = new System.Drawing.Size(45, 17);
+            this.radioButtonItem.TabIndex = 17;
+            this.radioButtonItem.TabStop = true;
+            this.radioButtonItem.Text = "Item";
+            this.radioButtonItem.UseVisualStyleBackColor = true;
+            this.radioButtonItem.CheckedChanged += new System.EventHandler(this.radioButtonItem_CheckedChanged);
             // 
             // ResourceTypeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.radioButtonItem);
             this.Controls.Add(this.radioButtonAudio);
             this.Controls.Add(this.radioButtonCharacter);
             this.Controls.Add(this.radioButtonTileset);
             this.Name = "ResourceTypeControl";
-            this.Size = new System.Drawing.Size(199, 26);
+            this.Size = new System.Drawing.Size(292, 26);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -87,5 +100,6 @@
         private System.Windows.Forms.RadioButton radioButtonAudio;
         private System.Windows.Forms.RadioButton radioButtonCharacter;
         private System.Windows.Forms.RadioButton radioButtonTileset;
+        private System.Windows.Forms.RadioButton radioButtonItem;
     }
 }
