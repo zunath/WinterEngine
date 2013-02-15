@@ -10,6 +10,7 @@ namespace WinterEngine.DataTransferObjects.Enumerations
     {
         Icon_InvalidDimensions = 1,
         Icon_NotPassable = 2,
-        Icon_Passable = 3
+        Icon_Passable = 3,
+        Icon_SelectedTile = 4
     }
 }

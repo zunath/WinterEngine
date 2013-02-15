@@ -32,11 +32,14 @@ namespace WinterEngine.Library.Factories
                 case EngineResourceEnum.Icon_Passable:
                     path = "./Content/Icons/Icon_Passable.xnb";
                     break;
+                case EngineResourceEnum.Icon_SelectedTile:
+                    path = "./Content/Icons/Icon_SelectedTile.xnb";
+                    break;
             }
 
             if (!returnExtension)
             {
-                path = Path.GetDirectoryName(path) + Path.GetFileNameWithoutExtension(path);
+                path = Path.GetDirectoryName(path) + "/" + Path.GetFileNameWithoutExtension(path);
             }
 
             return path;

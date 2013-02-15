@@ -377,6 +377,9 @@
     <None Include="Content\Icons\Icon_Passable.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Icons\Icon_SelectedTile.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Controls\XnaControls\TilesetEditor\TilesetEditor_InvalidDimensions.xnb" />
     <None Include="Controls\XnaControls\TilesetEditor\TilesetEditor_NotPassable.xnb" />
     <None Include="Controls\XnaControls\TilesetEditor\TilesetEditor_Passable.xnb" />

@@ -22,10 +22,11 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
         private SpriteBatch _spriteBatch;
         private SpriteSheet _spriteSheet;
         private Texture2D _texture;
-        private Cell _activeCell;
+        private Cell _selectedTile;
         private TilesetEditorModeTypeEnum _modeType;
         private Texture2D _notPassableTexture;
         private Texture2D _passableTexture;
+        private Texture2D _selectedTileTexture;
 
         #endregion
 
@@ -72,12 +73,12 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
         }
 
         /// <summary>
-        /// Gets or sets the active cell.
+        /// Gets or sets the active tile.
         /// </summary>
-        public Cell ActiveCell
+        public Cell SelectedTile
         {
-            get { return _activeCell; }
-            set { _activeCell = value; }
+            get { return _selectedTile; }
+            set { _selectedTile = value; }
         }
 
         /// <summary>
@@ -107,6 +108,15 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
             set { _passableTexture = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the texture used for the selected tileset icon.
+        /// </summary>
+        private Texture2D SelectedTileTexture
+        {
+            get { return _selectedTileTexture; }
+            set { _selectedTileTexture = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -126,13 +136,47 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
         #endregion
 
         #region Overrides
+
+        /// <summary>
+        /// Handles initializing the ContentManager and the SpriteBatch objects.
+        /// </summary>
         protected override void Initialize()
         {
             _content = new ContentManager(Services);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+        }
 
-            //NotPassableTexture = Content.Load<Texture2D>("./TilesetEditor_NotPassable");
-            //PassableTexture = Content.Load<Texture2D>("./TilesetEditor_Passable");
+        /// <summary>
+        /// Handles loading icon textures into memory and initialization of other variables.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            EngineResourceFactory resourceFactory = new EngineResourceFactory();
+
+            // Load icons into memory.
+            NotPassableTexture = Content.Load<Texture2D>(resourceFactory.GetResourcePath(EngineResourceEnum.Icon_NotPassable, false));
+            PassableTexture = Content.Load<Texture2D>(resourceFactory.GetResourcePath(EngineResourceEnum.Icon_Passable, false));
+            SelectedTileTexture = Content.Load<Texture2D>(resourceFactory.GetResourcePath(EngineResourceEnum.Icon_SelectedTile, false));
+
+            // Create a new cell at position 0, 0
+            SelectedTile = new Cell();
+            SelectedTile.CellX = 0;
+            SelectedTile.CellY = 0;
+
+        }
+
+        /// <summary>
+        /// Handles changing the selected cell.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                SelectedTile.CellX = e.X / SelectedTile.MaxTileWidth;
+                SelectedTile.CellY = e.Y / SelectedTile.MaxTileHeight;
+            }
         }
 
         #endregion
@@ -164,16 +208,10 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
             if (!Object.ReferenceEquals(GraphicResource, null))
             {
                 GraphicFactory graphicFactory = new GraphicFactory();
-                EngineResourceFactory resourceFactory = new EngineResourceFactory();
-
                 GraphicTexture = graphicFactory.GetSpriteSheet(Content, GraphicResource);
-
-                if (GraphicTexture.Width % 64 > 0 || GraphicTexture.Height % 64 > 0)
-                {
-                    GraphicTexture = Content.Load<Texture2D>(resourceFactory.GetResourcePath(EngineResourceEnum.Icon_InvalidDimensions, false));
-                }
             }
         }
+
 
         /// <summary>
         /// Handles drawing to the editor control.
@@ -184,6 +222,7 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
 
             Batch.Begin();
 
+            // If valid, display the tileset sprite sheet.
             if (!Object.ReferenceEquals(GraphicResource, null))
             {
                 Vector2 origin = new Vector2(0, 0);
@@ -191,6 +230,15 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
                 Rectangle source = new Rectangle(0, 0, GraphicTexture.Width, GraphicTexture.Height);
                 
                 Batch.Draw(GraphicTexture, destination, source, Color.White, 0.0f, origin, SpriteEffects.None, 0.0f);
+
+                // Display the selected cell, if available
+                if (!Object.ReferenceEquals(SelectedTile, null))
+                {
+                    destination = new Rectangle(SelectedTile.TileX, SelectedTile.TileY, SelectedTile.MaxTileWidth, SelectedTile.MaxTileHeight);
+                    source = new Rectangle(0, 0, SelectedTile.MaxTileWidth, SelectedTile.MaxTileHeight);
+                    Batch.Draw(SelectedTileTexture, destination, source, Color.White, 0.0f, origin, SpriteEffects.None, 0.0f);
+                }
+
             }
 
             Batch.End();
