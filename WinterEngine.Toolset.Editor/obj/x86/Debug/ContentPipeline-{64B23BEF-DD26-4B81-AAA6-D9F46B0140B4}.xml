@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}</ContentProjectGUID>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4TemplateContent\</RootDirectory>
+      <LoggerRootDirectory>C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4Template\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2012-03-02T20:28:33.2554084-06:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

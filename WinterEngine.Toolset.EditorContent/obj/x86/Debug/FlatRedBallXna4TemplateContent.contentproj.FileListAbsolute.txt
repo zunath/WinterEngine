@@ -1,0 +1,1 @@
+C:\BuildServer\TeamCity\buildAgent\work\FlatRedBallProjects\Templates\FlatRedBallXna4Template\FlatRedBallXna4Template\FlatRedBallXna4TemplateContent\obj\x86\Debug\ResolveAssemblyReference.cache

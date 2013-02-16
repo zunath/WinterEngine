@@ -32,6 +32,9 @@
             this.tabPageEditor = new System.Windows.Forms.TabPage();
             this.panelAreaObjectViewer = new System.Windows.Forms.Panel();
             this.tabPageAreaDetails = new System.Windows.Forms.TabPage();
+            this.resrefTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox();
+            this.tagTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.TagTextBox();
+            this.nameTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
             this.labelAreaDetailsHeader = new System.Windows.Forms.Label();
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
@@ -43,9 +46,6 @@
             this.textBoxAreaComments = new System.Windows.Forms.TextBox();
             this.buttonDiscardChanges = new System.Windows.Forms.Button();
             this.buttonApplyChanges = new System.Windows.Forms.Button();
-            this.resrefTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.ResrefTextBox();
-            this.tagTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.TagTextBox();
-            this.nameTextBoxArea = new WinterEngine.Toolset.Controls.GenericControls.NameTextBox();
             this.tabControlProperties.SuspendLayout();
             this.tabPageEditor.SuspendLayout();
             this.tabPageAreaDetails.SuspendLayout();
@@ -82,9 +82,10 @@
             // 
             // panelAreaObjectViewer
             // 
-            this.panelAreaObjectViewer.Location = new System.Drawing.Point(0, 0);
+            this.panelAreaObjectViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAreaObjectViewer.Location = new System.Drawing.Point(3, 3);
             this.panelAreaObjectViewer.Name = "panelAreaObjectViewer";
-            this.panelAreaObjectViewer.Size = new System.Drawing.Size(367, 391);
+            this.panelAreaObjectViewer.Size = new System.Drawing.Size(288, 385);
             this.panelAreaObjectViewer.TabIndex = 0;
             // 
             // tabPageAreaDetails
@@ -103,6 +104,42 @@
             this.tabPageAreaDetails.TabIndex = 1;
             this.tabPageAreaDetails.Text = "Details";
             this.tabPageAreaDetails.UseVisualStyleBackColor = true;
+            // 
+            // resrefTextBoxArea
+            // 
+            this.resrefTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.resrefTextBoxArea.Enabled = false;
+            this.resrefTextBoxArea.IsValid = false;
+            this.resrefTextBoxArea.Location = new System.Drawing.Point(81, 112);
+            this.resrefTextBoxArea.Name = "resrefTextBoxArea";
+            this.resrefTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.resrefTextBoxArea.ResrefText = "";
+            this.resrefTextBoxArea.Size = new System.Drawing.Size(294, 28);
+            this.resrefTextBoxArea.TabIndex = 10;
+            // 
+            // tagTextBoxArea
+            // 
+            this.tagTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tagTextBoxArea.IsValid = true;
+            this.tagTextBoxArea.Location = new System.Drawing.Point(81, 86);
+            this.tagTextBoxArea.Name = "tagTextBoxArea";
+            this.tagTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxArea.Size = new System.Drawing.Size(294, 28);
+            this.tagTextBoxArea.TabIndex = 9;
+            this.tagTextBoxArea.TagText = "";
+            // 
+            // nameTextBoxArea
+            // 
+            this.nameTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nameTextBoxArea.IsValid = false;
+            this.nameTextBoxArea.Location = new System.Drawing.Point(81, 58);
+            this.nameTextBoxArea.Name = "nameTextBoxArea";
+            this.nameTextBoxArea.NameText = "";
+            this.nameTextBoxArea.Size = new System.Drawing.Size(294, 28);
+            this.nameTextBoxArea.TabIndex = 8;
             // 
             // labelAreaDetailsHeader
             // 
@@ -220,42 +257,6 @@
             this.buttonApplyChanges.Text = "Apply Changes";
             this.buttonApplyChanges.UseVisualStyleBackColor = true;
             this.buttonApplyChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
-            // 
-            // resrefTextBoxArea
-            // 
-            this.resrefTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.resrefTextBoxArea.Enabled = false;
-            this.resrefTextBoxArea.IsValid = false;
-            this.resrefTextBoxArea.Location = new System.Drawing.Point(81, 112);
-            this.resrefTextBoxArea.Name = "resrefTextBoxArea";
-            this.resrefTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
-            this.resrefTextBoxArea.ResrefText = "";
-            this.resrefTextBoxArea.Size = new System.Drawing.Size(294, 28);
-            this.resrefTextBoxArea.TabIndex = 10;
-            // 
-            // tagTextBoxArea
-            // 
-            this.tagTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tagTextBoxArea.IsValid = true;
-            this.tagTextBoxArea.Location = new System.Drawing.Point(81, 86);
-            this.tagTextBoxArea.Name = "tagTextBoxArea";
-            this.tagTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
-            this.tagTextBoxArea.Size = new System.Drawing.Size(294, 28);
-            this.tagTextBoxArea.TabIndex = 9;
-            this.tagTextBoxArea.TagText = "";
-            // 
-            // nameTextBoxArea
-            // 
-            this.nameTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.nameTextBoxArea.IsValid = false;
-            this.nameTextBoxArea.Location = new System.Drawing.Point(81, 58);
-            this.nameTextBoxArea.Name = "nameTextBoxArea";
-            this.nameTextBoxArea.NameText = "";
-            this.nameTextBoxArea.Size = new System.Drawing.Size(294, 28);
-            this.nameTextBoxArea.TabIndex = 8;
             // 
             // AreaPropertiesControl
             // 

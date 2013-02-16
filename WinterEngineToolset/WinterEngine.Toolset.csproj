@@ -71,6 +71,13 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="FlatRedBall, Version=2013.1.21.1368, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\Libraries\Xna4Pc\FlatRedBall.dll</HintPath>
+    </Reference>
+    <Reference Include="FlatRedBall.Content">
+      <HintPath>..\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\Libraries\Xna4Pc\FlatRedBall.Content.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
@@ -226,7 +233,13 @@
     <Compile Include="Controls\ViewControls\TreeCategoryControl.Designer.cs">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XnaControls\Shared\ModelViewerControl.cs">
+    <Compile Include="Controls\XnaControls\Shared\FRBControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\XnaControls\Shared\FRBControl.Designer.cs">
+      <DependentUpon>FRBControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\XnaControls\Shared\XNAModelViewerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\XnaControls\TilesetEditor\XNATilesetControl.cs">
@@ -283,11 +296,11 @@
     <Compile Include="GUI\Views\ItemView.Designer.cs">
       <DependentUpon>ItemView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceControl.cs">
+    <Compile Include="Controls\XnaControls\Shared\XNABaseControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\XnaControls\Shared\GraphicsDeviceService.cs" />
-    <Compile Include="Controls\XnaControls\Shared\ServiceContainer.cs" />
+    <Compile Include="Controls\XnaControls\Shared\XNAGraphicsDeviceService.cs" />
+    <Compile Include="Controls\XnaControls\Shared\XNAServiceContainer.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -333,6 +346,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ViewControls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\XnaControls\Shared\FRBControl.resx">
+      <DependentUpon>FRBControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Views\AdvancedView.resx">
       <DependentUpon>AdvancedView.cs</DependentUpon>
@@ -380,9 +396,6 @@
     <None Include="Content\Icons\Icon_SelectedTile.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Controls\XnaControls\TilesetEditor\TilesetEditor_InvalidDimensions.xnb" />
-    <None Include="Controls\XnaControls\TilesetEditor\TilesetEditor_NotPassable.xnb" />
-    <None Include="Controls\XnaControls\TilesetEditor\TilesetEditor_Passable.xnb" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -449,6 +462,10 @@
     <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
       <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
       <Name>WinterEngine.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.Toolset.Editor\WinterEngine.Toolset.Editor.csproj">
+      <Project>{9f43a0ad-a88c-4064-ae28-86fb399b9a18}</Project>
+      <Name>WinterEngine.Toolset.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

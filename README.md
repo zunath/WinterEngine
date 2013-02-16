@@ -1,7 +1,8 @@
-WinterEngine
+Winter Engine
 ============
 
-Winter Engine - Game engine based on Neverwinter Nights.
+Winter Engine - The community game engine
+http://www.winterengine.com
 
 
 Work in progress....

@@ -148,6 +148,7 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_InvalidDimensions.xnb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_NotPassable.xnb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_Passable.xnb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_SelectedTile.xnb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.config
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.exe.manifest
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.application
@@ -155,6 +156,8 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\AutoMapper.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\FlatRedBall.Content.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\FlatRedBall.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\System.Data.SqlServerCe.dll
@@ -164,17 +167,18 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.ERF.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.HakpakBuilder.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Library.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\FlatRedBall.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.Editor.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Client.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.ERF.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.HakpakBuilder.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Toolset.Editor.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.DataAccess.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.DataTransferObjects.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\WinterEngine.Library.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\AutoMapper.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\EntityFramework.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\FlatRedBall.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Ionic.Zip.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.csprojResolveAssemblyReference.cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.AboutBox.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ControlHelpers.ModuleProperties.resources
@@ -191,6 +195,7 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.PlaceablePropertiesControl.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.TilesetViewerControl.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.ViewControls.TreeCategoryControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.Controls.XnaControls.Shared.FRBControl.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.AdvancedView.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.AreaView.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.GUI.Views.GraphicView.resources
@@ -204,4 +209,3 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineTo
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.application
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\obj\x86\Debug\WinterEngine.Toolset.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineToolset\bin\Debug\Content\Icons\Icon_SelectedTile.xnb

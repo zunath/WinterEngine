@@ -231,6 +231,10 @@ namespace WinterEngine.Client.Entities
 		{
 			InstructionManager.IgnorePausingFor(this);
 		}
+		public void MoveToLayer (Layer layerToMoveTo)
+		{
+			LayerProvidedByContainer = layerToMoveTo;
+		}
 
     }
 	

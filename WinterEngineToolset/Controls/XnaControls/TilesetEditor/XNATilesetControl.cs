@@ -12,10 +12,11 @@ using WinterEngine.Library.Factories;
 using WinterEngine.Library.Helpers;
 using WinterEngine.Toolset.Controls.XnaControls.Shared;
 using WinterEngine.Toolset.ExtendedEventArgs;
+using FlatRedBall;
 
 namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
 {
-    public partial class XNATilesetControl : GraphicsDeviceControl
+    public partial class XNATilesetControl : XNABaseControl
     {
         #region Fields
         private ContentManager _content;
@@ -159,7 +160,7 @@ namespace WinterEngine.Toolset.Controls.XnaControls.TilesetEditor
             PassableTexture = Content.Load<Texture2D>(resourceFactory.GetResourcePath(EngineResourceEnum.Icon_Passable, false));
             SelectedTileTexture = Content.Load<Texture2D>(resourceFactory.GetResourcePath(EngineResourceEnum.Icon_SelectedTile, false));
 
-            // Create a new cell at position 0, 0
+            // Create a new cell at position (0, 0)
             SelectedTile = new Cell();
             SelectedTile.CellX = 0;
             SelectedTile.CellY = 0;

@@ -49,6 +49,10 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         public AreaPropertiesControl()
         {
             InitializeComponent();
+
+            FRBControl frbControl = new FRBControl();
+            frbControl.Dock = DockStyle.Fill;
+            panelAreaObjectViewer.Controls.Add(frbControl);
         }
 
         #endregion
@@ -131,5 +135,6 @@ namespace WinterEngine.Toolset.Controls.ViewControls
         }
 
         #endregion
+
     }
 }

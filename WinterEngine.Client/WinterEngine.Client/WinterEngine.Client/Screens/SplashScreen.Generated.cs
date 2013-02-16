@@ -156,7 +156,7 @@ namespace WinterEngine.Client.Screens
 		public override void Destroy()
 		{
 			// Generated Destroy
-			if (this.UnloadsContentManagerWhenDestroyed)
+			if (this.UnloadsContentManagerWhenDestroyed && ContentManagerName != "Global")
 			{
 				SceneFile.RemoveFromManagers(ContentManagerName != "Global");
 			}
@@ -292,7 +292,9 @@ namespace WinterEngine.Client.Screens
 		{
 			this.CurrentState = state;
 			
+			#if !MONOGAME
 			ScreenManager.PushStateToStack((int)this.CurrentState);
+			#endif
 		}
 		[System.Obsolete("Use GetFile instead")]
 		public static object GetStaticMember (string memberName)
