@@ -88,5 +88,19 @@ namespace WinterEngine.Library.Factories
                     return FileTypeEnum.Invalid;
             }
         }
+
+        /// <summary>
+        /// Returns a string containing a filter for Open/Save File Dialogs for
+        /// ONLY graphic files.
+        /// </summary>
+        /// <returns></returns>
+        public string BuildGraphicFileFilter()
+        {
+            string filter = "All Available Types|*.png|" +
+                            "Sprite Sheet Files|*.png";
+
+            return filter;
+        }
+
     }
 }

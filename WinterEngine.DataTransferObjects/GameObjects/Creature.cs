@@ -13,8 +13,6 @@ namespace WinterEngine.DataTransferObjects.GameObjects
 
         public Race Race { get; set; }
         public string Description { get; set; }
-        public SpriteSheet Model { get; set; }
-        public SpriteSheet Portrait { get; set; }
 
         #endregion
 

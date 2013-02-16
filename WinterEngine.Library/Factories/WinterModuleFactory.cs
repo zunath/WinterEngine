@@ -9,7 +9,7 @@ using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Graphics;
-using WinterEngine.Library.Helpers;
+using WinterEngine.Library.Utility;
 
 namespace WinterEngine.Library.Factories
 {
@@ -320,57 +320,11 @@ namespace WinterEngine.Library.Factories
         #region Module Initialization Methods
 
         /// <summary>
-        /// Builds a list of graphic resources which are contained inside of a particular
-        /// archive at the specified path.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        private List<SpriteSheet> BuildGraphicResourceList(string path)
-        {
-            List<SpriteSheet> graphicResources = new List<SpriteSheet>();
-            
-            if (File.Exists(path))
-            {
-                using (ZipFile zipFile = new ZipFile(path))
-                {
-                    string manifestPath = TemporaryDirectoryPath;
-                    zipFile["Manifest.xml"].Extract(manifestPath);
-                    manifestPath += "/Manifest.xml";
-
-                    foreach (XElement resourceElement in XElement.Load(manifestPath).Elements("Resource"))
-                    {
-                        SpriteSheet resource = new SpriteSheet();
-
-                        // Convert the string representation of a SpriteSheetTypeEnum to an actual SpriteSheetTypeEnum enumeration object.
-                        SpriteSheetTypeEnum spriteSheetType = (SpriteSheetTypeEnum)Enum.Parse(typeof(SpriteSheetTypeEnum), resourceElement.Element("Type").Value);
-
-                        resource.VisibleName = resourceElement.Element("Name").Value;
-                        resource.ResourceFileName = resourceElement.Element("Name").Value + ".xnb";
-                        resource.ResourcePackagePath = path;
-                        resource.ResourceTypeID = (int)ResourceTypeEnum.SpriteSheet;
-                        resource.SpriteSheetType = spriteSheetType;
-                        resource.IsSystemResource = true;
-                        
-                        graphicResources.Add(resource);
-                    }
-
-                    File.Delete(manifestPath);
-                }
-            }
-            return graphicResources;
-        }
-
-        /// <summary>
         /// Handles loading the standardized resource pack files into the database for the module.
         /// These are graphic files for each resource type.
         /// </summary>
         private void LoadResourcePacks()
         {
-            using (SpriteSheetRepository repo = new SpriteSheetRepository())
-            {
-                repo.Add(BuildGraphicResourceList("./resources/items.wrsc"));                 // Item icons
-                repo.Add(BuildGraphicResourceList("./resources/tilesets.wrsc"));              // Tilesets
-            }
         }
 
         /// <summary>

@@ -149,125 +149,48 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ControlHelpers\ModuleProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\ControlHelpers\ModuleProperties.Designer.cs">
-      <DependentUpon>ModuleProperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ControlHelpers\NewModuleEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\ControlHelpers\NewModuleEntry.Designer.cs">
-      <DependentUpon>NewModuleEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ControlHelpers\InputMessageBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\ControlHelpers\InputMessageBox.Designer.cs">
-      <DependentUpon>InputMessageBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ControlHelpers\NewObjectEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\ControlHelpers\NewObjectEntry.Designer.cs">
-      <DependentUpon>NewObjectEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ViewControls\AreaPropertiesControl.cs">
+    <Compile Include="Controls\AreaPropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ViewControls\AreaPropertiesControl.Designer.cs">
+    <Compile Include="Controls\AreaPropertiesControl.Designer.cs">
       <DependentUpon>AreaPropertiesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ViewControls\GraphicPropertiesControl.cs">
+    <Compile Include="Controls\CreaturePropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ViewControls\GraphicPropertiesControl.Designer.cs">
-      <DependentUpon>GraphicPropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ViewControls\CreaturePropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ViewControls\CreaturePropertiesControl.Designer.cs">
+    <Compile Include="Controls\CreaturePropertiesControl.Designer.cs">
       <DependentUpon>CreaturePropertiesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ViewControls\ItemPropertiesControl.cs">
+    <Compile Include="Controls\ItemPropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ViewControls\ItemPropertiesControl.Designer.cs">
+    <Compile Include="Controls\ItemPropertiesControl.Designer.cs">
       <DependentUpon>ItemPropertiesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\GenericControls\NameTextBox.cs">
+    <Compile Include="Controls\PlaceablePropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\GenericControls\NameTextBox.Designer.cs">
-      <DependentUpon>NameTextBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\GenericControls\TagTextBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\GenericControls\TagTextBox.Designer.cs">
-      <DependentUpon>TagTextBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\GenericControls\ResrefTextBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\GenericControls\ResrefTextBox.Designer.cs">
-      <DependentUpon>ResrefTextBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ViewControls\PlaceablePropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ViewControls\PlaceablePropertiesControl.Designer.cs">
+    <Compile Include="Controls\PlaceablePropertiesControl.Designer.cs">
       <DependentUpon>PlaceablePropertiesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ViewControls\TilesetViewerControl.cs">
+    <Compile Include="Controls\TreeCategoryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ViewControls\TilesetViewerControl.Designer.cs">
-      <DependentUpon>TilesetViewerControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ViewControls\TreeCategoryControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ViewControls\TreeCategoryControl.Designer.cs">
+    <Compile Include="Controls\TreeCategoryControl.Designer.cs">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XnaControls\Shared\FRBControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\XnaControls\Shared\FRBControl.Designer.cs">
-      <DependentUpon>FRBControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\XnaControls\Shared\XNAModelViewerControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\XnaControls\TilesetEditor\XNATilesetControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\XnaControls\TilesetEditor\XNATilesetControl.Designer.cs">
-      <DependentUpon>XNATilesetControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ExtendedEventArgs\GameObjectEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
-    <Compile Include="ExtendedEventArgs\TilesetEditorEventArgs.cs" />
-    <Compile Include="GUI\Views\AdvancedView.cs">
+    <Compile Include="Views\AdvancedView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\Views\AdvancedView.Designer.cs">
+    <Compile Include="Views\AdvancedView.Designer.cs">
       <DependentUpon>AdvancedView.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Views\GraphicView.cs">
+    <Compile Include="Views\IViewControls.cs" />
+    <Compile Include="Views\AreaView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\Views\GraphicView.Designer.cs">
-      <DependentUpon>GraphicView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Views\IViewControls.cs" />
-    <Compile Include="GUI\Views\AreaView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Views\AreaView.Designer.cs">
+    <Compile Include="Views\AreaView.Designer.cs">
       <DependentUpon>AreaView.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -276,91 +199,62 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewModuleEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewModuleEntry.Designer.cs">
+      <DependentUpon>NewModuleEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GUI\Views\CreatureView.cs">
+    <Compile Include="Views\CreatureView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\Views\CreatureView.Designer.cs">
+    <Compile Include="Views\CreatureView.Designer.cs">
       <DependentUpon>CreatureView.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Views\PlaceableView.cs">
+    <Compile Include="Views\PlaceableView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\Views\PlaceableView.Designer.cs">
+    <Compile Include="Views\PlaceableView.Designer.cs">
       <DependentUpon>PlaceableView.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Views\ItemView.cs">
+    <Compile Include="Views\ItemView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\Views\ItemView.Designer.cs">
+    <Compile Include="Views\ItemView.Designer.cs">
       <DependentUpon>ItemView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XnaControls\Shared\XNABaseControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\XnaControls\Shared\XNAGraphicsDeviceService.cs" />
-    <Compile Include="Controls\XnaControls\Shared\XNAServiceContainer.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ControlHelpers\ModuleProperties.resx">
-      <DependentUpon>ModuleProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ControlHelpers\NewModuleEntry.resx">
-      <DependentUpon>NewModuleEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ControlHelpers\InputMessageBox.resx">
-      <DependentUpon>InputMessageBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ControlHelpers\NewObjectEntry.resx">
-      <DependentUpon>NewObjectEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ViewControls\AreaPropertiesControl.resx">
+    <EmbeddedResource Include="Controls\AreaPropertiesControl.resx">
       <DependentUpon>AreaPropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ViewControls\GraphicPropertiesControl.resx">
-      <DependentUpon>GraphicPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ViewControls\CreaturePropertiesControl.resx">
+    <EmbeddedResource Include="Controls\CreaturePropertiesControl.resx">
       <DependentUpon>CreaturePropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ViewControls\ItemPropertiesControl.resx">
+    <EmbeddedResource Include="Controls\ItemPropertiesControl.resx">
       <DependentUpon>ItemPropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\GenericControls\NameTextBox.resx">
-      <DependentUpon>NameTextBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\GenericControls\TagTextBox.resx">
-      <DependentUpon>TagTextBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\GenericControls\ResrefTextBox.resx">
-      <DependentUpon>ResrefTextBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ViewControls\PlaceablePropertiesControl.resx">
+    <EmbeddedResource Include="Controls\PlaceablePropertiesControl.resx">
       <DependentUpon>PlaceablePropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ViewControls\TilesetViewerControl.resx">
-      <DependentUpon>TilesetViewerControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ViewControls\TreeCategoryControl.resx">
+    <EmbeddedResource Include="Controls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\XnaControls\Shared\FRBControl.resx">
-      <DependentUpon>FRBControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Views\AdvancedView.resx">
+    <EmbeddedResource Include="Views\AdvancedView.resx">
       <DependentUpon>AdvancedView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Views\AreaView.resx">
+    <EmbeddedResource Include="Views\AreaView.resx">
       <DependentUpon>AreaView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Views\GraphicView.resx">
-      <DependentUpon>GraphicView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewModuleEntry.resx">
+      <DependentUpon>NewModuleEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -372,13 +266,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="GUI\Views\CreatureView.resx">
+    <EmbeddedResource Include="Views\CreatureView.resx">
       <DependentUpon>CreatureView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Views\PlaceableView.resx">
+    <EmbeddedResource Include="Views\PlaceableView.resx">
       <DependentUpon>PlaceableView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Views\ItemView.resx">
+    <EmbeddedResource Include="Views\ItemView.resx">
       <DependentUpon>ItemView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config">
@@ -439,10 +333,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client.csproj">
-      <Project>{649de040-99c6-4838-ada3-533d0dbd4325}</Project>
-      <Name>WinterEngine.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.DataAccess\WinterEngine.DataAccess.csproj">
       <Project>{0e481c4b-dd8f-4b26-84e7-cacda79288f0}</Project>
       <Name>WinterEngine.DataAccess</Name>
@@ -451,13 +341,17 @@
       <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>
       <Name>WinterEngine.DataTransferObjects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.Editor.Graphics\WinterEngine.Editor.Graphics.csproj">
+      <Project>{3ce98615-8d43-4f68-81a4-6a2a50a49948}</Project>
+      <Name>WinterEngine.Editor.Graphics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.ERF\WinterEngine.ERF.csproj">
       <Project>{71c617b1-e588-4187-8773-c0b6ef4569a1}</Project>
       <Name>WinterEngine.ERF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.HakpakBuilder\WinterEngine.Hakpak.csproj">
-      <Project>{cb8fc1f9-0ea1-4f21-90ef-9776b8ae8337}</Project>
-      <Name>WinterEngine.Hakpak</Name>
+    <ProjectReference Include="..\WinterEngine.Forms.Controls\WinterEngine.Forms.Controls.csproj">
+      <Project>{74bbae95-89e1-4c79-9880-07448ae63871}</Project>
+      <Name>WinterEngine.Forms.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
       <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
@@ -471,6 +365,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"

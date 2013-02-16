@@ -24,8 +24,6 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         private List<ItemProperty> _itemProperties;
         private int _tileWidth;
         private int _tileHeight;
-        private SpriteSheet _inventoryIconGraphic;
-        private SpriteSheet _modelGraphic;
 
         #endregion
 
@@ -120,24 +118,6 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         {
             get { return _tileHeight; }
             set { _tileHeight = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the inventory icon graphic for the item.
-        /// </summary>
-        public SpriteSheet InventoryIconGraphic
-        {
-            get { return _inventoryIconGraphic; }
-            set { _inventoryIconGraphic = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the inventory's 3D model graphic
-        /// </summary>
-        public SpriteSheet ModelGraphic
-        {
-            get { return _modelGraphic; }
-            set { _modelGraphic = value; }
         }
 
         #endregion

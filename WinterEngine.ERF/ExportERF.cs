@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using WinterEngine.Library.Factories;
 using System.Collections.Generic;
-using WinterEngine.Library.Helpers;
+using WinterEngine.Library.Utility;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess;

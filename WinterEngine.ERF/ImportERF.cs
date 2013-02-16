@@ -9,7 +9,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.Library.Factories;
-using WinterEngine.Library.Helpers;
+using WinterEngine.Library.Utility;
 
 namespace WinterEngine.ERF
 {

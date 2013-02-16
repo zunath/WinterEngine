@@ -19,9 +19,6 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<CharacterClass> CharacterClasses { get; set; }
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
-        public DbSet<SpriteSheet> SpriteSheets { get; set; }
-        public DbSet<Tile> Tiles { get; set; }
-        public DbSet<Tileset> Tilesets { get; set; }
         public DbSet<LayerRow> LayerRows { get; set; }
         public DbSet<Layer> Layers { get; set; }
 

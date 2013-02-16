@@ -17,8 +17,6 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         private bool _isUseable;
         private bool _hasInventory;
         private List<Item> _inventoryItems;
-        private SpriteSheet _portraitGraphic;
-        private SpriteSheet _modelGraphic;
 
         #endregion
 
@@ -58,24 +56,6 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         {
             get { return _inventoryItems; }
             set { _inventoryItems = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the 3D model of a placeable.
-        /// </summary>
-        public SpriteSheet ModelGraphic
-        {
-            get { return _modelGraphic; }
-            set { _modelGraphic = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the portrait of a placeable.
-        /// </summary>
-        public SpriteSheet PortraitGraphic
-        {
-            get { return _portraitGraphic; }
-            set { _portraitGraphic = value; }
         }
 
         #endregion

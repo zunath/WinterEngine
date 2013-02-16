@@ -1,16 +1,12 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Forms;
-using WinterEngine.Hakpak.Builder;
-using WinterEngine.Library.Factories;
-using WinterEngine.Toolset.Controls.ControlHelpers;
-using WinterEngine.Toolset.ExtendedEventArgs;
-using WinterEngine.Library.Helpers;
-using Ionic.Zip;
-using Ionic.Zlib;
-using WinterEngine.ERF;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.Toolset.Controls.XnaControls;
+using WinterEngine.Editor.Graphics;
+using WinterEngine.ERF;
+using WinterEngine.Forms.Controls;
+using WinterEngine.Library.Factories;
+using WinterEngine.Library.Utility;
+using WinterEngine.Toolset.ExtendedEventArgs;
 
 namespace WinterEngine.Toolset
 {
@@ -18,7 +14,7 @@ namespace WinterEngine.Toolset
     {
         #region Fields
 
-        private HakBuilder _hakpakBuilder; // Temporarily storing the hakpak builder form to ensure that only one instance is open at a time.
+        private ContentPackageEditor _contentBuilder; // Temporarily storing the content builder form to ensure that only one instance is open at a time.
         private ExportERF _exportERF;
         private ImportERF _importERF;
         private ModuleProperties _moduleProperties;
@@ -65,7 +61,6 @@ namespace WinterEngine.Toolset
             itemView.UnloadControls();
             creatureView.UnloadControls();
             placeableView.UnloadControls();
-            graphicView.UnloadControls();
         }
 
         /// <summary>
@@ -77,7 +72,6 @@ namespace WinterEngine.Toolset
             itemView.RefreshControls();
             creatureView.RefreshControls();
             placeableView.RefreshControls();
-            graphicView.RefreshControls();
         }
 
         #endregion
@@ -147,29 +141,29 @@ namespace WinterEngine.Toolset
             toolStripMenuItemCut.Enabled = enabled;
             toolStripMenuItemPaste.Enabled = enabled;
             toolStripMenuItemModuleProperties.Enabled = enabled;
-            toolStripMenuItemManageHakPaks.Enabled = enabled;
+            toolStripMenuItemManageContentPackages.Enabled = enabled;
             tabControlMain.Enabled = enabled;
         }
 
         /// <summary>
-        /// Opens the Hakpak Builder form.
+        /// Opens the Content Package Builder form.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void toolStripMenuItemHakpakBuilder_Click(object sender, EventArgs e)
+        private void toolStripMenuItemContentBuilder_Click(object sender, EventArgs e)
         {
-            bool isNull = Object.ReferenceEquals(_hakpakBuilder, null);
+            bool isNull = Object.ReferenceEquals(_contentBuilder, null);
 
             // Not instantiated or has been disposed
-            if (isNull || _hakpakBuilder.IsDisposed)
+            if (isNull || _contentBuilder.IsDisposed)
             {
-                _hakpakBuilder = new HakBuilder();
-                _hakpakBuilder.Show();
+                _contentBuilder = new ContentPackageEditor();
+                _contentBuilder.Show();
             }
             // Window is already open. Focus on it.
             else if (!isNull)
             {
-                _hakpakBuilder.Focus();
+                _contentBuilder.Focus();
             }
         }
 

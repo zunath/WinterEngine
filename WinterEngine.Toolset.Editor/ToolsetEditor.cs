@@ -55,10 +55,11 @@ namespace WinterEngine.Toolset.Editor
             base.Initialize();
             this.BeginRun();
 
+            // fairly standard FRB init with 2D camera
             Renderer.UseRenderTargets = false;
             FlatRedBallServices.InitializeFlatRedBall(this, graphics);
-            GlobalContent.Initialize();
-
+            FlatRedBallServices.IsWindowsCursorVisible = true;
+            SpriteManager.Camera.UsePixelCoordinates();
 
             // get the GameTime property from the base Game class
             GameTime gt = this.GetType().BaseType.GetField("gameTime",
@@ -84,7 +85,7 @@ namespace WinterEngine.Toolset.Editor
         protected override void Update(GameTime gameTime)
         {
             FlatRedBallServices.Update(gameTime);
-            FlatRedBall.Screens.ScreenManager.Activity();
+            ScreenManager.Activity();
             base.Update(gameTime);
         }
 

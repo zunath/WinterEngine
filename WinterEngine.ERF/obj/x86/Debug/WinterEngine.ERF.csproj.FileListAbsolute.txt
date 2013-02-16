@@ -34,6 +34,7 @@ C:\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\EntityFramework.xml
 C:\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\Ionic.Zip.xml
 C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.exe
 C:\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Debug\WinterEngine.ERF.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\redball.BMP
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.ERF.exe.config
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.ERF.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.ERF.pdb

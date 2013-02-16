@@ -9,15 +9,10 @@ using WinterEngine.DataTransferObjects.Graphics;
 
 namespace WinterEngine.DataTransferObjects.Mapping
 {
-    [Table("Tiles")]
     public class Tile : IEntity
     {
         #region Fields
 
-        [Key]
-        public int ID { get; set; }
-        [Key]
-        public virtual SpriteSheet TileSpriteSheet { get; set; }
         public int SpriteSheetX {get; set;}
         public int SpriteSheetY {get; set;}
         public bool IsPassable { get; set; }

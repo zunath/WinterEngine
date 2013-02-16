@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{74BBAE95-89E1-4C79-9880-07448AE63871}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WinterEngine.Forms.Controls</RootNamespace>
+    <AssemblyName>WinterEngine.Forms.Controls</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FlatRedBall, Version=2013.2.14.188, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\Libraries\Xna4Pc\FlatRedBall.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FRBControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FRBControl.Designer.cs">
+      <DependentUpon>FRBControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputMessageBox.Designer.cs">
+      <DependentUpon>InputMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModuleProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModuleProperties.Designer.cs">
+      <DependentUpon>ModuleProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NameTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NameTextBox.Designer.cs">
+      <DependentUpon>NameTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewObjectEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewObjectEntry.Designer.cs">
+      <DependentUpon>NewObjectEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResrefTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ResrefTextBox.Designer.cs">
+      <DependentUpon>ResrefTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TagTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TagTextBox.Designer.cs">
+      <DependentUpon>TagTextBox.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FRBControl.resx">
+      <DependentUpon>FRBControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputMessageBox.resx">
+      <DependentUpon>InputMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModuleProperties.resx">
+      <DependentUpon>ModuleProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NameTextBox.resx">
+      <DependentUpon>NameTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewObjectEntry.resx">
+      <DependentUpon>NewObjectEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResrefTextBox.resx">
+      <DependentUpon>ResrefTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TagTextBox.resx">
+      <DependentUpon>TagTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WinterEngine.DataAccess\WinterEngine.DataAccess.csproj">
+      <Project>{0e481c4b-dd8f-4b26-84e7-cacda79288f0}</Project>
+      <Name>WinterEngine.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.DataTransferObjects\WinterEngine.DataTransferObjects.csproj">
+      <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>
+      <Name>WinterEngine.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
+      <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
+      <Name>WinterEngine.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.Toolset.Editor\WinterEngine.Toolset.Editor.csproj">
+      <Project>{9f43a0ad-a88c-4064-ae28-86fb399b9a18}</Project>
+      <Name>WinterEngine.Toolset.Editor</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
