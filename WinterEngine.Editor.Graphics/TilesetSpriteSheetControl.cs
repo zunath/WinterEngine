@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinterEngine.Forms.Controls;
+﻿using System.Windows.Forms;
+using WinterEngine.Forms.Controls.FlatRedBall;
 
 namespace WinterEngine.Editor.Graphics
 {
@@ -15,7 +7,7 @@ namespace WinterEngine.Editor.Graphics
     {
         public TilesetSpriteSheetControl()
         {
-            bool debug = true; // Used to prevent FRB from loading in design time. Remove when running.
+            bool debug = false; // Used to prevent FRB from loading in design time. Set to false when running.
 
             InitializeComponent();
 

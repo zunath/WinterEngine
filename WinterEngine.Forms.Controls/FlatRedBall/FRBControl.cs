@@ -10,14 +10,44 @@ using System.Windows.Forms;
 using FlatRedBall;
 using WinterEngine.Toolset.Editor;
 using Timer = System.Timers.Timer;
+using WinterEngine.DataTransferObjects.Enumerations;
 
-namespace WinterEngine.Forms.Controls
+namespace WinterEngine.Forms.Controls.FlatRedBall
 {
+    // Adapted from profexorgeek's FlatRedBall XNA 4.0 in Windows Form example:
+    // http://www.gluevault.com/projects/tech-demo/52-flatredball-xna-40-windows-form
     public partial class FRBControl : UserControl
     {
-        private ToolsetEditor GameInstance;
-        private Timer GameTimer;
-        private bool mWasTimerEnabled;
+        #region Fields
+
+        private ToolsetEditorGame _gameInstance;
+        private Timer _gameTime;
+        private bool _wasTimerEnabled;
+        #endregion
+
+        #region Properties
+
+        private ToolsetEditorGame GameInstance
+        {
+            get { return _gameInstance; }
+            set { _gameInstance = value; }
+        }
+
+        private Timer GameTimer
+        {
+            get { return _gameTime; }
+            set { _gameTime = value; }
+        }
+
+        private bool WasTimerEnabled
+        {
+            get { return _wasTimerEnabled; }
+            set { _wasTimerEnabled = value; }
+        }
+
+        #endregion
+
+        #region Constructors
 
         public FRBControl()
         {
@@ -26,7 +56,7 @@ namespace WinterEngine.Forms.Controls
             InitializeComponent();
 
             // create a game instance and pass the game timer, which starts when Initialization is complete
-            GameInstance = new ToolsetEditor(() =>
+            GameInstance = new ToolsetEditorGame(() =>
             {
                 GameTimer = new Timer(15);
                 GameTimer.Elapsed += (sender, e) =>
@@ -55,6 +85,25 @@ namespace WinterEngine.Forms.Controls
             UpdateViewportResolution();
         }
 
+        #endregion
+
+        #region Event Handling
+
+        /// <summary>
+        /// Attaches this control's resize methods to the form's resize events.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FRBControl_Load(object sender, EventArgs e)
+        {
+            Form form = FindForm();
+            form.ResizeBegin += ResizeBegin;
+            form.ResizeEnd += ResizeEnd;
+        }
+
+        #endregion
+
+        #region Methods
 
         // todo: something's not quite right here, if camera is pixel perfect, logo should never change size but it does. why?
         private void UpdateViewportResolution()
@@ -66,19 +115,29 @@ namespace WinterEngine.Forms.Controls
             FlatRedBallServices.GraphicsOptions.ResetDevice();
         }
 
+        // pause game engine while resizing or Draw() calls will blow up
+        private void ResizeBegin(object sender, EventArgs e)
+        {
+            WasTimerEnabled = GameTimer.Enabled;
+            GameTimer.Enabled = false;
+        }
+
+        // resume game timer state and update resolution after resize
+        private void ResizeEnd(object sender, EventArgs e)
+        {
+            UpdateViewportResolution();
+            GameTimer.Enabled = WasTimerEnabled;
+        }
+
+        #endregion
+
+        #region Overrides
 
         protected override void Dispose(bool disposing)
         {
-            if (!Object.ReferenceEquals(GameTimer, null))
-            {
-                GameTimer.Stop();
-            }
-
-            if (!Object.ReferenceEquals(GameInstance, null))
-            {
-                GameInstance.Dispose();
-            }
-              
+            GameTimer.Stop();
+            GameInstance.Dispose();
+             
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -86,19 +145,7 @@ namespace WinterEngine.Forms.Controls
             base.Dispose(disposing);
         }
 
+        #endregion
 
-        // pause game engine while resizing or Draw() calls will blow up
-        public void ResizeBegin(object sender, EventArgs e)
-        {
-            mWasTimerEnabled = GameTimer.Enabled;
-            GameTimer.Enabled = false;
-        }
-
-        // resume game timer state and update resolution after resize
-        public void ResizeEnd(object sender, EventArgs e)
-        {
-            UpdateViewportResolution();
-            GameTimer.Enabled = mWasTimerEnabled;
-        }
     }
 }

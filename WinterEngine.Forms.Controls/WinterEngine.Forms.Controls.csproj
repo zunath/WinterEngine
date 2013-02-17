@@ -11,6 +11,7 @@
     <AssemblyName>WinterEngine.Forms.Controls</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FlatRedBall, Version=2013.2.14.188, Culture=neutral, processorArchitecture=x86">
@@ -48,10 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FRBControl.cs">
+    <Compile Include="FlatRedBall\FRBControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FRBControl.Designer.cs">
+    <Compile Include="FlatRedBall\FRBControl.Designer.cs">
       <DependentUpon>FRBControl.cs</DependentUpon>
     </Compile>
     <Compile Include="InputMessageBox.cs">
@@ -93,7 +96,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FRBControl.resx">
+    <EmbeddedResource Include="FlatRedBall\FRBControl.resx">
       <DependentUpon>FRBControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InputMessageBox.resx">
@@ -133,6 +136,7 @@
       <Name>WinterEngine.Toolset.Editor</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

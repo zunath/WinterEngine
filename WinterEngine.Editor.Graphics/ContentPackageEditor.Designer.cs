@@ -243,7 +243,6 @@
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(780, 550);
             this.Name = "ContentPackageEditor";
             this.Text = "Winter Engine - Graphic Editor";

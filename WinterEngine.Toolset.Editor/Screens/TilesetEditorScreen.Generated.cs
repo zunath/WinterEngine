@@ -29,13 +29,12 @@ using Microsoft.Xna.Framework.Media;
 #endif
 
 // Generated Usings
-using WinterEngine.Toolset.Editor.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
 
 namespace WinterEngine.Toolset.Editor.Screens
 {
-	public partial class Editor : Screen
+	public partial class TilesetEditorScreen : Screen
 	{
 		// Generated Fields
 		#if DEBUG
@@ -43,8 +42,8 @@ namespace WinterEngine.Toolset.Editor.Screens
 		#endif
 		
 
-		public Editor()
-			: base("Editor")
+		public TilesetEditorScreen()
+			: base("TilesetEditorScreen")
 		{
 		}
 

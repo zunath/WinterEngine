@@ -1,4 +1,4 @@
-﻿namespace WinterEngine.Forms.Controls
+﻿namespace WinterEngine.Forms.Controls.FlatRedBall
 {
     partial class FRBControl
     {
@@ -33,6 +33,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.Viewport);
             this.Name = "FRBControl";
+            this.Load += new System.EventHandler(this.FRBControl_Load);
             this.ResumeLayout(false);
 
         }

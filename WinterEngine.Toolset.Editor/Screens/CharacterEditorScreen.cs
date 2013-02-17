@@ -8,46 +8,48 @@ using FlatRedBall.AI.Pathfinding;
 using FlatRedBall.Graphics.Animation;
 using FlatRedBall.Graphics.Particle;
 
+using FlatRedBall.Graphics.Model;
 using FlatRedBall.Math.Geometry;
 using FlatRedBall.Math.Splines;
-using BitmapFont = FlatRedBall.Graphics.BitmapFont;
+
 using Cursor = FlatRedBall.Gui.Cursor;
 using GuiManager = FlatRedBall.Gui.GuiManager;
+using FlatRedBall.Localization;
 
 #if FRB_XNA || SILVERLIGHT
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
-
-
 #endif
 
-namespace WinterEngine.Toolset.Editor.Entities
+namespace WinterEngine.Toolset.Editor.Screens
 {
-	public partial class SpriteSheetTEst
+	public partial class CharacterEditorScreen
 	{
-		private void CustomInitialize()
+
+		void CustomInitialize()
 		{
 
 
 		}
 
-		private void CustomActivity()
+		void CustomActivity(bool firstTimeCalled)
 		{
 
 
 		}
 
-		private void CustomDestroy()
+		void CustomDestroy()
 		{
 
 
 		}
 
-        private static void CustomLoadStaticContent(string contentManagerName)
+        static void CustomLoadStaticContent(string contentManagerName)
         {
 
 
         }
+
 	}
 }

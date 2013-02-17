@@ -46,12 +46,22 @@ namespace WinterEngine.Editor.Graphics
 
         #region Event Handling
 
+        /// <summary>
+        /// Prompts user to enter the name of the new tileset and then creates it once user is done.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonNewTileset_Click(object sender, EventArgs e)
         {
             InputMessageBox inputBox = new InputMessageBox("Please enter the new tileset's name.", "New Tileset", 1, 64, TilesetNameValidation, CreateTileset, "New Tileset", "Invalid name.");
             inputBox.ShowDialog();
         }
 
+        /// <summary>
+        /// Prompts user to confirm deletion of tileset and disables controls once complete.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonDeleteTileset_Click(object sender, EventArgs e)
         {
             if (!Object.ReferenceEquals(ActiveTileset, null))
@@ -68,6 +78,11 @@ namespace WinterEngine.Editor.Graphics
             }
         }
 
+        /// <summary>
+        /// Changes the active tileset and loads it into the form's controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBoxTilesets_SelectedValueChanged(object sender, EventArgs e)
         {
             // This check prevents the active tileset from changing if the user doesn't actually
@@ -86,6 +101,11 @@ namespace WinterEngine.Editor.Graphics
             }
         }
 
+        /// <summary>
+        /// Handles prompting user to select a valid graphic
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonBrowse_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)

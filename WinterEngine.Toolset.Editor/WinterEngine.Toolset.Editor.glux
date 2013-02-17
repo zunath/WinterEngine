@@ -2,22 +2,20 @@
 <GlueProjectSave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Screens>
     <ScreenSave>
-      <Name>Screens\Editor</Name>
+      <Name>Screens\CharacterEditorScreen</Name>
+    </ScreenSave>
+    <ScreenSave>
+      <Name>Screens\TilesetEditorScreen</Name>
     </ScreenSave>
   </Screens>
-  <Entities>
-    <EntitySave>
-      <Name>Entities\SpriteSheetTEst</Name>
-      <Is2D>true</Is2D>
-    </EntitySave>
-  </Entities>
+  <Entities />
   <GlobalFiles />
   <GlobalContentSettingsSave>
     <LoadAsynchronously>false</LoadAsynchronously>
     <RecordLockContention>false</RecordLockContention>
   </GlobalContentSettingsSave>
   <SyncedProjects />
-  <StartUpScreen>Screens\Editor</StartUpScreen>
+  <StartUpScreen>Screens\TilesetEditorScreen</StartUpScreen>
   <In2D>false</In2D>
   <SetResolution>false</SetResolution>
   <ResolutionWidth>800</ResolutionWidth>
@@ -32,6 +30,11 @@
   </PerformanceSettingsSave>
   <IgnoredDirectories />
   <CustomClasses />
-  <TranslatedFiles />
+  <TranslatedFiles>
+    <TranslatedFileSave>
+      <FileName>Screens\SplashScreen.cs</FileName>
+      <TranslationStyle>PerformTranslate</TranslationStyle>
+    </TranslatedFileSave>
+  </TranslatedFiles>
   <ApplyToFixedResolutionPlatforms>true</ApplyToFixedResolutionPlatforms>
 </GlueProjectSave>

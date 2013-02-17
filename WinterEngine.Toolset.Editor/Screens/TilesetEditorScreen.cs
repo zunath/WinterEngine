@@ -20,22 +20,22 @@ using FlatRedBall.Localization;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
+using Microsoft.Xna.Framework;
 #endif
 
 namespace WinterEngine.Toolset.Editor.Screens
 {
-	public partial class Editor
+	public partial class TilesetEditorScreen
 	{
-
 		void CustomInitialize()
 		{
-
-
+            SpriteManager.Camera.BackgroundColor = Color.LightGray;
+            
 		}
 
 		void CustomActivity(bool firstTimeCalled)
 		{
-
+            
 
 		}
 

@@ -20,12 +20,22 @@ using FlatRedBall.Screens;
 
 namespace WinterEngine.Toolset.Editor
 {
-    public class ToolsetEditor : Microsoft.Xna.Framework.Game
+    public class ToolsetEditorGame : Microsoft.Xna.Framework.Game
     {
+        #region Fields
+
         public GraphicsDeviceManager graphics;
         public ContentManager content;
 
-        public ToolsetEditor(Action onInitializeComplete)
+        #endregion
+
+        #region Properties
+
+        #endregion
+
+        #region Constructors
+
+        public ToolsetEditorGame(Action onInitializeComplete)
         {
             graphics = new GraphicsDeviceManager(this);
             content = new ContentManager(Services);
@@ -49,6 +59,10 @@ namespace WinterEngine.Toolset.Editor
             Initialize(onInitializeComplete);
         }
 
+        #endregion
+
+        #region Methods
+
         protected void Initialize(Action onInitializeComplete)
         {
             // manually call the base Initialize and begin the game running
@@ -58,6 +72,7 @@ namespace WinterEngine.Toolset.Editor
             // fairly standard FRB init with 2D camera
             Renderer.UseRenderTargets = false;
             FlatRedBallServices.InitializeFlatRedBall(this, graphics);
+			GlobalContent.Initialize();
             FlatRedBallServices.IsWindowsCursorVisible = true;
             SpriteManager.Camera.UsePixelCoordinates();
 
@@ -75,12 +90,11 @@ namespace WinterEngine.Toolset.Editor
                 System.Reflection.BindingFlags.NonPublic).SetValue(this, true);
 
             // navigate to our starting screen
-			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Toolset.Editor.Screens.Editor));
+			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Toolset.Editor.Screens.TilesetEditorScreen));
 
             // we should be ready to run, fire the callback
             onInitializeComplete();
         }
-
 
         protected override void Update(GameTime gameTime)
         {
@@ -99,5 +113,8 @@ namespace WinterEngine.Toolset.Editor
             this.EndRun();
             base.Dispose(disposing);
         }
+
+        #endregion
+
     }
 }
