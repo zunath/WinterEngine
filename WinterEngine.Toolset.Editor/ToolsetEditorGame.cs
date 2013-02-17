@@ -107,6 +107,7 @@ namespace WinterEngine.Toolset.Editor
         {
             FlatRedBallServices.Draw();
             base.Draw(gameTime);
+            
         }
         protected override void Dispose(bool disposing)
         {

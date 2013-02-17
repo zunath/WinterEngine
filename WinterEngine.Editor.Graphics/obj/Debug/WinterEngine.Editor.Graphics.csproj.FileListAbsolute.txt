@@ -1,9 +1,4 @@
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.csprojResolveAssemblyReference.cache
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.ContentPackageEditor.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.Properties.Resources.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.TilesetDetailsControl.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.TilesetSpriteSheetControl.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.csproj.GenerateResource.Cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\bin\Debug\redball.BMP
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\bin\Debug\WinterEngine.Editor.Graphics.exe.config
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\bin\Debug\WinterEngine.Editor.Graphics.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\bin\Debug\WinterEngine.Editor.Graphics.pdb
@@ -30,6 +25,11 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.E
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\bin\Debug\Microsoft.Xna.Framework.Graphics.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\bin\Debug\Microsoft.Xna.Framework.Xact.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\bin\Debug\EntityFramework.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.ContentPackageEditor.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.Properties.Resources.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.TilesetDetailsControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.TilesetSpriteSheetControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.csproj.GenerateResource.Cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\obj\Debug\WinterEngine.Editor.Graphics.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\bin\Debug\redball.BMP

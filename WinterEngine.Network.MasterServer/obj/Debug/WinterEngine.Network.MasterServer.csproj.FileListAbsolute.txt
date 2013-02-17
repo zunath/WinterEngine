@@ -1,0 +1,14 @@
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\bin\Debug\WinterEngine.Network.MasterServer.exe.config
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\bin\Debug\WinterEngine.Network.MasterServer.exe
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\bin\Debug\WinterEngine.Network.MasterServer.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\bin\Debug\WinterEngine.Network.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\bin\Debug\Lidgren.Network.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\bin\Debug\WinterEngine.Network.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\bin\Debug\Lidgren.Network.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\bin\Debug\Lidgren.Network.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\obj\Debug\WinterEngine.Network.MasterServer.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\obj\Debug\WinterEngine.Network.MasterServer.Properties.Resources.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\obj\Debug\WinterEngine.Network.MasterServer.csproj.GenerateResource.Cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\obj\Debug\WinterEngine.Network.MasterServer.exe
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\obj\Debug\WinterEngine.Network.MasterServer.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\obj\Debug\WinterEngine.Network.MasterServer.MasterServerForm.resources

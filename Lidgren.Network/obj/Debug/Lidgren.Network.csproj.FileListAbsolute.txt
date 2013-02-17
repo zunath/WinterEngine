@@ -1,0 +1,5 @@
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\Lidgren.Network\bin\Debug\Lidgren.Network.XML
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\Lidgren.Network\bin\Debug\Lidgren.Network.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\Lidgren.Network\bin\Debug\Lidgren.Network.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\Lidgren.Network\obj\Debug\Lidgren.Network.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\Lidgren.Network\obj\Debug\Lidgren.Network.pdb

@@ -1,12 +1,3 @@
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.csprojResolveAssemblyReference.cache
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.FlatRedBall.FRBControl.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.InputMessageBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.ModuleProperties.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.NameTextBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.NewObjectEntry.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.ResrefTextBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.TagTextBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.csproj.GenerateResource.Cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\redball.BMP
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.Forms.Controls.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.Forms.Controls.pdb
@@ -30,5 +21,14 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.F
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\EntityFramework.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\Ionic.Zip.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\Microsoft.Xna.Framework.Xact.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.FlatRedBall.FRBControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.InputMessageBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.ModuleProperties.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.NameTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.NewObjectEntry.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.ResrefTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.TagTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.csproj.GenerateResource.Cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.pdb
