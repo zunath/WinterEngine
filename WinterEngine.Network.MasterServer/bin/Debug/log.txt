@@ -58,3 +58,33 @@ Network thread started
 Status Message: Remotely requested connect
 Status Message: Connected to F21FE04566AECDEF
 Initiated average roundtrip time to 1.79 ms Remote time is: 12.4132039546967
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to FFCC3F448C392FEE
+Initiated average roundtrip time to 1.57 ms Remote time is: 18.9039511680603
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Shutdown requested
+Shutting down...
+Shutdown complete
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Shutdown requested
+Shutting down...
+Shutdown complete
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Shutdown requested
+Shutting down...
+Shutdown complete
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Shutdown requested
+Shutting down...
+Shutdown complete
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Shutdown requested
+Shutting down...
+Shutdown complete

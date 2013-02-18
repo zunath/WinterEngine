@@ -24,10 +24,47 @@ namespace WinterEngine.Network.MasterServer
         private List<NetIncomingMessage> _messages;
         private PacketFactory _packetFactory;
         private Dictionary<Tuple<IPAddress, int>, ServerDetails> _serverList;
+        private bool _masterServerIsRunning;
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the Network Agent.
+        /// </summary>
+        private NetworkAgent Agent
+        {
+            get { return _agent; }
+            set { _agent = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the list of messages being received and processed.
+        /// </summary>
+        private List<NetIncomingMessage> Messages
+        {
+            get { return _messages; }
+            set { _messages = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the Packet Factory.
+        /// </summary>
+        private PacketFactory Factory
+        {
+            get { return _packetFactory; }
+            set { _packetFactory = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets whether the master server is running.
+        /// </summary>
+        private bool IsMasterServerRunning
+        {
+            get { return _masterServerIsRunning; }
+            set { _masterServerIsRunning = value; }
+        }
 
         /// <summary>
         /// Gets or sets the server list.
@@ -47,9 +84,9 @@ namespace WinterEngine.Network.MasterServer
         {
             InitializeComponent();
 
-            _packetFactory = new PacketFactory();
+            Factory = new PacketFactory();
 
-            _serverList = new Dictionary<Tuple<IPAddress, int>, ServerDetails>();
+            ServerList = new Dictionary<Tuple<IPAddress, int>, ServerDetails>();
         }
 
         #endregion
@@ -58,8 +95,21 @@ namespace WinterEngine.Network.MasterServer
 
         private void buttonStartMasterServer_Click(object sender, EventArgs e)
         {
-            _agent = new NetworkAgent(AgentRole.Server, MasterServerConfiguration.MasterServerApplicationIdentifier);
-            backgroundWorkerNetwork.RunWorkerAsync();
+            if (IsMasterServerRunning)
+            {
+                IsMasterServerRunning = false;
+                backgroundWorkerNetwork.CancelAsync();
+                Agent.Shutdown();
+                buttonStartMasterServer.Text = "Shutting Down...";
+                buttonStartMasterServer.Enabled = false;
+            }
+            else
+            {
+                IsMasterServerRunning = true;
+                Agent = new NetworkAgent(AgentRole.Server, MasterServerConfiguration.MasterServerApplicationIdentifier);
+                backgroundWorkerNetwork.RunWorkerAsync();
+                buttonStartMasterServer.Text = "Shutdown Master Server";
+            }
         }
 
         #endregion
@@ -74,7 +124,7 @@ namespace WinterEngine.Network.MasterServer
         /// <param name="e"></param>
         private void backgroundWorkerNetwork_DoWork(object sender, DoWorkEventArgs e)
         {
-            _messages = _agent.CheckForMessages();
+            Messages = Agent.CheckForMessages();
             Thread.Sleep(5);
         }
 
@@ -86,13 +136,16 @@ namespace WinterEngine.Network.MasterServer
         /// <param name="e"></param>
         private void backgroundWorkerNetwork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            foreach (NetIncomingMessage message in _messages)
+            if(!e.Cancelled)
             {
-                ProcessPacket(message);
-            }
-            _messages.Clear();
+                foreach (NetIncomingMessage message in _messages)
+                {
+                    ProcessPacket(message);
+                }
+                Messages.Clear();
 
-            backgroundWorkerNetwork.RunWorkerAsync();
+                backgroundWorkerNetwork.RunWorkerAsync();
+            }
         }
 
         #endregion
@@ -107,7 +160,7 @@ namespace WinterEngine.Network.MasterServer
         /// <param name="message"></param>
         private void ProcessPacket(NetIncomingMessage message)
         {
-            Packet packet = _packetFactory.BuildPacket(message);
+            Packet packet = Factory.BuildPacket(message);
 
             switch (packet.PacketType)
             {

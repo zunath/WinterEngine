@@ -307,6 +307,7 @@
             // 
             // backgroundWorkerNetwork
             // 
+            this.backgroundWorkerNetwork.WorkerSupportsCancellation = true;
             this.backgroundWorkerNetwork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerNetwork_DoWork);
             this.backgroundWorkerNetwork.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerNetwork_RunWorkerCompleted);
             // 
