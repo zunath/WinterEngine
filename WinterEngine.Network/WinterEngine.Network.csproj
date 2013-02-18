@@ -43,12 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\RequestTypeEnum.cs" />
     <Compile Include="MasterServerConfiguration.cs" />
     <Compile Include="Enums\PacketTypeEnum.cs" />
     <Compile Include="NetworkAgent.cs" />
     <Compile Include="PacketFactory.cs" />
     <Compile Include="Packets\Packet.cs" />
-    <Compile Include="Packets\ServerPacket.cs" />
+    <Compile Include="Packets\RequestPacket.cs" />
+    <Compile Include="Packets\ServerDetailsPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

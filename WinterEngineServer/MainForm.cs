@@ -32,7 +32,7 @@ namespace WinterEngineServer
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            ServerPacket packet = new ServerPacket("TestName", "TestDesc", 2, 3);
+            ServerDetailsPacket packet = new ServerDetailsPacket("TestName", "TestDesc", 2, 3);
             agent.WriteMessage(packet);
             agent.SendMessage(agent.Connections[0], true);
             

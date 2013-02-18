@@ -152,6 +152,11 @@ namespace WinterEngine.Network.MasterServer
 
         #region Methods - Main Thread
 
+
+        #endregion
+
+        #region Packet Processing
+
         /// <summary>
         /// Handles processing packets depending on their type.
         /// If a packet received does not match one of the supported types,
@@ -166,11 +171,13 @@ namespace WinterEngine.Network.MasterServer
             {
                 case PacketTypeEnum.Server:
                     int port = message.SenderEndPoint.Port;
-                    IPAddress ipAddress= message.SenderEndPoint.Address;
+                    IPAddress ipAddress = message.SenderEndPoint.Address;
                     float ping = message.SenderConnection.AverageRoundtripTime;
-                    UpdateServerInformation(packet as ServerPacket, ipAddress, port, ping);
+                    UpdateServerInformation(packet as ServerDetailsPacket, ipAddress, port, ping);
                     break;
-
+                case PacketTypeEnum.Request:
+                    ProcessRequest(packet as RequestPacket);
+                    break;
                 default:
                     // Invalid packet type.
                     break;
@@ -182,7 +189,7 @@ namespace WinterEngine.Network.MasterServer
         /// based on data received over the network.
         /// </summary>
         /// <param name="packet"></param>
-        private void UpdateServerInformation(ServerPacket packet, IPAddress ipAddress, int port, float ping)
+        private void UpdateServerInformation(ServerDetailsPacket packet, IPAddress ipAddress, int port, float ping)
         {
             ServerDetails details = new ServerDetails();
             details.Description = packet.Description;
@@ -194,7 +201,7 @@ namespace WinterEngine.Network.MasterServer
             details.Port = port;
             details.Ping = ping;
 
-            Tuple<IPAddress, int> key = new Tuple<IPAddress,int>(ipAddress, port);
+            Tuple<IPAddress, int> key = new Tuple<IPAddress, int>(ipAddress, port);
             if (ServerList.ContainsKey(key))
             {
                 ServerList[key] = details;
@@ -207,14 +214,29 @@ namespace WinterEngine.Network.MasterServer
 
             textBoxDescription.Text = details.Description;
             textBoxMinLevel.Text = details.MinLevel + " - " + details.MaxLevel;
-            textBoxPing.Text = "" +details.Ping;
+            textBoxPing.Text = "" + details.Ping;
             textBoxPort.Text = "" + details.Port;
             textBoxServerIPAddress.Text = details.IPAddress.ToString();
             textBoxServerName.Text = details.Name;
 
         }
 
-        #endregion
+        /// <summary>
+        /// Processes a request, sending data to sender if necessary.
+        /// </summary>
+        /// <param name="packet"></param>
+        private void ProcessRequest(RequestPacket packet)
+        {
+            switch (packet.RequestType)
+            {
+                case RequestTypeEnum.MasterServerList:
+                    break;
 
+                default:
+                    break;
+            }
+        }
+
+        #endregion
     }
 }

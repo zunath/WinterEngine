@@ -48,3 +48,7 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.L
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.csprojResolveAssemblyReference.cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\Debug\WinterEngine.Library.pdb
+C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.Game.dll
+C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.Xact.dll
+C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.Game.xml
+C:\Projects\WinterEngine\WinterEngine.Library\bin\Debug\Microsoft.Xna.Framework.Xact.xml

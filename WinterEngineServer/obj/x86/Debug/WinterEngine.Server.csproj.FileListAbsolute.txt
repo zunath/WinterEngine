@@ -24,9 +24,7 @@ C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineSe
 C:\Projects\WinterEngine\WinterEngineServer\bin\Debug\WinterEngineServer.exe.config
 C:\Projects\WinterEngine\WinterEngineServer\bin\Debug\WinterEngineServer.exe
 C:\Projects\WinterEngine\WinterEngineServer\bin\Debug\WinterEngineServer.pdb
-C:\Projects\WinterEngine\WinterEngineServer\bin\Debug\EntityFramework.dll
 C:\Projects\WinterEngine\WinterEngineServer\bin\Debug\System.Data.SqlServerCe.dll
-C:\Projects\WinterEngine\WinterEngineServer\bin\Debug\EntityFramework.xml
 C:\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngine.Server.csprojResolveAssemblyReference.cache
 C:\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.Properties.Resources.resources
 C:\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngine.Server.csproj.GenerateResource.Cache
@@ -47,3 +45,9 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineSe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineServer\bin\Debug\WinterEngine.Network.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngineServer\bin\Debug\WinterEngine.Network.pdb
+C:\Projects\WinterEngine\WinterEngineServer\bin\Debug\Lidgren.Network.dll
+C:\Projects\WinterEngine\WinterEngineServer\bin\Debug\WinterEngine.Network.dll
+C:\Projects\WinterEngine\WinterEngineServer\bin\Debug\Lidgren.Network.pdb
+C:\Projects\WinterEngine\WinterEngineServer\bin\Debug\Lidgren.Network.xml
+C:\Projects\WinterEngine\WinterEngineServer\bin\Debug\WinterEngine.Network.pdb
+C:\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.MainForm.resources

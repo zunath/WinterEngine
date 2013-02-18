@@ -19,7 +19,7 @@ namespace WinterEngine.Network
             {
                 case PacketTypeEnum.Server:
                 {
-                    ServerPacket packet = new ServerPacket();
+                    ServerDetailsPacket packet = new ServerDetailsPacket();
                     message.ReadAllProperties(packet);
                     return packet;
                 }
