@@ -59,14 +59,10 @@
             this.toolStripMenuItemWebsite = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageCreatures = new System.Windows.Forms.TabPage();
-            this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageAreas = new System.Windows.Forms.TabPage();
-            this.areaView = new WinterEngine.Toolset.GUI.Views.AreaView();
             this.tabPageItems = new System.Windows.Forms.TabPage();
-            this.itemView = new WinterEngine.Toolset.GUI.Views.ItemView();
             this.tabPagePlaceables = new System.Windows.Forms.TabPage();
-            this.placeableView = new WinterEngine.Toolset.GUI.Views.PlaceableView();
             this.tabPageConversations = new System.Windows.Forms.TabPage();
             this.panelConversationControl = new System.Windows.Forms.Panel();
             this.buttonAddConversationCategory = new System.Windows.Forms.Button();
@@ -76,10 +72,14 @@
             this.buttonAddScriptCategory = new System.Windows.Forms.Button();
             this.treeViewScripts = new System.Windows.Forms.TreeView();
             this.tabPageAdvanced = new System.Windows.Forms.TabPage();
-            this.advancedView1 = new WinterEngine.Toolset.GUI.Views.AdvancedView();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.areaView = new WinterEngine.Toolset.GUI.Views.AreaView();
+            this.creatureView = new WinterEngine.Toolset.GUI.Views.CreatureView();
+            this.itemView = new WinterEngine.Toolset.GUI.Views.ItemView();
+            this.placeableView = new WinterEngine.Toolset.GUI.Views.PlaceableView();
+            this.advancedView1 = new WinterEngine.Toolset.GUI.Views.AdvancedView();
             this.menuStripMain.SuspendLayout();
             this.tabPageCreatures.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -100,7 +100,7 @@
             this.helpToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Size = new System.Drawing.Size(764, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(465, 24);
             this.menuStripMain.TabIndex = 0;
             this.menuStripMain.Text = "menuStripMain";
             // 
@@ -331,18 +331,10 @@
             this.tabPageCreatures.Location = new System.Drawing.Point(4, 22);
             this.tabPageCreatures.Name = "tabPageCreatures";
             this.tabPageCreatures.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCreatures.Size = new System.Drawing.Size(756, 462);
+            this.tabPageCreatures.Size = new System.Drawing.Size(457, 500);
             this.tabPageCreatures.TabIndex = 0;
             this.tabPageCreatures.Text = "Creatures";
             this.tabPageCreatures.UseVisualStyleBackColor = true;
-            // 
-            // creatureView
-            // 
-            this.creatureView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.creatureView.Location = new System.Drawing.Point(3, 3);
-            this.creatureView.Name = "creatureView";
-            this.creatureView.Size = new System.Drawing.Size(750, 456);
-            this.creatureView.TabIndex = 0;
             // 
             // tabControlMain
             // 
@@ -358,7 +350,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(0, 24);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(764, 488);
+            this.tabControlMain.Size = new System.Drawing.Size(465, 526);
             this.tabControlMain.TabIndex = 0;
             // 
             // tabPageAreas
@@ -367,18 +359,10 @@
             this.tabPageAreas.Location = new System.Drawing.Point(4, 22);
             this.tabPageAreas.Name = "tabPageAreas";
             this.tabPageAreas.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAreas.Size = new System.Drawing.Size(756, 462);
+            this.tabPageAreas.Size = new System.Drawing.Size(457, 500);
             this.tabPageAreas.TabIndex = 0;
             this.tabPageAreas.Text = "Areas";
             this.tabPageAreas.UseVisualStyleBackColor = true;
-            // 
-            // areaView
-            // 
-            this.areaView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.areaView.Location = new System.Drawing.Point(3, 3);
-            this.areaView.Name = "areaView";
-            this.areaView.Size = new System.Drawing.Size(750, 456);
-            this.areaView.TabIndex = 0;
             // 
             // tabPageItems
             // 
@@ -386,36 +370,20 @@
             this.tabPageItems.Location = new System.Drawing.Point(4, 22);
             this.tabPageItems.Name = "tabPageItems";
             this.tabPageItems.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageItems.Size = new System.Drawing.Size(756, 462);
+            this.tabPageItems.Size = new System.Drawing.Size(457, 500);
             this.tabPageItems.TabIndex = 1;
             this.tabPageItems.Text = "Items";
             this.tabPageItems.UseVisualStyleBackColor = true;
-            // 
-            // itemView
-            // 
-            this.itemView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.itemView.Location = new System.Drawing.Point(3, 3);
-            this.itemView.Name = "itemView";
-            this.itemView.Size = new System.Drawing.Size(750, 456);
-            this.itemView.TabIndex = 0;
             // 
             // tabPagePlaceables
             // 
             this.tabPagePlaceables.Controls.Add(this.placeableView);
             this.tabPagePlaceables.Location = new System.Drawing.Point(4, 22);
             this.tabPagePlaceables.Name = "tabPagePlaceables";
-            this.tabPagePlaceables.Size = new System.Drawing.Size(756, 462);
+            this.tabPagePlaceables.Size = new System.Drawing.Size(457, 500);
             this.tabPagePlaceables.TabIndex = 2;
             this.tabPagePlaceables.Text = "Placeables";
             this.tabPagePlaceables.UseVisualStyleBackColor = true;
-            // 
-            // placeableView
-            // 
-            this.placeableView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.placeableView.Location = new System.Drawing.Point(0, 0);
-            this.placeableView.Name = "placeableView";
-            this.placeableView.Size = new System.Drawing.Size(756, 462);
-            this.placeableView.TabIndex = 0;
             // 
             // tabPageConversations
             // 
@@ -424,7 +392,7 @@
             this.tabPageConversations.Controls.Add(this.treeViewConversations);
             this.tabPageConversations.Location = new System.Drawing.Point(4, 22);
             this.tabPageConversations.Name = "tabPageConversations";
-            this.tabPageConversations.Size = new System.Drawing.Size(756, 462);
+            this.tabPageConversations.Size = new System.Drawing.Size(457, 500);
             this.tabPageConversations.TabIndex = 3;
             this.tabPageConversations.Text = "Conversations";
             this.tabPageConversations.UseVisualStyleBackColor = true;
@@ -462,7 +430,7 @@
             this.tabPageScripts.Controls.Add(this.treeViewScripts);
             this.tabPageScripts.Location = new System.Drawing.Point(4, 22);
             this.tabPageScripts.Name = "tabPageScripts";
-            this.tabPageScripts.Size = new System.Drawing.Size(756, 462);
+            this.tabPageScripts.Size = new System.Drawing.Size(457, 500);
             this.tabPageScripts.TabIndex = 4;
             this.tabPageScripts.Text = "Scripts";
             this.tabPageScripts.UseVisualStyleBackColor = true;
@@ -498,10 +466,47 @@
             this.tabPageAdvanced.Controls.Add(this.advancedView1);
             this.tabPageAdvanced.Location = new System.Drawing.Point(4, 22);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
-            this.tabPageAdvanced.Size = new System.Drawing.Size(756, 462);
+            this.tabPageAdvanced.Size = new System.Drawing.Size(457, 500);
             this.tabPageAdvanced.TabIndex = 5;
             this.tabPageAdvanced.Text = "Advanced";
             this.tabPageAdvanced.UseVisualStyleBackColor = true;
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(162, 6);
+            // 
+            // areaView
+            // 
+            this.areaView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.areaView.Location = new System.Drawing.Point(3, 3);
+            this.areaView.Name = "areaView";
+            this.areaView.Size = new System.Drawing.Size(451, 494);
+            this.areaView.TabIndex = 0;
+            // 
+            // creatureView
+            // 
+            this.creatureView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.creatureView.Location = new System.Drawing.Point(3, 3);
+            this.creatureView.Name = "creatureView";
+            this.creatureView.Size = new System.Drawing.Size(451, 494);
+            this.creatureView.TabIndex = 0;
+            // 
+            // itemView
+            // 
+            this.itemView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.itemView.Location = new System.Drawing.Point(3, 3);
+            this.itemView.Name = "itemView";
+            this.itemView.Size = new System.Drawing.Size(451, 494);
+            this.itemView.TabIndex = 0;
+            // 
+            // placeableView
+            // 
+            this.placeableView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.placeableView.Location = new System.Drawing.Point(0, 0);
+            this.placeableView.Name = "placeableView";
+            this.placeableView.Size = new System.Drawing.Size(457, 500);
+            this.placeableView.TabIndex = 0;
             // 
             // advancedView1
             // 
@@ -509,23 +514,17 @@
             this.advancedView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.advancedView1.Location = new System.Drawing.Point(0, 0);
             this.advancedView1.Name = "advancedView1";
-            this.advancedView1.Size = new System.Drawing.Size(756, 462);
+            this.advancedView1.Size = new System.Drawing.Size(457, 500);
             this.advancedView1.TabIndex = 0;
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(162, 6);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 512);
+            this.ClientSize = new System.Drawing.Size(465, 550);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.menuStripMain);
             this.MainMenuStrip = this.menuStripMain;
-            this.MinimumSize = new System.Drawing.Size(780, 550);
             this.Name = "MainForm";
             this.Text = "Winter Engine - Toolset";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -600,4 +599,3 @@
         private GUI.Views.ItemView itemView;
     }
 }
-

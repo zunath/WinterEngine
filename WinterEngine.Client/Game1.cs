@@ -17,12 +17,14 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 #endif
 using FlatRedBall.Screens;
+using System.Windows.Forms;
 
 namespace WinterEngine.Client
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
+
 
         public Game1()
         {
@@ -50,6 +52,7 @@ namespace WinterEngine.Client
 			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Client.Screens.Demo));
 
             base.Initialize();
+
         }
 
 

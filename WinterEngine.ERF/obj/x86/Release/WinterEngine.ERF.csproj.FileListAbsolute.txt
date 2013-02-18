@@ -1,0 +1,5 @@
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Release\WinterEngine.ERF.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Release\WinterEngine.ERF.ExportERF.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Release\WinterEngine.ERF.ImportERF.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Release\WinterEngine.ERF.Properties.Resources.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\obj\x86\Release\WinterEngine.ERF.csproj.GenerateResource.Cache

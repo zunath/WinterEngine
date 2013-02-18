@@ -9,8 +9,8 @@ using WinterEngine.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.DataTransferObjects.Mapping
 {
-    [Table("Layers")]
-    [Serializable]
+    //[Table("Layers")]
+    //[Serializable]
     public class Layer: IEntity
     {
 

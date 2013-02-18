@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace WinterEngine.Network.Enums
 {
-    public enum PacketTypeEnum
+    public enum PacketTypeEnum : byte
     {
-        ServerRegistration  // Server registration with Master Server
+        Server = 1,
     }
 }

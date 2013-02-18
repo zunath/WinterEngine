@@ -1,4 +1,3 @@
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\redball.BMP
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.Forms.Controls.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.Forms.Controls.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\Microsoft.Xna.Framework.dll
@@ -7,14 +6,12 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.F
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.DataAccess.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.DataTransferObjects.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.Library.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.Toolset.Editor.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\EntityFramework.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\Ionic.Zip.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\Microsoft.Xna.Framework.Xact.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.DataAccess.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.DataTransferObjects.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.Library.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\WinterEngine.Toolset.Editor.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\Microsoft.Xna.Framework.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\Microsoft.Xna.Framework.Game.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\Microsoft.Xna.Framework.Graphics.xml
@@ -22,11 +19,7 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.F
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\Ionic.Zip.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\bin\Debug\Microsoft.Xna.Framework.Xact.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.csprojResolveAssemblyReference.cache
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.FlatRedBall.FRBControl.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.InputMessageBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.ModuleProperties.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.NameTextBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.NewObjectEntry.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.ResrefTextBox.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.TagTextBox.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Debug\WinterEngine.Forms.Controls.csproj.GenerateResource.Cache

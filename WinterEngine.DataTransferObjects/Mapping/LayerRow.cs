@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace WinterEngine.DataTransferObjects.Mapping
 {
-    [Table("LayerRows")]
-    [Serializable]
+    //[Table("LayerRows")]
+    //[Serializable]
     public class LayerRow: IEntity
     {
 

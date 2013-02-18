@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinterEngine.Library</RootNamespace>
     <AssemblyName>WinterEngine.Library</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,10 +35,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="FlatRedBall">
       <HintPath>..\WinterEngine.Client\WinterEngine.Client\WinterEngine.Client\Libraries\Xna4Pc\FlatRedBall.dll</HintPath>
     </Reference>
@@ -68,6 +65,7 @@
     <Compile Include="Factories\WinterModuleFactory.cs" />
     <Compile Include="Utility\EnumerationHelper.cs" />
     <Compile Include="Utility\ErrorHelper.cs" />
+    <Compile Include="Utility\StickyWindow.cs" />
     <Compile Include="Utility\WinterFileHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\TextHelper.cs" />
@@ -85,10 +83,6 @@
     <ProjectReference Include="..\WinterEngine.DataTransferObjects\WinterEngine.DataTransferObjects.csproj">
       <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>
       <Name>WinterEngine.DataTransferObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.Toolset.Editor\WinterEngine.Toolset.Editor.csproj">
-      <Project>{9f43a0ad-a88c-4064-ae28-86fb399b9a18}</Project>
-      <Name>WinterEngine.Toolset.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,13 @@
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Forms.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Forms.Toolset.ContentPackageEditor.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Forms.Shared.InputMessageBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Forms.Shared.ObjectCategoryTree.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Toolset.Forms.AboutBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Toolset.Forms.FormMenuStrip.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Forms.Controls.ModuleProperties.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Forms.Toolset.NewModuleEntry.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Forms.Properties.Resources.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Forms.Toolset.NewObjectEntry.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Forms.Toolset.TilesetDetails.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Forms.Toolset.TilesetSpriteSheet.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Release\WinterEngine.Forms.csproj.GenerateResource.Cache

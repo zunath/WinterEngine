@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -55,10 +55,10 @@ namespace WinterEngine.Toolset.GUI.Views
             comboBoxTable.Items.Add(new TableInfo { DisplayName = "Item Types", TableType = TableTypeEnum.Item });
 
             comboBoxTable.SelectedItem = comboBoxTable.Items[0];
-            
+
         }
 
-        
+
         private void comboBoxTable_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshDataGrid();
@@ -81,7 +81,7 @@ namespace WinterEngine.Toolset.GUI.Views
             }
             else if (type == TableTypeEnum.Item)
             {
-                ItemType itemType = new ItemType {VisibleName = "New Item Type", IsSystemResource = false, Comment = "" };
+                ItemType itemType = new ItemType { VisibleName = "New Item Type", IsSystemResource = false, Comment = "" };
                 Context.ItemTypes.Add(itemType);
             }
             else if (type == TableTypeEnum.ItemProperty)

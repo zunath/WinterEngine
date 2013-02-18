@@ -1,0 +1,1 @@
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\obj\Release\WinterEngine.DataAccess.csprojResolveAssemblyReference.cache

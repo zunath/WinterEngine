@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinterEngine.Toolset</RootNamespace>
     <AssemblyName>WinterEngine.Toolset</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -68,8 +68,9 @@
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="FlatRedBall, Version=2013.1.21.1368, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -180,23 +181,10 @@
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
-    <Compile Include="Views\AdvancedView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\AdvancedView.Designer.cs">
-      <DependentUpon>AdvancedView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\IViewControls.cs" />
-    <Compile Include="Views\AreaView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\AreaView.Designer.cs">
-      <DependentUpon>AreaView.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NewModuleEntry.cs">
@@ -207,23 +195,36 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\AdvancedView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AdvancedView.Designer.cs">
+      <DependentUpon>AdvancedView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AreaView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AreaView.Designer.cs">
+      <DependentUpon>AreaView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreatureView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\CreatureView.Designer.cs">
       <DependentUpon>CreatureView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlaceableView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\PlaceableView.Designer.cs">
-      <DependentUpon>PlaceableView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\ItemView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\ItemView.Designer.cs">
       <DependentUpon>ItemView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IViewControls.cs" />
+    <Compile Include="Views\PlaceableView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PlaceableView.Designer.cs">
+      <DependentUpon>PlaceableView.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
@@ -244,12 +245,6 @@
     <EmbeddedResource Include="Controls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\AdvancedView.resx">
-      <DependentUpon>AdvancedView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\AreaView.resx">
-      <DependentUpon>AreaView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -266,14 +261,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\AreaView.resx">
+      <DependentUpon>AreaView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\CreatureView.resx">
       <DependentUpon>CreatureView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PlaceableView.resx">
-      <DependentUpon>PlaceableView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\ItemView.resx">
       <DependentUpon>ItemView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PlaceableView.resx">
+      <DependentUpon>PlaceableView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
@@ -341,25 +339,17 @@
       <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>
       <Name>WinterEngine.DataTransferObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.Editor.Graphics\WinterEngine.Editor.Graphics.csproj">
-      <Project>{3ce98615-8d43-4f68-81a4-6a2a50a49948}</Project>
-      <Name>WinterEngine.Editor.Graphics</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.ERF\WinterEngine.ERF.csproj">
       <Project>{71c617b1-e588-4187-8773-c0b6ef4569a1}</Project>
       <Name>WinterEngine.ERF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.Forms.Controls\WinterEngine.Forms.Controls.csproj">
-      <Project>{74bbae95-89e1-4c79-9880-07448ae63871}</Project>
-      <Name>WinterEngine.Forms.Controls</Name>
+    <ProjectReference Include="..\WinterEngine.Forms\WinterEngine.Forms.csproj">
+      <Project>{2891db47-3f02-4e70-be37-d272187438df}</Project>
+      <Name>WinterEngine.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
       <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
       <Name>WinterEngine.Library</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.Toolset.Editor\WinterEngine.Toolset.Editor.csproj">
-      <Project>{9f43a0ad-a88c-4064-ae28-86fb399b9a18}</Project>
-      <Name>WinterEngine.Toolset.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

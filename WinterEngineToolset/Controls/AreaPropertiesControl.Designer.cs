@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.tabControlProperties = new System.Windows.Forms.TabControl();
-            this.tabPageEditor = new System.Windows.Forms.TabPage();
-            this.panelAreaObjectViewer = new System.Windows.Forms.Panel();
-            this.tabPageAreaDetails = new System.Windows.Forms.TabPage();
+            this.tabPageDetails = new System.Windows.Forms.TabPage();
             this.resrefTextBoxArea = new WinterEngine.Forms.Controls.ResrefTextBox();
             this.tagTextBoxArea = new WinterEngine.Forms.Controls.TagTextBox();
             this.nameTextBoxArea = new WinterEngine.Forms.Controls.NameTextBox();
@@ -47,8 +45,7 @@
             this.buttonDiscardChanges = new System.Windows.Forms.Button();
             this.buttonApplyChanges = new System.Windows.Forms.Button();
             this.tabControlProperties.SuspendLayout();
-            this.tabPageEditor.SuspendLayout();
-            this.tabPageAreaDetails.SuspendLayout();
+            this.tabPageDetails.SuspendLayout();
             this.tabPageComments.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,8 +54,7 @@
             this.tabControlProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlProperties.Controls.Add(this.tabPageEditor);
-            this.tabControlProperties.Controls.Add(this.tabPageAreaDetails);
+            this.tabControlProperties.Controls.Add(this.tabPageDetails);
             this.tabControlProperties.Controls.Add(this.tabPageAudio);
             this.tabControlProperties.Controls.Add(this.tabPageEvents);
             this.tabControlProperties.Controls.Add(this.tabPageComments);
@@ -69,41 +65,22 @@
             this.tabControlProperties.Size = new System.Drawing.Size(302, 417);
             this.tabControlProperties.TabIndex = 3;
             // 
-            // tabPageEditor
+            // tabPageDetails
             // 
-            this.tabPageEditor.Controls.Add(this.panelAreaObjectViewer);
-            this.tabPageEditor.Location = new System.Drawing.Point(4, 22);
-            this.tabPageEditor.Name = "tabPageEditor";
-            this.tabPageEditor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageEditor.Size = new System.Drawing.Size(294, 391);
-            this.tabPageEditor.TabIndex = 0;
-            this.tabPageEditor.Text = "Editor";
-            this.tabPageEditor.UseVisualStyleBackColor = true;
-            // 
-            // panelAreaObjectViewer
-            // 
-            this.panelAreaObjectViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelAreaObjectViewer.Location = new System.Drawing.Point(3, 3);
-            this.panelAreaObjectViewer.Name = "panelAreaObjectViewer";
-            this.panelAreaObjectViewer.Size = new System.Drawing.Size(288, 385);
-            this.panelAreaObjectViewer.TabIndex = 0;
-            // 
-            // tabPageAreaDetails
-            // 
-            this.tabPageAreaDetails.Controls.Add(this.resrefTextBoxArea);
-            this.tabPageAreaDetails.Controls.Add(this.tagTextBoxArea);
-            this.tabPageAreaDetails.Controls.Add(this.nameTextBoxArea);
-            this.tabPageAreaDetails.Controls.Add(this.labelAreaDetailsHeader);
-            this.tabPageAreaDetails.Controls.Add(this.labelItemResref);
-            this.tabPageAreaDetails.Controls.Add(this.labelItemTag);
-            this.tabPageAreaDetails.Controls.Add(this.labelItemName);
-            this.tabPageAreaDetails.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAreaDetails.Name = "tabPageAreaDetails";
-            this.tabPageAreaDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAreaDetails.Size = new System.Drawing.Size(294, 391);
-            this.tabPageAreaDetails.TabIndex = 1;
-            this.tabPageAreaDetails.Text = "Details";
-            this.tabPageAreaDetails.UseVisualStyleBackColor = true;
+            this.tabPageDetails.Controls.Add(this.resrefTextBoxArea);
+            this.tabPageDetails.Controls.Add(this.tagTextBoxArea);
+            this.tabPageDetails.Controls.Add(this.nameTextBoxArea);
+            this.tabPageDetails.Controls.Add(this.labelAreaDetailsHeader);
+            this.tabPageDetails.Controls.Add(this.labelItemResref);
+            this.tabPageDetails.Controls.Add(this.labelItemTag);
+            this.tabPageDetails.Controls.Add(this.labelItemName);
+            this.tabPageDetails.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDetails.Name = "tabPageDetails";
+            this.tabPageDetails.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDetails.Size = new System.Drawing.Size(294, 391);
+            this.tabPageDetails.TabIndex = 1;
+            this.tabPageDetails.Text = "Details";
+            this.tabPageDetails.UseVisualStyleBackColor = true;
             // 
             // resrefTextBoxArea
             // 
@@ -115,7 +92,7 @@
             this.resrefTextBoxArea.Name = "resrefTextBoxArea";
             this.resrefTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
             this.resrefTextBoxArea.ResrefText = "";
-            this.resrefTextBoxArea.Size = new System.Drawing.Size(294, 28);
+            this.resrefTextBoxArea.Size = new System.Drawing.Size(207, 28);
             this.resrefTextBoxArea.TabIndex = 10;
             // 
             // tagTextBoxArea
@@ -126,7 +103,7 @@
             this.tagTextBoxArea.Location = new System.Drawing.Point(81, 86);
             this.tagTextBoxArea.Name = "tagTextBoxArea";
             this.tagTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
-            this.tagTextBoxArea.Size = new System.Drawing.Size(294, 28);
+            this.tagTextBoxArea.Size = new System.Drawing.Size(207, 28);
             this.tagTextBoxArea.TabIndex = 9;
             this.tagTextBoxArea.TagText = "";
             // 
@@ -138,7 +115,7 @@
             this.nameTextBoxArea.Location = new System.Drawing.Point(81, 58);
             this.nameTextBoxArea.Name = "nameTextBoxArea";
             this.nameTextBoxArea.NameText = "";
-            this.nameTextBoxArea.Size = new System.Drawing.Size(294, 28);
+            this.nameTextBoxArea.Size = new System.Drawing.Size(207, 28);
             this.nameTextBoxArea.TabIndex = 8;
             // 
             // labelAreaDetailsHeader
@@ -268,9 +245,8 @@
             this.Name = "AreaPropertiesControl";
             this.Size = new System.Drawing.Size(308, 452);
             this.tabControlProperties.ResumeLayout(false);
-            this.tabPageEditor.ResumeLayout(false);
-            this.tabPageAreaDetails.ResumeLayout(false);
-            this.tabPageAreaDetails.PerformLayout();
+            this.tabPageDetails.ResumeLayout(false);
+            this.tabPageDetails.PerformLayout();
             this.tabPageComments.ResumeLayout(false);
             this.tabPageComments.PerformLayout();
             this.ResumeLayout(false);
@@ -280,13 +256,11 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControlProperties;
-        private System.Windows.Forms.TabPage tabPageEditor;
-        private System.Windows.Forms.TabPage tabPageAreaDetails;
+        private System.Windows.Forms.TabPage tabPageDetails;
         private System.Windows.Forms.Label labelAreaDetailsHeader;
         private System.Windows.Forms.Label labelItemResref;
         private System.Windows.Forms.Label labelItemTag;
         private System.Windows.Forms.Label labelItemName;
-        private System.Windows.Forms.Panel panelAreaObjectViewer;
         private System.Windows.Forms.TabPage tabPageEvents;
         private System.Windows.Forms.TabPage tabPageComments;
         private System.Windows.Forms.Label labelAreaComments;

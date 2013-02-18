@@ -18,7 +18,7 @@ using Color = Microsoft.Xna.Framework.Color;
 #elif FRB_MDX
 using Color = System.Drawing.Color;
 #else
-using Color = Microsoft.Xna.Framework.Graphics.Color;
+using Color = Microsoft.Xna.Framework.Color;
 #endif
 
 #if FRB_XNA || SILVERLIGHT

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinterEngine.Forms.Controls</RootNamespace>
     <AssemblyName>WinterEngine.Forms.Controls</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,72 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlatRedBall\FRBControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FlatRedBall\FRBControl.Designer.cs">
-      <DependentUpon>FRBControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="InputMessageBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InputMessageBox.Designer.cs">
-      <DependentUpon>InputMessageBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModuleProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ModuleProperties.Designer.cs">
-      <DependentUpon>ModuleProperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NameTextBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="NameTextBox.Designer.cs">
-      <DependentUpon>NameTextBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NewObjectEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NewObjectEntry.Designer.cs">
-      <DependentUpon>NewObjectEntry.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResrefTextBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ResrefTextBox.Designer.cs">
-      <DependentUpon>ResrefTextBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TagTextBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TagTextBox.Designer.cs">
-      <DependentUpon>TagTextBox.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="FlatRedBall\FRBControl.resx">
-      <DependentUpon>FRBControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InputMessageBox.resx">
-      <DependentUpon>InputMessageBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ModuleProperties.resx">
-      <DependentUpon>ModuleProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NameTextBox.resx">
-      <DependentUpon>NameTextBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NewObjectEntry.resx">
-      <DependentUpon>NewObjectEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ResrefTextBox.resx">
-      <DependentUpon>ResrefTextBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TagTextBox.resx">
-      <DependentUpon>TagTextBox.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WinterEngine.DataAccess\WinterEngine.DataAccess.csproj">
@@ -130,10 +66,6 @@
     <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
       <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
       <Name>WinterEngine.Library</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.Toolset.Editor\WinterEngine.Toolset.Editor.csproj">
-      <Project>{9f43a0ad-a88c-4064-ae28-86fb399b9a18}</Project>
-      <Name>WinterEngine.Toolset.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

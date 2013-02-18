@@ -1,0 +1,5 @@
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Release\WinterEngine.Forms.Controls.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Release\WinterEngine.Forms.Controls.NameTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Release\WinterEngine.Forms.Controls.ResrefTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Release\WinterEngine.Forms.Controls.TagTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms.Controls\obj\Release\WinterEngine.Forms.Controls.csproj.GenerateResource.Cache

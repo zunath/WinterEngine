@@ -1,0 +1,5 @@
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Release\WinterEngine.Hakpak.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Release\WinterEngine.Hakpak.Builder.HakBuilder.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Release\WinterEngine.HakpakBuilder.Builder.ResourceTypeControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Release\WinterEngine.HakpakBuilder.Properties.Resources.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Release\WinterEngine.Hakpak.csproj.GenerateResource.Cache

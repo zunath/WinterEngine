@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
+using Blue.Windows;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.Editor.Graphics;
 using WinterEngine.ERF;
 using WinterEngine.Forms.Controls;
+using WinterEngine.Forms.Toolset;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Utility;
 using WinterEngine.Toolset.ExtendedEventArgs;
@@ -19,6 +20,7 @@ namespace WinterEngine.Toolset
         private ImportERF _importERF;
         private ModuleProperties _moduleProperties;
         private WinterModuleFactory _activeModuleFactory;
+        private StickyWindow _stickyWindow; // Used for "sticking" to the FRB window
 
         #endregion
 
@@ -46,6 +48,10 @@ namespace WinterEngine.Toolset
             string fileExtension = winterExtensions.GetFileExtension(FileTypeEnum.Module);
             openFileDialog.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
             saveFileDialog.Filter = openFileDialog.Filter;
+
+            _stickyWindow = new StickyWindow(this);
+            _stickyWindow.StickToScreen = false;
+
         }
         
         #endregion

@@ -1,1 +1,0 @@
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor.Graphics\bin\Release\WinterEngine.Editor.Graphics.exe.config

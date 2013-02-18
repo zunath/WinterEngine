@@ -1,0 +1,1 @@
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Release\WinterEngine.DataTransferObjects.csprojResolveAssemblyReference.cache

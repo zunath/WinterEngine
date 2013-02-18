@@ -9,6 +9,8 @@ using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.Forms.Controls;
+using WinterEngine.Forms.Shared;
+using WinterEngine.Forms.Toolset;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Utility;
 

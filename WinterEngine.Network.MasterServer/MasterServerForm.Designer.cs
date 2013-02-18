@@ -38,14 +38,25 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBoxServers = new System.Windows.Forms.ListBox();
             this.panelServerDetails = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.listBoxPlayers = new System.Windows.Forms.ListBox();
+            this.textBoxMinLevel = new System.Windows.Forms.TextBox();
+            this.labelLevelRange = new System.Windows.Forms.Label();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.labelDescription = new System.Windows.Forms.Label();
             this.textBoxServerIPAddress = new System.Windows.Forms.TextBox();
             this.labelServerIP = new System.Windows.Forms.Label();
             this.textBoxServerName = new System.Windows.Forms.TextBox();
             this.labelServerName = new System.Windows.Forms.Label();
             this.tabPageUsers = new System.Windows.Forms.TabPage();
+            this.tabPageLog = new System.Windows.Forms.TabPage();
+            this.textBoxLog = new System.Windows.Forms.TextBox();
             this.backgroundWorkerNetwork = new System.ComponentModel.BackgroundWorker();
+            this.labelPort = new System.Windows.Forms.Label();
+            this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.labelPing = new System.Windows.Forms.Label();
+            this.textBoxPing = new System.Windows.Forms.TextBox();
+            this.labelLastUpdateTime = new System.Windows.Forms.Label();
+            this.textBoxLastUpdateTime = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.panelGlobalControls.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -55,6 +66,7 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panelServerDetails.SuspendLayout();
+            this.tabPageLog.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -89,6 +101,7 @@
             this.buttonStartMasterServer.TabIndex = 3;
             this.buttonStartMasterServer.Text = "Start Master Server";
             this.buttonStartMasterServer.UseVisualStyleBackColor = true;
+            this.buttonStartMasterServer.Click += new System.EventHandler(this.buttonStartMasterServer_Click);
             // 
             // panelGlobalControls
             // 
@@ -103,6 +116,7 @@
             // 
             this.tabControlMain.Controls.Add(this.tabPageServers);
             this.tabControlMain.Controls.Add(this.tabPageUsers);
+            this.tabControlMain.Controls.Add(this.tabPageLog);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Location = new System.Drawing.Point(0, 24);
             this.tabControlMain.Name = "tabControlMain";
@@ -149,7 +163,16 @@
             // 
             // panelServerDetails
             // 
-            this.panelServerDetails.Controls.Add(this.textBox1);
+            this.panelServerDetails.Controls.Add(this.textBoxLastUpdateTime);
+            this.panelServerDetails.Controls.Add(this.labelLastUpdateTime);
+            this.panelServerDetails.Controls.Add(this.textBoxPing);
+            this.panelServerDetails.Controls.Add(this.labelPing);
+            this.panelServerDetails.Controls.Add(this.textBoxPort);
+            this.panelServerDetails.Controls.Add(this.labelPort);
+            this.panelServerDetails.Controls.Add(this.listBoxPlayers);
+            this.panelServerDetails.Controls.Add(this.textBoxMinLevel);
+            this.panelServerDetails.Controls.Add(this.labelLevelRange);
+            this.panelServerDetails.Controls.Add(this.textBoxDescription);
             this.panelServerDetails.Controls.Add(this.labelDescription);
             this.panelServerDetails.Controls.Add(this.textBoxServerIPAddress);
             this.panelServerDetails.Controls.Add(this.labelServerIP);
@@ -161,22 +184,52 @@
             this.panelServerDetails.Size = new System.Drawing.Size(460, 425);
             this.panelServerDetails.TabIndex = 0;
             // 
-            // textBox1
+            // listBoxPlayers
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.listBoxPlayers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(81, 70);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(374, 92);
-            this.textBox1.TabIndex = 5;
+            this.listBoxPlayers.FormattingEnabled = true;
+            this.listBoxPlayers.Location = new System.Drawing.Point(3, 220);
+            this.listBoxPlayers.Name = "listBoxPlayers";
+            this.listBoxPlayers.Size = new System.Drawing.Size(457, 199);
+            this.listBoxPlayers.TabIndex = 10;
+            // 
+            // textBoxMinLevel
+            // 
+            this.textBoxMinLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxMinLevel.Location = new System.Drawing.Point(81, 168);
+            this.textBoxMinLevel.Name = "textBoxMinLevel";
+            this.textBoxMinLevel.ReadOnly = true;
+            this.textBoxMinLevel.Size = new System.Drawing.Size(374, 20);
+            this.textBoxMinLevel.TabIndex = 7;
+            // 
+            // labelLevelRange
+            // 
+            this.labelLevelRange.AutoSize = true;
+            this.labelLevelRange.Location = new System.Drawing.Point(4, 171);
+            this.labelLevelRange.Name = "labelLevelRange";
+            this.labelLevelRange.Size = new System.Drawing.Size(71, 13);
+            this.labelLevelRange.TabIndex = 6;
+            this.labelLevelRange.Text = "Level Range:";
+            // 
+            // textBoxDescription
+            // 
+            this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxDescription.Location = new System.Drawing.Point(81, 70);
+            this.textBoxDescription.Multiline = true;
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.ReadOnly = true;
+            this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxDescription.Size = new System.Drawing.Size(374, 92);
+            this.textBoxDescription.TabIndex = 5;
             // 
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
-            this.labelDescription.Location = new System.Drawing.Point(12, 149);
+            this.labelDescription.Location = new System.Drawing.Point(12, 112);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(63, 13);
             this.labelDescription.TabIndex = 4;
@@ -189,7 +242,7 @@
             this.textBoxServerIPAddress.Location = new System.Drawing.Point(81, 43);
             this.textBoxServerIPAddress.Name = "textBoxServerIPAddress";
             this.textBoxServerIPAddress.ReadOnly = true;
-            this.textBoxServerIPAddress.Size = new System.Drawing.Size(374, 20);
+            this.textBoxServerIPAddress.Size = new System.Drawing.Size(262, 20);
             this.textBoxServerIPAddress.TabIndex = 3;
             // 
             // labelServerIP
@@ -230,11 +283,89 @@
             this.tabPageUsers.Text = "Users";
             this.tabPageUsers.UseVisualStyleBackColor = true;
             // 
+            // tabPageLog
+            // 
+            this.tabPageLog.Controls.Add(this.textBoxLog);
+            this.tabPageLog.Location = new System.Drawing.Point(4, 22);
+            this.tabPageLog.Name = "tabPageLog";
+            this.tabPageLog.Size = new System.Drawing.Size(756, 431);
+            this.tabPageLog.TabIndex = 2;
+            this.tabPageLog.Text = "Log";
+            this.tabPageLog.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLog
+            // 
+            this.textBoxLog.AcceptsReturn = true;
+            this.textBoxLog.AcceptsTab = true;
+            this.textBoxLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxLog.Location = new System.Drawing.Point(0, 0);
+            this.textBoxLog.Multiline = true;
+            this.textBoxLog.Name = "textBoxLog";
+            this.textBoxLog.ReadOnly = true;
+            this.textBoxLog.Size = new System.Drawing.Size(756, 431);
+            this.textBoxLog.TabIndex = 0;
+            // 
             // backgroundWorkerNetwork
             // 
             this.backgroundWorkerNetwork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerNetwork_DoWork);
-            this.backgroundWorkerNetwork.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerNetwork_ProgressChanged);
             this.backgroundWorkerNetwork.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerNetwork_RunWorkerCompleted);
+            // 
+            // labelPort
+            // 
+            this.labelPort.AutoSize = true;
+            this.labelPort.Location = new System.Drawing.Point(349, 46);
+            this.labelPort.Name = "labelPort";
+            this.labelPort.Size = new System.Drawing.Size(29, 13);
+            this.labelPort.TabIndex = 11;
+            this.labelPort.Text = "Port:";
+            // 
+            // textBoxPort
+            // 
+            this.textBoxPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPort.Location = new System.Drawing.Point(384, 44);
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.ReadOnly = true;
+            this.textBoxPort.Size = new System.Drawing.Size(71, 20);
+            this.textBoxPort.TabIndex = 12;
+            // 
+            // labelPing
+            // 
+            this.labelPing.AutoSize = true;
+            this.labelPing.Location = new System.Drawing.Point(44, 197);
+            this.labelPing.Name = "labelPing";
+            this.labelPing.Size = new System.Drawing.Size(31, 13);
+            this.labelPing.TabIndex = 13;
+            this.labelPing.Text = "Ping:";
+            // 
+            // textBoxPing
+            // 
+            this.textBoxPing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPing.Location = new System.Drawing.Point(81, 194);
+            this.textBoxPing.Name = "textBoxPing";
+            this.textBoxPing.ReadOnly = true;
+            this.textBoxPing.Size = new System.Drawing.Size(98, 20);
+            this.textBoxPing.TabIndex = 14;
+            // 
+            // labelLastUpdateTime
+            // 
+            this.labelLastUpdateTime.AutoSize = true;
+            this.labelLastUpdateTime.Location = new System.Drawing.Point(196, 197);
+            this.labelLastUpdateTime.Name = "labelLastUpdateTime";
+            this.labelLastUpdateTime.Size = new System.Drawing.Size(68, 13);
+            this.labelLastUpdateTime.TabIndex = 15;
+            this.labelLastUpdateTime.Text = "Last Update:";
+            // 
+            // textBoxLastUpdateTime
+            // 
+            this.textBoxLastUpdateTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxLastUpdateTime.Location = new System.Drawing.Point(270, 194);
+            this.textBoxLastUpdateTime.Name = "textBoxLastUpdateTime";
+            this.textBoxLastUpdateTime.ReadOnly = true;
+            this.textBoxLastUpdateTime.Size = new System.Drawing.Size(185, 20);
+            this.textBoxLastUpdateTime.TabIndex = 16;
             // 
             // MasterServerForm
             // 
@@ -259,6 +390,8 @@
             this.splitContainer1.ResumeLayout(false);
             this.panelServerDetails.ResumeLayout(false);
             this.panelServerDetails.PerformLayout();
+            this.tabPageLog.ResumeLayout(false);
+            this.tabPageLog.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,7 +409,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListBox listBoxServers;
         private System.Windows.Forms.Panel panelServerDetails;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.TextBox textBoxServerIPAddress;
         private System.Windows.Forms.Label labelServerIP;
@@ -284,6 +417,17 @@
         private System.Windows.Forms.Label labelServerName;
         private System.Windows.Forms.TabPage tabPageUsers;
         private System.ComponentModel.BackgroundWorker backgroundWorkerNetwork;
+        private System.Windows.Forms.TextBox textBoxMinLevel;
+        private System.Windows.Forms.Label labelLevelRange;
+        private System.Windows.Forms.ListBox listBoxPlayers;
+        private System.Windows.Forms.TabPage tabPageLog;
+        private System.Windows.Forms.TextBox textBoxLog;
+        private System.Windows.Forms.TextBox textBoxPort;
+        private System.Windows.Forms.Label labelPort;
+        private System.Windows.Forms.TextBox textBoxPing;
+        private System.Windows.Forms.Label labelPing;
+        private System.Windows.Forms.TextBox textBoxLastUpdateTime;
+        private System.Windows.Forms.Label labelLastUpdateTime;
     }
 }
 
