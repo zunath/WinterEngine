@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ConnectionAddress.cs" />
     <Compile Include="Enums\RequestTypeEnum.cs" />
     <Compile Include="MasterServerConfiguration.cs" />
     <Compile Include="Enums\PacketTypeEnum.cs" />

@@ -10,7 +10,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AutoMapper;
 using Lidgren.Network;
+using WinterEngine.Network.Entities;
 using WinterEngine.Network.Enums;
 using WinterEngine.Network.Packets;
 
@@ -21,9 +23,7 @@ namespace WinterEngine.Network.MasterServer
         #region Fields
 
         private NetworkAgent _agent; 
-        private List<NetIncomingMessage> _messages;
-        private PacketFactory _packetFactory;
-        private Dictionary<Tuple<IPAddress, int>, ServerDetails> _serverList;
+        private Dictionary<ConnectionAddress, ServerDetails> _serverList;
         private bool _masterServerIsRunning;
 
         #endregion
@@ -40,24 +40,6 @@ namespace WinterEngine.Network.MasterServer
         }
 
         /// <summary>
-        /// Gets or sets the list of messages being received and processed.
-        /// </summary>
-        private List<NetIncomingMessage> Messages
-        {
-            get { return _messages; }
-            set { _messages = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the Packet Factory.
-        /// </summary>
-        private PacketFactory Factory
-        {
-            get { return _packetFactory; }
-            set { _packetFactory = value; }
-        }
-
-        /// <summary>
         /// Gets or sets whether the master server is running.
         /// </summary>
         private bool IsMasterServerRunning
@@ -70,10 +52,19 @@ namespace WinterEngine.Network.MasterServer
         /// Gets or sets the server list.
         /// Key: IP Address + Port #
         /// </summary>
-        private Dictionary<Tuple<IPAddress, int>, ServerDetails> ServerList
+        private Dictionary<ConnectionAddress, ServerDetails> ServerList
         {
             get { return _serverList; }
             set { _serverList = value; }
+        }
+
+        /// <summary>
+        /// Returns the number of minutes it takes to remove a server from the list
+        /// due to no status update.
+        /// </summary>
+        private int ServerTimeoutMinutes
+        {
+            get { return Convert.ToInt16(ConfigurationManager.AppSettings["ServerTimeoutMinutes"]); }
         }
 
         #endregion
@@ -84,32 +75,60 @@ namespace WinterEngine.Network.MasterServer
         {
             InitializeComponent();
 
-            Factory = new PacketFactory();
-
-            ServerList = new Dictionary<Tuple<IPAddress, int>, ServerDetails>();
+            ServerList = new Dictionary<ConnectionAddress, ServerDetails>();
         }
 
         #endregion
 
         #region Event Handling - Main Thread
 
+        /// <summary>
+        /// Handles starting and stopping the master server.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonStartMasterServer_Click(object sender, EventArgs e)
         {
             if (IsMasterServerRunning)
             {
+                bool shuttingDown = true;
                 IsMasterServerRunning = false;
-                backgroundWorkerNetwork.CancelAsync();
-                Agent.Shutdown();
                 buttonStartMasterServer.Text = "Shutting Down...";
                 buttonStartMasterServer.Enabled = false;
+                backgroundWorkerNetwork.CancelAsync();
+                backgroundWorkerStatusTracker.CancelAsync();
+                Agent.Shutdown();
+
+                while (shuttingDown)
+                {
+                    if (!backgroundWorkerNetwork.IsBusy && !backgroundWorkerStatusTracker.IsBusy)
+                    {
+                        shuttingDown = false;
+                    }
+                }
+
+                buttonStartMasterServer.Text = "Start Master Server";
+                buttonStartMasterServer.Enabled = true;
             }
             else
             {
                 IsMasterServerRunning = true;
                 Agent = new NetworkAgent(AgentRole.Server, MasterServerConfiguration.MasterServerApplicationIdentifier);
                 backgroundWorkerNetwork.RunWorkerAsync();
+                backgroundWorkerStatusTracker.RunWorkerAsync();
                 buttonStartMasterServer.Text = "Shutdown Master Server";
             }
+        }
+
+        /// <summary>
+        /// Handles loading the selected server's details to the controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxServers_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ServerDetails serverDetails = listBoxServers.SelectedItem as ServerDetails;
+            LoadServerDetails(serverDetails);
         }
 
         #endregion
@@ -124,8 +143,20 @@ namespace WinterEngine.Network.MasterServer
         /// <param name="e"></param>
         private void backgroundWorkerNetwork_DoWork(object sender, DoWorkEventArgs e)
         {
-            Messages = Agent.CheckForMessages();
-            Thread.Sleep(5);
+            List<NetIncomingMessage> messages;
+            PacketFactory factory = new PacketFactory();
+
+            while (IsMasterServerRunning)
+            {
+                messages = Agent.CheckForMessages();
+                foreach (NetIncomingMessage message in messages)
+                {
+                    ProcessPacket(message, factory);
+                }
+                messages.Clear();
+
+                Thread.Sleep(5);
+            }
         }
 
         /// <summary>
@@ -136,15 +167,54 @@ namespace WinterEngine.Network.MasterServer
         /// <param name="e"></param>
         private void backgroundWorkerNetwork_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if(!e.Cancelled)
-            {
-                foreach (NetIncomingMessage message in _messages)
-                {
-                    ProcessPacket(message);
-                }
-                Messages.Clear();
+            
 
-                backgroundWorkerNetwork.RunWorkerAsync();
+            if (IsMasterServerRunning)
+            {
+                //backgroundWorkerNetwork.RunWorkerAsync();
+            }
+        }
+
+        #endregion
+
+        #region Event Handling - Server Status Tracking Thread
+
+        /// <summary>
+        /// Handles updating server status and removing servers that have not responded
+        /// after a configurable amount of time.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void backgroundWorkerStatusTracker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (IsMasterServerRunning)
+            {
+                List<ServerDetails> servers = ServerList.Values.ToList();
+                DateTime currentTime = DateTime.Now;
+
+                for (int index = servers.Count; index > 0; index--)
+                {
+                    ServerDetails server = servers[index];
+                    // Check if the server hasn't been updated in a specific amount of time.
+                    TimeSpan difference = currentTime.Subtract(server.LastPacketReceived);
+                    if (difference.Minutes >= ServerTimeoutMinutes)
+                    {
+                        servers.RemoveAt(index);
+                        ServerList.Remove(server.Connection);
+                    }
+                }
+
+                listBoxServers.DataSource = ServerList.ToList();
+                Thread.Sleep(5000);
+            }
+            e.Cancel = true;
+        }
+
+        private void backgroundWorkerStatusTracker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (IsMasterServerRunning)
+            {
+                //backgroundWorkerStatusTracker.RunWorkerAsync();
             }
         }
 
@@ -152,6 +222,52 @@ namespace WinterEngine.Network.MasterServer
 
         #region Methods - Main Thread
 
+        /// <summary>
+        /// Loads a server's details into the form's controls.
+        /// If details is null, all fields will be cleared.
+        /// </summary>
+        /// <param name="details"></param>
+        private void LoadServerDetails(ServerDetails details)
+        {
+            if (Object.ReferenceEquals(details, null))
+            {
+                textBoxDescription.Text = String.Empty;
+                textBoxLastUpdateTime.Text = String.Empty;
+                textBoxMinLevel.Text = String.Empty;
+                textBoxPing.Text = String.Empty;
+                textBoxPort.Text = String.Empty;
+                textBoxServerIPAddress.Text = String.Empty;
+                textBoxServerName.Text = String.Empty;
+            }
+            else
+            {
+                textBoxDescription.Text = details.Description;
+                textBoxMinLevel.Text = details.MinLevel + " - " + details.MaxLevel;
+                textBoxPing.Text = "" + details.Ping;
+                textBoxPort.Text = "" + details.Connection.Port;
+                textBoxServerIPAddress.Text = details.Connection.IP.ToString();
+                textBoxServerName.Text = details.Name;
+            }
+        }
+
+        /// <summary>
+        /// Adds a server's details to the server list if it doesn't exist already.
+        /// Updates a server's details if it already exists in the server list.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="details"></param>
+        private void UpsertServer(ConnectionAddress key, ServerDetails details)
+        {
+            if (ServerList.ContainsKey(key))
+            {
+                ServerList[key] = details;
+            }
+            else
+            {
+                ServerList.Add(key, details);
+                listBoxServers.Items.Add(details);
+            }
+        }
 
         #endregion
 
@@ -163,9 +279,9 @@ namespace WinterEngine.Network.MasterServer
         /// it will be dropped.
         /// </summary>
         /// <param name="message"></param>
-        private void ProcessPacket(NetIncomingMessage message)
+        private void ProcessPacket(NetIncomingMessage message, PacketFactory factory)
         {
-            Packet packet = Factory.BuildPacket(message);
+            Packet packet = factory.BuildPacket(message);
 
             switch (packet.PacketType)
             {
@@ -196,29 +312,11 @@ namespace WinterEngine.Network.MasterServer
             details.MaxLevel = packet.MaxLevel;
             details.MinLevel = packet.MinLevel;
             details.Name = packet.Name;
-
-            details.IPAddress = ipAddress;
-            details.Port = port;
+            details.Connection.IP = ipAddress;
+            details.Connection.Port = port;
             details.Ping = ping;
-
-            Tuple<IPAddress, int> key = new Tuple<IPAddress, int>(ipAddress, port);
-            if (ServerList.ContainsKey(key))
-            {
-                ServerList[key] = details;
-            }
-            else
-            {
-                ServerList.Add(key, details);
-            }
-
-
-            textBoxDescription.Text = details.Description;
-            textBoxMinLevel.Text = details.MinLevel + " - " + details.MaxLevel;
-            textBoxPing.Text = "" + details.Ping;
-            textBoxPort.Text = "" + details.Port;
-            textBoxServerIPAddress.Text = details.IPAddress.ToString();
-            textBoxServerName.Text = details.Name;
-
+            
+            UpsertServer(details.Connection, details);
         }
 
         /// <summary>
@@ -238,5 +336,7 @@ namespace WinterEngine.Network.MasterServer
         }
 
         #endregion
+
+
     }
 }

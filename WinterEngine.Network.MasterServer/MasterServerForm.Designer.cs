@@ -38,6 +38,12 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBoxServers = new System.Windows.Forms.ListBox();
             this.panelServerDetails = new System.Windows.Forms.Panel();
+            this.textBoxLastUpdateTime = new System.Windows.Forms.TextBox();
+            this.labelLastUpdateTime = new System.Windows.Forms.Label();
+            this.textBoxPing = new System.Windows.Forms.TextBox();
+            this.labelPing = new System.Windows.Forms.Label();
+            this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.labelPort = new System.Windows.Forms.Label();
             this.listBoxPlayers = new System.Windows.Forms.ListBox();
             this.textBoxMinLevel = new System.Windows.Forms.TextBox();
             this.labelLevelRange = new System.Windows.Forms.Label();
@@ -51,12 +57,7 @@
             this.tabPageLog = new System.Windows.Forms.TabPage();
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.backgroundWorkerNetwork = new System.ComponentModel.BackgroundWorker();
-            this.labelPort = new System.Windows.Forms.Label();
-            this.textBoxPort = new System.Windows.Forms.TextBox();
-            this.labelPing = new System.Windows.Forms.Label();
-            this.textBoxPing = new System.Windows.Forms.TextBox();
-            this.labelLastUpdateTime = new System.Windows.Forms.Label();
-            this.textBoxLastUpdateTime = new System.Windows.Forms.TextBox();
+            this.backgroundWorkerStatusTracker = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             this.panelGlobalControls.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -160,6 +161,7 @@
             this.listBoxServers.Name = "listBoxServers";
             this.listBoxServers.Size = new System.Drawing.Size(286, 425);
             this.listBoxServers.TabIndex = 0;
+            this.listBoxServers.SelectedValueChanged += new System.EventHandler(this.listBoxServers_SelectedValueChanged);
             // 
             // panelServerDetails
             // 
@@ -183,6 +185,63 @@
             this.panelServerDetails.Name = "panelServerDetails";
             this.panelServerDetails.Size = new System.Drawing.Size(460, 425);
             this.panelServerDetails.TabIndex = 0;
+            // 
+            // textBoxLastUpdateTime
+            // 
+            this.textBoxLastUpdateTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxLastUpdateTime.Location = new System.Drawing.Point(270, 194);
+            this.textBoxLastUpdateTime.Name = "textBoxLastUpdateTime";
+            this.textBoxLastUpdateTime.ReadOnly = true;
+            this.textBoxLastUpdateTime.Size = new System.Drawing.Size(185, 20);
+            this.textBoxLastUpdateTime.TabIndex = 16;
+            // 
+            // labelLastUpdateTime
+            // 
+            this.labelLastUpdateTime.AutoSize = true;
+            this.labelLastUpdateTime.Location = new System.Drawing.Point(196, 197);
+            this.labelLastUpdateTime.Name = "labelLastUpdateTime";
+            this.labelLastUpdateTime.Size = new System.Drawing.Size(68, 13);
+            this.labelLastUpdateTime.TabIndex = 15;
+            this.labelLastUpdateTime.Text = "Last Update:";
+            // 
+            // textBoxPing
+            // 
+            this.textBoxPing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPing.Location = new System.Drawing.Point(81, 194);
+            this.textBoxPing.Name = "textBoxPing";
+            this.textBoxPing.ReadOnly = true;
+            this.textBoxPing.Size = new System.Drawing.Size(98, 20);
+            this.textBoxPing.TabIndex = 14;
+            // 
+            // labelPing
+            // 
+            this.labelPing.AutoSize = true;
+            this.labelPing.Location = new System.Drawing.Point(44, 197);
+            this.labelPing.Name = "labelPing";
+            this.labelPing.Size = new System.Drawing.Size(31, 13);
+            this.labelPing.TabIndex = 13;
+            this.labelPing.Text = "Ping:";
+            // 
+            // textBoxPort
+            // 
+            this.textBoxPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPort.Location = new System.Drawing.Point(384, 44);
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.ReadOnly = true;
+            this.textBoxPort.Size = new System.Drawing.Size(71, 20);
+            this.textBoxPort.TabIndex = 12;
+            // 
+            // labelPort
+            // 
+            this.labelPort.AutoSize = true;
+            this.labelPort.Location = new System.Drawing.Point(349, 46);
+            this.labelPort.Name = "labelPort";
+            this.labelPort.Size = new System.Drawing.Size(29, 13);
+            this.labelPort.TabIndex = 11;
+            this.labelPort.Text = "Port:";
             // 
             // listBoxPlayers
             // 
@@ -311,62 +370,11 @@
             this.backgroundWorkerNetwork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerNetwork_DoWork);
             this.backgroundWorkerNetwork.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerNetwork_RunWorkerCompleted);
             // 
-            // labelPort
+            // backgroundWorkerStatusTracker
             // 
-            this.labelPort.AutoSize = true;
-            this.labelPort.Location = new System.Drawing.Point(349, 46);
-            this.labelPort.Name = "labelPort";
-            this.labelPort.Size = new System.Drawing.Size(29, 13);
-            this.labelPort.TabIndex = 11;
-            this.labelPort.Text = "Port:";
-            // 
-            // textBoxPort
-            // 
-            this.textBoxPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxPort.Location = new System.Drawing.Point(384, 44);
-            this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.ReadOnly = true;
-            this.textBoxPort.Size = new System.Drawing.Size(71, 20);
-            this.textBoxPort.TabIndex = 12;
-            // 
-            // labelPing
-            // 
-            this.labelPing.AutoSize = true;
-            this.labelPing.Location = new System.Drawing.Point(44, 197);
-            this.labelPing.Name = "labelPing";
-            this.labelPing.Size = new System.Drawing.Size(31, 13);
-            this.labelPing.TabIndex = 13;
-            this.labelPing.Text = "Ping:";
-            // 
-            // textBoxPing
-            // 
-            this.textBoxPing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxPing.Location = new System.Drawing.Point(81, 194);
-            this.textBoxPing.Name = "textBoxPing";
-            this.textBoxPing.ReadOnly = true;
-            this.textBoxPing.Size = new System.Drawing.Size(98, 20);
-            this.textBoxPing.TabIndex = 14;
-            // 
-            // labelLastUpdateTime
-            // 
-            this.labelLastUpdateTime.AutoSize = true;
-            this.labelLastUpdateTime.Location = new System.Drawing.Point(196, 197);
-            this.labelLastUpdateTime.Name = "labelLastUpdateTime";
-            this.labelLastUpdateTime.Size = new System.Drawing.Size(68, 13);
-            this.labelLastUpdateTime.TabIndex = 15;
-            this.labelLastUpdateTime.Text = "Last Update:";
-            // 
-            // textBoxLastUpdateTime
-            // 
-            this.textBoxLastUpdateTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLastUpdateTime.Location = new System.Drawing.Point(270, 194);
-            this.textBoxLastUpdateTime.Name = "textBoxLastUpdateTime";
-            this.textBoxLastUpdateTime.ReadOnly = true;
-            this.textBoxLastUpdateTime.Size = new System.Drawing.Size(185, 20);
-            this.textBoxLastUpdateTime.TabIndex = 16;
+            this.backgroundWorkerStatusTracker.WorkerSupportsCancellation = true;
+            this.backgroundWorkerStatusTracker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerStatusTracker_DoWork);
+            this.backgroundWorkerStatusTracker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerStatusTracker_RunWorkerCompleted);
             // 
             // MasterServerForm
             // 
@@ -429,6 +437,7 @@
         private System.Windows.Forms.Label labelPing;
         private System.Windows.Forms.TextBox textBoxLastUpdateTime;
         private System.Windows.Forms.Label labelLastUpdateTime;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerStatusTracker;
     }
 }
 

@@ -26,3 +26,5 @@ C:\Projects\WinterEngine\WinterEngine.Network.MasterServer\obj\Debug\WinterEngin
 C:\Projects\WinterEngine\WinterEngine.Network.MasterServer\obj\Debug\WinterEngine.Network.MasterServer.csproj.GenerateResource.Cache
 C:\Projects\WinterEngine\WinterEngine.Network.MasterServer\obj\Debug\WinterEngine.Network.MasterServer.exe
 C:\Projects\WinterEngine\WinterEngine.Network.MasterServer\obj\Debug\WinterEngine.Network.MasterServer.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\bin\Debug\AutoMapper.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network.MasterServer\bin\Debug\AutoMapper.xml
