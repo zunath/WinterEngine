@@ -34,6 +34,34 @@ namespace WinterEngine.Network.Entities
         #region Overrides
 
         /// <summary>
+        /// Compares the connection of two ServerDetails objects.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            ServerDetails comparedObject = obj as ServerDetails;
+
+            if (Object.ReferenceEquals(comparedObject, null))
+            {
+                return false;
+            }
+            else
+            {
+                return Connection.Equals(comparedObject.Connection);
+            }
+        }
+
+        /// <summary>
+        /// Returns the hash code of the connection.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return Connection.GetHashCode();
+        }
+
+        /// <summary>
         /// Override to display the server details in list boxes.
         /// </summary>
         /// <returns></returns>

@@ -53,6 +53,10 @@ namespace WinterEngine.Network.MasterServer
 
         #region Events / Delegates
 
+        /// <summary>
+        /// Delegate used to run RefreshServerList() on the main GUI thread.
+        /// </summary>
+        /// <param name="serverList">The latest version of the server list.</param>
         private delegate void ServerListUpdaterHandler(List<ServerDetails> serverList);
 
         #endregion
@@ -68,16 +72,21 @@ namespace WinterEngine.Network.MasterServer
         {
             if (IsServerRunning)
             {
+                AddLogMessage("Stopping Master Server");
                 IsServerRunning = false;
                 MasterServer.ShutdownMasterServer();
+                listBoxServers.Items.Clear();
                 buttonStartMasterServer.Text = "Start Master Server";
+                AddLogMessage("Master Server Stopped");
             }
             else
             {
+                AddLogMessage("Starting Master Server");
                 IsServerRunning = true;
                 MasterServer.StartMasterServer();
                 backgroundWorkerServerPolling.RunWorkerAsync();
                 buttonStartMasterServer.Text = "Shutdown Master Server";
+                AddLogMessage("Master Server Started");
             }
         }
 
@@ -124,6 +133,41 @@ namespace WinterEngine.Network.MasterServer
             }
         }
 
+        /// <summary>
+        /// Compares the servers in the list box against the latest server list.
+        /// Removes old servers and adds any new ones. Existing servers are not modified.
+        /// </summary>
+        /// <param name="serverList"></param>
+        private void RefreshServerList(List<ServerDetails> serverList)
+        {
+            // Converts all items in the list box to ServerDetails and generates a list out of them.
+            List<ServerDetails> existingServers = listBoxServers.Items.Cast<ServerDetails>().ToList();
+
+            List<ServerDetails> newServers = serverList.Except(existingServers).ToList();
+            List<ServerDetails> removedServers = existingServers.Except(serverList).ToList();
+
+            foreach (ServerDetails currentServer in newServers)
+            {
+                AddLogMessage("Adding server " + currentServer.Name);
+                listBoxServers.Items.Add(currentServer);
+            }
+
+            foreach (ServerDetails currentServer in removedServers)
+            {
+                AddLogMessage("Removing server " + currentServer.Name);
+                listBoxServers.Items.Remove(currentServer);
+            }
+        }
+
+        /// <summary>
+        /// Adds a message to the log screen.
+        /// </summary>
+        /// <param name="message"></param>
+        private void AddLogMessage(string message)
+        {
+            textBoxLog.Text += message + Environment.NewLine;
+        }
+
         #endregion
 
         #region Event Handling - Server Polling Thread
@@ -141,6 +185,8 @@ namespace WinterEngine.Network.MasterServer
                 while (IsServerRunning)
                 {
                     List<ServerDetails> serverList = MasterServer.GetServerList(); 
+
+                    // Invoke the RefreshServerList method on the main list.
                     listBoxServers.Invoke(new ServerListUpdaterHandler(RefreshServerList), serverList);
                     
                     Thread.Sleep(50);
@@ -154,34 +200,5 @@ namespace WinterEngine.Network.MasterServer
         }
 
         #endregion
-
-        #region Methods - Server Polling Thread
-
-        /// <summary>
-        /// Compares the servers in the list box against the latest server list.
-        /// Removes old servers and adds any new ones. Existing servers are not modified.
-        /// </summary>
-        /// <param name="serverList"></param>
-        private void RefreshServerList(List<ServerDetails> serverList)
-        {
-            // Converts all items in the list box to ServerDetails and generates a list out of them.
-            List<ServerDetails> existingServers = listBoxServers.Items.Cast<ServerDetails>().ToList();
-
-            List<ServerDetails> newServers = serverList.Except(existingServers).ToList();
-            List<ServerDetails> removedServers = existingServers.Except(serverList).ToList();
-
-            foreach (ServerDetails currentServer in newServers)
-            {
-                listBoxServers.Items.Add(currentServer);
-            }
-
-            foreach (ServerDetails currentServer in removedServers)
-            {
-                listBoxServers.Items.Remove(currentServer);
-            }
-        }
-
-        #endregion
-
     }
 }

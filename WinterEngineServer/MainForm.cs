@@ -23,7 +23,6 @@ namespace WinterEngineServer
             InitializeComponent();
 
             agent = new NetworkAgent(AgentRole.Client, MasterServerConfiguration.MasterServerApplicationIdentifier);
-            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -36,7 +35,6 @@ namespace WinterEngineServer
             ServerDetailsPacket packet = new ServerDetailsPacket("TestName", "TestDesc", 2, 3);
             agent.WriteMessage(packet);
             agent.SendMessage(agent.Connections[0], true);
-            
             
         }
 

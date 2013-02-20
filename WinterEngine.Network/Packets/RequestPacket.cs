@@ -7,7 +7,7 @@ using WinterEngine.Network.Enums;
 namespace WinterEngine.Network.Packets
 {
     /// <summary>
-    /// Packet used to request data from a server or the master server.
+    /// Packet used to request data from the server or master server.
     /// </summary>
     public class RequestPacket : Packet
     {

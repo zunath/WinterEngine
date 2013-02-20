@@ -24,9 +24,9 @@ namespace WinterEngine.Network.Entities
         public override int GetHashCode()
         {
             // Reference: http://stackoverflow.com/questions/892618/create-a-hashcode-of-two-numbers
-            int hashPrime = 23;
-            int ipHash = hashPrime * 31 + IP.GetHashCode();
-            int portHash = hashPrime * 31 + Port.GetHashCode();
+            int hashPrime = 23 * 31;
+            int ipHash = hashPrime + IP.GetHashCode();
+            int portHash = hashPrime + Port.GetHashCode();
 
             return ipHash + portHash;
         }
