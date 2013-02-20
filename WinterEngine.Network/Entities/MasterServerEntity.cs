@@ -162,13 +162,13 @@ namespace WinterEngine.Network.Entities
         /// </summary>
         private void CheckForMessages()
         {
-            while (IsMasterServerRunning)
+            try
             {
-                List<NetIncomingMessage> messages;
-                PacketFactory factory = new PacketFactory();
-
-                try
+                while (IsMasterServerRunning)
                 {
+                    List<NetIncomingMessage> messages;
+                    PacketFactory factory = new PacketFactory();
+
                     messages = Agent.CheckForMessages();
                     foreach (NetIncomingMessage message in messages)
                     {
@@ -176,13 +176,14 @@ namespace WinterEngine.Network.Entities
                     }
                     messages.Clear();
 
-                    //RemoveTimedOutServers();
+                    RemoveTimedOutServers();
                     Thread.Sleep(5);
+
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -228,6 +229,7 @@ namespace WinterEngine.Network.Entities
             details.Connection.IP = ipAddress;
             details.Connection.Port = port;
             details.Ping = ping;
+            details.LastPacketReceived = DateTime.Now;
 
             UpsertServer(details.Connection, details);
         }
@@ -240,13 +242,15 @@ namespace WinterEngine.Network.Entities
         /// <param name="details"></param>
         private void UpsertServer(ConnectionAddress key, ServerDetails details)
         {
-            if (ServerList.ContainsKey(key))
+            KeyValuePair<ConnectionAddress, ServerDetails> existingEntry = ServerList.FirstOrDefault(x => x.Key.IP == key.IP && x.Key.Port == key.Port);
+
+            if (Object.ReferenceEquals(existingEntry, null))
             {
-                ServerList[key] = details;
+                ServerList.Add(key, details);
             }
             else
             {
-                ServerList.Add(key, details);
+                ServerList[existingEntry.Key] = details;
             }
         }
 
@@ -273,14 +277,22 @@ namespace WinterEngine.Network.Entities
         private void RemoveTimedOutServers()
         {
             DateTime currentTime = DateTime.Now;
+            List<ConnectionAddress> keys = new List<ConnectionAddress>();
 
+            // Determine which keys to remove from the server list.
             foreach (KeyValuePair<ConnectionAddress, ServerDetails> server in ServerList)
             {
                 TimeSpan difference = currentTime.Subtract(server.Value.LastPacketReceived);
                 if (difference.Minutes >= ServerTimeoutMinutes)
                 {
-                    ServerList.Remove(server.Key);
+                    keys.Add(server.Key);
                 }
+            }
+
+            // Actually remove the keys from the server list.
+            foreach (ConnectionAddress currentKey in keys)
+            {
+                ServerList.Remove(currentKey);
             }
 
         }

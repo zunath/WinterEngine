@@ -316,3 +316,50 @@ Network thread started
 Status Message: Remotely requested connect
 Status Message: Connected to 6A1EB28776C605C8
 Initiated average roundtrip time to 1.53 ms Remote time is: 3.23900151252747
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 5D0D5744351F98B1
+Initiated average roundtrip time to 1.48 ms Remote time is: 4.58737087249756
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 163D05F5EB1FA63D
+Initiated average roundtrip time to 1.60 ms Remote time is: 1.28304004669189
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 5D92F16023C92A31
+Initiated average roundtrip time to 1.94 ms Remote time is: 20.3959999084473
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to C20BDA10E99C1168
+Initiated average roundtrip time to 1.51 ms Remote time is: 1.082390666008
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to FEC2EFA4FF46059C
+Initiated average roundtrip time to 1.66 ms Remote time is: 2.6141951084137
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 30811571A2B55F68
+Initiated average roundtrip time to 1.85 ms Remote time is: 1.35328817367554
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 3BBA6EE1FD8861DD
+Initiated average roundtrip time to 2.39 ms Remote time is: 6.73559379577637
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to D4D40541F62D0FCF
+Initiated average roundtrip time to 1.74 ms Remote time is: 6.18248987197876
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 728F380A46419E55
+Initiated average roundtrip time to 1.56 ms Remote time is: 4.65404796600342
