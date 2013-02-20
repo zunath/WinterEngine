@@ -200,10 +200,7 @@ namespace WinterEngine.Network.Entities
             switch (packet.PacketType)
             {
                 case PacketTypeEnum.Server:
-                    int port = message.SenderEndPoint.Port;
-                    IPAddress ipAddress = message.SenderEndPoint.Address;
-                    float ping = message.SenderConnection.AverageRoundtripTime;
-                    UpdateServerInformation(packet as ServerDetailsPacket, ipAddress, port, ping);
+                    UpdateServerInformation(packet as ServerDetailsPacket, message);
                     break;
                 case PacketTypeEnum.Request:
                     ProcessRequest(packet as RequestPacket);
@@ -219,8 +216,12 @@ namespace WinterEngine.Network.Entities
         /// based on data received over the network.
         /// </summary>
         /// <param name="packet"></param>
-        private void UpdateServerInformation(ServerDetailsPacket packet, IPAddress ipAddress, int port, float ping)
+        private void UpdateServerInformation(ServerDetailsPacket packet, NetIncomingMessage message)
         {
+            int port = message.SenderEndPoint.Port;
+            IPAddress ipAddress = message.SenderEndPoint.Address;
+            float ping = message.SenderConnection.AverageRoundtripTime;
+
             ServerDetails details = new ServerDetails();
             details.Description = packet.Description;
             details.MaxLevel = packet.MaxLevel;
@@ -242,15 +243,13 @@ namespace WinterEngine.Network.Entities
         /// <param name="details"></param>
         private void UpsertServer(ConnectionAddress key, ServerDetails details)
         {
-            KeyValuePair<ConnectionAddress, ServerDetails> existingEntry = ServerList.FirstOrDefault(x => x.Key.IP == key.IP && x.Key.Port == key.Port);
-
-            if (Object.ReferenceEquals(existingEntry, null))
+            if (!ServerList.ContainsKey(key))
             {
                 ServerList.Add(key, details);
             }
             else
             {
-                ServerList[existingEntry.Key] = details;
+                ServerList[key] = details;
             }
         }
 
