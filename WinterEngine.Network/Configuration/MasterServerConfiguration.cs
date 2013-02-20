@@ -15,6 +15,7 @@ namespace WinterEngine.Network.Configuration
         private const string MasterServerURL = "localhost";
         private const int MasterServerPort = 5121;
         private const string MasterServerAppID = "20F7B215-5E4D-4B62-A2DF-543E436BB232";
+        private const int ServerTimeoutMin = 1;
 
         /// <summary>
         /// Returns the IP address of the master server
@@ -48,5 +49,17 @@ namespace WinterEngine.Network.Configuration
                 return MasterServerAppID;
             }
         }
+
+        /// <summary>
+        /// Returns the number of minutes it takes before a server times out from the master server.
+        /// </summary>
+        public static int ServerTimeoutMinutes
+        {
+            get
+            {
+                return ServerTimeoutMin;
+            }
+        }
+
     }
 }

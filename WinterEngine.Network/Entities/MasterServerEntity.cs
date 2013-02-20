@@ -7,6 +7,7 @@ using Lidgren.Network;
 using WinterEngine.Network.Enums;
 using WinterEngine.Network.Packets;
 using System.Linq;
+using WinterEngine.Network.Configuration;
 
 namespace WinterEngine.Network.Entities
 {
@@ -23,50 +24,6 @@ namespace WinterEngine.Network.Entities
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Returns the master server's IP Address.
-        /// </summary>
-        public IPAddress MasterServerIPAddress 
-        { 
-            get 
-            { 
-                return _masterServerIPAddress; 
-            } 
-        }
-
-        /// <summary>
-        /// Returns the master server's port number.
-        /// </summary>
-        public int MasterServerPort 
-        {
-            get
-            {
-                return _masterServerPort;
-            }
-        }
-
-        /// <summary>
-        /// Returns the master server's unique Application ID.
-        /// </summary>
-        public string MasterServerAppID 
-        {
-            get
-            {
-                return _masterServerAppID;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the number of minutes before servers time out due to inactivity.
-        /// </summary>
-        public int ServerTimeoutMinutes
-        {
-            get
-            {
-                return _serverTimeoutMinutes;
-            }
-        }
 
         /// <summary>
         /// Network thread handles receiving packets and processing them
@@ -105,20 +62,13 @@ namespace WinterEngine.Network.Entities
         /// <summary>
         /// Builds a new master server object.
         /// </summary>
-        /// <param name="url">The URL of the master server.</param>
-        /// <param name="port">The port used by the master server</param>
-        /// <param name="appID">The unique Application ID used for client connections.</param>
-        /// <param name="serverTimeoutMinutes">The number of minutes before a connected server times out.</param>
-        public MasterServerEntity(IPAddress ipAddress, int port, string appID, int serverTimeoutMinutes)
+        public MasterServerEntity()
         {
-            _masterServerIPAddress = ipAddress;
-            _masterServerPort = port;
-            _masterServerAppID = appID;
-            _serverTimeoutMinutes = serverTimeoutMinutes;
-
             ServerList = new Dictionary<ConnectionAddress, ServerDetails>();
             NetworkThread = new BackgroundWorker();
-            Agent = new NetworkAgent(AgentRole.Server, appID);
+            NetworkThread.WorkerSupportsCancellation = true;
+
+            Agent = new NetworkAgent(AgentRole.Server, MasterServerConfiguration.MasterServerApplicationIdentifier);
 
             NetworkThread.DoWork += (sender, e) =>
             {
@@ -231,7 +181,7 @@ namespace WinterEngine.Network.Entities
             details.Connection.Port = port;
             details.Ping = ping;
             details.LastPacketReceived = DateTime.Now;
-
+            
             UpsertServer(details.Connection, details);
         }
 
@@ -282,7 +232,7 @@ namespace WinterEngine.Network.Entities
             foreach (KeyValuePair<ConnectionAddress, ServerDetails> server in ServerList)
             {
                 TimeSpan difference = currentTime.Subtract(server.Value.LastPacketReceived);
-                if (difference.Minutes >= ServerTimeoutMinutes)
+                if (difference.Minutes >= MasterServerConfiguration.ServerTimeoutMinutes)
                 {
                     keys.Add(server.Key);
                 }
