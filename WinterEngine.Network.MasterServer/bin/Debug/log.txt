@@ -289,3 +289,30 @@ Network thread started
 Status Message: Remotely requested connect
 Status Message: Connected to CE1F27B4CDB1C10B
 Initiated average roundtrip time to 1.52 ms Remote time is: 3.64093691110611
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Wrong application identifier!
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to AD9D2856EB8B79EE
+Initiated average roundtrip time to 3.29 ms Remote time is: 6.33251190185547
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 8346EB17053A8A1C
+Initiated average roundtrip time to 1.59 ms Remote time is: 1.34666514396667
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to D90021A81B74FB9C
+Initiated average roundtrip time to 2.30 ms Remote time is: 1.67188537120819
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 6A1EB28776C605C8
+Initiated average roundtrip time to 1.53 ms Remote time is: 3.23900151252747

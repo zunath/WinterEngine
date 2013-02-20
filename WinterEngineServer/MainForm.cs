@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using Lidgren.Network;
 using WinterEngine.Network;
+using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Packets;
 
 namespace WinterEngineServer

@@ -56,8 +56,7 @@
             this.tabPageUsers = new System.Windows.Forms.TabPage();
             this.tabPageLog = new System.Windows.Forms.TabPage();
             this.textBoxLog = new System.Windows.Forms.TextBox();
-            this.backgroundWorkerNetwork = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorkerStatusTracker = new System.ComponentModel.BackgroundWorker();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panelGlobalControls.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -106,6 +105,7 @@
             // 
             // panelGlobalControls
             // 
+            this.panelGlobalControls.Controls.Add(this.button1);
             this.panelGlobalControls.Controls.Add(this.buttonStartMasterServer);
             this.panelGlobalControls.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelGlobalControls.Location = new System.Drawing.Point(0, 481);
@@ -364,17 +364,15 @@
             this.textBoxLog.Size = new System.Drawing.Size(756, 431);
             this.textBoxLog.TabIndex = 0;
             // 
-            // backgroundWorkerNetwork
+            // button1
             // 
-            this.backgroundWorkerNetwork.WorkerSupportsCancellation = true;
-            this.backgroundWorkerNetwork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerNetwork_DoWork);
-            this.backgroundWorkerNetwork.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerNetwork_RunWorkerCompleted);
-            // 
-            // backgroundWorkerStatusTracker
-            // 
-            this.backgroundWorkerStatusTracker.WorkerSupportsCancellation = true;
-            this.backgroundWorkerStatusTracker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerStatusTracker_DoWork);
-            this.backgroundWorkerStatusTracker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerStatusTracker_RunWorkerCompleted);
+            this.button1.Location = new System.Drawing.Point(178, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MasterServerForm
             // 
@@ -425,7 +423,6 @@
         private System.Windows.Forms.TextBox textBoxServerName;
         private System.Windows.Forms.Label labelServerName;
         private System.Windows.Forms.TabPage tabPageUsers;
-        private System.ComponentModel.BackgroundWorker backgroundWorkerNetwork;
         private System.Windows.Forms.TextBox textBoxMinLevel;
         private System.Windows.Forms.Label labelLevelRange;
         private System.Windows.Forms.ListBox listBoxPlayers;
@@ -437,7 +434,7 @@
         private System.Windows.Forms.Label labelPing;
         private System.Windows.Forms.TextBox textBoxLastUpdateTime;
         private System.Windows.Forms.Label labelLastUpdateTime;
-        private System.ComponentModel.BackgroundWorker backgroundWorkerStatusTracker;
+        private System.Windows.Forms.Button button1;
     }
 }
 

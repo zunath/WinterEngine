@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 
-namespace WinterEngine.Network
+namespace WinterEngine.Network.Configuration
 {
     public static class MasterServerConfiguration
     {
