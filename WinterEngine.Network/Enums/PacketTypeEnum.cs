@@ -10,5 +10,6 @@ namespace WinterEngine.Network.Enums
     {
         Server = 1,
         Request = 2,
+        ClientServerList = 3,
     }
 }

@@ -42,7 +42,7 @@ namespace WinterEngine.Network.Packets
         public byte MaxLevel { get; set; }
 
         /// <summary>
-        /// Gets or sets the this packet's type
+        /// Gets this packet's type
         /// </summary>
         public override PacketTypeEnum PacketType
         {

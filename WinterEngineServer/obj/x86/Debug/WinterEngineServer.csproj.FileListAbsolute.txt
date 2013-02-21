@@ -1,6 +1,0 @@
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineServer\bin\Debug\WinterEngineServer.exe
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineServer\bin\Debug\WinterEngineServer.pdb
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.Properties.Resources.resources
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.csproj.GenerateResource.Cache
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.exe
-C:\Users\Tyler\Documents\Visual Studio 2010\Projects\WinterEngine\WinterEngineServer\obj\x86\Debug\WinterEngineServer.pdb

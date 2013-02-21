@@ -1,13 +1,3 @@
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\WinterEngine.DataTransferObjects.dll.config
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\WinterEngine.DataTransferObjects.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\WinterEngine.DataTransferObjects.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\EntityFramework.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\Ionic.Zip.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\EntityFramework.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\Ionic.Zip.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.csprojResolveAssemblyReference.cache
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.pdb
 C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\WinterEngine.DataTransferObjects.dll.config
 C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\WinterEngine.DataTransferObjects.dll
 C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\WinterEngine.DataTransferObjects.pdb
@@ -18,3 +8,13 @@ C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\Ionic.Zip.xm
 C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.csprojResolveAssemblyReference.cache
 C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.dll
 C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\WinterEngine.DataTransferObjects.dll.config
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\WinterEngine.DataTransferObjects.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\WinterEngine.DataTransferObjects.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\EntityFramework.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\Ionic.Zip.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\EntityFramework.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\Ionic.Zip.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.pdb

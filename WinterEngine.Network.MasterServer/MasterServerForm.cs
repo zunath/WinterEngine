@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Entities;
 using System.Linq;
+using WinterEngine.Network.Servers;
 
 namespace WinterEngine.Network.MasterServer
 {
@@ -14,7 +15,7 @@ namespace WinterEngine.Network.MasterServer
     {
         #region Fields
 
-        private MasterServerEntity _masterServer;
+        private LobbyServer _lobbyServer;
         private bool _serverRunning;
 
         #endregion
@@ -24,9 +25,9 @@ namespace WinterEngine.Network.MasterServer
         /// <summary>
         /// Gets the master server entity.
         /// </summary>
-        private MasterServerEntity MasterServer
+        private LobbyServer Lobby
         {
-            get { return _masterServer; }
+            get { return _lobbyServer; }
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace WinterEngine.Network.MasterServer
         {
             InitializeComponent();
 
-            _masterServer = new MasterServerEntity();
+            _lobbyServer = new LobbyServer();
         }
 
         #endregion
@@ -74,7 +75,7 @@ namespace WinterEngine.Network.MasterServer
             {
                 AddLogMessage("Stopping Master Server");
                 IsServerRunning = false;
-                MasterServer.ShutdownMasterServer();
+                Lobby.Shutdown();
                 listBoxServers.Items.Clear();
                 buttonStartMasterServer.Text = "Start Master Server";
                 AddLogMessage("Master Server Stopped");
@@ -83,7 +84,7 @@ namespace WinterEngine.Network.MasterServer
             {
                 AddLogMessage("Starting Master Server");
                 IsServerRunning = true;
-                MasterServer.StartMasterServer();
+                Lobby.Start();
                 backgroundWorkerServerPolling.RunWorkerAsync();
                 buttonStartMasterServer.Text = "Shutdown Master Server";
                 AddLogMessage("Master Server Started");
@@ -184,7 +185,7 @@ namespace WinterEngine.Network.MasterServer
             {
                 while (IsServerRunning)
                 {
-                    List<ServerDetails> serverList = MasterServer.GetServerList(); 
+                    List<ServerDetails> serverList = Lobby.GetServerList(); 
 
                     // Invoke the RefreshServerList method on the main list.
                     listBoxServers.Invoke(new ServerListUpdaterHandler(RefreshServerList), serverList);
