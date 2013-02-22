@@ -49,7 +49,25 @@ namespace WinterEngine.Server
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Handles setting default values to controls on window load.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            comboBoxPVPType.SelectedIndex = 0;
+            numericMaxLevel.Text = Convert.ToString(numericMaxLevel.DefaultValue);
+            numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.DefaultValue);
+        }
+
+        #endregion
+
         #region Methods
+
+
 
         #endregion
     }
