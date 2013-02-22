@@ -11,9 +11,10 @@ namespace WinterEngine.Network.Configuration
         private const int ClientServerPort = 5121;
 
         /// <summary>
-        /// Returns the port number used by the client-server
+        /// Returns the default port number used by the client-server.
+        /// This may be overridden by the end-user.
         /// </summary>
-        public static int Port
+        public static int DefaultPort
         {
             get { return ClientServerPort; }
         }

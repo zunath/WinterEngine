@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clients\FileTransferClient.cs" />
     <Compile Include="Clients\LobbyClient.cs" />
     <Compile Include="Configuration\ClientServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Enums\PacketTypeEnum.cs" />
     <Compile Include="Packets\ClientServerListPacket.cs" />
     <Compile Include="Servers\ClientServer.cs" />
+    <Compile Include="Listeners\FileTransferListener.cs" />
     <Compile Include="Servers\LobbyServer.cs" />
     <Compile Include="NetworkAgent.cs" />
     <Compile Include="PacketFactory.cs" />

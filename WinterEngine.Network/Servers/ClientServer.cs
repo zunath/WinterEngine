@@ -78,8 +78,8 @@ namespace WinterEngine.Network.Servers
             NetworkThread.WorkerSupportsCancellation = true;
             NetworkThread.DoWork += RunNetworkThread;
 
-            Agent = new NetworkAgent(AgentRole.Server, ClientServerConfiguration.ApplicationID, ClientServerConfiguration.Port);
             LobbyServerClient = new LobbyClient();
+            Agent = new NetworkAgent(AgentRole.Server, ClientServerConfiguration.ApplicationID, ClientServerConfiguration.DefaultPort);
         }
 
         #endregion
@@ -112,6 +112,8 @@ namespace WinterEngine.Network.Servers
             }
             catch (Exception ex)
             {
+
+
                 throw ex;
             }
         }

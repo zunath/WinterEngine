@@ -68,6 +68,7 @@ namespace WinterEngine.Network.Clients
             ServerDetailsPacket serverDetailsPacket = new ServerDetailsPacket(serverDetails.Name, serverDetails.Description, serverDetails.MaxLevel);
             MasterAgent.WriteMessage(serverDetailsPacket);
             MasterAgent.SendMessage(MasterAgent.Connections[0]);
+            
         }
 
         #endregion
