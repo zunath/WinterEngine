@@ -45,8 +45,8 @@
             this.textBoxPort = new System.Windows.Forms.TextBox();
             this.labelPort = new System.Windows.Forms.Label();
             this.listBoxPlayers = new System.Windows.Forms.ListBox();
-            this.textBoxMinLevel = new System.Windows.Forms.TextBox();
-            this.labelLevelRange = new System.Windows.Forms.Label();
+            this.textBoxMaxLevel = new System.Windows.Forms.TextBox();
+            this.labelMaxLevel = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.labelDescription = new System.Windows.Forms.Label();
             this.textBoxServerIPAddress = new System.Windows.Forms.TextBox();
@@ -171,8 +171,8 @@
             this.panelServerDetails.Controls.Add(this.textBoxPort);
             this.panelServerDetails.Controls.Add(this.labelPort);
             this.panelServerDetails.Controls.Add(this.listBoxPlayers);
-            this.panelServerDetails.Controls.Add(this.textBoxMinLevel);
-            this.panelServerDetails.Controls.Add(this.labelLevelRange);
+            this.panelServerDetails.Controls.Add(this.textBoxMaxLevel);
+            this.panelServerDetails.Controls.Add(this.labelMaxLevel);
             this.panelServerDetails.Controls.Add(this.textBoxDescription);
             this.panelServerDetails.Controls.Add(this.labelDescription);
             this.panelServerDetails.Controls.Add(this.textBoxServerIPAddress);
@@ -189,7 +189,7 @@
             // 
             this.textBoxLastUpdateTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLastUpdateTime.Location = new System.Drawing.Point(270, 194);
+            this.textBoxLastUpdateTime.Location = new System.Drawing.Point(270, 171);
             this.textBoxLastUpdateTime.Name = "textBoxLastUpdateTime";
             this.textBoxLastUpdateTime.ReadOnly = true;
             this.textBoxLastUpdateTime.Size = new System.Drawing.Size(185, 20);
@@ -198,7 +198,7 @@
             // labelLastUpdateTime
             // 
             this.labelLastUpdateTime.AutoSize = true;
-            this.labelLastUpdateTime.Location = new System.Drawing.Point(196, 197);
+            this.labelLastUpdateTime.Location = new System.Drawing.Point(196, 174);
             this.labelLastUpdateTime.Name = "labelLastUpdateTime";
             this.labelLastUpdateTime.Size = new System.Drawing.Size(68, 13);
             this.labelLastUpdateTime.TabIndex = 15;
@@ -253,24 +253,24 @@
             this.listBoxPlayers.Size = new System.Drawing.Size(457, 199);
             this.listBoxPlayers.TabIndex = 10;
             // 
-            // textBoxMinLevel
+            // textBoxMaxLevel
             // 
-            this.textBoxMinLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxMaxLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxMinLevel.Location = new System.Drawing.Point(81, 168);
-            this.textBoxMinLevel.Name = "textBoxMinLevel";
-            this.textBoxMinLevel.ReadOnly = true;
-            this.textBoxMinLevel.Size = new System.Drawing.Size(374, 20);
-            this.textBoxMinLevel.TabIndex = 7;
+            this.textBoxMaxLevel.Location = new System.Drawing.Point(81, 168);
+            this.textBoxMaxLevel.Name = "textBoxMaxLevel";
+            this.textBoxMaxLevel.ReadOnly = true;
+            this.textBoxMaxLevel.Size = new System.Drawing.Size(98, 20);
+            this.textBoxMaxLevel.TabIndex = 7;
             // 
-            // labelLevelRange
+            // labelMaxLevel
             // 
-            this.labelLevelRange.AutoSize = true;
-            this.labelLevelRange.Location = new System.Drawing.Point(4, 171);
-            this.labelLevelRange.Name = "labelLevelRange";
-            this.labelLevelRange.Size = new System.Drawing.Size(71, 13);
-            this.labelLevelRange.TabIndex = 6;
-            this.labelLevelRange.Text = "Level Range:";
+            this.labelMaxLevel.AutoSize = true;
+            this.labelMaxLevel.Location = new System.Drawing.Point(14, 171);
+            this.labelMaxLevel.Name = "labelMaxLevel";
+            this.labelMaxLevel.Size = new System.Drawing.Size(59, 13);
+            this.labelMaxLevel.TabIndex = 6;
+            this.labelMaxLevel.Text = "Max Level:";
             // 
             // textBoxDescription
             // 
@@ -418,8 +418,8 @@
         private System.Windows.Forms.TextBox textBoxServerName;
         private System.Windows.Forms.Label labelServerName;
         private System.Windows.Forms.TabPage tabPageUsers;
-        private System.Windows.Forms.TextBox textBoxMinLevel;
-        private System.Windows.Forms.Label labelLevelRange;
+        private System.Windows.Forms.TextBox textBoxMaxLevel;
+        private System.Windows.Forms.Label labelMaxLevel;
         private System.Windows.Forms.ListBox listBoxPlayers;
         private System.Windows.Forms.TabPage tabPageLog;
         private System.Windows.Forms.TextBox textBoxLog;

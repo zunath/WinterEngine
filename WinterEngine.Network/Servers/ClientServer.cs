@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using Lidgren.Network;
+using WinterEngine.Network.Clients;
 using WinterEngine.Network.Configuration;
+using WinterEngine.Network.Entities;
 using WinterEngine.Network.Enums;
 using WinterEngine.Network.Packets;
 
@@ -15,6 +18,7 @@ namespace WinterEngine.Network.Servers
     {
         #region Fields
 
+        private ServerDetails _serverDetails;
         private BackgroundWorker _networkThread;
         private NetworkAgent _agent;
         private bool _isServerRunning;
@@ -22,6 +26,11 @@ namespace WinterEngine.Network.Servers
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the lobby server client.
+        /// </summary>
+        private LobbyClient LobbyServerClient { get; set; }
 
         /// <summary>
         /// Gets or sets the network thread used for packet processing.
@@ -44,10 +53,19 @@ namespace WinterEngine.Network.Servers
         /// <summary>
         /// Gets or sets whether the client server is running.
         /// </summary>
-        private bool IsServerRunning
+        public bool IsServerRunning
         {
             get { return _isServerRunning; }
             set { _isServerRunning = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the server information which is sent to the master server.
+        /// </summary>
+        public ServerDetails ServerInformation
+        {
+            get { return _serverDetails; }
+            set { _serverDetails = value; }
         }
 
         #endregion
@@ -58,9 +76,18 @@ namespace WinterEngine.Network.Servers
         {
             NetworkThread = new BackgroundWorker();
             NetworkThread.WorkerSupportsCancellation = true;
+            NetworkThread.DoWork += RunNetworkThread;
 
-            Agent = new NetworkAgent(AgentRole.Server, ClientServerConfiguration.ApplicationID);
+            Agent = new NetworkAgent(AgentRole.Server, ClientServerConfiguration.ApplicationID, ClientServerConfiguration.Port);
+            LobbyServerClient = new LobbyClient();
         }
+
+        #endregion
+
+        #region Events / Delegates
+
+        public event EventHandler OnServerStart;
+        public event EventHandler OnServerShutdown;
 
         #endregion
 
@@ -69,10 +96,24 @@ namespace WinterEngine.Network.Servers
         /// <summary>
         /// Starts the client-server server instance.
         /// </summary>
-        public void Start()
+        public void Start(ServerDetails serverDetails)
         {
-            IsServerRunning = true;
-            NetworkThread.RunWorkerAsync();
+            try
+            {
+                ServerInformation = serverDetails;
+                IsServerRunning = true;
+                LobbyServerClient.Connect();
+                NetworkThread.RunWorkerAsync();
+
+                if (!Object.ReferenceEquals(OnServerStart, null))
+                {
+                    OnServerStart(this, new EventArgs());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -80,8 +121,20 @@ namespace WinterEngine.Network.Servers
         /// </summary>
         public void Shutdown()
         {
-            IsServerRunning = false;
-            NetworkThread.CancelAsync();
+            try
+            {
+                IsServerRunning = false;
+                NetworkThread.CancelAsync();
+
+                if (!Object.ReferenceEquals(OnServerShutdown, null))
+                {
+                    OnServerShutdown(this, new EventArgs());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         #endregion
@@ -89,22 +142,19 @@ namespace WinterEngine.Network.Servers
         #region Methods - Network Thread
 
         /// <summary>
-        /// Checks for messages and processes them.
+        /// Handles checking for new messages from clients, processing them, and updating the game state.
+        /// Also syncs with the master server 
         /// </summary>
-        private void CheckForMessages()
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RunNetworkThread(object sender, DoWorkEventArgs e)
         {
             try
             {
-                PacketFactory factory = new PacketFactory();
-                List<NetIncomingMessage> messageList;
                 while (IsServerRunning)
                 {
-                    messageList = Agent.CheckForMessages();
-
-                    foreach (NetIncomingMessage message in messageList)
-                    {
-                        ProcessPacket(message, factory);
-                    }
+                    CheckForMessages();
+                    LobbyServerClient.SyncWithLobbyServer(ServerInformation);
 
                     Thread.Sleep(5);
                 }
@@ -112,6 +162,21 @@ namespace WinterEngine.Network.Servers
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Checks for messages and processes them.
+        /// </summary>
+        private void CheckForMessages()
+        {
+            PacketFactory factory = new PacketFactory();
+            List<NetIncomingMessage> messageList;
+            messageList = Agent.CheckForMessages();
+
+            foreach (NetIncomingMessage message in messageList)
+            {
+                ProcessPacket(message, factory);
             }
         }
 

@@ -33,13 +33,14 @@ namespace WinterEngine.Network.Packets
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the minimum level of the server.
-        /// </summary>
-        public byte MinLevel { get; set; }
-        /// <summary>
         /// Gets or sets the maximum level of the server.
         /// </summary>
         public byte MaxLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum number of players allowed on the server at one time.
+        /// </summary>
+        public byte MaxPlayers { get; set; }
 
         /// <summary>
         /// Gets this packet's type
@@ -65,13 +66,11 @@ namespace WinterEngine.Network.Packets
         /// </summary>
         /// <param name="name">The name of the server</param>
         /// <param name="description">The description of the server</param>
-        /// <param name="minimumLevel">The minimum character level of the server</param>
         /// <param name="maximumLevel">The maximum character level of the server</param>
-        public ServerDetailsPacket(string name, string description, byte minimumLevel, byte maximumLevel)
+        public ServerDetailsPacket(string name, string description, byte maximumLevel)
         {
             this.Name = name;
             this.Description = description;
-            this.MinLevel = minimumLevel;
             this.MaxLevel = maximumLevel;
         }
 

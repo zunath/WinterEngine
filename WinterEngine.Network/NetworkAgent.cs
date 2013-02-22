@@ -34,10 +34,11 @@ namespace WinterEngine.Network
         /// <summary>
         /// Customize appIdentifier. Note: Client and server appIdentifier must be the same.
         /// </summary>
-        public NetworkAgent(AgentRole role, string tag)
+        public NetworkAgent(AgentRole role, string tag, int customPort)
         {
             mRole = role;
             mConfig = new NetPeerConfiguration(tag);
+            port = customPort;
 
             Initialize();
         }

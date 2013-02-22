@@ -448,3 +448,65 @@ Network thread started
 Status Message: Remotely requested connect
 Status Message: Connected to CB72CADFDB0F91D6
 Initiated average roundtrip time to 1.71 ms Remote time is: 3.35841941833496
+Socket bound to 0.0.0.0:5121: True
+Network thread started
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Status Message: Remotely requested connect
+Resending ConnectResponse...
+Status Message: Connected to A73CE3B6DF45507F
+Initiated average roundtrip time to 90.65 ms Remote time is: 26.0043210983276
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to BA680E5EDDC68C86
+Initiated average roundtrip time to 1.59 ms Remote time is: 39.5189294815063
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 89DDB48C3B462300
+Initiated average roundtrip time to 1.65 ms Remote time is: 12.1994550228119
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Status Message: Remotely requested connect
+Resending ConnectResponse...
+Resending ConnectResponse...
+Status Message: Connected to E0EF0F245F5EFBC0
+Initiated average roundtrip time to 8.20 ms Remote time is: 36.1089487075806
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Status Message: Remotely requested connect
+Resending ConnectResponse...
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Status Message: Remotely requested connect
+Resending ConnectResponse...
+Resending ConnectResponse...
+Resending ConnectResponse...
+Resending ConnectResponse...
+Status Message: Failed to establish connection - no response from remote host
+Received unhandled library message ConnectionEstablished from 127.0.0.1:53272
+Received unhandled library message Ping from 127.0.0.1:53272
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 0266AD4EF9340031
+Initiated average roundtrip time to 1.93 ms Remote time is: 52.2588176727295
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Status Message: Remotely requested connect
+Resending ConnectResponse...
+Status Message: Connected to B9FF3ACB4BD4F7A8
+Initiated average roundtrip time to 1.62 ms Remote time is: 88.7128753662109

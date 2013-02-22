@@ -13,7 +13,7 @@ namespace WinterEngine.Network.Entities
         #region Properties
         public string Name { get; set; }
         public string Description { get; set; }
-        public byte MinLevel { get; set; }
+        public byte MaxPlayers { get; set; }
         public byte MaxLevel { get; set; }
         public float Ping { get; set; }
         public ConnectionAddress Connection { get; set; }

@@ -117,7 +117,7 @@ namespace WinterEngine.Network.MasterServer
             {
                 textBoxDescription.Text = String.Empty;
                 textBoxLastUpdateTime.Text = String.Empty;
-                textBoxMinLevel.Text = String.Empty;
+                textBoxMaxLevel.Text = String.Empty;
                 textBoxPing.Text = String.Empty;
                 textBoxPort.Text = String.Empty;
                 textBoxServerIPAddress.Text = String.Empty;
@@ -126,7 +126,7 @@ namespace WinterEngine.Network.MasterServer
             else
             {
                 textBoxDescription.Text = details.Description;
-                textBoxMinLevel.Text = details.MinLevel + " - " + details.MaxLevel;
+                textBoxMaxLevel.Text = Convert.ToString(details.MaxLevel);
                 textBoxPing.Text = "" + details.Ping;
                 textBoxPort.Text = "" + details.Connection.Port;
                 textBoxServerIPAddress.Text = details.Connection.IP.ToString();

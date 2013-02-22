@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clients\LobbyClient.cs" />
     <Compile Include="Configuration\ClientServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />
     <Compile Include="Entities\ConnectionAddress.cs" />

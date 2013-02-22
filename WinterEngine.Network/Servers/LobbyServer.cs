@@ -65,7 +65,7 @@ namespace WinterEngine.Network.Servers
             NetworkThread = new BackgroundWorker();
             NetworkThread.WorkerSupportsCancellation = true;
 
-            Agent = new NetworkAgent(AgentRole.Server, LobbyServerConfiguration.ApplicationID);
+            Agent = new NetworkAgent(AgentRole.Server, LobbyServerConfiguration.ApplicationID, MasterServerConfiguration.Port);
 
             NetworkThread.DoWork += (sender, e) =>
             {
@@ -176,7 +176,6 @@ namespace WinterEngine.Network.Servers
             ServerDetails details = new ServerDetails();
             details.Description = packet.Description;
             details.MaxLevel = packet.MaxLevel;
-            details.MinLevel = packet.MinLevel;
             details.Name = packet.Name;
             details.Connection.IP = ipAddress;
             details.Connection.Port = port;
