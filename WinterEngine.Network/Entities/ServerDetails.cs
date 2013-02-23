@@ -26,7 +26,7 @@ namespace WinterEngine.Network.Entities
         public ServerDetails()
         {
             Connection = new ConnectionAddress();
-            LastPacketReceived = new DateTime();
+            LastPacketReceived = DateTime.UtcNow;
         }
 
         #endregion

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Net;
 using System.Windows;
+using System.Windows.Controls;
 using Microsoft.Win32;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Factories;
@@ -21,7 +24,7 @@ namespace WinterEngine.Server
 
         private OpenFileDialog _openFile;
         private BackgroundWorker _gameWorker;
-        
+
         #endregion
 
         #region Properties
@@ -76,6 +79,8 @@ namespace WinterEngine.Server
         /// <param name="e"></param>
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
+            NetworkUtility netUtility = new NetworkUtility();
+
             GameServer = new ClientServer();
             GameServer.OnServerStart += Server_OnServerStart;
             GameServer.OnServerShutdown += Server_OnServerShutdown;
@@ -86,8 +91,12 @@ namespace WinterEngine.Server
             InitializeOpenFileDialog();
 
             comboBoxPVPType.SelectedIndex = 0;
+            listBoxGameType.SelectedIndex = 0;
+
             numericMaxLevel.Text = Convert.ToString(numericMaxLevel.DefaultValue);
             numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.DefaultValue);
+
+            labelIPAddress.Content = netUtility.GetExternalIPAddress();
         }
 
         private void Server_OnServerShutdown(object sender, EventArgs e)
@@ -110,21 +119,32 @@ namespace WinterEngine.Server
             OpenFile.ShowDialog();
         }
 
-
+        /// <summary>
+        /// Handles sending a message to all players currently connected.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonSendMessage_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Starts or stops all client and server connections.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonStartStop_Click(object sender, RoutedEventArgs e)
         {
             if (GameServer.IsServerRunning)
             {
+                ToggleControls(true);
                 GameServer.Shutdown();
                 MasterClient.Shutdown();
             }
             else
             {
+                ToggleControls(false);
                 ServerDetails details = 
                     new ServerDetails { Name = textBoxServerName.Text, 
                                         MaxLevel = Convert.ToByte(numericMaxLevel.Value),
@@ -135,11 +155,21 @@ namespace WinterEngine.Server
             }
         }
 
+        /// <summary>
+        /// Handles banning a user's account from this server.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonBanAccount_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Handles booting a user from this server.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonBootPlayer_Click(object sender, RoutedEventArgs e)
         {
 
@@ -175,6 +205,21 @@ namespace WinterEngine.Server
         {
             textBoxModuleFileName.Text = Path.GetFileNameWithoutExtension(OpenFile.SafeFileName);
         }
+
+        /// <summary>
+        /// Toggles controls to be enabled or disabled.
+        /// </summary>
+        /// <param name="enabled">Set to true to enable controls. Set to false to disable them.</param>
+        private void ToggleControls(bool enabled)
+        {
+            buttonBrowse.IsEnabled = enabled;
+
+            textBoxServerMessage.IsEnabled = !enabled;
+            buttonBanAccount.IsEnabled = !enabled;
+            buttonBootPlayer.IsEnabled = !enabled;
+        }
+
+        
 
         #endregion
 

@@ -68,8 +68,6 @@ namespace WinterEngine.Network.Clients
         /// </summary>
         public LobbyClient()
         {
-            MasterAgent = new NetworkAgent(AgentRole.Client, LobbyServerConfiguration.ApplicationID, MasterServerConfiguration.Port);
-
             ConnectionThread = new BackgroundWorker();
             ConnectionThread.DoWork += ProcessConnection;
         }
@@ -86,6 +84,8 @@ namespace WinterEngine.Network.Clients
         {
             try
             {
+                MasterAgent = new NetworkAgent(AgentRole.Client, LobbyServerConfiguration.ApplicationID, MasterServerConfiguration.Port);
+
                 IsConnectionRunning = true;
                 this.ServerInformation = serverDetails;
                 MasterAgent.Connect(MasterServerConfiguration.MasterServerURL);

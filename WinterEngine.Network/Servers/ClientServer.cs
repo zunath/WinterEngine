@@ -94,9 +94,7 @@ namespace WinterEngine.Network.Servers
             }
             catch (Exception ex)
             {
-
-
-                throw ex;
+                throw new Exception("Error starting the client-server. Method: Start() in ClientServer", ex);
             }
         }
 
@@ -117,7 +115,7 @@ namespace WinterEngine.Network.Servers
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error shutting down the client-server. Method: Shutdown() in ClientServer", ex);
             }
         }
 

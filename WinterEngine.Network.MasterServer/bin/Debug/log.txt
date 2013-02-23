@@ -78,3 +78,29 @@ Network thread started
 Status Message: Remotely requested connect
 Status Message: Connected to 481792B5FC245F93
 Initiated average roundtrip time to 1.66 ms Remote time is: 4.40027093887329
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 8A9E5FE63D69A23A
+Initiated average roundtrip time to 1.59 ms Remote time is: 14.7861423492432
+Status Message: Closing connection.
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 114EEE9F5B67BE0B
+Initiated average roundtrip time to 1.58 ms Remote time is: 5.17808246612549
+Status Message: Closing connection.
+Socket bound to 0.0.0.0:5122: True
+Network thread started
+Status Message: Remotely requested connect
+Status Message: Connected to 7BC729DDC4EEA1D1
+Initiated average roundtrip time to 1.68 ms Remote time is: 7.59740495681763
+Status Message: Closing connection.
+Status Message: Remotely requested connect
+Status Message: Connected to F24FC075BC64BC2E
+Initiated average roundtrip time to 0.10 ms Remote time is: 43.3125553131104
+Status Message: Closing connection.
+Status Message: Remotely requested connect
+Status Message: Connected to CB1B38E9D68878CC
+Initiated average roundtrip time to 0.18 ms Remote time is: 172.731857299805
+Status Message: Closing connection.

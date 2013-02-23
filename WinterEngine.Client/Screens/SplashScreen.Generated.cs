@@ -18,7 +18,7 @@ using Color = Microsoft.Xna.Framework.Color;
 #elif FRB_MDX
 using Color = System.Drawing.Color;
 #else
-using Color = Microsoft.Xna.Framework.Color;
+using Color = Microsoft.Xna.Framework.Graphics.Color;
 #endif
 
 #if FRB_XNA || SILVERLIGHT
@@ -32,6 +32,7 @@ using Microsoft.Xna.Framework.Media;
 using WinterEngine.Client.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
+using FlatRedBall;
 
 namespace WinterEngine.Client.Screens
 {

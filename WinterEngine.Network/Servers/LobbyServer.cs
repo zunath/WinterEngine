@@ -180,7 +180,7 @@ namespace WinterEngine.Network.Servers
             details.Connection.IP = ipAddress;
             details.Connection.Port = port;
             details.Ping = ping;
-            details.LastPacketReceived = DateTime.Now;
+            details.LastPacketReceived = DateTime.UtcNow;
             
             UpsertServer(details.Connection, details);
         }
@@ -226,7 +226,7 @@ namespace WinterEngine.Network.Servers
         /// </summary>
         private void RemoveTimedOutServers()
         {
-            DateTime currentTime = DateTime.Now;
+            DateTime currentTime = DateTime.UtcNow;
             List<ConnectionAddress> keys = new List<ConnectionAddress>();
 
             // Determine which keys to remove from the server list.
