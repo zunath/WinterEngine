@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Factories;
 using WinterEngine.Network;
+using WinterEngine.Network.Clients;
 using WinterEngine.Network.Entities;
 using WinterEngine.Network.Servers;
 
@@ -28,7 +29,12 @@ namespace WinterEngine.Server
         /// <summary>
         /// Gets or sets the client-server server
         /// </summary>
-        private ClientServer Server { get; set; }
+        private ClientServer GameServer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the master server client
+        /// </summary>
+        private LobbyClient MasterClient { get; set; }
 
         /// <summary>
         /// Gets or sets the open file dialog.
@@ -70,9 +76,11 @@ namespace WinterEngine.Server
         /// <param name="e"></param>
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            Server = new ClientServer();
-            Server.OnServerStart += Server_OnServerStart;
-            Server.OnServerShutdown += Server_OnServerShutdown;
+            GameServer = new ClientServer();
+            GameServer.OnServerStart += Server_OnServerStart;
+            GameServer.OnServerShutdown += Server_OnServerShutdown;
+
+            MasterClient = new LobbyClient();
 
             OpenFile = new OpenFileDialog();
             InitializeOpenFileDialog();
@@ -110,17 +118,20 @@ namespace WinterEngine.Server
 
         private void buttonStartStop_Click(object sender, RoutedEventArgs e)
         {
-            if (Server.IsServerRunning)
+            if (GameServer.IsServerRunning)
             {
-                Server.Shutdown();
+                GameServer.Shutdown();
+                MasterClient.Shutdown();
             }
             else
             {
                 ServerDetails details = 
                     new ServerDetails { Name = textBoxServerName.Text, 
-                                        MaxLevel = Convert.ToByte(numericMaxLevel.Value)
+                                        MaxLevel = Convert.ToByte(numericMaxLevel.Value),
+                                        MaxPlayers = Convert.ToByte(numericMaxPlayers.Value)
                                       };
-                Server.Start(details);
+                GameServer.Start();
+                MasterClient.Start(details);
             }
         }
 

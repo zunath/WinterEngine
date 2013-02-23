@@ -18,7 +18,6 @@ namespace WinterEngine.Network.Servers
     {
         #region Fields
 
-        private ServerDetails _serverDetails;
         private BackgroundWorker _networkThread;
         private NetworkAgent _agent;
         private bool _isServerRunning;
@@ -26,11 +25,6 @@ namespace WinterEngine.Network.Servers
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the lobby server client.
-        /// </summary>
-        private LobbyClient LobbyServerClient { get; set; }
 
         /// <summary>
         /// Gets or sets the network thread used for packet processing.
@@ -59,15 +53,6 @@ namespace WinterEngine.Network.Servers
             set { _isServerRunning = value; }
         }
 
-        /// <summary>
-        /// Gets or sets the server information which is sent to the master server.
-        /// </summary>
-        public ServerDetails ServerInformation
-        {
-            get { return _serverDetails; }
-            set { _serverDetails = value; }
-        }
-
         #endregion
 
         #region Constructors
@@ -78,7 +63,6 @@ namespace WinterEngine.Network.Servers
             NetworkThread.WorkerSupportsCancellation = true;
             NetworkThread.DoWork += RunNetworkThread;
 
-            LobbyServerClient = new LobbyClient();
             Agent = new NetworkAgent(AgentRole.Server, ClientServerConfiguration.ApplicationID, ClientServerConfiguration.DefaultPort);
         }
 
@@ -96,13 +80,11 @@ namespace WinterEngine.Network.Servers
         /// <summary>
         /// Starts the client-server server instance.
         /// </summary>
-        public void Start(ServerDetails serverDetails)
+        public void Start()
         {
             try
             {
-                ServerInformation = serverDetails;
                 IsServerRunning = true;
-                LobbyServerClient.Connect();
                 NetworkThread.RunWorkerAsync();
 
                 if (!Object.ReferenceEquals(OnServerStart, null))
@@ -153,17 +135,16 @@ namespace WinterEngine.Network.Servers
         {
             try
             {
+
                 while (IsServerRunning)
                 {
                     CheckForMessages();
-                    LobbyServerClient.SyncWithLobbyServer(ServerInformation);
-
                     Thread.Sleep(5);
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error: Method: RunNetworkThread() in ClientServer.cs", ex);
             }
         }
 
