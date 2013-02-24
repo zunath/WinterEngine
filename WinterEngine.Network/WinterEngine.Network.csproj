@@ -33,6 +33,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -51,7 +54,7 @@
     <Compile Include="Enums\RequestTypeEnum.cs" />
     <Compile Include="Configuration\LobbyServerConfiguration.cs" />
     <Compile Include="Enums\PacketTypeEnum.cs" />
-    <Compile Include="NetworkUtility.cs" />
+    <Compile Include="WebServiceUtility.cs" />
     <Compile Include="Packets\ClientServerListPacket.cs" />
     <Compile Include="Servers\ClientServer.cs" />
     <Compile Include="Listeners\FileTransferListener.cs" />
@@ -68,6 +71,9 @@
       <Project>{49ba1c69-6104-41ac-a5d8-b54fa9f696e8}</Project>
       <Name>Lidgren.Network</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

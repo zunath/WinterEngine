@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Threading;
 using Microsoft.Win32;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Factories;
@@ -12,6 +10,7 @@ using WinterEngine.Network;
 using WinterEngine.Network.Clients;
 using WinterEngine.Network.Entities;
 using WinterEngine.Network.Servers;
+using Xceed.Wpf.Toolkit;
 
 namespace WinterEngine.Server
 {
@@ -24,6 +23,7 @@ namespace WinterEngine.Server
 
         private OpenFileDialog _openFile;
         private BackgroundWorker _gameWorker;
+        private ServerDetails _serverDetails;
 
         #endregion
 
@@ -58,6 +58,15 @@ namespace WinterEngine.Server
             set { _gameWorker = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the server details
+        /// </summary>
+        private ServerDetails Details
+        {
+            get { return _serverDetails; }
+            set { _serverDetails = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -79,11 +88,11 @@ namespace WinterEngine.Server
         /// <param name="e"></param>
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            NetworkUtility netUtility = new NetworkUtility();
-
             GameServer = new ClientServer();
             GameServer.OnServerStart += Server_OnServerStart;
             GameServer.OnServerShutdown += Server_OnServerShutdown;
+
+            Details = new ServerDetails();
 
             MasterClient = new LobbyClient();
 
@@ -96,7 +105,7 @@ namespace WinterEngine.Server
             numericMaxLevel.Text = Convert.ToString(numericMaxLevel.DefaultValue);
             numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.DefaultValue);
 
-            labelIPAddress.Content = netUtility.GetExternalIPAddress();
+            UpdateExternalIPAddress();
         }
 
         private void Server_OnServerShutdown(object sender, EventArgs e)
@@ -219,9 +228,61 @@ namespace WinterEngine.Server
             buttonBootPlayer.IsEnabled = !enabled;
         }
 
-        
+        /// <summary>
+        /// Handles updating the external IP address content on a separate thread.
+        /// </summary>
+        private void UpdateExternalIPAddress()
+        {
+            BackgroundWorker ipAddressCheckerWorker = new BackgroundWorker();
+            ipAddressCheckerWorker.DoWork += delegate
+            {
+                WebServiceUtility netUtility = new WebServiceUtility();
+
+                string externalIPAddress = netUtility.GetExternalIPAddress();
+                labelIPAddress.Dispatcher.Invoke(DispatcherPriority.Normal,
+                    new Action(() => { labelIPAddress.Content = externalIPAddress; }));
+
+            };
+            ipAddressCheckerWorker.RunWorkerAsync();
+        }
 
         #endregion
+
+        #region GUI Methods
+        // These methods are used to fix bugs with the extended WPF controls.
+        // If a user doesn't enter any value for certain controls and the controls lose focus,
+        // the value of the control is updated but the text is NOT.
+        // A manual fix is applied here so that users aren't confused.
+
+        private void SetDefaultValues_MaxPlayers(object sender, RoutedEventArgs e)
+        {
+            IntegerUpDown control = e.Source as IntegerUpDown;
+            numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.Value);
+        }
+
+        private void SetDefaultValues_MaxLevel(object sender, RoutedEventArgs e)
+        {
+            IntegerUpDown control = e.Source as IntegerUpDown;
+            numericMaxLevel.Text = Convert.ToString(numericMaxLevel.Value);
+
+
+            _serverDetails.Name = textBoxServerName.Text;
+            _serverDetails.MaxLevel = Convert.ToByte(numericMaxLevel.Value);
+            _serverDetails.MaxPlayers = Convert.ToByte(numericMaxPlayers.Value);
+
+            MasterClient._serverDetails = this._serverDetails;
+        }
+
+        #endregion
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            WebServiceUtility utility = new WebServiceUtility();
+
+            System.Windows.MessageBox.Show(utility.SendServerDetails(Details));
+
+        }
+
 
     }
 }

@@ -41,15 +41,15 @@
                     <Button x:Name="buttonSendMessage" Content="Send Message" HorizontalAlignment="Left" Margin="347,259,0,0" VerticalAlignment="Top" Width="90" Click="buttonSendMessage_Click" Grid.Column="1"/>
                     <TextBox x:Name="textBoxServerName" HorizontalAlignment="Left" Height="23" Margin="42,9,0,0" TextWrapping="Wrap" Text="Server" VerticalAlignment="Top" Width="227" MaxLength="32" Grid.Column="1"/>
                     <Label Content="IP Address:" HorizontalAlignment="Left" Margin="274,6,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <Label x:Name="labelIPAddress" Content="192.168.1.1" HorizontalAlignment="Left" Margin="347,6,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Label x:Name="labelIPAddress" Content="Checking..." HorizontalAlignment="Left" Margin="347,6,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <Label Content="Server Status:" HorizontalAlignment="Left" Margin="6,286,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="textBoxServerStatus" HorizontalAlignment="Left" Height="23" Margin="42,286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" IsReadOnly="True" Text="Not started..." IsEnabled="False" Grid.Column="1"/>
                     <Button x:Name="buttonStartStop" Content="Start Server" HorizontalAlignment="Left" Margin="347,287,0,0" VerticalAlignment="Top" Width="90" Click="buttonStartStop_Click" Grid.Column="1"/>
-                    <xctk:IntegerUpDown x:Name="numericMaxLevel" HorizontalAlignment="Left" Margin="357,153,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.829,-0.55" Width="80" Maximum="50" Minimum="0" DefaultValue="50" Grid.Column="1"/>
+                    <xctk:IntegerUpDown x:Name="numericMaxLevel" HorizontalAlignment="Left" Margin="357,153,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.829,-0.55" Width="80" Maximum="50" Minimum="0" DefaultValue="50" Grid.Column="1" LostFocus="SetDefaultValues_MaxLevel"/>
                     <ListBox x:Name="listBoxGameType" HorizontalAlignment="Left" Height="101" Margin="117,99,0,0" VerticalAlignment="Top" Width="143"
                 		ItemsSource="{Binding Source={StaticResource GameTypes}}" Grid.Column="1"/>
                     <Label Content="Max Players:" HorizontalAlignment="Left" Margin="274,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.263,-0.077" Grid.Column="1"/>
-                    <xctk:IntegerUpDown x:Name="numericMaxPlayers" HorizontalAlignment="Left" Margin="357,127,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.829,-0.55" Width="80" Minimum="1" Maximum="99" DefaultValue="20" Value="20" Grid.Column="1"/>
+                    <xctk:IntegerUpDown x:Name="numericMaxPlayers" HorizontalAlignment="Left" Margin="357,127,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.829,-0.55" Width="80" Minimum="1" Maximum="99" DefaultValue="20" Value="20" Grid.Column="1" LostFocus="SetDefaultValues_MaxPlayers"/>
                     <Label Content="Game Type:" HorizontalAlignment="Left" Margin="117,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.04,0.538" Grid.Column="1"/>
                     <Label Content="Module:" HorizontalAlignment="Left" Margin="6,37,0,0" VerticalAlignment="Top"/>
                     <Label Content="PVP:" HorizontalAlignment="Left" Margin="309,96,0,0" VerticalAlignment="Top" Grid.Column="1"/>
@@ -61,6 +61,7 @@
                     <TextBox x:Name="textBoxPlayerPassword" HorizontalAlignment="Left" Height="23" Margin="265,204,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" MaxLength="32" Grid.Column="1"/>
                     <TextBox x:Name="textBoxModuleFileName" HorizontalAlignment="Left" Height="23" Margin="42,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" MaxLength="32" IsReadOnly="True" IsEnabled="False" Grid.Column="1"/>
                     <Button x:Name="buttonBrowse" Content="Browse" HorizontalAlignment="Left" Margin="357,37,0,0" VerticalAlignment="Top" Width="75" Click="buttonBrowse_Click" Grid.Column="1"/>
+                    <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="274,60,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Files">

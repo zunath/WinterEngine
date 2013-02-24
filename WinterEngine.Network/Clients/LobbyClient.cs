@@ -14,7 +14,7 @@ namespace WinterEngine.Network.Clients
     {
         #region Fields
 
-        private ServerDetails _serverDetails;
+        public ServerDetails _serverDetails;
         private NetworkAgent _masterAgent;
         private BackgroundWorker _connectionThread;
         private bool _isConnectionRunning;

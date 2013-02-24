@@ -117,10 +117,6 @@
       <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
       <Name>WinterEngine.Library</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.Network.MasterServer\WinterEngine.Network.MasterServer.csproj">
-      <Project>{a3c952db-9f11-417b-bb01-4db66bac9f11}</Project>
-      <Name>WinterEngine.Network.MasterServer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.Network\WinterEngine.Network.csproj">
       <Project>{fc7568be-f997-4501-8a16-09d2ac3eadb3}</Project>
       <Name>WinterEngine.Network</Name>
