@@ -11,8 +11,9 @@ namespace WinterEngine.Network.Configuration
         // Values are stored in this class rather than app.config because
         // libraries do not pick up their own app.config files - they use the 
         // application's app.config file.
-        private const string _MasterServerURL = "localhost";
-        private const int _MasterServerPort = 5122;
+        private const string _masterServerURL = "http://master.winterengine.com/";
+        //private const string _masterServerURL = "http://localhost:12901/";
+        private const int _masterServerPort = 5122;
 
         /// <summary>
         /// Returns the IP address of the master server
@@ -21,7 +22,7 @@ namespace WinterEngine.Network.Configuration
         {
             get
             {
-                return Dns.GetHostAddresses(_MasterServerURL)[0];
+                return Dns.GetHostAddresses(_masterServerURL)[0];
             }
         }
 
@@ -32,7 +33,7 @@ namespace WinterEngine.Network.Configuration
         {
             get
             {
-                return _MasterServerURL;
+                return _masterServerURL;
             }
         }
 
@@ -43,7 +44,7 @@ namespace WinterEngine.Network.Configuration
         {
             get
             {
-                return _MasterServerPort;
+                return _masterServerPort;
             }
         }
     }

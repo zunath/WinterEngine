@@ -6,12 +6,39 @@ using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using WinterEngine.Library.Utility;
+using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Entities;
+using WinterEngine.Network.Enums;
 
 namespace WinterEngine.Network
 {
     public class WebServiceUtility
     {
+
+        public string SendJsonRequest(string methodName, WebServiceMethodTypeEnum methodType, object jsonObject)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(MasterServerConfiguration.MasterServerURL + "api/" + EnumerationHelper.GetEnumerationDescription(methodType) + "/" + methodName);
+            request.ContentType = "application/json; charset=utf-8";
+            request.Method = "POST";
+            
+            using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
+            {
+                writer.Write(jsonObject);
+                writer.Flush();
+                writer.Close();
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
+
+
         /// <summary>
         /// Queries the Winter Engine web service and returns the user's external IP address.
         /// If the query fails, the default value will be displayed ("Unknown")
@@ -48,21 +75,14 @@ namespace WinterEngine.Network
         /// <param name="details">The server details to send to the master server.</param>
         public string SendServerDetails(ServerDetails details)
         {
-            string jsonResult = JsonConvert.SerializeObject(details);
-
-            JObject jobj = new JObject(details);
-            
-
-            WebRequest request = WebRequest.Create("http://master.winterengine.com/api/utility/UpdateServerDetails");
-            
-            
-
-            using (WebResponse response = request.GetResponse())
+            try
             {
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                {
-                    return reader.ReadToEnd();
-                }
+                string jsonObject = JsonConvert.SerializeObject(details);
+                return SendJsonRequest("UpdateServerDetails", WebServiceMethodTypeEnum.Utility, jsonObject);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error sending server details.", ex);
             }
         }
     }
