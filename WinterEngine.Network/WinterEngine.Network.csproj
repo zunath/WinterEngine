@@ -50,6 +50,7 @@
     <Compile Include="Configuration\ClientServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />
     <Compile Include="Entities\ConnectionAddress.cs" />
+    <Compile Include="Entities\LoginCredentials.cs" />
     <Compile Include="Entities\ServerDetails.cs" />
     <Compile Include="Enums\RequestTypeEnum.cs" />
     <Compile Include="Configuration\LobbyServerConfiguration.cs" />
@@ -79,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataTransferObjects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

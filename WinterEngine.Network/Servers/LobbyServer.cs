@@ -174,11 +174,11 @@ namespace WinterEngine.Network.Servers
             float ping = message.SenderConnection.AverageRoundtripTime;
 
             ServerDetails details = new ServerDetails();
-            details.Description = packet.Description;
-            details.MaxLevel = packet.MaxLevel;
-            details.Name = packet.Name;
-            details.Connection.IP = ipAddress;
-            details.Connection.Port = port;
+            details.ServerDescription = packet.Description;
+            details.ServerMaxLevel = packet.MaxLevel;
+            details.ServerName = packet.Name;
+            details.Connection.ServerIPAddress = ipAddress;
+            details.Connection.ServerPort = port;
             details.Ping = ping;
             details.LastPacketReceived = DateTime.UtcNow;
             

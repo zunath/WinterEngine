@@ -12,5 +12,7 @@ namespace WinterEngine.Network.Enums
         Utility = 1,
         [Description("user")]
         User = 2,
+        [Description("server")]
+        Server = 3,
     }
 }

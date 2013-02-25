@@ -16,9 +16,45 @@ namespace WinterEngine.Network
     public class WebServiceUtility
     {
 
-        public string SendJsonRequest(string methodName, WebServiceMethodTypeEnum methodType, object jsonObject)
+        /// <summary>
+        /// Builds the URL to the master server.
+        /// </summary>
+        /// <param name="methodType">The method type to use.</param>
+        /// <returns></returns>
+        private string BuildURLString(WebServiceMethodTypeEnum methodType)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(MasterServerConfiguration.MasterServerURL + "api/" + EnumerationHelper.GetEnumerationDescription(methodType) + "/" + methodName);
+            return MasterServerConfiguration.MasterServerURL + "api/" + EnumerationHelper.GetEnumerationDescription(methodType) + "/";
+        }
+
+        /// <summary>
+        /// Sends a GET request to the master server and returns the Json result.
+        /// </summary>
+        /// <param name="methodName">Name of the method on the server to use.</param>
+        /// <param name="methodType">The type of method</param>
+        /// <returns></returns>
+        private string SendGetRequest(string methodName, WebServiceMethodTypeEnum methodType)
+        {
+            WebRequest request = WebRequest.Create(BuildURLString(methodType) + methodName);
+            using (WebResponse response = request.GetResponse())
+            {
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sends a POST request to the master server, including a Json object.
+        /// Returns the web server's Json result.
+        /// </summary>
+        /// <param name="methodName">The name of the method to call on the server.</param>
+        /// <param name="methodType">The type of method to use.</param>
+        /// <param name="jsonObject">The Json object to send in the request.</param>
+        /// <returns></returns>
+        private string SendJsonRequest(string methodName, WebServiceMethodTypeEnum methodType, object jsonObject)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(BuildURLString(methodType) + methodName);
             request.ContentType = "application/json; charset=utf-8";
             request.Method = "POST";
             
@@ -48,19 +84,8 @@ namespace WinterEngine.Network
         {
             try
             {
-                string publicIP = "";
-
-                WebRequest request = WebRequest.Create("http://master.winterengine.com/api/utility/GetServerIPAddress");
-                using (WebResponse response = request.GetResponse())
-                {
-                    using (StreamReader stream = new StreamReader(response.GetResponseStream()))
-                    {
-                        publicIP = stream.ReadToEnd();
-                    }
-                }
-                publicIP = JsonConvert.DeserializeObject(publicIP) as string;
-                
-                return publicIP;
+                string jsonResult = SendGetRequest("GetServerIPAddress", WebServiceMethodTypeEnum.Server);
+                return JsonConvert.DeserializeObject(jsonResult) as string;
             }
             catch
             {
@@ -78,11 +103,31 @@ namespace WinterEngine.Network
             try
             {
                 string jsonObject = JsonConvert.SerializeObject(details);
-                return SendJsonRequest("UpdateServerDetails", WebServiceMethodTypeEnum.Utility, jsonObject);
+                return SendJsonRequest("UpdateServerDetails", WebServiceMethodTypeEnum.Server, jsonObject);
             }
             catch (Exception ex)
             {
                 throw new Exception("Error sending server details.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Sends a user's master server login credentials to the master server.
+        /// </summary>
+        /// <param name="loginCredentials"></param>
+        /// <returns></returns>
+        public bool AttemptUserLogin(LoginCredentials loginCredentials)
+        {
+            try
+            {
+                string jsonObject = JsonConvert.SerializeObject(loginCredentials);
+                string result = SendJsonRequest("ValidateLoginCredentials", WebServiceMethodTypeEnum.User, jsonObject);
+                result = JsonConvert.DeserializeObject(result) as string;
+                return Convert.ToBoolean(result);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error sending login credentials.", ex);
             }
         }
     }

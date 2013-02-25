@@ -155,9 +155,9 @@ namespace WinterEngine.Server
             {
                 ToggleControls(false);
                 ServerDetails details = 
-                    new ServerDetails { Name = textBoxServerName.Text, 
-                                        MaxLevel = Convert.ToByte(numericMaxLevel.Value),
-                                        MaxPlayers = Convert.ToByte(numericMaxPlayers.Value)
+                    new ServerDetails { ServerName = textBoxServerName.Text, 
+                                        ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value),
+                                        ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value)
                                       };
                 GameServer.Start();
                 MasterClient.Start(details);
@@ -266,9 +266,9 @@ namespace WinterEngine.Server
             numericMaxLevel.Text = Convert.ToString(numericMaxLevel.Value);
 
 
-            _serverDetails.Name = textBoxServerName.Text;
-            _serverDetails.MaxLevel = Convert.ToByte(numericMaxLevel.Value);
-            _serverDetails.MaxPlayers = Convert.ToByte(numericMaxPlayers.Value);
+            _serverDetails.ServerName = textBoxServerName.Text;
+            _serverDetails.ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value);
+            _serverDetails.ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value);
 
             MasterClient._serverDetails = this._serverDetails;
         }
@@ -279,7 +279,10 @@ namespace WinterEngine.Server
         {
             WebServiceUtility utility = new WebServiceUtility();
 
-            System.Windows.MessageBox.Show(utility.SendServerDetails(Details));
+            string result = utility.SendServerDetails(Details);
+            //bool result = utility.AttemptUserLogin(login);
+
+            System.Windows.MessageBox.Show("" + result);
 
         }
 

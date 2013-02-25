@@ -11,13 +11,14 @@ namespace WinterEngine.Network.Entities
     public class ServerDetails
     {
         #region Properties
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public byte MaxPlayers { get; set; }
-        public byte MaxLevel { get; set; }
+        public string ServerName { get; set; }
+        public string ServerDescription { get; set; }
+        public byte ServerMaxPlayers { get; set; }
+        public byte ServerMaxLevel { get; set; }
         public float Ping { get; set; }
         public ConnectionAddress Connection { get; set; }
         public DateTime LastPacketReceived { get; set; }
+        public int Port { get; set; }
 
         #endregion
 
@@ -67,7 +68,7 @@ namespace WinterEngine.Network.Entities
         /// <returns></returns>
         public override string ToString()
         {
-            return Name;
+            return ServerName;
         }
 
         #endregion

@@ -10,8 +10,8 @@ namespace WinterEngine.Network.Entities
     {
         #region Properties
 
-        public IPAddress IP { get; set; }
-        public int Port { get; set; }
+        public IPAddress ServerIPAddress { get; set; }
+        public int ServerPort { get; set; }
 
         #endregion
 
@@ -25,8 +25,8 @@ namespace WinterEngine.Network.Entities
         {
             // Reference: http://stackoverflow.com/questions/892618/create-a-hashcode-of-two-numbers
             int hashPrime = 23 * 31;
-            int ipHash = hashPrime + IP.GetHashCode();
-            int portHash = hashPrime + Port.GetHashCode();
+            int ipHash = hashPrime + ServerIPAddress.GetHashCode();
+            int portHash = hashPrime + ServerPort.GetHashCode();
 
             return ipHash + portHash;
         }

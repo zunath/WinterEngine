@@ -15,7 +15,6 @@ namespace WinterEngine.Network.Clients
         #region Fields
 
         public ServerDetails _serverDetails;
-        private NetworkAgent _masterAgent;
         private BackgroundWorker _connectionThread;
         private bool _isConnectionRunning;
 
@@ -30,15 +29,6 @@ namespace WinterEngine.Network.Clients
         {
             get { return _serverDetails; }
             set { _serverDetails = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the master network agent.
-        /// </summary>
-        private NetworkAgent MasterAgent
-        {
-            get { return _masterAgent; }
-            set { _masterAgent = value; }
         }
 
         /// <summary>
@@ -84,11 +74,8 @@ namespace WinterEngine.Network.Clients
         {
             try
             {
-                MasterAgent = new NetworkAgent(AgentRole.Client, LobbyServerConfiguration.ApplicationID, MasterServerConfiguration.Port);
-
                 IsConnectionRunning = true;
                 this.ServerInformation = serverDetails;
-                MasterAgent.Connect(MasterServerConfiguration.MasterServerURL);
                 ConnectionThread.RunWorkerAsync();
             }
             catch (Exception ex)
@@ -105,7 +92,6 @@ namespace WinterEngine.Network.Clients
             try
             {
                 IsConnectionRunning = false;
-                MasterAgent.Shutdown();
             }
             catch(Exception ex)
             {
@@ -138,15 +124,9 @@ namespace WinterEngine.Network.Clients
         {
             while (IsConnectionRunning)
             {
-                // Only attempt to send data if the connection is established.
-                if (MasterAgent.Connections.Count > 0)
-                {
-                    ServerDetailsPacket serverDetailsPacket = new ServerDetailsPacket(ServerInformation.Name, ServerInformation.Description, ServerInformation.MaxLevel);
-                    MasterAgent.WriteMessage(serverDetailsPacket);
-                    MasterAgent.SendMessage(MasterAgent.Connections[0]);
-                }
-                 
-                Thread.Sleep(500);
+                WebServiceUtility utility = new WebServiceUtility();
+                utility.SendServerDetails(ServerInformation);
+                Thread.Sleep(60000);
             }
         }
 
