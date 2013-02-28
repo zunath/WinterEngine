@@ -126,7 +126,7 @@ namespace WinterEngine.Network.Clients
             {
                 WebServiceUtility utility = new WebServiceUtility();
                 utility.SendServerDetails(ServerInformation);
-                Thread.Sleep(60000);
+                Thread.Sleep(500);
             }
         }
 
