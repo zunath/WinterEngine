@@ -30,3 +30,15 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.N
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network\bin\Debug\Ionic.Zip.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network\bin\Debug\WinterEngine.DataAccess.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network\bin\Debug\EntityFramework.xml
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\Newtonsoft.Json.dll
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\WinterEngine.Library.dll
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\WinterEngine.DataTransferObjects.dll
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\Ionic.Zip.dll
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\WinterEngine.DataAccess.dll
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\EntityFramework.dll
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\WinterEngine.Library.pdb
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\Newtonsoft.Json.xml
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\WinterEngine.DataTransferObjects.pdb
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\Ionic.Zip.xml
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\WinterEngine.DataAccess.pdb
+C:\Projects\WinterEngine\WinterEngine.Network\bin\Debug\EntityFramework.xml

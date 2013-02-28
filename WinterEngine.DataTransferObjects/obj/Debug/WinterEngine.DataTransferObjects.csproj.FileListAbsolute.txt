@@ -5,7 +5,6 @@ C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\EntityFramew
 C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\Ionic.Zip.dll
 C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\EntityFramework.xml
 C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\Ionic.Zip.xml
-C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.csprojResolveAssemblyReference.cache
 C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.dll
 C:\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\Debug\WinterEngine.DataTransferObjects.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\Debug\WinterEngine.DataTransferObjects.dll.config

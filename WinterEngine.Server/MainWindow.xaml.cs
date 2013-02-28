@@ -240,7 +240,9 @@ namespace WinterEngine.Server
                         ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value),
                         ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value),
                         Port = ClientServerConfiguration.DefaultPort,
-                        ServerDescription = textBoxDescription.Text
+                        ServerDescription = textBoxDescription.Text,
+                        GameType = listBoxGameType.SelectedItem as byte,
+                        PVPType = comboBoxPVPType.SelectedItem as byte
                     };
 
             return details;
@@ -281,7 +283,10 @@ namespace WinterEngine.Server
         /// <param name="e"></param>
         private void TextBoxChanged(object sender, TextChangedEventArgs e)
         {
-            //MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
+            if (!Object.ReferenceEquals(MasterClient, null))
+            {
+                MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
+            }
         }
 
         /// <summary>
@@ -291,16 +296,26 @@ namespace WinterEngine.Server
         /// <param name="e"></param>
         private void ComboBoxChanged(object sender, SelectionChangedEventArgs e)
         {
-            MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
+            if (!Object.ReferenceEquals(MasterClient, null))
+            {
+                MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
+            }
+        }
+
+        /// <summary>
+        /// Calls RaiseServerDetailsChangedEvent when called for any numeric integer up/down control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NumericIntegerChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (!Object.ReferenceEquals(MasterClient, null))
+            {
+                MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
+            }
         }
 
         #endregion
-
-        
-
-
-
-
 
 
     }

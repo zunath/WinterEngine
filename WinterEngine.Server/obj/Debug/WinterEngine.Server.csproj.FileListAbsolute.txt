@@ -8,7 +8,6 @@ C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.DataAccess.d
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.DataTransferObjects.dll
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.Library.dll
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.Network.dll
-C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.Network.MasterServer.exe
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\Xceed.Wpf.DataGrid.dll
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\Xceed.Wpf.Toolkit.dll
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\EntityFramework.dll
@@ -18,7 +17,6 @@ C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\Lidgren.Network.xml
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.DataAccess.pdb
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.DataTransferObjects.pdb
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.Library.pdb
-C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.Network.MasterServer.pdb
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.Network.pdb
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\EntityFramework.xml
 C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\Ionic.Zip.xml
@@ -66,3 +64,9 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.S
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.Server.application
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Server\obj\Debug\WinterEngine.Server.exe.manifest
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Server\obj\Debug\WinterEngine.Server.application
+C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.Server.exe.manifest
+C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\WinterEngine.Server.application
+C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\Newtonsoft.Json.dll
+C:\Projects\WinterEngine\WinterEngine.Server\bin\Debug\Newtonsoft.Json.xml
+C:\Projects\WinterEngine\WinterEngine.Server\obj\Debug\WinterEngine.Server.exe.manifest
+C:\Projects\WinterEngine\WinterEngine.Server\obj\Debug\WinterEngine.Server.application

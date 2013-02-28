@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using Lidgren.Network;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Network.Entities;
 
 namespace WinterEngine.Network.Entities
@@ -19,6 +20,8 @@ namespace WinterEngine.Network.Entities
         public ConnectionAddress Connection { get; set; }
         public DateTime LastPacketReceived { get; set; }
         public int Port { get; set; }
+        public PVPTypeEnum PVPType{get; set;}
+        public GameTypeEnum GameType { get; set; }
 
         #endregion
 

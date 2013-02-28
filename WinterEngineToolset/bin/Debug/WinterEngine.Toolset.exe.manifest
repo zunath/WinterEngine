@@ -183,7 +183,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>UojXxwWtQifsXazM3ZzwZ9tqwuY=</dsig:DigestValue>
+        <dsig:DigestValue>QrbmiQkyzD+y3N+BZ3MDt6QSSqo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -195,7 +195,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>bcml2JZDKcK6Y3Ahj4MPddR1Vmg=</dsig:DigestValue>
+        <dsig:DigestValue>Bq/WMuKlbr6FaAV0hywpzvi+KD0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -207,19 +207,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>AsKKC5OsdF9RZhLpI8JeWvkwSok=</dsig:DigestValue>
+        <dsig:DigestValue>zJIQQgECa0ofb74jsWb/457Wktg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Forms.dll" size="78336">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Forms.dll" size="78848">
       <assemblyIdentity name="WinterEngine.Forms" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>OCibhwN/DlwoYLIMP5V6O7uY6aw=</dsig:DigestValue>
+        <dsig:DigestValue>RfbRb4So4fLRXQCazaQxtTlUZ6c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -231,19 +231,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>AVR/vdZbpPMVhflP2E/0kS2NeKE=</dsig:DigestValue>
+        <dsig:DigestValue>dP6vOKiGnR2mw8pWhfcXeK+J8pE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="121856">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Toolset.exe" size="122368">
       <assemblyIdentity name="WinterEngine.Toolset" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>bmuVfQACf2PA0LvvOgrEw1r/ILY=</dsig:DigestValue>
+        <dsig:DigestValue>ZWNNH3yrPuUdhSHI+w92nlz6Hzw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
