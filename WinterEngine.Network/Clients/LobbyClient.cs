@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Entities;
+using WinterEngine.Network.ExtendedEventArgs;
 using WinterEngine.Network.Packets;
 
 namespace WinterEngine.Network.Clients
@@ -25,7 +26,7 @@ namespace WinterEngine.Network.Clients
         /// <summary>
         /// Gets or sets the server information details.
         /// </summary>
-        private ServerDetails ServerInformation
+        public ServerDetails ServerInformation
         {
             get { return _serverDetails; }
             set { _serverDetails = value; }
@@ -51,6 +52,12 @@ namespace WinterEngine.Network.Clients
 
         #endregion
 
+        #region Events / Delegates
+
+        public event EventHandler OnServerPropertiesChanged;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -65,6 +72,7 @@ namespace WinterEngine.Network.Clients
         #endregion
 
         #region Methods
+
 
         /// <summary>
         /// Starts the connection to the master server's lobby,

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="WinterEngine.Server.exe" version="1.0.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="WinterEngine.Server.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
     <assemblyIdentity name="WinterEngine.Server" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -73,7 +73,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>I9XEf41gRToC9VHT/sE+Sv65+PWbV8VoFCC5FrZCHcA=</dsig:DigestValue>
+        <dsig:DigestValue>ahWJcaX8B6Aii+86h1dpozSFKtfUvjBrGVqze98IJNA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -97,7 +97,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>qwEM093alAl/Rv6gccRmZXKKqXSXlfEa4c3Wc4v3K60=</dsig:DigestValue>
+        <dsig:DigestValue>OAaVZ8eyXcoNKfvq6gvhGuw7pPzqsB71u3Er9L0IjWA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -109,7 +109,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>WlAk6L+pBVXAARStuoXp7rpuQvhWa4x5lVs4xrr9Vys=</dsig:DigestValue>
+        <dsig:DigestValue>mfIg9yTzqxRm2cz+8GA7UsTyp/xUy2LGex2X6IYsLRA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -121,31 +121,31 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>j4Bji+g1LhQZhis1c89yWFX9aTPuCSdI1siTXS9vCYo=</dsig:DigestValue>
+        <dsig:DigestValue>inAouqc4NVLbPRwPebnP0Hyq7TNk4/QbYic1nx4JzaM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Network.dll" size="26112">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Network.dll" size="26624">
       <assemblyIdentity name="WinterEngine.Network" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>worb2J+QOxNVL3hVBNMIzQgWMFcMXmAjdTFS8ux+OsU=</dsig:DigestValue>
+        <dsig:DigestValue>/IgtTYL+KrjltfFhFKNZmz2FhU8YB2F8KaLDnPU62r0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Server.exe" size="20992">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Server.exe" size="22016">
       <assemblyIdentity name="WinterEngine.Server" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BQQgReSq56GNCvWu3LFQQS1FByVHXoc/v1d0FTMj6dA=</dsig:DigestValue>
+        <dsig:DigestValue>IxjL8Cbbx/0xuiz2GAEhIynRk4Be+PE6yV85siLk5a0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

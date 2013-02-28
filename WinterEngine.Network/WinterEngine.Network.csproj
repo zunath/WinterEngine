@@ -58,6 +58,7 @@
     <Compile Include="Enums\PacketTypeEnum.cs" />
     <Compile Include="Enums\UserProfileGenderTypeEnum.cs" />
     <Compile Include="Enums\WebServiceMethodTypeEnum.cs" />
+    <Compile Include="ExtendedEventArgs\ServerPropertiesEventArgs.cs" />
     <Compile Include="WebServiceUtility.cs" />
     <Compile Include="Packets\ClientServerListPacket.cs" />
     <Compile Include="Servers\ClientServer.cs" />
@@ -83,9 +84,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataTransferObjects\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

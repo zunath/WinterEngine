@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using Microsoft.Win32;
 using WinterEngine.DataTransferObjects.Enumerations;
@@ -10,6 +11,7 @@ using WinterEngine.Network;
 using WinterEngine.Network.Clients;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Entities;
+using WinterEngine.Network.ExtendedEventArgs;
 using WinterEngine.Network.Servers;
 using Xceed.Wpf.Toolkit;
 
@@ -58,7 +60,7 @@ namespace WinterEngine.Server
 
         #endregion
 
-        #region Events
+        #region Event Handling
 
         /// <summary>
         /// Handles setting default values to controls on window load,
@@ -84,6 +86,12 @@ namespace WinterEngine.Server
             numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.DefaultValue);
 
             UpdateExternalIPAddress();
+            MasterClient.OnServerPropertiesChanged += MasterClient_OnServerPropertiesChanged;
+        }
+
+        private void MasterClient_OnServerPropertiesChanged(object sender, EventArgs e)
+        {
+            MasterClient.ServerInformation = BuildServerDetails();
         }
 
         private void Server_OnServerShutdown(object sender, EventArgs e)
@@ -132,14 +140,8 @@ namespace WinterEngine.Server
             else
             {
                 ToggleControls(false);
-                ServerDetails details = 
-                    new ServerDetails { ServerName = textBoxServerName.Text, 
-                                        ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value),
-                                        ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value),
-                                        Port = ClientServerConfiguration.DefaultPort
-                                      };
                 GameServer.Start();
-                MasterClient.Start(details);
+                MasterClient.Start(BuildServerDetails());
             }
         }
 
@@ -164,7 +166,6 @@ namespace WinterEngine.Server
         }
 
         #endregion
-
 
         #region Methods
 
@@ -225,27 +226,82 @@ namespace WinterEngine.Server
             ipAddressCheckerWorker.RunWorkerAsync();
         }
 
+
+        /// <summary>
+        /// Builds a ServerDetails object based on data put into the form's fields.
+        /// </summary>
+        /// <returns></returns>
+        private ServerDetails BuildServerDetails()
+        {
+            ServerDetails details =
+                    new ServerDetails
+                    {
+                        ServerName = textBoxServerName.Text,
+                        ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value),
+                        ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value),
+                        Port = ClientServerConfiguration.DefaultPort,
+                        ServerDescription = textBoxDescription.Text
+                    };
+
+            return details;
+        }
+
         #endregion
 
         #region GUI Methods
-        // These methods are used to fix bugs with the extended WPF controls.
-        // If a user doesn't enter any value for certain controls and the controls lose focus,
-        // the value of the control is updated but the text is NOT.
-        // A manual fix is applied here so that users aren't confused.
 
+        /// <summary>
+        /// Defaults the text of the MaxPlayers numeric integer to the value of the control.
+        /// This is a workaround for a bug in the extended WPF controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SetDefaultValues_MaxPlayers(object sender, RoutedEventArgs e)
         {
             IntegerUpDown control = e.Source as IntegerUpDown;
             numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.Value);
         }
 
+        /// <summary>
+        /// Defaults the text of the MaxLevel numeric integer to the value of the control.
+        /// This is a workaround for a bug in the extended WPF controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SetDefaultValues_MaxLevel(object sender, RoutedEventArgs e)
         {
             IntegerUpDown control = e.Source as IntegerUpDown;
             numericMaxLevel.Text = Convert.ToString(numericMaxLevel.Value);
         }
 
+        /// <summary>
+        /// Calls RaiseServerDetailsChangedEvent when called for any text box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxChanged(object sender, TextChangedEventArgs e)
+        {
+            //MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
+        }
+
+        /// <summary>
+        /// Calls RaiseServerDetailsChangedEvent when called for any combo box or list box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ComboBoxChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
+        }
+
         #endregion
+
+        
+
+
+
+
+
 
     }
 }
