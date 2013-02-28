@@ -16,7 +16,6 @@ namespace WinterEngine.Network.Servers
 
         private TcpListener _fileListener;
         private bool _isListenerRunning;
-        private TcpClient _clientSocket;
         private BackgroundWorker _listenerThread;
 
         #endregion

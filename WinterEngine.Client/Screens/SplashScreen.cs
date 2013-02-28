@@ -20,8 +20,6 @@ using Microsoft.Xna.Framework;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
-using FlatRedBall.Content.Scene;
-using Microsoft.Xna.Framework;
 #endif
 
 namespace WinterEngine.Client.Screens

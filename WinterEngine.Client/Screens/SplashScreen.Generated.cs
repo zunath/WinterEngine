@@ -32,7 +32,6 @@ using Microsoft.Xna.Framework.Media;
 using WinterEngine.Client.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
-using FlatRedBall;
 
 namespace WinterEngine.Client.Screens
 {

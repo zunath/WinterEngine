@@ -26,7 +26,6 @@ namespace WinterEngine.Editor
 		}
 		public static bool IsInitialized { get; private set; }
 		public static bool ShouldStopLoading { get; set; }
-		static string ContentManagerName = "Global";
 		public static void Initialize ()
 		{
 			

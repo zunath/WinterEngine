@@ -130,5 +130,26 @@ namespace WinterEngine.Network
                 throw new Exception("Error sending login credentials.", ex);
             }
         }
+
+        /// <summary>
+        /// Sends a user's profile to the master server.
+        /// </summary>
+        /// <param name="profile">The user's profile containing username, password, email, etc.</param>
+        /// <returns></returns>
+        public bool SendUserProfile(UserProfile profile)
+        {
+            try
+            {
+                string jsonObject = JsonConvert.SerializeObject(profile);
+                string result = SendJsonRequest("UpdateUserProfile", WebServiceMethodTypeEnum.User, jsonObject);
+                result = JsonConvert.DeserializeObject(result) as string;
+                return Convert.ToBoolean(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error sending user profile.", ex);
+            }
+        }
+
     }
 }

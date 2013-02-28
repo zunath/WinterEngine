@@ -8,6 +8,7 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Factories;
 using WinterEngine.Network;
 using WinterEngine.Network.Clients;
+using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Entities;
 using WinterEngine.Network.Servers;
 using Xceed.Wpf.Toolkit;
@@ -22,8 +23,6 @@ namespace WinterEngine.Server
         #region Fields
 
         private OpenFileDialog _openFile;
-        private BackgroundWorker _gameWorker;
-        private ServerDetails _serverDetails;
 
         #endregion
 
@@ -46,25 +45,6 @@ namespace WinterEngine.Server
         {
             get { return _openFile; }
             set {_openFile = value;}
-        }
-
-        /// <summary>
-        /// Handles tracking the game state. This includes player interaction,
-        /// game logic, etc.
-        /// </summary>
-        private BackgroundWorker GameWorker
-        {
-            get { return _gameWorker; }
-            set { _gameWorker = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the server details
-        /// </summary>
-        private ServerDetails Details
-        {
-            get { return _serverDetails; }
-            set { _serverDetails = value; }
         }
 
         #endregion
@@ -91,8 +71,6 @@ namespace WinterEngine.Server
             GameServer = new ClientServer();
             GameServer.OnServerStart += Server_OnServerStart;
             GameServer.OnServerShutdown += Server_OnServerShutdown;
-
-            Details = new ServerDetails();
 
             MasterClient = new LobbyClient();
 
@@ -157,7 +135,8 @@ namespace WinterEngine.Server
                 ServerDetails details = 
                     new ServerDetails { ServerName = textBoxServerName.Text, 
                                         ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value),
-                                        ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value)
+                                        ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value),
+                                        Port = ClientServerConfiguration.DefaultPort
                                       };
                 GameServer.Start();
                 MasterClient.Start(details);
@@ -264,28 +243,9 @@ namespace WinterEngine.Server
         {
             IntegerUpDown control = e.Source as IntegerUpDown;
             numericMaxLevel.Text = Convert.ToString(numericMaxLevel.Value);
-
-
-            _serverDetails.ServerName = textBoxServerName.Text;
-            _serverDetails.ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value);
-            _serverDetails.ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value);
-
-            MasterClient._serverDetails = this._serverDetails;
         }
 
         #endregion
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            WebServiceUtility utility = new WebServiceUtility();
-
-            string result = utility.SendServerDetails(Details);
-            //bool result = utility.AttemptUserLogin(login);
-
-            System.Windows.MessageBox.Show("" + result);
-
-        }
-
 
     }
 }

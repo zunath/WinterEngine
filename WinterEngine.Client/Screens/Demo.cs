@@ -21,15 +21,12 @@ using Microsoft.Xna.Framework;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
-using Microsoft.Xna.Framework;
-using System.Windows.Forms;
 #endif
 
 namespace WinterEngine.Client.Screens
 {
 	public partial class Demo
 	{
-        Form form;
         CustomDrawableBatch batch;
 
 		void CustomInitialize()
