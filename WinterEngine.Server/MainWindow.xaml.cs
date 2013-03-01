@@ -233,6 +233,16 @@ namespace WinterEngine.Server
         /// <returns></returns>
         private ServerDetails BuildServerDetails()
         {
+            if(Object.ReferenceEquals(listBoxGameType.SelectedItem, null))
+            {
+                listBoxGameType.SelectedIndex = 0;
+            }
+
+            if (Object.ReferenceEquals(comboBoxPVPType.SelectedItem, null))
+            {
+                comboBoxPVPType.SelectedIndex = 0;
+            }
+
             ServerDetails details =
                     new ServerDetails
                     {
@@ -241,8 +251,8 @@ namespace WinterEngine.Server
                         ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value),
                         Port = ClientServerConfiguration.DefaultPort,
                         ServerDescription = textBoxDescription.Text,
-                        GameType = listBoxGameType.SelectedItem as byte,
-                        PVPType = comboBoxPVPType.SelectedItem as byte
+                        GameType = (GameTypeEnum)listBoxGameType.SelectedItem,
+                        PVPType = (PVPTypeEnum)comboBoxPVPType.SelectedItem
                     };
 
             return details;
