@@ -79,8 +79,9 @@ namespace WinterEngine.Server
             OpenFile = new OpenFileDialog();
             InitializeOpenFileDialog();
 
-            comboBoxPVPType.SelectedIndex = 0;
-            listBoxGameType.SelectedIndex = 0;
+
+            numericPort.DefaultValue = ClientServerConfiguration.DefaultPort;
+            numericPort.Text = Convert.ToString(numericPort.DefaultValue);
 
             numericMaxLevel.Text = Convert.ToString(numericMaxLevel.DefaultValue);
             numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.DefaultValue);
@@ -133,13 +134,13 @@ namespace WinterEngine.Server
         {
             if (GameServer.IsServerRunning)
             {
-                ToggleControls(true);
+                ToggleServerStatusMode(false);
                 GameServer.Shutdown();
                 MasterClient.Shutdown();
             }
             else
             {
-                ToggleControls(false);
+                ToggleServerStatusMode(true);
                 GameServer.Start();
                 MasterClient.Start(BuildServerDetails());
             }
@@ -196,16 +197,18 @@ namespace WinterEngine.Server
         }
 
         /// <summary>
-        /// Toggles controls to be enabled or disabled.
+        /// Toggles whether the server is currently running, enabling or disabling the controls as necessary.
         /// </summary>
-        /// <param name="enabled">Set to true to enable controls. Set to false to disable them.</param>
-        private void ToggleControls(bool enabled)
+        /// <param name="serverStarted">Set to true if the server is started. Set to false if the server is stopped.</param>
+        private void ToggleServerStatusMode(bool serverStarted)
         {
-            buttonBrowse.IsEnabled = enabled;
+            buttonBrowse.IsEnabled = !serverStarted;
 
-            textBoxServerMessage.IsEnabled = !enabled;
-            buttonBanAccount.IsEnabled = !enabled;
-            buttonBootPlayer.IsEnabled = !enabled;
+            textBoxServerMessage.IsEnabled = serverStarted;
+            buttonBanAccount.IsEnabled = serverStarted;
+            buttonBootPlayer.IsEnabled = serverStarted;
+
+            numericPort.IsEnabled = !serverStarted;
         }
 
         /// <summary>
@@ -249,7 +252,7 @@ namespace WinterEngine.Server
                         ServerName = textBoxServerName.Text,
                         ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value),
                         ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value),
-                        Port = ClientServerConfiguration.DefaultPort,
+                        ServerPort = (ushort)numericPort.Value,
                         ServerDescription = textBoxDescription.Text,
                         GameType = (GameTypeEnum)listBoxGameType.SelectedItem,
                         PVPType = (PVPTypeEnum)comboBoxPVPType.SelectedItem
@@ -284,6 +287,18 @@ namespace WinterEngine.Server
         {
             IntegerUpDown control = e.Source as IntegerUpDown;
             numericMaxLevel.Text = Convert.ToString(numericMaxLevel.Value);
+        }
+
+        /// <summary>
+        /// Defaults the text of the Port numeric integer to the value of the control.
+        /// This is a workaround for a bug in the extended WPF controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetDefaultValues_Port(object sender, RoutedEventArgs e)
+        {
+            IntegerUpDown control = e.Source as IntegerUpDown;
+            numericPort.Text = Convert.ToString(numericPort.Value);
         }
 
         /// <summary>

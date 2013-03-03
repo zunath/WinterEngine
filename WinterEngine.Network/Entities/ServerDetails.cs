@@ -19,7 +19,7 @@ namespace WinterEngine.Network.Entities
         public float Ping { get; set; }
         public ConnectionAddress Connection { get; set; }
         public DateTime LastPacketReceived { get; set; }
-        public int Port { get; set; }
+        public ushort ServerPort { get; set; }
         public PVPTypeEnum PVPType{get; set;}
         public GameTypeEnum GameType { get; set; }
 
