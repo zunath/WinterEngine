@@ -79,7 +79,6 @@ namespace WinterEngine.Server
             OpenFile = new OpenFileDialog();
             InitializeOpenFileDialog();
 
-
             numericPort.DefaultValue = ClientServerConfiguration.DefaultPort;
             numericPort.Text = Convert.ToString(numericPort.DefaultValue);
 

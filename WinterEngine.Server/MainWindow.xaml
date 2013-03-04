@@ -69,7 +69,7 @@
             </TabItem>
             <TabItem Header="Description">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="textBoxDescription" HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Stretch" />
+                    <TextBox x:Name="textBoxDescription" HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Stretch" TextChanged="TextBoxChanged" />
                 </Grid>
             </TabItem>
             <TabItem Header="Files">
