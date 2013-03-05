@@ -13,6 +13,7 @@ using WinterEngine.ERF;
 using WinterEngine.Library.Utility;
 using WinterEngine.Forms.ExtendedEventArgs;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.Editor.ExtendedEventArgs;
 
 namespace WinterEngine.Editor.Controls
 {
@@ -54,6 +55,14 @@ namespace WinterEngine.Editor.Controls
             openFileDialog.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
             saveFileDialog.Filter = openFileDialog.Filter;
         }
+
+        #endregion
+
+        #region Events / Delegates
+
+        public event EventHandler OnRefreshControls;
+        public event EventHandler OnUnloadControls;
+        public event EventHandler<ModuleControlsEventArgs> OnToggleControls;
 
         #endregion
 
@@ -123,6 +132,11 @@ namespace WinterEngine.Editor.Controls
             toolStripMenuItemPaste.Enabled = enabled;
             toolStripMenuItemModuleProperties.Enabled = enabled;
             toolStripMenuItemManageContentPackages.Enabled = enabled;
+
+            if (!Object.ReferenceEquals(OnToggleControls, null))
+            {
+                OnToggleControls(this, new ModuleControlsEventArgs(enabled));
+            }
         }
 
         /// <summary>
@@ -258,7 +272,10 @@ namespace WinterEngine.Editor.Controls
 
             // Refresh the controls for all views. This will populate the tree views
             // and perform other GUI-related tasks.
-            //RefreshAllControls();
+            if (!Object.ReferenceEquals(OnRefreshControls, null))
+            {
+                OnRefreshControls(this, new EventArgs());
+            }
 
             ToggleModuleControlsEnabled(true);
         }
@@ -283,7 +300,10 @@ namespace WinterEngine.Editor.Controls
         private void OnModuleOpened()
         {
             ToggleModuleControlsEnabled(true);
-            //RefreshAllControls();
+            if (!Object.ReferenceEquals(OnRefreshControls, null))
+            {
+                OnRefreshControls(this, new EventArgs());
+            }
         }
 
         /// <summary>
@@ -295,7 +315,11 @@ namespace WinterEngine.Editor.Controls
         private void OnModuleClosed()
         {
             ToggleModuleControlsEnabled(false);
-            //UnloadAllControls();
+
+            if (!Object.ReferenceEquals(OnUnloadControls, null))
+            {
+                OnUnloadControls(this, new EventArgs());
+            }
         }
 
         /// <summary>
@@ -305,10 +329,10 @@ namespace WinterEngine.Editor.Controls
         /// <param name="e"></param>
         private void OnERFImportedSuccessfully(object sender, EventArgs e)
         {
-            //areaView.RefreshControls();
-            //itemView.RefreshControls();
-            //creatureView.RefreshControls();
-            //placeableView.RefreshControls();
+            if (!Object.ReferenceEquals(OnRefreshControls, null))
+            {
+                OnRefreshControls(this, new EventArgs());
+            }
         }
 
         #endregion

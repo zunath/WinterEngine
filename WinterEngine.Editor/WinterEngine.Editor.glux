@@ -2,28 +2,7 @@
 <GlueProjectSave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Screens>
     <ScreenSave>
-      <Name>Screens\AdvancedScreen</Name>
-    </ScreenSave>
-    <ScreenSave>
-      <Name>Screens\AreaScreen</Name>
-    </ScreenSave>
-    <ScreenSave>
-      <Name>Screens\ConversationScreen</Name>
-    </ScreenSave>
-    <ScreenSave>
-      <Name>Screens\CreatureScreen</Name>
-    </ScreenSave>
-    <ScreenSave>
       <Name>Screens\EditorScreen</Name>
-    </ScreenSave>
-    <ScreenSave>
-      <Name>Screens\ItemScreen</Name>
-    </ScreenSave>
-    <ScreenSave>
-      <Name>Screens\PlaceableScreen</Name>
-    </ScreenSave>
-    <ScreenSave>
-      <Name>Screens\ScriptScreen</Name>
     </ScreenSave>
   </Screens>
   <Entities />

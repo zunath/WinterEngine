@@ -50,6 +50,7 @@
             this.radioButtonAreas.TabStop = true;
             this.radioButtonAreas.Text = "Areas";
             this.radioButtonAreas.UseVisualStyleBackColor = true;
+            this.radioButtonAreas.CheckedChanged += new System.EventHandler(this.radioButtonAreas_CheckedChanged);
             // 
             // radioButtonCreatures
             // 
@@ -62,6 +63,7 @@
             this.radioButtonCreatures.TabIndex = 14;
             this.radioButtonCreatures.Text = "Creatures";
             this.radioButtonCreatures.UseVisualStyleBackColor = true;
+            this.radioButtonCreatures.CheckedChanged += new System.EventHandler(this.radioButtonCreatures_CheckedChanged);
             // 
             // radioButtonItems
             // 
@@ -74,6 +76,7 @@
             this.radioButtonItems.TabIndex = 15;
             this.radioButtonItems.Text = "Items";
             this.radioButtonItems.UseVisualStyleBackColor = true;
+            this.radioButtonItems.CheckedChanged += new System.EventHandler(this.radioButtonItems_CheckedChanged);
             // 
             // radioButtonPlaceables
             // 
@@ -86,6 +89,7 @@
             this.radioButtonPlaceables.TabIndex = 16;
             this.radioButtonPlaceables.Text = "Placeables";
             this.radioButtonPlaceables.UseVisualStyleBackColor = true;
+            this.radioButtonPlaceables.CheckedChanged += new System.EventHandler(this.radioButtonPlaceables_CheckedChanged);
             // 
             // radioButtonConversations
             // 
@@ -98,6 +102,7 @@
             this.radioButtonConversations.TabIndex = 17;
             this.radioButtonConversations.Text = "Conversations";
             this.radioButtonConversations.UseVisualStyleBackColor = true;
+            this.radioButtonConversations.CheckedChanged += new System.EventHandler(this.radioButtonConversations_CheckedChanged);
             // 
             // radioButtonScripts
             // 
@@ -110,6 +115,7 @@
             this.radioButtonScripts.TabIndex = 18;
             this.radioButtonScripts.Text = "Scripts";
             this.radioButtonScripts.UseVisualStyleBackColor = true;
+            this.radioButtonScripts.CheckedChanged += new System.EventHandler(this.radioButtonScripts_CheckedChanged);
             // 
             // radioButtonAdvanced
             // 
@@ -122,6 +128,7 @@
             this.radioButtonAdvanced.TabIndex = 19;
             this.radioButtonAdvanced.Text = "Advanced";
             this.radioButtonAdvanced.UseVisualStyleBackColor = true;
+            this.radioButtonAdvanced.CheckedChanged += new System.EventHandler(this.radioButtonAdvanced_CheckedChanged);
             // 
             // ObjectBar
             // 

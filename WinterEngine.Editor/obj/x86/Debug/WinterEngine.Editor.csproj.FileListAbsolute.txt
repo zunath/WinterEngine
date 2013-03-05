@@ -60,3 +60,10 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.E
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.HakpakBuilder.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.ERF.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.HakpakBuilder.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.CreaturePropertiesControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.ItemPropertiesControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.PlaceablePropertiesControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\Content\Icons\Icon_InvalidDimensions.xnb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\Content\Icons\Icon_NotPassable.xnb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\Content\Icons\Icon_Passable.xnb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\Content\Icons\Icon_SelectedTile.xnb

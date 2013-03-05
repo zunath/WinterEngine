@@ -1,0 +1,10 @@
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\bin\x86\Debug\WinterEngine.DataAccess.dll.config
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\bin\x86\Debug\WinterEngine.DataAccess.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\bin\x86\Debug\WinterEngine.DataAccess.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\bin\x86\Debug\EntityFramework.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\bin\x86\Debug\WinterEngine.DataTransferObjects.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\bin\x86\Debug\WinterEngine.DataTransferObjects.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\bin\x86\Debug\EntityFramework.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\obj\x86\Debug\WinterEngine.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\obj\x86\Debug\WinterEngine.DataAccess.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\obj\x86\Debug\WinterEngine.DataAccess.pdb
