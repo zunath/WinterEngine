@@ -95,9 +95,12 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
@@ -115,7 +118,39 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AreaPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AreaPropertiesControl.Designer.cs">
+      <DependentUpon>AreaPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\IEditorControl.cs" />
+    <Compile Include="Controls\MenuBarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MenuBarControl.Designer.cs">
+      <DependentUpon>MenuBarControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TreeCategoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeCategoryControl.Designer.cs">
+      <DependentUpon>TreeCategoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\UserControlIDEnum.cs" />
     <Compile Include="GlobalContent.Generated.cs" />
+    <Compile Include="Controls\ObjectBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ObjectBar.Designer.cs">
+      <DependentUpon>ObjectBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Performance\IPoolable.Generated.cs" />
     <Compile Include="Performance\PoolList.Generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -136,6 +171,10 @@
     <Compile Include="Screens\CreatureScreen.cs" />
     <Compile Include="Screens\CreatureScreen.Generated.cs">
       <DependentUpon>CreatureScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\EditorScreen.cs" />
+    <Compile Include="Screens\EditorScreen.Generated.cs">
+      <DependentUpon>EditorScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Screens\ItemScreen.cs" />
     <Compile Include="Screens\ItemScreen.Generated.cs">
@@ -202,16 +241,41 @@
       <Name>WinterEngine.EditorContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.ERF\WinterEngine.ERF.csproj">
+      <Project>{71c617b1-e588-4187-8773-c0b6ef4569a1}</Project>
+      <Name>WinterEngine.ERF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.Forms\WinterEngine.Forms.csproj">
       <Project>{2891db47-3f02-4e70-be37-d272187438df}</Project>
       <Name>WinterEngine.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WinterEngineToolset\WinterEngine.Toolset.csproj">
-      <Project>{7bfa4465-91f3-4d6c-8c5c-bce1d4f67ee2}</Project>
-      <Name>WinterEngine.Toolset</Name>
+    <ProjectReference Include="..\WinterEngine.HakpakBuilder\WinterEngine.Hakpak.csproj">
+      <Project>{cb8fc1f9-0ea1-4f21-90ef-9776b8ae8337}</Project>
+      <Name>WinterEngine.Hakpak</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
+      <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
+      <Name>WinterEngine.Library</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AreaPropertiesControl.resx">
+      <DependentUpon>AreaPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MenuBarControl.resx">
+      <DependentUpon>MenuBarControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ObjectBar.resx">
+      <DependentUpon>ObjectBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TreeCategoryControl.resx">
+      <DependentUpon>TreeCategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

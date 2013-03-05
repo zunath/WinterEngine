@@ -52,7 +52,6 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.F
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Debug\WinterEngine.Forms.Toolset.TilesetSpriteSheet.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Debug\WinterEngine.Forms.Toolset.ContentPackageEditor.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Debug\WinterEngine.Forms.Shared.InputMessageBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Debug\WinterEngine.Forms.Toolset.AboutBox.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Debug\WinterEngine.Forms.Controls.ModuleProperties.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Debug\WinterEngine.Forms.Toolset.NewModuleEntry.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\Debug\WinterEngine.Forms.Properties.Resources.resources
