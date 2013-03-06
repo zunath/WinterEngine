@@ -109,26 +109,7 @@
     <Compile Include="Shared\InputMessageBox.Designer.cs">
       <DependentUpon>InputMessageBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
-    <Compile Include="Toolset\ModuleProperties.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Toolset\ModuleProperties.Designer.cs">
-      <DependentUpon>ModuleProperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Toolset\NewModuleEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Toolset\NewModuleEntry.Designer.cs">
-      <DependentUpon>NewModuleEntry.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Toolset\NewObjectEntry.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Toolset\NewObjectEntry.Designer.cs">
-      <DependentUpon>NewObjectEntry.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Controls\NameTextBox.resx">
       <DependentUpon>NameTextBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -150,12 +131,6 @@
     <EmbeddedResource Include="Shared\InputMessageBox.resx">
       <DependentUpon>InputMessageBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Toolset\ModuleProperties.resx">
-      <DependentUpon>ModuleProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Toolset\NewModuleEntry.resx">
-      <DependentUpon>NewModuleEntry.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -166,9 +141,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Toolset\NewObjectEntry.resx">
-      <DependentUpon>NewObjectEntry.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using WinterEngine.Forms.Toolset;
-using WinterEngine.Forms.Controls;
-using WinterEngine.Library.Factories;
-using WinterEngine.ERF;
-using WinterEngine.Library.Utility;
-using WinterEngine.Forms.ExtendedEventArgs;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.Editor.ExtendedEventArgs;
+using WinterEngine.Editor.Forms;
+using WinterEngine.ERF;
+using WinterEngine.Forms.Toolset;
+using WinterEngine.Library.Factories;
+using WinterEngine.Library.Utility;
 using WinterEngine.Editor.ExtendedEventArgs;
 
 namespace WinterEngine.Editor.Controls

@@ -37,12 +37,12 @@ namespace WinterEngine.Editor.Screens
     {
         #region Fields
 
-        ObjectBar _objectBar;
-        MenuBarControl _menuBar;
-        AreaView _areaView;
-        CreatureView _creatureView;
-        ItemView _itemView;
-        PlaceableView _placeableView;
+        private ObjectBar _objectBar;
+        private MenuBarControl _menuBar;
+        private AreaView _areaView;
+        private CreatureView _creatureView;
+        private ItemView _itemView;
+        private PlaceableView _placeableView;
 
         #endregion
 
@@ -112,10 +112,6 @@ namespace WinterEngine.Editor.Screens
             FlatRedBallServices.CornerGrabbingResize += OnWindowResize;
             FlatRedBallServices.Game.IsMouseVisible = true;
             InitializeEventSubscriptions();
-            AreaControl = new AreaView();
-            CreatureControl = new CreatureView();
-            ItemControl = new ItemView();
-            PlaceableControl = new PlaceableView();
 		}
 
 		void CustomActivity(bool firstTimeCalled)
@@ -139,10 +135,6 @@ namespace WinterEngine.Editor.Screens
         #endregion
 
         #region Event Handling
-
-        #endregion
-
-        #region Methods
 
         /// <summary>
         /// Handles subscribing events on screen initialization.
@@ -177,21 +169,6 @@ namespace WinterEngine.Editor.Screens
             PlaceableControl.TreeCategory.RefreshTreeView();
         }
 
-        /// <summary>
-        /// Handles creating the form controls and drawing them in the appropriate locations
-        /// </summary>
-        private void InitializeFormControls()
-        {
-            MenuBar = new MenuBarControl();
-            ObjectSelectionBar = new ObjectBar();
-
-            Control.FromHandle(FlatRedBallServices.WindowHandle).Controls.Add(MenuBar);
-            Control.FromHandle(FlatRedBallServices.WindowHandle).Controls.Add(ObjectSelectionBar);
-
-            ObjectSelectionBar.OnObjectSelected += ObjectSelectionBar_OnObjectSelected;
-
-            UpdateControlPositions();
-        }
 
         private void ObjectSelectionBar_OnObjectSelected(object sender, ObjectSelectionEventArgs e)
         {
@@ -224,7 +201,39 @@ namespace WinterEngine.Editor.Screens
             }
         }
 
-        public void UpdateControlPositions()
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles creating the form controls and drawing them in the appropriate locations
+        /// </summary>
+        private void InitializeFormControls()
+        {
+            // Force the window's minimum size based on its initial width and height
+            Control mainWindow = Control.FromHandle(FlatRedBallServices.WindowHandle);
+            mainWindow.MinimumSize = new Size(mainWindow.Width, mainWindow.Height);
+
+            MenuBar = new MenuBarControl();
+            ObjectSelectionBar = new ObjectBar();
+
+            mainWindow.Controls.Add(MenuBar);
+            mainWindow.Controls.Add(ObjectSelectionBar);
+
+            ObjectSelectionBar.OnObjectSelected += ObjectSelectionBar_OnObjectSelected;
+
+            UpdateControlPositions();
+
+            AreaControl = new AreaView();
+            CreatureControl = new CreatureView();
+            ItemControl = new ItemView();
+            PlaceableControl = new PlaceableView();
+        }
+
+        /// <summary>
+        /// Relocates windows to the appropriate positions
+        /// </summary>
+        private void UpdateControlPositions()
         {
             MenuBar.Location = new System.Drawing.Point(0, 0);
             MenuBar.BorderStyle = BorderStyle.None;
@@ -235,6 +244,11 @@ namespace WinterEngine.Editor.Screens
             ObjectSelectionBar.Size = new Size(FlatRedBallServices.GraphicsDevice.Viewport.Width, ObjectSelectionBar.Height);
         }
 
+        /// <summary>
+        /// Updates the positions of controls when the main window is resized.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnWindowResize(object sender, EventArgs e)
         {
             UpdateControlPositions();

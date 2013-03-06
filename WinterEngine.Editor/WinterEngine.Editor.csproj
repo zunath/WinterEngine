@@ -164,7 +164,26 @@
     <Compile Include="Enums\ObjectSelectionTypeEnum.cs" />
     <Compile Include="Enums\UserControlIDEnum.cs" />
     <Compile Include="ExtendedEventArgs\ModuleControlsEventArgs.cs" />
+    <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ObjectSelectionEventArgs.cs" />
+    <Compile Include="Forms\ModuleProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ModuleProperties.Designer.cs">
+      <DependentUpon>ModuleProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewModuleEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewModuleEntry.Designer.cs">
+      <DependentUpon>NewModuleEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewObjectEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewObjectEntry.Designer.cs">
+      <DependentUpon>NewObjectEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalContent.Generated.cs" />
     <Compile Include="Controls\ObjectBar.cs">
       <SubType>UserControl</SubType>
@@ -281,6 +300,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ModuleProperties.resx">
+      <DependentUpon>ModuleProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewModuleEntry.resx">
+      <DependentUpon>NewModuleEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewObjectEntry.resx">
+      <DependentUpon>NewObjectEntry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

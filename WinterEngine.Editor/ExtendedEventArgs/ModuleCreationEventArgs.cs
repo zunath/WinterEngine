@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using WinterEngine.Library.Factories;
 
-namespace WinterEngine.Forms.ExtendedEventArgs
+namespace WinterEngine.Editor.ExtendedEventArgs
 {
     public class ModuleCreationEventArgs : EventArgs
     {

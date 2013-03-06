@@ -8,7 +8,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.DataTransferObjects.GameObjects;
 
-namespace WinterEngine.Forms.Toolset
+namespace WinterEngine.Editor.Forms
 {
     public partial class NewObjectEntry : Form
     {

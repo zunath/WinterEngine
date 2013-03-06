@@ -1,4 +1,5 @@
-﻿namespace WinterEngine.Forms.Controls
+﻿using WinterEngine.Forms.Controls;
+namespace WinterEngine.Editor.Forms
 {
     partial class ModuleProperties
     {

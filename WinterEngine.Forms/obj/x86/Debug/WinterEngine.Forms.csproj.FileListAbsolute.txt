@@ -21,10 +21,7 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.F
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.TilesetSpriteSheet.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.ContentPackageEditor.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Shared.InputMessageBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Controls.ModuleProperties.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.NewModuleEntry.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Properties.Resources.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.NewObjectEntry.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.csproj.GenerateResource.Cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.pdb

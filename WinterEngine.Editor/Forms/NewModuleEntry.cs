@@ -3,9 +3,9 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Utility;
-using WinterEngine.Forms.ExtendedEventArgs;
+using WinterEngine.Editor.ExtendedEventArgs;
 
-namespace WinterEngine.Forms.Toolset
+namespace WinterEngine.Editor.Forms
 {
     public partial class NewModuleEntry : Form
     {
