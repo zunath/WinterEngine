@@ -112,11 +112,12 @@ namespace WinterEngine.Editor.Screens
             FlatRedBallServices.CornerGrabbingResize += OnWindowResize;
             FlatRedBallServices.Game.IsMouseVisible = true;
             InitializeEventSubscriptions();
+
+            SpriteManager.AddSprite("redball.bmp");
 		}
 
 		void CustomActivity(bool firstTimeCalled)
 		{
-
 
 		}
 

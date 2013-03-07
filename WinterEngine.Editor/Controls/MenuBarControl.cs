@@ -7,7 +7,6 @@ using WinterEngine.ERF;
 using WinterEngine.Forms.Toolset;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Utility;
-using WinterEngine.Editor.ExtendedEventArgs;
 
 namespace WinterEngine.Editor.Controls
 {

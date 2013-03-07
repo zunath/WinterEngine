@@ -136,6 +136,9 @@
     <Compile Include="Controls\CreaturePropertiesControl.Designer.cs">
       <DependentUpon>CreaturePropertiesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FRBTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\IEditorControl.cs" />
     <Compile Include="Controls\ItemPropertiesControl.cs">
       <SubType>UserControl</SubType>
@@ -200,6 +203,7 @@
     <Compile Include="Screens\EditorScreen.Generated.cs">
       <DependentUpon>EditorScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\WinterEditorServices.cs" />
     <Compile Include="Views\AreaView.cs" />
     <Compile Include="Views\CreatureView.cs" />
     <Compile Include="Views\IEditorControl.cs" />

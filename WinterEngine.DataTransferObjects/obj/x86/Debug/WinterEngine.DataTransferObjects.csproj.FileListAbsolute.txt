@@ -7,3 +7,4 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.D
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\bin\x86\Debug\Ionic.Zip.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\x86\Debug\WinterEngine.DataTransferObjects.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\x86\Debug\WinterEngine.DataTransferObjects.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataTransferObjects\obj\x86\Debug\WinterEngine.DataTransferObjects.csprojResolveAssemblyReference.cache

@@ -163,8 +163,5 @@ namespace WinterEngine.Editor.Controls
 
         #endregion
 
-
-
-
     }
 }

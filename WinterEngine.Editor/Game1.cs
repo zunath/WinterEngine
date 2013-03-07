@@ -20,6 +20,7 @@ using FlatRedBall.Screens;
 using System.Windows.Forms;
 using System.Drawing;
 using WinterEngine.Editor.Controls;
+using WinterEngine.Editor.Services;
 
 namespace WinterEngine.Editor
 {
@@ -57,9 +58,9 @@ namespace WinterEngine.Editor
         protected override void Update(GameTime gameTime)
         {
             FlatRedBallServices.Update(gameTime);
-
             FlatRedBall.Screens.ScreenManager.Activity();
 
+            WinterEditorServices.RaiseOnGameUpdateEvent();
             base.Update(gameTime);
         }
 

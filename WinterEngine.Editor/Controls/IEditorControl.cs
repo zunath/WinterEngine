@@ -7,7 +7,6 @@ namespace WinterEngine.Editor.Controls
 {
     public interface IEditorControl
     {
-        void XNAInitialize();
         void XNAUpdate();
     }
 }

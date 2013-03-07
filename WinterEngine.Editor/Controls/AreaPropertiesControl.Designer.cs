@@ -44,6 +44,7 @@
             this.textBoxAreaComments = new System.Windows.Forms.TextBox();
             this.buttonDiscardChanges = new System.Windows.Forms.Button();
             this.buttonApplyChanges = new System.Windows.Forms.Button();
+            this.frbTextBox1 = new WinterEngine.Editor.Controls.FRBTextBox();
             this.tabControlProperties.SuspendLayout();
             this.tabPageDetails.SuspendLayout();
             this.tabPageComments.SuspendLayout();
@@ -67,6 +68,7 @@
             // 
             // tabPageDetails
             // 
+            this.tabPageDetails.Controls.Add(this.frbTextBox1);
             this.tabPageDetails.Controls.Add(this.resrefTextBoxArea);
             this.tabPageDetails.Controls.Add(this.tagTextBoxArea);
             this.tabPageDetails.Controls.Add(this.nameTextBoxArea);
@@ -235,6 +237,13 @@
             this.buttonApplyChanges.UseVisualStyleBackColor = true;
             this.buttonApplyChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
             // 
+            // frbTextBox1
+            // 
+            this.frbTextBox1.Location = new System.Drawing.Point(107, 206);
+            this.frbTextBox1.Name = "frbTextBox1";
+            this.frbTextBox1.Size = new System.Drawing.Size(100, 20);
+            this.frbTextBox1.TabIndex = 11;
+            // 
             // AreaPropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -271,6 +280,7 @@
         private WinterEngine.Forms.Controls.ResrefTextBox resrefTextBoxArea;
         private WinterEngine.Forms.Controls.TagTextBox tagTextBoxArea;
         private WinterEngine.Forms.Controls.NameTextBox nameTextBoxArea;
+        private FRBTextBox frbTextBox1;
 
     }
 }
