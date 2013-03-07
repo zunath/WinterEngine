@@ -30,9 +30,9 @@
         {
             this.tabControlProperties = new System.Windows.Forms.TabControl();
             this.tabPageDetails = new System.Windows.Forms.TabPage();
-            this.resrefTextBoxArea = new WinterEngine.Forms.Controls.ResrefTextBox();
-            this.tagTextBoxArea = new WinterEngine.Forms.Controls.TagTextBox();
-            this.nameTextBoxArea = new WinterEngine.Forms.Controls.NameTextBox();
+            this.resrefTextBoxArea = new WinterEngine.Forms.Controls.Standard.ResrefTextBox();
+            this.tagTextBoxArea = new WinterEngine.Forms.Controls.Standard.TagTextBox();
+            this.nameTextBoxArea = new WinterEngine.Forms.Controls.Standard.NameTextBox();
             this.labelAreaDetailsHeader = new System.Windows.Forms.Label();
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
@@ -277,9 +277,9 @@
         private System.Windows.Forms.Button buttonDiscardChanges;
         private System.Windows.Forms.Button buttonApplyChanges;
         private System.Windows.Forms.TabPage tabPageAudio;
-        private WinterEngine.Forms.Controls.ResrefTextBox resrefTextBoxArea;
-        private WinterEngine.Forms.Controls.TagTextBox tagTextBoxArea;
-        private WinterEngine.Forms.Controls.NameTextBox nameTextBoxArea;
+        private WinterEngine.Forms.Controls.Standard.ResrefTextBox resrefTextBoxArea;
+        private WinterEngine.Forms.Controls.Standard.TagTextBox tagTextBoxArea;
+        private WinterEngine.Forms.Controls.Standard.NameTextBox nameTextBoxArea;
         private FRBTextBox frbTextBox1;
 
     }

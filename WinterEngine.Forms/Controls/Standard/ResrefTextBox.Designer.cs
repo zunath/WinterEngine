@@ -1,6 +1,6 @@
-﻿namespace WinterEngine.Forms.Controls
+﻿namespace WinterEngine.Forms.Controls.Standard
 {
-    partial class TagTextBox
+    partial class ResrefTextBox
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.textBoxTag = new System.Windows.Forms.TextBox();
+            this.textBoxResref = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBoxTag
+            // textBoxResref
             // 
-            this.textBoxTag.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textBoxResref.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTag.Location = new System.Drawing.Point(0, 8);
-            this.textBoxTag.MaxLength = 32;
-            this.textBoxTag.Name = "textBoxTag";
-            this.textBoxTag.Size = new System.Drawing.Size(193, 20);
-            this.textBoxTag.TabIndex = 0;
-            this.textBoxTag.TextChanged += new System.EventHandler(this.textBoxResref_TextChanged);
-            this.textBoxTag.Leave += new System.EventHandler(this.textBoxTag_Leave);
+            this.textBoxResref.Location = new System.Drawing.Point(0, 8);
+            this.textBoxResref.MaxLength = 32;
+            this.textBoxResref.Name = "textBoxResref";
+            this.textBoxResref.Size = new System.Drawing.Size(193, 20);
+            this.textBoxResref.TabIndex = 0;
+            this.textBoxResref.TextChanged += new System.EventHandler(this.textBoxResref_TextChanged);
+            this.textBoxResref.Leave += new System.EventHandler(this.textBoxResref_Leave);
             // 
             // errorProvider
             // 
@@ -53,12 +53,12 @@
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
-            // TagTextBox
+            // ResrefTextBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.textBoxTag);
-            this.Name = "TagTextBox";
+            this.Controls.Add(this.textBoxResref);
+            this.Name = "ResrefTextBox";
             this.Size = new System.Drawing.Size(227, 28);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
@@ -68,7 +68,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxTag;
+        private System.Windows.Forms.TextBox textBoxResref;
         private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

@@ -1,5 +1,4 @@
-﻿using WinterEngine.Forms.Controls;
-namespace WinterEngine.Editor.Forms
+﻿namespace WinterEngine.Editor.Forms
 {
     partial class ModuleProperties
     {
@@ -36,9 +35,9 @@ namespace WinterEngine.Editor.Forms
             this.label2 = new System.Windows.Forms.Label();
             this.labelDetails = new System.Windows.Forms.Label();
             this.labelTag = new System.Windows.Forms.Label();
-            this.tagTextBoxModule = new WinterEngine.Forms.Controls.TagTextBox();
+            this.tagTextBoxModule = new WinterEngine.Forms.Controls.Standard.TagTextBox();
             this.labelName = new System.Windows.Forms.Label();
-            this.nameTextBoxModule = new WinterEngine.Forms.Controls.NameTextBox();
+            this.nameTextBoxModule = new WinterEngine.Forms.Controls.Standard.NameTextBox();
             this.tabPageEvents = new System.Windows.Forms.TabPage();
             this.tabPageDescription = new System.Windows.Forms.TabPage();
             this.labelDescription = new System.Windows.Forms.Label();
@@ -283,7 +282,7 @@ namespace WinterEngine.Editor.Forms
         private System.Windows.Forms.TabPage tabPageEvents;
         private System.Windows.Forms.TabPage tabPageDescription;
         private System.Windows.Forms.TabPage tabPageComments;
-        private NameTextBox nameTextBoxModule;
+        private WinterEngine.Forms.Controls.Standard.NameTextBox nameTextBoxModule;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelName;
@@ -291,7 +290,7 @@ namespace WinterEngine.Editor.Forms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelDetails;
         private System.Windows.Forms.Label labelTag;
-        private TagTextBox tagTextBoxModule;
+        private WinterEngine.Forms.Controls.Standard.TagTextBox tagTextBoxModule;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label labelComments;

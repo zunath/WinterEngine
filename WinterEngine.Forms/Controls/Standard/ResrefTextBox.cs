@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using WinterEngine.Library.Utility;
-using WinterEngine.Library.Factories;
+using System.Windows.Forms;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.Library.Factories;
 
-namespace WinterEngine.Forms.Controls
+namespace WinterEngine.Forms.Controls.Standard
 {
-    public partial class TagTextBox : UserControl
+    public partial class ResrefTextBox : UserControl
     {
-
         #region Fields
 
         private bool _isValid;
@@ -35,12 +27,12 @@ namespace WinterEngine.Forms.Controls
         }
 
         /// <summary>
-        /// Gets or sets the text of the tag box.
+        /// Gets or sets the text of the resref box.
         /// </summary>
-        public string TagText
+        public string ResrefText
         {
-            get { return textBoxTag.Text; }
-            set { textBoxTag.Text = value; }
+            get { return textBoxResref.Text; }
+            set { textBoxResref.Text = value; }
         }
 
         /// <summary>
@@ -51,6 +43,7 @@ namespace WinterEngine.Forms.Controls
             get { return _resourceType; }
             set { _resourceType = value; }
         }
+        
 
         #endregion
 
@@ -63,11 +56,10 @@ namespace WinterEngine.Forms.Controls
 
         #region Constructors
 
-        public TagTextBox()
+        public ResrefTextBox()
         {
             InitializeComponent();
         }
-
         #endregion
 
         #region Methods
@@ -80,16 +72,22 @@ namespace WinterEngine.Forms.Controls
         {
             errorProvider.Clear();
 
-            Regex tagRegex = new Regex("^[a-zA-Z0-9_]*$");
+            Regex resrefRegex = new Regex("^[a-zA-Z0-9_]*$");
             _isValid = true;
 
-            if (!tagRegex.IsMatch(TagText) || TagText == "")
+            if (!resrefRegex.IsMatch(ResrefText) || ResrefText == "")
             {
-                errorProvider.SetError(textBoxTag, "Invalid Tag");
+                errorProvider.SetError(textBoxResref, "Invalid Resref");
                 _isValid = false;
             }
 
-            
+            GameObjectFactory factory = new GameObjectFactory();
+            if (factory.DoesObjectExistInDatabase(textBoxResref.Text, ResourceType))
+            {
+                errorProvider.SetError(textBoxResref, "This resref is already in use!");
+                _isValid = false;
+            }
+
             // Handle firing events for all subscribers.
             if (_isValid)
             {
@@ -109,7 +107,8 @@ namespace WinterEngine.Forms.Controls
 
         #endregion
 
-        #region Event handlers
+
+        #region Event Handlers
 
         /// <summary>
         /// Handles validation whenever text in the resref text box is changed.
@@ -121,26 +120,25 @@ namespace WinterEngine.Forms.Controls
         {
             Regex lettersOnly = new Regex("^[a-zA-Z0-9_]*$");
             TextHelper textHelper = new TextHelper();
-            Tuple<string, int, int> retValue = textHelper.Validate(textBoxTag.Text, lettersOnly, textBoxTag.SelectionStart, textBoxTag.SelectionLength, true);
+            Tuple<string, int, int> retValue = textHelper.Validate(textBoxResref.Text, lettersOnly, textBoxResref.SelectionStart, textBoxResref.SelectionLength, false);
 
-            textBoxTag.Text = retValue.Item1;
-            textBoxTag.SelectionStart = retValue.Item2;
-            textBoxTag.SelectionLength = retValue.Item3;
+            textBoxResref.Text = retValue.Item1;
+            textBoxResref.SelectionStart = retValue.Item2;
+            textBoxResref.SelectionLength = retValue.Item3;
         }
 
         /// <summary>
         /// Handles validation of text entered when the control loses focus.
-        /// If data is invalid, the error provider will display.
+        /// Will check the database to see if the text entered matches the resref of another object.
+        /// If so, the error provider will display.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBoxTag_Leave(object sender, EventArgs e)
+        private void textBoxResref_Leave(object sender, EventArgs e)
         {
             Validation();
         }
 
         #endregion
-
-
     }
 }

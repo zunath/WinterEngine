@@ -1,4 +1,4 @@
-﻿namespace WinterEngine.Forms.Controls
+﻿namespace WinterEngine.Forms.Controls.Standard
 {
     partial class NameTextBox
     {

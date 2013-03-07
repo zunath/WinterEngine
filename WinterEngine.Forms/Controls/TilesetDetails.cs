@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WinterEngine.Forms.Controls;
+using WinterEngine.Forms.Controls.Standard;
 using WinterEngine.DataTransferObjects.Mapping;
 using WinterEngine.Library.Factories;
 using WinterEngine.DataTransferObjects.Enumerations;

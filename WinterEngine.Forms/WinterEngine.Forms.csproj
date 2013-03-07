@@ -67,22 +67,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\NameTextBox.cs">
+    <Compile Include="Controls\Standard\NameTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\NameTextBox.Designer.cs">
+    <Compile Include="Controls\Standard\NameTextBox.Designer.cs">
       <DependentUpon>NameTextBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ResrefTextBox.cs">
+    <Compile Include="Controls\Standard\ResrefTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\ResrefTextBox.Designer.cs">
+    <Compile Include="Controls\Standard\ResrefTextBox.Designer.cs">
       <DependentUpon>ResrefTextBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TagTextBox.cs">
+    <Compile Include="Controls\Standard\TagTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\TagTextBox.Designer.cs">
+    <Compile Include="Controls\Standard\TagTextBox.Designer.cs">
       <DependentUpon>TagTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\TilesetDetails.cs">
@@ -110,13 +110,13 @@
       <DependentUpon>InputMessageBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Controls\NameTextBox.resx">
+    <EmbeddedResource Include="Controls\Standard\NameTextBox.resx">
       <DependentUpon>NameTextBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ResrefTextBox.resx">
+    <EmbeddedResource Include="Controls\Standard\ResrefTextBox.resx">
       <DependentUpon>ResrefTextBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TagTextBox.resx">
+    <EmbeddedResource Include="Controls\Standard\TagTextBox.resx">
       <DependentUpon>TagTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TilesetDetails.resx">

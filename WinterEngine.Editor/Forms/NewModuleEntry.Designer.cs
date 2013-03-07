@@ -35,8 +35,8 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.tagTextBoxEntry = new WinterEngine.Forms.Controls.TagTextBox();
-            this.nameTextBoxEntry = new WinterEngine.Forms.Controls.NameTextBox();
+            this.tagTextBoxEntry = new WinterEngine.Forms.Controls.Standard.TagTextBox();
+            this.nameTextBoxEntry = new WinterEngine.Forms.Controls.Standard.NameTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -149,8 +149,8 @@
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ErrorProvider errorProvider;
-        private WinterEngine.Forms.Controls.TagTextBox tagTextBoxEntry;
-        private WinterEngine.Forms.Controls.NameTextBox nameTextBoxEntry;
+        private WinterEngine.Forms.Controls.Standard.TagTextBox tagTextBoxEntry;
+        private WinterEngine.Forms.Controls.Standard.NameTextBox nameTextBoxEntry;
 
     }
 }

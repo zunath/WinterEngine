@@ -136,6 +136,9 @@
     <Compile Include="Controls\CreaturePropertiesControl.Designer.cs">
       <DependentUpon>CreaturePropertiesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FRBNameTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\FRBTextBox.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -10,7 +10,6 @@ C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\FlatRedBall.dll
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.DataAccess.dll
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.DataTransferObjects.dll
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.Forms.dll
-C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.Toolset.exe
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\EntityFramework.dll
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.Library.dll
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.ERF.exe
@@ -18,7 +17,6 @@ C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\Ionic.Zip.dll
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.DataAccess.pdb
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.DataTransferObjects.pdb
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.Forms.pdb
-C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.Toolset.pdb
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\FlatRedBall.xml
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\EntityFramework.xml
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.Library.pdb
@@ -70,3 +68,17 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.E
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Forms.ModuleProperties.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Forms.NewModuleEntry.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Forms.NewObjectEntry.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.HakpakBuilder.exe
+C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.HakpakBuilder.pdb
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.AboutBox.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.AreaPropertiesControl.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.CreaturePropertiesControl.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.ItemPropertiesControl.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.MenuBarControl.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.ObjectBar.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.PlaceablePropertiesControl.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.TreeCategoryControl.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Forms.ModuleProperties.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Forms.NewModuleEntry.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Forms.NewObjectEntry.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.csproj.GenerateResource.Cache

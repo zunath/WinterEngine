@@ -12,3 +12,17 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.L
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\x86\Debug\WinterEngine.Library.csprojResolveAssemblyReference.cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\x86\Debug\WinterEngine.Library.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\x86\Debug\WinterEngine.Library.pdb
+C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\WinterEngine.Library.dll.config
+C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\WinterEngine.Library.dll
+C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\WinterEngine.Library.pdb
+C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\Ionic.Zip.dll
+C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\WinterEngine.DataAccess.dll
+C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\WinterEngine.DataTransferObjects.dll
+C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\EntityFramework.dll
+C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\WinterEngine.DataAccess.pdb
+C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\WinterEngine.DataTransferObjects.pdb
+C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\Ionic.Zip.xml
+C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\EntityFramework.xml
+C:\Projects\WinterEngine\WinterEngine.Library\obj\x86\Debug\WinterEngine.Library.csprojResolveAssemblyReference.cache
+C:\Projects\WinterEngine\WinterEngine.Library\obj\x86\Debug\WinterEngine.Library.dll
+C:\Projects\WinterEngine\WinterEngine.Library\obj\x86\Debug\WinterEngine.Library.pdb

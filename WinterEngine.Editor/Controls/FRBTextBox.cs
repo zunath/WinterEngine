@@ -8,6 +8,9 @@ using WinterEngine.Editor.Services;
 
 namespace WinterEngine.Editor.Controls
 {
+    /// <summary>
+    /// A basic text box to be used in XNA windows.
+    /// </summary>
     public class FRBTextBox : TextBox
     {
         /// <summary>
@@ -28,11 +31,20 @@ namespace WinterEngine.Editor.Controls
         {
             if (Focused)
             {
-                int startPosition = SelectionStart;
-                int length = SelectionLength;
+                string typedText = InputManager.Keyboard.GetStringTyped();
 
-                string newText = InputManager.Keyboard.GetStringTyped();
-                Text += newText;
+                // Make sure the user typed something in before modifying anything.
+                if(!String.IsNullOrEmpty(typedText))
+                {
+                    int startPosition = SelectionStart;
+                    int length = SelectionLength;
+
+                    string modifiedText = Text.Remove(startPosition, length);
+                    modifiedText = modifiedText.Insert(startPosition, typedText);
+
+                    this.Text = modifiedText;
+                    this.SelectionStart = startPosition + typedText.Length;
+                }
             }
         }
     }

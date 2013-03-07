@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using WinterEngine.Library.Utility;
 using WinterEngine.DataTransferObjects.Enumerations;
 
-namespace WinterEngine.Forms.Controls
+namespace WinterEngine.Forms.Controls.Standard
 {
     public partial class NameTextBox : UserControl
     {

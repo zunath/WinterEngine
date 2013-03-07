@@ -34,9 +34,9 @@
             this.labelName = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.resrefTextBoxEntry = new WinterEngine.Forms.Controls.ResrefTextBox();
-            this.tagTextBoxEntry = new WinterEngine.Forms.Controls.TagTextBox();
-            this.nameTextBoxEntry = new WinterEngine.Forms.Controls.NameTextBox();
+            this.resrefTextBoxEntry = new WinterEngine.Forms.Controls.Standard.ResrefTextBox();
+            this.tagTextBoxEntry = new WinterEngine.Forms.Controls.Standard.TagTextBox();
+            this.nameTextBoxEntry = new WinterEngine.Forms.Controls.Standard.NameTextBox();
             this.SuspendLayout();
             // 
             // labelResref
@@ -161,9 +161,9 @@
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
-        private WinterEngine.Forms.Controls.ResrefTextBox resrefTextBoxEntry;
-        private WinterEngine.Forms.Controls.TagTextBox tagTextBoxEntry;
-        private WinterEngine.Forms.Controls.NameTextBox nameTextBoxEntry;
+        private WinterEngine.Forms.Controls.Standard.ResrefTextBox resrefTextBoxEntry;
+        private WinterEngine.Forms.Controls.Standard.TagTextBox tagTextBoxEntry;
+        private WinterEngine.Forms.Controls.Standard.NameTextBox nameTextBoxEntry;
 
     }
 }
