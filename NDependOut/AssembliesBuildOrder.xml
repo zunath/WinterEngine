@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<AssemblySortForCompilOrObfusk>
+  <Assembly Assembly="WinterEngine.DataTransferObjects">25</Assembly>
+  <Assembly Assembly="WinterEngine.HakpakBuilder">26</Assembly>
+  <Assembly Assembly="WinterEngine.DataAccess">27</Assembly>
+  <Assembly Assembly="WinterEngine.ERF">28</Assembly>
+  <Assembly Assembly="WinterEngine.Client">29</Assembly>
+  <Assembly Assembly="Lidgren.Network">30</Assembly>
+  <Assembly Assembly="WinterEngine.Network">31</Assembly>
+  <Assembly Assembly="WinterEngine.Server">32</Assembly>
+  <Assembly Assembly="WinterEngine.Master.Server">33</Assembly>
+  <Assembly Assembly="WinterEngine.Editor">34</Assembly>
+</AssemblySortForCompilOrObfusk>

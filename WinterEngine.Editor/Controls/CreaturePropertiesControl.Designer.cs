@@ -32,9 +32,9 @@
             this.tabPageCreatureDetails = new System.Windows.Forms.TabPage();
             this.labelCreatureRace = new System.Windows.Forms.Label();
             this.listBoxCreatureRace = new System.Windows.Forms.ListBox();
-            this.resrefTextBoxCreature = new WinterEngine.Forms.Controls.Standard.ResrefTextBox();
-            this.tagTextBoxCreature = new WinterEngine.Forms.Controls.Standard.TagTextBox();
-            this.nameTextBoxCreature = new WinterEngine.Forms.Controls.Standard.NameTextBox();
+            this.resrefTextBoxCreature = new WinterEngine.Editor.Controls.FRBResrefTextBox();
+            this.tagTextBoxCreature = new WinterEngine.Editor.Controls.FRBTagTextBox();
+            this.nameTextBoxCreature = new WinterEngine.Editor.Controls.FRBNameTextBox();
             this.labelItemDetailsHeader = new System.Windows.Forms.Label();
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
@@ -322,9 +322,9 @@
         private System.Windows.Forms.TabPage tabPageCreatureComments;
         private System.Windows.Forms.Button buttonDiscardChanges;
         private System.Windows.Forms.Button buttonApplyChanges;
-        private WinterEngine.Forms.Controls.Standard.ResrefTextBox resrefTextBoxCreature;
-        private WinterEngine.Forms.Controls.Standard.TagTextBox tagTextBoxCreature;
-        private WinterEngine.Forms.Controls.Standard.NameTextBox nameTextBoxCreature;
+        private WinterEngine.Editor.Controls.FRBResrefTextBox resrefTextBoxCreature;
+        private WinterEngine.Editor.Controls.FRBTagTextBox tagTextBoxCreature;
+        private WinterEngine.Editor.Controls.FRBNameTextBox nameTextBoxCreature;
         private System.Windows.Forms.Label labelCreatureRace;
         private System.Windows.Forms.ListBox listBoxCreatureRace;
         private System.Windows.Forms.Label labelCreatureDescription;

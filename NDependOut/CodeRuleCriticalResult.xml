@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<RuleCriticalResult>
+  <RuleCritical QueryId="Query2498439866" FullName="Code Quality \ Types too big - critical" />
+  <RuleCritical QueryId="Query3744799336" FullName="Code Quality \ Methods too complex - critical" />
+</RuleCriticalResult>

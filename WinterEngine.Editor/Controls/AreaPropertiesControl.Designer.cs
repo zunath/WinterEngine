@@ -1,4 +1,5 @@
-﻿namespace WinterEngine.Editor.Controls
+﻿using System.Text.RegularExpressions;
+namespace WinterEngine.Editor.Controls
 {
     partial class AreaPropertiesControl
     {
@@ -30,9 +31,9 @@
         {
             this.tabControlProperties = new System.Windows.Forms.TabControl();
             this.tabPageDetails = new System.Windows.Forms.TabPage();
-            this.resrefTextBoxArea = new WinterEngine.Forms.Controls.Standard.ResrefTextBox();
-            this.tagTextBoxArea = new WinterEngine.Forms.Controls.Standard.TagTextBox();
-            this.nameTextBoxArea = new WinterEngine.Forms.Controls.Standard.NameTextBox();
+            this.resrefTextBoxArea = new WinterEngine.Editor.Controls.FRBResrefTextBox();
+            this.tagTextBoxArea = new WinterEngine.Editor.Controls.FRBTagTextBox();
+            this.nameTextBoxArea = new WinterEngine.Editor.Controls.FRBNameTextBox();
             this.labelAreaDetailsHeader = new System.Windows.Forms.Label();
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
@@ -44,7 +45,6 @@
             this.textBoxAreaComments = new System.Windows.Forms.TextBox();
             this.buttonDiscardChanges = new System.Windows.Forms.Button();
             this.buttonApplyChanges = new System.Windows.Forms.Button();
-            this.frbTextBox1 = new WinterEngine.Editor.Controls.FRBTextBox();
             this.tabControlProperties.SuspendLayout();
             this.tabPageDetails.SuspendLayout();
             this.tabPageComments.SuspendLayout();
@@ -68,7 +68,6 @@
             // 
             // tabPageDetails
             // 
-            this.tabPageDetails.Controls.Add(this.frbTextBox1);
             this.tabPageDetails.Controls.Add(this.resrefTextBoxArea);
             this.tabPageDetails.Controls.Add(this.tagTextBoxArea);
             this.tabPageDetails.Controls.Add(this.nameTextBoxArea);
@@ -94,6 +93,8 @@
             this.resrefTextBoxArea.Name = "resrefTextBoxArea";
             this.resrefTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
             this.resrefTextBoxArea.ResrefText = "";
+            this.resrefTextBoxArea.SelectionLength = 0;
+            this.resrefTextBoxArea.SelectionStart = 0;
             this.resrefTextBoxArea.Size = new System.Drawing.Size(207, 28);
             this.resrefTextBoxArea.TabIndex = 10;
             // 
@@ -105,6 +106,8 @@
             this.tagTextBoxArea.Location = new System.Drawing.Point(81, 86);
             this.tagTextBoxArea.Name = "tagTextBoxArea";
             this.tagTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxArea.SelectionLength = 0;
+            this.tagTextBoxArea.SelectionStart = 0;
             this.tagTextBoxArea.Size = new System.Drawing.Size(207, 28);
             this.tagTextBoxArea.TabIndex = 9;
             this.tagTextBoxArea.TagText = "";
@@ -117,8 +120,11 @@
             this.nameTextBoxArea.Location = new System.Drawing.Point(81, 58);
             this.nameTextBoxArea.Name = "nameTextBoxArea";
             this.nameTextBoxArea.NameText = "";
+            this.nameTextBoxArea.SelectionLength = 0;
+            this.nameTextBoxArea.SelectionStart = 0;
             this.nameTextBoxArea.Size = new System.Drawing.Size(207, 28);
             this.nameTextBoxArea.TabIndex = 8;
+            this.nameTextBoxArea.ValidCharactersRegex = null;
             // 
             // labelAreaDetailsHeader
             // 
@@ -237,13 +243,6 @@
             this.buttonApplyChanges.UseVisualStyleBackColor = true;
             this.buttonApplyChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
             // 
-            // frbTextBox1
-            // 
-            this.frbTextBox1.Location = new System.Drawing.Point(107, 206);
-            this.frbTextBox1.Name = "frbTextBox1";
-            this.frbTextBox1.Size = new System.Drawing.Size(100, 20);
-            this.frbTextBox1.TabIndex = 11;
-            // 
             // AreaPropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -277,10 +276,9 @@
         private System.Windows.Forms.Button buttonDiscardChanges;
         private System.Windows.Forms.Button buttonApplyChanges;
         private System.Windows.Forms.TabPage tabPageAudio;
-        private WinterEngine.Forms.Controls.Standard.ResrefTextBox resrefTextBoxArea;
-        private WinterEngine.Forms.Controls.Standard.TagTextBox tagTextBoxArea;
-        private WinterEngine.Forms.Controls.Standard.NameTextBox nameTextBoxArea;
-        private FRBTextBox frbTextBox1;
+        private WinterEngine.Editor.Controls.FRBResrefTextBox resrefTextBoxArea;
+        private WinterEngine.Editor.Controls.FRBTagTextBox tagTextBoxArea;
+        private WinterEngine.Editor.Controls.FRBNameTextBox nameTextBoxArea;
 
     }
 }

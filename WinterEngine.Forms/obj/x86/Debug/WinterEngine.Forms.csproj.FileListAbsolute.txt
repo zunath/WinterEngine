@@ -1,30 +1,3 @@
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Forms.dll.config
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Forms.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Forms.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.DataAccess.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.DataTransferObjects.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.ERF.exe
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Library.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\EntityFramework.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\Ionic.Zip.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.DataAccess.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.DataTransferObjects.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.ERF.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Library.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\EntityFramework.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\Ionic.Zip.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.csprojResolveAssemblyReference.cache
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Controls.NameTextBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Controls.ResrefTextBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Controls.TagTextBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.TilesetDetails.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.TilesetSpriteSheet.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.ContentPackageEditor.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Shared.InputMessageBox.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Properties.Resources.resources
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.csproj.GenerateResource.Cache
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.pdb
 C:\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Forms.dll.config
 C:\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Forms.dll
 C:\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Forms.pdb
@@ -52,3 +25,30 @@ C:\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.pdb
 C:\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Controls.Standard.NameTextBox.resources
 C:\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Controls.Standard.ResrefTextBox.resources
 C:\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Controls.Standard.TagTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Controls.Standard.NameTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Controls.Standard.ResrefTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Controls.Standard.TagTextBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.TilesetDetails.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.TilesetSpriteSheet.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.ContentPackageEditor.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Shared.InputMessageBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Properties.Resources.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.csproj.GenerateResource.Cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Forms.dll.config
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Forms.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Forms.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.DataAccess.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.DataTransferObjects.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.ERF.exe
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Library.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\EntityFramework.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\Ionic.Zip.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.DataAccess.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.DataTransferObjects.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.ERF.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Library.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\EntityFramework.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\Ionic.Zip.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.pdb

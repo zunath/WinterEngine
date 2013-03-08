@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ApplicationMetrics NAsm="10" NbSourceFiles="47" NbLinesOfCode="10038" NbLinesOfComment="769" PercentageComment="7" NType="265" NClass="226" NAbstractClass="7" NInterface="8" NValueType="3" NExceptionType="1" NAttributeType="0" NDelegateType="2" NEnumType="28" NGenericMethodsDefinition="1" NGenericTypesDefinition="8" NILInstruction="69474" NMethods="1860" NFields="1228" NNamespaces="44" NThirdPartyAssemblies="24" NThirdPartyNamespaces="64" NThirdPartyTypes="429" NThirdPartyMethods="759" NThirdPartyFields="54" PercentCodeCoverage="0" PercentPublicType="66.04" PercentPublicMethod="71.94" PercentClassWithAtLeastOnePublicField="0.75">
+  <PropertyOnInterface Occ="8" Avg="0.5" StdDev="0.87" MaxVal="2" MaxName="WinterEngine.Client.Performance.IPoolable" />
+  <MethodOnInterface Occ="8" Avg="3.88" StdDev="3.26" MaxVal="10" MaxName="WinterEngine.DataAccess.Repositories.IGameObjectRepository&lt;T&gt;" />
+  <ArgOnMethodOnInterface Occ="31" Avg="0.81" StdDev="0.47" MaxVal="2" MaxName="WinterEngine.DataAccess.Repositories.IGameObjectRepository&lt;T&gt;.Update(String,T)" />
+  <PublicPropertyOnClass Occ="226" Avg="1.3" StdDev="2.78" MaxVal="26" MaxName="Lidgren.Network.NetPeerConfiguration" />
+  <PublicMethodOnClass Occ="226" Avg="5.77" StdDev="10.31" MaxVal="116" MaxName="Lidgren.Network.NetBuffer" />
+  <ArgOnPublicMethodOnClass Occ="1305" Avg="0.67" StdDev="0.84" MaxVal="11" MaxName="WinterEngine.Master.Server.WinterServer.CreateWinterServer(Int32,String,Int32,String,String,Int32,Int32,Int32,DateTime,Byte,Byte)" />
+  <ILInstructionInNonAbstractMethods Occ="1815" Avg="38.28" StdDev="109.53" MaxVal="2823" MaxName="WinterEngine.Editor.Controls.PlaceablePropertiesControl.InitializeComponent()" />
+  <TypeWithTheMostILInstruction Occ="226" Avg="307.32" StdDev="783.24" MaxVal="7194" MaxName="Lidgren.Network.NetBigInteger" />
+  <MethodCC Occ="1815" Avg="2.55" StdDev="3.98" MaxVal="65" MaxName="Lidgren.Network.NetBigInteger.BitLen(Int32)" />
+</ApplicationMetrics>

@@ -130,6 +130,12 @@
     <Compile Include="Controls\AreaPropertiesControl.Designer.cs">
       <DependentUpon>AreaPropertiesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FRBResrefTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FRBTagTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\CreaturePropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

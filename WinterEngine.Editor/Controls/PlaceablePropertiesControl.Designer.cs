@@ -32,9 +32,9 @@
             this.tabPageItemDetails = new System.Windows.Forms.TabPage();
             this.checkBoxHasInventory = new System.Windows.Forms.CheckBox();
             this.checkBoxUseable = new System.Windows.Forms.CheckBox();
-            this.tagTextBoxPlaceable = new WinterEngine.Forms.Controls.Standard.TagTextBox();
-            this.resrefTextBoxPlaceable = new WinterEngine.Forms.Controls.Standard.ResrefTextBox();
-            this.nameTextBoxPlaceable = new WinterEngine.Forms.Controls.Standard.NameTextBox();
+            this.tagTextBoxPlaceable = new WinterEngine.Editor.Controls.FRBTagTextBox();
+            this.resrefTextBoxPlaceable = new WinterEngine.Editor.Controls.FRBResrefTextBox();
+            this.nameTextBoxPlaceable = new WinterEngine.Editor.Controls.FRBNameTextBox();
             this.labelItemDetailsHeader = new System.Windows.Forms.Label();
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
@@ -763,9 +763,9 @@
         private System.Windows.Forms.TextBox textBoxPlaceableComments;
         private System.Windows.Forms.Label labelPlaceableDescription;
         private System.Windows.Forms.TextBox textBoxPlaceableDescription;
-        private WinterEngine.Forms.Controls.Standard.NameTextBox nameTextBoxPlaceable;
-        private WinterEngine.Forms.Controls.Standard.TagTextBox tagTextBoxPlaceable;
-        private WinterEngine.Forms.Controls.Standard.ResrefTextBox resrefTextBoxPlaceable;
+        private WinterEngine.Editor.Controls.FRBNameTextBox nameTextBoxPlaceable;
+        private WinterEngine.Editor.Controls.FRBTagTextBox tagTextBoxPlaceable;
+        private WinterEngine.Editor.Controls.FRBResrefTextBox resrefTextBoxPlaceable;
         private System.Windows.Forms.CheckBox checkBoxHasInventory;
         private System.Windows.Forms.CheckBox checkBoxUseable;
         private System.Windows.Forms.Button buttonEditOnPhysicalAttacked;

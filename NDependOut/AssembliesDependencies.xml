@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<AssemblyDependencies>
+  <Dependencies_For Assembly="WinterEngine.DataTransferObjects v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.ComponentModel.DataAnnotations v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+    <ReferencedBy>
+      <ReferencedBy_Name>WinterEngine.HakpakBuilder v1.0.0.0</ReferencedBy_Name>
+      <ReferencedBy_Name>WinterEngine.ERF v1.0.0.0</ReferencedBy_Name>
+      <ReferencedBy_Name>WinterEngine.DataAccess v1.0.0.0</ReferencedBy_Name>
+      <ReferencedBy_Name>WinterEngine.Network v1.0.0.0</ReferencedBy_Name>
+      <ReferencedBy_Name>WinterEngine.Server v1.0.0.0</ReferencedBy_Name>
+      <ReferencedBy_Name>WinterEngine.Editor v1.0.0.0</ReferencedBy_Name>
+    </ReferencedBy>
+  </Dependencies_For>
+  <Dependencies_For Assembly="WinterEngine.HakpakBuilder v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>System.Windows.Forms v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>WinterEngine.DataTransferObjects v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Ionic.Zip v1.9.1.8</DependsOn_Name>
+      <DependsOn_Name>System.Xml v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Drawing v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+  </Dependencies_For>
+  <Dependencies_For Assembly="WinterEngine.DataAccess v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>WinterEngine.DataTransferObjects v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Core v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+    <ReferencedBy>
+      <ReferencedBy_Name>WinterEngine.ERF v1.0.0.0</ReferencedBy_Name>
+      <ReferencedBy_Name>WinterEngine.Editor v1.0.0.0</ReferencedBy_Name>
+    </ReferencedBy>
+  </Dependencies_For>
+  <Dependencies_For Assembly="WinterEngine.ERF v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Windows.Forms v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>WinterEngine.DataTransferObjects v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>WinterEngine.DataAccess v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Ionic.Zip v1.9.1.8</DependsOn_Name>
+      <DependsOn_Name>System.Drawing v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+    <ReferencedBy>
+      <ReferencedBy_Name>WinterEngine.Editor v1.0.0.0</ReferencedBy_Name>
+    </ReferencedBy>
+  </Dependencies_For>
+  <Dependencies_For Assembly="WinterEngine.Client v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Microsoft.Xna.Framework v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+  </Dependencies_For>
+  <Dependencies_For Assembly="Lidgren.Network v2012.1.7.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Xml v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Core v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+    <ReferencedBy>
+      <ReferencedBy_Name>WinterEngine.Network v1.0.0.0</ReferencedBy_Name>
+    </ReferencedBy>
+  </Dependencies_For>
+  <Dependencies_For Assembly="WinterEngine.Network v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>WinterEngine.DataTransferObjects v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Lidgren.Network v2012.1.7.0</DependsOn_Name>
+      <DependsOn_Name>System.Core v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+    <ReferencedBy>
+      <ReferencedBy_Name>WinterEngine.Server v1.0.0.0</ReferencedBy_Name>
+    </ReferencedBy>
+  </Dependencies_For>
+  <Dependencies_For Assembly="WinterEngine.Server v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>PresentationFramework v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Xaml v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>WinterEngine.Network v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>PresentationCore v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Xceed.Wpf.Toolkit v1.9.0.0</DependsOn_Name>
+      <DependsOn_Name>WinterEngine.DataTransferObjects v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>WindowsBase v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+  </Dependencies_For>
+  <Dependencies_For Assembly="WinterEngine.Master.Server v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Web.Mvc v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Web.Http v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Web v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Data.Entity v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Web.Optimization v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Net.Http.Formatting v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Core v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>BCrypt.Net v0.1.4056.18965</DependsOn_Name>
+      <DependsOn_Name>System.Web.Http.WebHost v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Runtime.Serialization v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Xml v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+  </Dependencies_For>
+  <Dependencies_For Assembly="WinterEngine.Editor v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>System.Windows.Forms v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>WinterEngine.Forms v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>WinterEngine.DataTransferObjects v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>WinterEngine.ERF v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Drawing v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>WinterEngine.DataAccess v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Microsoft.Xna.Framework v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+  </Dependencies_For>
+</AssemblyDependencies>

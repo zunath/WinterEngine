@@ -44,9 +44,9 @@
             this.labelItemProperties = new System.Windows.Forms.Label();
             this.tabPageEvents = new System.Windows.Forms.TabPage();
             this.tabPageItemDetails = new System.Windows.Forms.TabPage();
-            this.resrefTextBoxItem = new WinterEngine.Forms.Controls.Standard.ResrefTextBox();
-            this.tagTextBoxItem = new WinterEngine.Forms.Controls.Standard.TagTextBox();
-            this.nameTextBoxItem = new WinterEngine.Forms.Controls.Standard.NameTextBox();
+            this.resrefTextBoxItem = new WinterEngine.Editor.Controls.FRBResrefTextBox();
+            this.tagTextBoxItem = new WinterEngine.Editor.Controls.FRBTagTextBox();
+            this.nameTextBoxItem = new WinterEngine.Editor.Controls.FRBNameTextBox();
             this.numericUpDownWeight = new System.Windows.Forms.NumericUpDown();
             this.labelWeight = new System.Windows.Forms.Label();
             this.numericUpDownPrice = new System.Windows.Forms.NumericUpDown();
@@ -458,9 +458,9 @@
         private System.Windows.Forms.Label labelItemProperties;
         private System.Windows.Forms.TabPage tabPageEvents;
         private System.Windows.Forms.TabPage tabPageItemDetails;
-        private WinterEngine.Forms.Controls.Standard.ResrefTextBox resrefTextBoxItem;
-        private WinterEngine.Forms.Controls.Standard.TagTextBox tagTextBoxItem;
-        private WinterEngine.Forms.Controls.Standard.NameTextBox nameTextBoxItem;
+        private WinterEngine.Editor.Controls.FRBResrefTextBox resrefTextBoxItem;
+        private WinterEngine.Editor.Controls.FRBTagTextBox tagTextBoxItem;
+        private WinterEngine.Editor.Controls.FRBNameTextBox nameTextBoxItem;
         private System.Windows.Forms.NumericUpDown numericUpDownWeight;
         private System.Windows.Forms.Label labelWeight;
         private System.Windows.Forms.NumericUpDown numericUpDownPrice;

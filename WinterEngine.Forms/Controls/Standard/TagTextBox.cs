@@ -52,6 +52,48 @@ namespace WinterEngine.Forms.Controls.Standard
             set { _resourceType = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the start position of the text box selection
+        /// </summary>
+        public int SelectionStart
+        {
+            get { return textBoxTag.SelectionStart; }
+            set { textBoxTag.SelectionStart = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the length of the text box selection
+        /// </summary>
+        public int SelectionLength
+        {
+            get { return textBoxTag.SelectionLength; }
+            set { textBoxTag.SelectionLength = value; }
+        }
+
+        /// <summary>
+        /// Gets whether the text box is focused.
+        /// </summary>
+        public override bool Focused
+        {
+            get { return textBoxTag.Focused; }
+        }
+
+        /// <summary>
+        /// Gets or sets the text contained inside of the text box.
+        /// </summary>
+        public override string Text
+        {
+            get
+            {
+                return textBoxTag.Text;
+            }
+            set
+            {
+                textBoxTag.Text = value;
+            }
+        }
+
+
         #endregion
 
         #region Events / Delegates

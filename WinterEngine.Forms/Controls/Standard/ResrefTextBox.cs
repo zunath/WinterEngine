@@ -43,7 +43,47 @@ namespace WinterEngine.Forms.Controls.Standard
             get { return _resourceType; }
             set { _resourceType = value; }
         }
-        
+
+        /// <summary>
+        /// Gets or sets the start position of the text box selection
+        /// </summary>
+        public int SelectionStart
+        {
+            get { return textBoxResref.SelectionStart; }
+            set { textBoxResref.SelectionStart = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the length of the text box selection
+        /// </summary>
+        public int SelectionLength
+        {
+            get { return textBoxResref.SelectionLength; }
+            set { textBoxResref.SelectionLength = value; }
+        }
+
+        /// <summary>
+        /// Gets whether the text box is focused.
+        /// </summary>
+        public override bool Focused
+        {
+            get { return textBoxResref.Focused; }
+        }
+
+        /// <summary>
+        /// Gets or sets the text contained inside of the text box.
+        /// </summary>
+        public override string Text
+        {
+            get
+            {
+                return textBoxResref.Text;
+            }
+            set
+            {
+                textBoxResref.Text = value;
+            }
+        }
 
         #endregion
 
@@ -72,9 +112,9 @@ namespace WinterEngine.Forms.Controls.Standard
         {
             errorProvider.Clear();
 
-            Regex resrefRegex = new Regex("^[a-zA-Z0-9_]*$");
             _isValid = true;
 
+            Regex resrefRegex = new Regex("^[a-zA-Z0-9_]*$");
             if (!resrefRegex.IsMatch(ResrefText) || ResrefText == "")
             {
                 errorProvider.SetError(textBoxResref, "Invalid Resref");

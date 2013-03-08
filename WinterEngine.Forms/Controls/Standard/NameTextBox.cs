@@ -17,10 +17,20 @@ namespace WinterEngine.Forms.Controls.Standard
         #region Fields
 
         private bool _isValid;
+        private Regex _validCharactersRegex;
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the regex used by this control
+        /// </summary>
+        public Regex ValidCharactersRegex
+        {
+            get { return _validCharactersRegex; }
+            set { _validCharactersRegex = value; }
+        }
 
         /// <summary>
         /// Gets or sets whether or not the data entered is valid.
@@ -38,6 +48,47 @@ namespace WinterEngine.Forms.Controls.Standard
         {
             get { return textBoxName.Text; }
             set { textBoxName.Text = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the start position of the text box selection
+        /// </summary>
+        public int SelectionStart
+        {
+            get { return textBoxName.SelectionStart; }
+            set { textBoxName.SelectionStart = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the length of the text box selection
+        /// </summary>
+        public int SelectionLength
+        {
+            get { return textBoxName.SelectionLength; }
+            set { textBoxName.SelectionLength = value; }
+        }
+
+        /// <summary>
+        /// Gets whether the text box is focused.
+        /// </summary>
+        public override bool Focused
+        {
+            get { return textBoxName.Focused; }
+        }
+
+        /// <summary>
+        /// Gets or sets the text contained inside of the text box.
+        /// </summary>
+        public override string Text
+        {
+            get
+            {
+                return textBoxName.Text;
+            }
+            set
+            {
+                textBoxName.Text = value;
+            }
         }
 
         #endregion
