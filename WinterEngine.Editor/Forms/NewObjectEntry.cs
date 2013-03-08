@@ -69,7 +69,7 @@ namespace WinterEngine.Editor.Forms
                 {
                     // Build a new object
                     GameObjectFactory factory = new GameObjectFactory();
-                    GameObject winterObject = factory.CreateObject(ResourceType);
+                    GameObjectBase winterObject = factory.CreateObject(ResourceType);
                     winterObject.Name = nameTextBoxEntry.NameText;
                     winterObject.Tag = tagTextBoxEntry.TagText;
                     winterObject.Resref = resrefTextBoxEntry.ResrefText;

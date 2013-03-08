@@ -84,3 +84,5 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.E
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.AreaNavigationControl.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.WinterEngine.Editor.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.AreaNavigationControl.resources
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.WinterEngine.Editor.resources

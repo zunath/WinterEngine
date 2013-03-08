@@ -28,7 +28,7 @@ namespace WinterEngine.Editor.Controls
         #region Fields
 
         private ResourceTypeEnum _resourceTypeEnum;
-        private GameObject _activeGameObject;
+        private GameObjectBase _activeGameObject;
         private TreeNode _activeTreeNode;
         
         #endregion
@@ -52,7 +52,7 @@ namespace WinterEngine.Editor.Controls
         /// <summary>
         /// Gets or sets the active game object.
         /// </summary>
-        public GameObject ActiveGameObject
+        public GameObjectBase ActiveGameObject
         {
             get { return _activeGameObject; }
             set 
@@ -247,9 +247,9 @@ namespace WinterEngine.Editor.Controls
                     categoryTreeNode.Tag = category;
 
                     // Add object nodes to the category if they do not exist already.
-                    List<GameObject> gameObjects = factory.GetAllFromDatabaseByResourceCategory(category, GameObjectResourceType);
+                    List<GameObjectBase> gameObjects = factory.GetAllFromDatabaseByResourceCategory(category, GameObjectResourceType);
                     
-                    foreach(GameObject gameObject in gameObjects)
+                    foreach(GameObjectBase gameObject in gameObjects)
                     {
                         // Attempt to locate existing game object in the tree
                         TreeNode[] gameObjectNodesList = categoryTreeNode.Nodes.Find(gameObject.Resref, false);
@@ -288,7 +288,7 @@ namespace WinterEngine.Editor.Controls
                         for(int gameObjectIndex = categoryNode.Nodes.Count - 1; gameObjectIndex >= 0; gameObjectIndex--)
                         {
                             TreeNode gameObjectNode = categoryNode.Nodes[gameObjectIndex];
-                            GameObject gameObject = gameObjectNode.Tag as GameObject;
+                            GameObjectBase gameObject = gameObjectNode.Tag as GameObjectBase;
 
                             // If the game object does not exist in the database, remove it from the tree view.
                             if (!factory.DoesObjectExistInDatabase(gameObject.Resref, GameObjectResourceType))
@@ -352,7 +352,7 @@ namespace WinterEngine.Editor.Controls
                 {
                     if (!Object.ReferenceEquals(gameObjectNode.Tag, null))
                     {
-                        GameObject gameObject = gameObjectNode.Tag as GameObject;
+                        GameObjectBase gameObject = gameObjectNode.Tag as GameObjectBase;
                         gameObjectNode.Text = gameObject.Name;
                     }
                 }
@@ -394,7 +394,7 @@ namespace WinterEngine.Editor.Controls
             else if (nodeType == ObjectTreeTypeEnum.Object)
             {
                 GameObjectEventArgs eventArgs = new GameObjectEventArgs();
-                eventArgs.GameObject = e.Node.Tag as GameObject;
+                eventArgs.GameObject = e.Node.Tag as GameObjectBase;
                 _activeGameObject = eventArgs.GameObject;
                 LoadObject(eventArgs);
             }
@@ -483,7 +483,7 @@ namespace WinterEngine.Editor.Controls
         private void contextMenuStripNodes_OpenObject(object sender, EventArgs e)
         {
             GameObjectEventArgs eventArgs = new GameObjectEventArgs();
-            eventArgs.GameObject = treeView.SelectedNode.Tag as GameObject;
+            eventArgs.GameObject = treeView.SelectedNode.Tag as GameObjectBase;
             _activeGameObject = eventArgs.GameObject;
 
             LoadObject(eventArgs);
@@ -501,7 +501,7 @@ namespace WinterEngine.Editor.Controls
             // User chose to delete the category. Remove all contained objects and delete the category.
             if (result == DialogResult.Yes)
             {
-                GameObject obj = treeView.SelectedNode.Tag as GameObject;
+                GameObjectBase obj = treeView.SelectedNode.Tag as GameObjectBase;
                 try
                 {
                     // Remove this object from the database
@@ -634,7 +634,7 @@ namespace WinterEngine.Editor.Controls
                 TreeNode newNode = e.Data.GetData(typeof(TreeNode)) as TreeNode;
 
                 // Update the game object's resource category ID and update the database.
-                GameObject gameObject = newNode.Tag as GameObject;
+                GameObjectBase gameObject = newNode.Tag as GameObjectBase;
                 gameObject.ResourceCategoryID = resourceCategory.ResourceID;
                 factory.UpdateInDatabase(gameObject);
 

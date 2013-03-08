@@ -10,6 +10,7 @@ using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.Editor.Controls;
 using WinterEngine.Editor.Enums;
+using WinterEngine.Editor.ExtendedEventArgs;
 
 namespace WinterEngine.Editor.Views
 {
@@ -120,6 +121,10 @@ namespace WinterEngine.Editor.Views
             FlatRedBallServices.CornerGrabbingResize += OnScreenResize;
             TreeCategory.OnOpenObject += new EventHandler<GameObjectEventArgs>(LoadObject);
             AreaProperties.OnSaveArea += new EventHandler<GameObjectEventArgs>(SaveObject);
+            AreaNavigation.OnCameraButtonPress += MoveCamera;
+            AreaNavigation.OnObjectRotationButtonPress += RotateObject;
+            AreaNavigation.OnCameraButtonReleased += StopCameraMovement;
+            AreaNavigation.OnObjectRotationButtonReleased += StopObjectRotation;
         }
 
         /// <summary>
@@ -176,13 +181,75 @@ namespace WinterEngine.Editor.Views
             TreeCategory.Enabled = false;
             AreaProperties.Enabled = false;
             
-
             Control.FromHandle(FlatRedBallServices.WindowHandle).Controls.Add(TreeCategory);
             Control.FromHandle(FlatRedBallServices.WindowHandle).Controls.Add(AreaProperties);
             Control.FromHandle(FlatRedBallServices.WindowHandle).Controls.Add(AreaNavigation);
             UpdateControlPositions();
         }
 
+        /// <summary>
+        /// Moves the camera left, right, up, or down depending on the type sent
+        /// from the AreaNavigation user control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MoveCamera(object sender, CameraButtonPressEventArgs e)
+        {
+            const float MovementSpeed = 10.0f;
+
+            switch (e.MovementType)
+            {
+                case CameraMovementTypeEnum.Down:
+                    SpriteManager.Camera.YVelocity = -MovementSpeed;
+                    break;
+                case CameraMovementTypeEnum.Left:
+                    SpriteManager.Camera.XVelocity = -MovementSpeed;
+                    break;
+                case CameraMovementTypeEnum.Right:
+                    SpriteManager.Camera.XVelocity = MovementSpeed;
+                    break;
+                case CameraMovementTypeEnum.Up:
+                    SpriteManager.Camera.YVelocity = MovementSpeed;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Rotates the selected object clockwise or counter-clockwise depending on the type
+        /// sent from the AreaNavigation user control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RotateObject(object sender, ObjectRotationButtonPressEventArgs e)
+        {
+            switch (e.RotationType)
+            {
+                case ObjectRotationTypeEnum.Clockwise:
+                    break;
+                case ObjectRotationTypeEnum.CounterClockwise:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Stops rotation of the selected object.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StopObjectRotation(object sender, EventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Stops movement of the camera.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StopCameraMovement(object sender, EventArgs e)
+        {
+            SpriteManager.Camera.XVelocity = 0.0f;
+            SpriteManager.Camera.YVelocity = 0.0f;
+        }
 
         #endregion
     }

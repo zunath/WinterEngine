@@ -2,7 +2,6 @@
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataTransferObjects.Graphics;
-using WinterEngine.DataTransferObjects.Mapping;
 
 namespace WinterEngine.DataAccess.Contexts
 {
@@ -19,8 +18,6 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<CharacterClass> CharacterClasses { get; set; }
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
-        //public DbSet<LayerRow> LayerRows { get; set; }
-        //public DbSet<Layer> Layers { get; set; }
 
         public WinterContext(string connString) : base(connString)
         {

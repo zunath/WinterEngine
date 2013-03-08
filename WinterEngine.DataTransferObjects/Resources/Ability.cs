@@ -9,7 +9,7 @@ namespace WinterEngine.DataTransferObjects.Graphics
 {
     [Serializable]
     [Table("Abilities")]
-    public class Ability : GameResource
+    public class Ability : GameResourceBase
     {
         #region Fields
 

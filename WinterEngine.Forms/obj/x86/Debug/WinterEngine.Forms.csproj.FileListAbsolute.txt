@@ -14,9 +14,6 @@ C:\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Library.p
 C:\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\EntityFramework.xml
 C:\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\Ionic.Zip.xml
 C:\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.csprojResolveAssemblyReference.cache
-C:\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.TilesetDetails.resources
-C:\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.TilesetSpriteSheet.resources
-C:\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Toolset.ContentPackageEditor.resources
 C:\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Shared.InputMessageBox.resources
 C:\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.Properties.Resources.resources
 C:\Projects\WinterEngine\WinterEngine.Forms\obj\x86\Debug\WinterEngine.Forms.csproj.GenerateResource.Cache

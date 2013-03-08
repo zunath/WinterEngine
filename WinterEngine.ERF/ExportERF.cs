@@ -54,13 +54,13 @@ namespace WinterEngine.ERF
         /// Converts the list of added objects into a list of GameObject
         /// </summary>
         /// <returns></returns>
-        private List<GameObject> ConvertAddedListObjectsToGameObjects()
+        private List<GameObjectBase> ConvertAddedListObjectsToGameObjects()
         {
             GameObjectFactory factory = new GameObjectFactory();
-            List<GameObject> gameObjectList = new List<GameObject>();
+            List<GameObjectBase> gameObjectList = new List<GameObjectBase>();
             foreach (var currentObject in listBoxAdded.Items)
             {
-                gameObjectList.Add(currentObject as GameObject);
+                gameObjectList.Add(currentObject as GameObjectBase);
             }
 
             return gameObjectList;
@@ -98,7 +98,7 @@ namespace WinterEngine.ERF
                 string databaseFilePath;
                 string connectionString;
                 GameObjectFactory factory = new GameObjectFactory();
-                List<GameObject> gameObjectList = ConvertAddedListObjectsToGameObjects();
+                List<GameObjectBase> gameObjectList = ConvertAddedListObjectsToGameObjects();
 
                 // Create a new database file at the location specified
                 using (DatabaseRepository repo = new DatabaseRepository())
@@ -161,12 +161,12 @@ namespace WinterEngine.ERF
         {
             foreach (var selectedObject in listBoxAvailable.SelectedItems)
             {
-                GameObject selectedGameObject = selectedObject as GameObject;
+                GameObjectBase selectedGameObject = selectedObject as GameObjectBase;
 
                 bool exists = false;
                 foreach (var addedObject in listBoxAdded.Items)
                 {
-                    GameObject addedGameObject = addedObject as GameObject;
+                    GameObjectBase addedGameObject = addedObject as GameObjectBase;
 
                     // Resrefs must be unique to individual resource types. It's OK if an area has the same resref as a creature.
                     if (addedGameObject.Resref == selectedGameObject.Resref && addedGameObject.ResourceType == selectedGameObject.ResourceType)
@@ -245,11 +245,11 @@ namespace WinterEngine.ERF
 
             // Retrieve all objects from the database based on the type of resource,
             // then add them to the "Available" list.
-            List<GameObject> gameObjects = factory.GetAllFromDatabase(resource.ResourceType);
+            List<GameObjectBase> gameObjects = factory.GetAllFromDatabase(resource.ResourceType);
 
             using (CategoryRepository repo = new CategoryRepository())
             {
-                foreach (GameObject currentGameObject in gameObjects)
+                foreach (GameObjectBase currentGameObject in gameObjects)
                 {
                     string resourceTypeName = EnumerationHelper.GetEnumerationDescription(currentGameObject.ResourceType);
                     string categoryName = repo.GetByResourceCategoryID(currentGameObject.ResourceCategoryID).VisibleName;

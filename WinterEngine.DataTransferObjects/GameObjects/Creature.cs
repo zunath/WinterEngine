@@ -7,7 +7,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
 {
     [Serializable]
     [Table("Creatures")]
-    public sealed class Creature : GameObject, IEntity
+    public sealed class Creature : GameObjectBase, IEntity
     {
         #region Fields
 

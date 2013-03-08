@@ -46,6 +46,8 @@
             this.buttonCameraLeft.Size = new System.Drawing.Size(35, 32);
             this.buttonCameraLeft.TabIndex = 0;
             this.buttonCameraLeft.UseVisualStyleBackColor = true;
+            this.buttonCameraLeft.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonCameraLeft_MouseDown);
+            this.buttonCameraLeft.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonCamera_MouseUp);
             // 
             // buttonCameraRight
             // 
@@ -57,6 +59,8 @@
             this.buttonCameraRight.Size = new System.Drawing.Size(35, 32);
             this.buttonCameraRight.TabIndex = 1;
             this.buttonCameraRight.UseVisualStyleBackColor = true;
+            this.buttonCameraRight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonCameraRight_MouseDown);
+            this.buttonCameraRight.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonCamera_MouseUp);
             // 
             // buttonCameraUp
             // 
@@ -68,6 +72,8 @@
             this.buttonCameraUp.Size = new System.Drawing.Size(35, 32);
             this.buttonCameraUp.TabIndex = 2;
             this.buttonCameraUp.UseVisualStyleBackColor = true;
+            this.buttonCameraUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonCameraUp_MouseDown);
+            this.buttonCameraUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonCamera_MouseUp);
             // 
             // buttonCameraDown
             // 
@@ -79,6 +85,8 @@
             this.buttonCameraDown.Size = new System.Drawing.Size(35, 32);
             this.buttonCameraDown.TabIndex = 3;
             this.buttonCameraDown.UseVisualStyleBackColor = true;
+            this.buttonCameraDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonCameraDown_MouseDown);
+            this.buttonCameraDown.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonCamera_MouseUp);
             // 
             // buttonRotateClockwise
             // 
@@ -90,6 +98,8 @@
             this.buttonRotateClockwise.Size = new System.Drawing.Size(35, 32);
             this.buttonRotateClockwise.TabIndex = 4;
             this.buttonRotateClockwise.UseVisualStyleBackColor = true;
+            this.buttonRotateClockwise.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonRotateClockwise_MouseDown);
+            this.buttonRotateClockwise.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonRotateObject_MouseUp);
             // 
             // buttonRotateCounterclockwise
             // 
@@ -101,6 +111,8 @@
             this.buttonRotateCounterclockwise.Size = new System.Drawing.Size(35, 32);
             this.buttonRotateCounterclockwise.TabIndex = 5;
             this.buttonRotateCounterclockwise.UseVisualStyleBackColor = true;
+            this.buttonRotateCounterclockwise.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonRotateCounterclockwise_MouseDown);
+            this.buttonRotateCounterclockwise.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonRotateObject_MouseUp);
             // 
             // AreaNavigationControl
             // 

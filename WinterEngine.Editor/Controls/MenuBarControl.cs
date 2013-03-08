@@ -4,7 +4,6 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Editor.ExtendedEventArgs;
 using WinterEngine.Editor.Forms;
 using WinterEngine.ERF;
-using WinterEngine.Forms.Toolset;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Utility;
 
@@ -14,7 +13,6 @@ namespace WinterEngine.Editor.Controls
     {
         #region Fields
         
-        private ContentPackageEditor _contentBuilder; // Temporarily storing the content builder form to ensure that only one instance is open at a time.
         private ExportERF _exportERF;
         private ImportERF _importERF;
         private ModuleProperties _moduleProperties;
@@ -139,19 +137,6 @@ namespace WinterEngine.Editor.Controls
         /// <param name="e"></param>
         private void toolStripMenuItemContentBuilder_Click(object sender, EventArgs e)
         {
-            bool isNull = Object.ReferenceEquals(_contentBuilder, null);
-
-            // Not instantiated or has been disposed
-            if (isNull || _contentBuilder.IsDisposed)
-            {
-                _contentBuilder = new ContentPackageEditor();
-                _contentBuilder.Show();
-            }
-            // Window is already open. Focus on it.
-            else if (!isNull)
-            {
-                _contentBuilder.Focus();
-            }
         }
 
         /// <summary>

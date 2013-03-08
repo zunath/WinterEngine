@@ -5,7 +5,6 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataTransferObjects.Graphics;
-using WinterEngine.DataTransferObjects.Mapping;
 
 namespace WinterEngine.Library.Factories
 {
@@ -21,7 +20,7 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="resourceType"></param>
         /// <returns></returns>
-        public GameObject CreateObject(ResourceTypeEnum resourceType)
+        public GameObjectBase CreateObject(ResourceTypeEnum resourceType)
         {
             switch (resourceType)
             {
@@ -51,7 +50,7 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="winterObject">The game object to add to the database. This will be type-converted and added to the correct table when run.</param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
-        public void AddToDatabase(GameObject winterObject, string connectionString = "")
+        public void AddToDatabase(GameObjectBase winterObject, string connectionString = "")
         {
             if (winterObject.ResourceType == ResourceTypeEnum.Area)
             {
@@ -103,7 +102,7 @@ namespace WinterEngine.Library.Factories
         /// <param name="gameObjectList"></param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         /// <param name="resourceType"></param>
-        public void AddToDatabase(List<GameObject> gameObjectList, ResourceTypeEnum resourceType, string connectionString = "")
+        public void AddToDatabase(List<GameObjectBase> gameObjectList, ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (Object.ReferenceEquals(gameObjectList[0], null))
             {
@@ -171,9 +170,9 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="gameObjectList"></param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
-        public void AddToDatabase(List<GameObject> gameObjectList, string connectionString = "")
+        public void AddToDatabase(List<GameObjectBase> gameObjectList, string connectionString = "")
         {
-            foreach (GameObject gameObject in gameObjectList)
+            foreach (GameObjectBase gameObject in gameObjectList)
             {
                 AddToDatabase(gameObject, connectionString);
             }
@@ -185,7 +184,7 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="gameObject">The game object to update. Its resref will be searched for in the database.</param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
-        public void UpdateInDatabase(GameObject gameObject, string connectionString = "")
+        public void UpdateInDatabase(GameObjectBase gameObject, string connectionString = "")
         {
             if (gameObject.ResourceType == ResourceTypeEnum.Area)
             {
@@ -236,7 +235,7 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="gameObject">The game object to update. Its resref will be searched for in the database.</param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
-        public void UpsertInDatabase(GameObject gameObject, string connectionString = "")
+        public void UpsertInDatabase(GameObjectBase gameObject, string connectionString = "")
         {
             if (gameObject.ResourceType == ResourceTypeEnum.Area)
             {
@@ -337,13 +336,13 @@ namespace WinterEngine.Library.Factories
         /// <param name="resourceType"></param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         /// <returns></returns>
-        public List<GameObject> GetAllFromDatabase(ResourceTypeEnum resourceType, string connectionString = "")
+        public List<GameObjectBase> GetAllFromDatabase(ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (resourceType == ResourceTypeEnum.Area)
             {
                 using (AreaRepository repo = new AreaRepository(connectionString))
                 {
-                    return repo.GetAll().ConvertAll<GameObject>(x => (GameObject)x);
+                    return repo.GetAll().ConvertAll<GameObjectBase>(x => (GameObjectBase)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Conversation)
@@ -354,21 +353,21 @@ namespace WinterEngine.Library.Factories
             {
                 using (CreatureRepository repo = new CreatureRepository(connectionString))
                 {
-                    return repo.GetAll().ConvertAll<GameObject>(x => (GameObject)x);
+                    return repo.GetAll().ConvertAll<GameObjectBase>(x => (GameObjectBase)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Item)
             {
                 using (ItemRepository repo = new ItemRepository(connectionString))
                 {
-                    return repo.GetAll().ConvertAll<GameObject>(x => (GameObject)x);
+                    return repo.GetAll().ConvertAll<GameObjectBase>(x => (GameObjectBase)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Placeable)
             {
                 using (PlaceableRepository repo = new PlaceableRepository(connectionString))
                 {
-                    return repo.GetAll().ConvertAll<GameObject>(x => (GameObject)x);
+                    return repo.GetAll().ConvertAll<GameObjectBase>(x => (GameObjectBase)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Script)
@@ -388,15 +387,15 @@ namespace WinterEngine.Library.Factories
         /// <param name="resourceType">The type of resource to look for.</param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         /// <returns></returns>
-        public List<GameObject> GetAllFromDatabaseByResourceCategory(Category resourceCategory, ResourceTypeEnum resourceType, string connectionString = "")
+        public List<GameObjectBase> GetAllFromDatabaseByResourceCategory(Category resourceCategory, ResourceTypeEnum resourceType, string connectionString = "")
         {
-            List<GameObject> retList = new List<GameObject>();
+            List<GameObjectBase> retList = new List<GameObjectBase>();
 
             if (resourceType == ResourceTypeEnum.Area)
             {
                 using (AreaRepository repo = new AreaRepository(connectionString))
                 {
-                    return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObject)x);
+                    return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObjectBase)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Conversation)
@@ -407,21 +406,21 @@ namespace WinterEngine.Library.Factories
             {
                 using (CreatureRepository repo = new CreatureRepository(connectionString))
                 {
-                    return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObject)x);
+                    return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObjectBase)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Item)
             {
                 using (ItemRepository repo = new ItemRepository(connectionString))
                 {
-                    return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObject)x);
+                    return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObjectBase)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Placeable)
             {
                 using (PlaceableRepository repo = new PlaceableRepository(connectionString))
                 {
-                    return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObject)x);
+                    return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObjectBase)x);
                 }
             }
             else if (resourceType == ResourceTypeEnum.Script)
@@ -441,7 +440,7 @@ namespace WinterEngine.Library.Factories
         /// <param name="resourceType">The type of resource to look for.</param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         /// <returns></returns>
-        public GameObject GetFromDatabaseByResref(string resref, ResourceTypeEnum resourceType, string connectionString = "")
+        public GameObjectBase GetFromDatabaseByResref(string resref, ResourceTypeEnum resourceType, string connectionString = "")
         {
             if (resourceType == ResourceTypeEnum.Area)
             {
@@ -602,7 +601,7 @@ namespace WinterEngine.Library.Factories
         /// </summary>
         /// <param name="gameObjectList">The list of game objects that will be expanded.</param>
         /// <returns></returns>
-        public Tuple<List<Area>, List<Creature>, List<Item>, List<Placeable>> ExpandGameObjectList(List<GameObject> gameObjectList)
+        public Tuple<List<Area>, List<Creature>, List<Item>, List<Placeable>> ExpandGameObjectList(List<GameObjectBase> gameObjectList)
         {
             List<Area> areaList = new List<Area>();
             List<Item> itemList = new List<Item>();
@@ -611,7 +610,7 @@ namespace WinterEngine.Library.Factories
 
             foreach (var currentObject in gameObjectList)
             {
-                GameObject gameObject = currentObject as GameObject;
+                GameObjectBase gameObject = currentObject as GameObjectBase;
 
                 if (gameObject.ResourceType == ResourceTypeEnum.Area)
                 {

@@ -17,9 +17,9 @@ namespace WinterEngine.ERF
     {
         #region Fields
 
-        private List<GameObject> _duplicateList;
-        private List<GameObject> _nonDuplicateList;
-        private List<GameObject> _fullList;
+        private List<GameObjectBase> _duplicateList;
+        private List<GameObjectBase> _nonDuplicateList;
+        private List<GameObjectBase> _fullList;
         private string _tempDirectory;
 
         #endregion
@@ -29,7 +29,7 @@ namespace WinterEngine.ERF
         /// <summary>
         /// Gets or sets the list of duplicate game objects.
         /// </summary>
-        public List<GameObject> DuplicateList
+        public List<GameObjectBase> DuplicateList
         {
             get { return _duplicateList; }
             set { _duplicateList = value; }
@@ -38,7 +38,7 @@ namespace WinterEngine.ERF
         /// <summary>
         /// Gets or sets the list of non-duplicate game objects.
         /// </summary>
-        public List<GameObject> NonDuplicateList
+        public List<GameObjectBase> NonDuplicateList
         {
             get { return _nonDuplicateList; }
             set { _nonDuplicateList = value; }
@@ -47,7 +47,7 @@ namespace WinterEngine.ERF
         /// <summary>
         /// Gets or sets the full list of game objects.
         /// </summary>
-        public List<GameObject> FullList
+        public List<GameObjectBase> FullList
         {
             get { return _fullList; }
             set { _fullList = value; }
@@ -102,7 +102,7 @@ namespace WinterEngine.ERF
         {
             using (CategoryRepository repo = new CategoryRepository())
             {
-                foreach (GameObject gameObject in FullList)
+                foreach (GameObjectBase gameObject in FullList)
                 {
                     gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.ResourceType).ResourceID;
                 }
@@ -157,7 +157,7 @@ namespace WinterEngine.ERF
 
                     using (ERFRepository repo = new ERFRepository(erfDatabaseConnectionString))
                     {
-                        Tuple<List<GameObject>, List<GameObject>, List<GameObject>> gameObjectTuple = repo.GetDuplicateResources();
+                        Tuple<List<GameObjectBase>, List<GameObjectBase>, List<GameObjectBase>> gameObjectTuple = repo.GetDuplicateResources();
                         FullList = gameObjectTuple.Item1;
                         DuplicateList = gameObjectTuple.Item2;
                         NonDuplicateList = gameObjectTuple.Item3;
@@ -170,7 +170,7 @@ namespace WinterEngine.ERF
                     }
                     else
                     {
-                        foreach (GameObject gameObject in DuplicateList)
+                        foreach (GameObjectBase gameObject in DuplicateList)
                         {
                             // Update the game object's TemporaryDisplayName so that the list view shows it properly
                             string resourceTypeName = EnumerationHelper.GetEnumerationDescription(gameObject.ResourceType);
@@ -258,7 +258,7 @@ namespace WinterEngine.ERF
 
             using (CategoryRepository repo = new CategoryRepository())
             {
-                foreach (GameObject gameObject in listBoxResources.SelectedItems)
+                foreach (GameObjectBase gameObject in listBoxResources.SelectedItems)
                 {
                     gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.ResourceType).ResourceID;
                     factory.UpdateInDatabase(gameObject);

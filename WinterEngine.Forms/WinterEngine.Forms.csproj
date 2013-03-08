@@ -85,24 +85,6 @@
     <Compile Include="Controls\Standard\TagTextBox.Designer.cs">
       <DependentUpon>TagTextBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TilesetDetails.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\TilesetDetails.Designer.cs">
-      <DependentUpon>TilesetDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TilesetSpriteSheet.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\TilesetSpriteSheet.Designer.cs">
-      <DependentUpon>TilesetSpriteSheet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Toolset\ContentPackageEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Toolset\ContentPackageEditor.Designer.cs">
-      <DependentUpon>ContentPackageEditor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Shared\InputMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,15 +100,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Standard\TagTextBox.resx">
       <DependentUpon>TagTextBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TilesetDetails.resx">
-      <DependentUpon>TilesetDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TilesetSpriteSheet.resx">
-      <DependentUpon>TilesetSpriteSheet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Toolset\ContentPackageEditor.resx">
-      <DependentUpon>ContentPackageEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Shared\InputMessageBox.resx">
       <DependentUpon>InputMessageBox.cs</DependentUpon>

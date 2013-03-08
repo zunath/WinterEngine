@@ -48,11 +48,11 @@ namespace WinterEngine.DataAccess.Repositories
         /// </summary>
         /// <param name="databaseFilePath"></param>
         /// <returns></returns>
-        public Tuple<List<GameObject>, List<GameObject>, List<GameObject>> GetDuplicateResources()
+        public Tuple<List<GameObjectBase>, List<GameObjectBase>, List<GameObjectBase>> GetDuplicateResources()
         {
-            List<GameObject> fullList = new List<GameObject>();
-            List<GameObject> duplicateList = new List<GameObject>();
-            List<GameObject> nonDuplicateList = new List<GameObject>();
+            List<GameObjectBase> fullList = new List<GameObjectBase>();
+            List<GameObjectBase> duplicateList = new List<GameObjectBase>();
+            List<GameObjectBase> nonDuplicateList = new List<GameObjectBase>();
 
             // Connect to the ERF database
             using (WinterContext erfContext = new WinterContext(ConnectionString))
@@ -114,7 +114,7 @@ namespace WinterEngine.DataAccess.Repositories
                 }
             }
 
-            return new Tuple<List<GameObject>,List<GameObject>, List<GameObject>>(fullList, duplicateList, nonDuplicateList);
+            return new Tuple<List<GameObjectBase>,List<GameObjectBase>, List<GameObjectBase>>(fullList, duplicateList, nonDuplicateList);
         }
 
         public void Dispose()
