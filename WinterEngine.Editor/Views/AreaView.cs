@@ -19,6 +19,7 @@ namespace WinterEngine.Editor.Views
 
         TreeCategoryControl _treeCategoryControl;
         AreaPropertiesControl _areaPropertiesControl;
+        AreaNavigationControl _areaNavigationControl;
 
         #endregion
 
@@ -40,6 +41,15 @@ namespace WinterEngine.Editor.Views
         {
             get { return _areaPropertiesControl; }
             set { _areaPropertiesControl = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the area navigation control
+        /// </summary>
+        public AreaNavigationControl AreaNavigation
+        {
+            get { return _areaNavigationControl; }
+            set { _areaNavigationControl = value; }
         }
 
         #endregion
@@ -89,6 +99,7 @@ namespace WinterEngine.Editor.Views
         {
             TreeCategory.Visible = isVisible;
             AreaProperties.Visible = isVisible;
+            AreaNavigation.Visible = isVisible;
         }
 
         /// <summary>
@@ -133,14 +144,18 @@ namespace WinterEngine.Editor.Views
             int drawPositionX = 0;
             int drawPositionY = menuBarHeight + objectSelectionHeight + 1;
 
-            // Add the tree category control, offsetting positions so that it isn't drawn on top of other controls
-            TreeCategory.Location = new System.Drawing.Point(drawPositionX, drawPositionY);
+            // Set up the tree category control, offsetting positions so that it isn't drawn on top of other controls
+            TreeCategory.Location = new Point(drawPositionX, drawPositionY);
             TreeCategory.Size = new Size(200, viewportHeight - totalHeight);
 
-            // Add the area properties control
+            // Set up the area properties control
             drawPositionX = viewportWidth - AreaProperties.Width + 1;
-            AreaProperties.Location = new System.Drawing.Point(drawPositionX, drawPositionY);
+            AreaProperties.Location = new Point(drawPositionX, drawPositionY);
             AreaProperties.Size = new Size(AreaProperties.Width, viewportHeight - totalHeight);
+
+            // Set up the area navigation control
+            AreaNavigation.Location = new Point(TreeCategory.Size.Width + 1, viewportHeight - AreaNavigation.Height);
+            AreaNavigation.Size = new Size(viewportWidth - TreeCategory.Size.Width - AreaProperties.Size.Width, AreaNavigation.Height);
 
         }
 
@@ -151,16 +166,20 @@ namespace WinterEngine.Editor.Views
         {
             TreeCategory = new TreeCategoryControl();
             AreaProperties = new AreaPropertiesControl();
+            AreaNavigation = new AreaNavigationControl();
 
             AreaProperties.BorderStyle = BorderStyle.None;
             TreeCategory.BorderStyle = BorderStyle.None;
             TreeCategory.GameObjectResourceType = ResourceTypeEnum.Area;
+            AreaNavigation.BorderStyle = BorderStyle.None;
 
             TreeCategory.Enabled = false;
             AreaProperties.Enabled = false;
+            
 
             Control.FromHandle(FlatRedBallServices.WindowHandle).Controls.Add(TreeCategory);
             Control.FromHandle(FlatRedBallServices.WindowHandle).Controls.Add(AreaProperties);
+            Control.FromHandle(FlatRedBallServices.WindowHandle).Controls.Add(AreaNavigation);
             UpdateControlPositions();
         }
 

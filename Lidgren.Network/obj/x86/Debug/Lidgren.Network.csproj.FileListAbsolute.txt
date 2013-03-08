@@ -9,3 +9,4 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\Lidgren.Networ
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\Lidgren.Network\bin\x86\Debug\Lidgren.Network.XML
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\Lidgren.Network\obj\x86\Debug\Lidgren.Network.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\Lidgren.Network\obj\x86\Debug\Lidgren.Network.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\Lidgren.Network\obj\x86\Debug\Lidgren.Network.csprojResolveAssemblyReference.cache
