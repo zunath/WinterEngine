@@ -154,8 +154,8 @@ namespace WinterEngine.Editor.Views
             AreaProperties.Size = new Size(AreaProperties.Width, viewportHeight - totalHeight);
 
             // Set up the area navigation control
-            AreaNavigation.Location = new Point(TreeCategory.Size.Width + 1, viewportHeight - AreaNavigation.Height);
-            AreaNavigation.Size = new Size(viewportWidth - TreeCategory.Size.Width - AreaProperties.Size.Width, AreaNavigation.Height);
+            AreaNavigation.Location = new Point(TreeCategory.Size.Width + 2, viewportHeight - AreaNavigation.Height);
+            AreaNavigation.Size = new Size(viewportWidth - TreeCategory.Size.Width - AreaProperties.Size.Width - 3, AreaNavigation.Height);
 
         }
 
