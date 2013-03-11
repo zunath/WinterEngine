@@ -9,5 +9,13 @@ namespace WinterEngine.Editor.Views
     {
         void SetVisible(bool isVisible);
         void SetEnabled(bool isEnabled);
+        int GetLeftWindowWidth();
+        int GetRightWindowWidth();
+        int GetTopWindowWidth();
+        int GetBottomWindowWidth();
+        int GetLeftWindowHeight();
+        int GetRightWindowHeight();
+        int GetTopWindowHeight();
+        int GetBottomWindowHeight();
     }
 }

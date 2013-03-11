@@ -13,7 +13,7 @@ using WinterEngine.Editor.Enums;
 
 namespace WinterEngine.Editor.Views
 {
-    public class PlaceableView
+    public class PlaceableView : IEditorControl
     {
         #region Fields
 
@@ -165,6 +165,82 @@ namespace WinterEngine.Editor.Views
             UpdateControlPositions();
         }
 
+
+        #endregion
+
+        #region Control Positioning Methods
+
+        /// <summary>
+        /// Returns the width of the tree category control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetLeftWindowWidth()
+        {
+            return TreeCategory.Width;
+        }
+
+        /// <summary>
+        /// Returns the width of the Placeable Properties control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetRightWindowWidth()
+        {
+            return PlaceableProperties.Width;
+        }
+
+        /// <summary>
+        /// Unused by this PlaceableView control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetTopWindowWidth()
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// Unused by this PlaceableView control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetBottomWindowWidth()
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// Returns the height of the tree category control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetLeftWindowHeight()
+        {
+            return TreeCategory.Height;
+        }
+
+        /// <summary>
+        /// Returns the height of the Placeable Properties control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetRightWindowHeight()
+        {
+            return PlaceableProperties.Height;
+        }
+
+        /// <summary>
+        /// Unused by this PlaceableView control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetTopWindowHeight()
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// Unused by this PlaceableView control
+        /// </summary>
+        /// <returns></returns>
+        public int GetBottomWindowHeight()
+        {
+            return 0;
+        }
 
         #endregion
     }

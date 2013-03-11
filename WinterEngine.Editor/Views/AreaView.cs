@@ -252,5 +252,81 @@ namespace WinterEngine.Editor.Views
         }
 
         #endregion
+
+        #region Control Positioning Methods
+
+        /// <summary>
+        /// Returns the width of the tree category control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetLeftWindowWidth()
+        {
+            return TreeCategory.Width;
+        }
+
+        /// <summary>
+        /// Returns the width of the Area Properties control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetRightWindowWidth()
+        {
+            return AreaProperties.Width;
+        }
+
+        /// <summary>
+        /// Unused by this AreaView control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetTopWindowWidth()
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// Returns the width of the area navigation control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetBottomWindowWidth()
+        {
+            return AreaNavigation.Width;
+        }
+
+        /// <summary>
+        /// Returns the height of the tree category control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetLeftWindowHeight()
+        {
+            return TreeCategory.Height;
+        }
+
+        /// <summary>
+        /// Returns the height of the Area Properties control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetRightWindowHeight()
+        {
+            return AreaProperties.Height;
+        }
+
+        /// <summary>
+        /// Unused by this AreaView control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetTopWindowHeight()
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// Returns the height of the area navigation control.
+        /// </summary>
+        /// <returns></returns>
+        public int GetBottomWindowHeight()
+        {
+            return AreaNavigation.Height;
+        }
+
+        #endregion
     }
 }

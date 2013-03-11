@@ -29,6 +29,7 @@ using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Editor.Views;
+using Microsoft.Xna.Framework.Graphics;
 #endif
 
 namespace WinterEngine.Editor.Screens
@@ -43,6 +44,7 @@ namespace WinterEngine.Editor.Screens
         private CreatureView _creatureView;
         private ItemView _itemView;
         private PlaceableView _placeableView;
+        private IEditorControl _currentView;
 
         #endregion
 
@@ -102,6 +104,15 @@ namespace WinterEngine.Editor.Screens
             set { _placeableView = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the current view
+        /// </summary>
+        private IEditorControl CurrentView
+        {
+            get { return _currentView; }
+            set { _currentView = value; }
+        }
+
         #endregion
 
         #region FRB Events
@@ -109,11 +120,14 @@ namespace WinterEngine.Editor.Screens
         void CustomInitialize()
 		{
             InitializeFormControls();
-            FlatRedBallServices.CornerGrabbingResize += OnWindowResize;
             FlatRedBallServices.Game.IsMouseVisible = true;
             InitializeEventSubscriptions();
 
-            SpriteManager.AddSprite("redball.bmp");
+
+            Sprite sprite = SpriteManager.AddSprite("redball.bmp");
+            sprite.Position = new Vector3(FlatRedBallServices.GraphicsDevice.Viewport.X, 
+                FlatRedBallServices.GraphicsDevice.Viewport.Y, 
+                0.0f);
 		}
 
 		void CustomActivity(bool firstTimeCalled)
@@ -171,6 +185,11 @@ namespace WinterEngine.Editor.Screens
         }
 
 
+        /// <summary>
+        /// Changes the current view based on the user's selection.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ObjectSelectionBar_OnObjectSelected(object sender, ObjectSelectionEventArgs e)
         {
             AreaControl.SetVisible(false);
@@ -184,17 +203,21 @@ namespace WinterEngine.Editor.Screens
                     break;
                 case ObjectSelectionTypeEnum.Area:
                     AreaControl.SetVisible(true);
+                    CurrentView = AreaControl;
                     break;
                 case ObjectSelectionTypeEnum.Conversation:
                     break;
                 case ObjectSelectionTypeEnum.Creature:
                     CreatureControl.SetVisible(true);
+                    CurrentView = CreatureControl;
                     break;
                 case ObjectSelectionTypeEnum.Item:
                     ItemControl.SetVisible(true);
+                    CurrentView = ItemControl;
                     break;
                 case ObjectSelectionTypeEnum.Placeable:
                     PlaceableControl.SetVisible(true);
+                    CurrentView = PlaceableControl;
                     break;
                 case ObjectSelectionTypeEnum.Script:
                     break;
@@ -223,12 +246,15 @@ namespace WinterEngine.Editor.Screens
 
             ObjectSelectionBar.OnObjectSelected += ObjectSelectionBar_OnObjectSelected;
 
-            UpdateControlPositions();
-
             AreaControl = new AreaView();
             CreatureControl = new CreatureView();
             ItemControl = new ItemView();
             PlaceableControl = new PlaceableView();
+
+            CurrentView = AreaControl;
+
+            UpdateControlPositions();
+
         }
 
         /// <summary>
@@ -243,6 +269,7 @@ namespace WinterEngine.Editor.Screens
             ObjectSelectionBar.Location = new System.Drawing.Point(0, MenuBar.Size.Height + 1);
             ObjectSelectionBar.BorderStyle = BorderStyle.None;
             ObjectSelectionBar.Size = new Size(FlatRedBallServices.GraphicsDevice.Viewport.Width, ObjectSelectionBar.Height);
+
         }
 
         /// <summary>
@@ -253,6 +280,28 @@ namespace WinterEngine.Editor.Screens
         private void OnWindowResize(object sender, EventArgs e)
         {
             UpdateControlPositions();
+            //AdjustCameraViewport();
+        }
+
+        /// <summary>
+        /// Adjusts the viewport of the camera based on the view selected.
+        /// </summary>
+        /// <param name="e"></param>
+        private void AdjustCameraViewport()
+        {
+            
+            int viewportWidth = FlatRedBallServices.GraphicsDevice.Viewport.Width;
+            int viewportHeight = FlatRedBallServices.GraphicsDevice.Viewport.Height;
+            
+            int xPosition = CurrentView.GetLeftWindowWidth();
+            int yPosition = CurrentView.GetTopWindowHeight() + MenuBar.Height + ObjectSelectionBar.Height;
+            int width = viewportWidth - CurrentView.GetRightWindowWidth();
+            int height = viewportHeight - CurrentView.GetBottomWindowHeight();
+
+            
+            SpriteManager.Camera.DestinationRectangle =
+                new Microsoft.Xna.Framework.Rectangle(xPosition, yPosition, SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
+            
         }
 
         #endregion
