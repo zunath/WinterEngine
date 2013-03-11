@@ -21,7 +21,10 @@ namespace WinterEngine.Editor.Services
         /// </summary>
         public static void RaiseOnGameUpdateEvent()
         {
-            OnGameUpdate(null, new EventArgs());
+            if (!Object.ReferenceEquals(OnGameUpdate, null))
+            {
+                OnGameUpdate(null, new EventArgs());
+            }
         }
 
         #endregion

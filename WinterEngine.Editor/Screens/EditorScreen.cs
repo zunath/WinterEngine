@@ -118,16 +118,15 @@ namespace WinterEngine.Editor.Screens
         #region FRB Events
 
         void CustomInitialize()
-		{
-            InitializeFormControls();
+        {
             FlatRedBallServices.Game.IsMouseVisible = true;
+            InitializeFormControls();
             InitializeEventSubscriptions();
+            AdjustCameraPosition();
 
-
+            // DEBUGGING
             Sprite sprite = SpriteManager.AddSprite("redball.bmp");
-            sprite.Position = new Vector3(FlatRedBallServices.GraphicsDevice.Viewport.X, 
-                FlatRedBallServices.GraphicsDevice.Viewport.Y, 
-                0.0f);
+            // END DEBUGGING
 		}
 
 		void CustomActivity(bool firstTimeCalled)
@@ -280,28 +279,27 @@ namespace WinterEngine.Editor.Screens
         private void OnWindowResize(object sender, EventArgs e)
         {
             UpdateControlPositions();
-            //AdjustCameraViewport();
+            AdjustCameraPosition();
         }
 
         /// <summary>
         /// Adjusts the viewport of the camera based on the view selected.
         /// </summary>
         /// <param name="e"></param>
-        private void AdjustCameraViewport()
+        private void AdjustCameraPosition()
         {
-            
             int viewportWidth = FlatRedBallServices.GraphicsDevice.Viewport.Width;
             int viewportHeight = FlatRedBallServices.GraphicsDevice.Viewport.Height;
-            
+
             int xPosition = CurrentView.GetLeftWindowWidth();
             int yPosition = CurrentView.GetTopWindowHeight() + MenuBar.Height + ObjectSelectionBar.Height;
             int width = viewportWidth - CurrentView.GetRightWindowWidth();
             int height = viewportHeight - CurrentView.GetBottomWindowHeight();
 
-            
-            SpriteManager.Camera.DestinationRectangle =
-                new Microsoft.Xna.Framework.Rectangle(xPosition, yPosition, SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
-            
+            SpriteManager.Camera.TopDestination = yPosition;
+            SpriteManager.Camera.LeftDestination = xPosition;
+            //SpriteManager.Camera.RightDestination = width;
+            //SpriteManager.Camera.BottomDestination = height;
         }
 
         #endregion
