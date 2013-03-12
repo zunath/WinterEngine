@@ -32,7 +32,6 @@ using Microsoft.Xna.Framework.Media;
 using WinterEngine.Client.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
-using FlatRedBall;
 
 namespace WinterEngine.Client.Screens
 {
@@ -293,9 +292,7 @@ namespace WinterEngine.Client.Screens
 		{
 			this.CurrentState = state;
 			
-			#if !MONOGAME
 			ScreenManager.PushStateToStack((int)this.CurrentState);
-			#endif
 		}
 		[System.Obsolete("Use GetFile instead")]
 		public static object GetStaticMember (string memberName)
