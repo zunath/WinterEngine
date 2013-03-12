@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
-using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess
 {

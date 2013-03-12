@@ -5,7 +5,7 @@ using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WinterEngine.DataTransferObjects.Graphics
+namespace WinterEngine.DataTransferObjects.Resources
 {
     [Serializable]
     [Table("CharacterClasses")]

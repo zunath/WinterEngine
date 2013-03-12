@@ -283,7 +283,6 @@ namespace WinterEngine.Editor.Screens
         private void OnWindowResize(object sender, EventArgs e)
         {
             UpdateControlPositions();
-            AdjustCameraPosition();
         }
 
         /// <summary>

@@ -5,8 +5,8 @@ using WinterEngine.Library.Factories;
 using WinterEngine.Library.Utility;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.Graphics;
 using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.Editor.Forms
 {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Ionic.Zip;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.Graphics;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataTransferObjects.GameObjects
 {

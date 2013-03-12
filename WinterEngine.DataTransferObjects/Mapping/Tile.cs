@@ -16,10 +16,9 @@ namespace WinterEngine.DataTransferObjects.Mapping
         #region Fields
 
         private int _tileID;
-        private Texture2D _texture;
-        private int _cellX;
-        private int _cellY;
-
+        private Cell _cell;
+        private Tileset _tileset;
+        
         #endregion
 
         #region Properties
@@ -35,41 +34,33 @@ namespace WinterEngine.DataTransferObjects.Mapping
         }
 
         /// <summary>
-        /// Gets or sets the Texture2D used by this tile.
+        /// Gets or sets the cell of the tile.
         /// </summary>
-        public Texture2D SheetTexture
+        public Cell TileCell
         {
-            get { return _texture; }
-            set { _texture = value; }
+            get { return _cell; }
+            set { _cell = value; }
         }
 
         /// <summary>
-        /// Gets or sets the X position of the cell used by this tile.
+        /// Gets or sets the tileset which own this tile object.
         /// </summary>
-        public int CellX
+        public Tileset TileTileset
         {
-            get { return _cellX; }
-            set { _cellX = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the Y position of the cell used by this tile.
-        /// </summary>
-        public int CellY
-        {
-            get { return _cellY; }
-            set { _cellY = value; }
+            get { return _tileset; }
+            set { _tileset = value; }
         }
 
         /// <summary>
         /// Gets the rectangle of the destination on the sprite sheet.
         /// </summary>
+        [NotMapped]
         public Rectangle DestinationRectangle
         {
             get
             {
-                int xPosition = CellX * (int)MappingEnum.TileWidth;
-                int yPosition = CellY * (int)MappingEnum.TileHeight;
+                int xPosition = TileCell.X * (int)MappingEnum.TileWidth;
+                int yPosition = TileCell.Y * (int)MappingEnum.TileHeight;
                 Rectangle destinationRectangle = new Rectangle(xPosition, yPosition, (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight);
                 return destinationRectangle;
             }
@@ -83,13 +74,10 @@ namespace WinterEngine.DataTransferObjects.Mapping
         /// Constructs a new tile, using the cell X and cell Y positions on
         /// a tileset.
         /// </summary>
-        /// <param name="cellX">The cell X position of the tile.</param>
-        /// <param name="cellY">The cell Y position of the tile.</param>
-        public Tile(Texture2D texture, int cellX, int cellY)
+        /// <param name="cell">The cell associated with this tile.</param>
+        public Tile(Cell cell)
         {
-            this._texture = texture;
-            this._cellX = cellX;
-            this._cellY = cellY;
+            this._cell = cell;
         }
 
         #endregion

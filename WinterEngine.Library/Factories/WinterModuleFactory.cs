@@ -8,7 +8,7 @@ using Ionic.Zlib;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Graphics;
+using WinterEngine.DataTransferObjects.Resources;
 using WinterEngine.Library.Utility;
 
 namespace WinterEngine.Library.Factories

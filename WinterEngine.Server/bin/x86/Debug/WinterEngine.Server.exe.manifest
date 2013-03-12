@@ -47,11 +47,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="Microsoft.Xna.Framework.Graphics" version="4.0.0.0" publicKeyToken="842CF8BE1DE50553" language="neutral" processorArchitecture="x86" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EntityFramework.dll" size="1118296">
       <assemblyIdentity name="EntityFramework" version="4.4.0.0" publicKeyToken="B77A5C561934E089" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -83,7 +78,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>F9A7tOhATWVLIrfrf8CDF6gIeZB6QUUqweklrMI7rGc=</dsig:DigestValue>
+        <dsig:DigestValue>rSBPN9Mu6V63Ct0l5y6NcEX+b75gv4QbW1fFTWCaXNI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -100,14 +95,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataAccess.dll" size="34304">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataAccess.dll" size="35328">
       <assemblyIdentity name="WinterEngine.DataAccess" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>JCvs2OwcaPhXYCqY6PfGNFdoG2C6zJUM3hErYYo0lX8=</dsig:DigestValue>
+        <dsig:DigestValue>+Ph94Lsgz3gToqRAj2+Gz15rAjwiZuHGZt1tbAMo5Io=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -119,19 +114,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>40zh7uTggaYa8VYSpM1fiQFOH+Xk6bSgSn59Dc4aDqA=</dsig:DigestValue>
+        <dsig:DigestValue>fEwa4CtUKcHOC7xKhlp9cHPgLROKzJWIc6Lo9A1jc2I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Library.dll" size="27648">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.Library.dll" size="27136">
       <assemblyIdentity name="WinterEngine.Library" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>dLMVrybarEIwEHVhN/MdSV+A0HqDYAcokXTHEvDqjqw=</dsig:DigestValue>
+        <dsig:DigestValue>TKidbrc8uZ1en7EjWsDHcBNkt/cKkHA8kE1Rut9TplM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -143,7 +138,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>QBXLvHS89KJ9kDwdHZJJToMhAP8k9PE7/h0eVF7eEpU=</dsig:DigestValue>
+        <dsig:DigestValue>54IwlUeVRaQqp78d3/g3ZrQvqwoEMAqJ1Shbm0xQRH4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -155,7 +150,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BUGlnB1HpHRBQpEa+FYC7DHeAnL0QHr1cY2MIqDxkCM=</dsig:DigestValue>
+        <dsig:DigestValue>rN0hUyBghseORIoWLJa0kGAmAIkrdDLQVGk7CvdI7ZY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
