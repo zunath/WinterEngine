@@ -182,7 +182,7 @@ namespace WinterEngine.Library.Factories
         /// Updates a gameObject's entry in the database.
         /// An exception will be thrown if an object with a matching resref is not found.
         /// </summary>
-        /// <param name="gameObject">The game object to update. Its resref will be searched for in the database.</param>
+        /// <param name="gameObjectBase">The game object to update. Its resref will be searched for in the database.</param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         public void UpdateInDatabase(GameObjectBase gameObject, string connectionString = "")
         {
@@ -584,66 +584,6 @@ namespace WinterEngine.Library.Factories
             {
                 throw new NotSupportedException();
             }
-        }
-
-        #endregion
-
-        #region Object conversion methods
-
-        /// <summary>
-        /// Builds independent resource lists based on the gameObjectList passed in.
-        /// Item1 = Area List
-        /// Item2 = Creature List
-        /// Item3 = Item List
-        /// Item4 = Placeable List
-        /// Item5 = Conversation List
-        /// Item6 = Script List
-        /// </summary>
-        /// <param name="gameObjectList">The list of game objects that will be expanded.</param>
-        /// <returns></returns>
-        public Tuple<List<Area>, List<Creature>, List<Item>, List<Placeable>> ExpandGameObjectList(List<GameObjectBase> gameObjectList)
-        {
-            List<Area> areaList = new List<Area>();
-            List<Item> itemList = new List<Item>();
-            List<Creature> creatureList = new List<Creature>();
-            List<Placeable> placeableList = new List<Placeable>();
-
-            foreach (var currentObject in gameObjectList)
-            {
-                GameObjectBase gameObject = currentObject as GameObjectBase;
-
-                if (gameObject.ResourceType == ResourceTypeEnum.Area)
-                {
-                    areaList.Add(gameObject as Area);
-                }
-                else if (gameObject.ResourceType == ResourceTypeEnum.Item)
-                {
-                    itemList.Add(gameObject as Item);
-                }
-                else if (gameObject.ResourceType == ResourceTypeEnum.Creature)
-                {
-                    creatureList.Add(gameObject as Creature);
-                }
-                else if (gameObject.ResourceType == ResourceTypeEnum.Placeable)
-                {
-                    placeableList.Add(gameObject as Placeable);
-                }
-                else if (gameObject.ResourceType == ResourceTypeEnum.Conversation)
-                {
-                    throw new NotImplementedException();
-                }
-                else if (gameObject.ResourceType == ResourceTypeEnum.Script)
-                {
-                    throw new NotImplementedException();
-                }
-                else
-                {
-                    throw new NotSupportedException("Resource type is not supported.");
-                }
-            }
-
-            return new Tuple<List<Area>, List<Creature>, List<Item>, List<Placeable>>(areaList, creatureList, itemList, placeableList);
-
         }
 
         #endregion

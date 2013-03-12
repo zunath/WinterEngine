@@ -71,10 +71,26 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         }
 
         /// <summary>
+        /// ResourceTypeEnum in int format. This is done so that Entity Framework can store the value in the database correctly.
+        /// It is not recommended to use this property in regular code.
+        /// </summary>
+        public int ResourceTypeID
+        {
+            get { return (int)_resourceType; }
+            set 
+            {
+                _resourceType = (ResourceTypeEnum)Enum.Parse(typeof(ResourceTypeEnum), Convert.ToString(value));
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the resource type ID for this object.
         /// </summary>
+        [NotMapped]
         public ResourceTypeEnum ResourceType
         {
+            // NOTE: XNA requires that .NET 4.0 be used. Entity Framework does not support storing enumerations in the database for versions less than 5.0
+            // This field is not mapped to EF to prevent issues later on if the solution is upgraded to a later version of .NET
             get { return _resourceType; }
             set { _resourceType = value; }
         }

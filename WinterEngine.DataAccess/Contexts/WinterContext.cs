@@ -2,6 +2,7 @@
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataTransferObjects.Graphics;
+using WinterEngine.DataTransferObjects.Mapping;
 
 namespace WinterEngine.DataAccess.Contexts
 {
@@ -18,6 +19,9 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<CharacterClass> CharacterClasses { get; set; }
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
+        public DbSet<TileMap> TileMaps { get; set; }
+        public DbSet<TileLayer> TileLayers { get; set; }
+        //public DbSet<Tile> Tiles { get; set; }
 
         public WinterContext(string connString) : base(connString)
         {

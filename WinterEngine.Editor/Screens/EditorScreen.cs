@@ -161,6 +161,11 @@ namespace WinterEngine.Editor.Screens
             FlatRedBallServices.CornerGrabbingResize += OnWindowResize;
         }
 
+        /// <summary>
+        /// Event subscription for when the MenuBar calls OnToggleControls
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void MenuBar_OnToggleControls(object sender, ModuleControlsEventArgs e)
         {
             AreaControl.SetEnabled(e.IsEnabled);
@@ -169,9 +174,8 @@ namespace WinterEngine.Editor.Screens
             PlaceableControl.SetEnabled(e.IsEnabled);
         }
 
-
         /// <summary>
-        /// Handles refreshing the tree view.
+        /// Handles refreshing the tree views for all object controls.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
