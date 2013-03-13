@@ -9,7 +9,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
     /// Base abstract class for Winter Engine game objects.
     /// </summary>
     [Serializable]
-    public abstract class GameObjectBase
+    public abstract class GameObjectBase : IEntity
     {
         #region Fields
 

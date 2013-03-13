@@ -187,6 +187,12 @@
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ObjectRotationButtonPressEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ObjectSelectionEventArgs.cs" />
+    <Compile Include="Forms\ManageContentPackages.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageContentPackages.Designer.cs">
+      <DependentUpon>ManageContentPackages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ModuleProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -336,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageContentPackages.resx">
+      <DependentUpon>ManageContentPackages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ModuleProperties.resx">
       <DependentUpon>ModuleProperties.cs</DependentUpon>

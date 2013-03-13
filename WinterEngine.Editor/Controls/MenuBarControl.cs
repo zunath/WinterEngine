@@ -60,6 +60,17 @@ namespace WinterEngine.Editor.Controls
         #region Methods
 
         /// <summary>
+        /// Launches the ManageContentPackages form, which allows user to add or remove content packages from the module.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemManageContentPackages_Click(object sender, EventArgs e)
+        {
+            ManageContentPackages contentPackageForm = new ManageContentPackages();
+            contentPackageForm.ShowDialog();
+        }
+
+        /// <summary>
         /// Opens module selection window. If user selects a module file,
         /// the toolset will open that module's data.
         /// </summary>
@@ -314,6 +325,7 @@ namespace WinterEngine.Editor.Controls
         }
 
         #endregion
+
 
     }
 }

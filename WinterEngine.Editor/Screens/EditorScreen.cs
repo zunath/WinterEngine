@@ -126,12 +126,12 @@ namespace WinterEngine.Editor.Screens
 
             // DEBUGGING
             Sprite sprite = SpriteManager.AddSprite("redball.bmp");
+
             // END DEBUGGING
 		}
 
 		void CustomActivity(bool firstTimeCalled)
 		{
-
 		}
 
 		void CustomDestroy()

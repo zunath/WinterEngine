@@ -102,5 +102,15 @@ namespace WinterEngine.Library.Factories
             return filter;
         }
 
+        /// <summary>
+        /// Returns a string containing a filter for Open/Save File Dialogs for content package files.
+        /// </summary>
+        /// <returns></returns>
+        public string BuildContentPackageFileFilter()
+        {
+            string filter = "All Available Types|*" + GetFileExtension(FileTypeEnum.Hakpak);
+            return filter;
+        }
+
     }
 }

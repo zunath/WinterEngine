@@ -99,14 +99,14 @@
             // toolStripMenuItemNewModule
             // 
             this.toolStripMenuItemNewModule.Name = "toolStripMenuItemNewModule";
-            this.toolStripMenuItemNewModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemNewModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemNewModule.Text = "New Module";
             this.toolStripMenuItemNewModule.Click += new System.EventHandler(this.toolStripMenuItemNewModule_Click);
             // 
             // toolStripMenuItemOpenModule
             // 
             this.toolStripMenuItemOpenModule.Name = "toolStripMenuItemOpenModule";
-            this.toolStripMenuItemOpenModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemOpenModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemOpenModule.Text = "Open Module";
             this.toolStripMenuItemOpenModule.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -114,20 +114,20 @@
             // 
             this.toolStripMenuItemCloseModule.Enabled = false;
             this.toolStripMenuItemCloseModule.Name = "toolStripMenuItemCloseModule";
-            this.toolStripMenuItemCloseModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemCloseModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemCloseModule.Text = "Close Module";
             this.toolStripMenuItemCloseModule.Click += new System.EventHandler(this.toolStripMenuItemCloseModule_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemSaveModule
             // 
             this.toolStripMenuItemSaveModule.Enabled = false;
             this.toolStripMenuItemSaveModule.Name = "toolStripMenuItemSaveModule";
-            this.toolStripMenuItemSaveModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemSaveModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemSaveModule.Text = "Save";
             this.toolStripMenuItemSaveModule.Click += new System.EventHandler(this.toolStripMenuItemSaveModule_Click);
             // 
@@ -135,20 +135,20 @@
             // 
             this.toolStripMenuItemSaveAsModule.Enabled = false;
             this.toolStripMenuItemSaveAsModule.Name = "toolStripMenuItemSaveAsModule";
-            this.toolStripMenuItemSaveAsModule.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemSaveAsModule.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemSaveAsModule.Text = "Save As...";
             this.toolStripMenuItemSaveAsModule.Click += new System.EventHandler(this.toolStripMenuItemSaveAsModule_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemImportERF
             // 
             this.toolStripMenuItemImportERF.Enabled = false;
             this.toolStripMenuItemImportERF.Name = "toolStripMenuItemImportERF";
-            this.toolStripMenuItemImportERF.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemImportERF.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemImportERF.Text = "Import";
             this.toolStripMenuItemImportERF.Click += new System.EventHandler(this.toolStripMenuItemImportERF_Click);
             // 
@@ -156,30 +156,30 @@
             // 
             this.toolStripMenuItemExportERF.Enabled = false;
             this.toolStripMenuItemExportERF.Name = "toolStripMenuItemExportERF";
-            this.toolStripMenuItemExportERF.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemExportERF.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemExportERF.Text = "Export";
             this.toolStripMenuItemExportERF.Click += new System.EventHandler(this.toolStripMenuItemExportERF_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemRecentFiles
             // 
             this.toolStripMenuItemRecentFiles.Name = "toolStripMenuItemRecentFiles";
-            this.toolStripMenuItemRecentFiles.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemRecentFiles.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemRecentFiles.Text = "Recent Files";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(144, 6);
             // 
             // toolStripMenuItemExit
             // 
             this.toolStripMenuItemExit.Name = "toolStripMenuItemExit";
-            this.toolStripMenuItemExit.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemExit.Size = new System.Drawing.Size(147, 22);
             this.toolStripMenuItemExit.Text = "Exit";
             // 
             // editToolStripMenuItem
@@ -272,6 +272,7 @@
             this.toolStripMenuItemManageContentPackages.Name = "toolStripMenuItemManageContentPackages";
             this.toolStripMenuItemManageContentPackages.Size = new System.Drawing.Size(215, 22);
             this.toolStripMenuItemManageContentPackages.Text = "Manage Content Packages";
+            this.toolStripMenuItemManageContentPackages.Click += new System.EventHandler(this.toolStripMenuItemManageContentPackages_Click);
             // 
             // helpToolStripMenuItem
             // 

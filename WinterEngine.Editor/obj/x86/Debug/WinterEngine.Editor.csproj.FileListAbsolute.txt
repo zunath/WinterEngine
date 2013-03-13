@@ -86,3 +86,4 @@ C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.Forms.pd
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.HakpakBuilder.pdb
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.Library.pdb
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\Ionic.Zip.xml
+C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Forms.ManageContentPackages.resources

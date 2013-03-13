@@ -18,3 +18,5 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.D
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\obj\x86\Debug\WinterEngine.DataAccess.csprojResolveAssemblyReference.cache
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\obj\x86\Debug\WinterEngine.DataAccess.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.DataAccess\obj\x86\Debug\WinterEngine.DataAccess.pdb
+C:\Projects\WinterEngine\WinterEngine.DataAccess\bin\x86\Debug\GenericRepository.dll
+C:\Projects\WinterEngine\WinterEngine.DataAccess\bin\x86\Debug\GenericRepository.EF.dll
