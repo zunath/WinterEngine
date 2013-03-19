@@ -51,3 +51,5 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.H
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\obj\x86\Debug\WinterEngine.HakpakBuilder.pdb
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\EntityFramework.dll
 C:\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\EntityFramework.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\EntityFramework.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.HakpakBuilder\bin\Debug\EntityFramework.xml

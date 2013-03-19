@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataTransferObjects.Resources;
-using GenericRepository.EF;
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -28,7 +27,7 @@ namespace WinterEngine.DataAccess.Repositories
                 context.SaveChanges();
             }
         }
-
+            
         /// <summary>
         /// Adds a list of content packages to the database.
         /// </summary>
@@ -79,7 +78,15 @@ namespace WinterEngine.DataAccess.Repositories
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                
+                // Find the resource in the database that matches the passed-in item type's ID (primary key)
+                ContentPackage dbResource = context.ContentPackages.SingleOrDefault(r => r.ResourceID.Equals(package.ResourceID));
+
+                if (!Object.ReferenceEquals(dbResource, null))
+                {
+                    context.ContentPackages.Remove(dbResource);
+                    context.ContentPackages.Add(package);
+                    context.SaveChanges();
+                }
             }
         }
 
@@ -89,6 +96,16 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="package"></param>
         public void Delete(ContentPackage package)
         {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                ContentPackage dbPackage = context.ContentPackages.SingleOrDefault(val => val.ResourceID == package.ResourceID);
+
+                if (!Object.ReferenceEquals(dbPackage, null))
+                {
+                    context.ContentPackages.Remove(dbPackage);
+                    context.SaveChanges();
+                }
+            }
         }
 
         /// <summary>

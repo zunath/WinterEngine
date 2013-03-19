@@ -51,28 +51,8 @@ namespace WinterEngine.Editor.Controls
 
         #endregion
 
-        #region Methods
+        #region Event Handling
 
-        /// <summary>
-        /// Populates all controls and fields with the area passed in.
-        /// </summary>
-        /// <param name="area"></param>
-        public void LoadArea(Area area)
-        {
-            BackupArea = area;
-
-            // Re-enable controls
-            tabControlProperties.Enabled = true;
-            buttonApplyChanges.Enabled = true;
-            buttonDiscardChanges.Enabled = true;
-
-            // Load data into controls
-            nameTextBoxArea.NameText = area.Name;
-            tagTextBoxArea.TagText = area.Tag;
-            resrefTextBoxArea.ResrefText = area.Resref;
-
-            textBoxAreaComments.Text = area.Comment;
-        }
 
         /// <summary>
         /// Handles updating an area's entry in the database.
@@ -127,6 +107,32 @@ namespace WinterEngine.Editor.Controls
             resrefTextBoxArea.ResrefText = BackupArea.Resref;
 
         }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Populates all controls and fields with the area passed in.
+        /// </summary>
+        /// <param name="area"></param>
+        public void LoadArea(Area area)
+        {
+            BackupArea = area;
+
+            // Re-enable controls
+            tabControlProperties.Enabled = true;
+            buttonApplyChanges.Enabled = true;
+            buttonDiscardChanges.Enabled = true;
+
+            // Load data into controls
+            nameTextBoxArea.NameText = area.Name;
+            tagTextBoxArea.TagText = area.Tag;
+            resrefTextBoxArea.ResrefText = area.Resref;
+
+            textBoxAreaComments.Text = area.Comment;
+        }
+
 
         #endregion
 

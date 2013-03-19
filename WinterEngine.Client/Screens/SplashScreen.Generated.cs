@@ -281,6 +281,14 @@ namespace WinterEngine.Client.Screens
 			{
 				SpriteObjectAlpha = SpriteObjectAlphaFirstValue * (1 - interpolationValue) + SpriteObjectAlphaSecondValue * interpolationValue;
 			}
+			if (interpolationValue < 1)
+			{
+				mCurrentState = (int)firstState;
+			}
+			else
+			{
+				mCurrentState = (int)secondState;
+			}
 		}
 		public override void MoveToState (int state)
 		{
@@ -292,7 +300,9 @@ namespace WinterEngine.Client.Screens
 		{
 			this.CurrentState = state;
 			
+			#if !MONOGAME
 			ScreenManager.PushStateToStack((int)this.CurrentState);
+			#endif
 		}
 		[System.Obsolete("Use GetFile instead")]
 		public static object GetStaticMember (string memberName)

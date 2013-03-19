@@ -30,6 +30,7 @@ using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Editor.Views;
 using Microsoft.Xna.Framework.Graphics;
+using FlatRedBall.Graphics;
 #endif
 
 namespace WinterEngine.Editor.Screens
@@ -117,21 +118,25 @@ namespace WinterEngine.Editor.Screens
 
         #region FRB Events
 
+        Text text;
+
         void CustomInitialize()
         {
             FlatRedBallServices.Game.IsMouseVisible = true;
             InitializeFormControls();
             InitializeEventSubscriptions();
+            text = TextManager.AddText("");
             AdjustCameraPosition();
 
             // DEBUGGING
             Sprite sprite = SpriteManager.AddSprite("redball.bmp");
-
             // END DEBUGGING
 		}
 
 		void CustomActivity(bool firstTimeCalled)
 		{
+            text.DisplayText = "Camera X = " + SpriteManager.Camera.X + "\n";
+            text.DisplayText += "Camera Y = " + SpriteManager.Camera.Y + "\n";
 		}
 
 		void CustomDestroy()
@@ -283,6 +288,7 @@ namespace WinterEngine.Editor.Screens
         private void OnWindowResize(object sender, EventArgs e)
         {
             UpdateControlPositions();
+            AdjustCameraPosition();
         }
 
         /// <summary>
@@ -291,18 +297,15 @@ namespace WinterEngine.Editor.Screens
         /// <param name="e"></param>
         private void AdjustCameraPosition()
         {
-            int viewportWidth = FlatRedBallServices.GraphicsDevice.Viewport.Width;
-            int viewportHeight = FlatRedBallServices.GraphicsDevice.Viewport.Height;
+            int viewportWidth = FlatRedBallServices.GraphicsOptions.ResolutionWidth;
+            int viewportHeight = FlatRedBallServices.GraphicsOptions.ResolutionHeight;
 
             int xPosition = CurrentView.GetLeftWindowWidth();
             int yPosition = CurrentView.GetTopWindowHeight() + MenuBar.Height + ObjectSelectionBar.Height;
             int width = viewportWidth - CurrentView.GetRightWindowWidth();
             int height = viewportHeight - CurrentView.GetBottomWindowHeight();
 
-            SpriteManager.Camera.TopDestination = yPosition;
-            SpriteManager.Camera.LeftDestination = xPosition;
-            //SpriteManager.Camera.RightDestination = width;
-            //SpriteManager.Camera.BottomDestination = height;
+            SpriteManager.Camera.DestinationRectangle = new Microsoft.Xna.Framework.Rectangle(xPosition, yPosition, width, height);
         }
 
         #endregion
