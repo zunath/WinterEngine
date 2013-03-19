@@ -7,7 +7,7 @@ namespace WinterEngine.DataTransferObjects.Enumerations
 {
     public enum MappingEnum
     {
-        TileWidth = 32,
-        TileHeight = 32
+        TileWidth = 64,
+        TileHeight = 64
     }
 }

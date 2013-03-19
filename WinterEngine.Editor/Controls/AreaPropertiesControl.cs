@@ -12,6 +12,7 @@ using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.Editor.Controls
 {
@@ -20,6 +21,7 @@ namespace WinterEngine.Editor.Controls
         #region Fields
 
         private Area _backupArea;
+        private PictureBox _selectedTilePictureBox;
 
         #endregion
 
@@ -33,7 +35,16 @@ namespace WinterEngine.Editor.Controls
             get { return _backupArea; }
             set { _backupArea = value; }
         }
-        
+
+        /// <summary>
+        /// Gets or sets the picture box displaying the selected tile.
+        /// </summary>
+        private PictureBox SelectedTile
+        {
+            get { return _selectedTilePictureBox; }
+            set { _selectedTilePictureBox = value; }
+        }
+
         #endregion
 
         #region Events / Delegates
@@ -47,6 +58,11 @@ namespace WinterEngine.Editor.Controls
         public AreaPropertiesControl()
         {
             InitializeComponent();
+            SelectedTile = new PictureBox();
+            SelectedTile.Image = WinterEngine_Editor.Icon_SelectedTile;
+            SelectedTile.Size = new Size((int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight);
+            SelectedTile.BackColor = Color.Transparent;
+            pictureBoxTileset.Controls.Add(SelectedTile);
         }
 
         #endregion
@@ -136,5 +152,16 @@ namespace WinterEngine.Editor.Controls
 
         #endregion
 
+        #region Tileset Events
+
+        private void pictureBoxTileset_MouseDown(object sender, MouseEventArgs e)
+        {
+            int xPosition = e.X / (int)MappingEnum.TileWidth;
+            int yPosition = e.Y / (int)MappingEnum.TileHeight;
+
+            pictureBoxTileset.Controls[0].Location = new Point(xPosition * (int)MappingEnum.TileWidth, yPosition * (int)MappingEnum.TileHeight);
+        }
+
+        #endregion
     }
 }

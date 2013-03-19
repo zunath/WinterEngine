@@ -243,6 +243,8 @@
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
     <Content Include="Libraries\Xna4Pc\FlatRedBall.Content.dll" />
+    <None Include="Resources\TilesetEditor_SelectedTile.png" />
+    <None Include="Resources\Icon_SelectedTile.bmp" />
     <None Include="Resources\Icon_ObjectCounterclockwise.png" />
     <None Include="Resources\Icon_ObjectClockwise.png" />
     <None Include="Resources\Icon_CameraUp.png" />

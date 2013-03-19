@@ -118,25 +118,21 @@ namespace WinterEngine.Editor.Screens
 
         #region FRB Events
 
-        Text text;
-
         void CustomInitialize()
         {
             FlatRedBallServices.Game.IsMouseVisible = true;
             InitializeFormControls();
             InitializeEventSubscriptions();
-            text = TextManager.AddText("");
             AdjustCameraPosition();
 
             // DEBUGGING
             Sprite sprite = SpriteManager.AddSprite("redball.bmp");
+            //TilePickerEntityInstance.SpriteInstanceTexture = FlatRedBallServices.Load<Texture2D>("C:\\Users\\Tyler\\Desktop\\Winter Engine Resources\\Tilesets\\(Tileset) Wilderness.png");
             // END DEBUGGING
 		}
 
 		void CustomActivity(bool firstTimeCalled)
 		{
-            text.DisplayText = "Camera X = " + SpriteManager.Camera.X + "\n";
-            text.DisplayText += "Camera Y = " + SpriteManager.Camera.Y + "\n";
 		}
 
 		void CustomDestroy()

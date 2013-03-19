@@ -29,15 +29,21 @@ namespace WinterEngine.Editor.Controls
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AreaPropertiesControl));
             this.tabControlProperties = new System.Windows.Forms.TabControl();
+            this.tabPageTiles = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBoxTileset = new System.Windows.Forms.PictureBox();
             this.tabPageDetails = new System.Windows.Forms.TabPage();
-            this.resrefTextBoxArea = new WinterEngine.Editor.Controls.FRBResrefTextBox();
-            this.tagTextBoxArea = new WinterEngine.Editor.Controls.FRBTagTextBox();
-            this.nameTextBoxArea = new WinterEngine.Editor.Controls.FRBNameTextBox();
+            this.labelTileset = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.labelAreaDetailsHeader = new System.Windows.Forms.Label();
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
             this.labelItemName = new System.Windows.Forms.Label();
+            this.resrefTextBoxArea = new WinterEngine.Editor.Controls.FRBResrefTextBox();
+            this.tagTextBoxArea = new WinterEngine.Editor.Controls.FRBTagTextBox();
+            this.nameTextBoxArea = new WinterEngine.Editor.Controls.FRBNameTextBox();
             this.tabPageAudio = new System.Windows.Forms.TabPage();
             this.tabPageEvents = new System.Windows.Forms.TabPage();
             this.tabPageComments = new System.Windows.Forms.TabPage();
@@ -46,6 +52,9 @@ namespace WinterEngine.Editor.Controls
             this.buttonDiscardChanges = new System.Windows.Forms.Button();
             this.buttonApplyChanges = new System.Windows.Forms.Button();
             this.tabControlProperties.SuspendLayout();
+            this.tabPageTiles.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).BeginInit();
             this.tabPageDetails.SuspendLayout();
             this.tabPageComments.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +64,7 @@ namespace WinterEngine.Editor.Controls
             this.tabControlProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlProperties.Controls.Add(this.tabPageTiles);
             this.tabControlProperties.Controls.Add(this.tabPageDetails);
             this.tabControlProperties.Controls.Add(this.tabPageAudio);
             this.tabControlProperties.Controls.Add(this.tabPageEvents);
@@ -63,68 +73,76 @@ namespace WinterEngine.Editor.Controls
             this.tabControlProperties.Location = new System.Drawing.Point(3, 3);
             this.tabControlProperties.Name = "tabControlProperties";
             this.tabControlProperties.SelectedIndex = 0;
-            this.tabControlProperties.Size = new System.Drawing.Size(302, 417);
+            this.tabControlProperties.Size = new System.Drawing.Size(335, 417);
             this.tabControlProperties.TabIndex = 3;
+            // 
+            // tabPageTiles
+            // 
+            this.tabPageTiles.Controls.Add(this.panel1);
+            this.tabPageTiles.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTiles.Name = "tabPageTiles";
+            this.tabPageTiles.Size = new System.Drawing.Size(327, 391);
+            this.tabPageTiles.TabIndex = 5;
+            this.tabPageTiles.Text = "Tiles";
+            this.tabPageTiles.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.pictureBoxTileset);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(327, 391);
+            this.panel1.TabIndex = 1;
+            // 
+            // pictureBoxTileset
+            // 
+            this.pictureBoxTileset.BackColor = System.Drawing.Color.White;
+            this.pictureBoxTileset.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxTileset.Image")));
+            this.pictureBoxTileset.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxTileset.Name = "pictureBoxTileset";
+            this.pictureBoxTileset.Size = new System.Drawing.Size(640, 1024);
+            this.pictureBoxTileset.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxTileset.TabIndex = 0;
+            this.pictureBoxTileset.TabStop = false;
+            this.pictureBoxTileset.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxTileset_MouseDown);
             // 
             // tabPageDetails
             // 
-            this.tabPageDetails.Controls.Add(this.resrefTextBoxArea);
-            this.tabPageDetails.Controls.Add(this.tagTextBoxArea);
-            this.tabPageDetails.Controls.Add(this.nameTextBoxArea);
+            this.tabPageDetails.Controls.Add(this.labelTileset);
+            this.tabPageDetails.Controls.Add(this.listBox1);
             this.tabPageDetails.Controls.Add(this.labelAreaDetailsHeader);
             this.tabPageDetails.Controls.Add(this.labelItemResref);
             this.tabPageDetails.Controls.Add(this.labelItemTag);
             this.tabPageDetails.Controls.Add(this.labelItemName);
+            this.tabPageDetails.Controls.Add(this.resrefTextBoxArea);
+            this.tabPageDetails.Controls.Add(this.tagTextBoxArea);
+            this.tabPageDetails.Controls.Add(this.nameTextBoxArea);
             this.tabPageDetails.Location = new System.Drawing.Point(4, 22);
             this.tabPageDetails.Name = "tabPageDetails";
             this.tabPageDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDetails.Size = new System.Drawing.Size(294, 391);
+            this.tabPageDetails.Size = new System.Drawing.Size(327, 391);
             this.tabPageDetails.TabIndex = 1;
             this.tabPageDetails.Text = "Details";
             this.tabPageDetails.UseVisualStyleBackColor = true;
             // 
-            // resrefTextBoxArea
+            // labelTileset
             // 
-            this.resrefTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.resrefTextBoxArea.Enabled = false;
-            this.resrefTextBoxArea.IsValid = false;
-            this.resrefTextBoxArea.Location = new System.Drawing.Point(81, 112);
-            this.resrefTextBoxArea.Name = "resrefTextBoxArea";
-            this.resrefTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
-            this.resrefTextBoxArea.ResrefText = "";
-            this.resrefTextBoxArea.SelectionLength = 0;
-            this.resrefTextBoxArea.SelectionStart = 0;
-            this.resrefTextBoxArea.Size = new System.Drawing.Size(207, 28);
-            this.resrefTextBoxArea.TabIndex = 10;
+            this.labelTileset.AutoSize = true;
+            this.labelTileset.Location = new System.Drawing.Point(6, 241);
+            this.labelTileset.Name = "labelTileset";
+            this.labelTileset.Size = new System.Drawing.Size(41, 13);
+            this.labelTileset.TabIndex = 12;
+            this.labelTileset.Text = "Tileset:";
             // 
-            // tagTextBoxArea
+            // listBox1
             // 
-            this.tagTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tagTextBoxArea.IsValid = true;
-            this.tagTextBoxArea.Location = new System.Drawing.Point(81, 86);
-            this.tagTextBoxArea.Name = "tagTextBoxArea";
-            this.tagTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
-            this.tagTextBoxArea.SelectionLength = 0;
-            this.tagTextBoxArea.SelectionStart = 0;
-            this.tagTextBoxArea.Size = new System.Drawing.Size(207, 28);
-            this.tagTextBoxArea.TabIndex = 9;
-            this.tagTextBoxArea.TagText = "";
-            // 
-            // nameTextBoxArea
-            // 
-            this.nameTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.nameTextBoxArea.IsValid = false;
-            this.nameTextBoxArea.Location = new System.Drawing.Point(81, 58);
-            this.nameTextBoxArea.Name = "nameTextBoxArea";
-            this.nameTextBoxArea.NameText = "";
-            this.nameTextBoxArea.SelectionLength = 0;
-            this.nameTextBoxArea.SelectionStart = 0;
-            this.nameTextBoxArea.Size = new System.Drawing.Size(207, 28);
-            this.nameTextBoxArea.TabIndex = 8;
-            this.nameTextBoxArea.ValidCharactersRegex = null;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(81, 146);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(182, 108);
+            this.listBox1.TabIndex = 11;
             // 
             // labelAreaDetailsHeader
             // 
@@ -165,11 +183,54 @@ namespace WinterEngine.Editor.Controls
             this.labelItemName.TabIndex = 1;
             this.labelItemName.Text = "Name:";
             // 
+            // resrefTextBoxArea
+            // 
+            this.resrefTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.resrefTextBoxArea.Enabled = false;
+            this.resrefTextBoxArea.IsValid = false;
+            this.resrefTextBoxArea.Location = new System.Drawing.Point(81, 112);
+            this.resrefTextBoxArea.Name = "resrefTextBoxArea";
+            this.resrefTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.resrefTextBoxArea.ResrefText = "";
+            this.resrefTextBoxArea.SelectionLength = 0;
+            this.resrefTextBoxArea.SelectionStart = 0;
+            this.resrefTextBoxArea.Size = new System.Drawing.Size(192, 28);
+            this.resrefTextBoxArea.TabIndex = 10;
+            // 
+            // tagTextBoxArea
+            // 
+            this.tagTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tagTextBoxArea.IsValid = true;
+            this.tagTextBoxArea.Location = new System.Drawing.Point(81, 86);
+            this.tagTextBoxArea.Name = "tagTextBoxArea";
+            this.tagTextBoxArea.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxArea.SelectionLength = 0;
+            this.tagTextBoxArea.SelectionStart = 0;
+            this.tagTextBoxArea.Size = new System.Drawing.Size(192, 28);
+            this.tagTextBoxArea.TabIndex = 9;
+            this.tagTextBoxArea.TagText = "";
+            // 
+            // nameTextBoxArea
+            // 
+            this.nameTextBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nameTextBoxArea.IsValid = false;
+            this.nameTextBoxArea.Location = new System.Drawing.Point(81, 58);
+            this.nameTextBoxArea.Name = "nameTextBoxArea";
+            this.nameTextBoxArea.NameText = "";
+            this.nameTextBoxArea.SelectionLength = 0;
+            this.nameTextBoxArea.SelectionStart = 0;
+            this.nameTextBoxArea.Size = new System.Drawing.Size(192, 28);
+            this.nameTextBoxArea.TabIndex = 8;
+            this.nameTextBoxArea.ValidCharactersRegex = null;
+            // 
             // tabPageAudio
             // 
             this.tabPageAudio.Location = new System.Drawing.Point(4, 22);
             this.tabPageAudio.Name = "tabPageAudio";
-            this.tabPageAudio.Size = new System.Drawing.Size(294, 391);
+            this.tabPageAudio.Size = new System.Drawing.Size(327, 391);
             this.tabPageAudio.TabIndex = 4;
             this.tabPageAudio.Text = "Audio";
             this.tabPageAudio.UseVisualStyleBackColor = true;
@@ -178,7 +239,7 @@ namespace WinterEngine.Editor.Controls
             // 
             this.tabPageEvents.Location = new System.Drawing.Point(4, 22);
             this.tabPageEvents.Name = "tabPageEvents";
-            this.tabPageEvents.Size = new System.Drawing.Size(294, 391);
+            this.tabPageEvents.Size = new System.Drawing.Size(327, 391);
             this.tabPageEvents.TabIndex = 3;
             this.tabPageEvents.Text = "Events";
             this.tabPageEvents.UseVisualStyleBackColor = true;
@@ -189,7 +250,7 @@ namespace WinterEngine.Editor.Controls
             this.tabPageComments.Controls.Add(this.textBoxAreaComments);
             this.tabPageComments.Location = new System.Drawing.Point(4, 22);
             this.tabPageComments.Name = "tabPageComments";
-            this.tabPageComments.Size = new System.Drawing.Size(294, 391);
+            this.tabPageComments.Size = new System.Drawing.Size(327, 391);
             this.tabPageComments.TabIndex = 2;
             this.tabPageComments.Text = "Comments";
             this.tabPageComments.UseVisualStyleBackColor = true;
@@ -216,14 +277,14 @@ namespace WinterEngine.Editor.Controls
             this.textBoxAreaComments.Multiline = true;
             this.textBoxAreaComments.Name = "textBoxAreaComments";
             this.textBoxAreaComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxAreaComments.Size = new System.Drawing.Size(361, 317);
+            this.textBoxAreaComments.Size = new System.Drawing.Size(346, 293);
             this.textBoxAreaComments.TabIndex = 13;
             // 
             // buttonDiscardChanges
             // 
             this.buttonDiscardChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonDiscardChanges.Enabled = false;
-            this.buttonDiscardChanges.Location = new System.Drawing.Point(151, 426);
+            this.buttonDiscardChanges.Location = new System.Drawing.Point(167, 426);
             this.buttonDiscardChanges.Name = "buttonDiscardChanges";
             this.buttonDiscardChanges.Size = new System.Drawing.Size(102, 23);
             this.buttonDiscardChanges.TabIndex = 13;
@@ -235,7 +296,7 @@ namespace WinterEngine.Editor.Controls
             // 
             this.buttonApplyChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonApplyChanges.Enabled = false;
-            this.buttonApplyChanges.Location = new System.Drawing.Point(35, 426);
+            this.buttonApplyChanges.Location = new System.Drawing.Point(51, 426);
             this.buttonApplyChanges.Name = "buttonApplyChanges";
             this.buttonApplyChanges.Size = new System.Drawing.Size(91, 23);
             this.buttonApplyChanges.TabIndex = 12;
@@ -251,8 +312,12 @@ namespace WinterEngine.Editor.Controls
             this.Controls.Add(this.buttonApplyChanges);
             this.Controls.Add(this.tabControlProperties);
             this.Name = "AreaPropertiesControl";
-            this.Size = new System.Drawing.Size(308, 452);
+            this.Size = new System.Drawing.Size(341, 452);
             this.tabControlProperties.ResumeLayout(false);
+            this.tabPageTiles.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTileset)).EndInit();
             this.tabPageDetails.ResumeLayout(false);
             this.tabPageDetails.PerformLayout();
             this.tabPageComments.ResumeLayout(false);
@@ -279,6 +344,11 @@ namespace WinterEngine.Editor.Controls
         private WinterEngine.Editor.Controls.FRBResrefTextBox resrefTextBoxArea;
         private WinterEngine.Editor.Controls.FRBTagTextBox tagTextBoxArea;
         private WinterEngine.Editor.Controls.FRBNameTextBox nameTextBoxArea;
+        private System.Windows.Forms.Label labelTileset;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TabPage tabPageTiles;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBoxTileset;
 
     }
 }
