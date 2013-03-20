@@ -1,0 +1,17 @@
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.AboutBox.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Controls.AreaNavigationControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Controls.AreaPropertiesControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Controls.CreaturePropertiesControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Controls.ItemPropertiesControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Controls.MenuBarControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Controls.ObjectBar.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Controls.PlaceablePropertiesControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Controls.TreeCategoryControl.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Forms.ManageContentPackages.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Forms.ModuleProperties.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Forms.NewModuleEntry.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.Forms.NewObjectEntry.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.WinterEngine.Editor.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Release\WinterEngine.Editor.csproj.GenerateResource.Cache

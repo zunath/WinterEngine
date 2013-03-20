@@ -50,6 +50,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\References\Lidgren.Network.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -90,10 +93,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lidgren.Network\Lidgren.Network.csproj">
-      <Project>{49ba1c69-6104-41ac-a5d8-b54fa9f696e8}</Project>
-      <Name>Lidgren.Network</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.DataTransferObjects\WinterEngine.DataTransferObjects.csproj">
       <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>
       <Name>WinterEngine.DataTransferObjects</Name>

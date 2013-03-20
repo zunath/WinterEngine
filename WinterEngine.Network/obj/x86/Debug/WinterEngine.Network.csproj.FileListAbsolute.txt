@@ -27,8 +27,6 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.N
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network\bin\x86\Debug\EntityFramework.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network\bin\x86\Debug\Ionic.Zip.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network\bin\x86\Debug\WinterEngine.DataAccess.dll
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network\bin\x86\Debug\Lidgren.Network.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network\bin\x86\Debug\Lidgren.Network.xml
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network\bin\x86\Debug\WinterEngine.DataTransferObjects.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network\bin\x86\Debug\WinterEngine.Library.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Network\bin\x86\Debug\Newtonsoft.Json.xml
