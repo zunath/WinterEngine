@@ -137,7 +137,7 @@ namespace WinterEngine.ERF
             try
             {
                 string erfDatabaseConnectionString = "";
-                WinterFileHelper fileHelper = new WinterFileHelper();
+                FileHelper fileHelper = new FileHelper();
                 TemporaryDirectory = fileHelper.CreateTemporaryDirectory("erf");
                 string erfDatabaseFilePath = "";
 

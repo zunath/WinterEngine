@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\DirectoryTypeEnum.cs" />
     <Compile Include="Enumerations\GameTypeEnum.cs" />
     <Compile Include="Enumerations\ItemPartEnum.cs" />
     <Compile Include="Enumerations\MappingEnum.cs" />

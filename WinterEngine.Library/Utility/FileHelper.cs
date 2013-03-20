@@ -11,7 +11,7 @@ namespace WinterEngine.Library.Utility
     /// <summary>
     /// File handling and manipulation for Winter Engine.
     /// </summary>
-    public class WinterFileHelper : IDisposable
+    public class FileHelper : IDisposable
     {
         #region Fields
 
@@ -32,10 +32,9 @@ namespace WinterEngine.Library.Utility
 
         #endregion
 
-
         #region Constructors
 
-        public WinterFileHelper()
+        public FileHelper()
         {
         }
 
@@ -44,7 +43,7 @@ namespace WinterEngine.Library.Utility
         /// New directory's name is "temp" + suffix + uniqueID
         /// </summary>
         /// <param name="suffix">The suffix to add on to the temporary directory.</param>
-        public WinterFileHelper(string tempDirectorySuffix)
+        public FileHelper(string tempDirectorySuffix)
         {
             CreateTemporaryDirectory(tempDirectorySuffix);
         }
@@ -139,7 +138,6 @@ namespace WinterEngine.Library.Utility
                 return "";
             }
         }
-
 
         public void Dispose()
         {

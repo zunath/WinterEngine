@@ -45,7 +45,7 @@ namespace WinterEngine.Editor.Forms
             {
                 try
                 {
-                    WinterModuleFactory moduleFactory = new WinterModuleFactory(nameTextBoxEntry.NameText, tagTextBoxEntry.TagText);
+                    ModuleFactory moduleFactory = new ModuleFactory(nameTextBoxEntry.NameText, tagTextBoxEntry.TagText);
                     moduleFactory.CreateModule();
                     eventArgs.ModuleFactory = moduleFactory;
 

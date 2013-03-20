@@ -8,12 +8,12 @@ namespace WinterEngine.Editor.ExtendedEventArgs
 {
     public class ModuleCreationEventArgs : EventArgs
     {
-        private WinterModuleFactory _moduleFactory;
+        private ModuleFactory _moduleFactory;
 
         /// <summary>
         /// Gets or sets the module factory returned in the event args
         /// </summary>
-        public WinterModuleFactory ModuleFactory
+        public ModuleFactory ModuleFactory
         {
             get { return _moduleFactory; }
             set { _moduleFactory = value; }

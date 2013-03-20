@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBoxContentPackages = new System.Windows.Forms.ListBox();
-            this.buttonAddContentPackage = new System.Windows.Forms.Button();
-            this.buttonRemoveContentPackage = new System.Windows.Forms.Button();
             this.textBoxContentPackageName = new System.Windows.Forms.TextBox();
             this.labelContentPackageName = new System.Windows.Forms.Label();
             this.labelContentPackageDescription = new System.Windows.Forms.Label();
@@ -39,43 +36,15 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.checkedListBoxPackages = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
-            // 
-            // listBoxContentPackages
-            // 
-            this.listBoxContentPackages.FormattingEnabled = true;
-            this.listBoxContentPackages.HorizontalScrollbar = true;
-            this.listBoxContentPackages.Location = new System.Drawing.Point(12, 77);
-            this.listBoxContentPackages.Name = "listBoxContentPackages";
-            this.listBoxContentPackages.Size = new System.Drawing.Size(491, 160);
-            this.listBoxContentPackages.TabIndex = 0;
-            // 
-            // buttonAddContentPackage
-            // 
-            this.buttonAddContentPackage.Location = new System.Drawing.Point(15, 243);
-            this.buttonAddContentPackage.Name = "buttonAddContentPackage";
-            this.buttonAddContentPackage.Size = new System.Drawing.Size(91, 23);
-            this.buttonAddContentPackage.TabIndex = 2;
-            this.buttonAddContentPackage.Text = "Add";
-            this.buttonAddContentPackage.UseVisualStyleBackColor = true;
-            this.buttonAddContentPackage.Click += new System.EventHandler(this.buttonAddContentPackage_Click);
-            // 
-            // buttonRemoveContentPackage
-            // 
-            this.buttonRemoveContentPackage.Location = new System.Drawing.Point(112, 243);
-            this.buttonRemoveContentPackage.Name = "buttonRemoveContentPackage";
-            this.buttonRemoveContentPackage.Size = new System.Drawing.Size(91, 23);
-            this.buttonRemoveContentPackage.TabIndex = 3;
-            this.buttonRemoveContentPackage.Text = "Remove";
-            this.buttonRemoveContentPackage.UseVisualStyleBackColor = true;
-            this.buttonRemoveContentPackage.Click += new System.EventHandler(this.buttonRemoveContentPackage_Click);
             // 
             // textBoxContentPackageName
             // 
             this.textBoxContentPackageName.Location = new System.Drawing.Point(175, 16);
             this.textBoxContentPackageName.Name = "textBoxContentPackageName";
             this.textBoxContentPackageName.ReadOnly = true;
-            this.textBoxContentPackageName.Size = new System.Drawing.Size(328, 20);
+            this.textBoxContentPackageName.Size = new System.Drawing.Size(206, 20);
             this.textBoxContentPackageName.TabIndex = 4;
             // 
             // labelContentPackageName
@@ -101,14 +70,14 @@
             this.textBoxContentPackageDescription.Location = new System.Drawing.Point(175, 46);
             this.textBoxContentPackageDescription.Name = "textBoxContentPackageDescription";
             this.textBoxContentPackageDescription.ReadOnly = true;
-            this.textBoxContentPackageDescription.Size = new System.Drawing.Size(328, 20);
+            this.textBoxContentPackageDescription.Size = new System.Drawing.Size(206, 20);
             this.textBoxContentPackageDescription.TabIndex = 7;
             // 
             // buttonSaveAndClose
             // 
-            this.buttonSaveAndClose.Location = new System.Drawing.Point(306, 243);
+            this.buttonSaveAndClose.Location = new System.Drawing.Point(142, 242);
             this.buttonSaveAndClose.Name = "buttonSaveAndClose";
-            this.buttonSaveAndClose.Size = new System.Drawing.Size(100, 23);
+            this.buttonSaveAndClose.Size = new System.Drawing.Size(122, 23);
             this.buttonSaveAndClose.TabIndex = 8;
             this.buttonSaveAndClose.Text = "Save and Close";
             this.buttonSaveAndClose.UseVisualStyleBackColor = true;
@@ -116,9 +85,9 @@
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(412, 243);
+            this.buttonClose.Location = new System.Drawing.Point(270, 242);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(91, 23);
+            this.buttonClose.Size = new System.Drawing.Size(111, 23);
             this.buttonClose.TabIndex = 9;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -126,19 +95,28 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(209, 243);
+            this.buttonSave.Location = new System.Drawing.Point(15, 242);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(91, 23);
+            this.buttonSave.Size = new System.Drawing.Size(121, 23);
             this.buttonSave.TabIndex = 10;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
+            // checkedListBoxPackages
+            // 
+            this.checkedListBoxPackages.FormattingEnabled = true;
+            this.checkedListBoxPackages.Location = new System.Drawing.Point(15, 82);
+            this.checkedListBoxPackages.Name = "checkedListBoxPackages";
+            this.checkedListBoxPackages.Size = new System.Drawing.Size(366, 154);
+            this.checkedListBoxPackages.TabIndex = 11;
+            // 
             // ManageContentPackages
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(515, 277);
+            this.ClientSize = new System.Drawing.Size(399, 277);
+            this.Controls.Add(this.checkedListBoxPackages);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonSaveAndClose);
@@ -146,9 +124,6 @@
             this.Controls.Add(this.labelContentPackageDescription);
             this.Controls.Add(this.labelContentPackageName);
             this.Controls.Add(this.textBoxContentPackageName);
-            this.Controls.Add(this.buttonRemoveContentPackage);
-            this.Controls.Add(this.buttonAddContentPackage);
-            this.Controls.Add(this.listBoxContentPackages);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -163,9 +138,6 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBoxContentPackages;
-        private System.Windows.Forms.Button buttonAddContentPackage;
-        private System.Windows.Forms.Button buttonRemoveContentPackage;
         private System.Windows.Forms.TextBox textBoxContentPackageName;
         private System.Windows.Forms.Label labelContentPackageName;
         private System.Windows.Forms.Label labelContentPackageDescription;
@@ -174,5 +146,6 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.CheckedListBox checkedListBoxPackages;
     }
 }

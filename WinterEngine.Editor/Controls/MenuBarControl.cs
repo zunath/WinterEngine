@@ -16,7 +16,7 @@ namespace WinterEngine.Editor.Controls
         private ExportERF _exportERF;
         private ImportERF _importERF;
         private ModuleProperties _moduleProperties;
-        private WinterModuleFactory _activeModuleFactory;
+        private ModuleFactory _activeModuleFactory;
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace WinterEngine.Editor.Controls
         /// <summary>
         /// Gets or sets the active module object used by this form.
         /// </summary>
-        private WinterModuleFactory ActiveModuleFactory
+        private ModuleFactory ActiveModuleFactory
         {
             get { return _activeModuleFactory; }
             set { _activeModuleFactory = value; }
@@ -39,7 +39,7 @@ namespace WinterEngine.Editor.Controls
         {
             InitializeComponent();
 
-            ActiveModuleFactory = new WinterModuleFactory("", "", OnModuleOpened, OnModuleSaved, OnModuleClosed);
+            ActiveModuleFactory = new ModuleFactory("", "", OnModuleOpened, OnModuleSaved, OnModuleClosed);
 
             FileExtensionFactory winterExtensions = new FileExtensionFactory();
             string fileExtension = winterExtensions.GetFileExtension(FileTypeEnum.Module);

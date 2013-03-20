@@ -13,7 +13,7 @@ using WinterEngine.Library.Utility;
 
 namespace WinterEngine.Library.Factories
 {
-    public class WinterModuleFactory
+    public class ModuleFactory
     {
         #region Fields
 
@@ -72,7 +72,7 @@ namespace WinterEngine.Library.Factories
         /// Be sure to set the ModuleOpened, ModuleSaved, and ModuleClosed delegates
         /// or you will get a null reference exception.
         /// </summary>
-        public WinterModuleFactory(string moduleName, string moduleTag)
+        public ModuleFactory(string moduleName, string moduleTag)
         {
             ModuleName = moduleName;
             ModuleTag = moduleTag;
@@ -84,7 +84,7 @@ namespace WinterEngine.Library.Factories
         /// <param name="OnModuleOpened">The method to fire when the module is opened/</param>
         /// <param name="OnModuleSaved">The method to fire when the module is saved.</param>
         /// <param name="OnModuleClosed">The method to fire when the module is closed.</param>
-        public WinterModuleFactory(string moduleName, string moduleTag, ModuleOpened OnModuleOpened, ModuleSaved OnModuleSaved, ModuleClosed OnModuleClosed)
+        public ModuleFactory(string moduleName, string moduleTag, ModuleOpened OnModuleOpened, ModuleSaved OnModuleSaved, ModuleClosed OnModuleClosed)
         {
             ModuleName = moduleName;
             ModuleTag = moduleTag;
@@ -285,7 +285,7 @@ namespace WinterEngine.Library.Factories
                 zipFile.ExtractAll(TemporaryDirectoryPath);
             }
             
-            WinterFileHelper fileHelper = new WinterFileHelper();
+            FileHelper fileHelper = new FileHelper();
             string databaseFilePath = fileHelper.GetDatabaseFileInDirectory(TemporaryDirectoryPath);
 
             // Change the database connection to the file located in the extracted module folder.

@@ -6,8 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Resources;
 using WinterEngine.Library.Factories;
+using WinterEngine.Library.Utility;
 
 namespace WinterEngine.Editor.Forms
 {
@@ -53,31 +55,6 @@ namespace WinterEngine.Editor.Forms
             InitializeFilters();
             LoadContentPackages();
             IsModified = false;
-        }
-
-        /// <summary>
-        /// Prompts user to select a new content package to add to the module.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonAddContentPackage_Click(object sender, EventArgs e)
-        {
-            openFileDialog.ShowDialog();
-        }
-
-        /// <summary>
-        /// Removes the selected Content Package from the module.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonRemoveContentPackage_Click(object sender, EventArgs e)
-        {
-            ContentPackage package = listBoxContentPackages.SelectedItem as ContentPackage;
-
-            if (!Object.ReferenceEquals(package, null))
-            {
-                listBoxContentPackages.Items.Remove(package);
-            }
         }
 
         /// <summary>
