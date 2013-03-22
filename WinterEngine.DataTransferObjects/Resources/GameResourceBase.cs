@@ -79,6 +79,18 @@ namespace WinterEngine.DataTransferObjects.Resources
 
         #region Overrides
 
+        public override string ToString()
+        {
+            if (!String.IsNullOrWhiteSpace(VisibleName))
+            {
+                return VisibleName;
+            }
+            else
+            {
+                return base.ToString();
+            }
+        }
+
         #endregion
 
     }

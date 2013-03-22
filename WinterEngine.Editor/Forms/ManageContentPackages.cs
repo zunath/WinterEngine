@@ -10,6 +10,10 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Resources;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Utility;
+using FlatRedBall;
+using FlatRedBall.IO;
+using WinterEngine.Editor.Services;
+using System.IO;
 
 namespace WinterEngine.Editor.Forms
 {
@@ -140,6 +144,21 @@ namespace WinterEngine.Editor.Forms
         /// </summary>
         private void LoadContentPackages()
         {
+            string directory = FileManager.RelativeDirectory + @"Content/" + WinterEditorServices.ContentPackagesDirectoryName;
+
+            FileExtensionFactory factory = new FileExtensionFactory();
+            List<string> files = FileManager.GetAllFilesInDirectory(directory, factory.GetFileExtension(FileTypeEnum.ContentPackage));
+            List<ContentPackage> contentPackages = new List<ContentPackage>();
+
+            foreach (string currentFile in files)
+            {
+                ContentPackage package = new ContentPackage();
+                package.ContentPackagePath = currentFile;
+                package.VisibleName = Path.GetFileNameWithoutExtension(currentFile);
+                contentPackages.Add(package);
+            }
+
+            checkedListBoxPackages.Items.AddRange(contentPackages.ToArray());
         }
 
         #endregion

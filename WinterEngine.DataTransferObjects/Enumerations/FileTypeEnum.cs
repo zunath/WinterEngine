@@ -12,8 +12,8 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         Invalid = 0,          // Invalid file type
         [Description("Module File")]
         Module = 1,           // .wmod - Contains database file(s)
-        [Description("Hakpak File")]
-        Hakpak = 2,           // .whak - Contains end-user's custom models, textures, etc
+        [Description("Content Package File")]
+        ContentPackage = 2,   // .cpak - Contains end-user's custom graphics, sounds, etc
         [Description("Encapsulated Resource File")]
         Erf = 3,              // .werf - Contains data for individual objects that may be imported to other modules
         [Description("Winter Resource File")]

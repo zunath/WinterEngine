@@ -128,7 +128,7 @@ namespace WinterEngine.Hakpak.Builder
             }
 
             FileExtensionFactory extensions = new FileExtensionFactory();
-            string fileExtension = extensions.GetFileExtension(FileTypeEnum.Hakpak);
+            string fileExtension = extensions.GetFileExtension(FileTypeEnum.ContentPackage);
             saveFileDialog.Filter = "Hakpak Files (*" + fileExtension + ")|*" + fileExtension;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)

@@ -18,9 +18,9 @@ namespace WinterEngine.Library.Factories
         {
             switch (fileType)
             {
-                // Contains end-user's custom models, textures, etc
-                case FileTypeEnum.Hakpak:
-                    return ".whak";
+                // Contains end-user's custom graphics, sounds, etc
+                case FileTypeEnum.ContentPackage:
+                    return ".cpak";
                 // Contains database information specific to an end-user's module
                 case FileTypeEnum.Module:
                     return ".wmod";
@@ -57,8 +57,8 @@ namespace WinterEngine.Library.Factories
         {
             switch (fileExtension)
             {
-                case ".whak":
-                    return FileTypeEnum.Hakpak;
+                case ".cpak":
+                    return FileTypeEnum.ContentPackage;
                 case ".wmod":
                     return FileTypeEnum.Module;
                 case ".werf":
@@ -108,7 +108,7 @@ namespace WinterEngine.Library.Factories
         /// <returns></returns>
         public string BuildContentPackageFileFilter()
         {
-            string filter = "All Available Types|*" + GetFileExtension(FileTypeEnum.Hakpak);
+            string filter = "All Available Types|*" + GetFileExtension(FileTypeEnum.ContentPackage);
             return filter;
         }
 
