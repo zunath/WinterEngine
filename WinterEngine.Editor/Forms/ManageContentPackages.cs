@@ -14,6 +14,7 @@ using FlatRedBall;
 using FlatRedBall.IO;
 using WinterEngine.Editor.Services;
 using System.IO;
+using WinterEngine.DataAccess.Repositories;
 
 namespace WinterEngine.Editor.Forms
 {
@@ -62,17 +63,6 @@ namespace WinterEngine.Editor.Forms
         }
 
         /// <summary>
-        /// Saves the content packages to the database.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonSave_Click(object sender, EventArgs e)
-        {
-            SaveContentPackages();
-            IsModified = false;
-        }
-
-        /// <summary>
         /// Saves changes to the database and closes the form.
         /// </summary>
         /// <param name="sender"></param>
@@ -81,7 +71,13 @@ namespace WinterEngine.Editor.Forms
         {
             if (IsModified)
             {
-                SaveContentPackages();
+                DialogResult result = MessageBox.Show("You are about to change the list of content packages used by this module. Doing this carries the risk of causing the game and/or editor to behave incorrectly or crash.\n\nAre you sure you want to proceed with this action?", 
+                    "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    SaveContentPackages();
+                    this.Close();
+                }
             }
             else
             {
@@ -98,7 +94,7 @@ namespace WinterEngine.Editor.Forms
         {
             if (IsModified)
             {
-                DialogResult result = MessageBox.Show("Save before closing?", "There are pending changes which have not been saved. Would you like to save them now?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("There are pending changes which have not been saved. Would you like to save them now?", "Save before closing?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     SaveContentPackages();
@@ -115,6 +111,16 @@ namespace WinterEngine.Editor.Forms
             }
         }
 
+        /// <summary>
+        /// Marks the form as being modified.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkedListBoxPackages_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            IsModified = true;
+        }
+
         #endregion
 
         #region Methods
@@ -125,6 +131,18 @@ namespace WinterEngine.Editor.Forms
         private bool SaveContentPackages()
         {
             bool saveCompleted = false;
+
+            List<ContentPackage> contentPackages = new List<ContentPackage>();
+
+            foreach (ContentPackage package in checkedListBoxPackages.Items)
+            {
+                contentPackages.Add(package);
+            }
+
+            using (ContentPackageRepository repo = new ContentPackageRepository())
+            {
+                repo.ReplaceAll(contentPackages);
+            }
 
             return saveCompleted;
         }
@@ -162,6 +180,7 @@ namespace WinterEngine.Editor.Forms
         }
 
         #endregion
+
 
     }
 }

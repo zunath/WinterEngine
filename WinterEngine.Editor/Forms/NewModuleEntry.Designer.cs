@@ -100,7 +100,7 @@
             this.tagTextBoxEntry.IsValid = false;
             this.tagTextBoxEntry.Location = new System.Drawing.Point(75, 84);
             this.tagTextBoxEntry.Name = "tagTextBoxEntry";
-            this.tagTextBoxEntry.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxEntry.ResourceType = WinterEngine.DataTransferObjects.Enumerations.GameObjectTypeEnum.Area;
             this.tagTextBoxEntry.Size = new System.Drawing.Size(247, 28);
             this.tagTextBoxEntry.TabIndex = 4;
             this.tagTextBoxEntry.TagText = "";

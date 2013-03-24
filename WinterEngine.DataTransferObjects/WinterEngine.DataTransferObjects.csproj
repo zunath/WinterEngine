@@ -79,6 +79,7 @@
     <Compile Include="Enumerations\ItemPartEnum.cs" />
     <Compile Include="Enumerations\MappingEnum.cs" />
     <Compile Include="Enumerations\PVPTypeEnum.cs" />
+    <Compile Include="Enumerations\ResourceTypeEnum.cs" />
     <Compile Include="Enumerations\SpriteSheetTypeEnum.cs" />
     <Compile Include="Enumerations\TilesetEditorModeTypeEnum.cs" />
     <Compile Include="EventArgsExtended\GameObjectEventArgs.cs" />
@@ -97,7 +98,7 @@
     <Compile Include="GameObjects\Creature.cs" />
     <Compile Include="Enumerations\FileTypeEnum.cs" />
     <Compile Include="Enumerations\ObjectTreeTypeEnum.cs" />
-    <Compile Include="Enumerations\ResourceTypeEnum.cs" />
+    <Compile Include="Enumerations\GameObjectTypeEnum.cs" />
     <Compile Include="GameObjects\GameObjectBase.cs" />
     <Compile Include="GameObjects\Item.cs" />
     <Compile Include="Resources\ItemProperty.cs" />

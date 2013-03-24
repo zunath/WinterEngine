@@ -158,7 +158,7 @@
             this.tagTextBoxPlaceable.IsValid = true;
             this.tagTextBoxPlaceable.Location = new System.Drawing.Point(81, 86);
             this.tagTextBoxPlaceable.Name = "tagTextBoxPlaceable";
-            this.tagTextBoxPlaceable.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxPlaceable.ResourceType = WinterEngine.DataTransferObjects.Enumerations.GameObjectTypeEnum.Area;
             this.tagTextBoxPlaceable.Size = new System.Drawing.Size(216, 28);
             this.tagTextBoxPlaceable.TabIndex = 10;
             this.tagTextBoxPlaceable.TagText = "";
@@ -171,7 +171,7 @@
             this.resrefTextBoxPlaceable.IsValid = false;
             this.resrefTextBoxPlaceable.Location = new System.Drawing.Point(81, 112);
             this.resrefTextBoxPlaceable.Name = "resrefTextBoxPlaceable";
-            this.resrefTextBoxPlaceable.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.resrefTextBoxPlaceable.ResourceType = WinterEngine.DataTransferObjects.Enumerations.GameObjectTypeEnum.Area;
             this.resrefTextBoxPlaceable.ResrefText = "";
             this.resrefTextBoxPlaceable.Size = new System.Drawing.Size(216, 28);
             this.resrefTextBoxPlaceable.TabIndex = 9;

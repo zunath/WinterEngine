@@ -104,7 +104,7 @@ namespace WinterEngine.ERF
             {
                 foreach (GameObjectBase gameObject in FullList)
                 {
-                    gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.ResourceType).ResourceID;
+                    gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.GameObjectType).ResourceID;
                 }
             }
 
@@ -173,7 +173,7 @@ namespace WinterEngine.ERF
                         foreach (GameObjectBase gameObject in DuplicateList)
                         {
                             // Update the game object's TemporaryDisplayName so that the list view shows it properly
-                            string resourceTypeName = EnumerationHelper.GetEnumerationDescription(gameObject.ResourceType);
+                            string resourceTypeName = EnumerationHelper.GetEnumerationDescription(gameObject.GameObjectType);
                             gameObject.TemporaryDisplayName = resourceTypeName + "/" + gameObject.Name + " (" + gameObject.Resref + ")";
 
                             listBoxResources.Items.Add(gameObject);
@@ -260,7 +260,7 @@ namespace WinterEngine.ERF
             {
                 foreach (GameObjectBase gameObject in listBoxResources.SelectedItems)
                 {
-                    gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.ResourceType).ResourceID;
+                    gameObject.ResourceCategoryID = repo.GetUncategorizedCategory(gameObject.GameObjectType).ResourceID;
                     factory.UpdateInDatabase(gameObject);
                 }
             }

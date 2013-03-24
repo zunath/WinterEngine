@@ -27,7 +27,7 @@ namespace WinterEngine.Editor.Controls
 
         #region Fields
 
-        private ResourceTypeEnum _resourceTypeEnum;
+        private GameObjectTypeEnum _resourceTypeEnum;
         private GameObjectBase _activeGameObject;
         private TreeNode _activeTreeNode;
         
@@ -43,7 +43,7 @@ namespace WinterEngine.Editor.Controls
 
         [Description("The resource type to add the category to.")]
         [Browsable(true)]
-        public ResourceTypeEnum GameObjectResourceType
+        public GameObjectTypeEnum GameObjectResourceType
         {
             get { return _resourceTypeEnum; }
             set { _resourceTypeEnum = value; }
@@ -134,7 +134,7 @@ namespace WinterEngine.Editor.Controls
                 {
                     Category resourceCategory = new Category();
                     resourceCategory.VisibleName = inputText;
-                    resourceCategory.ResourceTypeID = (int)GameObjectResourceType;
+                    resourceCategory.GameObjectType = GameObjectResourceType;
 
                     repo.Add(resourceCategory);
                     RefreshTreeView();

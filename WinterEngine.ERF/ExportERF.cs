@@ -169,7 +169,7 @@ namespace WinterEngine.ERF
                     GameObjectBase addedGameObject = addedObject as GameObjectBase;
 
                     // Resrefs must be unique to individual resource types. It's OK if an area has the same resref as a creature.
-                    if (addedGameObject.Resref == selectedGameObject.Resref && addedGameObject.ResourceType == selectedGameObject.ResourceType)
+                    if (addedGameObject.Resref == selectedGameObject.Resref && addedGameObject.GameObjectType == selectedGameObject.GameObjectType)
                     {
                         exists = true;
                         break;
@@ -223,10 +223,10 @@ namespace WinterEngine.ERF
         /// <param name="e"></param>
         private void ExportERF_Load(object sender, EventArgs e)
         {
-            comboBoxResourceType.Items.Add(new ERFResource(ResourceTypeEnum.Area));
-            comboBoxResourceType.Items.Add(new ERFResource(ResourceTypeEnum.Creature));
-            comboBoxResourceType.Items.Add(new ERFResource(ResourceTypeEnum.Item));
-            comboBoxResourceType.Items.Add(new ERFResource(ResourceTypeEnum.Placeable));
+            comboBoxResourceType.Items.Add(new ERFResource(GameObjectTypeEnum.Area));
+            comboBoxResourceType.Items.Add(new ERFResource(GameObjectTypeEnum.Creature));
+            comboBoxResourceType.Items.Add(new ERFResource(GameObjectTypeEnum.Item));
+            comboBoxResourceType.Items.Add(new ERFResource(GameObjectTypeEnum.Placeable));
             comboBoxResourceType.SelectedIndex = 0;
         }
 
@@ -251,7 +251,7 @@ namespace WinterEngine.ERF
             {
                 foreach (GameObjectBase currentGameObject in gameObjects)
                 {
-                    string resourceTypeName = EnumerationHelper.GetEnumerationDescription(currentGameObject.ResourceType);
+                    string resourceTypeName = EnumerationHelper.GetEnumerationDescription(currentGameObject.GameObjectType);
                     string categoryName = repo.GetByResourceCategoryID(currentGameObject.ResourceCategoryID).VisibleName;
                     currentGameObject.TemporaryDisplayName = resourceTypeName + "/" + categoryName + "/" + currentGameObject.Name + " (" + currentGameObject.Resref + ")";
                     listBoxAvailable.Items.Add(currentGameObject);

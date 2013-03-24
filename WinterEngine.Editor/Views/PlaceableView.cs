@@ -155,7 +155,7 @@ namespace WinterEngine.Editor.Views
 
             PlaceableProperties.BorderStyle = BorderStyle.None;
             TreeCategory.BorderStyle = BorderStyle.None;
-            TreeCategory.GameObjectResourceType = ResourceTypeEnum.Placeable;
+            TreeCategory.GameObjectResourceType = GameObjectTypeEnum.Placeable;
 
             TreeCategory.Enabled = false;
             PlaceableProperties.Enabled = false;

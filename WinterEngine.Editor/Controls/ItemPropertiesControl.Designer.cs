@@ -277,7 +277,7 @@
             this.resrefTextBoxItem.IsValid = false;
             this.resrefTextBoxItem.Location = new System.Drawing.Point(81, 112);
             this.resrefTextBoxItem.Name = "resrefTextBoxItem";
-            this.resrefTextBoxItem.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.resrefTextBoxItem.ResourceType = WinterEngine.DataTransferObjects.Enumerations.GameObjectTypeEnum.Area;
             this.resrefTextBoxItem.ResrefText = "";
             this.resrefTextBoxItem.Size = new System.Drawing.Size(216, 28);
             this.resrefTextBoxItem.TabIndex = 15;
@@ -289,7 +289,7 @@
             this.tagTextBoxItem.IsValid = true;
             this.tagTextBoxItem.Location = new System.Drawing.Point(81, 86);
             this.tagTextBoxItem.Name = "tagTextBoxItem";
-            this.tagTextBoxItem.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxItem.ResourceType = WinterEngine.DataTransferObjects.Enumerations.GameObjectTypeEnum.Area;
             this.tagTextBoxItem.Size = new System.Drawing.Size(216, 28);
             this.tagTextBoxItem.TabIndex = 14;
             this.tagTextBoxItem.TagText = "";

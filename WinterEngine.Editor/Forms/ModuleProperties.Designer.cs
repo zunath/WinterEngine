@@ -130,7 +130,7 @@
             this.tagTextBoxModule.IsValid = false;
             this.tagTextBoxModule.Location = new System.Drawing.Point(64, 85);
             this.tagTextBoxModule.Name = "tagTextBoxModule";
-            this.tagTextBoxModule.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxModule.ResourceType = WinterEngine.DataTransferObjects.Enumerations.GameObjectTypeEnum.Area;
             this.tagTextBoxModule.Size = new System.Drawing.Size(220, 28);
             this.tagTextBoxModule.TabIndex = 2;
             this.tagTextBoxModule.TagText = "";

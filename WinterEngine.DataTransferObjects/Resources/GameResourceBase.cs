@@ -14,7 +14,7 @@ namespace WinterEngine.DataTransferObjects.Resources
         #region Fields
 
         private int _resourceID;
-        private int _resourceTypeID;
+        private ResourceTypeEnum _resourceType;
         private string _visibleName;
         private string _comment;
         private bool _isSystemResource;
@@ -48,8 +48,23 @@ namespace WinterEngine.DataTransferObjects.Resources
         /// </summary>
         public int ResourceTypeID
         {
-            get { return _resourceTypeID; }
-            set { _resourceTypeID = value; }
+            get { return (int)_resourceType; }
+            set
+            {
+                _resourceType = (ResourceTypeEnum)Enum.Parse(typeof(ResourceTypeEnum), Convert.ToString(value));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the resource type of this object
+        /// </summary>
+        [NotMapped]
+        public ResourceTypeEnum ResourceType
+        {
+            // NOTE: XNA requires that .NET 4.0 be used. Entity Framework does not support storing enumerations in the database for versions less than 5.0
+            // This field is not mapped to EF to prevent issues later on if the solution is upgraded to a later version of .NET
+            get { return _resourceType; }
+            set { _resourceType = value; }
         }
 
         /// <summary>

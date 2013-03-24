@@ -11,8 +11,18 @@ namespace WinterEngine.DataAccess.Repositories
     {
         #region Constructors
 
-        #endregion
+        public ContentPackageRepository(string connectionString = "")
+        {
+            if (String.IsNullOrWhiteSpace(connectionString))
+            {
+                connectionString = WinterConnectionInformation.ActiveConnectionString;
+            }
+            ConnectionString = connectionString;
+            
+        }
 
+        #endregion
+        
         #region Methods
 
         /// <summary>
@@ -155,7 +165,11 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public bool Exists(ContentPackage package)
         {
-            return false;
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                ContentPackage dbPackage = context.ContentPackages.FirstOrDefault(c => c.ResourceID.Equals(package.ResourceID));
+                return !Object.ReferenceEquals(dbPackage, null);
+            }
         }
 
         /// <summary>
@@ -166,7 +180,39 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public ContentPackage GetByID(int packageID)
         {
-            return new ContentPackage();
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                return context.ContentPackages.FirstOrDefault(x => x.ResourceID == packageID);
+            }
+        }
+
+        /// <summary>
+        /// Deletes all entries for existing content packages and inserts the specified list of content packages to the database.
+        /// </summary>
+        /// <param name="contentPackages"></param>
+        public void ReplaceAll(List<ContentPackage> contentPackages)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                // Remove existing packages
+                var query = from package
+                            in context.ContentPackages
+                            select package;
+                List<ContentPackage> removedContentPackages = query.ToList();
+
+                foreach (ContentPackage package in removedContentPackages)
+                {
+                    context.ContentPackages.Remove(package);
+                }
+
+                // Add the new set of packages
+                foreach (ContentPackage package in contentPackages)
+                {
+                    context.ContentPackages.Add(package);
+                }
+
+                context.SaveChanges();
+            }
         }
 
         public void Dispose()

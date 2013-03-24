@@ -34,7 +34,6 @@
             this.textBoxContentPackageDescription = new System.Windows.Forms.TextBox();
             this.buttonSaveAndClose = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.checkedListBoxPackages = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
@@ -93,16 +92,6 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
-            // buttonSave
-            // 
-            this.buttonSave.Location = new System.Drawing.Point(15, 242);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(121, 23);
-            this.buttonSave.TabIndex = 10;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
             // checkedListBoxPackages
             // 
             this.checkedListBoxPackages.FormattingEnabled = true;
@@ -110,6 +99,7 @@
             this.checkedListBoxPackages.Name = "checkedListBoxPackages";
             this.checkedListBoxPackages.Size = new System.Drawing.Size(366, 154);
             this.checkedListBoxPackages.TabIndex = 11;
+            this.checkedListBoxPackages.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxPackages_ItemCheck);
             // 
             // ManageContentPackages
             // 
@@ -117,7 +107,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(399, 277);
             this.Controls.Add(this.checkedListBoxPackages);
-            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonSaveAndClose);
             this.Controls.Add(this.textBoxContentPackageDescription);
@@ -144,7 +133,6 @@
         private System.Windows.Forms.TextBox textBoxContentPackageDescription;
         private System.Windows.Forms.Button buttonSaveAndClose;
         private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.CheckedListBox checkedListBoxPackages;
     }

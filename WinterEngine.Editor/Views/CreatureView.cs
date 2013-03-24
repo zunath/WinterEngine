@@ -155,7 +155,7 @@ namespace WinterEngine.Editor.Views
 
             CreatureProperties.BorderStyle = BorderStyle.None;
             TreeCategory.BorderStyle = BorderStyle.None;
-            TreeCategory.GameObjectResourceType = ResourceTypeEnum.Creature;
+            TreeCategory.GameObjectResourceType = GameObjectTypeEnum.Creature;
 
             TreeCategory.Enabled = false;
             CreatureProperties.Enabled = false;

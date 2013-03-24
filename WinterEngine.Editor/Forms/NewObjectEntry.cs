@@ -14,14 +14,14 @@ namespace WinterEngine.Editor.Forms
     {
         #region Fields
         
-        private ResourceTypeEnum _resourceType;
+        private GameObjectTypeEnum _resourceType;
         private Category _resourceCategory;
         
         #endregion
 
         #region Properties
         
-        public ResourceTypeEnum ResourceType
+        public GameObjectTypeEnum ResourceType
         {
             get { return _resourceType; }
             set 
@@ -39,7 +39,7 @@ namespace WinterEngine.Editor.Forms
         #endregion
 
         #region Constructors
-        public NewObjectEntry(ResourceTypeEnum resourceType, Category resourceCategory)
+        public NewObjectEntry(GameObjectTypeEnum resourceType, Category resourceCategory)
         {
             InitializeComponent();
             this.ResourceType = resourceType;
@@ -74,7 +74,7 @@ namespace WinterEngine.Editor.Forms
                     winterObject.Tag = tagTextBoxEntry.TagText;
                     winterObject.Resref = resrefTextBoxEntry.ResrefText;
                     winterObject.ResourceCategoryID = ResourceCategory.ResourceID;
-                    winterObject.ResourceType = ResourceType;
+                    winterObject.GameObjectType = ResourceType;
 
                     // Add it to the database.
                     factory.AddToDatabase(winterObject);

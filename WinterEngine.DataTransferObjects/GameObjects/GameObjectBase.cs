@@ -16,7 +16,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         private string _name;
         private string _tag;
         private string _resref;
-        private ResourceTypeEnum _resourceType;
+        private GameObjectTypeEnum _gameObjectType;
         private int _resourceCategoryID;
         private string _comment;
 
@@ -71,15 +71,15 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         }
 
         /// <summary>
-        /// ResourceTypeEnum in int format. This is done so that Entity Framework can store the value in the database correctly.
+        /// GameObjectTypeEnum in int format. This is done so that Entity Framework can store the value in the database correctly.
         /// It is not recommended to use this property in regular code.
         /// </summary>
-        public int ResourceTypeID
+        public int GameObjectTypeID
         {
-            get { return (int)_resourceType; }
+            get { return (int)_gameObjectType; }
             set 
             {
-                _resourceType = (ResourceTypeEnum)Enum.Parse(typeof(ResourceTypeEnum), Convert.ToString(value));
+                _gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), Convert.ToString(value));
             }
         }
 
@@ -87,12 +87,12 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         /// Gets or sets the resource type ID for this object.
         /// </summary>
         [NotMapped]
-        public ResourceTypeEnum ResourceType
+        public GameObjectTypeEnum GameObjectType
         {
             // NOTE: XNA requires that .NET 4.0 be used. Entity Framework does not support storing enumerations in the database for versions less than 5.0
             // This field is not mapped to EF to prevent issues later on if the solution is upgraded to a later version of .NET
-            get { return _resourceType; }
-            set { _resourceType = value; }
+            get { return _gameObjectType; }
+            set { _gameObjectType = value; }
         }
 
         /// <summary>

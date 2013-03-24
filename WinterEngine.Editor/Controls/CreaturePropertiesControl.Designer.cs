@@ -118,7 +118,7 @@
             this.resrefTextBoxCreature.IsValid = false;
             this.resrefTextBoxCreature.Location = new System.Drawing.Point(81, 112);
             this.resrefTextBoxCreature.Name = "resrefTextBoxCreature";
-            this.resrefTextBoxCreature.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.resrefTextBoxCreature.ResourceType = WinterEngine.DataTransferObjects.Enumerations.GameObjectTypeEnum.Area;
             this.resrefTextBoxCreature.ResrefText = "";
             this.resrefTextBoxCreature.Size = new System.Drawing.Size(216, 28);
             this.resrefTextBoxCreature.TabIndex = 18;
@@ -130,7 +130,7 @@
             this.tagTextBoxCreature.IsValid = true;
             this.tagTextBoxCreature.Location = new System.Drawing.Point(81, 86);
             this.tagTextBoxCreature.Name = "tagTextBoxCreature";
-            this.tagTextBoxCreature.ResourceType = WinterEngine.DataTransferObjects.Enumerations.ResourceTypeEnum.Area;
+            this.tagTextBoxCreature.ResourceType = WinterEngine.DataTransferObjects.Enumerations.GameObjectTypeEnum.Area;
             this.tagTextBoxCreature.Size = new System.Drawing.Size(216, 28);
             this.tagTextBoxCreature.TabIndex = 17;
             this.tagTextBoxCreature.TagText = "";

@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
 
 namespace WinterEngine.DataTransferObjects.Enumerations
 {
-    /// <summary>
-    /// Used by the custom User Controls. Refer to the values in the database for everything else.
-    /// </summary>
     public enum ResourceTypeEnum
     {
-        [Description("Areas")]
-        Area = 1,
-        [Description("Creatures")]
-        Creature = 2,
-        [Description("Placeables")]
-        Placeable = 3,
-        [Description("Conversations")]
-        Conversation = 4,
-        [Description("Scripts")]
-        Script = 5,
-        [Description("Items")]
-        Item = 6
+        [Description("ContentPackages")]
+        ContentPackage = 1,
+        [Description("Abilities")]
+        Ability = 2,
+        [Description("Categories")]
+        Category = 3,
+        [Description("CharacterClasses")]
+        CharacterClass = 4,
+        [Description("ItemProperties")]
+        ItemProperty = 5,
+        [Description("Races")]
+        Race = 6
     }
 }

@@ -55,7 +55,7 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceType">The type of resources to get.</param>
         /// <returns></returns>
-        public List<Category> GetAllResourceCategoriesByResourceType(ResourceTypeEnum resourceType)
+        public List<Category> GetAllResourceCategoriesByResourceType(GameObjectTypeEnum resourceType)
         {
             List<Category> categoryList = new List<Category>();
 
@@ -63,7 +63,7 @@ namespace WinterEngine.DataAccess
             {
                 var query = from resourceCategory
                             in context.ResourceCategories
-                            where resourceCategory.ResourceTypeID.Equals((int)resourceType)
+                            where resourceCategory.GameObjectTypeID.Equals((int)resourceType)
                             select resourceCategory;
 
                 categoryList = query.ToList<Category>();
@@ -209,13 +209,13 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceType">The type of resource to look for.</param>
         /// <returns></returns>
-        public Category GetUncategorizedCategory(ResourceTypeEnum resourceType)
+        public Category GetUncategorizedCategory(GameObjectTypeEnum resourceType)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from category
                             in context.ResourceCategories
-                            where category.IsSystemResource == true && category.ResourceTypeID == (int)resourceType
+                            where category.IsSystemResource == true && category.GameObjectType == resourceType
                             select category;
                 return query.ToList()[0];
             }

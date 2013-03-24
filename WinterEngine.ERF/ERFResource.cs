@@ -10,7 +10,7 @@ namespace WinterEngine.ERF
     {
         #region Fields
 
-        private ResourceTypeEnum _resourceType;
+        private GameObjectTypeEnum _resourceType;
 
         #endregion
 
@@ -19,7 +19,7 @@ namespace WinterEngine.ERF
         /// <summary>
         /// Gets or sets the resource type of an ERF Resource.
         /// </summary>
-        public ResourceTypeEnum ResourceType
+        public GameObjectTypeEnum ResourceType
         {
             get { return _resourceType; }
             set { _resourceType = value; }
@@ -29,7 +29,7 @@ namespace WinterEngine.ERF
 
         #region Constructors
 
-        public ERFResource(ResourceTypeEnum resourceType)
+        public ERFResource(GameObjectTypeEnum resourceType)
         {
             this.ResourceType = resourceType;
         }

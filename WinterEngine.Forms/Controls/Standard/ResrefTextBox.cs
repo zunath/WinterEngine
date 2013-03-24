@@ -11,7 +11,7 @@ namespace WinterEngine.Forms.Controls.Standard
         #region Fields
 
         private bool _isValid;
-        private ResourceTypeEnum _resourceType = ResourceTypeEnum.Area;
+        private GameObjectTypeEnum _resourceType = GameObjectTypeEnum.Area;
 
         #endregion
 
@@ -38,7 +38,7 @@ namespace WinterEngine.Forms.Controls.Standard
         /// <summary>
         /// Gets or sets the resource type for this text box.
         /// </summary>
-        public ResourceTypeEnum ResourceType
+        public GameObjectTypeEnum ResourceType
         {
             get { return _resourceType; }
             set { _resourceType = value; }

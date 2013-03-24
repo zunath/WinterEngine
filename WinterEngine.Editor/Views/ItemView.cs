@@ -155,7 +155,7 @@ namespace WinterEngine.Editor.Views
 
             ItemProperties.BorderStyle = BorderStyle.None;
             TreeCategory.BorderStyle = BorderStyle.None;
-            TreeCategory.GameObjectResourceType = ResourceTypeEnum.Item;
+            TreeCategory.GameObjectResourceType = GameObjectTypeEnum.Item;
 
             TreeCategory.Enabled = false;
             ItemProperties.Enabled = false;

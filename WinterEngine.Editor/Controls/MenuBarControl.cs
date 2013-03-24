@@ -38,6 +38,7 @@ namespace WinterEngine.Editor.Controls
         public MenuBarControl()
         {
             InitializeComponent();
+            ToggleModuleControlsEnabled(false);
 
             ActiveModuleFactory = new ModuleFactory("", "", OnModuleOpened, OnModuleSaved, OnModuleClosed);
 
@@ -133,6 +134,7 @@ namespace WinterEngine.Editor.Controls
             toolStripMenuItemCut.Enabled = enabled;
             toolStripMenuItemPaste.Enabled = enabled;
             toolStripMenuItemModuleProperties.Enabled = enabled;
+            toolStripMenuItemManageContentPackages.Enabled = enabled;
             toolStripMenuItemManageContentPackages.Enabled = enabled;
 
             if (!Object.ReferenceEquals(OnToggleControls, null))
@@ -325,7 +327,6 @@ namespace WinterEngine.Editor.Controls
         }
 
         #endregion
-
 
     }
 }
