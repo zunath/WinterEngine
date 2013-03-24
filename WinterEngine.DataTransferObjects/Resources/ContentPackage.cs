@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -12,6 +14,7 @@ namespace WinterEngine.DataTransferObjects.Resources
         #region Fields
 
         private string _contentPackagePath;
+        private string _fileName;
 
         #endregion
 
@@ -26,6 +29,16 @@ namespace WinterEngine.DataTransferObjects.Resources
         {
             get { return _contentPackagePath; }
             set { _contentPackagePath = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the physical file. This excludes the path and the extension.
+        /// </summary>
+        [MaxLength(4000)]
+        public string FileName
+        {
+            get { return _fileName; }
+            set { _fileName = Path.GetFileNameWithoutExtension(value); }
         }
 
         #endregion

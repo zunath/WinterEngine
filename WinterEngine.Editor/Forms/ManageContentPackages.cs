@@ -15,6 +15,7 @@ using FlatRedBall.IO;
 using WinterEngine.Editor.Services;
 using System.IO;
 using WinterEngine.DataAccess.Repositories;
+using WinterEngine.FileAccess;
 
 namespace WinterEngine.Editor.Forms
 {
@@ -162,24 +163,30 @@ namespace WinterEngine.Editor.Forms
         /// </summary>
         private void LoadContentPackages()
         {
-            string directory = FileManager.RelativeDirectory + @"Content/" + WinterEditorServices.ContentPackagesDirectoryName;
-
             FileExtensionFactory factory = new FileExtensionFactory();
-            List<string> files = FileManager.GetAllFilesInDirectory(directory, factory.GetFileExtension(FileTypeEnum.ContentPackage));
-            List<ContentPackage> contentPackages = new List<ContentPackage>();
+            List<string> files = FileManager.GetAllFilesInDirectory(DirectoryPaths.ContentPackageDirectoryPath, factory.GetFileExtension(FileTypeEnum.ContentPackage));
 
-            foreach (string currentFile in files)
+            using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                ContentPackage package = new ContentPackage();
-                package.ContentPackagePath = currentFile;
-                package.VisibleName = Path.GetFileNameWithoutExtension(currentFile);
-                contentPackages.Add(package);
-            }
+                foreach (string currentFile in files)
+                {
+                    ContentPackage package = new ContentPackage();
+                    package.ContentPackagePath = currentFile;
+                    package.VisibleName = Path.GetFileNameWithoutExtension(currentFile);
+                    package.FileName = package.VisibleName;
 
-            checkedListBoxPackages.Items.AddRange(contentPackages.ToArray());
+                    int index = checkedListBoxPackages.Items.Add(package);
+                    if (repo.Exists(checkedListBoxPackages.Items[index] as ContentPackage))
+                    {
+                        checkedListBoxPackages.SetItemChecked(index, true);
+                    }
+
+                }
+            }
         }
 
         #endregion
+
 
 
     }

@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
-using Ionic.Zip;
-using Ionic.Zlib;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.FileAccess;
 using WinterEngine.Library.Utility;
 
-namespace WinterEngine.Library.Factories
+namespace WinterEngine.Editor.Managers
 {
-    public class ModuleFactory
+    public class ModuleManager
     {
         #region Fields
 
@@ -72,7 +72,7 @@ namespace WinterEngine.Library.Factories
         /// Be sure to set the ModuleOpened, ModuleSaved, and ModuleClosed delegates
         /// or you will get a null reference exception.
         /// </summary>
-        public ModuleFactory(string moduleName, string moduleTag)
+        public ModuleManager(string moduleName, string moduleTag)
         {
             ModuleName = moduleName;
             ModuleTag = moduleTag;
@@ -84,7 +84,7 @@ namespace WinterEngine.Library.Factories
         /// <param name="OnModuleOpened">The method to fire when the module is opened/</param>
         /// <param name="OnModuleSaved">The method to fire when the module is saved.</param>
         /// <param name="OnModuleClosed">The method to fire when the module is closed.</param>
-        public ModuleFactory(string moduleName, string moduleTag, ModuleOpened OnModuleOpened, ModuleSaved OnModuleSaved, ModuleClosed OnModuleClosed)
+        public ModuleManager(string moduleName, string moduleTag, ModuleOpened OnModuleOpened, ModuleSaved OnModuleSaved, ModuleClosed OnModuleClosed)
         {
             ModuleName = moduleName;
             ModuleTag = moduleTag;
@@ -246,17 +246,13 @@ namespace WinterEngine.Library.Factories
 
             File.Delete(ModulePath);
 
-            using (ZipFile zipFile = new ZipFile(ModulePath))
+            using (FileArchiveManager manager = new FileArchiveManager())
             {
-                // Change compression level to none (speeds up loading in-game and toolset)
-                // Add the directory and save the zip file.
-                zipFile.CompressionLevel = CompressionLevel.None;
-                zipFile.AddDirectory(TemporaryDirectoryPath, "");
-                zipFile.Save();
-
-                // Delete the backup since the new save was successful.
-                File.Delete(backupPath);
+                manager.ArchiveDirectory(TemporaryDirectoryPath, ModulePath);
             }
+
+            // Delete the backup since the new save was successful.
+            File.Delete(backupPath);
 
             _moduleSavedMethod();
         }
@@ -280,11 +276,11 @@ namespace WinterEngine.Library.Factories
             CreateTemporaryDirectory();
 
             // Extract all files contained in the module zip file to the temporary directory.
-            using (ZipFile zipFile = new ZipFile(ModulePath))
+            using (FileArchiveManager manager = new FileArchiveManager())
             {
-                zipFile.ExtractAll(TemporaryDirectoryPath);
+                manager.ExtractArchive(ModulePath, TemporaryDirectoryPath);
             }
-            
+
             FileHelper fileHelper = new FileHelper();
             string databaseFilePath = fileHelper.GetDatabaseFileInDirectory(TemporaryDirectoryPath);
 
@@ -294,7 +290,10 @@ namespace WinterEngine.Library.Factories
                 repo.ChangeDatabaseConnection(databaseFilePath);
             }
 
-            _moduleOpenedMethod();
+            if(CheckForMissingContentPackages())
+            {
+                _moduleOpenedMethod();
+            }
         }
 
         /// <summary>
@@ -313,6 +312,35 @@ namespace WinterEngine.Library.Factories
             this.TemporaryDirectoryPath = "";
 
             _moduleClosedMethod();
+        }
+
+        /// <summary>
+        /// Checks the ContentPackages directory for the required content packs that the module uses.
+        /// If any of them are missing, a pop-up window will display and this method will return false.
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckForMissingContentPackages()
+        {
+            bool success = true;
+            List<string> missingContentPackages = new List<string>();
+
+
+
+            if (!success)
+            {
+                string errorMessage = "Unable to locate the following content packages:\n\n";
+
+                foreach (string current in missingContentPackages)
+                {
+                    errorMessage += current + "\n";
+                }
+
+                errorMessage += "\nPlease place the missing content packages in the ContentPacks folder and try again.";
+
+                MessageBox.Show(errorMessage, "Missing Content Packages", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return success;
         }
 
         #endregion

@@ -88,3 +88,5 @@ C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.Library.
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\Ionic.Zip.xml
 C:\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Forms.ManageContentPackages.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Forms.ManageContentPackages.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.FileAccess.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.FileAccess.pdb

@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Editor.ExtendedEventArgs;
 using WinterEngine.Editor.Forms;
+using WinterEngine.Editor.Managers;
 using WinterEngine.ERF;
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Utility;
@@ -16,7 +17,7 @@ namespace WinterEngine.Editor.Controls
         private ExportERF _exportERF;
         private ImportERF _importERF;
         private ModuleProperties _moduleProperties;
-        private ModuleFactory _activeModuleFactory;
+        private ModuleManager _activeModuleFactory;
 
         #endregion
 
@@ -25,7 +26,7 @@ namespace WinterEngine.Editor.Controls
         /// <summary>
         /// Gets or sets the active module object used by this form.
         /// </summary>
-        private ModuleFactory ActiveModuleFactory
+        private ModuleManager ActiveModuleFactory
         {
             get { return _activeModuleFactory; }
             set { _activeModuleFactory = value; }
@@ -40,7 +41,7 @@ namespace WinterEngine.Editor.Controls
             InitializeComponent();
             ToggleModuleControlsEnabled(false);
 
-            ActiveModuleFactory = new ModuleFactory("", "", OnModuleOpened, OnModuleSaved, OnModuleClosed);
+            ActiveModuleFactory = new ModuleManager("", "", OnModuleOpened, OnModuleSaved, OnModuleClosed);
 
             FileExtensionFactory winterExtensions = new FileExtensionFactory();
             string fileExtension = winterExtensions.GetFileExtension(FileTypeEnum.Module);

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
-using WinterEngine.Library.Factories;
-using WinterEngine.Library.Utility;
 using WinterEngine.Editor.ExtendedEventArgs;
+using WinterEngine.Editor.Managers;
+using WinterEngine.Library.Utility;
 
 namespace WinterEngine.Editor.Forms
 {
@@ -45,7 +44,7 @@ namespace WinterEngine.Editor.Forms
             {
                 try
                 {
-                    ModuleFactory moduleFactory = new ModuleFactory(nameTextBoxEntry.NameText, tagTextBoxEntry.TagText);
+                    ModuleManager moduleFactory = new ModuleManager(nameTextBoxEntry.NameText, tagTextBoxEntry.TagText);
                     moduleFactory.CreateModule();
                     eventArgs.ModuleFactory = moduleFactory;
 

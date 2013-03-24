@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Ionic.Zip;
-using Ionic.Zlib;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Factories;
 
@@ -51,37 +49,6 @@ namespace WinterEngine.Library.Utility
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Internal class method to assist with common functionality among all file creation.
-        /// </summary>
-        /// <param name="inputDirectory">The directory to take files from.</param>
-        /// <param name="outputDirectory">The directory to create the file in.</param>
-        /// <param name="fileName">The name of the file without an extension</param>
-        /// <param name="fileType">The type of file to create.</param>
-        private bool CreateFileFromDirectory(string inputDirectory, string outputDirectory, string fileName, FileTypeEnum fileType, CompressionLevel compressionLevel)
-        {
-            FileExtensionFactory winterExtensions = new FileExtensionFactory();
-            bool success = true;
-            string filePath = outputDirectory + "\\" + fileName + winterExtensions.GetFileExtension(fileType);
-
-            try
-            {
-                using (ZipFile file = new ZipFile(filePath))
-                {
-                    file.CompressionLevel = compressionLevel;
-                    file.AddDirectory(inputDirectory);
-                    file.Save();
-                }
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                ErrorHelper.ShowErrorDialog("Error creating file from directory: " + filePath, ex);
-            }
-
-            return success;
-        }
 
         /// <summary>
         /// Finds and returns the path to the database file in a directory.

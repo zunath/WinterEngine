@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using WinterEngine.Library.Factories;
+using WinterEngine.Editor.Managers;
 
 namespace WinterEngine.Editor.ExtendedEventArgs
 {
     public class ModuleCreationEventArgs : EventArgs
     {
-        private ModuleFactory _moduleFactory;
+        private ModuleManager _moduleFactory;
 
         /// <summary>
         /// Gets or sets the module factory returned in the event args
         /// </summary>
-        public ModuleFactory ModuleFactory
+        public ModuleManager ModuleFactory
         {
             get { return _moduleFactory; }
             set { _moduleFactory = value; }

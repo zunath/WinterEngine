@@ -160,6 +160,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <summary>
         /// Returns true if a content package exists in the database.
         /// Returns false if a content package does not exist in the database.
+        /// The content package's FileName property is used to check.
         /// </summary>
         /// <param name="package"></param>
         /// <returns></returns>
@@ -167,8 +168,21 @@ namespace WinterEngine.DataAccess.Repositories
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                ContentPackage dbPackage = context.ContentPackages.FirstOrDefault(c => c.ResourceID.Equals(package.ResourceID));
-                return !Object.ReferenceEquals(dbPackage, null);
+                var query = from contentPackage
+                            in context.ContentPackages
+                            where contentPackage.FileName == package.FileName
+                            select contentPackage;
+
+                List<ContentPackage> dbPackageList = query.ToList();
+
+                if (dbPackageList.Count <= 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
         }
 

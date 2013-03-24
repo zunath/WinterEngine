@@ -53,9 +53,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ionic.Zip">
-      <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -75,10 +72,8 @@
   <ItemGroup>
     <Compile Include="ContentBuilder.cs" />
     <Compile Include="ErrorLogger.cs" />
-    <Compile Include="Factories\DirectoryPathFactory.cs" />
     <Compile Include="Factories\GameObjectFactory.cs" />
     <Compile Include="Factories\GameResourceFactory.cs" />
-    <Compile Include="Factories\ModuleFactory.cs" />
     <Compile Include="Utility\EnumerationHelper.cs" />
     <Compile Include="Utility\ErrorHelper.cs" />
     <Compile Include="Utility\FileHelper.cs" />
@@ -88,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WinterEngine.DataAccess\WinterEngine.DataAccess.csproj">

@@ -218,6 +218,7 @@
     <Compile Include="Controls\ObjectBar.Designer.cs">
       <DependentUpon>ObjectBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Managers\ModuleManager.cs" />
     <Compile Include="Performance\IPoolable.Generated.cs" />
     <Compile Include="Performance\PoolList.Generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -302,6 +303,10 @@
     <ProjectReference Include="..\WinterEngine.ERF\WinterEngine.ERF.csproj">
       <Project>{71c617b1-e588-4187-8773-c0b6ef4569a1}</Project>
       <Name>WinterEngine.ERF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.FileAccess\WinterEngine.FileAccess.csproj">
+      <Project>{4f45f9df-fa37-4f60-8ca5-34212f38d781}</Project>
+      <Name>WinterEngine.FileAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\WinterEngine.Forms\WinterEngine.Forms.csproj">
       <Project>{2891db47-3f02-4e70-be37-d272187438df}</Project>
