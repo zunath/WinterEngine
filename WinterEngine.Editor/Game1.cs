@@ -49,7 +49,7 @@ namespace WinterEngine.Editor
 			GlobalContent.Initialize();
 
 			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Editor.Screens.EditorScreen));
-
+            
             base.Initialize();
             Window.AllowUserResizing = true;
         }
@@ -71,6 +71,12 @@ namespace WinterEngine.Editor
             base.Draw(gameTime);
         }
 
+        protected override void OnExiting(object sender, EventArgs args)
+        {
+            base.OnExiting(sender, args);
+
+
+        }
 
     }
 }
