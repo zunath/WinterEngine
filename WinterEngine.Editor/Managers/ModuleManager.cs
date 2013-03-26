@@ -136,65 +136,6 @@ namespace WinterEngine.Editor.Managers
 
         #endregion
 
-        #region Helper methods
-
-        /// <summary>
-        /// Creates a unique temporary directory and sets this class's TemporaryDirectoryPath
-        /// to point to it.
-        /// </summary>
-        private void CreateTemporaryDirectory()
-        {
-            // Remove the existing temporary directory, if it exists.
-            if (Directory.Exists(TemporaryDirectoryPath))
-            {
-                Directory.Delete(TemporaryDirectoryPath, true);
-            }
-
-            TemporaryDirectoryPath = GenerateUniqueDirectoryID(Path.GetFullPath("./temp"));
-
-            // Create the temporary directory
-            Directory.CreateDirectory(TemporaryDirectoryPath);
-        }
-
-        /// <summary>
-        /// Returns a path name with a unique ID number attached to the end of the file.
-        /// This is used to prevent issues with copying/moving files.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        private string GenerateUniqueFileID(string path)
-        {
-            int index = 0;
-
-            while (File.Exists(path + index))
-            {
-                index++;
-            }
-
-            return path + index;
-        }
-
-
-        /// <summary>
-        /// Returns a path name with a unique ID number attached to the end of the file.
-        /// This is used to prevent issues with copying/moving directories.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        private string GenerateUniqueDirectoryID(string path)
-        {
-            int index = 0;
-
-            while (Directory.Exists(path + index))
-            {
-                index++;
-            }
-
-            return path + index;
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -205,8 +146,10 @@ namespace WinterEngine.Editor.Managers
         /// <param name="tempPath"></param>
         public void CreateModule()
         {
-            CreateTemporaryDirectory();
-
+            using(FileArchiveManager manager = new FileArchiveManager())
+            {
+                TemporaryDirectoryPath = manager.CreateUniqueDirectory();
+            }
             // Build a new database file and structure.
             using (DatabaseRepository repo = new DatabaseRepository())
             {
@@ -233,30 +176,29 @@ namespace WinterEngine.Editor.Managers
         /// <param name="path"></param>
         public void SaveModule(string path)
         {
-            // Update the path to the module file
-            if (!String.IsNullOrEmpty(path))
-            {
-                ModulePath = path;
-            }
-            string backupPath = GenerateUniqueFileID(ModulePath);
-
-            // Make a back up of the module file just in case something goes wrong.
-            if (File.Exists(ModulePath))
-            {
-                File.Copy(ModulePath, backupPath);
-            }
-
-            File.Delete(ModulePath);
-
             using (FileArchiveManager manager = new FileArchiveManager())
             {
+                // Update the path to the module file
+                if (!String.IsNullOrEmpty(path))
+                {
+                    ModulePath = path;
+                }
+                string backupPath = manager.GenerateUniqueFileName(ModulePath);
+
+                // Make a back up of the module file just in case something goes wrong.
+                if (File.Exists(ModulePath))
+                {
+                    File.Copy(ModulePath, backupPath);
+                }
+
+                File.Delete(ModulePath);
                 manager.ArchiveDirectory(TemporaryDirectoryPath, ModulePath);
+
+                // Delete the backup since the new save was successful.
+                File.Delete(backupPath);
+
+                _moduleSavedMethod();
             }
-
-            // Delete the backup since the new save was successful.
-            File.Delete(backupPath);
-
-            _moduleSavedMethod();
         }
 
         /// <summary>
@@ -275,11 +217,11 @@ namespace WinterEngine.Editor.Managers
         {
             WinterConnectionInformation.ActiveModuleDirectoryPath = path;
             ModulePath = path;
-            CreateTemporaryDirectory();
 
-            // Extract all files contained in the module zip file to the temporary directory.
-            using (FileArchiveManager manager = new FileArchiveManager())
+            using(FileArchiveManager manager = new FileArchiveManager())
             {
+                TemporaryDirectoryPath = manager.CreateUniqueDirectory();
+                // Extract all files contained in the module zip file to the temporary directory.
                 manager.ExtractArchive(ModulePath, TemporaryDirectoryPath);
             }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Ionic.Zip;
@@ -49,6 +50,66 @@ namespace WinterEngine.FileAccess
                 zipFile.ExtractAll(outputDirectoryPath);
             }
         }
+
+
+        /// <summary>
+        /// Creates a unique directory and returns the new directory's path.
+        /// </summary>
+        public string CreateUniqueDirectory()
+        {
+            string temporaryDirectoryPath = String.Empty;
+
+            // Remove the existing temporary directory, if it exists.
+            if (Directory.Exists(temporaryDirectoryPath))
+            {
+                Directory.Delete(temporaryDirectoryPath, true);
+            }
+
+            temporaryDirectoryPath = GenerateUniqueDirectoryName(Path.GetFullPath("./temp"));
+
+            // Create the temporary directory
+            Directory.CreateDirectory(temporaryDirectoryPath);
+
+            return temporaryDirectoryPath;
+        }
+
+        /// <summary>
+        /// Returns a path name with a unique ID number attached to the end of the file.
+        /// This is used to prevent issues with copying/moving files.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public string GenerateUniqueFileName(string path)
+        {
+            int index = 0;
+
+            while (File.Exists(path + index))
+            {
+                index++;
+            }
+
+            return path + index;
+        }
+
+
+        /// <summary>
+        /// Returns a path name with a unique ID number attached to the end of the file.
+        /// This is used to prevent issues with copying/moving directories.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private string GenerateUniqueDirectoryName(string path)
+        {
+            int index = 0;
+
+            while (Directory.Exists(path + index))
+            {
+                index++;
+            }
+
+            return path + index;
+        }
+
 
         public void Dispose()
         {
