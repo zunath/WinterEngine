@@ -360,7 +360,6 @@ namespace WinterEngine.Editor.Managers
             {
                 return true;
             }
-
         }
 
         #endregion
