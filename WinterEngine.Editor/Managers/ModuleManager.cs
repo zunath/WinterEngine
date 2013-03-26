@@ -4,7 +4,9 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using System.Linq;
 using WinterEngine.DataAccess;
+using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Resources;
@@ -321,12 +323,26 @@ namespace WinterEngine.Editor.Managers
         /// <returns></returns>
         public bool CheckForMissingContentPackages()
         {
-            bool success = true;
-            List<string> missingContentPackages = new List<string>();
+            List<string> missingContentPackages;
+            List<string> fileContentPackages;
+            List<string> moduleContentPackages;
 
+            // Retrieve the existing content packages (ones which are in the ContentPackages directory)
+            using (ContentPackageManager manager = new ContentPackageManager())
+            {
+                fileContentPackages = manager.GetAllContentPackageFileNames();
+            }
 
+            // Retrieve the required content packages (ones which are attached to the module)
+            using (ContentPackageRepository repo = new ContentPackageRepository())
+            {
+                moduleContentPackages = repo.GetAllFileNames();
+            }
 
-            if (!success)
+            // Determine which content packages do not exist on disk that are required by this module.
+            missingContentPackages = moduleContentPackages.Except(fileContentPackages).ToList();
+
+            if (missingContentPackages.Count > 0)
             {
                 string errorMessage = "Unable to locate the following content packages:\n\n";
 
@@ -338,9 +354,13 @@ namespace WinterEngine.Editor.Managers
                 errorMessage += "\nPlease place the missing content packages in the ContentPacks folder and try again.";
 
                 MessageBox.Show(errorMessage, "Missing Content Packages", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else
+            {
+                return true;
             }
 
-            return success;
         }
 
         #endregion

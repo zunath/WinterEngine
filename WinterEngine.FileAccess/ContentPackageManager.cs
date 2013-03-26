@@ -21,6 +21,23 @@ namespace WinterEngine.FileAccess
             return contentPackagePaths;
         }
 
+        /// <summary>
+        /// Returns a list containing the names of all the content packages in the ContentPacks folder.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetAllContentPackageFileNames()
+        {
+            FileExtensionFactory factory = new FileExtensionFactory();
+            string[] filePaths = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + factory.GetFileExtension(FileTypeEnum.ContentPackage));
+            List<string> contentPackageFileNames = new List<string>();
+
+            foreach (string path in filePaths)
+            {
+                contentPackageFileNames.Add(Path.GetFileNameWithoutExtension(path));
+            }
+
+            return contentPackageFileNames;
+        }
 
         public void Dispose()
         {

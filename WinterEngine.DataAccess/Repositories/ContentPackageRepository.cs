@@ -137,6 +137,27 @@ namespace WinterEngine.DataAccess.Repositories
             return contentPackageList;
         }
 
+
+        /// <summary>
+        /// Returns the file names of every content package used by the module.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetAllFileNames()
+        {
+            List<string> contentPackageFileNameList = new List<string>();
+
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                var query = from contentPackage
+                            in context.ContentPackages
+                            select contentPackage.FileName;
+
+                contentPackageFileNameList = query.ToList();
+            }
+
+            return contentPackageFileNameList;
+        }
+
         /// <summary>
         /// Returns all content packages which are not system resources from the database.
         /// </summary>

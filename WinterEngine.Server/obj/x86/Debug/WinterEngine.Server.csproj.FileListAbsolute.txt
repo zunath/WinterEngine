@@ -11,16 +11,12 @@ C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\WinterEngine.Network.
 C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\Xceed.Wpf.DataGrid.dll
 C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\Xceed.Wpf.Toolkit.dll
 C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\EntityFramework.dll
-C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\Ionic.Zip.dll
 C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\Newtonsoft.Json.dll
-C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\Lidgren.Network.pdb
-C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\Lidgren.Network.xml
 C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\WinterEngine.DataAccess.pdb
 C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\WinterEngine.DataTransferObjects.pdb
 C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\WinterEngine.Library.pdb
 C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\WinterEngine.Network.pdb
 C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\EntityFramework.xml
-C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\Ionic.Zip.xml
 C:\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\Newtonsoft.Json.xml
 C:\Projects\WinterEngine\WinterEngine.Server\obj\x86\Debug\WinterEngine.Server.csprojResolveAssemblyReference.cache
 C:\Projects\WinterEngine\WinterEngine.Server\obj\x86\Debug\MainWindow.baml
