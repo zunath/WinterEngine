@@ -13,14 +13,9 @@ namespace WinterEngine.DataAccess
     {
         #region Constructors
         
-        public CreatureRepository(string connectionString = "")
+        public CreatureRepository(string connectionString = "") 
+            : base(connectionString)
         {
-            if (String.IsNullOrWhiteSpace(connectionString))
-            {
-                connectionString = WinterConnectionInformation.ActiveConnectionString;
-            }
-            ConnectionString = connectionString;
-            
         }
 
         #endregion
@@ -41,6 +36,10 @@ namespace WinterEngine.DataAccess
             }
         }
 
+        /// <summary>
+        /// Adds a list of creatures to the database.
+        /// </summary>
+        /// <param name="creatureList">The list of creatures to add to the database.</param>
         public void Add(List<Creature> creatureList)
         {
             using (WinterContext context = new WinterContext(ConnectionString))

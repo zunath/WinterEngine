@@ -14,13 +14,8 @@ namespace WinterEngine.DataAccess
         #region Constructors
 
         public PlaceableRepository(string connectionString = "")
+            : base(connectionString)
         {
-            if (String.IsNullOrWhiteSpace(connectionString))
-            {
-                connectionString = WinterConnectionInformation.ActiveConnectionString;
-            }
-            ConnectionString = connectionString;
-            
         }
 
         #endregion

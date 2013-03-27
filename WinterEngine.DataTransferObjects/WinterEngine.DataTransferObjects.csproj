@@ -93,7 +93,7 @@
     <Compile Include="Resources\CharacterClass.cs" />
     <Compile Include="Resources\ContentPackage.cs" />
     <Compile Include="Resources\GameResourceBase.cs" />
-    <Compile Include="Resources\GraphicResource.cs" />
+    <Compile Include="Resources\ContentPackageResource.cs" />
     <Compile Include="Resources\ItemType.cs" />
     <Compile Include="GameObjects\Creature.cs" />
     <Compile Include="Enumerations\FileTypeEnum.cs" />

@@ -13,6 +13,6 @@ namespace WinterEngine.Editor.Enums
         Placeable,
         Conversation,
         Script,
-        Advanced,
+        Graphics,
     }
 }

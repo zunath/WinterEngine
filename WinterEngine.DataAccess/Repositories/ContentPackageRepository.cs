@@ -12,13 +12,8 @@ namespace WinterEngine.DataAccess.Repositories
         #region Constructors
 
         public ContentPackageRepository(string connectionString = "")
+            : base(connectionString)
         {
-            if (String.IsNullOrWhiteSpace(connectionString))
-            {
-                connectionString = WinterConnectionInformation.ActiveConnectionString;
-            }
-            ConnectionString = connectionString;
-            
         }
 
         #endregion

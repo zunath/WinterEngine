@@ -34,7 +34,7 @@
             this.radioButtonPlaceables = new System.Windows.Forms.RadioButton();
             this.radioButtonConversations = new System.Windows.Forms.RadioButton();
             this.radioButtonScripts = new System.Windows.Forms.RadioButton();
-            this.radioButtonAdvanced = new System.Windows.Forms.RadioButton();
+            this.radioButtonGraphics = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // radioButtonAreas
@@ -117,24 +117,24 @@
             this.radioButtonScripts.UseVisualStyleBackColor = true;
             this.radioButtonScripts.CheckedChanged += new System.EventHandler(this.radioButtonScripts_CheckedChanged);
             // 
-            // radioButtonAdvanced
+            // radioButtonGraphics
             // 
-            this.radioButtonAdvanced.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.radioButtonAdvanced.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButtonAdvanced.AutoSize = true;
-            this.radioButtonAdvanced.Location = new System.Drawing.Point(393, 3);
-            this.radioButtonAdvanced.Name = "radioButtonAdvanced";
-            this.radioButtonAdvanced.Size = new System.Drawing.Size(66, 23);
-            this.radioButtonAdvanced.TabIndex = 19;
-            this.radioButtonAdvanced.Text = "Advanced";
-            this.radioButtonAdvanced.UseVisualStyleBackColor = true;
-            this.radioButtonAdvanced.CheckedChanged += new System.EventHandler(this.radioButtonAdvanced_CheckedChanged);
+            this.radioButtonGraphics.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.radioButtonGraphics.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButtonGraphics.AutoSize = true;
+            this.radioButtonGraphics.Location = new System.Drawing.Point(393, 3);
+            this.radioButtonGraphics.Name = "radioButtonGraphics";
+            this.radioButtonGraphics.Size = new System.Drawing.Size(59, 23);
+            this.radioButtonGraphics.TabIndex = 19;
+            this.radioButtonGraphics.Text = "Graphics";
+            this.radioButtonGraphics.UseVisualStyleBackColor = true;
+            this.radioButtonGraphics.CheckedChanged += new System.EventHandler(this.radioButtonAdvanced_CheckedChanged);
             // 
             // ObjectBar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.radioButtonAdvanced);
+            this.Controls.Add(this.radioButtonGraphics);
             this.Controls.Add(this.radioButtonScripts);
             this.Controls.Add(this.radioButtonConversations);
             this.Controls.Add(this.radioButtonPlaceables);
@@ -156,7 +156,7 @@
         private System.Windows.Forms.RadioButton radioButtonPlaceables;
         private System.Windows.Forms.RadioButton radioButtonConversations;
         private System.Windows.Forms.RadioButton radioButtonScripts;
-        private System.Windows.Forms.RadioButton radioButtonAdvanced;
+        private System.Windows.Forms.RadioButton radioButtonGraphics;
 
 
     }

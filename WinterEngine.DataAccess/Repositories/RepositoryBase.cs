@@ -26,5 +26,18 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         #endregion
+
+        #region Constructors
+
+        public RepositoryBase(string connectionString = "")
+        {
+            if (String.IsNullOrWhiteSpace(connectionString))
+            {
+                connectionString = WinterConnectionInformation.ActiveConnectionString;
+            }
+            ConnectionString = connectionString;
+        }
+
+        #endregion
     }
 }

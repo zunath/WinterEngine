@@ -22,7 +22,7 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<TileMap> TileMaps { get; set; }
         public DbSet<Tile> Tiles { get; set; }
         public DbSet<ContentPackage> ContentPackages { get; set; }
-        public DbSet<GraphicResource> GraphicResources { get; set; }
+        public DbSet<ContentPackageResource> ContentPackageResources { get; set; }
         public DbSet<Cell> Cells { get; set; }
 
         public WinterContext(string connString) : base(connString)

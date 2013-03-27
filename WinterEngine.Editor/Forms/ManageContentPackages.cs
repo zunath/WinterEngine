@@ -145,7 +145,19 @@ namespace WinterEngine.Editor.Forms
                 repo.ReplaceAll(contentPackages);
             }
 
+            // Add references to the content package files to the database.
+            ImportContentPackagesToDatabase(contentPackages);
+
             return saveCompleted;
+        }
+
+        /// <summary>
+        /// Imports data from a list of content packages into the module's database.
+        /// </summary>
+        /// <param name="contentPackages"></param>
+        private void ImportContentPackagesToDatabase(List<ContentPackage> contentPackages)
+        {
+
         }
 
         /// <summary>

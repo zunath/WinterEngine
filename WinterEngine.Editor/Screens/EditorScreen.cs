@@ -203,7 +203,7 @@ namespace WinterEngine.Editor.Screens
 
             switch (e.ObjectType)
             {
-                case ObjectSelectionTypeEnum.Advanced:
+                case ObjectSelectionTypeEnum.Graphics:
                     break;
                 case ObjectSelectionTypeEnum.Area:
                     AreaControl.SetVisible(true);

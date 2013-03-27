@@ -17,14 +17,8 @@ namespace WinterEngine.DataAccess
     {
         #region Constructors
 
-        public CategoryRepository(string connectionString = "")
+        public CategoryRepository(string connectionString = "") : base(connectionString)
         {
-            if (String.IsNullOrWhiteSpace(connectionString))
-            {
-                connectionString = WinterConnectionInformation.ActiveConnectionString;
-            }
-            ConnectionString = connectionString;
-            
         }
 
         #endregion

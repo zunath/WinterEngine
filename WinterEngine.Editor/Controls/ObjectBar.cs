@@ -109,9 +109,9 @@ namespace WinterEngine.Editor.Controls
         {
             if (!Object.ReferenceEquals(OnObjectSelected, null))
             {
-                if (radioButtonAdvanced.Checked)
+                if (radioButtonGraphics.Checked)
                 {
-                    OnObjectSelected(this, new ObjectSelectionEventArgs(ObjectSelectionTypeEnum.Advanced));
+                    OnObjectSelected(this, new ObjectSelectionEventArgs(ObjectSelectionTypeEnum.Graphics));
                 }
             }
         }
