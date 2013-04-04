@@ -12,6 +12,7 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Resources;
 using WinterEngine.FileAccess;
 using WinterEngine.Library.Utility;
+using WinterEngine.FileAccess.Repositories;
 
 namespace WinterEngine.Editor.Managers
 {
@@ -270,7 +271,7 @@ namespace WinterEngine.Editor.Managers
             List<string> moduleContentPackages;
 
             // Retrieve the existing content packages (ones which are in the ContentPackages directory)
-            using (ContentPackageManager manager = new ContentPackageManager())
+            using (ContentPackageFileRepository manager = new ContentPackageFileRepository())
             {
                 fileContentPackages = manager.GetAllContentPackageFileNames();
             }

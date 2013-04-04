@@ -151,6 +151,8 @@ namespace WinterEngine.Editor.Controls
         /// <param name="e"></param>
         private void toolStripMenuItemContentBuilder_Click(object sender, EventArgs e)
         {
+            ContentPackageCreator creator = new ContentPackageCreator();
+            creator.ShowDialog();
         }
 
         /// <summary>

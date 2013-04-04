@@ -112,5 +112,16 @@ namespace WinterEngine.Library.Factories
             return filter;
         }
 
+        /// <summary>
+        /// Returns a string containing a filter for Open/Save File Dialogs for content package resources.
+        /// </summary>
+        /// <returns></returns>
+        public string BuildContentPackageResourceFileFilter()
+        {
+            string filter = "All Available Types|*.png|" +
+                            "Graphic Files (.PNG)|*.png";
+
+            return filter;
+        }
     }
 }

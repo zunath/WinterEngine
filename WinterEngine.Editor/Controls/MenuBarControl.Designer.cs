@@ -53,7 +53,7 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemModuleProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.contentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemContentPackageBuilder = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemContentPackageCreator = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemManageContentPackages = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemWebsite = new System.Windows.Forms.ToolStripMenuItem();
@@ -253,19 +253,18 @@
             // contentToolStripMenuItem
             // 
             this.contentToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemContentPackageBuilder,
+            this.toolStripMenuItemContentPackageCreator,
             this.toolStripMenuItemManageContentPackages});
             this.contentToolStripMenuItem.Name = "contentToolStripMenuItem";
             this.contentToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.contentToolStripMenuItem.Text = "Content";
             // 
-            // toolStripMenuItemContentPackageBuilder
+            // toolStripMenuItemContentPackageCreator
             // 
-            this.toolStripMenuItemContentPackageBuilder.Name = "toolStripMenuItemContentPackageBuilder";
-            this.toolStripMenuItemContentPackageBuilder.Size = new System.Drawing.Size(215, 22);
-            this.toolStripMenuItemContentPackageBuilder.Text = "Content Package Builder";
-            this.toolStripMenuItemContentPackageBuilder.Visible = false;
-            this.toolStripMenuItemContentPackageBuilder.Click += new System.EventHandler(this.toolStripMenuItemContentBuilder_Click);
+            this.toolStripMenuItemContentPackageCreator.Name = "toolStripMenuItemContentPackageCreator";
+            this.toolStripMenuItemContentPackageCreator.Size = new System.Drawing.Size(215, 22);
+            this.toolStripMenuItemContentPackageCreator.Text = "Content Package Creator";
+            this.toolStripMenuItemContentPackageCreator.Click += new System.EventHandler(this.toolStripMenuItemContentBuilder_Click);
             // 
             // toolStripMenuItemManageContentPackages
             // 
@@ -338,7 +337,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemModuleProperties;
         private System.Windows.Forms.ToolStripMenuItem contentToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemContentPackageBuilder;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemContentPackageCreator;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemManageContentPackages;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemWebsite;

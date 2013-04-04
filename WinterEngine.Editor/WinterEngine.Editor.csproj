@@ -172,6 +172,12 @@
     <Compile Include="Controls\PlaceablePropertiesControl.Designer.cs">
       <DependentUpon>PlaceablePropertiesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ResourceTypeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ResourceTypeControl.Designer.cs">
+      <DependentUpon>ResourceTypeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TreeCategoryControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -187,6 +193,12 @@
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ObjectRotationButtonPressEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ObjectSelectionEventArgs.cs" />
+    <Compile Include="Forms\ContentPackageCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ContentPackageCreator.Designer.cs">
+      <DependentUpon>ContentPackageCreator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ManageContentPackages.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -312,10 +324,6 @@
       <Project>{2891db47-3f02-4e70-be37-d272187438df}</Project>
       <Name>WinterEngine.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.HakpakBuilder\WinterEngine.Hakpak.csproj">
-      <Project>{cb8fc1f9-0ea1-4f21-90ef-9776b8ae8337}</Project>
-      <Name>WinterEngine.Hakpak</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
       <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
       <Name>WinterEngine.Library</Name>
@@ -347,8 +355,14 @@
     <EmbeddedResource Include="Controls\PlaceablePropertiesControl.resx">
       <DependentUpon>PlaceablePropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ResourceTypeControl.resx">
+      <DependentUpon>ResourceTypeControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\TreeCategoryControl.resx">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ContentPackageCreator.resx">
+      <DependentUpon>ContentPackageCreator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ManageContentPackages.resx">
       <DependentUpon>ManageContentPackages.cs</DependentUpon>

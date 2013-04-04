@@ -48,5 +48,5 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.C
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\obj\x86\Debug\WinterEngine.Client.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\obj\x86\Debug\WinterEngine.Client.pdb
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\obj\x86\Debug\WinterEngine.Client.csprojResolveAssemblyReference.cache
 C:\Projects\WinterEngine\WinterEngine.Client\obj\x86\Debug\WinterEngine.Client.csprojResolveAssemblyReference.cache
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Client\obj\x86\Debug\WinterEngine.Client.csprojResolveAssemblyReference.cache

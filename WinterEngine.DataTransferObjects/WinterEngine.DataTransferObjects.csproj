@@ -74,11 +74,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\ContentBuilderFileTypeEnum.cs" />
     <Compile Include="Enumerations\DirectoryTypeEnum.cs" />
     <Compile Include="Enumerations\GameTypeEnum.cs" />
     <Compile Include="Enumerations\ItemPartEnum.cs" />
     <Compile Include="Enumerations\MappingEnum.cs" />
     <Compile Include="Enumerations\PVPTypeEnum.cs" />
+    <Compile Include="Enumerations\ResourceTypeChangedEventArgs.cs" />
     <Compile Include="Enumerations\ResourceTypeEnum.cs" />
     <Compile Include="Enumerations\SpriteSheetTypeEnum.cs" />
     <Compile Include="Enumerations\TilesetEditorModeTypeEnum.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Resources\ContentPackage.cs" />
     <Compile Include="Resources\GameResourceBase.cs" />
     <Compile Include="Resources\ContentPackageResource.cs" />
+    <Compile Include="Resources\ContentPackageBuilderResource.cs" />
     <Compile Include="Resources\ItemType.cs" />
     <Compile Include="GameObjects\Creature.cs" />
     <Compile Include="Enumerations\FileTypeEnum.cs" />
