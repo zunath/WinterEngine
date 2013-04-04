@@ -1,7 +1,7 @@
 Winter Engine
 ============
 
-Winter Engine - The community game engine
+Winter Engine - The community game development tool
 http://www.winterengine.com
 
 
