@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WinterEngine.DataTransferObjects.Enumerations
 {
-    public enum SpriteSheetTypeEnum
+    public enum ContentPackageResourceTypeEnum
     {
         Tileset = 1,
         Character = 2,

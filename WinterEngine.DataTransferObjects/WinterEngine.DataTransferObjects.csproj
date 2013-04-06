@@ -82,7 +82,7 @@
     <Compile Include="Enumerations\PVPTypeEnum.cs" />
     <Compile Include="Enumerations\ResourceTypeChangedEventArgs.cs" />
     <Compile Include="Enumerations\ResourceTypeEnum.cs" />
-    <Compile Include="Enumerations\SpriteSheetTypeEnum.cs" />
+    <Compile Include="Enumerations\ContentPackageResourceTypeEnum.cs" />
     <Compile Include="Enumerations\TilesetEditorModeTypeEnum.cs" />
     <Compile Include="EventArgsExtended\GameObjectEventArgs.cs" />
     <Compile Include="IEntity.cs" />

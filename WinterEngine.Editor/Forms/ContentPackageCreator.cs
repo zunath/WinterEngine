@@ -77,9 +77,13 @@ namespace WinterEngine.Editor.Forms
                         pictureBoxPreview.Image = Bitmap.FromStream(stream);
                     }
                 }
+
+                resourceTypeControl.Visible = true;
+                resourceTypeControl.ChangeResourceType(resource.ResourceType, true);
             }
             else
             {
+                resourceTypeControl.Visible = false;
                 pictureBoxPreview.Image = null;
             }
         }
@@ -168,7 +172,7 @@ namespace WinterEngine.Editor.Forms
 
                     if (!DoesResourceExist(fileNameWithoutExtension))
                     {
-                        ContentPackageBuilderResource resource = new ContentPackageBuilderResource(file, GameObjectTypeEnum.Item, ContentBuilderFileTypeEnum.ExternalFile);
+                        ContentPackageBuilderResource resource = new ContentPackageBuilderResource(file, ContentPackageResourceTypeEnum.Item, ContentBuilderFileTypeEnum.ExternalFile);
                         listBoxResources.Items.Add(resource);
                     }
                 }
@@ -227,6 +231,17 @@ namespace WinterEngine.Editor.Forms
             pictureBoxPreview.Image = null;
         }
 
+        /// <summary>
+        /// Handles updating the currently selected resource's resource type.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnResourceTypeChanged(object sender, ResourceTypeChangedEventArgs e)
+        {
+            ContentPackageBuilderResource resource = listBoxResources.SelectedItem as ContentPackageBuilderResource;
+            resource.ResourceType = e.GameObjectType;
+        }
+
         #endregion
 
         #region Methods
@@ -268,6 +283,12 @@ namespace WinterEngine.Editor.Forms
             using (ContentPackageFileRepository repo = new ContentPackageFileRepository())
             {
                 repo.SaveContentPackageToDisk(Package, resources, textBoxName.Text, textBoxDescription.Text);
+            }
+
+            // Save completed successfully. Update all resource references to point to their content package now.
+            foreach (ContentPackageBuilderResource resource in listBoxResources.Items)
+            {
+                resource.FileType = ContentBuilderFileTypeEnum.PackageFile;
             }
 
             MessageBox.Show("Content package was saved successfully!", "Save Complete", MessageBoxButtons.OK, MessageBoxIcon.None);

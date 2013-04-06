@@ -218,10 +218,10 @@ namespace WinterEngine.FileAccess.Repositories
                                 {
                                     int resourceID = Convert.ToInt32(reader.GetAttribute("ID"));
                                     string resourceName = reader.GetAttribute("ResourceName");
-                                    GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), reader.GetAttribute("ResourceType"), true);
+                                    ContentPackageResourceTypeEnum resourceType = (ContentPackageResourceTypeEnum)Enum.Parse(typeof(ContentPackageResourceTypeEnum), reader.GetAttribute("ResourceType"), true);
                                     string fileName = reader.GetAttribute("FileName");
                                     reader.ReadToFollowing("Details");
-                                    ContentPackageBuilderResource resource = new ContentPackageBuilderResource(gameObjectType, ContentBuilderFileTypeEnum.PackageFile, resourceName, fileName);
+                                    ContentPackageBuilderResource resource = new ContentPackageBuilderResource(resourceType, ContentBuilderFileTypeEnum.PackageFile, resourceName, fileName);
                                     
                                     resources.Add(resource);
                                 }

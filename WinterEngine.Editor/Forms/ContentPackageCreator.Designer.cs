@@ -51,7 +51,6 @@
             this.panelContentPackageCreator = new System.Windows.Forms.Panel();
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
             this.openFileDialogResources = new System.Windows.Forms.OpenFileDialog();
-            this.resourceTypeControl1 = new WinterEngine.Editor.Controls.ResourceTypeControl();
             this.resourceTypeControl = new WinterEngine.Editor.Controls.ResourceTypeControl();
             this.mainMenuStrip.SuspendLayout();
             this.panelContentPackageCreator.SuspendLayout();
@@ -97,46 +96,46 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(120, 6);
             this.toolStripSeparator3.Visible = false;
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(120, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -241,25 +240,21 @@
             // 
             this.openFileDialogResources.Multiselect = true;
             // 
-            // resourceTypeControl1
-            // 
-            this.resourceTypeControl1.Location = new System.Drawing.Point(12, 390);
-            this.resourceTypeControl1.Name = "resourceTypeControl1";
-            this.resourceTypeControl1.Size = new System.Drawing.Size(375, 26);
-            this.resourceTypeControl1.TabIndex = 13;
-            // 
             // resourceTypeControl
             // 
-            this.resourceTypeControl.Location = new System.Drawing.Point(0, 0);
+            this.resourceTypeControl.Location = new System.Drawing.Point(12, 390);
             this.resourceTypeControl.Name = "resourceTypeControl";
             this.resourceTypeControl.Size = new System.Drawing.Size(292, 26);
-            this.resourceTypeControl.TabIndex = 0;
+            this.resourceTypeControl.TabIndex = 13;
+            this.resourceTypeControl.Visible = false;
+            this.resourceTypeControl.OnResourceChanged += new System.EventHandler<WinterEngine.DataTransferObjects.Enumerations.ResourceTypeChangedEventArgs>(this.OnResourceTypeChanged);
             // 
             // ContentPackageCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(810, 457);
+            this.Controls.Add(this.resourceTypeControl);
             this.Controls.Add(this.panelContentPackageCreator);
             this.Controls.Add(this.buttonAddFiles);
             this.Controls.Add(this.labelResources);
@@ -313,10 +308,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.OpenFileDialog openFileDialogContentPackages;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
-        private WinterEngine.Editor.Controls.ResourceTypeControl resourceTypeControl;
         private System.Windows.Forms.Panel panelContentPackageCreator;
-        private Controls.ResourceTypeControl resourceTypeControl1;
         private System.Windows.Forms.PictureBox pictureBoxPreview;
         private System.Windows.Forms.OpenFileDialog openFileDialogResources;
+        private Controls.ResourceTypeControl resourceTypeControl;
     }
 }

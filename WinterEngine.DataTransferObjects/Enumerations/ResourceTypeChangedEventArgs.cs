@@ -11,7 +11,7 @@ namespace WinterEngine.DataTransferObjects.Enumerations
     {
         #region Fields
 
-        private SpriteSheetTypeEnum _resourceType;
+        private ContentPackageResourceTypeEnum _resourceType;
 
         #endregion
 
@@ -20,7 +20,7 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         /// <summary>
         /// Gets or sets the resource type passed via event args
         /// </summary>
-        public SpriteSheetTypeEnum ResourceType
+        public ContentPackageResourceTypeEnum GameObjectType
         {
             get { return _resourceType; }
             set { _resourceType = value; }

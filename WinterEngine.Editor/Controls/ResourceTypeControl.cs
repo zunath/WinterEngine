@@ -32,22 +32,22 @@ namespace WinterEngine.Editor.Controls
 
         private void radioButtonAudio_CheckedChanged(object sender, EventArgs e)
         {
-            ChangeResourceType(SpriteSheetTypeEnum.Audio, false);
+            ChangeResourceType(ContentPackageResourceTypeEnum.Audio, false);
         }
 
         private void radioButtonCharacter_CheckedChanged(object sender, EventArgs e)
         {
-            ChangeResourceType(SpriteSheetTypeEnum.Character, false);
+            ChangeResourceType(ContentPackageResourceTypeEnum.Character, false);
         }
 
         private void radioButtonTileset_CheckedChanged(object sender, EventArgs e)
         {
-            ChangeResourceType(SpriteSheetTypeEnum.Tileset, false);
+            ChangeResourceType(ContentPackageResourceTypeEnum.Tileset, false);
         }
 
         private void radioButtonItem_CheckedChanged(object sender, EventArgs e)
         {
-            ChangeResourceType(SpriteSheetTypeEnum.Item, false);
+            ChangeResourceType(ContentPackageResourceTypeEnum.Item, false);
         }
 
         #endregion
@@ -58,10 +58,10 @@ namespace WinterEngine.Editor.Controls
         /// </summary>
         /// <param name="resourceType"></param>
         /// <param name="changeRadioButton">If true, the radio button will be selected. If false, only the OnResourceChanged event will be raised.</param>
-        public void ChangeResourceType(SpriteSheetTypeEnum resourceType, bool changeRadioButton = false)
+        public void ChangeResourceType(ContentPackageResourceTypeEnum resourceType, bool changeRadioButton = true)
         {
             ResourceTypeChangedEventArgs eventArgs = new ResourceTypeChangedEventArgs();
-            eventArgs.ResourceType = resourceType;
+            eventArgs.GameObjectType = resourceType;
 
             if (!Object.ReferenceEquals(OnResourceChanged, null))
             {
@@ -72,16 +72,16 @@ namespace WinterEngine.Editor.Controls
             {
                 switch (resourceType)
                 {
-                    case SpriteSheetTypeEnum.Audio:
+                    case ContentPackageResourceTypeEnum.Audio:
                         radioButtonAudio.Checked = true;
                         break;
-                    case SpriteSheetTypeEnum.Character:
+                    case ContentPackageResourceTypeEnum.Character:
                         radioButtonCharacter.Checked = true;
                         break;
-                    case SpriteSheetTypeEnum.Tileset:
+                    case ContentPackageResourceTypeEnum.Tileset:
                         radioButtonTileset.Checked = true;
                         break;
-                    case SpriteSheetTypeEnum.Item:
+                    case ContentPackageResourceTypeEnum.Item:
                         radioButtonItem.Checked = true;
                         break;
                 }

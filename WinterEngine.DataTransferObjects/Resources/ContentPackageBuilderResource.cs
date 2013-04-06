@@ -18,7 +18,7 @@ namespace WinterEngine.DataTransferObjects.Resources
 
         private string _resourceName;
         private string _resourcePath;
-        private GameObjectTypeEnum _resourceType;
+        private ContentPackageResourceTypeEnum _resourceType;
         private ContentBuilderFileTypeEnum _fileType;
         private string _fileName;
 
@@ -47,7 +47,7 @@ namespace WinterEngine.DataTransferObjects.Resources
         /// <summary>
         /// Gets or sets the resource type of the content package resource.
         /// </summary>
-        public GameObjectTypeEnum ResourceType
+        public ContentPackageResourceTypeEnum ResourceType
         {
             get { return _resourceType; }
             set { _resourceType = value; }
@@ -75,7 +75,7 @@ namespace WinterEngine.DataTransferObjects.Resources
 
         #region Constructors
 
-        public ContentPackageBuilderResource(string resourcePath, GameObjectTypeEnum resourceType, ContentBuilderFileTypeEnum fileType)
+        public ContentPackageBuilderResource(string resourcePath, ContentPackageResourceTypeEnum resourceType, ContentBuilderFileTypeEnum fileType)
         {
             this.ResourceName = Path.GetFileNameWithoutExtension(resourcePath);
             this.ResourcePath = resourcePath;
@@ -83,7 +83,7 @@ namespace WinterEngine.DataTransferObjects.Resources
             this.FileName = Path.GetFileName(resourcePath);
         }
 
-        public ContentPackageBuilderResource(GameObjectTypeEnum resourceType, ContentBuilderFileTypeEnum fileType, string resourceName, string fileName)
+        public ContentPackageBuilderResource(ContentPackageResourceTypeEnum resourceType, ContentBuilderFileTypeEnum fileType, string resourceName, string fileName)
         {
             this.ResourceName = resourceName;
             this.ResourceType = resourceType;
