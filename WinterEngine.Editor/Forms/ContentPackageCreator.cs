@@ -190,7 +190,8 @@ namespace WinterEngine.Editor.Forms
                 using (ContentPackageFileRepository manager = new ContentPackageFileRepository())
                 {
                     Package = manager.ConvertFileToContentPackage(openFileDialogContentPackages.FileName);
-                    listBoxResources.Items.AddRange(manager.GetContentPackageResourcesFromManifest(Package).ToArray());
+                    List<ContentPackageBuilderResource> resources = manager.GetContentPackageResourcesFromManifest(Package);
+                    listBoxResources.Items.AddRange(resources.ToArray());
                 }
 
                 IsContentPackageLoaded = true;

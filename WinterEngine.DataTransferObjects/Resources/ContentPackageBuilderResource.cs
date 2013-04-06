@@ -68,6 +68,13 @@ namespace WinterEngine.DataTransferObjects.Resources
             this.ResourceType = resourceType;
         }
 
+        public ContentPackageBuilderResource(GameObjectTypeEnum resourceType, ContentBuilderFileTypeEnum fileType, string resourceName)
+        {
+            this.ResourceName = resourceName;
+            this.ResourceType = resourceType;
+            this.FileType = fileType;
+        }
+
         #endregion
 
         #region Overrides

@@ -113,33 +113,7 @@ namespace WinterEngine.FileAccess.Repositories
         /// <returns></returns>
         public List<ContentPackageBuilderResource> GetContentPackageResourcesFromManifest(ContentPackage package)
         {
-            List<ContentPackageBuilderResource> resources = new List<ContentPackageBuilderResource>();
-            try
-            {
-                using (ZipFile zipFile = new ZipFile(package.ContentPackagePath))
-                {
-                    MemoryStream stream = new MemoryStream();
-                    zipFile[ManifestFileName].Extract(stream);
-
-                    using (XmlReader reader = XmlReader.Create(stream))
-                    {
-                        while (reader.Read())
-                        {
-                            int resourceID = Convert.ToInt32(reader.ReadString());
-                            string resourceName = reader.ReadString();
-                            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.ToObject(typeof(GameObjectTypeEnum), reader.ReadString());
-                            ContentPackageBuilderResource resource = new ContentPackageBuilderResource("", gameObjectType, ContentBuilderFileTypeEnum.PackageFile);
-                            
-                            resources.Add(resource);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                resources.Clear();
-                throw new Exception("Error getting content package resources from manifest file.", ex);
-            }
+            List<ContentPackageBuilderResource> resources = ReadManifestFile(package);
 
             return resources;
         }
@@ -161,15 +135,17 @@ namespace WinterEngine.FileAccess.Repositories
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("ContentPackageResources");
-
+                
                 foreach (ContentPackageBuilderResource resource in resourceList)
                 {
                     writer.WriteStartElement("Resource");
+                    writer.WriteAttributeString("ID", Convert.ToString(index));
+                    writer.WriteAttributeString("Name", resource.ResourceName);
+                    writer.WriteAttributeString("ResourceType", resource.ResourceType.ToString());
+                    writer.WriteStartElement("Details");
 
-                    writer.WriteElementString("ID", Convert.ToString(index));
-                    writer.WriteElementString("Name", resource.ResourceName);
-                    writer.WriteElementString("ResourceType", resource.ResourceType.ToString());
-                    writer.WriteEndElement();
+                    writer.WriteEndElement(); // Close the Details element
+                    writer.WriteEndElement(); // Close the Resource element
 
                     index++;
                 }
@@ -179,6 +155,45 @@ namespace WinterEngine.FileAccess.Repositories
             }
 
             return stream;
+        }
+
+        private List<ContentPackageBuilderResource> ReadManifestFile(ContentPackage package)
+        {
+            List<ContentPackageBuilderResource> resources = new List<ContentPackageBuilderResource>();
+            try
+            {
+                using (ZipFile zipFile = new ZipFile(package.ContentPackagePath))
+                {
+                    using (Stream stream = zipFile[ManifestFileName].OpenReader())
+                    {
+                        Console.WriteLine(stream.ToString());
+
+                        using (XmlReader reader = XmlReader.Create(stream))
+                        {
+                            while (reader.Read())
+                            {
+                                if(reader.ReadToFollowing("Resource"))
+                                {
+                                    int resourceID = Convert.ToInt32(reader.GetAttribute("ID"));
+                                    string resourceName = reader.GetAttribute("Name");
+                                    GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), reader.GetAttribute("ResourceType"), true);
+                                    reader.ReadToFollowing("Details");
+                                    ContentPackageBuilderResource resource = new ContentPackageBuilderResource(gameObjectType, ContentBuilderFileTypeEnum.PackageFile, resourceName);
+                                    
+                                    resources.Add(resource);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resources.Clear();
+                throw new Exception("Error getting content package resources from manifest file.", ex);
+            }
+
+            return resources;
         }
 
         /// <summary>
