@@ -68,6 +68,23 @@ namespace WinterEngine.FileAccess.Repositories
         }
 
         /// <summary>
+        /// Extracts a content builder resource from a content package to memory and returns the MemoryStream object.
+        /// </summary>
+        /// <param name="package"></param>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        public MemoryStream ExtractResourceToMemory(ContentPackage package, ContentPackageBuilderResource resource)
+        {
+            MemoryStream stream = new MemoryStream();
+            using (ZipFile zipFile = new ZipFile(package.ContentPackagePath))
+            {
+                zipFile[resource.FileName].Extract(stream);
+            }
+
+            return stream;
+        }
+
+        /// <summary>
         /// Returns a list of resource names from a content package.
         /// </summary>
         /// <param name="contentPackagePath"></param>
@@ -103,6 +120,25 @@ namespace WinterEngine.FileAccess.Repositories
             package.IsSystemResource = false;
             package.ResourceType = ResourceTypeEnum.ContentPackage;
 
+
+            using (ZipFile zipFile = new ZipFile(package.ContentPackagePath))
+            {
+                using (Stream stream = zipFile[ManifestFileName].OpenReader())
+                {
+                    using (XmlReader reader = XmlReader.Create(stream))
+                    {
+                        while (reader.Read())
+                        {
+                            if (reader.ReadToFollowing("ContentPackageResources"))
+                            {
+                                package.VisibleName = reader.GetAttribute("Name");
+                                package.Description = reader.GetAttribute("Description");
+                            }
+                        }
+                    }
+                }
+            }
+
             return package;
         }
 
@@ -113,8 +149,8 @@ namespace WinterEngine.FileAccess.Repositories
         /// <returns></returns>
         public List<ContentPackageBuilderResource> GetContentPackageResourcesFromManifest(ContentPackage package)
         {
-            List<ContentPackageBuilderResource> resources = ReadManifestFile(package);
-
+            List<ContentPackageBuilderResource> resources = BuildResourcesFromManifest(package);
+            
             return resources;
         }
 
@@ -123,7 +159,7 @@ namespace WinterEngine.FileAccess.Repositories
         /// Builds a manifest file containing details about each individual resource and adds it to the specified content package.
         /// Returns a MemoryStream object containing the Manifest file
         /// </summary>
-        private MemoryStream CreateManifestFile(ContentPackage contentPackage, List<ContentPackageBuilderResource> resourceList)
+        private MemoryStream CreateManifestFile(ContentPackage contentPackage, List<ContentPackageBuilderResource> resourceList, string builderPackageName, string builderPackageDescription)
         {
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
@@ -135,13 +171,16 @@ namespace WinterEngine.FileAccess.Repositories
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("ContentPackageResources");
-                
+                writer.WriteAttributeString("Name", builderPackageName);
+                writer.WriteAttributeString("Description", builderPackageDescription);
+
                 foreach (ContentPackageBuilderResource resource in resourceList)
                 {
                     writer.WriteStartElement("Resource");
                     writer.WriteAttributeString("ID", Convert.ToString(index));
-                    writer.WriteAttributeString("Name", resource.ResourceName);
+                    writer.WriteAttributeString("ResourceName", resource.ResourceName);
                     writer.WriteAttributeString("ResourceType", resource.ResourceType.ToString());
+                    writer.WriteAttributeString("FileName", resource.FileName);
                     writer.WriteStartElement("Details");
 
                     writer.WriteEndElement(); // Close the Details element
@@ -157,7 +196,12 @@ namespace WinterEngine.FileAccess.Repositories
             return stream;
         }
 
-        private List<ContentPackageBuilderResource> ReadManifestFile(ContentPackage package)
+        /// <summary>
+        /// Builds a list of ContentPackageBuilderResource objects based on data stored in the Manifest.xml file
+        /// </summary>
+        /// <param name="package"></param>
+        /// <returns></returns>
+        private List<ContentPackageBuilderResource> BuildResourcesFromManifest(ContentPackage package)
         {
             List<ContentPackageBuilderResource> resources = new List<ContentPackageBuilderResource>();
             try
@@ -166,8 +210,6 @@ namespace WinterEngine.FileAccess.Repositories
                 {
                     using (Stream stream = zipFile[ManifestFileName].OpenReader())
                     {
-                        Console.WriteLine(stream.ToString());
-
                         using (XmlReader reader = XmlReader.Create(stream))
                         {
                             while (reader.Read())
@@ -175,10 +217,11 @@ namespace WinterEngine.FileAccess.Repositories
                                 if(reader.ReadToFollowing("Resource"))
                                 {
                                     int resourceID = Convert.ToInt32(reader.GetAttribute("ID"));
-                                    string resourceName = reader.GetAttribute("Name");
+                                    string resourceName = reader.GetAttribute("ResourceName");
                                     GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), reader.GetAttribute("ResourceType"), true);
+                                    string fileName = reader.GetAttribute("FileName");
                                     reader.ReadToFollowing("Details");
-                                    ContentPackageBuilderResource resource = new ContentPackageBuilderResource(gameObjectType, ContentBuilderFileTypeEnum.PackageFile, resourceName);
+                                    ContentPackageBuilderResource resource = new ContentPackageBuilderResource(gameObjectType, ContentBuilderFileTypeEnum.PackageFile, resourceName, fileName);
                                     
                                     resources.Add(resource);
                                 }
@@ -200,7 +243,10 @@ namespace WinterEngine.FileAccess.Repositories
         /// Saves a content package to disk.
         /// </summary>
         /// <param name="package"></param>
-        public void SaveContentPackageToDisk(ContentPackage package, List<ContentPackageBuilderResource> resourceList)
+        /// <param name="builderPackageDescription"></param>
+        /// <param name="builderPackageName"></param>
+        /// <param name="resourceList"></param>
+        public void SaveContentPackageToDisk(ContentPackage package, List<ContentPackageBuilderResource> resourceList, string builderPackageName, string builderPackageDescription)
         {
             string backupFilePath = package.ContentPackagePath + ".bak";
             try
@@ -213,28 +259,29 @@ namespace WinterEngine.FileAccess.Repositories
 
                 using (ZipFile zipFile = new ZipFile(package.ContentPackagePath))
                 {
-                    // Build the manifest file and add it to the zip package.
-                    zipFile.AddEntry(ManifestFileName, CreateManifestFile(package, resourceList).ToArray());
-                    foreach (ContentPackageBuilderResource resource in resourceList)
+                    using (ZipFile backupZipFile = new ZipFile(backupFilePath))
                     {
-                        // Resource is not in the content package. It needs to be added to the content package directly.
-                        if (resource.FileType == ContentBuilderFileTypeEnum.ExternalFile)
+                        // Build the manifest file and add it to the zip package.
+                        zipFile.AddEntry(ManifestFileName, CreateManifestFile(package, resourceList, builderPackageName, builderPackageDescription).ToArray());
+                        foreach (ContentPackageBuilderResource resource in resourceList)
                         {
-                            zipFile.AddFile(resource.ResourcePath, "");
-                        }
-                        // Resource exists in the content package already. It needs to be read into memory and copied into the new content package file.
-                        else if (resource.FileType == ContentBuilderFileTypeEnum.PackageFile)
-                        {
-                            using (ZipFile backupZipFile = new ZipFile(backupFilePath))
+                            // Resource is not in the content package. It needs to be added to the content package directly.
+                            if (resource.FileType == ContentBuilderFileTypeEnum.ExternalFile)
                             {
-                                MemoryStream stream = new MemoryStream();
-                                backupZipFile[resource.ResourceName].Extract(stream);
-                                zipFile.AddEntry(resource.ResourceName, stream.ToArray());
+                                zipFile.AddFile(resource.ResourcePath, "");
+                            }
+                            // Resource exists in the content package already. It needs to be read into memory and copied into the new content package file.
+                            else if (resource.FileType == ContentBuilderFileTypeEnum.PackageFile)
+                            {
+                                using (Stream stream = backupZipFile[resource.FileName].OpenReader())
+                                {
+                                    zipFile.AddEntry(resource.FileName, stream);
+                                }
                             }
                         }
-                    }
 
-                    zipFile.Save();
+                        zipFile.Save();
+                    }
                 }
 
                 // Remove the file backup.

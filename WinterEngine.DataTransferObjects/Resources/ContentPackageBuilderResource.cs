@@ -8,6 +8,10 @@ using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects.Resources
 {
+    /// <summary>
+    /// Contains details about content package resources for use with the Content Builder form.
+    /// Should not be used elsewhere.
+    /// </summary>
     public class ContentPackageBuilderResource
     {
         #region Fields
@@ -16,6 +20,7 @@ namespace WinterEngine.DataTransferObjects.Resources
         private string _resourcePath;
         private GameObjectTypeEnum _resourceType;
         private ContentBuilderFileTypeEnum _fileType;
+        private string _fileName;
 
         #endregion
 
@@ -57,6 +62,15 @@ namespace WinterEngine.DataTransferObjects.Resources
             set { _fileType = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the file. The file extension is included.
+        /// </summary>
+        public string FileName
+        {
+            get { return _fileName; }
+            set { _fileName = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -66,13 +80,15 @@ namespace WinterEngine.DataTransferObjects.Resources
             this.ResourceName = Path.GetFileNameWithoutExtension(resourcePath);
             this.ResourcePath = resourcePath;
             this.ResourceType = resourceType;
+            this.FileName = Path.GetFileName(resourcePath);
         }
 
-        public ContentPackageBuilderResource(GameObjectTypeEnum resourceType, ContentBuilderFileTypeEnum fileType, string resourceName)
+        public ContentPackageBuilderResource(GameObjectTypeEnum resourceType, ContentBuilderFileTypeEnum fileType, string resourceName, string fileName)
         {
             this.ResourceName = resourceName;
             this.ResourceType = resourceType;
             this.FileType = fileType;
+            this.FileName = fileName;
         }
 
         #endregion

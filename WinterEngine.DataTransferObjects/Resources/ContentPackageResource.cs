@@ -48,5 +48,14 @@ namespace WinterEngine.DataTransferObjects.Resources
         }
 
         #endregion
+
+        #region Constructors
+
+        public ContentPackageResource()
+        {
+        }
+
+
+        #endregion
     }
 }

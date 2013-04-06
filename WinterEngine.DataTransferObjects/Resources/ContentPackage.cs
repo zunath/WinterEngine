@@ -15,6 +15,7 @@ namespace WinterEngine.DataTransferObjects.Resources
 
         private string _contentPackagePath;
         private string _fileName;
+        private string _description;
 
         #endregion
 
@@ -39,6 +40,16 @@ namespace WinterEngine.DataTransferObjects.Resources
         {
             get { return _fileName; }
             set { _fileName = Path.GetFileNameWithoutExtension(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the description of the content package.
+        /// </summary>
+        [MaxLength(4000)]
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; }
         }
 
         #endregion
