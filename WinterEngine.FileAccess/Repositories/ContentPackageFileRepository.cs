@@ -45,26 +45,10 @@ namespace WinterEngine.FileAccess.Repositories
 
             foreach (string path in filePaths)
             {
-                contentPackageFileNames.Add(Path.GetFileNameWithoutExtension(path));
+                contentPackageFileNames.Add(Path.GetFileName(path));
             }
 
             return contentPackageFileNames;
-        }
-
-        /// <summary>
-        /// Extracts a ContentPackageResource to memory and returns the MemoryStream object.
-        /// </summary>
-        /// <param name="resource">The resource to extract to memory</param>
-        /// <returns></returns>
-        public MemoryStream ExtractResourceToMemory(ContentPackageResource resource)
-        {
-            MemoryStream stream = new MemoryStream();
-            using (ZipFile zipFile = new ZipFile(resource.Package.ContentPackagePath))
-            {
-                zipFile[resource.FileName].Extract(stream);
-            }
-
-            return stream;
         }
 
         /// <summary>
@@ -73,10 +57,21 @@ namespace WinterEngine.FileAccess.Repositories
         /// <param name="package"></param>
         /// <param name="resource"></param>
         /// <returns></returns>
-        public MemoryStream ExtractResourceToMemory(ContentPackage package, ContentPackageBuilderResource resource)
+        public MemoryStream ExtractResourceToMemory(ContentPackageResource resource, ContentPackage package = null)
         {
+            string path = "";
+
+            if (!Object.ReferenceEquals(package, null))
+            {
+                path = package.ContentPackagePath;
+            }
+            else
+            {
+                path = resource.Package.ContentPackagePath;
+            }
+
             MemoryStream stream = new MemoryStream();
-            using (ZipFile zipFile = new ZipFile(package.ContentPackagePath))
+            using (ZipFile zipFile = new ZipFile(path))
             {
                 zipFile[resource.FileName].Extract(stream);
             }
@@ -114,13 +109,8 @@ namespace WinterEngine.FileAccess.Repositories
         /// <returns></returns>
         public ContentPackage ConvertFileToContentPackage(string filePath)
         {
-            ContentPackage package = new ContentPackage();
-            package.ContentPackagePath = filePath;
-            package.FileName = Path.GetFileNameWithoutExtension(filePath);
-            package.IsSystemResource = false;
-            package.ResourceType = ResourceTypeEnum.ContentPackage;
-
-
+            ContentPackage package = new ContentPackage(filePath, false);
+            
             using (ZipFile zipFile = new ZipFile(package.ContentPackagePath))
             {
                 using (Stream stream = zipFile[ManifestFileName].OpenReader())
@@ -147,9 +137,9 @@ namespace WinterEngine.FileAccess.Repositories
         /// </summary>
         /// <param name="contentPackagePath"></param>
         /// <returns></returns>
-        public List<ContentPackageBuilderResource> GetContentPackageResourcesFromManifest(ContentPackage package)
+        public List<ContentPackageResource> GetContentPackageResourcesFromManifest(ContentPackage package)
         {
-            List<ContentPackageBuilderResource> resources = BuildResourcesFromManifest(package);
+            List<ContentPackageResource> resources = BuildResourcesFromManifest(package);
             
             return resources;
         }
@@ -159,7 +149,7 @@ namespace WinterEngine.FileAccess.Repositories
         /// Builds a manifest file containing details about each individual resource and adds it to the specified content package.
         /// Returns a MemoryStream object containing the Manifest file
         /// </summary>
-        private MemoryStream CreateManifestFile(ContentPackage contentPackage, List<ContentPackageBuilderResource> resourceList, string builderPackageName, string builderPackageDescription)
+        private MemoryStream CreateManifestFile(ContentPackage contentPackage, List<ContentPackageResource> resourceList, string builderPackageName, string builderPackageDescription)
         {
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
@@ -174,12 +164,12 @@ namespace WinterEngine.FileAccess.Repositories
                 writer.WriteAttributeString("Name", builderPackageName);
                 writer.WriteAttributeString("Description", builderPackageDescription);
 
-                foreach (ContentPackageBuilderResource resource in resourceList)
+                foreach (ContentPackageResource resource in resourceList)
                 {
                     writer.WriteStartElement("Resource");
                     writer.WriteAttributeString("ID", Convert.ToString(index));
                     writer.WriteAttributeString("ResourceName", resource.ResourceName);
-                    writer.WriteAttributeString("ResourceType", resource.ResourceType.ToString());
+                    writer.WriteAttributeString("ResourceType", resource.ContentPackageResourceType.ToString());
                     writer.WriteAttributeString("FileName", resource.FileName);
                     writer.WriteStartElement("Details");
 
@@ -201,9 +191,9 @@ namespace WinterEngine.FileAccess.Repositories
         /// </summary>
         /// <param name="package"></param>
         /// <returns></returns>
-        private List<ContentPackageBuilderResource> BuildResourcesFromManifest(ContentPackage package)
+        private List<ContentPackageResource> BuildResourcesFromManifest(ContentPackage package)
         {
-            List<ContentPackageBuilderResource> resources = new List<ContentPackageBuilderResource>();
+            List<ContentPackageResource> resources = new List<ContentPackageResource>();
             try
             {
                 using (ZipFile zipFile = new ZipFile(package.ContentPackagePath))
@@ -221,8 +211,13 @@ namespace WinterEngine.FileAccess.Repositories
                                     ContentPackageResourceTypeEnum resourceType = (ContentPackageResourceTypeEnum)Enum.Parse(typeof(ContentPackageResourceTypeEnum), reader.GetAttribute("ResourceType"), true);
                                     string fileName = reader.GetAttribute("FileName");
                                     reader.ReadToFollowing("Details");
-                                    ContentPackageBuilderResource resource = new ContentPackageBuilderResource(resourceType, ContentBuilderFileTypeEnum.PackageFile, resourceName, fileName);
-                                    
+                                    ContentPackageResource resource = new ContentPackageResource(resourceType, ContentBuilderFileTypeEnum.PackageFile, resourceName, fileName);
+
+                                    if (package.ResourceID > 0)
+                                    {
+                                        resource.ContentPackageID = package.ResourceID;
+                                    }
+
                                     resources.Add(resource);
                                 }
                             }
@@ -246,7 +241,7 @@ namespace WinterEngine.FileAccess.Repositories
         /// <param name="builderPackageDescription"></param>
         /// <param name="builderPackageName"></param>
         /// <param name="resourceList"></param>
-        public void SaveContentPackageToDisk(ContentPackage package, List<ContentPackageBuilderResource> resourceList, string builderPackageName, string builderPackageDescription)
+        public void SaveContentPackageToDisk(ContentPackage package, List<ContentPackageResource> resourceList, string builderPackageName, string builderPackageDescription)
         {
             string backupFilePath = package.ContentPackagePath + ".bak";
             try
@@ -263,7 +258,7 @@ namespace WinterEngine.FileAccess.Repositories
                     {
                         // Build the manifest file and add it to the zip package.
                         zipFile.AddEntry(ManifestFileName, CreateManifestFile(package, resourceList, builderPackageName, builderPackageDescription).ToArray());
-                        foreach (ContentPackageBuilderResource resource in resourceList)
+                        foreach (ContentPackageResource resource in resourceList)
                         {
                             // Resource is not in the content package. It needs to be added to the content package directly.
                             if (resource.FileType == ContentBuilderFileTypeEnum.ExternalFile)

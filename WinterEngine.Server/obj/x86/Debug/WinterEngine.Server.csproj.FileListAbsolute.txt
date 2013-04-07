@@ -62,3 +62,5 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.S
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Server\obj\x86\Debug\WinterEngine.Server.application
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Server\obj\x86\Debug\WinterEngine.Server.exe
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Server\obj\x86\Debug\WinterEngine.Server.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\AutoMapper.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Server\bin\x86\Debug\AutoMapper.xml

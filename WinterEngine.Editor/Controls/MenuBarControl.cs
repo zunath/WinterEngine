@@ -329,7 +329,18 @@ namespace WinterEngine.Editor.Controls
             }
         }
 
+        /// <summary>
+        /// Handles shutting down the editor.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripMenuItemExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         #endregion
+
 
     }
 }

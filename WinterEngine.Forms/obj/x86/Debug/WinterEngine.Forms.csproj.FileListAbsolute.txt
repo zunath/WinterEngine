@@ -46,3 +46,5 @@ C:\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.DataAcces
 C:\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.ERF.pdb
 C:\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\WinterEngine.Library.pdb
 C:\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\Ionic.Zip.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\AutoMapper.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Forms\bin\x86\Debug\AutoMapper.xml

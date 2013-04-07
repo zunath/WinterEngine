@@ -61,7 +61,7 @@ namespace WinterEngine.Editor.Forms
         {
             if (listBoxResources.SelectedItems.Count > 0)
             {
-                ContentPackageBuilderResource resource = listBoxResources.SelectedItem as ContentPackageBuilderResource;
+                ContentPackageResource resource = listBoxResources.SelectedItem as ContentPackageResource;
                 
                 // External files are individually loaded off of disk.
                 if (resource.FileType == ContentBuilderFileTypeEnum.ExternalFile)
@@ -73,13 +73,13 @@ namespace WinterEngine.Editor.Forms
                 {
                     using(ContentPackageFileRepository repo = new ContentPackageFileRepository())
                     {
-                        MemoryStream stream = repo.ExtractResourceToMemory(Package, resource);
+                        MemoryStream stream = repo.ExtractResourceToMemory(resource, Package);
                         pictureBoxPreview.Image = Bitmap.FromStream(stream);
                     }
                 }
 
                 resourceTypeControl.Visible = true;
-                resourceTypeControl.ChangeResourceType(resource.ResourceType, true);
+                resourceTypeControl.ChangeResourceType(resource.ContentPackageResourceType, true);
             }
             else
             {
@@ -130,14 +130,8 @@ namespace WinterEngine.Editor.Forms
             {
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    Package = new ContentPackage();
-                    Package.ContentPackagePath = saveFileDialog.FileName;
-                    Package.FileName = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
-                    Package.ResourceType = ResourceTypeEnum.ContentPackage;
-                    Package.IsSystemResource = false;
-
+                    Package = new ContentPackage(saveFileDialog.FileName, false);
                     DoSave();
-
                     IsContentPackageLoaded = true;
                 }
             }
@@ -172,7 +166,7 @@ namespace WinterEngine.Editor.Forms
 
                     if (!DoesResourceExist(fileNameWithoutExtension))
                     {
-                        ContentPackageBuilderResource resource = new ContentPackageBuilderResource(file, ContentPackageResourceTypeEnum.Item, ContentBuilderFileTypeEnum.ExternalFile);
+                        ContentPackageResource resource = new ContentPackageResource(file, ContentPackageResourceTypeEnum.Item, ContentBuilderFileTypeEnum.ExternalFile);
                         listBoxResources.Items.Add(resource);
                     }
                 }
@@ -206,12 +200,13 @@ namespace WinterEngine.Editor.Forms
                 using (ContentPackageFileRepository manager = new ContentPackageFileRepository())
                 {
                     Package = manager.ConvertFileToContentPackage(openFileDialogContentPackages.FileName);
-                    List<ContentPackageBuilderResource> resources = manager.GetContentPackageResourcesFromManifest(Package);
+                    List<ContentPackageResource> resources = manager.GetContentPackageResourcesFromManifest(Package);
                     listBoxResources.Items.AddRange(resources.ToArray());
                     textBoxDescription.Text = Package.Description;
                     textBoxName.Text = Package.VisibleName;
                 }
 
+                pictureBoxPreview.Image = null;
                 IsContentPackageLoaded = true;
             }
         }
@@ -238,8 +233,8 @@ namespace WinterEngine.Editor.Forms
         /// <param name="e"></param>
         private void OnResourceTypeChanged(object sender, ResourceTypeChangedEventArgs e)
         {
-            ContentPackageBuilderResource resource = listBoxResources.SelectedItem as ContentPackageBuilderResource;
-            resource.ResourceType = e.GameObjectType;
+            ContentPackageResource resource = listBoxResources.SelectedItem as ContentPackageResource;
+            resource.ContentPackageResourceType = e.GameObjectType;
         }
 
         #endregion
@@ -256,7 +251,7 @@ namespace WinterEngine.Editor.Forms
         {
             bool exists = false;
 
-            foreach (ContentPackageBuilderResource resource in listBoxResources.Items)
+            foreach (ContentPackageResource resource in listBoxResources.Items)
             {
                 if (resource.ResourceName == resourceName)
                 {
@@ -273,9 +268,9 @@ namespace WinterEngine.Editor.Forms
         /// </summary>
         private void DoSave()
         {
-            List<ContentPackageBuilderResource> resources = new List<ContentPackageBuilderResource>();
+            List<ContentPackageResource> resources = new List<ContentPackageResource>();
 
-            foreach (ContentPackageBuilderResource resource in listBoxResources.Items)
+            foreach (ContentPackageResource resource in listBoxResources.Items)
             {
                 resources.Add(resource);
             }
@@ -286,7 +281,7 @@ namespace WinterEngine.Editor.Forms
             }
 
             // Save completed successfully. Update all resource references to point to their content package now.
-            foreach (ContentPackageBuilderResource resource in listBoxResources.Items)
+            foreach (ContentPackageResource resource in listBoxResources.Items)
             {
                 resource.FileType = ContentBuilderFileTypeEnum.PackageFile;
             }

@@ -22,3 +22,5 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.L
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\obj\x86\Debug\WinterEngine.Library.pdb
 C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\WinterEngine.DataAccess.dll
 C:\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\WinterEngine.DataAccess.pdb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\AutoMapper.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Library\bin\x86\Debug\AutoMapper.xml

@@ -16,6 +16,7 @@ using WinterEngine.Editor.Services;
 using System.IO;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.FileAccess;
+using WinterEngine.FileAccess.Repositories;
 
 namespace WinterEngine.Editor.Forms
 {
@@ -58,7 +59,6 @@ namespace WinterEngine.Editor.Forms
         /// <param name="e"></param>
         private void ManageContentPackages_Load(object sender, EventArgs e)
         {
-            InitializeFilters();
             LoadContentPackages();
             IsModified = false;
         }
@@ -113,13 +113,87 @@ namespace WinterEngine.Editor.Forms
         }
 
         /// <summary>
-        /// Marks the form as being modified.
+        /// Adds the selected package in the available content packages list to the attached content packages list.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void checkedListBoxPackages_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void buttonAddPackage_Click(object sender, EventArgs e)
         {
-            IsModified = true;
+            ContentPackage package = listBoxAvailableContentPackages.SelectedItem as ContentPackage;
+            if (!Object.ReferenceEquals(package, null))
+            {
+                if (!DoesContentPackageExistInAttachedList(package))
+                {
+                    package.LoadOrder = listBoxAttachedContentPackages.Items.Count + 1;
+                    listBoxAttachedContentPackages.Items.Add(package);
+                    IsModified = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes the selected package in the attached content packages list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonRemovePackage_Click(object sender, EventArgs e)
+        {
+            ContentPackage package = listBoxAttachedContentPackages.SelectedItem as ContentPackage;
+            if (!Object.ReferenceEquals(package, null))
+            {
+                listBoxAttachedContentPackages.Items.Remove(package);
+                IsModified = true;
+            }
+        }
+
+        /// <summary>
+        /// Changes the loading order of the selected content package.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonMoveUp_Click(object sender, EventArgs e)
+        {
+            MoveAttachedContentPackagesItem(-1);
+        }
+
+        /// <summary>
+        /// Changes the loading order of the selected content package.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonMoveDown_Click(object sender, EventArgs e)
+        {
+            MoveAttachedContentPackagesItem(1);
+        }
+
+        /// <summary>
+        /// Loads the selected content package's name and description into the appropriate text boxes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxAttachedContentPackages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ContentPackage package = listBoxAttachedContentPackages.SelectedItem as ContentPackage;
+            if (!Object.ReferenceEquals(package, null))
+            {
+                textBoxDescription.Text = package.Description;
+                textBoxName.Text = package.VisibleName;
+            }
+        }
+
+        /// <summary>
+        /// Loads the selected content package's name and description into the appropriate text boxes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxAvailableContentPackages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ContentPackage package = listBoxAvailableContentPackages.SelectedItem as ContentPackage;
+            if (!Object.ReferenceEquals(package, null))
+            {
+                textBoxName.Text = package.VisibleName;
+                textBoxDescription.Text = package.Description;
+            }
         }
 
         #endregion
@@ -135,14 +209,9 @@ namespace WinterEngine.Editor.Forms
 
             List<ContentPackage> contentPackages = new List<ContentPackage>();
 
-            foreach (ContentPackage package in checkedListBoxPackages.Items)
+            foreach (ContentPackage package in listBoxAttachedContentPackages.Items)
             {
                 contentPackages.Add(package);
-            }
-
-            using (ContentPackageRepository repo = new ContentPackageRepository())
-            {
-                repo.ReplaceAll(contentPackages);
             }
 
             // Add references to the content package files to the database.
@@ -157,16 +226,26 @@ namespace WinterEngine.Editor.Forms
         /// <param name="contentPackages"></param>
         private void ImportContentPackagesToDatabase(List<ContentPackage> contentPackages)
         {
+            // Add references to each of the content packages
+            using (ContentPackageRepository repo = new ContentPackageRepository())
+            {
+                repo.ReplaceAll(contentPackages);
 
-        }
+                // Retrieve the content packages with their auto-generated ID numbers.
+                contentPackages = repo.GetAll();
+            }
 
-        /// <summary>
-        /// Initializes the filter for the OpenFileDialog.
-        /// </summary>
-        private void InitializeFilters()
-        {
-            FileExtensionFactory factory = new FileExtensionFactory();
-            openFileDialog.Filter = factory.BuildContentPackageFileFilter();
+            using (ContentPackageResourceRepository dataRepo = new ContentPackageResourceRepository())
+            {
+                using (ContentPackageFileRepository fileRepo = new ContentPackageFileRepository())
+                {
+                    foreach (ContentPackage package in contentPackages)
+                    {
+                        List<ContentPackageResource> resourceList = fileRepo.GetContentPackageResourcesFromManifest(package);
+                        dataRepo.AddIgnoreExisting(resourceList);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -182,24 +261,87 @@ namespace WinterEngine.Editor.Forms
             {
                 foreach (string currentFile in files)
                 {
-                    ContentPackage package = new ContentPackage();
-                    package.ContentPackagePath = currentFile;
-                    package.VisibleName = Path.GetFileNameWithoutExtension(currentFile);
-                    package.FileName = package.VisibleName;
-
-                    int index = checkedListBoxPackages.Items.Add(package);
-                    if (repo.Exists(checkedListBoxPackages.Items[index] as ContentPackage))
+                    ContentPackage package = new ContentPackage(currentFile, false);
+                    
+                    int index = listBoxAvailableContentPackages.Items.Add(package);
+                    if (repo.Exists(package))
                     {
-                        checkedListBoxPackages.SetItemChecked(index, true);
+                        listBoxAttachedContentPackages.Items.Add(package);
                     }
-
                 }
             }
         }
 
+        /// <summary>
+        /// Moves the selected item in the attached list up or down and changes the order priority of all content packages in the list.
+        /// Move up with negative numbers.
+        /// Move down with positive numbers.
+        /// </summary>
+        /// <param name="moveBy"></param>
+        private void MoveAttachedContentPackagesItem(int moveBy)
+        {
+            ContentPackage package = listBoxAttachedContentPackages.SelectedItem as ContentPackage;
+            int index = listBoxAttachedContentPackages.SelectedIndex;
+
+            if (!Object.ReferenceEquals(package, null))
+            {
+                index += moveBy;
+
+                if (index > listBoxAttachedContentPackages.Items.Count - 1)
+                {
+                    index = listBoxAttachedContentPackages.Items.Count - 1;
+                }
+                if (index < 0)
+                {
+                    index = 0;
+                }
+
+                // Don't bother adjusting the list if nothing has changed.
+                if (index != listBoxAttachedContentPackages.SelectedIndex)
+                {
+                    listBoxAttachedContentPackages.Items.Insert(index, package);
+                    listBoxAttachedContentPackages.Items.Remove(package);
+                    listBoxAttachedContentPackages.SelectedIndex = index;
+                    ReorderAllContentPackages();
+                }
+
+                IsModified = true;
+            }
+        }
+
+        /// <summary>
+        /// Handles updating the load order of every content package in the attached list.
+        /// </summary>
+        private void ReorderAllContentPackages()
+        {
+            for (int index = 0; index < listBoxAttachedContentPackages.Items.Count - 1; index++)
+            {
+                ContentPackage package = listBoxAttachedContentPackages.Items[index] as ContentPackage;
+                package.LoadOrder = index + 1;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if a content package with the same FileName exists in the attached list.
+        /// Returns false if no content packages with the same FileName exist in the attached list.
+        /// </summary>
+        /// <param name="package"></param>
+        /// <returns></returns>
+        private bool DoesContentPackageExistInAttachedList(ContentPackage package)
+        {
+            bool exists = false;
+
+            foreach (ContentPackage current in listBoxAttachedContentPackages.Items)
+            {
+                if (current.FileName == package.FileName)
+                {
+                    exists = true;
+                }
+            }
+
+            return exists;
+        }
+
         #endregion
-
-
-
     }
 }

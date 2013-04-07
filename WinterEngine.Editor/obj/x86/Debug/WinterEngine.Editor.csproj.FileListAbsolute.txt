@@ -92,3 +92,5 @@ C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.FileAcce
 C:\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\WinterEngine.FileAccess.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Controls.ResourceTypeControl.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Forms.ContentPackageCreator.resources
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\AutoMapper.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\AutoMapper.xml

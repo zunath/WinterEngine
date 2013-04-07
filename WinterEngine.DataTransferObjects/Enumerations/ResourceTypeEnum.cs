@@ -19,6 +19,8 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("ItemProperties")]
         ItemProperty = 5,
         [Description("Races")]
-        Race = 6
+        Race = 6,
+        [Description("ContentPackageResources")]
+        ContentPackageResource = 7
     }
 }

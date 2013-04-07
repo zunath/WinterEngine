@@ -12,20 +12,10 @@ namespace WinterEngine.DataTransferObjects.Mapping
     {
         #region Fields
 
-        private ContentPackageResource _graphicResource;
-
+        
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the graphic resource used by this tileset.
-        /// </summary>
-        public ContentPackageResource Graphic
-        {
-            get { return _graphicResource; }
-            set { _graphicResource = value; }
-        }
 
         #endregion
     }

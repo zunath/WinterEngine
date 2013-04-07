@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AutoMapper;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataTransferObjects.Resources;
 
@@ -63,8 +64,7 @@ namespace WinterEngine.DataAccess.Repositories
 
                 if (!Object.ReferenceEquals(dbResource, null))
                 {
-                    context.ContentPackages.Remove(dbResource);
-                    context.ContentPackages.Add(package);
+                    dbResource = Mapper.Map(package, dbResource);
                     context.SaveChanges();
                 }
                 else
@@ -88,8 +88,7 @@ namespace WinterEngine.DataAccess.Repositories
 
                 if (!Object.ReferenceEquals(dbResource, null))
                 {
-                    context.ContentPackages.Remove(dbResource);
-                    context.ContentPackages.Add(package);
+                    dbResource = Mapper.Map(package, dbResource);
                     context.SaveChanges();
                 }
             }
@@ -114,7 +113,7 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         /// <summary>
-        /// Returns all content packages from the database.
+        /// Returns all content packages from the database in ascending order, based on their LoadOrder property.
         /// </summary>
         /// <returns></returns>
         public List<ContentPackage> GetAll()
@@ -125,6 +124,7 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 var query = from contentPackage
                             in context.ContentPackages
+                            orderby contentPackage.LoadOrder ascending
                             select contentPackage;
                 contentPackageList = query.ToList();
             }
@@ -232,6 +232,19 @@ namespace WinterEngine.DataAccess.Repositories
 
                 foreach (ContentPackage package in removedContentPackages)
                 {
+                    // Resources linked to this content package must be removed first, otherwise
+                    // a foreign key error will occur.
+                    var resourceQuery = from resource
+                                        in context.ContentPackageResources
+                                        where resource.Package.ResourceID == package.ResourceID
+                                        select resource;
+
+                    foreach (ContentPackageResource current in resourceQuery.ToList())
+                    {
+                        context.ContentPackageResources.Remove(current);
+                    }
+
+                    // Now remove the content package
                     context.ContentPackages.Remove(package);
                 }
 
