@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Ionic.Zip;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Resources;
 

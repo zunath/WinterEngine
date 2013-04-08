@@ -61,6 +61,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="FlatRedBall">
+      <HintPath>..\WinterEngine.Editor\Libraries\Xna4Pc\FlatRedBall.dll</HintPath>
+    </Reference>
+    <Reference Include="FlatRedBall.Content">
+      <HintPath>..\WinterEngine.Editor\Libraries\Xna4Pc\FlatRedBall.Content.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -73,6 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexts\WinterContext.cs" />
+    <Compile Include="Factories\FileExtensionFactory.cs" />
+    <Compile Include="Factories\GameObjectFactory.cs" />
+    <Compile Include="Factories\GameResourceFactory.cs" />
+    <Compile Include="FileAccess\DirectoryPaths.cs" />
+    <Compile Include="FileAccess\FileArchiveManager.cs" />
+    <Compile Include="FileAccess\FilePaths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AreaRepository.cs" />
     <Compile Include="Repositories\ContentPackageRepository.cs" />
@@ -100,6 +115,7 @@
       <Name>WinterEngine.DataTransferObjects</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

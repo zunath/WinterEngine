@@ -15,8 +15,8 @@ using FlatRedBall.IO;
 using WinterEngine.Editor.Services;
 using System.IO;
 using WinterEngine.DataAccess.Repositories;
-using WinterEngine.FileAccess;
-using WinterEngine.FileAccess.Repositories;
+using WinterEngine.DataAccess.FileAccess;
+using WinterEngine.DataAccess.Factories;
 
 namespace WinterEngine.Editor.Forms
 {
@@ -226,23 +226,15 @@ namespace WinterEngine.Editor.Forms
         /// <param name="contentPackages"></param>
         private void ImportContentPackagesToDatabase(List<ContentPackage> contentPackages)
         {
-            // Add references to each of the content packages
-            using (ContentPackageRepository repo = new ContentPackageRepository())
+            using (ContentPackageRepository packageRepo = new ContentPackageRepository())
             {
-                repo.ReplaceAll(contentPackages);
-
-                // Retrieve the content packages with their auto-generated ID numbers.
-                contentPackages = repo.GetAll();
-            }
-
-            using (ContentPackageResourceRepository dataRepo = new ContentPackageResourceRepository())
-            {
-                using (ContentPackageFileRepository fileRepo = new ContentPackageFileRepository())
+                using (ContentPackageRepository fileRepo = new ContentPackageRepository())
                 {
-                    foreach (ContentPackage package in contentPackages)
+                    using (ContentPackageResourceRepository resourceRepo = new ContentPackageResourceRepository())
                     {
-                        List<ContentPackageResource> resourceList = fileRepo.GetContentPackageResourcesFromManifest(package);
-                        dataRepo.AddIgnoreExisting(resourceList);
+                        // Remove missing content packages, upsert the current set of content packages
+                        packageRepo.ReplaceAll(contentPackages);
+                        
                     }
                 }
             }

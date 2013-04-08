@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using Ionic.Zip;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataTransferObjects.Resources;
 
@@ -67,13 +69,34 @@ namespace WinterEngine.DataAccess.Repositories
                 if (!Object.ReferenceEquals(dbResource, null))
                 {
                     dbResource = Mapper.Map(resource, dbResource);
-                    context.SaveChanges();
                 }
                 else
                 {
                     context.ContentPackageResources.Add(resource);
-                    context.SaveChanges();
                 }
+
+                context.SaveChanges();
+            }
+        }
+
+        public void Upsert(List<ContentPackageResource> resourceList)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                foreach (ContentPackageResource resource in resourceList)
+                {
+                    ContentPackageResource dbResource = context.ContentPackageResources.SingleOrDefault(r => r.ResourceID.Equals(resource.ResourceID));
+
+                    if (!Object.ReferenceEquals(dbResource, null))
+                    {
+                        dbResource = Mapper.Map(resource, dbResource);
+                    }
+                    else
+                    {
+                        context.ContentPackageResources.Add(resource);
+                    }
+                }
+                context.SaveChanges();
             }
         }
 
@@ -156,6 +179,59 @@ namespace WinterEngine.DataAccess.Repositories
 
                 context.SaveChanges();
             }
+        }
+
+        /// <summary>
+        /// Removes all resources in the specified ContentPackage which are not in the specified resource list
+        /// </summary>
+        /// <param name="package"></param>
+        /// <param name="resourceList"></param>
+        public void RemoveMissingResources(ContentPackage package, List<ContentPackageResource> resourceList)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                List<ContentPackageResource> existingResources = (from resource
+                                                                  in context.ContentPackageResources
+                                                                  where package.ResourceID == resource.ContentPackageID
+                                                                  select resource).ToList();
+                List<ContentPackageResource> removedResources = existingResources.Except(resourceList).ToList();
+
+                foreach (ContentPackageResource resource in removedResources)
+                {
+                    context.ContentPackageResources.Remove(resource);
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+
+        /// <summary>
+        /// Extracts a content builder resource from a content package to memory and returns the MemoryStream object.
+        /// </summary>
+        /// <param name="package"></param>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        public MemoryStream ExtractResourceToMemory(ContentPackageResource resource, ContentPackage package = null)
+        {
+            string path = "";
+
+            if (!Object.ReferenceEquals(package, null))
+            {
+                path = package.ContentPackagePath;
+            }
+            else
+            {
+                path = resource.Package.ContentPackagePath;
+            }
+
+            MemoryStream stream = new MemoryStream();
+            using (ZipFile zipFile = new ZipFile(path))
+            {
+                zipFile[resource.FileName].Extract(stream);
+            }
+
+            return stream;
         }
 
         public void Dispose()

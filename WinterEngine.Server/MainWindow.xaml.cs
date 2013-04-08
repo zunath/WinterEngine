@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Microsoft.Win32;
+using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Factories;
 using WinterEngine.Network;

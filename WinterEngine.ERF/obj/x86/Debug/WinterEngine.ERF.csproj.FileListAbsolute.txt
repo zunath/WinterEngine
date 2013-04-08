@@ -56,3 +56,5 @@ C:\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.DataAccess.pdb
 C:\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\WinterEngine.Library.pdb
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\AutoMapper.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\AutoMapper.xml
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\FlatRedBall.dll
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.ERF\bin\Debug\FlatRedBall.xml

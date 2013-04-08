@@ -1,15 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using AutoMapper;
+using Ionic.Zip;
 using WinterEngine.DataAccess.Contexts;
+using WinterEngine.DataAccess.Factories;
+using WinterEngine.DataAccess.FileAccess;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess.Repositories
 {
     public class ContentPackageRepository : RepositoryBase, IResourceRepository<ContentPackage>
     {
+        #region Constants
+
+        private const string ManifestFileName = "Manifest.xml";
+
+        #endregion
+
         #region Constructors
 
         public ContentPackageRepository(string connectionString = "")
@@ -19,7 +31,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         #endregion
         
-        #region Methods
+        #region Database Methods
 
         /// <summary>
         /// Adds a content package to the database.
@@ -60,16 +72,38 @@ namespace WinterEngine.DataAccess.Repositories
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                ContentPackage dbResource = context.ContentPackages.SingleOrDefault(r => r.ResourceID.Equals(package.ResourceID));
+                ContentPackage dbResource = context.ContentPackages.SingleOrDefault(r => r.FileName.Equals(package.FileName));
 
                 if (!Object.ReferenceEquals(dbResource, null))
                 {
                     dbResource = Mapper.Map(package, dbResource);
-                    context.SaveChanges();
                 }
                 else
                 {
                     context.ContentPackages.Add(package);
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        public void Upsert(List<ContentPackage> packageList)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                foreach (ContentPackage package in packageList)
+                {
+                    ContentPackage dbResource = context.ContentPackages.SingleOrDefault(r => r.FileName.Equals(package.FileName));
+
+                    if (!Object.ReferenceEquals(dbResource, null))
+                    {
+                        dbResource = Mapper.Map(package, dbResource);
+                    }
+                    else
+                    {
+                        context.ContentPackages.Add(package);
+                    }
+
                     context.SaveChanges();
                 }
             }
@@ -217,47 +251,320 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         /// <summary>
-        /// Deletes all entries for existing content packages and inserts the specified list of content packages to the database.
+        /// Handles removing references to content packages and resources which are not tied to the list
+        /// of contentPackages passed in to this method.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="contentPackages"></param>
+        private void RemoveMissingContent(WinterContext context, List<ContentPackage> contentPackages)
+        {
+            List<ContentPackage> existingContentPackages = (from package
+                                                            in context.ContentPackages
+                                                            select package).ToList();
+            List<ContentPackage> removedContentPackages = existingContentPackages.Except(contentPackages).ToList();
+
+            // Remove all references for content packages which no longer exist.
+            foreach (ContentPackage package in removedContentPackages)
+            {
+                // Resources must be removed first.
+                List<ContentPackageResource> resources = (from resource
+                                                          in context.ContentPackageResources
+                                                          where resource.ContentPackageID == package.ResourceID
+                                                          select resource).ToList();
+                foreach (ContentPackageResource resource in resources)
+                {
+                    context.ContentPackageResources.Remove(resource);
+                }
+
+                context.SaveChanges();
+                context.ContentPackages.Remove(package);
+            }
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Removes content packages and resources which are no longer in use.
+        /// Adds or updates content packages and resources.
         /// </summary>
         /// <param name="contentPackages"></param>
         public void ReplaceAll(List<ContentPackage> contentPackages)
         {
             using (WinterContext context = new WinterContext(ConnectionString))
             {
-                // Remove existing packages
-                var query = from package
-                            in context.ContentPackages
-                            select package;
-                List<ContentPackage> removedContentPackages = query.ToList();
+                RemoveMissingContent(context, contentPackages);
 
-                foreach (ContentPackage package in removedContentPackages)
-                {
-                    // Resources linked to this content package must be removed first, otherwise
-                    // a foreign key error will occur.
-                    var resourceQuery = from resource
-                                        in context.ContentPackageResources
-                                        where resource.Package.ResourceID == package.ResourceID
-                                        select resource;
-
-                    foreach (ContentPackageResource current in resourceQuery.ToList())
-                    {
-                        context.ContentPackageResources.Remove(current);
-                    }
-
-                    // Now remove the content package
-                    context.ContentPackages.Remove(package);
-                }
-
-                // Add the new set of packages
+                // Now add or update content packages and associated resources.
                 foreach (ContentPackage package in contentPackages)
                 {
-                    context.ContentPackages.Add(package);
+                    List<ContentPackageResource> resources = GetContentPackageResourcesFromManifestFile(package);
+                    ContentPackage dbPackage = context.ContentPackages.FirstOrDefault(x => x.FileName == package.FileName);
+
+                    // Is there an entry for this content package already in the database? 
+                    // If so, remove any non-existent resources and add/update resources contained in the packages.
+                    if (!Object.ReferenceEquals(dbPackage, null))
+                    {
+                        foreach (ContentPackageResource resource in resources)
+                        {
+                            resource.ContentPackageID = dbPackage.ResourceID;
+                        }
+
+                        List<ContentPackageResource> existingResources = (from resource
+                                                                          in context.ContentPackageResources
+                                                                          where resource.ContentPackageID == dbPackage.ResourceID
+                                                                          select resource).ToList();
+                        List<ContentPackageResource> removedResources = existingResources.Except(resources).ToList();
+
+                        foreach (ContentPackageResource resource in removedResources)
+                        {
+                            context.ContentPackageResources.Remove(resource);
+                        }
+
+                        foreach (ContentPackageResource resource in resources)
+                        {
+                            ContentPackageResource dbResource = context.ContentPackageResources.FirstOrDefault(x => x.FileName == resource.FileName &&
+                                                                                                                    x.ContentPackageID == resource.ContentPackageID);
+
+                            if (!Object.ReferenceEquals(dbResource, null))
+                            {
+                                dbResource = Mapper.Map(resource, dbResource);
+                            }
+                            else
+                            {
+                                context.ContentPackageResources.Add(resource);
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        dbPackage = context.ContentPackages.Add(package);
+                        context.SaveChanges();
+                        foreach (ContentPackageResource resource in resources)
+                        {
+                            resource.ContentPackageID = dbPackage.ResourceID;
+                            context.ContentPackageResources.Add(resource);
+                        }
+                    }
                 }
 
                 context.SaveChanges();
             }
         }
 
+
+        #endregion
+
+        #region File Access Methods
+
+
+
+        /// <summary>
+        /// Returns a list of ContentPackageResource objects based on the manifest file contained in the specified content package.
+        /// </summary>
+        /// <param name="contentPackagePath"></param>
+        /// <returns></returns>
+        public List<ContentPackageResource> GetContentPackageResourcesFromManifestFile(ContentPackage package)
+        {
+            List<ContentPackageResource> resources = new List<ContentPackageResource>();
+            try
+            {
+                using (ZipFile zipFile = new ZipFile(package.ContentPackagePath))
+                {
+                    using (Stream stream = zipFile[ManifestFileName].OpenReader())
+                    {
+                        using (XmlReader reader = XmlReader.Create(stream))
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.ReadToFollowing("Resource"))
+                                {
+                                    int resourceID = Convert.ToInt32(reader.GetAttribute("ID"));
+                                    string resourceName = reader.GetAttribute("ResourceName");
+                                    ContentPackageResourceTypeEnum resourceType = (ContentPackageResourceTypeEnum)Enum.Parse(typeof(ContentPackageResourceTypeEnum), reader.GetAttribute("ResourceType"), true);
+                                    string fileName = reader.GetAttribute("FileName");
+                                    reader.ReadToFollowing("Details");
+                                    ContentPackageResource resource = new ContentPackageResource(resourceType, ContentBuilderFileTypeEnum.PackageFile, resourceName, fileName);
+
+                                    if (package.ResourceID > 0)
+                                    {
+                                        resource.ContentPackageID = package.ResourceID;
+                                    }
+
+                                    resources.Add(resource);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resources.Clear();
+                throw new Exception("Error getting content package resources from manifest file.", ex);
+            }
+
+            return resources;
+        }
+
+
+        /// <summary>
+        /// Saves a content package to disk.
+        /// </summary>
+        /// <param name="package"></param>
+        /// <param name="builderPackageDescription"></param>
+        /// <param name="builderPackageName"></param>
+        /// <param name="resourceList"></param>
+        public void SaveContentPackageFile(ContentPackage package, List<ContentPackageResource> resourceList, string builderPackageName, string builderPackageDescription)
+        {
+            string backupFilePath = package.ContentPackagePath + ".bak";
+            try
+            {
+                // Back up existing file, just in case something goes wrong.
+                if (File.Exists(package.ContentPackagePath))
+                {
+                    File.Move(package.ContentPackagePath, backupFilePath);
+                }
+
+                using (ZipFile zipFile = new ZipFile(package.ContentPackagePath))
+                {
+                    using (ZipFile backupZipFile = new ZipFile(backupFilePath))
+                    {
+                        // Build the manifest file and add it to the zip package.
+                        zipFile.AddEntry(ManifestFileName, CreateManifestFile(package, resourceList, builderPackageName, builderPackageDescription).ToArray());
+                        foreach (ContentPackageResource resource in resourceList)
+                        {
+                            // Resource is not in the content package. It needs to be added to the content package directly.
+                            if (resource.FileType == ContentBuilderFileTypeEnum.ExternalFile)
+                            {
+                                zipFile.AddFile(resource.ResourcePath, "");
+                            }
+                            // Resource exists in the content package already. It needs to be read into memory and copied into the new content package file.
+                            else if (resource.FileType == ContentBuilderFileTypeEnum.PackageFile)
+                            {
+                                using (Stream stream = backupZipFile[resource.FileName].OpenReader())
+                                {
+                                    zipFile.AddEntry(resource.FileName, stream);
+                                }
+                            }
+                        }
+
+                        zipFile.Save();
+                    }
+                }
+
+                // Remove the file backup.
+                File.Delete(backupFilePath);
+            }
+            catch (Exception ex)
+            {
+                // Something went wrong. Revert to the backup file.
+                if (File.Exists(package.ContentPackagePath))
+                {
+                    File.Delete(package.ContentPackagePath);
+                }
+
+                if (File.Exists(backupFilePath))
+                {
+                    File.Move(backupFilePath, package.ContentPackagePath);
+                }
+
+                throw new Exception("Error saving content package.", ex);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Builds a manifest file containing details about each individual resource and adds it to the specified content package.
+        /// Returns a MemoryStream object containing the Manifest file
+        /// </summary>
+        private MemoryStream CreateManifestFile(ContentPackage contentPackage, List<ContentPackageResource> resourceList, string builderPackageName, string builderPackageDescription)
+        {
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.NewLineOnAttributes = true;
+            int index = 1;
+
+            MemoryStream stream = new MemoryStream();
+            using (XmlWriter writer = XmlWriter.Create(stream, settings))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("ContentPackageResources");
+                writer.WriteAttributeString("Name", builderPackageName);
+                writer.WriteAttributeString("Description", builderPackageDescription);
+
+                foreach (ContentPackageResource resource in resourceList)
+                {
+                    writer.WriteStartElement("Resource");
+                    writer.WriteAttributeString("ID", Convert.ToString(index));
+                    writer.WriteAttributeString("ResourceName", resource.ResourceName);
+                    writer.WriteAttributeString("ResourceType", resource.ContentPackageResourceType.ToString());
+                    writer.WriteAttributeString("FileName", resource.FileName);
+                    writer.WriteStartElement("Details");
+
+                    writer.WriteEndElement(); // Close the Details element
+                    writer.WriteEndElement(); // Close the Resource element
+
+                    index++;
+                }
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
+
+            return stream;
+        }
+
+
+        /// <summary>
+        /// Takes a content package's file path and creates a ContentPackage object based on its data.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public ContentPackage ConvertFileToContentPackage(string filePath)
+        {
+            ContentPackage package = new ContentPackage(filePath, false);
+
+            using (ZipFile zipFile = new ZipFile(package.ContentPackagePath))
+            {
+                using (Stream stream = zipFile[ManifestFileName].OpenReader())
+                {
+                    using (XmlReader reader = XmlReader.Create(stream))
+                    {
+                        while (reader.Read())
+                        {
+                            if (reader.ReadToFollowing("ContentPackageResources"))
+                            {
+                                package.VisibleName = reader.GetAttribute("Name");
+                                package.Description = reader.GetAttribute("Description");
+                            }
+                        }
+                    }
+                }
+            }
+
+            return package;
+        }
+
+        
+        /// <summary>
+        /// Returns a list containing the names of all the content packages in the ContentPacks folder.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetAllContentPackageFileNames()
+        {
+            FileExtensionFactory factory = new FileExtensionFactory();
+            string[] filePaths = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + factory.GetFileExtension(FileTypeEnum.ContentPackage));
+            List<string> contentPackageFileNames = new List<string>();
+
+            foreach (string path in filePaths)
+            {
+                contentPackageFileNames.Add(Path.GetFileName(path));
+            }
+
+            return contentPackageFileNames;
+        }
+        
         public void Dispose()
         {
         }

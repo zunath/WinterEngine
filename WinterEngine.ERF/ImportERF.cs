@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using Ionic.Zip;
 using WinterEngine.DataAccess;
+using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;

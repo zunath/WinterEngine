@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using WinterEngine.DataAccess.Factories;
+using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Resources;
-using WinterEngine.FileAccess.Repositories;
 using WinterEngine.Library.Factories;
 
 namespace WinterEngine.Editor.Forms
@@ -71,7 +72,7 @@ namespace WinterEngine.Editor.Forms
                 // Content package files are loaded into memory and then inserted into the picture box.
                 else if (resource.FileType == ContentBuilderFileTypeEnum.PackageFile)
                 {
-                    using(ContentPackageFileRepository repo = new ContentPackageFileRepository())
+                    using(ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
                     {
                         MemoryStream stream = repo.ExtractResourceToMemory(resource, Package);
                         pictureBoxPreview.Image = Bitmap.FromStream(stream);
@@ -197,10 +198,10 @@ namespace WinterEngine.Editor.Forms
             if (openFileDialogContentPackages.ShowDialog() == DialogResult.OK)
             {
                 listBoxResources.Items.Clear();
-                using (ContentPackageFileRepository manager = new ContentPackageFileRepository())
+                using (ContentPackageRepository repo = new ContentPackageRepository())
                 {
-                    Package = manager.ConvertFileToContentPackage(openFileDialogContentPackages.FileName);
-                    List<ContentPackageResource> resources = manager.GetContentPackageResourcesFromManifest(Package);
+                    Package = repo.ConvertFileToContentPackage(openFileDialogContentPackages.FileName);
+                    List<ContentPackageResource> resources = repo.GetContentPackageResourcesFromManifestFile(Package);
                     listBoxResources.Items.AddRange(resources.ToArray());
                     textBoxDescription.Text = Package.Description;
                     textBoxName.Text = Package.VisibleName;
@@ -275,9 +276,9 @@ namespace WinterEngine.Editor.Forms
                 resources.Add(resource);
             }
 
-            using (ContentPackageFileRepository repo = new ContentPackageFileRepository())
+            using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                repo.SaveContentPackageToDisk(Package, resources, textBoxName.Text, textBoxDescription.Text);
+                repo.SaveContentPackageFile(Package, resources, textBoxName.Text, textBoxDescription.Text);
             }
 
             // Save completed successfully. Update all resource references to point to their content package now.

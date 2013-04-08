@@ -140,6 +140,46 @@ namespace WinterEngine.DataTransferObjects.Resources
             return retValue;
         }
 
+
+        /// <summary>
+        /// Returns a unique hash for this object.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            // Reference: http://stackoverflow.com/questions/892618/create-a-hashcode-of-two-numbers
+            int hashPrime = 23 * 31;
+            int fileNameHash = FileName.GetHashCode();
+            int contentPackageIDHash = ContentPackageID.GetHashCode();
+
+            return hashPrime + fileNameHash; //+ contentPackageIDHash;
+        }
+
+        /// <summary>
+        /// Returns true if two ContentPackage objects are the same.
+        /// Returns false if they are not the same.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            ContentPackageResource comparedObject = obj as ContentPackageResource;
+
+            if (Object.ReferenceEquals(comparedObject, null))
+            {
+                return false;
+            }
+            else if (this.GetHashCode() == comparedObject.GetHashCode())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
         #endregion
 
     }
