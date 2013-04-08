@@ -356,8 +356,6 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region File Access Methods
 
-
-
         /// <summary>
         /// Returns a list of ContentPackageResource objects based on the manifest file contained in the specified content package.
         /// </summary>
