@@ -160,6 +160,7 @@ namespace WinterEngine.Editor.Screens
             MenuBar.OnRefreshControls += RefreshTreeViews;
 
             FlatRedBallServices.CornerGrabbingResize += OnWindowResize;
+
         }
 
         /// <summary>

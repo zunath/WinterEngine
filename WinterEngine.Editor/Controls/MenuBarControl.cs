@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using WinterEngine.DataAccess.Factories;
+using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.Resources;
 using WinterEngine.Editor.ExtendedEventArgs;
 using WinterEngine.Editor.Forms;
 using WinterEngine.Editor.Managers;
@@ -138,6 +141,7 @@ namespace WinterEngine.Editor.Controls
             toolStripMenuItemModuleProperties.Enabled = enabled;
             toolStripMenuItemManageContentPackages.Enabled = enabled;
             toolStripMenuItemManageContentPackages.Enabled = enabled;
+            toolStripMenuItemBuildModule.Enabled = enabled;
 
             if (!Object.ReferenceEquals(OnToggleControls, null))
             {
@@ -340,7 +344,29 @@ namespace WinterEngine.Editor.Controls
             Application.Exit();
         }
 
+        /// <summary>
+        /// Handles rebuilding module references and resource links.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buildModuleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (GameResourceManager manager = new GameResourceManager())
+                {
+                    manager.RebuildModule();
+                }
+                MessageBox.Show("Module built successfully.", "Build Complete", MessageBoxButtons.OK);
+            }
+            catch (Exception ex)
+            {
+                ErrorHelper.ShowErrorDialog("Unable to build module.", ex);
+            }
+        }
+
         #endregion
+
 
 
     }

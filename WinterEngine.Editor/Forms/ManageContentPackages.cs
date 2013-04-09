@@ -17,6 +17,7 @@ using System.IO;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Factories;
+using WinterEngine.Editor.Managers;
 
 namespace WinterEngine.Editor.Forms
 {
@@ -47,6 +48,12 @@ namespace WinterEngine.Editor.Forms
         {
             InitializeComponent();
         }
+
+        #endregion
+
+        #region Events / Delegates
+
+
 
         #endregion
 
@@ -214,30 +221,13 @@ namespace WinterEngine.Editor.Forms
                 contentPackages.Add(package);
             }
 
-            // Add references to the content package files to the database.
-            ImportContentPackagesToDatabase(contentPackages);
+            // Rebuild module references
+            using (GameResourceManager manager = new GameResourceManager())
+            {
+                manager.RebuildModule(contentPackages);
+            }
 
             return saveCompleted;
-        }
-
-        /// <summary>
-        /// Imports data from a list of content packages into the module's database.
-        /// </summary>
-        /// <param name="contentPackages"></param>
-        private void ImportContentPackagesToDatabase(List<ContentPackage> contentPackages)
-        {
-            using (ContentPackageRepository packageRepo = new ContentPackageRepository())
-            {
-                using (ContentPackageRepository fileRepo = new ContentPackageRepository())
-                {
-                    using (ContentPackageResourceRepository resourceRepo = new ContentPackageResourceRepository())
-                    {
-                        // Remove missing content packages, upsert the current set of content packages
-                        packageRepo.ReplaceAll(contentPackages);
-                        
-                    }
-                }
-            }
         }
 
         /// <summary>

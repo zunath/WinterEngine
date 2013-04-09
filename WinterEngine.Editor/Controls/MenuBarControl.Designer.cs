@@ -53,13 +53,15 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemModuleProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.contentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemContentPackageCreator = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemManageContentPackages = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemContentPackageCreator = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemWebsite = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripMenuItemBuildModule = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -255,17 +257,12 @@
             // 
             this.contentToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemManageContentPackages,
-            this.toolStripMenuItemContentPackageCreator});
+            this.toolStripMenuItemContentPackageCreator,
+            this.toolStripSeparator7,
+            this.toolStripMenuItemBuildModule});
             this.contentToolStripMenuItem.Name = "contentToolStripMenuItem";
             this.contentToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.contentToolStripMenuItem.Text = "Content";
-            // 
-            // toolStripMenuItemContentPackageCreator
-            // 
-            this.toolStripMenuItemContentPackageCreator.Name = "toolStripMenuItemContentPackageCreator";
-            this.toolStripMenuItemContentPackageCreator.Size = new System.Drawing.Size(215, 22);
-            this.toolStripMenuItemContentPackageCreator.Text = "Content Package Creator";
-            this.toolStripMenuItemContentPackageCreator.Click += new System.EventHandler(this.toolStripMenuItemContentBuilder_Click);
             // 
             // toolStripMenuItemManageContentPackages
             // 
@@ -273,6 +270,13 @@
             this.toolStripMenuItemManageContentPackages.Size = new System.Drawing.Size(215, 22);
             this.toolStripMenuItemManageContentPackages.Text = "Manage Content Packages";
             this.toolStripMenuItemManageContentPackages.Click += new System.EventHandler(this.toolStripMenuItemManageContentPackages_Click);
+            // 
+            // toolStripMenuItemContentPackageCreator
+            // 
+            this.toolStripMenuItemContentPackageCreator.Name = "toolStripMenuItemContentPackageCreator";
+            this.toolStripMenuItemContentPackageCreator.Size = new System.Drawing.Size(215, 22);
+            this.toolStripMenuItemContentPackageCreator.Text = "Content Package Creator";
+            this.toolStripMenuItemContentPackageCreator.Click += new System.EventHandler(this.toolStripMenuItemContentBuilder_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -296,6 +300,19 @@
             this.toolStripMenuItemAbout.Size = new System.Drawing.Size(193, 22);
             this.toolStripMenuItemAbout.Text = "About";
             this.toolStripMenuItemAbout.Click += new System.EventHandler(this.toolStripMenuItemAbout_Click);
+            // 
+            // toolStripMenuItemBuildModule
+            // 
+            this.toolStripMenuItemBuildModule.Enabled = false;
+            this.toolStripMenuItemBuildModule.Name = "toolStripMenuItemBuildModule";
+            this.toolStripMenuItemBuildModule.Size = new System.Drawing.Size(215, 22);
+            this.toolStripMenuItemBuildModule.Text = "Build Module";
+            this.toolStripMenuItemBuildModule.Click += new System.EventHandler(this.buildModuleToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(212, 6);
             // 
             // MenuBarControl
             // 
@@ -345,5 +362,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAbout;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemBuildModule;
     }
 }
