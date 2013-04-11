@@ -27,7 +27,7 @@ namespace WinterEngine.Editor.Views
         /// <summary>
         /// Gets or sets the tree category control
         /// </summary>
-        public TreeCategoryControl TreeCategory
+        private TreeCategoryControl TreeCategory
         {
             get { return _treeCategoryControl; }
             set { _treeCategoryControl = value; }
@@ -165,6 +165,10 @@ namespace WinterEngine.Editor.Views
             UpdateControlPositions();
         }
 
+        public void RefreshAllControls()
+        {
+            TreeCategory.RefreshTreeView();
+        }
 
         #endregion
 

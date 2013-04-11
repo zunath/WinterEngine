@@ -26,6 +26,7 @@ namespace WinterEngine.Editor.Forms
         #region Fields
 
         private bool _modified;
+        private bool _isLoaded;
 
         #endregion
 
@@ -53,7 +54,7 @@ namespace WinterEngine.Editor.Forms
 
         #region Events / Delegates
 
-
+        public event EventHandler OnPackagesSaved;
 
         #endregion
 
@@ -66,6 +67,7 @@ namespace WinterEngine.Editor.Forms
         /// <param name="e"></param>
         private void ManageContentPackages_Load(object sender, EventArgs e)
         {
+            UnloadContentPackages();
             LoadContentPackages();
             IsModified = false;
         }
@@ -227,7 +229,18 @@ namespace WinterEngine.Editor.Forms
                 manager.RebuildModule(contentPackages);
             }
 
+            if (!Object.ReferenceEquals(OnPackagesSaved, null))
+            {
+                OnPackagesSaved(this, new EventArgs());
+            }
+
             return saveCompleted;
+        }
+
+        private void UnloadContentPackages()
+        {
+            listBoxAttachedContentPackages.Items.Clear();
+            listBoxAvailableContentPackages.Items.Clear();
         }
 
         /// <summary>

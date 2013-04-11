@@ -18,7 +18,17 @@ namespace WinterEngine.Editor.Managers
 
         #endregion
 
+        #region Constructors
+
+        public GameResourceManager()
+        {
+        }
+
+        #endregion
+
         #region Events / Delegates
+
+        public event EventHandler OnRebuildModuleComplete;
 
         #endregion
 
@@ -36,6 +46,11 @@ namespace WinterEngine.Editor.Managers
             {
                 // Remove missing content packages, upsert the current set of content packages
                 packageRepo.ReplaceAll(contentPackages);
+            }
+
+            if (!Object.ReferenceEquals(OnRebuildModuleComplete, null))
+            {
+                OnRebuildModuleComplete(this, new EventArgs());
             }
         }
 

@@ -6,6 +6,7 @@ using System.Text;
 using AutoMapper;
 using Ionic.Zip;
 using WinterEngine.DataAccess.Contexts;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess.Repositories
@@ -116,17 +117,25 @@ namespace WinterEngine.DataAccess.Repositories
 
         public List<ContentPackageResource> GetAll()
         {
-            List<ContentPackageResource> resourceList = new List<ContentPackageResource>();
-            
             using (WinterContext context = new WinterContext(ConnectionString))
             {
                 var query = from resource
                             in context.ContentPackageResources
                             select resource;
-                resourceList = query.ToList();
+                return query.ToList();
             }
+        }
 
-            return resourceList;
+        public List<ContentPackageResource> GetAllByResourceType(ContentPackageResourceTypeEnum resourceType)
+        {
+            using (WinterContext context = new WinterContext(ConnectionString))
+            {
+                var query = from resource
+                            in context.ContentPackageResources
+                            where resource.ContentPackageResourceTypeID == (int)resourceType
+                            select resource;
+                return query.ToList();
+            }
         }
 
         public bool Exists(ContentPackageResource resource)

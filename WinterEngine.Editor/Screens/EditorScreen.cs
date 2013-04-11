@@ -157,7 +157,7 @@ namespace WinterEngine.Editor.Screens
         private void InitializeEventSubscriptions()
         {
             MenuBar.OnToggleControls += MenuBar_OnToggleControls;
-            MenuBar.OnRefreshControls += RefreshTreeViews;
+            MenuBar.OnRefreshControls += RefreshControls;
 
             FlatRedBallServices.CornerGrabbingResize += OnWindowResize;
 
@@ -168,7 +168,7 @@ namespace WinterEngine.Editor.Screens
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void MenuBar_OnToggleControls(object sender, ModuleControlsEventArgs e)
+        private void MenuBar_OnToggleControls(object sender, ModuleControlsEventArgs e)
         {
             AreaControl.SetEnabled(e.IsEnabled);
             CreatureControl.SetEnabled(e.IsEnabled);
@@ -181,12 +181,12 @@ namespace WinterEngine.Editor.Screens
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RefreshTreeViews(object sender, EventArgs e)
+        private void RefreshControls(object sender, EventArgs e)
         {
-            AreaControl.TreeCategory.RefreshTreeView();
-            CreatureControl.TreeCategory.RefreshTreeView();
-            ItemControl.TreeCategory.RefreshTreeView();
-            PlaceableControl.TreeCategory.RefreshTreeView();
+            AreaControl.RefreshAllControls();
+            CreatureControl.RefreshAllControls();
+            ItemControl.RefreshAllControls();
+            PlaceableControl.RefreshAllControls();
         }
 
 

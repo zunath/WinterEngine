@@ -13,6 +13,8 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataAccess.Repositories;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.Editor.Controls
 {
@@ -122,6 +124,14 @@ namespace WinterEngine.Editor.Controls
             tagTextBoxArea.TagText = BackupArea.Tag;
             resrefTextBoxArea.ResrefText = BackupArea.Resref;
 
+        }
+
+        public void OnModuleRebuildComplete(object sender, EventArgs e)
+        {
+            using(ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
+            {
+                listBoxTilesets.DataSource = repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset);
+            }
         }
 
         #endregion

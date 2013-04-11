@@ -36,7 +36,7 @@ namespace WinterEngine.Editor.Controls
             this.pictureBoxTileset = new System.Windows.Forms.PictureBox();
             this.tabPageDetails = new System.Windows.Forms.TabPage();
             this.labelTileset = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxTilesets = new System.Windows.Forms.ListBox();
             this.labelAreaDetailsHeader = new System.Windows.Forms.Label();
             this.labelItemResref = new System.Windows.Forms.Label();
             this.labelItemTag = new System.Windows.Forms.Label();
@@ -111,7 +111,7 @@ namespace WinterEngine.Editor.Controls
             // tabPageDetails
             // 
             this.tabPageDetails.Controls.Add(this.labelTileset);
-            this.tabPageDetails.Controls.Add(this.listBox1);
+            this.tabPageDetails.Controls.Add(this.listBoxTilesets);
             this.tabPageDetails.Controls.Add(this.labelAreaDetailsHeader);
             this.tabPageDetails.Controls.Add(this.labelItemResref);
             this.tabPageDetails.Controls.Add(this.labelItemTag);
@@ -136,13 +136,13 @@ namespace WinterEngine.Editor.Controls
             this.labelTileset.TabIndex = 12;
             this.labelTileset.Text = "Tileset:";
             // 
-            // listBox1
+            // listBoxTilesets
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(81, 146);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(182, 108);
-            this.listBox1.TabIndex = 11;
+            this.listBoxTilesets.FormattingEnabled = true;
+            this.listBoxTilesets.Location = new System.Drawing.Point(81, 146);
+            this.listBoxTilesets.Name = "listBoxTilesets";
+            this.listBoxTilesets.Size = new System.Drawing.Size(182, 108);
+            this.listBoxTilesets.TabIndex = 11;
             // 
             // labelAreaDetailsHeader
             // 
@@ -345,7 +345,7 @@ namespace WinterEngine.Editor.Controls
         private WinterEngine.Editor.Controls.FRBTagTextBox tagTextBoxArea;
         private WinterEngine.Editor.Controls.FRBNameTextBox nameTextBoxArea;
         private System.Windows.Forms.Label labelTileset;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxTilesets;
         private System.Windows.Forms.TabPage tabPageTiles;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBoxTileset;

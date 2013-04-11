@@ -22,6 +22,8 @@ namespace WinterEngine.Editor.Controls
         private ImportERF _importERF;
         private ModuleProperties _moduleProperties;
         private ModuleManager _activeModuleFactory;
+        private ContentPackageCreator _contentPackageCreator;
+        private ManageContentPackages _contentPackageManager;
 
         #endregion
 
@@ -36,6 +38,18 @@ namespace WinterEngine.Editor.Controls
             set { _activeModuleFactory = value; }
         }
 
+        private ContentPackageCreator PackageCreator
+        {
+            get { return _contentPackageCreator; }
+            set { _contentPackageCreator = value; }
+        }
+
+        private ManageContentPackages PackageManager
+        {
+            get { return _contentPackageManager; }
+            set { _contentPackageManager = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -47,6 +61,9 @@ namespace WinterEngine.Editor.Controls
 
             ActiveModuleFactory = new ModuleManager("", "", OnModuleOpened, OnModuleSaved, OnModuleClosed);
 
+            PackageCreator = new ContentPackageCreator();
+            PackageManager = new ManageContentPackages();
+            
             FileExtensionFactory winterExtensions = new FileExtensionFactory();
             string fileExtension = winterExtensions.GetFileExtension(FileTypeEnum.Module);
             openFileDialog.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
@@ -63,7 +80,7 @@ namespace WinterEngine.Editor.Controls
 
         #endregion
 
-        #region Methods
+        #region Event Handling
 
         /// <summary>
         /// Launches the ManageContentPackages form, which allows user to add or remove content packages from the module.
@@ -72,8 +89,7 @@ namespace WinterEngine.Editor.Controls
         /// <param name="e"></param>
         private void toolStripMenuItemManageContentPackages_Click(object sender, EventArgs e)
         {
-            ManageContentPackages contentPackageForm = new ManageContentPackages();
-            contentPackageForm.ShowDialog();
+            PackageManager.ShowDialog();
         }
 
         /// <summary>
@@ -123,41 +139,13 @@ namespace WinterEngine.Editor.Controls
 
 
         /// <summary>
-        /// Enables or disables all module-related controls.
-        /// </summary>
-        /// <param name="enabled"></param>
-        private void ToggleModuleControlsEnabled(bool enabled)
-        {
-            toolStripMenuItemCloseModule.Enabled = enabled;
-            toolStripMenuItemSaveModule.Enabled = enabled;
-            toolStripMenuItemSaveAsModule.Enabled = enabled;
-            toolStripMenuItemImportERF.Enabled = enabled;
-            toolStripMenuItemExportERF.Enabled = enabled;
-            toolStripMenuItemUndo.Enabled = enabled;
-            toolStripMenuItemRedo.Enabled = enabled;
-            toolStripMenuItemCopy.Enabled = enabled;
-            toolStripMenuItemCut.Enabled = enabled;
-            toolStripMenuItemPaste.Enabled = enabled;
-            toolStripMenuItemModuleProperties.Enabled = enabled;
-            toolStripMenuItemManageContentPackages.Enabled = enabled;
-            toolStripMenuItemManageContentPackages.Enabled = enabled;
-            toolStripMenuItemBuildModule.Enabled = enabled;
-
-            if (!Object.ReferenceEquals(OnToggleControls, null))
-            {
-                OnToggleControls(this, new ModuleControlsEventArgs(enabled));
-            }
-        }
-
-        /// <summary>
         /// Opens the Content Package Builder form.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void toolStripMenuItemContentBuilder_Click(object sender, EventArgs e)
         {
-            ContentPackageCreator creator = new ContentPackageCreator();
-            creator.ShowDialog();
+            PackageCreator.ShowDialog();
         }
 
         /// <summary>
@@ -357,6 +345,12 @@ namespace WinterEngine.Editor.Controls
                 {
                     manager.RebuildModule();
                 }
+
+                if (!Object.ReferenceEquals(OnRefreshControls, null))
+                {
+                    OnRefreshControls(this, new EventArgs());
+                }
+
                 MessageBox.Show("Module built successfully.", "Build Complete", MessageBoxButtons.OK);
             }
             catch (Exception ex)
@@ -367,6 +361,38 @@ namespace WinterEngine.Editor.Controls
 
         #endregion
 
+
+        #region Methods
+
+        /// <summary>
+        /// Enables or disables all module-related controls.
+        /// </summary>
+        /// <param name="enabled"></param>
+        private void ToggleModuleControlsEnabled(bool enabled)
+        {
+            toolStripMenuItemCloseModule.Enabled = enabled;
+            toolStripMenuItemSaveModule.Enabled = enabled;
+            toolStripMenuItemSaveAsModule.Enabled = enabled;
+            toolStripMenuItemImportERF.Enabled = enabled;
+            toolStripMenuItemExportERF.Enabled = enabled;
+            toolStripMenuItemUndo.Enabled = enabled;
+            toolStripMenuItemRedo.Enabled = enabled;
+            toolStripMenuItemCopy.Enabled = enabled;
+            toolStripMenuItemCut.Enabled = enabled;
+            toolStripMenuItemPaste.Enabled = enabled;
+            toolStripMenuItemModuleProperties.Enabled = enabled;
+            toolStripMenuItemManageContentPackages.Enabled = enabled;
+            toolStripMenuItemManageContentPackages.Enabled = enabled;
+            toolStripMenuItemBuildModule.Enabled = enabled;
+
+            if (!Object.ReferenceEquals(OnToggleControls, null))
+            {
+                OnToggleControls(this, new ModuleControlsEventArgs(enabled));
+            }
+        }
+
+
+        #endregion
 
 
     }
