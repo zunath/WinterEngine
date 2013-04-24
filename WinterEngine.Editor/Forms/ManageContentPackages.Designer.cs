@@ -34,8 +34,6 @@
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.buttonSaveAndClose = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonMoveUp = new System.Windows.Forms.Button();
-            this.buttonMoveDown = new System.Windows.Forms.Button();
             this.listBoxAttachedContentPackages = new System.Windows.Forms.ListBox();
             this.listBoxAvailableContentPackages = new System.Windows.Forms.ListBox();
             this.buttonAddPackage = new System.Windows.Forms.Button();
@@ -80,7 +78,7 @@
             // 
             // buttonSaveAndClose
             // 
-            this.buttonSaveAndClose.Location = new System.Drawing.Point(45, 452);
+            this.buttonSaveAndClose.Location = new System.Drawing.Point(47, 452);
             this.buttonSaveAndClose.Name = "buttonSaveAndClose";
             this.buttonSaveAndClose.Size = new System.Drawing.Size(122, 23);
             this.buttonSaveAndClose.TabIndex = 8;
@@ -90,7 +88,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(179, 452);
+            this.buttonCancel.Location = new System.Drawing.Point(195, 452);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(111, 23);
             this.buttonCancel.TabIndex = 9;
@@ -98,34 +96,15 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonClose_Click);
             // 
-            // buttonMoveUp
-            // 
-            this.buttonMoveUp.Location = new System.Drawing.Point(296, 346);
-            this.buttonMoveUp.Name = "buttonMoveUp";
-            this.buttonMoveUp.Size = new System.Drawing.Size(75, 23);
-            this.buttonMoveUp.TabIndex = 12;
-            this.buttonMoveUp.Text = "Move Up";
-            this.buttonMoveUp.UseVisualStyleBackColor = true;
-            this.buttonMoveUp.Click += new System.EventHandler(this.buttonMoveUp_Click);
-            // 
-            // buttonMoveDown
-            // 
-            this.buttonMoveDown.Location = new System.Drawing.Point(296, 375);
-            this.buttonMoveDown.Name = "buttonMoveDown";
-            this.buttonMoveDown.Size = new System.Drawing.Size(75, 23);
-            this.buttonMoveDown.TabIndex = 13;
-            this.buttonMoveDown.Text = "Move Down";
-            this.buttonMoveDown.UseVisualStyleBackColor = true;
-            this.buttonMoveDown.Click += new System.EventHandler(this.buttonMoveDown_Click);
-            // 
             // listBoxAttachedContentPackages
             // 
             this.listBoxAttachedContentPackages.FormattingEnabled = true;
             this.listBoxAttachedContentPackages.Location = new System.Drawing.Point(15, 299);
             this.listBoxAttachedContentPackages.Name = "listBoxAttachedContentPackages";
-            this.listBoxAttachedContentPackages.Size = new System.Drawing.Size(275, 147);
+            this.listBoxAttachedContentPackages.Size = new System.Drawing.Size(356, 147);
             this.listBoxAttachedContentPackages.TabIndex = 14;
             this.listBoxAttachedContentPackages.SelectedIndexChanged += new System.EventHandler(this.listBoxAttachedContentPackages_SelectedIndexChanged);
+            this.listBoxAttachedContentPackages.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxAttachedContentPackages_MouseDoubleClick);
             // 
             // listBoxAvailableContentPackages
             // 
@@ -135,10 +114,11 @@
             this.listBoxAvailableContentPackages.Size = new System.Drawing.Size(356, 147);
             this.listBoxAvailableContentPackages.TabIndex = 15;
             this.listBoxAvailableContentPackages.SelectedIndexChanged += new System.EventHandler(this.listBoxAvailableContentPackages_SelectedIndexChanged);
+            this.listBoxAvailableContentPackages.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxAvailableContentPackages_MouseDoubleClick);
             // 
             // buttonAddPackage
             // 
-            this.buttonAddPackage.Location = new System.Drawing.Point(87, 270);
+            this.buttonAddPackage.Location = new System.Drawing.Point(94, 270);
             this.buttonAddPackage.Name = "buttonAddPackage";
             this.buttonAddPackage.Size = new System.Drawing.Size(75, 23);
             this.buttonAddPackage.TabIndex = 16;
@@ -148,7 +128,7 @@
             // 
             // buttonRemovePackage
             // 
-            this.buttonRemovePackage.Location = new System.Drawing.Point(168, 270);
+            this.buttonRemovePackage.Location = new System.Drawing.Point(195, 270);
             this.buttonRemovePackage.Name = "buttonRemovePackage";
             this.buttonRemovePackage.Size = new System.Drawing.Size(75, 23);
             this.buttonRemovePackage.TabIndex = 17;
@@ -165,8 +145,6 @@
             this.Controls.Add(this.buttonAddPackage);
             this.Controls.Add(this.listBoxAvailableContentPackages);
             this.Controls.Add(this.listBoxAttachedContentPackages);
-            this.Controls.Add(this.buttonMoveDown);
-            this.Controls.Add(this.buttonMoveUp);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSaveAndClose);
             this.Controls.Add(this.textBoxDescription);
@@ -193,8 +171,6 @@
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Button buttonSaveAndClose;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonMoveUp;
-        private System.Windows.Forms.Button buttonMoveDown;
         private System.Windows.Forms.ListBox listBoxAttachedContentPackages;
         private System.Windows.Forms.ListBox listBoxAvailableContentPackages;
         private System.Windows.Forms.Button buttonAddPackage;

@@ -147,7 +147,7 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         /// <summary>
-        /// Returns all content packages from the database in ascending order, based on their LoadOrder property.
+        /// Returns all content packages from the database.
         /// </summary>
         /// <returns></returns>
         public List<ContentPackage> GetAll()
@@ -158,7 +158,6 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 var query = from contentPackage
                             in context.ContentPackages
-                            orderby contentPackage.LoadOrder ascending
                             select contentPackage;
                 contentPackageList = query.ToList();
             }

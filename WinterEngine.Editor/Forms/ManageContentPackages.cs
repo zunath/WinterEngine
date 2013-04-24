@@ -133,7 +133,6 @@ namespace WinterEngine.Editor.Forms
             {
                 if (!DoesContentPackageExistInAttachedList(package))
                 {
-                    package.LoadOrder = listBoxAttachedContentPackages.Items.Count + 1;
                     listBoxAttachedContentPackages.Items.Add(package);
                     IsModified = true;
                 }
@@ -153,26 +152,6 @@ namespace WinterEngine.Editor.Forms
                 listBoxAttachedContentPackages.Items.Remove(package);
                 IsModified = true;
             }
-        }
-
-        /// <summary>
-        /// Changes the loading order of the selected content package.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonMoveUp_Click(object sender, EventArgs e)
-        {
-            MoveAttachedContentPackagesItem(-1);
-        }
-
-        /// <summary>
-        /// Changes the loading order of the selected content package.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonMoveDown_Click(object sender, EventArgs e)
-        {
-            MoveAttachedContentPackagesItem(1);
         }
 
         /// <summary>
@@ -203,6 +182,26 @@ namespace WinterEngine.Editor.Forms
                 textBoxName.Text = package.VisibleName;
                 textBoxDescription.Text = package.Description;
             }
+        }
+
+        /// <summary>
+        /// Handles adding the selected item to the attached packages list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxAvailableContentPackages_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            buttonAddPackage.PerformClick();
+        }
+
+        /// <summary>
+        /// Handles removing the selected item from the attached packages list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxAttachedContentPackages_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            buttonRemovePackage.PerformClick();
         }
 
         #endregion
@@ -268,55 +267,6 @@ namespace WinterEngine.Editor.Forms
         }
 
         /// <summary>
-        /// Moves the selected item in the attached list up or down and changes the order priority of all content packages in the list.
-        /// Move up with negative numbers.
-        /// Move down with positive numbers.
-        /// </summary>
-        /// <param name="moveBy"></param>
-        private void MoveAttachedContentPackagesItem(int moveBy)
-        {
-            ContentPackage package = listBoxAttachedContentPackages.SelectedItem as ContentPackage;
-            int index = listBoxAttachedContentPackages.SelectedIndex;
-
-            if (!Object.ReferenceEquals(package, null))
-            {
-                index += moveBy;
-
-                if (index > listBoxAttachedContentPackages.Items.Count - 1)
-                {
-                    index = listBoxAttachedContentPackages.Items.Count - 1;
-                }
-                if (index < 0)
-                {
-                    index = 0;
-                }
-
-                // Don't bother adjusting the list if nothing has changed.
-                if (index != listBoxAttachedContentPackages.SelectedIndex)
-                {
-                    listBoxAttachedContentPackages.Items.Insert(index, package);
-                    listBoxAttachedContentPackages.Items.Remove(package);
-                    listBoxAttachedContentPackages.SelectedIndex = index;
-                    ReorderAllContentPackages();
-                }
-
-                IsModified = true;
-            }
-        }
-
-        /// <summary>
-        /// Handles updating the load order of every content package in the attached list.
-        /// </summary>
-        private void ReorderAllContentPackages()
-        {
-            for (int index = 0; index < listBoxAttachedContentPackages.Items.Count - 1; index++)
-            {
-                ContentPackage package = listBoxAttachedContentPackages.Items[index] as ContentPackage;
-                package.LoadOrder = index + 1;
-            }
-        }
-
-        /// <summary>
         /// Returns true if a content package with the same FileName exists in the attached list.
         /// Returns false if no content packages with the same FileName exist in the attached list.
         /// </summary>
@@ -338,5 +288,7 @@ namespace WinterEngine.Editor.Forms
         }
 
         #endregion
+
+
     }
 }

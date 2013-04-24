@@ -17,7 +17,6 @@ namespace WinterEngine.DataTransferObjects.Resources
         private string _contentPackagePath;
         private string _fileName;
         private string _description;
-        private int _loadOrder;
 
         #endregion
 
@@ -51,25 +50,6 @@ namespace WinterEngine.DataTransferObjects.Resources
         {
             get { return _description; }
             set { _description = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the order in which this content package is loaded.
-        /// If there is a resource name conflict (I.E: more than one resource with the same name), this value will be used
-        /// to determine which resource is loaded.
-        /// </summary>
-        public int LoadOrder
-        {
-            get { return _loadOrder; }
-            set 
-            {
-                int modifiedOrder = _loadOrder + value;
-                if (modifiedOrder < 1)
-                {
-                    modifiedOrder = 1;
-                }
-                _loadOrder = modifiedOrder; 
-            }
         }
 
         #endregion
