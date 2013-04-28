@@ -58,6 +58,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="FlatRedBall">
+      <HintPath>..\WinterEngine.Editor\Libraries\Xna4Pc\FlatRedBall.dll</HintPath>
+    </Reference>
+    <Reference Include="FlatRedBall.Content">
+      <HintPath>..\WinterEngine.Editor\Libraries\Xna4Pc\FlatRedBall.Content.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="System" />
@@ -84,9 +90,10 @@
     <Compile Include="EventArgsExtended\GameObjectEventArgs.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="Mapping\Cell.cs" />
-    <Compile Include="Mapping\TileMap.cs" />
     <Compile Include="Mapping\Tile.cs" />
-    <Compile Include="Mapping\Tileset.cs" />
+    <Compile Include="Mapping\Map.cs" />
+    <Compile Include="Paths\DirectoryPaths.cs" />
+    <Compile Include="Paths\FilePaths.cs" />
     <Compile Include="Resources\Ability.cs" />
     <Compile Include="GameObjects\Area.cs" />
     <Compile Include="Resources\CharacterClass.cs" />

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using FlatRedBall.IO;
 
-namespace WinterEngine.DataAccess.FileAccess
+namespace WinterEngine.DataTransferObjects.Paths
 {
     public static class DirectoryPaths
     {

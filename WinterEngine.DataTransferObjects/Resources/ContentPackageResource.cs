@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.Paths;
 
 namespace WinterEngine.DataTransferObjects
 {
@@ -33,7 +34,18 @@ namespace WinterEngine.DataTransferObjects
         [ForeignKey("ContentPackageID")]
         public ContentPackage Package
         {
-            get { return _contentPackage; }
+            get 
+            {
+                if (!Object.ReferenceEquals(_contentPackage, null))
+                {
+                    if (String.IsNullOrWhiteSpace(_contentPackage.ContentPackagePath))
+                    {
+                        _contentPackage.ContentPackagePath = DirectoryPaths.ContentPackageDirectoryPath + _contentPackage.FileName;
+                    }
+                }
+
+                return _contentPackage; 
+            }
             set { _contentPackage = value; }
         }
 

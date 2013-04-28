@@ -193,20 +193,6 @@ namespace WinterEngine.DataAccess
 
         #region Mapping repositories
         
-        private GenericRepository<WinterContext, Cell> cellRepository;
-        public GenericRepository<WinterContext, Cell> CellRepository
-        {
-            get
-            {
-                if (this.cellRepository == null)
-                {
-                    this.cellRepository
-                        = new GenericRepository<WinterContext, Cell>(context);
-                }
-                return cellRepository;
-            }
-        }
-        
         private GenericRepository<WinterContext, Tile> tileRepository;
         public GenericRepository<WinterContext, Tile> TileRepository
         {
@@ -221,31 +207,18 @@ namespace WinterEngine.DataAccess
             }
         }
         
-        private GenericRepository<WinterContext, TileMap> tileMapRepository;
-        public GenericRepository<WinterContext, TileMap> TileMapRepository
-        {
-            get
-            {
-                if (this.tileMapRepository == null)
-                {
-                    this.tileMapRepository
-                        = new GenericRepository<WinterContext, TileMap>(context);
-                }
-                return tileMapRepository;
-            }
-        }
         
-        private GenericRepository<WinterContext, Tileset> tilesetRepository;
-        public GenericRepository<WinterContext, Tileset> TilesetRepository
+        private GenericRepository<WinterContext, Map> mapRepository;
+        public GenericRepository<WinterContext, Map> MapRepository
         {
             get
             {
-                if (this.tilesetRepository == null)
+                if (this.mapRepository == null)
                 {
-                    this.tilesetRepository
-                        = new GenericRepository<WinterContext, Tileset>(context);
+                    this.mapRepository
+                        = new GenericRepository<WinterContext, Map>(context);
                 }
-                return tilesetRepository;
+                return mapRepository;
             }
         }
 

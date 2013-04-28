@@ -5,6 +5,7 @@ using System.Text;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Paths;
 
 
 namespace WinterEngine.Editor.Managers

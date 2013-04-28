@@ -16,11 +16,9 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<CharacterClass> CharacterClasses { get; set; }
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
-        public DbSet<TileMap> TileMaps { get; set; }
         public DbSet<Tile> Tiles { get; set; }
         public DbSet<ContentPackage> ContentPackages { get; set; }
         public DbSet<ContentPackageResource> ContentPackageResources { get; set; }
-        public DbSet<Cell> Cells { get; set; }
 
         public WinterContext(string connString) : base(connString)
         {

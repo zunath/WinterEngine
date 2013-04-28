@@ -13,16 +13,16 @@ namespace WinterEngine.DataTransferObjects
     {
         #region Fields
 
-        private Tileset _tileset;
+        private Map _map;
 
         #endregion
 
         #region Properties
 
-        public Tileset AreaTileset
+        public Map TileMap
         {
-            get { return _tileset; }
-            set { _tileset = value; }
+            get { return _map; }
+            set { _map = value; }
         }
 
         #endregion

@@ -31,6 +31,10 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Editor.Views;
 using Microsoft.Xna.Framework.Graphics;
 using FlatRedBall.Graphics;
+using WinterEngine.Editor.Managers;
+using WinterEngine.DataTransferObjects;
+using WinterEngine.DataAccess.Repositories;
+using System.IO;
 #endif
 
 namespace WinterEngine.Editor.Screens
@@ -133,6 +137,30 @@ namespace WinterEngine.Editor.Screens
 
 		void CustomActivity(bool firstTimeCalled)
 		{
+            if (InputManager.Keyboard.KeyPushed(Keys.A))
+            {
+                Area currentArea = AreaControl.AreaProperties.ActiveArea;
+                currentArea.TileMap = new Map { NumberOfTilesHigh = 1, NumberOfTilesWide = 1 };
+
+                Texture2D texture;
+                using(ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
+                {
+                    ContentPackageResource resource = repo.GetByID(1);
+                    MemoryStream stream = repo.ExtractResourceToMemory(resource);
+                    texture = Texture2D.FromStream(FlatRedBallServices.GraphicsDevice, stream, (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight, false);
+                }
+
+                for (int x = 0; x < currentArea.TileMap.NumberOfTilesWide; x++)
+                {
+                    for (int y = 0; y < currentArea.TileMap.NumberOfTilesHigh; y++)
+                    {
+
+                        Sprite sprite = SpriteManager.AddSprite(texture);
+                        sprite.Position.X = x * (int)MappingEnum.TileWidth;
+                        sprite.Position.Y = y * (int)MappingEnum.TileHeight;
+                    }
+                }
+            }
 		}
 
 		void CustomDestroy()

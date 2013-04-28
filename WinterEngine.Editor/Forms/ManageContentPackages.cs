@@ -19,6 +19,7 @@ using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.Editor.Managers;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Paths;
 
 namespace WinterEngine.Editor.Forms
 {

@@ -85,9 +85,7 @@
     <Compile Include="Factories\FileExtensionFactory.cs" />
     <Compile Include="Factories\GameObjectFactory.cs" />
     <Compile Include="Factories\GameResourceFactory.cs" />
-    <Compile Include="FileAccess\DirectoryPaths.cs" />
     <Compile Include="FileAccess\FileArchiveManager.cs" />
-    <Compile Include="FileAccess\FilePaths.cs" />
     <Compile Include="Interface\IGenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AreaRepository.cs" />

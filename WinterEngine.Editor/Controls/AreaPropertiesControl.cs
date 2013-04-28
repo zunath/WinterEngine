@@ -23,7 +23,7 @@ namespace WinterEngine.Editor.Controls
     {
         #region Fields
 
-        private Area _backupArea;
+        private Area _activeArea;
         private PictureBox _selectedTilePictureBox;
 
         #endregion
@@ -33,10 +33,10 @@ namespace WinterEngine.Editor.Controls
         /// <summary>
         /// Gets or sets the backup item which is used to revert changes.
         /// </summary>
-        public Area BackupArea
+        public Area ActiveArea
         {
-            get { return _backupArea; }
-            set { _backupArea = value; }
+            get { return _activeArea; }
+            set { _activeArea = value; }
         }
 
         /// <summary>
@@ -85,15 +85,15 @@ namespace WinterEngine.Editor.Controls
             {
                 using (AreaRepository repo = new AreaRepository())
                 {
-                    Area area = repo.GetByResref(BackupArea.Resref);
+                    Area area = repo.GetByResref(ActiveArea.Resref);
                     area.Comment = textBoxAreaComments.Text;
                     area.Name = nameTextBoxArea.NameText;
                     area.Tag = tagTextBoxArea.TagText;
                     area.Resref = resrefTextBoxArea.ResrefText;
-                    area.ResourceCategoryID = BackupArea.ResourceCategoryID;
+                    area.ResourceCategoryID = ActiveArea.ResourceCategoryID;
 
                     repo.Update(area);
-                    BackupArea = area;
+                    ActiveArea = area;
 
                     GameObjectEventArgs eventArgs = new GameObjectEventArgs();
                     eventArgs.GameObject = area;
@@ -121,10 +121,10 @@ namespace WinterEngine.Editor.Controls
         /// <param name="e"></param>
         private void buttonDiscardChanges_Click(object sender, EventArgs e)
         {
-            textBoxAreaComments.Text = BackupArea.Comment;
-            nameTextBoxArea.NameText = BackupArea.Name;
-            tagTextBoxArea.TagText = BackupArea.Tag;
-            resrefTextBoxArea.ResrefText = BackupArea.Resref;
+            textBoxAreaComments.Text = ActiveArea.Comment;
+            nameTextBoxArea.NameText = ActiveArea.Name;
+            tagTextBoxArea.TagText = ActiveArea.Tag;
+            resrefTextBoxArea.ResrefText = ActiveArea.Resref;
 
         }
 
@@ -138,7 +138,7 @@ namespace WinterEngine.Editor.Controls
         /// <param name="area"></param>
         public void LoadArea(Area area)
         {
-            BackupArea = area;
+            ActiveArea = area;
 
             // Re-enable controls
             tabControlProperties.Enabled = true;
@@ -197,7 +197,7 @@ namespace WinterEngine.Editor.Controls
             {
                 using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
                 {
-                    MemoryStream stream = repo.ExtractResourceToMemory(resource, resource.Package);
+                    MemoryStream stream = repo.ExtractResourceToMemory(resource);
                     pictureBoxTileset.Image = Image.FromStream(stream);
                 }
             }
