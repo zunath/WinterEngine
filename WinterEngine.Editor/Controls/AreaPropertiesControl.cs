@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess.Repositories;

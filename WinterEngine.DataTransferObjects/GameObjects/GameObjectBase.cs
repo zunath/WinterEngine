@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Resources;
 
-namespace WinterEngine.DataTransferObjects.GameObjects
+namespace WinterEngine.DataTransferObjects
 {
     /// <summary>
     /// Base abstract class for Winter Engine game objects.
@@ -14,6 +14,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
     {
         #region Fields
 
+        private int _gameObjectID;
         private string _name;
         private string _tag;
         private string _resref;
@@ -29,6 +30,13 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         #endregion
 
         #region Properties
+
+        [Key]
+        public int GameObjectID
+        {
+            get { return _gameObjectID; }
+            set { _gameObjectID = value; }
+        }
 
         /// <summary>
         /// Gets/Sets the publicly viewable name for an object.
@@ -52,10 +60,8 @@ namespace WinterEngine.DataTransferObjects.GameObjects
 
         /// <summary>
         /// Gets/Sets a particular object's resref.
-        /// This is a unique identifier used as the primary key in the embedded database.
         /// Automatically converts all resrefs to lower case. This maintains consistency throughout the engine.
         /// </summary>
-        [Key]
         [MaxLength(32)]
         public string Resref
         {

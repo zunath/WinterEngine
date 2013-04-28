@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 using WinterEngine.DataTransferObjects.Mapping;
 using WinterEngine.DataTransferObjects.Resources;
 

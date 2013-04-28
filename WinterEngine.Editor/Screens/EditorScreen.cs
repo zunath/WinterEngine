@@ -26,7 +26,7 @@ using WinterEngine.Editor.ExtendedEventArgs;
 using WinterEngine.Editor.Enums;
 using System.Drawing;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Editor.Views;
 using Microsoft.Xna.Framework.Graphics;

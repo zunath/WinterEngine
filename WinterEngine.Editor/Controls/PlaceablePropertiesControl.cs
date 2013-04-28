@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using WinterEngine.DataAccess;
+using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 
 namespace WinterEngine.Editor.Controls
 {

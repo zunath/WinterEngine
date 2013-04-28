@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using WinterEngine.Editor.ExtendedEventArgs;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 

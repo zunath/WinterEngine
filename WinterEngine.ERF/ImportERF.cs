@@ -8,7 +8,7 @@ using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Utility;
 

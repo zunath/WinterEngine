@@ -9,7 +9,7 @@ using WinterEngine.DataAccess;
 using System.IO;
 using Ionic.Zip;
 using Ionic.Zlib;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 using WinterEngine.DataAccess.Factories;
 
 namespace WinterEngine.ERF

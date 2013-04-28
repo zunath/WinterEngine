@@ -5,7 +5,8 @@ using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
 using WinterEngine.DataTransferObjects.Mapping;
 
-namespace WinterEngine.DataTransferObjects.GameObjects
+
+namespace WinterEngine.DataTransferObjects
 {
     [Serializable]
     [Table("Areas")]

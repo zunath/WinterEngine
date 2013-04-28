@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 
 namespace WinterEngine.DataTransferObjects.EventArgsExtended
 {

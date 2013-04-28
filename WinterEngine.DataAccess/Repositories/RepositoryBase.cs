@@ -10,7 +10,9 @@ namespace WinterEngine.DataAccess.Repositories
     {
         #region Fields
 
+        private UnitOfWork _unitOfWork;
         private string _connectionString;
+        private bool _autoSaveChanges;
 
         #endregion
 
@@ -25,17 +27,43 @@ namespace WinterEngine.DataAccess.Repositories
             set { _connectionString = value; }
         }
 
+        public UnitOfWork Context
+        {
+            get { return _unitOfWork; }
+        }
+
+        /// <summary>
+        /// Gets or sets whether the repository will save all changes before being disposed.
+        /// This is used only if the repository is called in a using statement.
+        /// </summary>
+        public bool AutoSaveChanges
+        {
+            get { return _autoSaveChanges; }
+            set { _autoSaveChanges = value; }
+        }
+
         #endregion
 
         #region Constructors
 
-        public RepositoryBase(string connectionString = "")
+        public RepositoryBase(string connectionString = "", bool autoSaveChanges = true)
         {
             if (String.IsNullOrWhiteSpace(connectionString))
             {
                 connectionString = WinterConnectionInformation.ActiveConnectionString;
             }
             ConnectionString = connectionString;
+            _unitOfWork = new UnitOfWork(ConnectionString);
+            _autoSaveChanges = autoSaveChanges;
+        }
+
+        #endregion
+
+        #region Methods
+
+        public void SaveChanges()
+        {
+            Context.Save();
         }
 
         #endregion

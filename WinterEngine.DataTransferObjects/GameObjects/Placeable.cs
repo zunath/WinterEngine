@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WinterEngine.DataTransferObjects.GameObjects
+namespace WinterEngine.DataTransferObjects
 {
     [Serializable]
     [Table("Placeables")]

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using WinterEngine.Editor.ExtendedEventArgs;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 
 namespace WinterEngine.Editor.Controls

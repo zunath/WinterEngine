@@ -5,7 +5,7 @@ using WinterEngine.Library.Factories;
 using WinterEngine.Library.Utility;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 using WinterEngine.DataTransferObjects.Resources;
 using WinterEngine.DataAccess.Factories;
 

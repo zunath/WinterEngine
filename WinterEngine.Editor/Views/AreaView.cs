@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FlatRedBall;
+using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 using WinterEngine.Editor.Controls;
 using WinterEngine.Editor.Enums;
 using WinterEngine.Editor.ExtendedEventArgs;

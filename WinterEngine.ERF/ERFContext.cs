@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.GameObjects;
+
 using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess.Contexts
