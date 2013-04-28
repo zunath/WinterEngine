@@ -59,7 +59,7 @@ namespace WinterEngine.Editor.Controls
             {
                 using (ItemRepository repo = new ItemRepository())
                 {
-                    Item item = new Item();
+                    Item item = repo.GetByResref(BackupItem.Resref);
                     item.Comment = textBoxItemComments.Text;
                     item.Description = textBoxItemDescription.Text;
                     item.Name = nameTextBoxItem.NameText;
@@ -69,7 +69,7 @@ namespace WinterEngine.Editor.Controls
                     item.Weight = (int)numericUpDownWeight.Value;
                     item.ResourceCategoryID = BackupItem.ResourceCategoryID;
 
-                    repo.Update(resrefTextBoxItem.ResrefText, item);
+                    repo.Update(item);
                     BackupItem = item;
 
                     GameObjectEventArgs eventArgs = new GameObjectEventArgs();

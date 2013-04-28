@@ -66,6 +66,14 @@ namespace WinterEngine.DataAccess.Repositories
             Context.Save();
         }
 
+        public virtual void Dispose()
+        {
+            if (AutoSaveChanges)
+            {
+                Context.Save();
+            }
+        }
+
         #endregion
     }
 }

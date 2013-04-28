@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
@@ -26,6 +27,14 @@ namespace WinterEngine.DataAccess.Repositories
         public virtual void Add(TEntity entity)
         {
             _entities.Set<TEntity>().Add(entity);
+        }
+
+        public virtual void AddList(List<TEntity> entityList)
+        {
+            foreach (TEntity entity in entityList)
+            {
+                _entities.Set<TEntity>().Add(entity);
+            }
         }
 
         public virtual void Delete(TEntity entity)

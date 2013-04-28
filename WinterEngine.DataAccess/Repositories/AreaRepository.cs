@@ -12,7 +12,8 @@ namespace WinterEngine.DataAccess
     {
         #region Constructors
 
-        public AreaRepository(string connectionString = "", bool autoSaveChanges = true) : base()
+        public AreaRepository(string connectionString = "", bool autoSaveChanges = true) 
+            : base(connectionString, autoSaveChanges)
         {
         }
 
@@ -36,19 +37,14 @@ namespace WinterEngine.DataAccess
         /// <param name="areaList">The list of areas to add to the database.</param>
         public void Add(List<Area> areaList)
         {
-            foreach (Area area in areaList)
-            {
-                Context.AreaRepository.Add(area);
-            }
+            Context.AreaRepository.AddList(areaList);   
         }
 
         /// <summary>
         /// Updates an existing area in the database with new values.
-        /// If an area is not found by the specified resref, an exception will be thrown.
         /// </summary>
-        /// <param name="resref">The resource reference to search for and update.</param>
         /// <param name="newItem">The new area that will replace the area with the matching resref.</param>
-        public void Update(string resref, Area newArea)
+        public void Update(Area newArea)
         {
             Context.Update(newArea);
         }
@@ -66,7 +62,7 @@ namespace WinterEngine.DataAccess
             }
             else
             {
-                Context.Update(area);
+                Context.AreaRepository.Update(area);
             }
         }
 
@@ -114,20 +110,8 @@ namespace WinterEngine.DataAccess
         /// </summary>
         public void DeleteAllByCategory(Category resourceCategory)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                var query = from area
-                            in context.Areas
-                            where area.ResourceCategoryID == resourceCategory.ResourceID
-                            select area;
-                List<Area> areaList = query.ToList<Area>();
-
-                foreach (Area area in areaList)
-                {
-                    context.Areas.Remove(area);
-                }
-                context.SaveChanges();
-            }
+            List<Area> areaList = Context.AreaRepository.Get(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
+            Context.DeleteAll(areaList);
         }
 
         /// <summary>
@@ -142,12 +126,9 @@ namespace WinterEngine.DataAccess
             return !Object.ReferenceEquals(area, null);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
-            if (AutoSaveChanges)
-            {
-                Context.Save();
-            }
+            base.Dispose();
         }
 
         #endregion

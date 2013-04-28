@@ -13,8 +13,8 @@ namespace WinterEngine.DataAccess
     {
         #region Constructors
 
-        public PlaceableRepository(string connectionString = "")
-            : base(connectionString)
+        public PlaceableRepository(string connectionString = "", bool autoSaveChanges = true)
+            : base(connectionString, autoSaveChanges)
         {
         }
 
@@ -29,48 +29,21 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Add(Placeable placeable)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                context.Placeables.Add(placeable);
-                context.SaveChanges();
-            }
+            Context.PlaceableRepository.Add(placeable);
         }
 
         public void Add(List<Placeable> placeableList)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                foreach (Placeable placeable in placeableList)
-                {
-                    context.Placeables.Add(placeable);
-                }
-                context.SaveChanges();
-            }
+            Context.PlaceableRepository.AddList(placeableList);
         }
 
         /// <summary>
         /// Updates an existing placeable in the database with new values.
-        /// If a placeable is not found by the specified resref, an exception will be thrown.
         /// </summary>
-        /// <param name="resref">The resource reference to search for and update.</param>
         /// <param name="newItem">The new placeable that will replace the placeable with the matching resref.</param>
-        public void Update(string resref, Placeable newPlaceable)
+        public void Update(Placeable newPlaceable)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                Placeable placeable = context.Placeables.SingleOrDefault(x => x.Resref == resref);
-
-                if (Object.ReferenceEquals(placeable, null))
-                {
-                    throw new NullReferenceException("Unable to find placeable by specified resref.");
-                }
-                else
-                {
-                    context.Placeables.Remove(placeable);
-                    context.Placeables.Add(newPlaceable);
-                    context.SaveChanges();
-                }
-            }
+            Context.Update(newPlaceable);
         }
 
         /// <summary>
@@ -78,24 +51,15 @@ namespace WinterEngine.DataAccess
         /// If an placeable does not exist by newPlaceable's resref, it will be added to the database.
         /// </summary>
         /// <param name="newItem">The new placeable to upsert.</param>
-        public void Upsert(Placeable newPlaceable)
+        public void Upsert(Placeable placeable)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
+            if (placeable.GameObjectID <= 0)
             {
-                Placeable placeable = context.Placeables.SingleOrDefault(x => x.Resref == newPlaceable.Resref);
-
-                // Didn't find an existing creature. Insert a new one.
-                if (Object.ReferenceEquals(placeable, null))
-                {
-                    context.Placeables.Add(placeable);
-                }
-                else
-                {
-                    context.Placeables.Remove(placeable);
-                    context.Placeables.Add(newPlaceable);
-                }
-
-                context.SaveChanges();
+                Context.PlaceableRepository.Add(placeable);
+            }
+            else
+            {
+                Context.PlaceableRepository.Update(placeable);
             }
         }
 
@@ -106,12 +70,8 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(string resref)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                Placeable placeable = context.Placeables.First(a => a.Resref == resref);
-                context.Placeables.Remove(placeable);
-                context.SaveChanges();
-            }
+            Placeable placeable = Context.PlaceableRepository.Get(p => p.Resref == resref).SingleOrDefault();
+            Context.PlaceableRepository.Delete(placeable);
         }
 
         /// <summary>
@@ -120,13 +80,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Placeable> GetAll()
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                var query = from placeable
-                            in context.Placeables
-                            select placeable;
-                return query.ToList<Placeable>();
-            }
+            return Context.PlaceableRepository.Get().ToList();
         }
 
         /// <summary>
@@ -135,14 +89,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Placeable> GetAllByResourceCategory(Category resourceCategory)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                var query = from placeable
-                            in context.Placeables
-                            where placeable.ResourceCategoryID.Equals(resourceCategory.ResourceID)
-                            select placeable;
-                return query.ToList<Placeable>();
-            }
+            return Context.PlaceableRepository.Get(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }
 
         /// <summary>
@@ -152,10 +99,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Placeable GetByResref(string resref)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                return context.Placeables.FirstOrDefault(x => x.Resref == resref);
-            }
+            return Context.PlaceableRepository.Get(x => x.Resref == resref).SingleOrDefault();
         }
 
         /// <summary>
@@ -163,20 +107,8 @@ namespace WinterEngine.DataAccess
         /// </summary>
         public void DeleteAllByCategory(Category resourceCategory)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                var query = from item
-                            in context.Items
-                            where item.ResourceCategoryID == resourceCategory.ResourceID
-                            select item;
-                List<Item> itemList = query.ToList<Item>();
-
-                foreach (Item item in itemList)
-                {
-                    context.Items.Remove(item);
-                }
-                context.SaveChanges();
-            }
+            List<Placeable> placeableList = Context.PlaceableRepository.Get(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
+            Context.DeleteAll(placeableList);
         }
 
         /// <summary>
@@ -187,16 +119,13 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                Placeable placeable = context.Placeables.FirstOrDefault(a => a.Resref.Equals(resref));
-                return !Object.ReferenceEquals(placeable, null);
-            }
+            Placeable placeable = Context.PlaceableRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            return !Object.ReferenceEquals(placeable, null);
         }
 
-
-        public void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
         }
 
         #endregion

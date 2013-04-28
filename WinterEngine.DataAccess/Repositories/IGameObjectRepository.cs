@@ -8,12 +8,12 @@ using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    interface IGameObjectRepository<T> : IDisposable where T: IEntity
+    interface IGameObjectRepository<T> : IDisposable where T: GameObjectBase
     {
         void Add(T entity);
         void Add(List<T> entityList);
         void Upsert(T entity);
-        void Update(string resref, T entity);
+        void Update(T entity);
         void Delete(string resref);
         bool Exists(string resref);
         List<T> GetAll();

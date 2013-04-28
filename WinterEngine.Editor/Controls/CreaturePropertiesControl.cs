@@ -64,7 +64,7 @@ namespace WinterEngine.Editor.Controls
             {
                 using (CreatureRepository repo = new CreatureRepository())
                 {
-                    Creature creature = new Creature();
+                    Creature creature = repo.GetByResref(BackupCreature.Resref);
                     creature.Name = nameTextBoxCreature.NameText;
                     creature.Tag = tagTextBoxCreature.TagText;
                     creature.Resref = resrefTextBoxCreature.ResrefText;
@@ -72,7 +72,7 @@ namespace WinterEngine.Editor.Controls
                     creature.Comment = textBoxCreatureComments.Text;
                     creature.ResourceCategoryID = BackupCreature.ResourceCategoryID;
 
-                    repo.Update(resrefTextBoxCreature.ResrefText, creature);
+                    repo.Update(creature);
                     BackupCreature = creature;
 
                     GameObjectEventArgs eventArgs = new GameObjectEventArgs();

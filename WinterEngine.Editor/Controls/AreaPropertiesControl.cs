@@ -85,14 +85,14 @@ namespace WinterEngine.Editor.Controls
             {
                 using (AreaRepository repo = new AreaRepository())
                 {
-                    Area area = new Area();
+                    Area area = repo.GetByResref(BackupArea.Resref);
                     area.Comment = textBoxAreaComments.Text;
                     area.Name = nameTextBoxArea.NameText;
                     area.Tag = tagTextBoxArea.TagText;
                     area.Resref = resrefTextBoxArea.ResrefText;
                     area.ResourceCategoryID = BackupArea.ResourceCategoryID;
 
-                    repo.Update(BackupArea.Resref, area);
+                    repo.Update(area);
                     BackupArea = area;
 
                     GameObjectEventArgs eventArgs = new GameObjectEventArgs();

@@ -190,7 +190,7 @@ namespace WinterEngine.DataAccess.Factories
             {
                 using (AreaRepository repo = new AreaRepository(connectionString))
                 {
-                    repo.Update(gameObject.Resref, gameObject as Area);
+                    repo.Update(gameObject as Area);
                 }
             }
             else if (gameObject.GameObjectType == GameObjectTypeEnum.Conversation)
@@ -201,21 +201,21 @@ namespace WinterEngine.DataAccess.Factories
             {
                 using (CreatureRepository repo = new CreatureRepository(connectionString))
                 {
-                    repo.Update(gameObject.Resref, gameObject as Creature);
+                    repo.Update(gameObject as Creature);
                 }
             }
             else if (gameObject.GameObjectType == GameObjectTypeEnum.Item)
             {
                 using (ItemRepository repo = new ItemRepository(connectionString))
                 {
-                    repo.Update(gameObject.Resref, gameObject as Item);
+                    repo.Update(gameObject as Item);
                 }
             }
             else if (gameObject.GameObjectType == GameObjectTypeEnum.Placeable)
             {
                 using (PlaceableRepository repo = new PlaceableRepository(connectionString))
                 {
-                    repo.Update(gameObject.Resref, gameObject as Placeable);
+                    repo.Update(gameObject as Placeable);
                 }
             }
             else if (gameObject.GameObjectType == GameObjectTypeEnum.Script)

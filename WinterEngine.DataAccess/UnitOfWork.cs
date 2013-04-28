@@ -142,6 +142,15 @@ namespace WinterEngine.DataAccess
             targetRepository.Add((dynamic)item);
         }
 
+        public void AddList(List<Object> itemList)
+        {
+            foreach(Object currentItem in itemList)
+            {
+                dynamic targetRepository = getTargetRepository(currentItem);
+                targetRepository.Add((dynamic)currentItem);
+            }
+        }
+
         public IQueryable<T> Get<T>(Expression<Func<T, bool>> filter = null,
                         Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
                         string includeProperties = "", Boolean readOnly = false) where T : class, new()

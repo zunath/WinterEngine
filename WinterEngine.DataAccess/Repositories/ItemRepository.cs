@@ -13,8 +13,8 @@ namespace WinterEngine.DataAccess
     {
         #region Constructors
 
-        public ItemRepository(string connectionString = "")
-            : base(connectionString)
+        public ItemRepository(string connectionString = "", bool autoSaveChanges = true)
+            : base(connectionString, autoSaveChanges)
         {
         }
 
@@ -29,48 +29,21 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Add(Item item)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                context.Items.Add(item);
-                context.SaveChanges();
-            }
+            Context.ItemRepository.Add(item);
         }
 
         public void Add(List<Item> itemList)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                foreach (Item item in itemList)
-                {
-                    context.Items.Add(item);
-                }
-                context.SaveChanges();
-            }
+            Context.ItemRepository.AddList(itemList);
         }
 
         /// <summary>
         /// Updates an existing item in the database with new values.
-        /// If an item is not found by the specified resref, an exception will be thrown.
         /// </summary>
-        /// <param name="resref">The resource reference to search for and update.</param>
         /// <param name="newItem">The new item that will replace the item with the matching resref.</param>
-        public void Update(string resref, Item newItem)
+        public void Update(Item newItem)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                Item item = context.Items.SingleOrDefault(x => x.Resref == resref);
-
-                if (Object.ReferenceEquals(item, null))
-                {
-                    throw new NullReferenceException("Unable to find item by specified resref.");
-                }
-                else
-                {
-                    context.Items.Remove(item);
-                    context.Items.Add(newItem);
-                    context.SaveChanges();
-                }
-            }
+            Context.Update(newItem);
         }
 
         /// <summary>
@@ -78,24 +51,15 @@ namespace WinterEngine.DataAccess
         /// If an item does not exist by newItem's resref, it will be added to the database.
         /// </summary>
         /// <param name="newItem">The new item to upsert.</param>
-        public void Upsert(Item newItem)
+        public void Upsert(Item item)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
+            if (item.GameObjectID <= 0)
             {
-                Item item = context.Items.SingleOrDefault(x => x.Resref == newItem.Resref);
-
-                // Didn't find an existing item. Insert a new one.
-                if (Object.ReferenceEquals(item, null))
-                {
-                    context.Items.Add(item);
-                }
-                else
-                {
-                    context.Items.Remove(item);
-                    context.Items.Add(newItem);
-                }
-
-                context.SaveChanges();
+                Context.ItemRepository.Add(item);
+            }
+            else
+            {
+                Context.ItemRepository.Update(item);
             }
         }
 
@@ -106,12 +70,8 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(string resref)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                Item item = context.Items.First(a => a.Resref == resref);
-                context.Items.Remove(item);
-                context.SaveChanges();
-            }
+            Item item = Context.ItemRepository.Get(i => i.Resref == resref).SingleOrDefault();
+            Context.ItemRepository.Delete(item);
         }
 
         /// <summary>
@@ -120,13 +80,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Item> GetAll()
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                var query = from item
-                            in context.Items
-                            select item;
-                return query.ToList<Item>();
-            }
+            return Context.ItemRepository.Get().ToList();
         }
 
         /// <summary>
@@ -135,14 +89,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Item> GetAllByResourceCategory(Category resourceCategory)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                var query = from item
-                            in context.Items
-                            where item.ResourceCategoryID.Equals(resourceCategory.ResourceID)
-                            select item;
-                return query.ToList<Item>();
-            }
+            return Context.ItemRepository.Get(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }
 
         /// <summary>
@@ -152,10 +99,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Item GetByResref(string resref)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                return context.Items.FirstOrDefault(x => x.Resref == resref);
-            }
+            return Context.ItemRepository.Get(x => x.Resref == resref).SingleOrDefault();
         }
 
         /// <summary>
@@ -163,20 +107,8 @@ namespace WinterEngine.DataAccess
         /// </summary>
         public void DeleteAllByCategory(Category resourceCategory)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                var query = from item
-                            in context.Items
-                            where item.ResourceCategoryID == resourceCategory.ResourceID
-                            select item;
-                List<Item> itemList = query.ToList<Item>();
-
-                foreach (Item item in itemList)
-                {
-                    context.Items.Remove(item);
-                }
-                context.SaveChanges();
-            }
+            List<Item> itemList = Context.ItemRepository.Get(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
+            Context.DeleteAll(itemList);
         }
 
         /// <summary>
@@ -187,16 +119,14 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                Item item = context.Items.FirstOrDefault(a => a.Resref.Equals(resref));
-                return !Object.ReferenceEquals(item, null);
-            }
+            Item item = Context.ItemRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            return !Object.ReferenceEquals(item, null);
         }
 
 
-        public void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
         }
 
         #endregion

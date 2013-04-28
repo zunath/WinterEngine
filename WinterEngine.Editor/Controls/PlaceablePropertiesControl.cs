@@ -57,7 +57,7 @@ namespace WinterEngine.Editor.Controls
             {
                 using (PlaceableRepository repo = new PlaceableRepository())
                 {
-                    Placeable placeable = new Placeable();
+                    Placeable placeable = repo.GetByResref(BackupPlaceable.Resref);
                     placeable.Name = nameTextBoxPlaceable.NameText;
                     placeable.Tag = tagTextBoxPlaceable.TagText;
                     placeable.Resref = resrefTextBoxPlaceable.ResrefText;
@@ -67,7 +67,7 @@ namespace WinterEngine.Editor.Controls
                     placeable.IsUseable = checkBoxUseable.Checked;
                     placeable.ResourceCategoryID = BackupPlaceable.ResourceCategoryID;
 
-                    repo.Update(resrefTextBoxPlaceable.ResrefText, placeable);
+                    repo.Update(placeable);
                     BackupPlaceable = placeable;
 
                     GameObjectEventArgs eventArgs = new GameObjectEventArgs();
