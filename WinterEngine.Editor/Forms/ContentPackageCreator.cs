@@ -74,7 +74,7 @@ namespace WinterEngine.Editor.Forms
                 {
                     using(ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
                     {
-                        MemoryStream stream = repo.ExtractResourceToMemory(resource, Package);
+                        MemoryStream stream = repo.ExtractResourceToMemory(resource);
                         pictureBoxPreview.Image = Bitmap.FromStream(stream);
                     }
                 }

@@ -121,6 +121,7 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 var query = from resource
                             in context.ContentPackageResources
+                            .Include("Package")
                             select resource;
                 return query.ToList();
             }
@@ -132,6 +133,7 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 var query = from resource
                             in context.ContentPackageResources
+                            .Include("Package")
                             where resource.ContentPackageResourceTypeID == (int)resourceType
                             select resource;
                 return query.ToList();

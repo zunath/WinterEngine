@@ -15,6 +15,7 @@ using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects.Resources;
+using System.IO;
 
 namespace WinterEngine.Editor.Controls
 {
@@ -43,7 +44,7 @@ namespace WinterEngine.Editor.Controls
         /// </summary>
         private PictureBox SelectedTile
         {
-            get { return _selectedTilePictureBox; }
+            get {  return _selectedTilePictureBox; }
             set { _selectedTilePictureBox = value; }
         }
 
@@ -64,6 +65,7 @@ namespace WinterEngine.Editor.Controls
             SelectedTile.Image = WinterEngine_Editor.Icon_SelectedTile;
             SelectedTile.Size = new Size((int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight);
             SelectedTile.BackColor = Color.Transparent;
+            SelectedTile.Visible = false;
             pictureBoxTileset.Controls.Add(SelectedTile);
         }
 
@@ -173,8 +175,6 @@ namespace WinterEngine.Editor.Controls
             tagTextBoxArea.Text = "";
             resrefTextBoxArea.Text = "";
             textBoxAreaComments.Text = "";
-            
-
         }
 
         #endregion
@@ -189,6 +189,21 @@ namespace WinterEngine.Editor.Controls
             pictureBoxTileset.Controls[0].Location = new Point(xPosition * (int)MappingEnum.TileWidth, yPosition * (int)MappingEnum.TileHeight);
         }
 
+        private void listBoxTilesets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ContentPackageResource resource = listBoxTilesets.SelectedItem as ContentPackageResource;
+
+            if (!Object.ReferenceEquals(resource, null))
+            {
+                using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
+                {
+                    MemoryStream stream = repo.ExtractResourceToMemory(resource, resource.Package);
+                    pictureBoxTileset.Image = Image.FromStream(stream);
+                }
+            }
+        }
+
         #endregion
+
     }
 }

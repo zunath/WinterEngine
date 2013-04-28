@@ -96,14 +96,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FlatRedBall.dll" size="2715648">
-      <assemblyIdentity name="FlatRedBall" version="2013.4.6.189" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FlatRedBall.dll" size="2723840">
+      <assemblyIdentity name="FlatRedBall" version="2013.4.25.1413" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>k95UGHuLhh5INMJM4fXxVSfBVRR7ljDoG+WnOwoAxLI=</dsig:DigestValue>
+        <dsig:DigestValue>TCD2M86d1R2H1QvH6cdfcwiyi32apuUUeJOH+qCnklE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -151,19 +151,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>TJmwq+jMu1992j7Xn30GUODzq994Hl36XWFSR78n99k=</dsig:DigestValue>
+        <dsig:DigestValue>if6+pLfp57iyIYuE2h/XvKkJKjW4m4wtXnckiBySOE0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataTransferObjects.dll" size="19968">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WinterEngine.DataTransferObjects.dll" size="20480">
       <assemblyIdentity name="WinterEngine.DataTransferObjects" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BaS8KivNogOFLJm/0JmEfQEjhaK/5uvcsY4wgumFRbg=</dsig:DigestValue>
+        <dsig:DigestValue>wK4gTRHpjFacvPKjPTr7wquop1S0bEiyXrSTXRLKk1M=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -175,7 +175,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>OdS3TJ07vGA361JSOFTPqUGEt/+fq3uNb6nLfbXlj3g=</dsig:DigestValue>
+        <dsig:DigestValue>ae9xTs5BwK384+Hsg/f/+1wvi/lybXQgFsL/TFyGxRA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -187,7 +187,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4DM6lIuYJNHxeVcn5AEh5UYCAQQGz4zSMsEzEDCpL7A=</dsig:DigestValue>
+        <dsig:DigestValue>12rtqtSpglQliKJlJ5ChP88CsMnXw9IPNeBTviukPCs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -199,7 +199,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Zptot6smfxZR/q1pFCq2PmtEXGhp2FehQprWS4GxmK8=</dsig:DigestValue>
+        <dsig:DigestValue>7t1oBZceqw+Nb9kWoDefA8KDrWXNcVLiQQTuCUyC9JQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
