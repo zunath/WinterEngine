@@ -15,7 +15,7 @@ using WinterEngine.DataTransferObjects.EventArgsExtended;
 
 namespace WinterEngine.Editor.Controls
 {
-    public partial class ItemPropertiesControl : UserControl
+    public partial class ItemPropertiesControl : UserControl, IPropertyControl
     {
         #region Fields
 
@@ -44,14 +44,8 @@ namespace WinterEngine.Editor.Controls
 
         #region Event Handling
 
-        /// <summary>
-        /// Handles populating the list boxes with selectable graphic resources.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ItemPropertiesControl_Load(object sender, EventArgs e)
         {
-            PopulateControls();
         }
 
         /// <summary>
@@ -127,11 +121,30 @@ namespace WinterEngine.Editor.Controls
 
         #region Methods
 
-        /// <summary>
-        /// Populates all controls with graphic resource options.
-        /// </summary>
-        public void PopulateControls()
+        public void RefreshAllControls()
         {
+            using(ItemTypeRepository repo = new ItemTypeRepository())
+            {
+                listBoxItemType.DataSource = repo.GetAll();
+            }
+        }
+
+        /// <summary>
+        /// Removes all active data bindings.
+        /// </summary>
+        public void UnloadAllControls()
+        {
+            nameTextBoxItem.Text = "";
+            tagTextBoxItem.Text = "";
+            resrefTextBoxItem.Text = "";
+
+            numericUpDownPrice.Value = 0;
+            numericUpDownWeight.Value = 0;
+
+            listBoxItemType.DataSource = null;
+
+            textBoxItemDescription.Text = "";
+            textBoxItemComments.Text = "";
         }
 
         /// <summary>

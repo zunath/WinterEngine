@@ -154,6 +154,7 @@
     <Compile Include="Controls\FRBTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\IPropertyControl.cs" />
     <Compile Include="Controls\ItemPropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

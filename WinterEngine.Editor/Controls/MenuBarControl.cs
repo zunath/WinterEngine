@@ -63,7 +63,8 @@ namespace WinterEngine.Editor.Controls
 
             PackageCreator = new ContentPackageCreator();
             PackageManager = new ManageContentPackages();
-            
+            PackageManager.OnPackagesSaved += PackageManager_OnPackagesSaved;
+
             FileExtensionFactory winterExtensions = new FileExtensionFactory();
             string fileExtension = winterExtensions.GetFileExtension(FileTypeEnum.Module);
             openFileDialog.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
@@ -356,6 +357,14 @@ namespace WinterEngine.Editor.Controls
             catch (Exception ex)
             {
                 ErrorHelper.ShowErrorDialog("Unable to build module.", ex);
+            }
+        }
+
+        void PackageManager_OnPackagesSaved(object sender, EventArgs e)
+        {
+            if (!Object.ReferenceEquals(OnRefreshControls, null))
+            {
+                OnRefreshControls(this, new EventArgs());
             }
         }
 

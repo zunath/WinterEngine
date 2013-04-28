@@ -158,9 +158,24 @@ namespace WinterEngine.Editor.Screens
         {
             MenuBar.OnToggleControls += MenuBar_OnToggleControls;
             MenuBar.OnRefreshControls += RefreshControls;
+            MenuBar.OnUnloadControls += MenuBar_OnUnloadControls;
 
             FlatRedBallServices.CornerGrabbingResize += OnWindowResize;
 
+        }
+
+        /// <summary>
+        /// Handles unloading data from all child controls when the module is
+        /// closed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void MenuBar_OnUnloadControls(object sender, EventArgs e)
+        {
+            AreaControl.UnloadAllControls();
+            CreatureControl.UnloadAllControls();
+            ItemControl.UnloadAllControls();
+            PlaceableControl.UnloadAllControls();
         }
 
         /// <summary>

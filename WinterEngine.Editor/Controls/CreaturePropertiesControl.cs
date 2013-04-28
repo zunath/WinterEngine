@@ -14,7 +14,7 @@ using WinterEngine.DataTransferObjects.EventArgsExtended;
 
 namespace WinterEngine.Editor.Controls
 {
-    public partial class CreaturePropertiesControl : UserControl
+    public partial class CreaturePropertiesControl : UserControl, IPropertyControl
     {
         #region Fields
 
@@ -51,28 +51,7 @@ namespace WinterEngine.Editor.Controls
 
         #endregion
 
-        #region Methods
-
-        /// <summary>
-        /// Populates all controls and fields with the creature passed in.
-        /// </summary>
-        /// <param name="creature"></param>
-        public void LoadCreature(Creature creature)
-        {
-            BackupCreature = creature;
-
-            // Re-enable controls
-            tabControlProperties.Enabled = true;
-            buttonApplyChanges.Enabled = true;
-            buttonDiscardChanges.Enabled = true;
-
-            // Load data into controls
-            nameTextBoxCreature.NameText = creature.Name;
-            tagTextBoxCreature.TagText = creature.Tag;
-            resrefTextBoxCreature.ResrefText = creature.Resref;
-
-            textBoxCreatureComments.Text = creature.Comment;
-        }
+        #region Event Handling
 
         /// <summary>
         /// Handles updating a creature's entry in the database.
@@ -127,6 +106,48 @@ namespace WinterEngine.Editor.Controls
             resrefTextBoxCreature.ResrefText = BackupCreature.Resref;
             textBoxCreatureComments.Text = BackupCreature.Comment;
             textBoxCreatureDescription.Text = BackupCreature.Description;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Populates all controls and fields with the creature passed in.
+        /// </summary>
+        /// <param name="creature"></param>
+        public void LoadCreature(Creature creature)
+        {
+            BackupCreature = creature;
+
+            // Re-enable controls
+            tabControlProperties.Enabled = true;
+            buttonApplyChanges.Enabled = true;
+            buttonDiscardChanges.Enabled = true;
+
+            // Load data into controls
+            nameTextBoxCreature.NameText = creature.Name;
+            tagTextBoxCreature.TagText = creature.Tag;
+            resrefTextBoxCreature.ResrefText = creature.Resref;
+
+            textBoxCreatureComments.Text = creature.Comment;
+        }
+
+        public void RefreshAllControls()
+        {
+        }
+
+
+        /// <summary>
+        /// Removes all active data bindings.
+        /// </summary>
+        public void UnloadAllControls()
+        {
+            nameTextBoxCreature.Text = "";
+            tagTextBoxCreature.Text = "";
+            resrefTextBoxCreature.Text = "";
+            textBoxCreatureComments.Text = "";
+            textBoxCreatureDescription.Text = "";
         }
 
         #endregion

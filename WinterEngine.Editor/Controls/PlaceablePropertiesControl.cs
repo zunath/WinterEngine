@@ -6,7 +6,7 @@ using WinterEngine.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.Editor.Controls
 {
-    public partial class PlaceablePropertiesControl : UserControl
+    public partial class PlaceablePropertiesControl : UserControl, IPropertyControl
     {
 
         #region Fields
@@ -43,31 +43,7 @@ namespace WinterEngine.Editor.Controls
 
         #endregion
 
-        #region Methods
-
-        /// <summary>
-        /// Populates all controls and fields with the placeable passed in.
-        /// </summary>
-        /// <param name="placeable"></param>
-        public void LoadPlaceable(Placeable placeable)
-        {
-            BackupPlaceable = placeable;
-
-            // Re-enable controls
-            tabControlProperties.Enabled = true;
-            buttonApplyChanges.Enabled = true;
-            buttonDiscardChanges.Enabled = true;
-
-            // Load data into controls
-            nameTextBoxPlaceable.NameText = placeable.Name;
-            tagTextBoxPlaceable.TagText = placeable.Tag;
-            resrefTextBoxPlaceable.ResrefText = placeable.Resref;
-
-            textBoxPlaceableComments.Text = placeable.Comment;
-            textBoxPlaceableDescription.Text = placeable.Description;
-            checkBoxHasInventory.Checked = placeable.HasInventory;
-            checkBoxUseable.Checked = placeable.IsUseable;
-        }
+        #region Event Handling
 
         /// <summary>
         /// Handles updating a placeable's entry in the database.
@@ -127,6 +103,56 @@ namespace WinterEngine.Editor.Controls
             checkBoxHasInventory.Checked = BackupPlaceable.HasInventory;
             checkBoxUseable.Checked = BackupPlaceable.IsUseable;
         }
+
+        #endregion
+
+        #region Methods
+
+        public void RefreshAllControls()
+        {
+
+        }
+
+        /// <summary>
+        /// Removes all active data bindings.
+        /// </summary>
+        public void UnloadAllControls()
+        {
+            checkBoxHasInventory.Checked = false;
+            checkBoxUseable.Checked = false;
+
+            nameTextBoxPlaceable.Text = "";
+            tagTextBoxPlaceable.Text = "";
+            resrefTextBoxPlaceable.Text = "";
+
+            textBoxPlaceableDescription.Text = "";
+            textBoxPlaceableComments.Text = "";
+        }
+
+        /// <summary>
+        /// Populates all controls and fields with the placeable passed in.
+        /// </summary>
+        /// <param name="placeable"></param>
+        public void LoadPlaceable(Placeable placeable)
+        {
+            BackupPlaceable = placeable;
+
+            // Re-enable controls
+            tabControlProperties.Enabled = true;
+            buttonApplyChanges.Enabled = true;
+            buttonDiscardChanges.Enabled = true;
+
+            // Load data into controls
+            nameTextBoxPlaceable.NameText = placeable.Name;
+            tagTextBoxPlaceable.TagText = placeable.Tag;
+            resrefTextBoxPlaceable.ResrefText = placeable.Resref;
+
+            textBoxPlaceableComments.Text = placeable.Comment;
+            textBoxPlaceableDescription.Text = placeable.Description;
+            checkBoxHasInventory.Checked = placeable.HasInventory;
+            checkBoxUseable.Checked = placeable.IsUseable;
+        }
+
 
         #endregion
     }

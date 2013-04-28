@@ -8,6 +8,7 @@ namespace WinterEngine.Editor.Views
     public interface IEditorControl
     {
         void RefreshAllControls();
+        void UnloadAllControls();
         void SetVisible(bool isVisible);
         void SetEnabled(bool isEnabled);
         int GetLeftWindowWidth();

@@ -168,6 +168,13 @@ namespace WinterEngine.Editor.Views
         public void RefreshAllControls()
         {
             TreeCategory.RefreshTreeView();
+            CreatureProperties.RefreshAllControls();
+        }
+
+        public void UnloadAllControls()
+        {
+            TreeCategory.UnloadTreeView();
+            CreatureProperties.UnloadAllControls();
         }
 
         #endregion

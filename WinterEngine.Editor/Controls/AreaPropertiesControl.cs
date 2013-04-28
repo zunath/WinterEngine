@@ -18,7 +18,7 @@ using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.Editor.Controls
 {
-    public partial class AreaPropertiesControl : UserControl
+    public partial class AreaPropertiesControl : UserControl, IPropertyControl
     {
         #region Fields
 
@@ -126,14 +126,6 @@ namespace WinterEngine.Editor.Controls
 
         }
 
-        public void OnModuleRebuildComplete(object sender, EventArgs e)
-        {
-            using(ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
-            {
-                listBoxTilesets.DataSource = repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset);
-            }
-        }
-
         #endregion
 
         #region Methods
@@ -159,6 +151,31 @@ namespace WinterEngine.Editor.Controls
             textBoxAreaComments.Text = area.Comment;
         }
 
+        /// <summary>
+        /// Refreshes all data bindings.
+        /// </summary>
+        public void RefreshAllControls()
+        {
+            using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
+            {
+                listBoxTilesets.DataSource = repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset);
+            }
+        }
+
+        /// <summary>
+        /// Removes all active data bindings.
+        /// </summary>
+        public void UnloadAllControls()
+        {
+            listBoxTilesets.DataSource = null;
+
+            nameTextBoxArea.Text = "";
+            tagTextBoxArea.Text = "";
+            resrefTextBoxArea.Text = "";
+            textBoxAreaComments.Text = "";
+            
+
+        }
 
         #endregion
 
