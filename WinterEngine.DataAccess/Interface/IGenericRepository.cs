@@ -6,7 +6,7 @@ namespace WinterEngine.DataAccess.Interface
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        void Add(TEntity entity);
+        TEntity Add(TEntity entity);
         void Delete(TEntity entity);
         void Update(TEntity entity);
         IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,

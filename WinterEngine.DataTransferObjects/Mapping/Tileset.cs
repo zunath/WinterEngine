@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
-using WinterEngine.DataTransferObjects.Resources;
 
-namespace WinterEngine.DataTransferObjects.Mapping
+
+namespace WinterEngine.DataTransferObjects
 {
     [Table("Tilesets")]
     public class Tileset : GameResourceBase

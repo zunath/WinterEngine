@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
-using WinterEngine.DataTransferObjects.Resources;
 
-namespace WinterEngine.DataTransferObjects.Mapping
+
+namespace WinterEngine.DataTransferObjects
 {
     [Table("TileMaps")]
     public class TileMap : GameResourceBase

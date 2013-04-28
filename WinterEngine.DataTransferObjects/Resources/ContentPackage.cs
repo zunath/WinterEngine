@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using WinterEngine.DataTransferObjects.Enumerations;
 
-namespace WinterEngine.DataTransferObjects.Resources
+namespace WinterEngine.DataTransferObjects
 {
     [Table("ContentPackages")]
     public class ContentPackage : GameResourceBase

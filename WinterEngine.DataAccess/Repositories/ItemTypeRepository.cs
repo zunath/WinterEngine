@@ -5,7 +5,7 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Resources;
+
 
 namespace WinterEngine.DataAccess
 {
@@ -13,8 +13,8 @@ namespace WinterEngine.DataAccess
     {
         #region Constructors
 
-        public ItemTypeRepository(string connectionString = "")
-            : base(connectionString)
+        public ItemTypeRepository(string connectionString = "", bool autoSaveChanges = true)
+            : base(connectionString, autoSaveChanges)
         {
         }
 
@@ -28,17 +28,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<ItemType> GetAll()
         {
-            List<ItemType> _itemTypeList = new List<ItemType>();
-
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                var query = from itemType
-                            in context.ItemTypes
-                            select itemType;
-                _itemTypeList = query.ToList();
-            }
-
-            return _itemTypeList;
+            return Context.ItemTypeRepository.Get().ToList();
         }
 
 
@@ -49,11 +39,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Add(ItemType itemType)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                context.ItemTypes.Add(itemType);
-                context.SaveChanges();
-            }
+            Context.ItemTypeRepository.Add(itemType);
         }
 
         /// <summary>
@@ -63,15 +49,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Add(List<ItemType> itemTypeList)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                foreach (ItemType itemType in itemTypeList)
-                {
-                    context.ItemTypes.Add(itemType);
-                }
-
-                context.SaveChanges();
-            }
+            Context.ItemTypeRepository.AddList(itemTypeList);
         }
 
         /// <summary>
@@ -81,37 +59,18 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Update(ItemType itemType)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                // Find the resource in the database that matches the passed-in item type's ID (primary key)
-                ItemType dbResource = context.ItemTypes.SingleOrDefault(r => r.ResourceID.Equals(itemType.ResourceID));
-
-                if (!Object.ReferenceEquals(dbResource, null))
-                {
-                    context.ItemTypes.Remove(dbResource);
-                    context.ItemTypes.Add(itemType);
-                    context.SaveChanges();
-                }
-            }
+            Context.ItemTypeRepository.Update(itemType);
         }
 
         public void Upsert(ItemType itemType)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
+            if (itemType.ResourceID <= 0)
             {
-                ItemType dbResource = context.ItemTypes.SingleOrDefault(r => r.ResourceID.Equals(itemType.ResourceID));
-
-                if (!Object.ReferenceEquals(dbResource, null))
-                {
-                    context.ItemTypes.Remove(dbResource);
-                    context.ItemTypes.Add(itemType);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    context.ItemTypes.Add(itemType);
-                    context.SaveChanges();
-                }
+                Context.ItemTypeRepository.Add(itemType);
+            }
+            else
+            {
+                Context.ItemTypeRepository.Update(itemType);
             }
         }
 
@@ -123,10 +82,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public ItemType GetByID(int itemTypeID)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                return context.ItemTypes.FirstOrDefault(r => r.ResourceID == itemTypeID);
-            }
+            return Context.ItemTypeRepository.Get(x => x.ResourceID == itemTypeID).SingleOrDefault();
         }
 
         /// <summary>
@@ -137,11 +93,8 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(ItemType itemType)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                ItemType dbItemType = context.ItemTypes.FirstOrDefault(r => r.ResourceID.Equals(itemType.ResourceID));
-                return !Object.ReferenceEquals(dbItemType, null);
-            }
+            ItemType dbItemType = Context.ItemTypeRepository.Get(x => x.ResourceID == itemType.ResourceID).SingleOrDefault();
+            return !Object.ReferenceEquals(dbItemType, null);
         }
 
         /// <summary>
@@ -151,21 +104,12 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(ItemType itemType)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                // Find the item type in the database. CategoryID is a primary key so there will only ever be one.
-                ItemType dbItemType = context.ItemTypes.SingleOrDefault(val => val.ResourceID == itemType.ResourceID);
-
-                if (!Object.ReferenceEquals(dbItemType, null))
-                {
-                    context.ItemTypes.Remove(dbItemType);
-                    context.SaveChanges();
-                }
-            }
+            Context.ItemTypeRepository.Delete(itemType);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
         }
 
         #endregion

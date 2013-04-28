@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace WinterEngine.DataTransferObjects.Mapping
+namespace WinterEngine.DataTransferObjects
 {
     [Table("Cells")]
     public class Cell

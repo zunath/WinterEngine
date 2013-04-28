@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WinterEngine.DataTransferObjects.Enumerations;
 
-namespace WinterEngine.DataTransferObjects.Mapping
+namespace WinterEngine.DataTransferObjects
 {
     [Table("Tiles")]
     public class Tile

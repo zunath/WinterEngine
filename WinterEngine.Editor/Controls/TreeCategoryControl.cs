@@ -8,7 +8,7 @@ using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
-using WinterEngine.DataTransferObjects.Resources;
+
 using WinterEngine.Editor.Forms;
 using WinterEngine.Forms.Shared;
 using WinterEngine.Library.Factories;
@@ -138,8 +138,9 @@ namespace WinterEngine.Editor.Controls
                     resourceCategory.GameObjectType = GameObjectResourceType;
 
                     repo.Add(resourceCategory);
-                    RefreshTreeView();
                 }
+
+                RefreshTreeView();
             }
             catch (Exception ex)
             {

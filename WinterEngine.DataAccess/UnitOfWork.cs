@@ -106,6 +106,151 @@ namespace WinterEngine.DataAccess
 
         #endregion
 
+        #region Resource repositories
+
+        private GenericRepository<WinterContext, Category> categoryRepository;
+        public GenericRepository<WinterContext, Category> CategoryRepository
+        {
+            get
+            {
+                if (this.categoryRepository == null)
+                {
+                    this.categoryRepository
+                        = new GenericRepository<WinterContext, Category>(context);
+                }
+                return categoryRepository;
+            }
+        }
+
+        private GenericRepository<WinterContext, ContentPackage> contentPackageRepository;
+        public GenericRepository<WinterContext, ContentPackage> ContentPackageRepository
+        {
+            get
+            {
+                if (this.contentPackageRepository == null)
+                {
+                    this.contentPackageRepository
+                        = new GenericRepository<WinterContext, ContentPackage>(context);
+                }
+                return contentPackageRepository;
+            }
+        }
+        private GenericRepository<WinterContext, ContentPackageResource> contentPackageResourceRepository;
+        public GenericRepository<WinterContext, ContentPackageResource> ContentPackageResourceRepository
+        {
+            get
+            {
+                if (this.contentPackageResourceRepository== null)
+                {
+                    this.contentPackageResourceRepository
+                        = new GenericRepository<WinterContext, ContentPackageResource>(context);
+                }
+                return contentPackageResourceRepository;
+            }
+        }
+        
+        private GenericRepository<WinterContext, ItemProperty> itemPropertyRepository;
+        public GenericRepository<WinterContext, ItemProperty> ItemPropertyRepository
+        {
+            get
+            {
+                if (this.itemPropertyRepository == null)
+                {
+                    this.itemPropertyRepository
+                        = new GenericRepository<WinterContext, ItemProperty>(context);
+                }
+                return itemPropertyRepository;
+            }
+        }
+
+        private GenericRepository<WinterContext, ItemType> itemTypeRepository;
+        public GenericRepository<WinterContext, ItemType> ItemTypeRepository
+        {
+            get
+            {
+                if (this.itemTypeRepository == null)
+                {
+                    this.itemTypeRepository
+                        = new GenericRepository<WinterContext, ItemType>(context);
+                }
+                return itemTypeRepository;
+            }
+        }
+        private GenericRepository<WinterContext, Race> raceRepository;
+        public GenericRepository<WinterContext, Race> RaceRepository
+        {
+            get
+            {
+                if (this.raceRepository == null)
+                {
+                    this.raceRepository
+                        = new GenericRepository<WinterContext, Race>(context);
+                }
+                return raceRepository;
+            }
+        }
+        #endregion
+
+        #region Mapping repositories
+        
+        private GenericRepository<WinterContext, Cell> cellRepository;
+        public GenericRepository<WinterContext, Cell> CellRepository
+        {
+            get
+            {
+                if (this.cellRepository == null)
+                {
+                    this.cellRepository
+                        = new GenericRepository<WinterContext, Cell>(context);
+                }
+                return cellRepository;
+            }
+        }
+        
+        private GenericRepository<WinterContext, Tile> tileRepository;
+        public GenericRepository<WinterContext, Tile> TileRepository
+        {
+            get
+            {
+                if (this.tileRepository == null)
+                {
+                    this.tileRepository
+                        = new GenericRepository<WinterContext, Tile>(context);
+                }
+                return tileRepository;
+            }
+        }
+        
+        private GenericRepository<WinterContext, TileMap> tileMapRepository;
+        public GenericRepository<WinterContext, TileMap> TileMapRepository
+        {
+            get
+            {
+                if (this.tileMapRepository == null)
+                {
+                    this.tileMapRepository
+                        = new GenericRepository<WinterContext, TileMap>(context);
+                }
+                return tileMapRepository;
+            }
+        }
+        
+        private GenericRepository<WinterContext, Tileset> tilesetRepository;
+        public GenericRepository<WinterContext, Tileset> TilesetRepository
+        {
+            get
+            {
+                if (this.tilesetRepository == null)
+                {
+                    this.tilesetRepository
+                        = new GenericRepository<WinterContext, Tileset>(context);
+                }
+                return tilesetRepository;
+            }
+        }
+
+        #endregion
+
         private Object getTargetRepository(Object item)
         {
             // Type of the object that is sent to the function

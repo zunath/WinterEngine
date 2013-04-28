@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Repositories;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects;
+
 
 namespace WinterEngine.Editor.Managers
 {

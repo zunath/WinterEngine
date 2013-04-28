@@ -24,9 +24,9 @@ namespace WinterEngine.DataAccess.Repositories
             set { _entities = value; }
         }
 
-        public virtual void Add(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
-            _entities.Set<TEntity>().Add(entity);
+            return _entities.Set<TEntity>().Add(entity);
         }
 
         public virtual void AddList(List<TEntity> entityList)

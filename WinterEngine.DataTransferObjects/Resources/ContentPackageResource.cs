@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WinterEngine.DataTransferObjects.Enumerations;
 
-namespace WinterEngine.DataTransferObjects.Resources
+namespace WinterEngine.DataTransferObjects
 {
     [Table("ContentPackageResources")]
     public class ContentPackageResource : GameResourceBase

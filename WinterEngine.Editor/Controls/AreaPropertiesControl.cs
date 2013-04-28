@@ -14,7 +14,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess.Repositories;
-using WinterEngine.DataTransferObjects.Resources;
+
 using System.IO;
 
 namespace WinterEngine.Editor.Controls

@@ -5,8 +5,8 @@ using System.IO;
 using System.Windows.Forms;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
+using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Resources;
 using WinterEngine.Library.Factories;
 
 namespace WinterEngine.Editor.Forms

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Resources;
+
 using WinterEngine.Editor.ExtendedEventArgs;
 using WinterEngine.Editor.Forms;
 using WinterEngine.Editor.Managers;

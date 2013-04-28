@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Resources;
+
 using WinterEngine.Library.Factories;
 using WinterEngine.Library.Utility;
 using FlatRedBall;
@@ -18,6 +18,7 @@ using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.Editor.Managers;
+using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.Editor.Forms
 {

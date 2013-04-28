@@ -6,8 +6,9 @@ using System.Text;
 using AutoMapper;
 using Ionic.Zip;
 using WinterEngine.DataAccess.Contexts;
+using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Resources;
+
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -15,8 +16,8 @@ namespace WinterEngine.DataAccess.Repositories
     {
         #region Constructors
 
-        public ContentPackageResourceRepository(string connectionString = "")
-            : base(connectionString)
+        public ContentPackageResourceRepository(string connectionString = "", bool autoSaveChanges = true)
+            : base(connectionString, autoSaveChanges)
         {
         }
 
@@ -26,148 +27,70 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void Add(ContentPackageResource resource)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                context.ContentPackageResources.Add(resource);
-                context.SaveChanges();
-            }
+            Context.ContentPackageResourceRepository.Add(resource);
         }
 
         public void Add(List<ContentPackageResource> resourceList)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                foreach (ContentPackageResource resource in resourceList)
-                {
-                    context.ContentPackageResources.Add(resource);
-                }
-
-                context.SaveChanges();
-            }
+            Context.ContentPackageResourceRepository.AddList(resourceList);
         }
 
         public void Update(ContentPackageResource resource)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                // Find the resource in the database that matches the passed-in item type's ID (primary key)
-                ContentPackageResource dbResource = context.ContentPackageResources.SingleOrDefault(r => r.ResourceID.Equals(resource.ResourceID));
-
-                if (!Object.ReferenceEquals(dbResource, null))
-                {
-                    dbResource = Mapper.Map(resource, dbResource);
-                    context.SaveChanges();
-                }
-            }
+            Context.ContentPackageResourceRepository.Update(resource);
         }
 
         public void Upsert(ContentPackageResource resource)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
+            if (resource.ResourceID <= 0)
             {
-                ContentPackageResource dbResource = context.ContentPackageResources.SingleOrDefault(r => r.ResourceID.Equals(resource.ResourceID));
-
-                if (!Object.ReferenceEquals(dbResource, null))
-                {
-                    dbResource = Mapper.Map(resource, dbResource);
-                }
-                else
-                {
-                    context.ContentPackageResources.Add(resource);
-                }
-
-                context.SaveChanges();
+                Context.ContentPackageResourceRepository.Add(resource);
+            }
+            else
+            {
+                Context.ContentPackageResourceRepository.Update(resource);
             }
         }
 
         public void Upsert(List<ContentPackageResource> resourceList)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
+            foreach (ContentPackageResource resource in resourceList)
             {
-                foreach (ContentPackageResource resource in resourceList)
-                {
-                    ContentPackageResource dbResource = context.ContentPackageResources.SingleOrDefault(r => r.ResourceID.Equals(resource.ResourceID));
-
-                    if (!Object.ReferenceEquals(dbResource, null))
-                    {
-                        dbResource = Mapper.Map(resource, dbResource);
-                    }
-                    else
-                    {
-                        context.ContentPackageResources.Add(resource);
-                    }
-                }
-                context.SaveChanges();
+                Upsert(resource);
             }
         }
 
         public void Delete(ContentPackageResource resource)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                ContentPackageResource dbPackage = context.ContentPackageResources.SingleOrDefault(val => val.ResourceID == resource.ResourceID);
-
-                if (!Object.ReferenceEquals(dbPackage, null))
-                {
-                    context.ContentPackageResources.Remove(dbPackage);
-                    context.SaveChanges();
-                }
-            }
+            Context.ContentPackageResourceRepository.Delete(resource);
         }
 
         public List<ContentPackageResource> GetAll()
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                var query = from resource
-                            in context.ContentPackageResources
-                            .Include("Package")
-                            select resource;
-                return query.ToList();
-            }
+            return Context.ContentPackageResourceRepository.Get(null, null, "Package").ToList();
         }
 
         public List<ContentPackageResource> GetAllByResourceType(ContentPackageResourceTypeEnum resourceType)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                var query = from resource
-                            in context.ContentPackageResources
-                            .Include("Package")
-                            where resource.ContentPackageResourceTypeID == (int)resourceType
-                            select resource;
-                return query.ToList();
-            }
+            return Context.ContentPackageResourceRepository.Get(x => x.ContentPackageResourceTypeID == (int)resourceType, null, "Package").ToList();
         }
 
         public bool Exists(ContentPackageResource resource)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
+            List<ContentPackageResource> resources = Context.ContentPackageResourceRepository.Get(x => x.ResourceID == resource.ResourceID).ToList();
+            if (resources.Count > 0)
             {
-                var query = from dbResource
-                            in context.ContentPackageResources
-                            where resource.ResourceID == dbResource.ResourceID
-                            select dbResource;
-
-                List<ContentPackageResource> dbPackageList = query.ToList();
-
-                if (dbPackageList.Count <= 0)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
         public ContentPackageResource GetByID(int resourceID)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
-            {
-                return context.ContentPackageResources.FirstOrDefault(x => x.ResourceID == resourceID);
-            }
+            return Context.ContentPackageResourceRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
         }
 
         /// <summary>
@@ -176,19 +99,14 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="resourceList"></param>
         public void AddIgnoreExisting(List<ContentPackageResource> resourceList)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
+            foreach (ContentPackageResource resource in resourceList)
             {
-                foreach (ContentPackageResource resource in resourceList)
+                ContentPackageResource existingResource = Context.ContentPackageResourceRepository.Get(x => x.FileName == resource.FileName).SingleOrDefault();
+
+                if (Object.ReferenceEquals(existingResource, null))
                 {
-                    ContentPackageResource existingResource = context.ContentPackageResources.FirstOrDefault(x => x.FileName == resource.FileName);
-
-                    if (Object.ReferenceEquals(existingResource, null))
-                    {
-                        context.ContentPackageResources.Add(resource);
-                    }
+                    Context.ContentPackageResourceRepository.Add(resource);
                 }
-
-                context.SaveChanges();
             }
         }
 
@@ -199,20 +117,12 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="resourceList"></param>
         public void RemoveMissingResources(ContentPackage package, List<ContentPackageResource> resourceList)
         {
-            using (WinterContext context = new WinterContext(ConnectionString))
+            List<ContentPackageResource> existingResources = Context.ContentPackageResourceRepository.Get(x => x.ContentPackageID == package.ResourceID).ToList();
+            List<ContentPackageResource> removedResources = existingResources.Except(resourceList).ToList();
+
+            foreach (ContentPackageResource resource in removedResources)
             {
-                List<ContentPackageResource> existingResources = (from resource
-                                                                  in context.ContentPackageResources
-                                                                  where package.ResourceID == resource.ContentPackageID
-                                                                  select resource).ToList();
-                List<ContentPackageResource> removedResources = existingResources.Except(resourceList).ToList();
-
-                foreach (ContentPackageResource resource in removedResources)
-                {
-                    context.ContentPackageResources.Remove(resource);
-                }
-
-                context.SaveChanges();
+                Context.ContentPackageResourceRepository.Delete(resource);
             }
         }
 

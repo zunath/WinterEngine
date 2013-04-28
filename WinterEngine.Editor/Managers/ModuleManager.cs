@@ -9,7 +9,7 @@ using WinterEngine.DataAccess;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Resources;
+
 using WinterEngine.Library.Utility;
 using WinterEngine.DataAccess.FileAccess;
 
@@ -327,16 +327,22 @@ namespace WinterEngine.Editor.Managers
             {
                 Category category = new Category { VisibleName = "*Uncategorized", GameObjectType = GameObjectTypeEnum.Area, IsSystemResource = true };
                 repo.Add(category);
+                repo.SaveChanges();
                 category.GameObjectType = GameObjectTypeEnum.Conversation;
                 repo.Add(category);
+                repo.SaveChanges();
                 category.GameObjectType = GameObjectTypeEnum.Creature;
                 repo.Add(category);
+                repo.SaveChanges();
                 category.GameObjectType = GameObjectTypeEnum.Item;
                 repo.Add(category);
+                repo.SaveChanges();
                 category.GameObjectType = GameObjectTypeEnum.Placeable;
                 repo.Add(category);
+                repo.SaveChanges();
                 category.GameObjectType = GameObjectTypeEnum.Script;
                 repo.Add(category);
+                repo.SaveChanges();
             }
         }
 

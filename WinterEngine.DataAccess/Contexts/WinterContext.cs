@@ -1,9 +1,6 @@
 ﻿using System.Data.Entity;
 using WinterEngine.DataTransferObjects;
 
-using WinterEngine.DataTransferObjects.Mapping;
-using WinterEngine.DataTransferObjects.Resources;
-
 namespace WinterEngine.DataAccess.Contexts
 {
     public class WinterContext : DbContext
