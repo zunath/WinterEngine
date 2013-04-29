@@ -197,7 +197,7 @@ namespace WinterEngine.Editor.Views
         /// <param name="e"></param>
         private void MoveCamera(object sender, CameraButtonPressEventArgs e)
         {
-            const float MovementSpeed = 10.0f;
+            const float MovementSpeed = 1000.0f;
 
             switch (e.MovementType)
             {

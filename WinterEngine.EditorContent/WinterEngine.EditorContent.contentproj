@@ -50,25 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icons\Icon_InvalidDimensions.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>Icon_InvalidDimensions</Name>
-    </Content>
-    <Content Include="Icons\Icon_NotPassable.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>Icon_NotPassable</Name>
-    </Content>
-    <Content Include="Icons\Icon_Passable.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>Icon_Passable</Name>
-    </Content>
-    <Content Include="Icons\Icon_SelectedTile.xnb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>Icon_SelectedTile</Name>
-    </Content>
+    <Folder Include="ContentPacks\" />
+    <Folder Include="Icons\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ContentPacks\" />
+    <None Include="Entities\EmptyCellEntity\TilesetEditor_EmptyCell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>TilesetEditor_EmptyCell</Name>
+    </None>
+    <None Include="Entities\SelectedTileEntity\TilesetEditor_SelectedCell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>TilesetEditor_SelectedCell</Name>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

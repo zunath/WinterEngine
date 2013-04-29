@@ -12,9 +12,7 @@ namespace WinterEngine.DataTransferObjects
     {
         #region Fields
 
-        private Tile[][] _tiles;
-        private int _width;
-        private int _height;
+        private Tile[,] _tiles;
         
         #endregion
 
@@ -25,23 +23,36 @@ namespace WinterEngine.DataTransferObjects
         /// </summary>
         public int NumberOfTilesWide
         {
-            get { return _width; }
-            set { _width = value; }
+            get 
+            { 
+                return _tiles.GetLength(0); 
+            }
         }
 
         /// <summary>
-        /// Gets or sets the number of tiles high this map is.
+        /// Gets the number of tiles high this map is.
         /// </summary>
         public int NumberOfTilesHigh
         {
-            get { return _height; }
-            set { _height = value; }
+            get 
+            { 
+                return _tiles.GetLength(1); 
+            }
         }
 
-        public Tile[][] Tiles
+        public Tile[,] Tiles
         {
             get { return _tiles; }
             set { _tiles = value; }
+        }
+
+        #endregion
+
+        #region Constructors
+
+        public Map()
+        {
+
         }
 
         #endregion

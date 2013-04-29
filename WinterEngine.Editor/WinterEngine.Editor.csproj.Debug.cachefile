@@ -1,5 +1,5 @@
-Content\Icons\Icon_InvalidDimensions.xnb
-Content\Icons\Icon_NotPassable.xnb
-Content\Icons\Icon_Passable.xnb
-Content\Icons\Icon_SelectedTile.xnb
+Content\Entities\EmptyCellEntity\TilesetEditor_EmptyCell.png
+Content\Entities\SelectedTileEntity\TilesetEditor_SelectedCell.png
+testts.png
+testicon.png
 redball.BMP

@@ -35,6 +35,7 @@ using WinterEngine.Editor.Managers;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess.Repositories;
 using System.IO;
+using WinterEngine.DataTransferObjects.Paths;
 #endif
 
 namespace WinterEngine.Editor.Screens
@@ -118,49 +119,23 @@ namespace WinterEngine.Editor.Screens
             set { _currentView = value; }
         }
 
+
         #endregion
 
         #region FRB Events
 
         void CustomInitialize()
         {
+            FlatRedBallServices.GraphicsOptions.BackgroundColor = Microsoft.Xna.Framework.Color.LightGray;
             FlatRedBallServices.Game.IsMouseVisible = true;
             InitializeFormControls();
             InitializeEventSubscriptions();
             AdjustCameraPosition();
-
-            // DEBUGGING
-            Sprite sprite = SpriteManager.AddSprite("redball.bmp");
-            //TilePickerEntityInstance.SpriteInstanceTexture = FlatRedBallServices.Load<Texture2D>("C:\\Users\\Tyler\\Desktop\\Winter Engine Resources\\Tilesets\\(Tileset) Wilderness.png");
-            // END DEBUGGING
+            
 		}
 
 		void CustomActivity(bool firstTimeCalled)
 		{
-            if (InputManager.Keyboard.KeyPushed(Keys.A))
-            {
-                Area currentArea = AreaControl.AreaProperties.ActiveArea;
-                currentArea.TileMap = new Map { NumberOfTilesHigh = 1, NumberOfTilesWide = 1 };
-
-                Texture2D texture;
-                using(ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
-                {
-                    ContentPackageResource resource = repo.GetByID(1);
-                    MemoryStream stream = repo.ExtractResourceToMemory(resource);
-                    texture = Texture2D.FromStream(FlatRedBallServices.GraphicsDevice, stream, (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight, false);
-                }
-
-                for (int x = 0; x < currentArea.TileMap.NumberOfTilesWide; x++)
-                {
-                    for (int y = 0; y < currentArea.TileMap.NumberOfTilesHigh; y++)
-                    {
-
-                        Sprite sprite = SpriteManager.AddSprite(texture);
-                        sprite.Position.X = x * (int)MappingEnum.TileWidth;
-                        sprite.Position.Y = y * (int)MappingEnum.TileHeight;
-                    }
-                }
-            }
 		}
 
 		void CustomDestroy()
@@ -346,6 +321,7 @@ namespace WinterEngine.Editor.Screens
             int height = viewportHeight - CurrentView.GetBottomWindowHeight();
 
             SpriteManager.Camera.DestinationRectangle = new Microsoft.Xna.Framework.Rectangle(xPosition, yPosition, width, height);
+            SpriteManager.Camera.Z = 750;
         }
 
         #endregion

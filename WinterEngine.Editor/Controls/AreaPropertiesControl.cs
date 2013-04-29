@@ -151,6 +151,9 @@ namespace WinterEngine.Editor.Controls
             resrefTextBoxArea.ResrefText = area.Resref;
 
             textBoxAreaComments.Text = area.Comment;
+
+            LoadTilesetGraphic();
+            SelectedTile.Visible = true;
         }
 
         /// <summary>
@@ -169,12 +172,14 @@ namespace WinterEngine.Editor.Controls
         /// </summary>
         public void UnloadAllControls()
         {
+            ActiveArea = null;
             listBoxTilesets.DataSource = null;
 
             nameTextBoxArea.Text = "";
             tagTextBoxArea.Text = "";
             resrefTextBoxArea.Text = "";
             textBoxAreaComments.Text = "";
+            SelectedTile.Visible = false;
         }
 
         #endregion
@@ -189,18 +194,30 @@ namespace WinterEngine.Editor.Controls
             pictureBoxTileset.Controls[0].Location = new Point(xPosition * (int)MappingEnum.TileWidth, yPosition * (int)MappingEnum.TileHeight);
         }
 
-        private void listBoxTilesets_SelectedIndexChanged(object sender, EventArgs e)
+        private void LoadTilesetGraphic()
         {
-            ContentPackageResource resource = listBoxTilesets.SelectedItem as ContentPackageResource;
-
-            if (!Object.ReferenceEquals(resource, null))
+            if (Object.ReferenceEquals(ActiveArea, null))
             {
-                using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
+                pictureBoxTileset.Image = WinterEngine_Editor.No_Tileset_Selected;
+            }
+            else
+            {
+                ContentPackageResource resource = listBoxTilesets.SelectedItem as ContentPackageResource;
+
+                if (!Object.ReferenceEquals(resource, null))
                 {
-                    MemoryStream stream = repo.ExtractResourceToMemory(resource);
-                    pictureBoxTileset.Image = Image.FromStream(stream);
+                    using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
+                    {
+                        MemoryStream stream = repo.ExtractResourceToMemory(resource);
+                        pictureBoxTileset.Image = Image.FromStream(stream);
+                    }
                 }
             }
+        }
+
+        private void listBoxTilesets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadTilesetGraphic();
         }
 
         #endregion

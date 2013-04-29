@@ -129,5 +129,15 @@ namespace WinterEngine.Editor {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap No_Tileset_Selected {
+            get {
+                object obj = ResourceManager.GetObject("No_Tileset_Selected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

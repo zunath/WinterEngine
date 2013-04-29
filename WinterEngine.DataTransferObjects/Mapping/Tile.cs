@@ -33,13 +33,38 @@ namespace WinterEngine.DataTransferObjects
             set { _tileID = value; }
         }
 
+        /// <summary>
+        /// Returns true if a tile has texture positions set.
+        /// Returns false if a tile does not have texture positions set.
+        /// </summary>
+        public bool HasGraphic
+        {
+            get
+            {
+                if (_texturePositionX > 0 && _texturePositionY > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Constructs a new tile, using the cell X and cell Y positions on
-        /// a tileset.
+        /// Constructs a new tile
+        /// </summary>
+        public Tile()
+        {
+        }
+
+        /// <summary>
+        /// Constructs a new tile with specified X and Y positions on the texture.
         /// </summary>
         public Tile(int texturePositionX, int texturePositionY)
         {

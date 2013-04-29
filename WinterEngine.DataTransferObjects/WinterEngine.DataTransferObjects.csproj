@@ -89,7 +89,6 @@
     <Compile Include="Enumerations\TilesetEditorModeTypeEnum.cs" />
     <Compile Include="EventArgsExtended\GameObjectEventArgs.cs" />
     <Compile Include="IEntity.cs" />
-    <Compile Include="Mapping\Cell.cs" />
     <Compile Include="Mapping\Tile.cs" />
     <Compile Include="Mapping\Map.cs" />
     <Compile Include="Paths\DirectoryPaths.cs" />

@@ -29,6 +29,7 @@ using Microsoft.Xna.Framework.Media;
 #endif
 
 // Generated Usings
+using WinterEngine.Editor.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
 
@@ -41,6 +42,7 @@ namespace WinterEngine.Editor.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
+		private WinterEngine.Editor.Entities.MapEntity MapEntityInstance;
 
 		public EditorScreen()
 			: base("EditorScreen")
@@ -51,6 +53,8 @@ namespace WinterEngine.Editor.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
+			MapEntityInstance = new WinterEngine.Editor.Entities.MapEntity(ContentManagerName, false);
+			MapEntityInstance.Name = "MapEntityInstance";
 			
 			
 			PostInitialize();
@@ -77,6 +81,7 @@ namespace WinterEngine.Editor.Screens
 			if (!IsPaused)
 			{
 				
+				MapEntityInstance.Activity();
 			}
 			else
 			{
@@ -97,6 +102,11 @@ namespace WinterEngine.Editor.Screens
 		{
 			// Generated Destroy
 			
+			if (MapEntityInstance != null)
+			{
+				MapEntityInstance.Destroy();
+				MapEntityInstance.Detach();
+			}
 
 			base.Destroy();
 
@@ -113,9 +123,11 @@ namespace WinterEngine.Editor.Screens
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
+			MapEntityInstance.AddToManagers(mLayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
+			MapEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -133,6 +145,7 @@ namespace WinterEngine.Editor.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
+			WinterEngine.Editor.Entities.MapEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]
