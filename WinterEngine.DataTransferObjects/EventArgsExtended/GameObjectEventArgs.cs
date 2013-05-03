@@ -19,5 +19,14 @@ namespace WinterEngine.DataTransferObjects.EventArgsExtended
             get { return _gameObject; }
             set { _gameObject = value; }
         }
+
+        public GameObjectEventArgs()
+        {
+        }
+
+        public GameObjectEventArgs(GameObjectBase gameObject)
+        {
+            this._gameObject = gameObject;
+        }
     }
 }

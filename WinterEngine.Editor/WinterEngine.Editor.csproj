@@ -185,17 +185,9 @@
     <Compile Include="Controls\TreeCategoryControl.Designer.cs">
       <DependentUpon>TreeCategoryControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\EmptyCellEntity.cs" />
-    <Compile Include="Entities\EmptyCellEntity.Generated.cs">
-      <DependentUpon>EmptyCellEntity.cs</DependentUpon>
-    </Compile>
     <Compile Include="Entities\MapEntity.cs" />
     <Compile Include="Entities\MapEntity.Generated.cs">
       <DependentUpon>MapEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\SelectedTileEntity.cs" />
-    <Compile Include="Entities\SelectedTileEntity.Generated.cs">
-      <DependentUpon>SelectedTileEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Enums\CameraMovementTypeEnum.cs" />
     <Compile Include="Enums\ObjectRotationTypeEnum.cs" />
@@ -273,16 +265,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="testts.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
     <Content Include="Libraries\Xna4Pc\FlatRedBall.Content.dll" />
     <Content Include="Resources\No_Tileset_Selected.png" />
-    <Content Include="testicon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\TilesetEditor_EmptyCell.png" />
     <None Include="Resources\TilesetEditor_SelectedTile.png" />
     <None Include="Resources\Icon_SelectedTile.bmp" />

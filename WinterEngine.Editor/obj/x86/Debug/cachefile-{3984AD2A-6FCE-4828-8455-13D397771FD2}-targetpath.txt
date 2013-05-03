@@ -1,2 +1,2 @@
-Content\Entities\EmptyCellEntity\TilesetEditor_EmptyCell.png
-Content\Entities\SelectedTileEntity\TilesetEditor_SelectedCell.png
+Content\Icons\TilesetEditor_CellSpriteSheet.xnb
+Content\Icons\testset.xnb

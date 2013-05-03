@@ -57,7 +57,6 @@ namespace WinterEngine.Editor.Entities
 		static List<string> mRegisteredUnloads = new List<string>();
 		static List<string> LoadedContentManagers = new List<string>();
 		
-		private WinterEngine.Editor.Entities.EmptyCellEntity EmptyCellEntityInstance;
 		public int Index { get; set; }
 		public bool Used { get; set; }
 		protected Layer LayerProvidedByContainer = null;
@@ -81,8 +80,6 @@ namespace WinterEngine.Editor.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			EmptyCellEntityInstance = new WinterEngine.Editor.Entities.EmptyCellEntity(ContentManagerName, false);
-			EmptyCellEntityInstance.Name = "EmptyCellEntityInstance";
 			
 			PostInitialize();
 			if (addToManagers)
@@ -106,7 +103,6 @@ namespace WinterEngine.Editor.Entities
 		{
 			// Generated Activity
 			
-			EmptyCellEntityInstance.Activity();
 			CustomActivity();
 			
 			// After Custom Activity
@@ -117,11 +113,6 @@ namespace WinterEngine.Editor.Entities
 			// Generated Destroy
 			SpriteManager.RemovePositionedObject(this);
 			
-			if (EmptyCellEntityInstance != null)
-			{
-				EmptyCellEntityInstance.Destroy();
-				EmptyCellEntityInstance.Detach();
-			}
 
 
 			CustomDestroy();
@@ -132,11 +123,6 @@ namespace WinterEngine.Editor.Entities
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
-			if (EmptyCellEntityInstance.Parent == null)
-			{
-				EmptyCellEntityInstance.CopyAbsoluteToRelative();
-				EmptyCellEntityInstance.AttachTo(this, false);
-			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -156,7 +142,6 @@ namespace WinterEngine.Editor.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
-			EmptyCellEntityInstance.AddToManagers(layerToAddTo);
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
@@ -168,7 +153,6 @@ namespace WinterEngine.Editor.Entities
 		{
 			this.ForceUpdateDependenciesDeep();
 			SpriteManager.ConvertToManuallyUpdated(this);
-			EmptyCellEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -200,8 +184,6 @@ namespace WinterEngine.Editor.Entities
 					}
 				}
 			}
-			WinterEngine.Editor.Entities.SelectedTileEntity.LoadStaticContent(contentManagerName);
-			WinterEngine.Editor.Entities.EmptyCellEntity.LoadStaticContent(contentManagerName);
 			if (registerUnload && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 			{
 				lock (mLockObject)
@@ -248,11 +230,9 @@ namespace WinterEngine.Editor.Entities
 		public virtual void SetToIgnorePausing ()
 		{
 			InstructionManager.IgnorePausingFor(this);
-			EmptyCellEntityInstance.SetToIgnorePausing();
 		}
 		public void MoveToLayer (Layer layerToMoveTo)
 		{
-			EmptyCellEntityInstance.MoveToLayer(layerToMoveTo);
 			LayerProvidedByContainer = layerToMoveTo;
 		}
 

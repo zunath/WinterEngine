@@ -51,17 +51,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ContentPacks\" />
-    <Folder Include="Icons\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Entities\EmptyCellEntity\TilesetEditor_EmptyCell.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>TilesetEditor_EmptyCell</Name>
-    </None>
-    <None Include="Entities\SelectedTileEntity\TilesetEditor_SelectedCell.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>TilesetEditor_SelectedCell</Name>
-    </None>
+    <Compile Include="Icons\TilesetEditor_CellSpriteSheet.png">
+      <Name>TilesetEditor_CellSpriteSheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Icons\testset.png">
+      <Name>testset</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

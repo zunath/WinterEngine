@@ -26,5 +26,13 @@ namespace WinterEngine.DataTransferObjects
         }
 
         #endregion
+
+        #region Constructors
+
+        public Area()
+        {
+        }
+
+        #endregion
     }
 }

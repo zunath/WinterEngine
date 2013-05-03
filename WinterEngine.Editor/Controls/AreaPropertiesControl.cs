@@ -53,6 +53,8 @@ namespace WinterEngine.Editor.Controls
         #region Events / Delegates
 
         public event EventHandler<GameObjectEventArgs> OnSaveArea;
+        public event EventHandler<GameObjectEventArgs> OnLoadArea;
+        public event EventHandler<PositionEventArgs> OnTileSelected;
 
         #endregion
 
@@ -154,6 +156,12 @@ namespace WinterEngine.Editor.Controls
 
             LoadTilesetGraphic();
             SelectedTile.Visible = true;
+
+            if (!Object.ReferenceEquals(OnLoadArea, null))
+            {
+                OnLoadArea(this, new GameObjectEventArgs(ActiveArea));
+            }
+
         }
 
         /// <summary>
@@ -192,6 +200,11 @@ namespace WinterEngine.Editor.Controls
             int yPosition = e.Y / (int)MappingEnum.TileHeight;
 
             pictureBoxTileset.Controls[0].Location = new Point(xPosition * (int)MappingEnum.TileWidth, yPosition * (int)MappingEnum.TileHeight);
+
+            if (!Object.ReferenceEquals(OnTileSelected, null))
+            {
+                OnTileSelected(this, new PositionEventArgs(xPosition, yPosition));
+            }
         }
 
         private void LoadTilesetGraphic()

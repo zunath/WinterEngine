@@ -26,6 +26,9 @@ using WinterEngine.Editor.Views;
 using FlatRedBall.ManagedSpriteGroups;
 using FlatRedBall.TileGraphics;
 using Microsoft.Xna.Framework;
+using FlatRedBall.Graphics;
+using System.Windows;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
 
 
 #endif
@@ -38,6 +41,7 @@ namespace WinterEngine.Editor.Entities
 
         private Area _activeArea;
         private MapDrawableBatch _mapBatch;
+        private Texture2D _editorSpritesheet;
 
         #endregion
 
@@ -65,57 +69,39 @@ namespace WinterEngine.Editor.Entities
             set { _mapBatch = value; }
         }
 
+        private Texture2D EditorSpritesheet
+        {
+            get { return _editorSpritesheet; }
+            set { _editorSpritesheet = value; }
+        }
+
         #endregion
 
         #region FRB Events
-
         private void CustomInitialize()
 		{
-            // DEBUGGING
-
-            ActiveArea = new Area();
-            ActiveArea.TileMap = new Map();
-            ActiveArea.TileMap.Tiles = new Tile[20, 20];
-
-            // END DEBUGGING
-
-
-            Texture2D texture = FlatRedBallServices.Load<Texture2D>("testts.png");
-            //SpriteManager.Camera.UsePixelCoordinates();
-
-            MapBatch = new MapDrawableBatch(TileMap.NumberOfTilesHigh * TileMap.NumberOfTilesWide,
-                (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight, texture);
-
-
-
-            // Traditional Y axis behaviour. As Y increases, you move UP.
-            for (int y = 0; y < TileMap.NumberOfTilesHigh; y++)
-            {
-                // Tiles are drawn backwards for X coordinates to prevent overlapping issues.
-                for (int x = TileMap.NumberOfTilesWide - 1; x >= 0; x--)
-                {
-                    // Each tile must step 32 pixels left and 16 pixels up. 
-                    // Tiles are in dimensions of 64x64.
-                    int xPosition = ((x * (int)MappingEnum.TileWidth) + (y * (int)MappingEnum.TileWidth)) / 2;
-                    int yPosition = ((y * (int)MappingEnum.TileHeight) - (x * (int)MappingEnum.TileHeight) ) / 4;
-
-                    Vector3 bottomLeftPoint = new Vector3(xPosition, yPosition, 0);
-
-                    MapBatch.AddTile(bottomLeftPoint, new Vector2((int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight),
-                        0, 0, (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight);
-                }
-            }
-
-
-            MapBatch.AddToManagers();
-
-            
+            EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Icons/TilesetEditor_CellSpriteSheet");
+            //EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Icons/testset");
+            //LoadMap();
+            //LoadMapTest();
 		}
 
         private void CustomActivity()
 		{
+            if (InputManager.Mouse.IsInGameWindow() && !Object.ReferenceEquals(MapBatch, null))
+            {
+                if (InputManager.Mouse.ButtonPushed(Mouse.MouseButtons.LeftButton))
+                {
 
+                    Vector2 currentTile = GetTileCoordinatesFromMouseCoordinates();
 
+                    MessageBox.Show(currentTile.Y + ", " + currentTile.X);
+                    MapBatch.PaintTile((int)currentTile.Y, (int)currentTile.X, 1);
+                    
+                }
+                
+
+            }
 		}
 
 		private void CustomDestroy()
@@ -131,6 +117,157 @@ namespace WinterEngine.Editor.Entities
         }
 
         #endregion
+
+        #region Event Handling
+
+        /// <summary>
+        /// Fires when a tile is selected from the AreaPropertiesControl.
+        /// This should be subscribed to the OnTileSelected event from that control in the EditorScreen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void TileSelected(object sender, PositionEventArgs e)
+        {
+
+        }
+
+        public void AreaLoaded(object sender, GameObjectEventArgs e)
+        {
+            Area area = e.GameObject as Area;
+            ActiveArea = area;
+
+            // DEBUGGING
+            ActiveArea.TileMap = new Map();
+            ActiveArea.TileMap.Tiles = new Tile[5, 5];
+
+            // END DEBUGGING
+            
+            LoadMap();
+
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Returns the X coordinate of the next tile
+        /// </summary>
+        /// <param name="x">The current X position in the map.</param>
+        /// <param name="y">The current Y position in the map.</param>
+        /// <returns></returns>
+        private int GetTileXScreenCoordinate(int x, int y)
+        {
+            return ((x * (int)MappingEnum.TileWidth) - (y * (int)MappingEnum.TileWidth)) / 2;
+        }
+
+        /// <summary>
+        /// Returns the Y coordinate of the next tile.
+        /// </summary>
+        /// <param name="x">The current X position in the map.</param>
+        /// <param name="y">The current Y position in the map.</param>
+        /// <returns></returns>
+        private int GetTileYScreenCoordinate(int x, int y)
+        {
+            return ((y * (int)MappingEnum.TileHeight) + (x * (int)MappingEnum.TileHeight)) / 4;
+        }
+
+        private void LoadMapTest()
+        {
+            int numberOfTilesWide = 5;
+            int numberOfTilesHigh = 5;
+            int spriteSheetCellWidth = 64;
+            int spriteSheetCellHeight = 64;
+
+            MapBatch = new FlatRedBall.TileGraphics.MapDrawableBatch(
+                numberOfTilesWide * numberOfTilesHigh,
+                spriteSheetCellWidth,
+                spriteSheetCellHeight, EditorSpritesheet);
+
+            for (int x = 0; x < numberOfTilesWide; x++)
+            {
+                for (int y = 0; y < numberOfTilesHigh; y++)
+                {
+                    Vector3 bottomLeftPoint = new Vector3(
+                        x * spriteSheetCellWidth,
+                        y * spriteSheetCellHeight,
+                        0);
+
+                    int cellLeft = 0;
+                    int cellTop = 0;
+                    int cellRight = cellLeft + spriteSheetCellWidth;
+                    int cellBottom = cellTop + spriteSheetCellHeight;
+
+                    MapBatch.AddTile(bottomLeftPoint, new Vector2(spriteSheetCellWidth, spriteSheetCellHeight),
+                        cellLeft, cellTop, cellRight, cellBottom);
+                }
+            }
+            MapBatch.AddToManagers();
+        }
+
+        public void LoadMap()
+        {
+            MapBatch = new MapDrawableBatch(TileMap.NumberOfTilesHigh * TileMap.NumberOfTilesWide,
+                (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight, EditorSpritesheet);
+
+            // Traditional Y axis behaviour. As Y increases, you move UP.
+            //for (int y = 0; y < TileMap.NumberOfTilesHigh; y++)
+            for (int x = 0; x < TileMap.NumberOfTilesWide; x++)
+            {
+                // Tiles are drawn backwards for X coordinates to prevent overlapping issues.
+                //for (int x = 0; x < TileMap.NumberOfTilesWide; x++)
+                for (int y = 0; y < TileMap.NumberOfTilesHigh; y++)
+                {
+                    // Each tile must step 32 pixels left and 16 pixels up. 
+                    // Tiles are in dimensions of 64x64.
+                    int xPosition = GetTileXScreenCoordinate(x, y);
+                    int yPosition = GetTileYScreenCoordinate(x, y);
+
+                    Vector2 dimensions = new Vector2((int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight);
+                    Vector3 bottomLeftPoint = new Vector3(xPosition, yPosition, 0);
+
+                    MapBatch.AddTile(bottomLeftPoint, dimensions, 0, 0, (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight);
+                    
+                }
+            }
+
+            MapBatch.AddToManagers();
+        }
+
+        private Vector2 GetTileCoordinatesFromMouseCoordinates()
+        {
+            int mouseX = (int)InputManager.Mouse.WorldXAt(0);
+            int mouseY = (int)InputManager.Mouse.WorldYAt(0);
+
+            //int tileX = mouseX / (int)MappingEnum.TileWidth;
+            //int tileY = mouseY / (int)MappingEnum.TileHeight;
+
+            int tileX = mouseX / 64;
+            int tileY = mouseY / 64;
+
+            if (tileX > TileMap.NumberOfTilesWide)
+            {
+                //tileX = TileMap.NumberOfTilesWide;
+            }
+            else if (tileX < MapBatch.X)
+            {
+                //tileX = (int)MapBatch.X;
+            }
+
+            if (tileY > TileMap.NumberOfTilesHigh)
+            {
+                //tileY = TileMap.NumberOfTilesHigh;
+            }
+            else if (tileY < MapBatch.Y)
+            {
+                //tileY = (int)MapBatch.Y;
+            }
+
+            return new Vector2(tileX, tileY);
+        }
+
+        #endregion
+
 
     }
 }

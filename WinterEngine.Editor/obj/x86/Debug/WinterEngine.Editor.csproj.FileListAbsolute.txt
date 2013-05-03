@@ -88,7 +88,5 @@ C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.E
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\obj\x86\Debug\WinterEngine.Editor.Forms.ContentPackageCreator.resources
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\AutoMapper.dll
 C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\AutoMapper.xml
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\Content\Entities\SelectedTileEntity\TilesetEditor_SelectedCell.png
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\Content\Entities\EmptyCellEntity\TilesetEditor_EmptyCell.png
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\testicon.png
-C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\testts.png
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\Content\Icons\TilesetEditor_CellSpriteSheet.xnb
+C:\Users\Tyler\Documents\Visual Studio 2012\Projects\WinterEngine\WinterEngine.Editor\bin\x86\Debug\Content\Icons\testset.xnb

@@ -162,6 +162,8 @@ namespace WinterEngine.Editor.Screens
             MenuBar.OnToggleControls += MenuBar_OnToggleControls;
             MenuBar.OnRefreshControls += RefreshControls;
             MenuBar.OnUnloadControls += MenuBar_OnUnloadControls;
+            AreaControl.AreaProperties.OnTileSelected += MapEntityInstance.TileSelected;
+            AreaControl.AreaProperties.OnLoadArea += MapEntityInstance.AreaLoaded;
 
             FlatRedBallServices.CornerGrabbingResize += OnWindowResize;
 
@@ -321,7 +323,7 @@ namespace WinterEngine.Editor.Screens
             int height = viewportHeight - CurrentView.GetBottomWindowHeight();
 
             SpriteManager.Camera.DestinationRectangle = new Microsoft.Xna.Framework.Rectangle(xPosition, yPosition, width, height);
-            SpriteManager.Camera.Z = 750;
+            SpriteManager.Camera.Z = 1000;
         }
 
         #endregion
