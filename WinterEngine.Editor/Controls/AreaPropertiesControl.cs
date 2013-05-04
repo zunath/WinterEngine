@@ -155,7 +155,6 @@ namespace WinterEngine.Editor.Controls
             textBoxAreaComments.Text = area.Comment;
 
             LoadTilesetGraphic();
-            SelectedTile.Visible = true;
 
             if (!Object.ReferenceEquals(OnLoadArea, null))
             {
@@ -224,6 +223,8 @@ namespace WinterEngine.Editor.Controls
                         MemoryStream stream = repo.ExtractResourceToMemory(resource);
                         pictureBoxTileset.Image = Image.FromStream(stream);
                     }
+
+                    SelectedTile.Visible = true;
                 }
             }
         }

@@ -174,7 +174,7 @@ namespace WinterEngine.Editor.Views
             AreaProperties = new AreaPropertiesControl();
             AreaNavigation = new AreaNavigationControl();
 
-            AreaProperties.BorderStyle = BorderStyle.None;
+            //AreaProperties.BorderStyle = BorderStyle.None;
             TreeCategory.BorderStyle = BorderStyle.None;
             TreeCategory.GameObjectResourceType = GameObjectTypeEnum.Area;
 

@@ -95,7 +95,7 @@ namespace WinterEngine.Editor.Entities
 
                     Vector2 currentTile = GetTileCoordinatesFromMouseCoordinates();
 
-                    MessageBox.Show(currentTile.Y + ", " + currentTile.X);
+                    //MessageBox.Show(currentTile.Y + ", " + currentTile.X);
                     MapBatch.PaintTile((int)currentTile.Y, (int)currentTile.X, 1);
                     
                 }

@@ -46,7 +46,7 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new area that will replace the area with the matching resref.</param>
         public void Update(Area newArea)
         {
-            Context.Update(newArea);
+            Context.AreaRepository.Update(newArea);
         }
 
         /// <summary>
