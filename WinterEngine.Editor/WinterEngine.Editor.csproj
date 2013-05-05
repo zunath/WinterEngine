@@ -321,11 +321,6 @@
       <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>
       <Name>WinterEngine.DataTransferObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WinterEngine.EditorContent\WinterEngine.EditorContent.contentproj">
-      <Project>{3984AD2A-6FCE-4828-8455-13D397771FD2}</Project>
-      <Name>WinterEngine.EditorContent %28Content%29</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.ERF\WinterEngine.ERF.csproj">
       <Project>{71c617b1-e588-4187-8773-c0b6ef4569a1}</Project>
       <Name>WinterEngine.ERF</Name>
@@ -333,6 +328,11 @@
     <ProjectReference Include="..\WinterEngine.Forms\WinterEngine.Forms.csproj">
       <Project>{2891db47-3f02-4e70-be37-d272187438df}</Project>
       <Name>WinterEngine.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.GameContent\WinterEngine.GameContent.contentproj">
+      <Project>{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}</Project>
+      <Name>WinterEngine.GameContent %28Content%29</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
     <ProjectReference Include="..\WinterEngine.Library\WinterEngine.Library.csproj">
       <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>

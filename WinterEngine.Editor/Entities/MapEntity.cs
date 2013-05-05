@@ -80,7 +80,7 @@ namespace WinterEngine.Editor.Entities
         #region FRB Events
         private void CustomInitialize()
 		{
-            EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Icons/TilesetEditor_CellSpriteSheet.png");
+            EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Editor/Icons/TilesetEditor_CellSpriteSheet.png");
             //EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Icons/testset");
             //LoadMap();
             //LoadMapTest();

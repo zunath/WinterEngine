@@ -13,11 +13,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Network", "Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Editor", "WinterEngine.Editor\WinterEngine.Editor.csproj", "{44C2B348-A66D-46FC-871E-6624683E5671}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.EditorContent", "WinterEngine.EditorContent\WinterEngine.EditorContent.contentproj", "{3984AD2A-6FCE-4828-8455-13D397771FD2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Forms", "WinterEngine.Forms\WinterEngine.Forms.csproj", "{2891DB47-3F02-4E70-BE37-D272187438DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Server", "WinterEngine.Server\WinterEngine.Server.csproj", "{DDE07357-C3EA-4F85-A497-7E9F8FCA37B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Game", "WinterEngine.Game\WinterEngine.Game.csproj", "{649DE040-99C6-4838-ADA3-533D0DBD4325}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.GameContent", "WinterEngine.GameContent\WinterEngine.GameContent.contentproj", "{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,12 +97,6 @@ Global
 		{44C2B348-A66D-46FC-871E-6624683E5671}.Release|Mixed Platforms.Build.0 = Release|x86
 		{44C2B348-A66D-46FC-871E-6624683E5671}.Release|x86.ActiveCfg = Release|x86
 		{44C2B348-A66D-46FC-871E-6624683E5671}.Release|x86.Build.0 = Release|x86
-		{3984AD2A-6FCE-4828-8455-13D397771FD2}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{3984AD2A-6FCE-4828-8455-13D397771FD2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{3984AD2A-6FCE-4828-8455-13D397771FD2}.Debug|x86.ActiveCfg = Debug|x86
-		{3984AD2A-6FCE-4828-8455-13D397771FD2}.Release|Any CPU.ActiveCfg = Release|x86
-		{3984AD2A-6FCE-4828-8455-13D397771FD2}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{3984AD2A-6FCE-4828-8455-13D397771FD2}.Release|x86.ActiveCfg = Release|x86
 		{2891DB47-3F02-4E70-BE37-D272187438DF}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{2891DB47-3F02-4E70-BE37-D272187438DF}.Debug|Any CPU.Build.0 = Debug|x86
 		{2891DB47-3F02-4E70-BE37-D272187438DF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -121,6 +117,24 @@ Global
 		{DDE07357-C3EA-4F85-A497-7E9F8FCA37B6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DDE07357-C3EA-4F85-A497-7E9F8FCA37B6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DDE07357-C3EA-4F85-A497-7E9F8FCA37B6}.Release|x86.ActiveCfg = Release|Any CPU
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|Any CPU.Build.0 = Debug|x86
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|x86.ActiveCfg = Debug|x86
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|x86.Build.0 = Debug|x86
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|Any CPU.ActiveCfg = Release|x86
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|Any CPU.Build.0 = Release|x86
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|Mixed Platforms.Build.0 = Release|x86
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|x86.ActiveCfg = Release|x86
+		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|x86.Build.0 = Release|x86
+		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Debug|x86.ActiveCfg = Debug|x86
+		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Release|Any CPU.ActiveCfg = Release|x86
+		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

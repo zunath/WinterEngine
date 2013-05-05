@@ -127,7 +127,6 @@ namespace WinterEngine.Editor.Screens
         void CustomInitialize()
         {
             FlatRedBallServices.GraphicsOptions.BackgroundColor = Microsoft.Xna.Framework.Color.LightGray;
-            FlatRedBallServices.Game.IsMouseVisible = true;
             InitializeFormControls();
             InitializeEventSubscriptions();
             AdjustCameraPosition();

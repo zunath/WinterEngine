@@ -17,24 +17,19 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 #endif
 using FlatRedBall.Screens;
-using System.Windows.Forms;
-using System.Drawing;
-using WinterEngine.Editor.Controls;
-using WinterEngine.Editor.Services;
 
-namespace WinterEngine.Editor
+namespace WinterEngine.Game
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferHeight = 600;
             Content.RootDirectory = "Content";
-
+			
 			#if WINDOWS_PHONE
 			// Frame rate is 30 fps by default for Windows Phone.
             TargetElapsedTime = TimeSpan.FromTicks(333333);
@@ -42,14 +37,15 @@ namespace WinterEngine.Editor
 			
 			#endif
         }
+
         protected override void Initialize()
         {
             Renderer.UseRenderTargets = false;
             FlatRedBallServices.InitializeFlatRedBall(this, graphics);
 			GlobalContent.Initialize();
 
-			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Editor.Screens.EditorScreen));
-            
+			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Game.Screens.ServerListScreen));
+
             base.Initialize();
             Window.AllowUserResizing = true;
             FlatRedBallServices.Game.IsMouseVisible = true;
@@ -59,9 +55,9 @@ namespace WinterEngine.Editor
         protected override void Update(GameTime gameTime)
         {
             FlatRedBallServices.Update(gameTime);
+
             FlatRedBall.Screens.ScreenManager.Activity();
 
-            WinterEditorServices.RaiseOnGameUpdateEvent();
             base.Update(gameTime);
         }
 
@@ -71,13 +67,5 @@ namespace WinterEngine.Editor
 
             base.Draw(gameTime);
         }
-
-        protected override void OnExiting(object sender, EventArgs args)
-        {
-            base.OnExiting(sender, args);
-
-
-        }
-
     }
 }
