@@ -322,7 +322,7 @@
       <Name>WinterEngine.DataTransferObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\WinterEngine.EditorContent\WinterEngine.EditorContent.contentproj">
-      <Project>{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}</Project>
+      <Project>{3984AD2A-6FCE-4828-8455-13D397771FD2}</Project>
       <Name>WinterEngine.EditorContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>

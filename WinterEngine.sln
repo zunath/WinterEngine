@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.DataTransferOb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.DataAccess", "WinterEngine.DataAccess\WinterEngine.DataAccess.csproj", "{0E481C4B-DD8F-4B26-84E7-CACDA79288F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Client", "WinterEngine.Client\WinterEngine.Client.csproj", "{649DE040-99C6-4838-ADA3-533D0DBD4325}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.ClientContent", "WinterEngine.ClientContent\WinterEngine.ClientContent.contentproj", "{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Network", "WinterEngine.Network\WinterEngine.Network.csproj", "{FC7568BE-F997-4501-8A16-09D2AC3EADB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Editor", "WinterEngine.Editor\WinterEngine.Editor.csproj", "{44C2B348-A66D-46FC-871E-6624683E5671}"
@@ -77,24 +73,6 @@ Global
 		{0E481C4B-DD8F-4B26-84E7-CACDA79288F0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0E481C4B-DD8F-4B26-84E7-CACDA79288F0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0E481C4B-DD8F-4B26-84E7-CACDA79288F0}.Release|x86.ActiveCfg = Release|Any CPU
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|Any CPU.Build.0 = Debug|x86
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|x86.ActiveCfg = Debug|x86
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Debug|x86.Build.0 = Debug|x86
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|Any CPU.ActiveCfg = Release|x86
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|Any CPU.Build.0 = Release|x86
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|Mixed Platforms.Build.0 = Release|x86
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|x86.ActiveCfg = Release|x86
-		{649DE040-99C6-4838-ADA3-533D0DBD4325}.Release|x86.Build.0 = Release|x86
-		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Debug|x86.ActiveCfg = Debug|x86
-		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Release|Any CPU.ActiveCfg = Release|x86
-		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Release|x86.ActiveCfg = Release|x86
 		{FC7568BE-F997-4501-8A16-09D2AC3EADB3}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{FC7568BE-F997-4501-8A16-09D2AC3EADB3}.Debug|Any CPU.Build.0 = Debug|x86
 		{FC7568BE-F997-4501-8A16-09D2AC3EADB3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
