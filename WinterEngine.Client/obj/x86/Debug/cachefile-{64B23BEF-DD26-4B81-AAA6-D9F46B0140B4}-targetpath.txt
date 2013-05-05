@@ -1,2 +1,0 @@
-Content\Screens\SplashScreen\frblogo512.png
-Content\Screens\SplashScreen\SceneFile.scnx
