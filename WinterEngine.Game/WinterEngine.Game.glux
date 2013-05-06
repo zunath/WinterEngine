@@ -51,6 +51,7 @@
           <InstanceName>ServerListTable</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <AddToManagers>true</AddToManagers>
+          <IsDisabled>true</IsDisabled>
           <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
       </NamedObjects>
@@ -680,6 +681,11 @@
             <Type>string</Type>
             <Member>DisplayText</Member>
             <ValueAsString />
+          </CustomProperty>
+          <CustomProperty>
+            <Type>HorizontalAlignment</Type>
+            <Member>HorizontalAlignment</Member>
+            <ValueAsObject xsi:type="xsd:int">2</ValueAsObject>
           </CustomProperty>
           <SourceType>Entity</SourceType>
           <SourceClassType>Entities\TextArial</SourceClassType>

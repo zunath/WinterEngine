@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Game", "Winter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.GameContent", "WinterEngine.GameContent\WinterEngine.GameContent.contentproj", "{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.UI", "WinterEngine.UI\WinterEngine.UI.csproj", "{0D850A82-EB14-418A-889D-E5AD2C23675F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +137,16 @@ Global
 		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Release|Any CPU.ActiveCfg = Release|x86
 		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}.Release|x86.ActiveCfg = Release|x86
+		{0D850A82-EB14-418A-889D-E5AD2C23675F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D850A82-EB14-418A-889D-E5AD2C23675F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D850A82-EB14-418A-889D-E5AD2C23675F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0D850A82-EB14-418A-889D-E5AD2C23675F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0D850A82-EB14-418A-889D-E5AD2C23675F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0D850A82-EB14-418A-889D-E5AD2C23675F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D850A82-EB14-418A-889D-E5AD2C23675F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D850A82-EB14-418A-889D-E5AD2C23675F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0D850A82-EB14-418A-889D-E5AD2C23675F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0D850A82-EB14-418A-889D-E5AD2C23675F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

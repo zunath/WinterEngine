@@ -42,7 +42,6 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private WinterEngine.Game.Entities.Table ServerListTable;
 
 		public ServerListScreen()
 			: base("ServerListScreen")
@@ -53,8 +52,6 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			ServerListTable = new WinterEngine.Game.Entities.Table(ContentManagerName, false);
-			ServerListTable.Name = "ServerListTable";
 			
 			
 			PostInitialize();
@@ -81,7 +78,6 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				ServerListTable.Activity();
 			}
 			else
 			{
@@ -102,11 +98,6 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
-			if (ServerListTable != null)
-			{
-				ServerListTable.Destroy();
-				ServerListTable.Detach();
-			}
 
 			base.Destroy();
 
@@ -123,11 +114,9 @@ namespace WinterEngine.Game.Screens
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
-			ServerListTable.AddToManagers(mLayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
-			ServerListTable.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{

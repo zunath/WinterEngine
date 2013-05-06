@@ -1,22 +1,15 @@
-using System;
-using System.Collections.Generic;
 
 using FlatRedBall;
 using FlatRedBall.Graphics;
-using FlatRedBall.Utilities;
 
 using Microsoft.Xna.Framework;
 #if !FRB_MDX
-using System.Linq;
 
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+
 #endif
-using FlatRedBall.Screens;
+using WinterEngine.UI.AwesomiumUILib;
+using FlatRedBall.IO;
 
 namespace WinterEngine.Game
 {
@@ -38,6 +31,9 @@ namespace WinterEngine.Game
 			#endif
         }
 
+        AwesomiumUI ui;
+        SpriteBatch batch;
+
         protected override void Initialize()
         {
             Renderer.UseRenderTargets = false;
@@ -49,6 +45,12 @@ namespace WinterEngine.Game
             base.Initialize();
             Window.AllowUserResizing = true;
             FlatRedBallServices.Game.IsMouseVisible = true;
+
+            FlatRedBallServices.GraphicsOptions.BackgroundColor = Microsoft.Xna.Framework.Color.LightGray;
+            batch = new SpriteBatch(FlatRedBallServices.GraphicsDevice);
+            ui = new AwesomiumUI();
+            ui.Initialize(FlatRedBallServices.GraphicsDevice, 200, 200, FileManager.RelativeDirectory);
+            ui.Load("ServerList.html");
         }
 
 
@@ -57,15 +59,22 @@ namespace WinterEngine.Game
             FlatRedBallServices.Update(gameTime);
 
             FlatRedBall.Screens.ScreenManager.Activity();
-
             base.Update(gameTime);
+
+            ui.Update();
         }
 
         protected override void Draw(GameTime gameTime)
         {
             FlatRedBallServices.Draw();
-
             base.Draw(gameTime);
+
+            batch.Begin();
+
+            batch.Draw(ui.webTexture, new Rectangle(0, 0, 200, 200), Color.Blue);
+
+            batch.End();
+            
         }
     }
 }

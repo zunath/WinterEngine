@@ -80,10 +80,20 @@ namespace WinterEngine.Editor.Entities
         #region FRB Events
         private void CustomInitialize()
 		{
-            EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Editor/Icons/TilesetEditor_CellSpriteSheet.png");
-            //EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Icons/testset");
+
+            Area area =  new Area();
+            ActiveArea = area;
+
+            // DEBUGGING
+            ActiveArea.TileMap = new Map();
+            ActiveArea.TileMap.Tiles = new Tile[2, 2];
+
+            // END DEBUGGING
+
+            //EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Editor/Icons/TilesetEditor_CellSpriteSheet.png");
+            EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Editor/Icons/testset.png");
             //LoadMap();
-            //LoadMapTest();
+            LoadMapTest();
 		}
 
         private void CustomActivity()
@@ -95,8 +105,9 @@ namespace WinterEngine.Editor.Entities
 
                     Vector2 currentTile = GetTileCoordinatesFromMouseCoordinates();
 
-                    //MessageBox.Show(currentTile.Y + ", " + currentTile.X);
-                    MapBatch.PaintTile((int)currentTile.Y, (int)currentTile.X, 1);
+                    // NOTE: This version of PaintTile seems to be bugged. Look at 
+                    // using the other overloaded method. Victor says that one should work.
+                    MapBatch.PaintTile((int)currentTile.X, (int)currentTile.Y, 1);
                     
                 }
                 
@@ -174,8 +185,8 @@ namespace WinterEngine.Editor.Entities
 
         private void LoadMapTest()
         {
-            int numberOfTilesWide = 5;
-            int numberOfTilesHigh = 5;
+            int numberOfTilesWide = 2;
+            int numberOfTilesHigh = 2;
             int spriteSheetCellWidth = 64;
             int spriteSheetCellHeight = 64;
 

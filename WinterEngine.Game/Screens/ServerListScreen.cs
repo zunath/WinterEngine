@@ -20,30 +20,27 @@ using FlatRedBall.Localization;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
+using WinterEngine.UI;
+using FlatRedBall.IO;
 #endif
 
 namespace WinterEngine.Game.Screens
 {
 	public partial class ServerListScreen
 	{
-
 		void CustomInitialize()
         {
             SpriteManager.Camera.Z = 550;
             SpriteManager.Camera.X = 100;
-            ServerListTable.Y = 200;
-
+            
 		}
 
 		void CustomActivity(bool firstTimeCalled)
 		{
-
-
 		}
 
 		void CustomDestroy()
 		{
-
 
 		}
 

@@ -158,6 +158,7 @@ namespace WinterEngine.Game.Entities
 				CellText.AttachTo(this, false);
 			}
 			CellText.DisplayText = "";
+			CellText.HorizontalAlignment = FlatRedBall.Graphics.HorizontalAlignment.Center;
 			if (CellFrame.Parent == null)
 			{
 				CellFrame.CopyAbsoluteToRelative();
@@ -190,6 +191,7 @@ namespace WinterEngine.Game.Entities
 			RotationZ = 0;
 			CellText.AddToManagers(layerToAddTo);
 			CellText.DisplayText = "";
+			CellText.HorizontalAlignment = FlatRedBall.Graphics.HorizontalAlignment.Center;
 			CellFrame.AddToManagers(layerToAddTo);
 			CellFrame.ScaleX = 50f;
 			CellFrame.ScaleY = 15f;

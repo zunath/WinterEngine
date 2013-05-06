@@ -29,8 +29,6 @@ namespace WinterEngine.Game.Screens
 
 		void CustomInitialize()
 		{
-            SpriteManager.Camera.Z = 750;
-            
 		}
 
 		void CustomActivity(bool firstTimeCalled)
