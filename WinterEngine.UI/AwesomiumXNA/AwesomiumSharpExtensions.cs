@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Awesomium.Core;
 
-namespace WinterEngine.UI.AwesomiumSharpXna
+namespace WinterEngine.UI.AwesomiumXNA
 {
     public static class AwesomiumXnaExtensions
     {

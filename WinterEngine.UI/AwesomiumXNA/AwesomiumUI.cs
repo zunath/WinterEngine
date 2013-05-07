@@ -11,9 +11,8 @@ using Microsoft.Xna.Framework.Media;
 
 using Awesomium.Core;
 using System.Threading;
-using WinterEngine.UI.AwesomiumSharpXna;
 
-namespace WinterEngine.UI.AwesomiumUILib
+namespace WinterEngine.UI.AwesomiumXNA
 {
 
     /*

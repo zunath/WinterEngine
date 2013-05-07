@@ -65,18 +65,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AwesomiumSharpXna\AwesomiumSharpExtensions.cs" />
-    <Compile Include="AwesomiumSharpXna\TextureConverter.cs" />
-    <Compile Include="AwesomiumUILib\AwesomiumUI.cs" />
-    <Compile Include="AwesomiumUILib\EventInputHandling.cs" />
+    <Compile Include="AwesomiumXNA\AwesomiumSharpExtensions.cs" />
+    <Compile Include="AwesomiumXNA\TextureConverter.cs" />
+    <Compile Include="AwesomiumXNA\AwesomiumUI.cs" />
+    <Compile Include="AwesomiumXNA\EventInputHandling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Images\DataTables\back_disabled.png" />
+    <Content Include="Images\DataTables\back_enabled.png" />
+    <Content Include="Images\DataTables\back_enabled_hover.png" />
+    <Content Include="Images\DataTables\favicon.ico" />
+    <Content Include="Images\DataTables\forward_disabled.png" />
+    <Content Include="Images\DataTables\forward_enabled.png" />
+    <Content Include="Images\DataTables\forward_enabled_hover.png" />
+    <Content Include="Images\DataTables\sort_asc.png" />
+    <Content Include="Images\DataTables\sort_asc_disabled.png" />
+    <Content Include="Images\DataTables\sort_both.png" />
+    <Content Include="Images\DataTables\sort_desc.png" />
+    <Content Include="Images\DataTables\sort_desc_disabled.png" />
+    <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery-2.0.0.min.js" />
-    <None Include="ServerList.html">
+    <Content Include="Styling\DataTables\jquery.dataTables.css" />
+    <Content Include="Styling\DataTables\jquery.dataTables_themeroller.css" />
+    <None Include="Components\ServerList.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Images\DataTables\Sorting icons.psd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

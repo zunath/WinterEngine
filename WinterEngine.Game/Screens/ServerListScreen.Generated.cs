@@ -42,6 +42,7 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
+		private WinterEngine.Game.Entities.AwesomiumEntity AwesomiumEntityInstance;
 
 		public ServerListScreen()
 			: base("ServerListScreen")
@@ -52,6 +53,8 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
+			AwesomiumEntityInstance = new WinterEngine.Game.Entities.AwesomiumEntity(ContentManagerName, false);
+			AwesomiumEntityInstance.Name = "AwesomiumEntityInstance";
 			
 			
 			PostInitialize();
@@ -78,6 +81,7 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
+				AwesomiumEntityInstance.Activity();
 			}
 			else
 			{
@@ -98,6 +102,11 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
+			if (AwesomiumEntityInstance != null)
+			{
+				AwesomiumEntityInstance.Destroy();
+				AwesomiumEntityInstance.Detach();
+			}
 
 			base.Destroy();
 
@@ -114,9 +123,11 @@ namespace WinterEngine.Game.Screens
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
+			AwesomiumEntityInstance.AddToManagers(mLayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
+			AwesomiumEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -135,6 +146,7 @@ namespace WinterEngine.Game.Screens
 			}
 			#endif
 			WinterEngine.Game.Entities.Table.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.AwesomiumEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

@@ -117,6 +117,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\AwesomiumEntity.cs" />
+    <Compile Include="Entities\AwesomiumEntity.Generated.cs">
+      <DependentUpon>AwesomiumEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Button.cs" />
     <Compile Include="Entities\Button.Event.cs">
       <DependentUpon>Button.cs</DependentUpon>
@@ -231,9 +235,7 @@
       <Name>WinterEngine.UI</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Awesomium\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 #endif
-using WinterEngine.UI.AwesomiumUILib;
+using WinterEngine.UI.AwesomiumXNA;
 using FlatRedBall.IO;
 
 namespace WinterEngine.Game
@@ -31,9 +31,6 @@ namespace WinterEngine.Game
 			#endif
         }
 
-        AwesomiumUI ui;
-        SpriteBatch batch;
-
         protected override void Initialize()
         {
             Renderer.UseRenderTargets = false;
@@ -45,36 +42,21 @@ namespace WinterEngine.Game
             base.Initialize();
             Window.AllowUserResizing = true;
             FlatRedBallServices.Game.IsMouseVisible = true;
-
             FlatRedBallServices.GraphicsOptions.BackgroundColor = Microsoft.Xna.Framework.Color.LightGray;
-            batch = new SpriteBatch(FlatRedBallServices.GraphicsDevice);
-            ui = new AwesomiumUI();
-            ui.Initialize(FlatRedBallServices.GraphicsDevice, 200, 200, FileManager.RelativeDirectory);
-            ui.Load("ServerList.html");
         }
 
 
         protected override void Update(GameTime gameTime)
         {
             FlatRedBallServices.Update(gameTime);
-
             FlatRedBall.Screens.ScreenManager.Activity();
             base.Update(gameTime);
-
-            ui.Update();
         }
 
         protected override void Draw(GameTime gameTime)
         {
             FlatRedBallServices.Draw();
             base.Draw(gameTime);
-
-            batch.Begin();
-
-            batch.Draw(ui.webTexture, new Rectangle(0, 0, 200, 200), Color.Blue);
-
-            batch.End();
-            
         }
     }
 }
