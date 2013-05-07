@@ -79,13 +79,15 @@ namespace WinterEngine.Game.Entities
 
         private void CustomInitialize()
 		{
-            RenderWidth = 1000;
-            RenderHeight = 1000;
+            SpriteManager.Camera.Z = 750;
+            RenderHeight = FlatRedBallServices.ClientHeight;
+            RenderWidth = FlatRedBallServices.ClientWidth;
+
+            InitializeInputSystem();
 
             awesomiumUI = new AwesomiumUI();
             awesomiumUI.Initialize(FlatRedBallServices.GraphicsDevice, RenderWidth, RenderHeight, FileManager.RelativeDirectory);
             LoadUI();
-
             RenderedSprite.Texture = awesomiumUI.webTexture;
 		}
 
@@ -109,17 +111,58 @@ namespace WinterEngine.Game.Entities
 
         #endregion
 
+        #region UI Event Handling
+
+        private void MouseMoveHandler(object sender, MouseEventArgs e)
+        {
+            awesomiumUI.InjectMouseMove(InputManager.Mouse.X, InputManager.Mouse.Y);
+        }
+
+        private void MouseDownHandler(object sender, MouseEventArgs e)
+        {
+            awesomiumUI.InjectMouseDown(e.Button);
+        }
+
+        private void MouseUpHandler(object sender, MouseEventArgs e)
+        {
+            awesomiumUI.InjectMouseUp(e.Button);
+        }
+
+        private void FullKeyHandler(object sender, uint msg, IntPtr wParam, IntPtr lParam)
+        {
+            awesomiumUI.InjectKeyboardEvent((int)msg, (int)wParam, (int)lParam);
+        }
+
+
+        #endregion
 
         #region Methods
 
         public void LoadUI()
         {
-            _awesomiumURI = "http://winterengine.com";
+            _awesomiumURI = "http://facebook.com";
 
             if (!String.IsNullOrWhiteSpace(_awesomiumURI))
             {
                 awesomiumUI.Load(_awesomiumURI);
             }
+        }
+
+        #endregion
+
+        #region Initialization Routines
+
+        private void InitializeInputSystem()
+        {
+            if (!InputSystem.IsInitialized)
+            {
+                InputSystem.Initialize(FlatRedBallServices.Game.Window);
+            }
+
+            InputSystem.MouseMove += MouseMoveHandler;
+            InputSystem.MouseDown += MouseDownHandler;
+            InputSystem.MouseUp += MouseUpHandler;
+            InputSystem.FullKeyHandler += FullKeyHandler;
         }
 
         #endregion

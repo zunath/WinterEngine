@@ -175,7 +175,7 @@ namespace WinterEngine.UI.AwesomiumXNA
 
         delegate IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
-        static bool initialized;
+        public static bool IsInitialized{get; set;}
         static IntPtr prevWndProc;
         static WndProc hookProcDelegate;
         static IntPtr hIMC;
@@ -273,14 +273,14 @@ namespace WinterEngine.UI.AwesomiumXNA
         /// <param name="window">The XNA window to which text input should be linked.</param>
         public static void Initialize(GameWindow window)
         {
-            if (initialized)
+            if (IsInitialized)
                 throw new InvalidOperationException("TextInput.Initialize can only be called once!");
 
             hookProcDelegate = new WndProc(HookProc);
             prevWndProc = (IntPtr)SetWindowLong(window.Handle, GWL_WNDPROC, (int)Marshal.GetFunctionPointerForDelegate(hookProcDelegate));
 
             hIMC = ImmGetContext(window.Handle);
-            initialized = true;
+            IsInitialized = true;
         }
 
         static IntPtr HookProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
