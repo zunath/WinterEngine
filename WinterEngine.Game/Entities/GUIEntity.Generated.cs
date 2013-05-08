@@ -40,7 +40,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class AwesomiumEntity : PositionedObject, IDestroyable
+	public partial class GUIEntity : PositionedObject, IDestroyable
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static string ContentManagerName
@@ -57,18 +57,22 @@ namespace WinterEngine.Game.Entities
 		static List<string> mRegisteredUnloads = new List<string>();
 		static List<string> LoadedContentManagers = new List<string>();
 		
-		private FlatRedBall.Sprite RenderedSprite;
+		private FlatRedBall.Sprite SpriteInstance;
+		public int Height;
+		public int Width;
+		public bool IsTransparent;
+		public string ResourcePath;
 		public int Index { get; set; }
 		public bool Used { get; set; }
 		protected Layer LayerProvidedByContainer = null;
 
-        public AwesomiumEntity(string contentManagerName) :
+        public GUIEntity(string contentManagerName) :
             this(contentManagerName, true)
         {
         }
 
 
-        public AwesomiumEntity(string contentManagerName, bool addToManagers) :
+        public GUIEntity(string contentManagerName, bool addToManagers) :
 			base()
 		{
 			// Don't delete this:
@@ -81,7 +85,7 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			RenderedSprite = new FlatRedBall.Sprite();
+			SpriteInstance = new FlatRedBall.Sprite();
 			
 			PostInitialize();
 			if (addToManagers)
@@ -115,9 +119,9 @@ namespace WinterEngine.Game.Entities
 			// Generated Destroy
 			SpriteManager.RemovePositionedObject(this);
 			
-			if (RenderedSprite != null)
+			if (SpriteInstance != null)
 			{
-				RenderedSprite.Detach(); SpriteManager.RemoveSprite(RenderedSprite);
+				SpriteInstance.Detach(); SpriteManager.RemoveSprite(SpriteInstance);
 			}
 
 
@@ -129,12 +133,12 @@ namespace WinterEngine.Game.Entities
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
-			if (RenderedSprite.Parent == null)
+			if (SpriteInstance.Parent == null)
 			{
-				RenderedSprite.CopyAbsoluteToRelative();
-				RenderedSprite.AttachTo(this, false);
+				SpriteInstance.CopyAbsoluteToRelative();
+				SpriteInstance.AttachTo(this, false);
 			}
-			RenderedSprite.PixelSize = 0.5f;
+			SpriteInstance.PixelSize = 0.5f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -154,8 +158,8 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
-			SpriteManager.AddToLayer(RenderedSprite, layerToAddTo);
-			RenderedSprite.PixelSize = 0.5f;
+			SpriteManager.AddToLayer(SpriteInstance, layerToAddTo);
+			SpriteInstance.PixelSize = 0.5f;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
@@ -167,7 +171,7 @@ namespace WinterEngine.Game.Entities
 		{
 			this.ForceUpdateDependenciesDeep();
 			SpriteManager.ConvertToManuallyUpdated(this);
-			SpriteManager.ConvertToManuallyUpdated(RenderedSprite);
+			SpriteManager.ConvertToManuallyUpdated(SpriteInstance);
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -194,7 +198,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AwesomiumEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("GUIEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -205,7 +209,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AwesomiumEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("GUIEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -245,15 +249,15 @@ namespace WinterEngine.Game.Entities
 		public virtual void SetToIgnorePausing ()
 		{
 			InstructionManager.IgnorePausingFor(this);
-			InstructionManager.IgnorePausingFor(RenderedSprite);
+			InstructionManager.IgnorePausingFor(SpriteInstance);
 		}
 		public void MoveToLayer (Layer layerToMoveTo)
 		{
 			if (LayerProvidedByContainer != null)
 			{
-				LayerProvidedByContainer.Remove(RenderedSprite);
+				LayerProvidedByContainer.Remove(SpriteInstance);
 			}
-			SpriteManager.AddToLayer(RenderedSprite, layerToMoveTo);
+			SpriteManager.AddToLayer(SpriteInstance, layerToMoveTo);
 			LayerProvidedByContainer = layerToMoveTo;
 		}
 
@@ -261,7 +265,7 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class AwesomiumEntityExtensionMethods
+	public static class GUIEntityExtensionMethods
 	{
 	}
 	

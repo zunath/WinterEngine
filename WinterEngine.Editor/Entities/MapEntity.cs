@@ -29,6 +29,7 @@ using Microsoft.Xna.Framework;
 using FlatRedBall.Graphics;
 using System.Windows;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
+using FlatRedBall.Math;
 
 
 #endif
@@ -85,15 +86,16 @@ namespace WinterEngine.Editor.Entities
             ActiveArea = area;
 
             // DEBUGGING
+            SpriteManager.Camera.Orthogonal = true;
+            SpriteManager.Camera.OrthogonalWidth = FlatRedBallServices.ClientWidth;
+            SpriteManager.Camera.OrthogonalHeight = FlatRedBallServices.ClientHeight;
             ActiveArea.TileMap = new Map();
             ActiveArea.TileMap.Tiles = new Tile[2, 2];
 
             // END DEBUGGING
 
-            //EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Editor/Icons/TilesetEditor_CellSpriteSheet.png");
-            EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Editor/Icons/testset.png");
-            //LoadMap();
-            LoadMapTest();
+            EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Editor/Icons/TilesetEditor_CellSpriteSheet.png");
+            LoadMap();
 		}
 
         private void CustomActivity()
@@ -183,39 +185,6 @@ namespace WinterEngine.Editor.Entities
             return ((y * (int)MappingEnum.TileHeight) + (x * (int)MappingEnum.TileHeight)) / 4;
         }
 
-        private void LoadMapTest()
-        {
-            int numberOfTilesWide = 2;
-            int numberOfTilesHigh = 2;
-            int spriteSheetCellWidth = 64;
-            int spriteSheetCellHeight = 64;
-
-            MapBatch = new FlatRedBall.TileGraphics.MapDrawableBatch(
-                numberOfTilesWide * numberOfTilesHigh,
-                spriteSheetCellWidth,
-                spriteSheetCellHeight, EditorSpritesheet);
-
-            for (int x = 0; x < numberOfTilesWide; x++)
-            {
-                for (int y = 0; y < numberOfTilesHigh; y++)
-                {
-                    Vector3 bottomLeftPoint = new Vector3(
-                        x * spriteSheetCellWidth,
-                        y * spriteSheetCellHeight,
-                        0);
-
-                    int cellLeft = 0;
-                    int cellTop = 0;
-                    int cellRight = cellLeft + spriteSheetCellWidth;
-                    int cellBottom = cellTop + spriteSheetCellHeight;
-
-                    MapBatch.AddTile(bottomLeftPoint, new Vector2(spriteSheetCellWidth, spriteSheetCellHeight),
-                        cellLeft, cellTop, cellRight, cellBottom);
-                }
-            }
-            MapBatch.AddToManagers();
-        }
-
         public void LoadMap()
         {
             MapBatch = new MapDrawableBatch(TileMap.NumberOfTilesHigh * TileMap.NumberOfTilesWide,
@@ -275,6 +244,7 @@ namespace WinterEngine.Editor.Entities
             }
 
             return new Vector2(tileX, tileY);
+            
         }
 
         #endregion

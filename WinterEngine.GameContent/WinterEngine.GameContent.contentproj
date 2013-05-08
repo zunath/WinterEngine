@@ -142,14 +142,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Editor\Icons\testset.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>testset</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Editor\Icons\TilesetEditor_CellSpriteSheet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>TilesetEditor_CellSpriteSheet</Name>

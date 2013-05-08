@@ -56,8 +56,8 @@
         </NamedObjectSave>
         <NamedObjectSave>
           <SourceType>Entity</SourceType>
-          <SourceClassType>Entities\AwesomiumEntity</SourceClassType>
-          <InstanceName>AwesomiumEntityInstance</InstanceName>
+          <SourceClassType>Entities\GUIEntity</SourceClassType>
+          <InstanceName>GUIEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
@@ -124,25 +124,6 @@
     </ScreenSave>
   </Screens>
   <Entities>
-    <EntitySave>
-      <Name>Entities\AwesomiumEntity</Name>
-      <NamedObjects>
-        <NamedObjectSave>
-          <CustomProperty>
-            <Type>float</Type>
-            <Member>PixelSize</Member>
-            <ValueAsFloat>0.5</ValueAsFloat>
-          </CustomProperty>
-          <SourceType>FlatRedBallType</SourceType>
-          <SourceClassType>Sprite</SourceClassType>
-          <InstanceName>RenderedSprite</InstanceName>
-          <AttachToContainer>true</AttachToContainer>
-          <AddToManagers>true</AddToManagers>
-          <IndependentOfCamera>true</IndependentOfCamera>
-        </NamedObjectSave>
-      </NamedObjects>
-      <Is2D>true</Is2D>
-    </EntitySave>
     <EntitySave>
       <States>
         <StateSave>
@@ -593,6 +574,67 @@
         </ReferencedFileSave>
       </ReferencedFiles>
       <Is2D>false</Is2D>
+    </EntitySave>
+    <EntitySave>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>int</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>Height</Name>
+          <Type>int</Type>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>int</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>Width</Name>
+          <Type>int</Type>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>bool</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>IsTransparent</Name>
+          <Type>bool</Type>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>string</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>ResourcePath</Name>
+          <Type>string</Type>
+        </CustomVariable>
+      </CustomVariables>
+      <Name>Entities\GUIEntity</Name>
+      <NamedObjects>
+        <NamedObjectSave>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>PixelSize</Member>
+            <ValueAsFloat>0.5</ValueAsFloat>
+          </CustomProperty>
+          <SourceType>FlatRedBallType</SourceType>
+          <SourceClassType>Sprite</SourceClassType>
+          <InstanceName>SpriteInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <AddToManagers>true</AddToManagers>
+          <IndependentOfCamera>true</IndependentOfCamera>
+        </NamedObjectSave>
+      </NamedObjects>
+      <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
       <CustomVariables>

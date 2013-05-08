@@ -42,7 +42,7 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private WinterEngine.Game.Entities.AwesomiumEntity AwesomiumEntityInstance;
+		private WinterEngine.Game.Entities.GUIEntity GUIEntityInstance;
 
 		public ServerListScreen()
 			: base("ServerListScreen")
@@ -53,8 +53,8 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			AwesomiumEntityInstance = new WinterEngine.Game.Entities.AwesomiumEntity(ContentManagerName, false);
-			AwesomiumEntityInstance.Name = "AwesomiumEntityInstance";
+			GUIEntityInstance = new WinterEngine.Game.Entities.GUIEntity(ContentManagerName, false);
+			GUIEntityInstance.Name = "GUIEntityInstance";
 			
 			
 			PostInitialize();
@@ -81,7 +81,7 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				AwesomiumEntityInstance.Activity();
+				GUIEntityInstance.Activity();
 			}
 			else
 			{
@@ -102,10 +102,10 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
-			if (AwesomiumEntityInstance != null)
+			if (GUIEntityInstance != null)
 			{
-				AwesomiumEntityInstance.Destroy();
-				AwesomiumEntityInstance.Detach();
+				GUIEntityInstance.Destroy();
+				GUIEntityInstance.Detach();
 			}
 
 			base.Destroy();
@@ -123,11 +123,11 @@ namespace WinterEngine.Game.Screens
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
-			AwesomiumEntityInstance.AddToManagers(mLayer);
+			GUIEntityInstance.AddToManagers(mLayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
-			AwesomiumEntityInstance.ConvertToManuallyUpdated();
+			GUIEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -146,7 +146,7 @@ namespace WinterEngine.Game.Screens
 			}
 			#endif
 			WinterEngine.Game.Entities.Table.LoadStaticContent(contentManagerName);
-			WinterEngine.Game.Entities.AwesomiumEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.GUIEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

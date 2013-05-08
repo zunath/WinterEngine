@@ -102,6 +102,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -117,10 +118,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\AwesomiumEntity.cs" />
-    <Compile Include="Entities\AwesomiumEntity.Generated.cs">
-      <DependentUpon>AwesomiumEntity.cs</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Button.cs" />
     <Compile Include="Entities\Button.Event.cs">
       <DependentUpon>Button.cs</DependentUpon>
@@ -144,6 +141,10 @@
     <Compile Include="Entities\Frame.cs" />
     <Compile Include="Entities\Frame.Generated.cs">
       <DependentUpon>Frame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\GUIEntity.cs" />
+    <Compile Include="Entities\GUIEntity.Generated.cs">
+      <DependentUpon>GUIEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\Table.cs" />
     <Compile Include="Entities\Table.Generated.cs">
