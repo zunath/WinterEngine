@@ -42,7 +42,7 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private WinterEngine.Game.Entities.GUIEntity GUIEntityInstance;
+		private WinterEngine.Game.Entities.AwesomiumGuiEntity GUIEntityInstance;
 
 		public ServerListScreen()
 			: base("ServerListScreen")
@@ -53,7 +53,7 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			GUIEntityInstance = new WinterEngine.Game.Entities.GUIEntity(ContentManagerName, false);
+			GUIEntityInstance = new WinterEngine.Game.Entities.AwesomiumGuiEntity(ContentManagerName, false);
 			GUIEntityInstance.Name = "GUIEntityInstance";
 			
 			
@@ -145,8 +145,7 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
-			WinterEngine.Game.Entities.Table.LoadStaticContent(contentManagerName);
-			WinterEngine.Game.Entities.GUIEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.AwesomiumGuiEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

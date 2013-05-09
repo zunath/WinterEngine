@@ -4,48 +4,65 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <link rel="stylesheet" href="../Styling/Game/GameStyles.css" />
     <link rel="stylesheet" href="../Styling/DataTables/jquery.dataTables.css" />
     <link rel="stylesheet" href="../Styling/DataTables/jquery.dataTables_themeroller.css" />
-</head>
-<body>
+
     <script src="../Scripts/jquery-2.0.0.min.js" type="text/javascript"></script>
     <script src="../Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
 
-    <table id="tblTest">
+</head>
+<body>
+    
+    <table id="tblServerList">
         <thead>
             <tr>
                 <td>
-                    Test
+                    Server Name
                 </td>
                 <td>
-                    test3
+                    Address
                 </td>
                 <td>
-                    tes6
+                    Max Level
+                </td>
+                <td>
+                    Players
+                </td>
+                <td>
+                    Game Type
+                </td>
+                <td>
+                    PVP Type
                 </td>
             </tr>
         </thead>
-
         <tbody>
-            <tr>
-                <td>
-                    Test2
-                </td>
-                <td>
-                    test7
-                </td>
-                <td>
-                    test8
-                </td>
-            </tr>
+
         </tbody>
     </table>
 
+
     <script type="text/javascript">
-        function test(){
-            $('#tblTest').dataTable();
-            alert("Test");
-        }
+        $(document).ready(function test() {
+            var servers = $.getJSON('https://www.winterengine.com/api/APIControllers/Server/GetAllActiveServers', function (data) {
+                var servers = [];
+
+                $.each(data, function (ipAddress, port, name, description, maxLevel, maxPlayers, currentPlayers, gameType, pvpType) {
+                    var row;
+                    row.push('<tr>');
+                    row.push('<td>' + name + '</td>');
+                    row.push('<td>' + ipAddress + ':' + port + '</td>');
+                    row.push('<td>' + maxLevel + '</td>');
+                    row.push('<td>' + currentPlayers + ' / ' + maxPlayers + '</td>');
+                    row.push('<td>' + gameType + '</td>');
+                    row.push('<td>' + pvpType + '</td>');
+                    row.push('</tr>');
+
+                    $('#tblServerList').append(row);
+                });
+            });
+        });
     </script>
 
 </body>

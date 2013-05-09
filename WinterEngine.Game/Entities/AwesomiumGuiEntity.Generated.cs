@@ -16,7 +16,6 @@ using GuiManager = FlatRedBall.Gui.GuiManager;
 using WinterEngine.Game.Screens;
 using FlatRedBall.Graphics;
 using FlatRedBall.Math;
-using FlatRedBall.Gui;
 using WinterEngine.Game.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
@@ -41,7 +40,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class TextArial : PositionedObject, IDestroyable, IVisible, IClickable
+	public partial class AwesomiumGuiEntity : PositionedObject, IDestroyable
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static string ContentManagerName
@@ -57,86 +56,23 @@ namespace WinterEngine.Game.Entities
 		static object mLockObject = new object();
 		static List<string> mRegisteredUnloads = new List<string>();
 		static List<string> LoadedContentManagers = new List<string>();
-		private static FlatRedBall.Scene SceneFile;
 		
-		private FlatRedBall.Graphics.Text TextInstance;
-		public string DisplayText
-		{
-			get
-			{
-				return TextInstance.DisplayText;
-			}
-			set
-			{
-				TextInstance.DisplayText = value;
-			}
-		}
-		public FlatRedBall.Graphics.HorizontalAlignment HorizontalAlignment
-		{
-			get
-			{
-				return TextInstance.HorizontalAlignment;
-			}
-			set
-			{
-				TextInstance.HorizontalAlignment = value;
-			}
-		}
+		private FlatRedBall.Sprite SpriteInstance;
+		public int Height;
+		public int Width;
+		public bool IsTransparent;
+		public string ResourcePath;
 		public int Index { get; set; }
 		public bool Used { get; set; }
-		public event EventHandler BeforeVisibleSet;
-		public event EventHandler AfterVisibleSet;
-		protected bool mVisible = true;
-		public virtual bool Visible
-		{
-			get
-			{
-				return mVisible;
-			}
-			set
-			{
-				if (BeforeVisibleSet != null)
-				{
-					BeforeVisibleSet(this, null);
-				}
-				mVisible = value;
-				if (AfterVisibleSet != null)
-				{
-					AfterVisibleSet(this, null);
-				}
-			}
-		}
-		public bool IgnoresParentVisibility { get; set; }
-		public bool AbsoluteVisible
-		{
-			get
-			{
-				return Visible && (Parent == null || IgnoresParentVisibility || Parent is IVisible == false || (Parent as IVisible).AbsoluteVisible);
-			}
-		}
-		IVisible IVisible.Parent
-		{
-			get
-			{
-				if (this.Parent != null && this.Parent is IVisible)
-				{
-					return this.Parent as IVisible;
-				}
-				else
-				{
-					return null;
-				}
-			}
-		}
 		protected Layer LayerProvidedByContainer = null;
 
-        public TextArial(string contentManagerName) :
+        public AwesomiumGuiEntity(string contentManagerName) :
             this(contentManagerName, true)
         {
         }
 
 
-        public TextArial(string contentManagerName, bool addToManagers) :
+        public AwesomiumGuiEntity(string contentManagerName, bool addToManagers) :
 			base()
 		{
 			// Don't delete this:
@@ -149,8 +85,7 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			TextInstance = SceneFile.Texts.FindByName("Text").Clone();
-			TextInstance.AdjustPositionForPixelPerfectDrawing = true;
+			SpriteInstance = new FlatRedBall.Sprite();
 			
 			PostInitialize();
 			if (addToManagers)
@@ -173,7 +108,6 @@ namespace WinterEngine.Game.Entities
 		public virtual void Activity()
 		{
 			// Generated Activity
-			mIsPaused = false;
 			
 			CustomActivity();
 			
@@ -185,9 +119,9 @@ namespace WinterEngine.Game.Entities
 			// Generated Destroy
 			SpriteManager.RemovePositionedObject(this);
 			
-			if (TextInstance != null)
+			if (SpriteInstance != null)
 			{
-				TextInstance.Detach(); TextManager.RemoveText(TextInstance);
+				SpriteInstance.Detach(); SpriteManager.RemoveSprite(SpriteInstance);
 			}
 
 
@@ -199,16 +133,12 @@ namespace WinterEngine.Game.Entities
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
-			if (TextInstance.Parent == null)
+			if (SpriteInstance.Parent == null)
 			{
-				TextInstance.CopyAbsoluteToRelative();
-				TextInstance.AttachTo(this, false);
+				SpriteInstance.CopyAbsoluteToRelative();
+				SpriteInstance.AttachTo(this, false);
 			}
-			DisplayText = "Hello, I am a Text object";
-			X = 0f;
-			Y = 0f;
-			Z = 0f;
-			HorizontalAlignment = FlatRedBall.Graphics.HorizontalAlignment.Center;
+			SpriteInstance.PixelSize = 0.5f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -228,12 +158,8 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
-			TextManager.AddToLayer(TextInstance, layerToAddTo);
-			DisplayText = "Hello, I am a Text object";
-			X = 0f;
-			Y = 0f;
-			Z = 0f;
-			HorizontalAlignment = FlatRedBall.Graphics.HorizontalAlignment.Center;
+			SpriteManager.AddToLayer(SpriteInstance, layerToAddTo);
+			SpriteInstance.PixelSize = 0.5f;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
@@ -245,7 +171,7 @@ namespace WinterEngine.Game.Entities
 		{
 			this.ForceUpdateDependenciesDeep();
 			SpriteManager.ConvertToManuallyUpdated(this);
-			TextManager.ConvertToManuallyUpdated(TextInstance);
+			SpriteManager.ConvertToManuallyUpdated(SpriteInstance);
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -272,15 +198,10 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("TextArialStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AwesomiumGuiEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
-				if (!FlatRedBallServices.IsLoaded<FlatRedBall.Scene>(@"content/entities/textarial/scenefile.scnx", ContentManagerName))
-				{
-					registerUnload = true;
-				}
-				SceneFile = FlatRedBallServices.Load<FlatRedBall.Scene>(@"content/entities/textarial/scenefile.scnx", ContentManagerName);
 			}
 			if (registerUnload && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 			{
@@ -288,7 +209,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("TextArialStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AwesomiumGuiEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -304,68 +225,20 @@ namespace WinterEngine.Game.Entities
 			}
 			if (LoadedContentManagers.Count == 0)
 			{
-				if (SceneFile != null)
-				{
-					SceneFile.RemoveFromManagers(ContentManagerName != "Global");
-					SceneFile= null;
-				}
 			}
 		}
 		[System.Obsolete("Use GetFile instead")]
 		public static object GetStaticMember (string memberName)
 		{
-			switch(memberName)
-			{
-				case  "SceneFile":
-					return SceneFile;
-			}
 			return null;
 		}
 		public static object GetFile (string memberName)
 		{
-			switch(memberName)
-			{
-				case  "SceneFile":
-					return SceneFile;
-			}
 			return null;
 		}
 		object GetMember (string memberName)
 		{
-			switch(memberName)
-			{
-				case  "SceneFile":
-					return SceneFile;
-			}
 			return null;
-		}
-		public virtual bool HasCursorOver (FlatRedBall.Gui.Cursor cursor)
-		{
-			if (mIsPaused)
-			{
-				return false;
-			}
-			if (!AbsoluteVisible)
-			{
-				return false;
-			}
-			if (LayerProvidedByContainer != null && LayerProvidedByContainer.Visible == false)
-			{
-				return false;
-			}
-			if (!cursor.IsOn(LayerProvidedByContainer))
-			{
-				return false;
-			}
-			if (TextInstance.Alpha != 0 && TextInstance.AbsoluteVisible && cursor.IsOn3D(TextInstance, LayerProvidedByContainer))
-			{
-				return true;
-			}
-			return false;
-		}
-		public virtual bool WasClickedThisFrame (FlatRedBall.Gui.Cursor cursor)
-		{
-			return cursor.PrimaryClick && HasCursorOver(cursor);
 		}
 		protected bool mIsPaused;
 		public override void Pause (InstructionList instructions)
@@ -376,15 +249,15 @@ namespace WinterEngine.Game.Entities
 		public virtual void SetToIgnorePausing ()
 		{
 			InstructionManager.IgnorePausingFor(this);
-			InstructionManager.IgnorePausingFor(TextInstance);
+			InstructionManager.IgnorePausingFor(SpriteInstance);
 		}
 		public void MoveToLayer (Layer layerToMoveTo)
 		{
 			if (LayerProvidedByContainer != null)
 			{
-				LayerProvidedByContainer.Remove(TextInstance);
+				LayerProvidedByContainer.Remove(SpriteInstance);
 			}
-			TextManager.AddToLayer(TextInstance, layerToMoveTo);
+			SpriteManager.AddToLayer(SpriteInstance, layerToMoveTo);
 			LayerProvidedByContainer = layerToMoveTo;
 		}
 
@@ -392,16 +265,8 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class TextArialExtensionMethods
+	public static class AwesomiumGuiEntityExtensionMethods
 	{
-		public static void SetVisible (this PositionedObjectList<TextArial> list, bool value)
-		{
-			int count = list.Count;
-			for (int i = 0; i < count; i++)
-			{
-				list[i].Visible = value;
-			}
-		}
 	}
 	
 }

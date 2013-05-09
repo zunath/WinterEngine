@@ -42,8 +42,6 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private WinterEngine.Game.Entities.Button ServerListButton;
-		private WinterEngine.Game.Entities.Button ExitButton;
 
 		public MainMenuScreen()
 			: base("MainMenuScreen")
@@ -54,10 +52,6 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			ServerListButton = new WinterEngine.Game.Entities.Button(ContentManagerName, false);
-			ServerListButton.Name = "ServerListButton";
-			ExitButton = new WinterEngine.Game.Entities.Button(ContentManagerName, false);
-			ExitButton.Name = "ExitButton";
 			
 			
 			PostInitialize();
@@ -84,8 +78,6 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				ServerListButton.Activity();
-				ExitButton.Activity();
 			}
 			else
 			{
@@ -106,16 +98,6 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
-			if (ServerListButton != null)
-			{
-				ServerListButton.Destroy();
-				ServerListButton.Detach();
-			}
-			if (ExitButton != null)
-			{
-				ExitButton.Destroy();
-				ExitButton.Detach();
-			}
 
 			base.Destroy();
 
@@ -128,53 +110,13 @@ namespace WinterEngine.Game.Screens
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
-			ServerListButton.DisplayText = "Server List";
-			if (ServerListButton.Parent == null)
-			{
-				ServerListButton.X = 0f;
-			}
-			else
-			{
-				ServerListButton.RelativeX = 0f;
-			}
-			if (ServerListButton.Parent == null)
-			{
-				ServerListButton.Y = 50f;
-			}
-			else
-			{
-				ServerListButton.RelativeY = 50f;
-			}
-			ExitButton.DisplayText = "Exit";
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
-			ServerListButton.AddToManagers(mLayer);
-			ServerListButton.DisplayText = "Server List";
-			if (ServerListButton.Parent == null)
-			{
-				ServerListButton.X = 0f;
-			}
-			else
-			{
-				ServerListButton.RelativeX = 0f;
-			}
-			if (ServerListButton.Parent == null)
-			{
-				ServerListButton.Y = 50f;
-			}
-			else
-			{
-				ServerListButton.RelativeY = 50f;
-			}
-			ExitButton.AddToManagers(mLayer);
-			ExitButton.DisplayText = "Exit";
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
-			ServerListButton.ConvertToManuallyUpdated();
-			ExitButton.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -192,7 +134,6 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
-			WinterEngine.Game.Entities.Button.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]
