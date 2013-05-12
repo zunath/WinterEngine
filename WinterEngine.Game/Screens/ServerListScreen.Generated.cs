@@ -44,7 +44,7 @@ namespace WinterEngine.Game.Screens
 		#endif
 		
 		private FlatRedBall.Graphics.Layer GUILayer;
-		private WinterEngine.Game.Entities.AwesomiumGuiEntity AwesomiumGuiEntityInstance;
+		private WinterEngine.Game.Entities.ActionBarGuiEntity ActionBarGuiEntityInstance;
 
 		public ServerListScreen()
 			: base("ServerListScreen")
@@ -57,8 +57,8 @@ namespace WinterEngine.Game.Screens
 			LoadStaticContent(ContentManagerName);
 			GUILayer = new FlatRedBall.Graphics.Layer();
 			GUILayer.Name = "GUILayer";
-			AwesomiumGuiEntityInstance = new WinterEngine.Game.Entities.AwesomiumGuiEntity(ContentManagerName, false);
-			AwesomiumGuiEntityInstance.Name = "AwesomiumGuiEntityInstance";
+			ActionBarGuiEntityInstance = new WinterEngine.Game.Entities.ActionBarGuiEntity(ContentManagerName, false);
+			ActionBarGuiEntityInstance.Name = "ActionBarGuiEntityInstance";
 			
 			
 			PostInitialize();
@@ -92,7 +92,7 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				AwesomiumGuiEntityInstance.Activity();
+				ActionBarGuiEntityInstance.Activity();
 			}
 			else
 			{
@@ -117,10 +117,10 @@ namespace WinterEngine.Game.Screens
 			{
 				SpriteManager.RemoveLayer(GUILayer);
 			}
-			if (AwesomiumGuiEntityInstance != null)
+			if (ActionBarGuiEntityInstance != null)
 			{
-				AwesomiumGuiEntityInstance.Destroy();
-				AwesomiumGuiEntityInstance.Detach();
+				ActionBarGuiEntityInstance.Destroy();
+				ActionBarGuiEntityInstance.Detach();
 			}
 
 			base.Destroy();
@@ -138,11 +138,11 @@ namespace WinterEngine.Game.Screens
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
-			AwesomiumGuiEntityInstance.AddToManagers(GUILayer);
+			ActionBarGuiEntityInstance.AddToManagers(GUILayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
-			AwesomiumGuiEntityInstance.ConvertToManuallyUpdated();
+			ActionBarGuiEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -160,7 +160,8 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
-			WinterEngine.Game.Entities.AwesomiumGuiEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.GuiBaseEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.ActionBarGuiEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

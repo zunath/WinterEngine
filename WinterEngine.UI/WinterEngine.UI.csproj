@@ -70,6 +70,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Components\ActionBar.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\DataTables\back_disabled.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

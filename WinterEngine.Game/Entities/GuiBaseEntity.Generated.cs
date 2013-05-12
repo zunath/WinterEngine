@@ -40,7 +40,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class AwesomiumGuiEntity : PositionedObject, IDestroyable
+	public partial class GuiBaseEntity : PositionedObject, IDestroyable
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static string ContentManagerName
@@ -66,13 +66,13 @@ namespace WinterEngine.Game.Entities
 		public bool Used { get; set; }
 		protected Layer LayerProvidedByContainer = null;
 
-        public AwesomiumGuiEntity(string contentManagerName) :
+        public GuiBaseEntity(string contentManagerName) :
             this(contentManagerName, true)
         {
         }
 
 
-        public AwesomiumGuiEntity(string contentManagerName, bool addToManagers) :
+        public GuiBaseEntity(string contentManagerName, bool addToManagers) :
 			base()
 		{
 			// Don't delete this:
@@ -139,6 +139,8 @@ namespace WinterEngine.Game.Entities
 				SpriteInstance.AttachTo(this, false);
 			}
 			SpriteInstance.PixelSize = 0.5f;
+			X = 0f;
+			Y = 0f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -160,6 +162,8 @@ namespace WinterEngine.Game.Entities
 			RotationZ = 0;
 			SpriteManager.AddToLayer(SpriteInstance, layerToAddTo);
 			SpriteInstance.PixelSize = 0.5f;
+			X = 0f;
+			Y = 0f;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
@@ -198,7 +202,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AwesomiumGuiEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("GuiBaseEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -209,7 +213,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AwesomiumGuiEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("GuiBaseEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -265,7 +269,7 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class AwesomiumGuiEntityExtensionMethods
+	public static class GuiBaseEntityExtensionMethods
 	{
 	}
 	

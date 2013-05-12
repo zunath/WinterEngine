@@ -118,9 +118,17 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\AwesomiumGuiEntity.cs" />
-    <Compile Include="Entities\AwesomiumGuiEntity.Generated.cs">
-      <DependentUpon>AwesomiumGuiEntity.cs</DependentUpon>
+    <Compile Include="Entities\ActionBarGuiEntity.cs" />
+    <Compile Include="Entities\ActionBarGuiEntity.Generated.cs">
+      <DependentUpon>ActionBarGuiEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\GuiBaseEntity.cs" />
+    <Compile Include="Entities\GuiBaseEntity.Generated.cs">
+      <DependentUpon>guibaseentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ServerListGuiEntity.cs" />
+    <Compile Include="Entities\ServerListGuiEntity.Generated.cs">
+      <DependentUpon>ServerListGuiEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalContent.Generated.cs" />
     <Compile Include="Performance\IPoolable.Generated.cs" />

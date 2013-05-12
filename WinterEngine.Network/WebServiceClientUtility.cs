@@ -133,20 +133,6 @@ namespace WinterEngine.Network
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 serverList = serializer.Deserialize<List<ServerDetails>>(jsonObject);
 
-                /*
-                //ServerDetails server = JsonConvert.DeserializeObject<ServerDetails>(jsonObject);
-
-                JArray jsonArray = new JArray(jsonObject); 
-                List<ServerDetails> serverList = new List<ServerDetails>();
-
-                for (int index = 0; index < jsonArray.Count; index++)
-                {
-                    string singleServerJson = jsonArray[index].ToString();
-                    ServerDetails server = JsonConvert.DeserializeObject<ServerDetails>(singleServerJson);
-                    serverList.Add(server);
-                }
-                */
-
                 return serverList;
             }
             catch(Exception ex)

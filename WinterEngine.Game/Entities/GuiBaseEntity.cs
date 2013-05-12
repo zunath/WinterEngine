@@ -20,7 +20,7 @@ using WinterEngine.Network.Entities;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class AwesomiumGuiEntity
+	public partial class GuiBaseEntity
     {
         #region Fields
 
@@ -34,6 +34,12 @@ namespace WinterEngine.Game.Entities
         #endregion
 
         #region Properties
+
+        public WebView AwesomiumWebView
+        {
+            get { return _webView; }
+            set { _webView = value; }
+        }
 
         /// <summary>
         /// Returns the URI for the entity's resource path.
@@ -60,10 +66,6 @@ namespace WinterEngine.Game.Entities
         private void CustomInitialize()
 		{
             // DEBUGGING
-            ResourcePath = "file:///./Components/ServerList.html";
-            Width = 800;
-            Height = 600;
-
             this.X = 100;
             this.Y = 0;
 
@@ -77,7 +79,6 @@ namespace WinterEngine.Game.Entities
             SetUpDrawSurfaces();
             
             InitializeInputEventSubscriptions();
-            InitializeAwesomiumEventSubscriptions();
 
             // DEBUGGING
 
@@ -144,31 +145,6 @@ namespace WinterEngine.Game.Entities
             return _webView.ExecuteJavascriptWithResult(methodName);
         }
 
-        private void BuildServerList()
-        {
-            WebServiceClientUtility utility = new WebServiceClientUtility();
-            List<ServerDetails> serverList = utility.GetAllActiveServers();
-
-            JSObject jobject = _webView.CreateGlobalJavascriptObject("ServerList");
-            
-            foreach (ServerDetails server in serverList)
-            {
-                /*
-                JSValue val = jobject.Invoke("AddServerDetailsToTable",
-                    new JSValue(server.ServerName),
-                    new JSValue(""),
-                    new JSValue(""),
-                    //new JSValue(server.Connection.ServerIPAddress.ToString()),
-                    //new JSValue(server.Connection.ServerPort),
-                    new JSValue(server.ServerMaxLevel),
-                    new JSValue(server.ServerMaxPlayers),
-                    new JSValue(server.ServerMaxPlayers),
-                    new JSValue(server.GameType.ToString()),
-                    new JSValue(server.PVPType.ToString()));
-                */
-            }
-            
-        }
 
         #endregion
 
@@ -223,16 +199,6 @@ namespace WinterEngine.Game.Entities
         #endregion
 
         #region Awesomium Event Handling
-
-        private void InitializeAwesomiumEventSubscriptions()
-        {
-            _webView.DocumentReady += OnDocumentReady;
-        }
-
-        private void OnDocumentReady(object sender, EventArgs e)
-        {
-            BuildServerList();
-        }
 
         #endregion
 

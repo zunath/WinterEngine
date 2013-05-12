@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using AutoMapper;
 using Ionic.Zip;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataTransferObjects;

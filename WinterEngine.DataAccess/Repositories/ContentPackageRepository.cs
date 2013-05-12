@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using AutoMapper;
 using Ionic.Zip;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Factories;
@@ -207,7 +206,17 @@ namespace WinterEngine.DataAccess.Repositories
 
                         if (!Object.ReferenceEquals(dbResource, null))
                         {
-                            dbResource = Mapper.Map(resource, dbResource);
+                            dbResource.Comment = resource.Comment;
+                            dbResource.ContentPackageID = resource.ContentPackageID;
+                            dbResource.ContentPackageResourceTypeID = resource.ContentPackageResourceTypeID;
+                            dbResource.FileName = resource.FileName;
+                            dbResource.FileType = resource.FileType;
+                            dbResource.IsSystemResource = resource.IsSystemResource;
+                            dbResource.ResourceID = resource.ResourceID;
+                            dbResource.ResourceName = resource.ResourceName;
+                            dbResource.ResourcePath = resource.ResourcePath;
+                            dbResource.ResourceTypeID = resource.ResourceTypeID;
+                            dbResource.VisibleName = resource.VisibleName;
                         }
                         else
                         {

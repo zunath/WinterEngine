@@ -109,7 +109,7 @@ namespace WinterEngine.Editor.Entities
 
                     // NOTE: This version of PaintTile seems to be bugged. Look at 
                     // using the other overloaded method. Victor says that one should work.
-                    MapBatch.PaintTile((int)currentTile.X, (int)currentTile.Y, 1);
+                    //MapBatch.PaintTile((int)currentTile.X, (int)currentTile.Y, 1);
                     
                 }
                 

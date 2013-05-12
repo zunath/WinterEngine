@@ -18,8 +18,18 @@
         </NamedObjectSave>
         <NamedObjectSave>
           <SourceType>Entity</SourceType>
-          <SourceClassType>Entities\AwesomiumGuiEntity</SourceClassType>
+          <SourceClassType>Entities\GuiBaseEntity</SourceClassType>
           <InstanceName>AwesomiumGuiEntityInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <AddToManagers>true</AddToManagers>
+          <IsDisabled>true</IsDisabled>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <LayerOn>GUILayer</LayerOn>
+        </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>Entity</SourceType>
+          <SourceClassType>Entities\ActionBarGuiEntity</SourceClassType>
+          <InstanceName>ActionBarGuiEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
@@ -88,6 +98,40 @@
   </Screens>
   <Entities>
     <EntitySave>
+      <Name>Entities\ActionBarGuiEntity</Name>
+      <NamedObjects>
+        <NamedObjectSave>
+          <CustomProperty>
+            <Type>int</Type>
+            <Member>Height</Member>
+            <ValueAsInt>50</ValueAsInt>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>int</Type>
+            <Member>Width</Member>
+            <ValueAsInt>400</ValueAsInt>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>bool</Type>
+            <Member>IsTransparent</Member>
+            <ValueAsBool>false</ValueAsBool>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>string</Type>
+            <Member>ResourcePath</Member>
+            <ValueAsString>file:///./Components/ActionBar.html</ValueAsString>
+          </CustomProperty>
+          <SourceType>Entity</SourceType>
+          <SourceClassType>Entities\GuiBaseEntity</SourceClassType>
+          <InstanceName>GuiEntity</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <AddToManagers>true</AddToManagers>
+          <IndependentOfCamera>true</IndependentOfCamera>
+        </NamedObjectSave>
+      </NamedObjects>
+      <Is2D>true</Is2D>
+    </EntitySave>
+    <EntitySave>
       <CustomVariables>
         <CustomVariable>
           <Properties>
@@ -129,8 +173,30 @@
           <Name>ResourcePath</Name>
           <Type>string</Type>
         </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>X</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>Y</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+        </CustomVariable>
       </CustomVariables>
-      <Name>Entities\AwesomiumGuiEntity</Name>
+      <Name>Entities\GuiBaseEntity</Name>
       <NamedObjects>
         <NamedObjectSave>
           <CustomProperty>
@@ -141,6 +207,40 @@
           <SourceType>FlatRedBallType</SourceType>
           <SourceClassType>Sprite</SourceClassType>
           <InstanceName>SpriteInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <AddToManagers>true</AddToManagers>
+          <IndependentOfCamera>true</IndependentOfCamera>
+        </NamedObjectSave>
+      </NamedObjects>
+      <Is2D>true</Is2D>
+    </EntitySave>
+    <EntitySave>
+      <Name>Entities\ServerListGuiEntity</Name>
+      <NamedObjects>
+        <NamedObjectSave>
+          <CustomProperty>
+            <Type>int</Type>
+            <Member>Height</Member>
+            <ValueAsInt>50</ValueAsInt>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>int</Type>
+            <Member>Width</Member>
+            <ValueAsInt>200</ValueAsInt>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>bool</Type>
+            <Member>IsTransparent</Member>
+            <ValueAsBool>false</ValueAsBool>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>string</Type>
+            <Member>ResourcePath</Member>
+            <ValueAsString>file:///./Components/ServerList.html</ValueAsString>
+          </CustomProperty>
+          <SourceType>Entity</SourceType>
+          <SourceClassType>Entities\GuiBaseEntity</SourceClassType>
+          <InstanceName>GuiEntity</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
@@ -273,6 +373,14 @@
     </TranslatedFileSave>
     <TranslatedFileSave>
       <FileName>Entities/TableCell.cs</FileName>
+      <TranslationStyle>PerformTranslate</TranslationStyle>
+    </TranslatedFileSave>
+    <TranslatedFileSave>
+      <FileName>Entities/ServerListGuiEntity.Generated.cs</FileName>
+      <TranslationStyle>PerformTranslate</TranslationStyle>
+    </TranslatedFileSave>
+    <TranslatedFileSave>
+      <FileName>Entities/ServerListGuiEntity.cs</FileName>
       <TranslationStyle>PerformTranslate</TranslationStyle>
     </TranslatedFileSave>
   </TranslatedFiles>
