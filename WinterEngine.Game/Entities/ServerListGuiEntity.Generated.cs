@@ -137,8 +137,8 @@ namespace WinterEngine.Game.Entities
 				GuiEntity.CopyAbsoluteToRelative();
 				GuiEntity.AttachTo(this, false);
 			}
-			GuiEntity.Height = 50;
-			GuiEntity.Width = 200;
+			GuiEntity.Height = 64;
+			GuiEntity.Width = 150;
 			GuiEntity.IsTransparent = false;
 			GuiEntity.ResourcePath = "file:///./Components/ServerList.html";
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
@@ -161,8 +161,8 @@ namespace WinterEngine.Game.Entities
 			RotationY = 0;
 			RotationZ = 0;
 			GuiEntity.AddToManagers(layerToAddTo);
-			GuiEntity.Height = 50;
-			GuiEntity.Width = 200;
+			GuiEntity.Height = 64;
+			GuiEntity.Width = 150;
 			GuiEntity.IsTransparent = false;
 			GuiEntity.ResourcePath = "file:///./Components/ServerList.html";
 			X = oldX;

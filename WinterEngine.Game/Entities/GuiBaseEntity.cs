@@ -65,11 +65,6 @@ namespace WinterEngine.Game.Entities
 
         private void CustomInitialize()
 		{
-            // DEBUGGING
-            this.X = 100;
-            this.Y = 0;
-
-            // END DEBUGGING
             _webView = WebCore.CreateWebView(Width, Height);
             if (IsTransparent)
             {
@@ -81,7 +76,6 @@ namespace WinterEngine.Game.Entities
             InitializeInputEventSubscriptions();
 
             // DEBUGGING
-
             _webView.FocusView();
             // END DEBUGGING
 

@@ -18,7 +18,7 @@
         </NamedObjectSave>
         <NamedObjectSave>
           <SourceType>Entity</SourceType>
-          <SourceClassType>Entities\GuiBaseEntity</SourceClassType>
+          <SourceClassType>Entities\ServerListGuiEntity</SourceClassType>
           <InstanceName>AwesomiumGuiEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <AddToManagers>true</AddToManagers>
@@ -109,7 +109,7 @@
           <CustomProperty>
             <Type>int</Type>
             <Member>Width</Member>
-            <ValueAsInt>400</ValueAsInt>
+            <ValueAsInt>390</ValueAsInt>
           </CustomProperty>
           <CustomProperty>
             <Type>bool</Type>
@@ -120,6 +120,14 @@
             <Type>string</Type>
             <Member>ResourcePath</Member>
             <ValueAsString>file:///./Components/ActionBar.html</ValueAsString>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>ScaleX</Member>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>ScaleY</Member>
           </CustomProperty>
           <SourceType>Entity</SourceType>
           <SourceClassType>Entities\GuiBaseEntity</SourceClassType>
@@ -139,6 +147,10 @@
               <Name>Type</Name>
               <ValueAsString>int</ValueAsString>
             </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
           </Properties>
           <Name>Height</Name>
           <Type>int</Type>
@@ -148,6 +160,10 @@
             <PropertySave>
               <Name>Type</Name>
               <ValueAsString>int</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
             </PropertySave>
           </Properties>
           <Name>Width</Name>
@@ -159,6 +175,10 @@
               <Name>Type</Name>
               <ValueAsString>bool</ValueAsString>
             </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
           </Properties>
           <Name>IsTransparent</Name>
           <Type>bool</Type>
@@ -169,6 +189,10 @@
               <Name>Type</Name>
               <ValueAsString>string</ValueAsString>
             </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
           </Properties>
           <Name>ResourcePath</Name>
           <Type>string</Type>
@@ -178,6 +202,10 @@
             <PropertySave>
               <Name>Type</Name>
               <ValueAsString>float</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
             </PropertySave>
           </Properties>
           <Name>X</Name>
@@ -190,10 +218,40 @@
               <Name>Type</Name>
               <ValueAsString>float</ValueAsString>
             </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
           </Properties>
           <Name>Y</Name>
           <Type>float</Type>
           <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>ScaleX</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">1</DefaultValue>
+          <SourceObject>SpriteInstance</SourceObject>
+          <SourceObjectProperty>ScaleX</SourceObjectProperty>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>ScaleY</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">1</DefaultValue>
+          <SourceObject>SpriteInstance</SourceObject>
+          <SourceObjectProperty>ScaleY</SourceObjectProperty>
         </CustomVariable>
       </CustomVariables>
       <Name>Entities\GuiBaseEntity</Name>
@@ -221,12 +279,12 @@
           <CustomProperty>
             <Type>int</Type>
             <Member>Height</Member>
-            <ValueAsInt>50</ValueAsInt>
+            <ValueAsInt>64</ValueAsInt>
           </CustomProperty>
           <CustomProperty>
             <Type>int</Type>
             <Member>Width</Member>
-            <ValueAsInt>200</ValueAsInt>
+            <ValueAsInt>150</ValueAsInt>
           </CustomProperty>
           <CustomProperty>
             <Type>bool</Type>

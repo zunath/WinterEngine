@@ -160,7 +160,7 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
-			WinterEngine.Game.Entities.GuiBaseEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.ServerListGuiEntity.LoadStaticContent(contentManagerName);
 			WinterEngine.Game.Entities.ActionBarGuiEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}

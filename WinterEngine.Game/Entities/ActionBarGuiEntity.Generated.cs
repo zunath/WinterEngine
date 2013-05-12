@@ -138,7 +138,7 @@ namespace WinterEngine.Game.Entities
 				GuiEntity.AttachTo(this, false);
 			}
 			GuiEntity.Height = 50;
-			GuiEntity.Width = 400;
+			GuiEntity.Width = 390;
 			GuiEntity.IsTransparent = false;
 			GuiEntity.ResourcePath = "file:///./Components/ActionBar.html";
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
@@ -162,7 +162,7 @@ namespace WinterEngine.Game.Entities
 			RotationZ = 0;
 			GuiEntity.AddToManagers(layerToAddTo);
 			GuiEntity.Height = 50;
-			GuiEntity.Width = 400;
+			GuiEntity.Width = 390;
 			GuiEntity.IsTransparent = false;
 			GuiEntity.ResourcePath = "file:///./Components/ActionBar.html";
 			X = oldX;

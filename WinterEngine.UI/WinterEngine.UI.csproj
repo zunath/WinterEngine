@@ -130,9 +130,6 @@
     <Content Include="Styling\Game\GameStyles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Game\siteStyle.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Styling\jQueryUI\images\animated-overlay.gif" />
     <Content Include="Styling\jQueryUI\images\ui-bg_flat_30_cccccc_40x100.png" />
     <Content Include="Styling\jQueryUI\images\ui-bg_flat_50_5c5c5c_40x100.png" />
@@ -149,70 +146,70 @@
     <Content Include="Styling\jQueryUI\images\ui-icons_cccccc_256x240.png" />
     <Content Include="Styling\jQueryUI\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Styling\jQueryUI\jquery-ui-1.10.3.custom.min.css" />
-    <Content Include="Styling\Themes\images\ad125.jpg">
+    <Content Include="Styling\Themes\SilverOrchid\images\ad125.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\ad468.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\ad468.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\arrow_down.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\arrow_down.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\arrow_right.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\arrow_right.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\button-bg.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\button-bg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\clock.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\clock.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\comments.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\comments.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\hbg.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\hbg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\logo.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\main_bg.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\main_bg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\nav-bg.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\nav-bg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\rss32.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\rss32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\search.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\search.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\sidebar_sep.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\sidebar_sep.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\tag.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\tag.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\tr-bg.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\tr-bg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\twitter32.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\twitter32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\images\WinterEngineLogo.png">
+    <Content Include="Styling\Themes\SilverOrchid\images\WinterEngineLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\js\gazpo_custom.js">
+    <Content Include="Styling\Themes\SilverOrchid\js\gazpo_custom.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\js\jcarousellite_1.0.1.min.js">
+    <Content Include="Styling\Themes\SilverOrchid\js\jcarousellite_1.0.1.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\js\jquery-ui-tabs-rotate.js">
+    <Content Include="Styling\Themes\SilverOrchid\js\jquery-ui-tabs-rotate.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Themes\style.css">
+    <Content Include="Styling\Themes\SilverOrchid\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Components\ServerList.html">
