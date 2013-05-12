@@ -186,10 +186,22 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WinterEngine.DataAccess\WinterEngine.DataAccess.csproj">
+      <Project>{0e481c4b-dd8f-4b26-84e7-cacda79288f0}</Project>
+      <Name>WinterEngine.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.DataTransferObjects\WinterEngine.DataTransferObjects.csproj">
+      <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>
+      <Name>WinterEngine.DataTransferObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.GameContent\WinterEngine.GameContent.contentproj">
       <Project>{64B23BEF-DD26-4B81-AAA6-D9F46B0140B4}</Project>
       <Name>WinterEngine.GameContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+    <ProjectReference Include="..\WinterEngine.Network\WinterEngine.Network.csproj">
+      <Project>{fc7568be-f997-4501-8a16-09d2ac3eadb3}</Project>
+      <Name>WinterEngine.Network</Name>
     </ProjectReference>
     <ProjectReference Include="..\WinterEngine.UI\WinterEngine.UI.csproj">
       <Project>{0d850a82-eb14-418a-889d-e5ad2c23675f}</Project>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Text;
 using Lidgren.Network;
 using WinterEngine.DataTransferObjects.Enumerations;
@@ -9,18 +10,52 @@ using WinterEngine.Network.Entities;
 
 namespace WinterEngine.Network.Entities
 {
+    [DataContract]
     public class ServerDetails
     {
+        #region Fields
+
+        private ConnectionAddress _address;
+
+        #endregion
+
         #region Properties
+
+        [DataMember]
         public string ServerName { get; set; }
+        [DataMember]
         public string ServerDescription { get; set; }
+        [DataMember]
         public byte ServerMaxPlayers { get; set; }
+        [DataMember]
         public byte ServerMaxLevel { get; set; }
         public float Ping { get; set; }
-        public ConnectionAddress Connection { get; set; }
+        [DataMember]
+        public ConnectionAddress Connection
+        {
+            get
+            {
+                if (_address == null)
+                {
+                    _address = new ConnectionAddress();
+                }
+                return _address;
+            }
+            set
+            {
+                if (_address == null)
+                {
+                    _address = new ConnectionAddress();
+                }
+                _address = value;
+            }
+        }
         public DateTime LastPacketReceived { get; set; }
+        [DataMember]
         public ushort ServerPort { get; set; }
-        public PVPTypeEnum PVPType{get; set;}
+        [DataMember]
+        public PVPTypeEnum PVPType { get; set; }
+        [DataMember]
         public GameTypeEnum GameType { get; set; }
 
         #endregion

@@ -8,12 +8,22 @@
       <Name>Screens\ServerListScreen</Name>
       <NamedObjects>
         <NamedObjectSave>
-          <SourceType>Entity</SourceType>
-          <SourceClassType>Entities\AwesomiumGuiEntity</SourceClassType>
-          <InstanceName>GUIEntityInstance</InstanceName>
+          <SourceType>FlatRedBallType</SourceType>
+          <SourceClassType>Layer</SourceClassType>
+          <InstanceName>GUILayer</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
+          <Is2D>true</Is2D>
+        </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>Entity</SourceType>
+          <SourceClassType>Entities\AwesomiumGuiEntity</SourceClassType>
+          <InstanceName>AwesomiumGuiEntityInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <AddToManagers>true</AddToManagers>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <LayerOn>GUILayer</LayerOn>
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>

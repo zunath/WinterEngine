@@ -219,7 +219,7 @@ namespace WinterEngine.Server
             BackgroundWorker ipAddressCheckerWorker = new BackgroundWorker();
             ipAddressCheckerWorker.DoWork += delegate
             {
-                WebServiceUtility netUtility = new WebServiceUtility();
+                WebServiceClientUtility netUtility = new WebServiceClientUtility();
 
                 string externalIPAddress = netUtility.GetExternalIPAddress();
                 labelIPAddress.Dispatcher.Invoke(DispatcherPriority.Normal,

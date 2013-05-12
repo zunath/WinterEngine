@@ -132,7 +132,7 @@ namespace WinterEngine.Network.Clients
         {
             while (IsConnectionRunning)
             {
-                WebServiceUtility utility = new WebServiceUtility();
+                WebServiceClientUtility utility = new WebServiceClientUtility();
                 utility.SendServerDetails(ServerInformation);
                 Thread.Sleep(500);
             }

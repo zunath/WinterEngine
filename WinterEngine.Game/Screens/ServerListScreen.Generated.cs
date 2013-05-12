@@ -32,6 +32,7 @@ using Microsoft.Xna.Framework.Media;
 using WinterEngine.Game.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
+using FlatRedBall.Graphics;
 
 namespace WinterEngine.Game.Screens
 {
@@ -42,7 +43,8 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private WinterEngine.Game.Entities.AwesomiumGuiEntity GUIEntityInstance;
+		private FlatRedBall.Graphics.Layer GUILayer;
+		private WinterEngine.Game.Entities.AwesomiumGuiEntity AwesomiumGuiEntityInstance;
 
 		public ServerListScreen()
 			: base("ServerListScreen")
@@ -53,8 +55,10 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			GUIEntityInstance = new WinterEngine.Game.Entities.AwesomiumGuiEntity(ContentManagerName, false);
-			GUIEntityInstance.Name = "GUIEntityInstance";
+			GUILayer = new FlatRedBall.Graphics.Layer();
+			GUILayer.Name = "GUILayer";
+			AwesomiumGuiEntityInstance = new WinterEngine.Game.Entities.AwesomiumGuiEntity(ContentManagerName, false);
+			AwesomiumGuiEntityInstance.Name = "AwesomiumGuiEntityInstance";
 			
 			
 			PostInitialize();
@@ -69,6 +73,13 @@ namespace WinterEngine.Game.Screens
 // Generated AddToManagers
 		public override void AddToManagers ()
 		{
+			SpriteManager.AddLayer(GUILayer);
+			GUILayer.UsePixelCoordinates();
+			if (SpriteManager.Camera.Orthogonal)
+			{
+				GUILayer.LayerCameraSettings.OrthogonalWidth = FlatRedBall.SpriteManager.Camera.OrthogonalWidth;
+				GUILayer.LayerCameraSettings.OrthogonalHeight = FlatRedBall.SpriteManager.Camera.OrthogonalHeight;
+			}
 			base.AddToManagers();
 			AddToManagersBottomUp();
 			CustomInitialize();
@@ -81,7 +92,7 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				GUIEntityInstance.Activity();
+				AwesomiumGuiEntityInstance.Activity();
 			}
 			else
 			{
@@ -102,10 +113,14 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
-			if (GUIEntityInstance != null)
+			if (GUILayer != null)
 			{
-				GUIEntityInstance.Destroy();
-				GUIEntityInstance.Detach();
+				SpriteManager.RemoveLayer(GUILayer);
+			}
+			if (AwesomiumGuiEntityInstance != null)
+			{
+				AwesomiumGuiEntityInstance.Destroy();
+				AwesomiumGuiEntityInstance.Detach();
 			}
 
 			base.Destroy();
@@ -123,11 +138,11 @@ namespace WinterEngine.Game.Screens
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
-			GUIEntityInstance.AddToManagers(mLayer);
+			AwesomiumGuiEntityInstance.AddToManagers(GUILayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
-			GUIEntityInstance.ConvertToManuallyUpdated();
+			AwesomiumGuiEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{

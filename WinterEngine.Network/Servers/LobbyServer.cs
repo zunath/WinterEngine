@@ -177,7 +177,7 @@ namespace WinterEngine.Network.Servers
             details.ServerDescription = packet.Description;
             details.ServerMaxLevel = packet.MaxLevel;
             details.ServerName = packet.Name;
-            details.Connection.ServerIPAddress = ipAddress;
+            details.Connection.ServerIPAddress = ipAddress.ToString();
             details.Connection.ServerPort = port;
             details.Ping = ping;
             details.LastPacketReceived = DateTime.UtcNow;

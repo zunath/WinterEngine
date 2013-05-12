@@ -66,12 +66,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Editor\Icons\TilesetEditor_CellSpriteSheet.png">
+    <None Include="Editor\Icons\TilesetEditor_CellSpriteSheet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>TilesetEditor_CellSpriteSheet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Game\" />

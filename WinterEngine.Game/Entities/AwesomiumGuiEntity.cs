@@ -1,7 +1,7 @@
 using System;
 using FlatRedBall;
 using FlatRedBall.Input;
-
+using System.Collections.Generic;
 
 
 #if FRB_XNA || SILVERLIGHT
@@ -11,6 +11,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using WinterEngine.UI.AwesomiumXNA;
 using FlatRedBall.Math;
+using WinterEngine.Network;
+using WinterEngine.Network.Entities;
 
 
 
@@ -58,7 +60,6 @@ namespace WinterEngine.Game.Entities
         private void CustomInitialize()
 		{
             // DEBUGGING
-            SpriteManager.Camera.UsePixelCoordinates();
             ResourcePath = "file:///./Components/ServerList.html";
             Width = 800;
             Height = 600;
@@ -67,7 +68,6 @@ namespace WinterEngine.Game.Entities
             this.Y = 0;
 
             // END DEBUGGING
-
             _webView = WebCore.CreateWebView(Width, Height);
             if (IsTransparent)
             {
@@ -75,8 +75,9 @@ namespace WinterEngine.Game.Entities
             }
             _webView.Source = URI;
             SetUpDrawSurfaces();
-
+            
             InitializeInputEventSubscriptions();
+            InitializeAwesomiumEventSubscriptions();
 
             // DEBUGGING
 
@@ -143,6 +144,32 @@ namespace WinterEngine.Game.Entities
             return _webView.ExecuteJavascriptWithResult(methodName);
         }
 
+        private void BuildServerList()
+        {
+            WebServiceClientUtility utility = new WebServiceClientUtility();
+            List<ServerDetails> serverList = utility.GetAllActiveServers();
+
+            JSObject jobject = _webView.CreateGlobalJavascriptObject("ServerList");
+            
+            foreach (ServerDetails server in serverList)
+            {
+                /*
+                JSValue val = jobject.Invoke("AddServerDetailsToTable",
+                    new JSValue(server.ServerName),
+                    new JSValue(""),
+                    new JSValue(""),
+                    //new JSValue(server.Connection.ServerIPAddress.ToString()),
+                    //new JSValue(server.Connection.ServerPort),
+                    new JSValue(server.ServerMaxLevel),
+                    new JSValue(server.ServerMaxPlayers),
+                    new JSValue(server.ServerMaxPlayers),
+                    new JSValue(server.GameType.ToString()),
+                    new JSValue(server.PVPType.ToString()));
+                */
+            }
+            
+        }
+
         #endregion
 
         #region Input handling
@@ -158,29 +185,56 @@ namespace WinterEngine.Game.Entities
 
         public void FullKeyHandler(object sender, uint msg, IntPtr wParam, IntPtr lParam)
         {
-            Modifiers modifiers = new Modifiers();
-            WebKeyboardEvent keyEvent = new WebKeyboardEvent((uint)msg, (IntPtr)wParam, (IntPtr)lParam, modifiers);
+            if (!_webView.IsLoading)
+            {
+                Modifiers modifiers = new Modifiers();
+                WebKeyboardEvent keyEvent = new WebKeyboardEvent((uint)msg, (IntPtr)wParam, (IntPtr)lParam, modifiers);
 
-            _webView.InjectKeyboardEvent(keyEvent);
+                _webView.InjectKeyboardEvent(keyEvent);
+            }
         }
 
         public void MouseMoveHandler(object sender, MouseEventArgs e)
         {
-            _webView.InjectMouseMove(InputManager.Mouse.X, InputManager.Mouse.Y);
+            if (!_webView.IsLoading)
+            {
+                _webView.InjectMouseMove(InputManager.Mouse.X, InputManager.Mouse.Y);
+            }
         }
 
         public void MouseDownHandler(object sender, MouseEventArgs e)
         {
-            Console.WriteLine(InputManager.Mouse.WorldXAt(0.0f) + ", " + InputManager.Mouse.WorldYAt(0.0f));
-            _webView.InjectMouseDown((Awesomium.Core.MouseButton)((int)e.Button - 1));
+            if (!_webView.IsLoading)
+            {
+                Console.WriteLine(InputManager.Mouse.WorldXAt(0.0f) + ", " + InputManager.Mouse.WorldYAt(0.0f));
+                _webView.InjectMouseDown((Awesomium.Core.MouseButton)((int)e.Button - 1));
+            }
         }
 
         public void MouseUpHandler(object sender, MouseEventArgs e)
         {
-            _webView.InjectMouseUp((Awesomium.Core.MouseButton)((int)e.Button - 1));
+            if (!_webView.IsLoading)
+            {
+                _webView.InjectMouseUp((Awesomium.Core.MouseButton)((int)e.Button - 1));
+            }
         }
 
 
         #endregion
+
+        #region Awesomium Event Handling
+
+        private void InitializeAwesomiumEventSubscriptions()
+        {
+            _webView.DocumentReady += OnDocumentReady;
+        }
+
+        private void OnDocumentReady(object sender, EventArgs e)
+        {
+            BuildServerList();
+        }
+
+        #endregion
+
     }
 }

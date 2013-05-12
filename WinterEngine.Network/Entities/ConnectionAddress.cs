@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace WinterEngine.Network.Entities
 {
+    [DataContract]
     public class ConnectionAddress
     {
         #region Properties
 
-        public IPAddress ServerIPAddress { get; set; }
+        [DataMember]
+        public string ServerIPAddress { get; set; }
+        [DataMember]
         public int ServerPort { get; set; }
 
         #endregion

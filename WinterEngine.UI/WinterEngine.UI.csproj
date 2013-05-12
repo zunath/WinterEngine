@@ -69,7 +69,6 @@
     <Compile Include="AwesomiumXNA\EventInputHandling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Images\DataTables\back_disabled.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -126,6 +125,91 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Styling\Game\GameStyles.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Game\siteStyle.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\jQueryUI\images\animated-overlay.gif" />
+    <Content Include="Styling\jQueryUI\images\ui-bg_flat_30_cccccc_40x100.png" />
+    <Content Include="Styling\jQueryUI\images\ui-bg_flat_50_5c5c5c_40x100.png" />
+    <Content Include="Styling\jQueryUI\images\ui-bg_glass_20_555555_1x400.png" />
+    <Content Include="Styling\jQueryUI\images\ui-bg_glass_40_0078a3_1x400.png" />
+    <Content Include="Styling\jQueryUI\images\ui-bg_glass_40_ffc73d_1x400.png" />
+    <Content Include="Styling\jQueryUI\images\ui-bg_gloss-wave_25_333333_500x100.png" />
+    <Content Include="Styling\jQueryUI\images\ui-bg_highlight-soft_80_eeeeee_1x100.png" />
+    <Content Include="Styling\jQueryUI\images\ui-bg_inset-soft_25_000000_1x100.png" />
+    <Content Include="Styling\jQueryUI\images\ui-bg_inset-soft_30_f58400_1x100.png" />
+    <Content Include="Styling\jQueryUI\images\ui-icons_222222_256x240.png" />
+    <Content Include="Styling\jQueryUI\images\ui-icons_4b8e0b_256x240.png" />
+    <Content Include="Styling\jQueryUI\images\ui-icons_a83300_256x240.png" />
+    <Content Include="Styling\jQueryUI\images\ui-icons_cccccc_256x240.png" />
+    <Content Include="Styling\jQueryUI\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Styling\jQueryUI\jquery-ui-1.10.3.custom.min.css" />
+    <Content Include="Styling\Themes\images\ad125.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\ad468.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\arrow_down.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\arrow_right.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\button-bg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\clock.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\comments.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\hbg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\main_bg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\nav-bg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\rss32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\search.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\sidebar_sep.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\tag.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\tr-bg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\twitter32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\images\WinterEngineLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\js\gazpo_custom.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\js\jcarousellite_1.0.1.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\js\jquery-ui-tabs-rotate.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Themes\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Components\ServerList.html">
