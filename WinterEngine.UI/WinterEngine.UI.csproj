@@ -73,6 +73,21 @@
     <Content Include="Components\ActionBar.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Components\Chat.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Components\StatusEffects.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Components\Party.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Components\MiniMap.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Components\Inventory.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\DataTables\back_disabled.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -118,6 +133,9 @@
     <Content Include="Scripts\jquery-2.0.0.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\jquery.masonry.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Styling\DataTables\jquery.dataTables.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -130,6 +148,7 @@
     <Content Include="Styling\Game\GameStyles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Styling\Gridster\jquery.gridster.min.css" />
     <Content Include="Styling\jQueryUI\images\animated-overlay.gif" />
     <Content Include="Styling\jQueryUI\images\ui-bg_flat_30_cccccc_40x100.png" />
     <Content Include="Styling\jQueryUI\images\ui-bg_flat_50_5c5c5c_40x100.png" />

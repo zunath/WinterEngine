@@ -73,8 +73,6 @@ namespace WinterEngine.Game.Entities
             _webView.Source = URI;
             SetUpDrawSurfaces();
             
-            InitializeInputEventSubscriptions();
-
             // DEBUGGING
             _webView.FocusView();
             // END DEBUGGING
@@ -83,28 +81,8 @@ namespace WinterEngine.Game.Entities
 
 		private void CustomActivity()
 		{
-            BitmapSurface surface = (BitmapSurface)_webView.Surface;
-
-            // only render if the view needs it and the texture still exists
-            if (!Object.ReferenceEquals(surface, null) && surface.IsDirty && !_texture.IsDisposed)
-            {
-                // create some bitmap data that we can draw to programmatically
-                BitmapData bits = _frameBuffer.LockBits(_drawRectangle, ImageLockMode.ReadWrite, _frameBuffer.PixelFormat);
-                
-                surface.CopyTo(bits.Scan0, bits.Stride, 4, true, false);
-
-                // create our pixel buffer
-                _bytes = new byte[bits.Height * bits.Stride];
-
-                // use interop to copy unmanaged memory into a managed type we can work with
-                System.Runtime.InteropServices.Marshal.Copy(bits.Scan0, _bytes, 0, _bytes.Length);
-
-                // unlock the bits and update texture
-                _frameBuffer.UnlockBits(bits);
-                _texture.SetData(_bytes);
-
-                surface.IsDirty = true;
-            }
+            RenderAwesomiumTexture();
+            ManageUserInput();
 		}
 
 		private void CustomDestroy()
@@ -134,6 +112,32 @@ namespace WinterEngine.Game.Entities
             SpriteInstance.Texture = _texture;
         }
 
+        private void RenderAwesomiumTexture()
+        {
+            BitmapSurface surface = (BitmapSurface)_webView.Surface;
+
+            // only render if the view needs it and the texture still exists
+            if (!Object.ReferenceEquals(surface, null) && surface.IsDirty && !_texture.IsDisposed)
+            {
+                // create some bitmap data that we can draw to programmatically
+                BitmapData bits = _frameBuffer.LockBits(_drawRectangle, ImageLockMode.ReadWrite, _frameBuffer.PixelFormat);
+
+                surface.CopyTo(bits.Scan0, bits.Stride, 4, true, false);
+
+                // create our pixel buffer
+                _bytes = new byte[bits.Height * bits.Stride];
+
+                // use interop to copy unmanaged memory into a managed type we can work with
+                System.Runtime.InteropServices.Marshal.Copy(bits.Scan0, _bytes, 0, _bytes.Length);
+
+                // unlock the bits and update texture
+                _frameBuffer.UnlockBits(bits);
+                _texture.SetData(_bytes);
+
+                surface.IsDirty = true;
+            }
+        }
+
         public JSObject RunJavaScriptMethod(string methodName)
         {
             return _webView.ExecuteJavascriptWithResult(methodName);
@@ -144,13 +148,40 @@ namespace WinterEngine.Game.Entities
 
         #region Input handling
 
-        private void InitializeInputEventSubscriptions()
+        private void ManageUserInput()
         {
-            InputSystem.Initialize(FlatRedBallServices.Game.Window);
-            InputSystem.FullKeyHandler += FullKeyHandler;
-            InputSystem.MouseMove += MouseMoveHandler;
-            InputSystem.MouseDown += MouseDownHandler;
-            InputSystem.MouseUp += MouseUpHandler;
+            if (!_webView.IsLoading)
+            {
+                _webView.InjectMouseMove(InputManager.Mouse.X, InputManager.Mouse.Y);
+
+                // Left mouse button pushed down.
+                if (InputManager.Mouse.ButtonDown(Mouse.MouseButtons.LeftButton))
+                {
+                    _webView.InjectMouseDown(MouseButton.Left);
+                }
+                // Right mouse button pushed down
+                if (InputManager.Mouse.ButtonDown(Mouse.MouseButtons.RightButton))
+                {
+                    _webView.InjectMouseDown(MouseButton.Right);
+                }
+
+                // Left mouse button released.
+                if(InputManager.Mouse.ButtonReleased(Mouse.MouseButtons.LeftButton))
+                {
+                    _webView.InjectMouseUp(MouseButton.Left);
+                }
+                // Right mouse button released.
+                if (InputManager.Mouse.ButtonReleased(Mouse.MouseButtons.RightButton))
+                {
+                    _webView.InjectMouseUp(MouseButton.Right);
+                }
+
+                // Mouse wheel scroll - multiply by 10 because FRB values are very small.
+                _webView.InjectMouseWheel((int)InputManager.Mouse.ScrollWheel * 10, 0);
+
+                // Keyboard entry handling
+
+            }
         }
 
         public void FullKeyHandler(object sender, uint msg, IntPtr wParam, IntPtr lParam)
@@ -163,32 +194,6 @@ namespace WinterEngine.Game.Entities
                 _webView.InjectKeyboardEvent(keyEvent);
             }
         }
-
-        public void MouseMoveHandler(object sender, MouseEventArgs e)
-        {
-            if (!_webView.IsLoading)
-            {
-                _webView.InjectMouseMove(InputManager.Mouse.X, InputManager.Mouse.Y);
-            }
-        }
-
-        public void MouseDownHandler(object sender, MouseEventArgs e)
-        {
-            if (!_webView.IsLoading)
-            {
-                Console.WriteLine(InputManager.Mouse.WorldXAt(0.0f) + ", " + InputManager.Mouse.WorldYAt(0.0f));
-                _webView.InjectMouseDown((Awesomium.Core.MouseButton)((int)e.Button - 1));
-            }
-        }
-
-        public void MouseUpHandler(object sender, MouseEventArgs e)
-        {
-            if (!_webView.IsLoading)
-            {
-                _webView.InjectMouseUp((Awesomium.Core.MouseButton)((int)e.Button - 1));
-            }
-        }
-
 
         #endregion
 

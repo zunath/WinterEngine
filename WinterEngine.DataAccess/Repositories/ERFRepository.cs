@@ -117,9 +117,6 @@ namespace WinterEngine.DataAccess.Repositories
             return new Tuple<List<GameObjectBase>,List<GameObjectBase>, List<GameObjectBase>>(fullList, duplicateList, nonDuplicateList);
         }
 
-        public void Dispose()
-        {
-        }
         #endregion
     }
 }

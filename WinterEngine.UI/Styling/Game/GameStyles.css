@@ -16,6 +16,16 @@
     user-select: none;
 }
 
+input[type="button"]:hover
+{
+    background-color: #e8e4e4;
+}
+
+input[type="button"]:active
+{
+    background-color: yellow;
+}
+
 /*ACTION BAR*/
 .clsActionBarButton
 {
@@ -27,6 +37,11 @@
 	
 }
 
+.clsActionBarTableCell
+{
+    float:left;
+}
+
 .clsActionBarDiv
 {
 	background-color:#AAA;
@@ -36,6 +51,23 @@
 .clsActionBarBody
 {
 	background-color:#AAA;
-    display : block;
+	display : block;
     overflow:hidden;
+}
+
+/* PARTY WINDOW */
+
+.clsPartyBody
+{
+	background-color:#AAA;
+}
+
+.clsPartyMemberRow
+{
+	background-color:#CCC;
+    height : 64px;
+    width : 64px;
+    float:left;
+	border-style:solid;
+	border-width: 1px;
 }

@@ -41,7 +41,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class ActionBarGuiEntity : WinterEngine.Game.Entities.GuiBaseEntity, IDestroyable, IVisible, IWindow, IClickable
+	public partial class PartyGuiEntity : WinterEngine.Game.Entities.GuiBaseEntity, IDestroyable, IVisible, IWindow, IClickable
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static new string ContentManagerName
@@ -105,13 +105,13 @@ namespace WinterEngine.Game.Entities
 			}
 		}
 
-        public ActionBarGuiEntity(string contentManagerName) :
+        public PartyGuiEntity(string contentManagerName) :
             this(contentManagerName, true)
         {
         }
 
 
-        public ActionBarGuiEntity(string contentManagerName, bool addToManagers) :
+        public PartyGuiEntity(string contentManagerName, bool addToManagers) :
 			base(contentManagerName, addToManagers)
 		{
 			// Don't delete this:
@@ -167,14 +167,14 @@ namespace WinterEngine.Game.Entities
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
 			base.PostInitialize();
-			Height = 50;
-			Width = 390;
+			Height = 140;
+			Width = 100;
 			IsTransparent = false;
-			ResourcePath = "file:///./Components/ActionBar.html";
+			ResourcePath = "file:///./Components/Party.html";
 			X = 0f;
 			Y = 0f;
-			ScaleX = 1f;
-			ScaleY = 1f;
+			ScaleX = 0.5f;
+			ScaleY = 0.5f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public override void AddToManagersBottomUp (Layer layerToAddTo)
@@ -195,14 +195,14 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
-			Height = 50;
-			Width = 390;
+			Height = 140;
+			Width = 100;
 			IsTransparent = false;
-			ResourcePath = "file:///./Components/ActionBar.html";
+			ResourcePath = "file:///./Components/Party.html";
 			X = 0f;
 			Y = 0f;
-			ScaleX = 1f;
-			ScaleY = 1f;
+			ScaleX = 0.5f;
+			ScaleY = 0.5f;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
@@ -242,7 +242,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("ActionBarGuiEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("PartyGuiEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -253,7 +253,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("ActionBarGuiEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("PartyGuiEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -642,9 +642,9 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class ActionBarGuiEntityExtensionMethods
+	public static class PartyGuiEntityExtensionMethods
 	{
-		public static void SetVisible (this PositionedObjectList<ActionBarGuiEntity> list, bool value)
+		public static void SetVisible (this PositionedObjectList<PartyGuiEntity> list, bool value)
 		{
 			int count = list.Count;
 			for (int i = 0; i < count; i++)

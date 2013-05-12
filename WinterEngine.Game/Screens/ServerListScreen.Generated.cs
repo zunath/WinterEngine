@@ -45,6 +45,7 @@ namespace WinterEngine.Game.Screens
 		
 		private FlatRedBall.Graphics.Layer GUILayer;
 		private WinterEngine.Game.Entities.ActionBarGuiEntity ActionBarGuiEntityInstance;
+		private WinterEngine.Game.Entities.PartyGuiEntity PartyGuiEntityInstance;
 
 		public ServerListScreen()
 			: base("ServerListScreen")
@@ -59,6 +60,8 @@ namespace WinterEngine.Game.Screens
 			GUILayer.Name = "GUILayer";
 			ActionBarGuiEntityInstance = new WinterEngine.Game.Entities.ActionBarGuiEntity(ContentManagerName, false);
 			ActionBarGuiEntityInstance.Name = "ActionBarGuiEntityInstance";
+			PartyGuiEntityInstance = new WinterEngine.Game.Entities.PartyGuiEntity(ContentManagerName, false);
+			PartyGuiEntityInstance.Name = "PartyGuiEntityInstance";
 			
 			
 			PostInitialize();
@@ -93,6 +96,7 @@ namespace WinterEngine.Game.Screens
 			{
 				
 				ActionBarGuiEntityInstance.Activity();
+				PartyGuiEntityInstance.Activity();
 			}
 			else
 			{
@@ -122,6 +126,11 @@ namespace WinterEngine.Game.Screens
 				ActionBarGuiEntityInstance.Destroy();
 				ActionBarGuiEntityInstance.Detach();
 			}
+			if (PartyGuiEntityInstance != null)
+			{
+				PartyGuiEntityInstance.Destroy();
+				PartyGuiEntityInstance.Detach();
+			}
 
 			base.Destroy();
 
@@ -139,10 +148,12 @@ namespace WinterEngine.Game.Screens
 		public virtual void AddToManagersBottomUp ()
 		{
 			ActionBarGuiEntityInstance.AddToManagers(GUILayer);
+			PartyGuiEntityInstance.AddToManagers(GUILayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
 			ActionBarGuiEntityInstance.ConvertToManuallyUpdated();
+			PartyGuiEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -160,8 +171,9 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
-			WinterEngine.Game.Entities.ServerListGuiEntity.LoadStaticContent(contentManagerName);
 			WinterEngine.Game.Entities.ActionBarGuiEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.PartyGuiEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.ServerListGuiEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

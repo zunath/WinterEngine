@@ -154,10 +154,6 @@ namespace WinterEngine.DataAccess.Repositories
             return stream;
         }
 
-        public void Dispose()
-        {
-        }
-
         #endregion
     }
 }

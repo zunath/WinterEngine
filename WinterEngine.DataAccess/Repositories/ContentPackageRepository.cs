@@ -452,10 +452,6 @@ namespace WinterEngine.DataAccess.Repositories
             return contentPackageFileNames;
         }
         
-        public void Dispose()
-        {
-        }
-
         #endregion
 
     }

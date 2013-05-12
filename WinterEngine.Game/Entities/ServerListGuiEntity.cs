@@ -74,7 +74,7 @@ namespace WinterEngine.Game.Entities
 
         public void InitializeAwesomiumEventSubscriptions()
         {
-            GuiEntity.AwesomiumWebView.DocumentReady += OnDocumentReady;
+            AwesomiumWebView.DocumentReady += OnDocumentReady;
         }
 
         #endregion
@@ -87,7 +87,7 @@ namespace WinterEngine.Game.Entities
             WebServiceClientUtility utility = new WebServiceClientUtility();
             List<ServerDetails> serverList = utility.GetAllActiveServers();
 
-            JSObject jObject = GuiEntity.AwesomiumWebView.CreateGlobalJavascriptObject("ServerList");
+            JSObject jObject = AwesomiumWebView.CreateGlobalJavascriptObject("ServerList");
 
             foreach (ServerDetails server in serverList)
             {

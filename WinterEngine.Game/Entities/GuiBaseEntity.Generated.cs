@@ -60,9 +60,20 @@ namespace WinterEngine.Game.Entities
 		private FlatRedBall.Sprite SpriteInstance;
 		public virtual int Height { get; set; }
 		public virtual int Width { get; set; }
-		public virtual bool IsTransparent { get; set; }
+		bool mIsTransparent = false;
+		public virtual bool IsTransparent
+		{
+			set
+			{
+				mIsTransparent = value;
+			}
+			get
+			{
+				return mIsTransparent;
+			}
+		}
 		public virtual string ResourcePath { get; set; }
-		public float ScaleX
+		public virtual float ScaleX
 		{
 			get
 			{
@@ -73,7 +84,7 @@ namespace WinterEngine.Game.Entities
 				SpriteInstance.ScaleX = value;
 			}
 		}
-		public float ScaleY
+		public virtual float ScaleY
 		{
 			get
 			{
@@ -161,10 +172,6 @@ namespace WinterEngine.Game.Entities
 				SpriteInstance.AttachTo(this, false);
 			}
 			SpriteInstance.PixelSize = 0.5f;
-			X = 0f;
-			Y = 0f;
-			ScaleX = 1f;
-			ScaleY = 1f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -186,10 +193,6 @@ namespace WinterEngine.Game.Entities
 			RotationZ = 0;
 			SpriteManager.AddToLayer(SpriteInstance, layerToAddTo);
 			SpriteInstance.PixelSize = 0.5f;
-			X = 0f;
-			Y = 0f;
-			ScaleX = 1f;
-			ScaleY = 1f;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
