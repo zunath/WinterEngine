@@ -53,6 +53,7 @@
       <HintPath>..\WinterEngine.Editor\Libraries\Xna4Pc\FlatRedBall.Content.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Avatar, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="System" />
@@ -66,7 +67,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AwesomiumXNA\AwesomiumComponent.cs" />
+    <Compile Include="AwesomiumXNA\AwesomiumSharpExtensions.cs" />
     <Compile Include="AwesomiumXNA\EventInputHandling.cs" />
+    <Compile Include="AwesomiumXNA\TextureConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -148,7 +152,6 @@
     <Content Include="Styling\Game\GameStyles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Gridster\jquery.gridster.min.css" />
     <Content Include="Styling\jQueryUI\images\animated-overlay.gif" />
     <Content Include="Styling\jQueryUI\images\ui-bg_flat_30_cccccc_40x100.png" />
     <Content Include="Styling\jQueryUI\images\ui-bg_flat_50_5c5c5c_40x100.png" />

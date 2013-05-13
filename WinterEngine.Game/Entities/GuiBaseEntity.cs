@@ -13,6 +13,8 @@ using WinterEngine.UI.AwesomiumXNA;
 using FlatRedBall.Math;
 using WinterEngine.Network;
 using WinterEngine.Network.Entities;
+using System.Windows.Forms;
+using FlatRedBall.Gui;
 
 
 
@@ -150,23 +152,40 @@ namespace WinterEngine.Game.Entities
 
         private void ManageUserInput()
         {
-            if (!_webView.IsLoading)
+            if (!_webView.IsLoading && InputManager.Mouse.IsInGameWindow())
             {
-                _webView.InjectMouseMove(InputManager.Mouse.X, InputManager.Mouse.Y);
+                int relativeMouseX = (int)GuiManager.Cursor.WorldXAt(0.0f);
+                int relativeMouseY = (int)GuiManager.Cursor.WorldYAt(0.0f);
 
-                // Left mouse button pushed down.
-                if (InputManager.Mouse.ButtonDown(Mouse.MouseButtons.LeftButton))
+                int entityScreenX = 0;
+                int entityScreenY = 0;
+
+                Rectangle windowRectangle = new Rectangle((int)this.X, (int)this.Y, this.Width, this.Height);
+
+
+                // Mouse down and scroll wheel events only fire if the mouse is within the bounds of the
+                // GUI window.
+                if (windowRectangle.Contains((int)GuiManager.Cursor.WorldXAt(0.0f), (int)GuiManager.Cursor.WorldYAt(0.0f)))
                 {
-                    _webView.InjectMouseDown(MouseButton.Left);
-                }
-                // Right mouse button pushed down
-                if (InputManager.Mouse.ButtonDown(Mouse.MouseButtons.RightButton))
-                {
-                    _webView.InjectMouseDown(MouseButton.Right);
+                    _webView.InjectMouseMove(relativeMouseX, relativeMouseY);
+
+                    // Left mouse button pushed down.
+                    if (InputManager.Mouse.ButtonDown(Mouse.MouseButtons.LeftButton))
+                    {
+                        _webView.InjectMouseDown(MouseButton.Left);
+                    }
+                    // Right mouse button pushed down
+                    if (InputManager.Mouse.ButtonDown(Mouse.MouseButtons.RightButton))
+                    {
+                        _webView.InjectMouseDown(MouseButton.Right);
+                    }
+
+                    // Mouse wheel scroll - multiply by 10 because FRB values are very small.
+                    _webView.InjectMouseWheel((int)InputManager.Mouse.ScrollWheel * 10, 0);
                 }
 
                 // Left mouse button released.
-                if(InputManager.Mouse.ButtonReleased(Mouse.MouseButtons.LeftButton))
+                if (InputManager.Mouse.ButtonReleased(Mouse.MouseButtons.LeftButton))
                 {
                     _webView.InjectMouseUp(MouseButton.Left);
                 }
@@ -176,11 +195,9 @@ namespace WinterEngine.Game.Entities
                     _webView.InjectMouseUp(MouseButton.Right);
                 }
 
-                // Mouse wheel scroll - multiply by 10 because FRB values are very small.
-                _webView.InjectMouseWheel((int)InputManager.Mouse.ScrollWheel * 10, 0);
 
                 // Keyboard entry handling
-
+                
             }
         }
 

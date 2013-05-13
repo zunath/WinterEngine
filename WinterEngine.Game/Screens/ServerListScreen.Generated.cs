@@ -44,8 +44,7 @@ namespace WinterEngine.Game.Screens
 		#endif
 		
 		private FlatRedBall.Graphics.Layer GUILayer;
-		private WinterEngine.Game.Entities.ActionBarGuiEntity ActionBarGuiEntityInstance;
-		private WinterEngine.Game.Entities.PartyGuiEntity PartyGuiEntityInstance;
+		private WinterEngine.Game.Entities.InventoryGuiEntity InventoryGuiEntityInstance;
 
 		public ServerListScreen()
 			: base("ServerListScreen")
@@ -58,10 +57,8 @@ namespace WinterEngine.Game.Screens
 			LoadStaticContent(ContentManagerName);
 			GUILayer = new FlatRedBall.Graphics.Layer();
 			GUILayer.Name = "GUILayer";
-			ActionBarGuiEntityInstance = new WinterEngine.Game.Entities.ActionBarGuiEntity(ContentManagerName, false);
-			ActionBarGuiEntityInstance.Name = "ActionBarGuiEntityInstance";
-			PartyGuiEntityInstance = new WinterEngine.Game.Entities.PartyGuiEntity(ContentManagerName, false);
-			PartyGuiEntityInstance.Name = "PartyGuiEntityInstance";
+			InventoryGuiEntityInstance = new WinterEngine.Game.Entities.InventoryGuiEntity(ContentManagerName, false);
+			InventoryGuiEntityInstance.Name = "InventoryGuiEntityInstance";
 			
 			
 			PostInitialize();
@@ -83,6 +80,7 @@ namespace WinterEngine.Game.Screens
 				GUILayer.LayerCameraSettings.OrthogonalWidth = FlatRedBall.SpriteManager.Camera.OrthogonalWidth;
 				GUILayer.LayerCameraSettings.OrthogonalHeight = FlatRedBall.SpriteManager.Camera.OrthogonalHeight;
 			}
+			GUILayer.RelativeToCamera = false;
 			base.AddToManagers();
 			AddToManagersBottomUp();
 			CustomInitialize();
@@ -95,8 +93,7 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				ActionBarGuiEntityInstance.Activity();
-				PartyGuiEntityInstance.Activity();
+				InventoryGuiEntityInstance.Activity();
 			}
 			else
 			{
@@ -121,15 +118,10 @@ namespace WinterEngine.Game.Screens
 			{
 				SpriteManager.RemoveLayer(GUILayer);
 			}
-			if (ActionBarGuiEntityInstance != null)
+			if (InventoryGuiEntityInstance != null)
 			{
-				ActionBarGuiEntityInstance.Destroy();
-				ActionBarGuiEntityInstance.Detach();
-			}
-			if (PartyGuiEntityInstance != null)
-			{
-				PartyGuiEntityInstance.Destroy();
-				PartyGuiEntityInstance.Detach();
+				InventoryGuiEntityInstance.Destroy();
+				InventoryGuiEntityInstance.Detach();
 			}
 
 			base.Destroy();
@@ -143,17 +135,16 @@ namespace WinterEngine.Game.Screens
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
+			GUILayer.RelativeToCamera = false;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
-			ActionBarGuiEntityInstance.AddToManagers(GUILayer);
-			PartyGuiEntityInstance.AddToManagers(GUILayer);
+			InventoryGuiEntityInstance.AddToManagers(mLayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
-			ActionBarGuiEntityInstance.ConvertToManuallyUpdated();
-			PartyGuiEntityInstance.ConvertToManuallyUpdated();
+			InventoryGuiEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -174,6 +165,7 @@ namespace WinterEngine.Game.Screens
 			WinterEngine.Game.Entities.ActionBarGuiEntity.LoadStaticContent(contentManagerName);
 			WinterEngine.Game.Entities.PartyGuiEntity.LoadStaticContent(contentManagerName);
 			WinterEngine.Game.Entities.ServerListGuiEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.InventoryGuiEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

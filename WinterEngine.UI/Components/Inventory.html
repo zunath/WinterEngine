@@ -5,11 +5,81 @@
     <meta charset="utf-8" />
     <title></title>
     <link rel="stylesheet" href="../Styling/Game/GameStyles.css" />
-    <script src="../Scripts/jquery-2.0.0.min.js"></script>
-    <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
     
 </head>
-<body>
+<body class="clsInventoryBody">    
 
+    <div class="clsInventoryContainer">
+        <h2 class="clsCenter">Inventory</h2>
+        <div id="divCharacterInformation" class="clsCharacterInformation">
+            <label id="lblHP">HP:</label>
+            <label id="lblCurrentHPValue" class="clsCharacterAttributeValues">1000 &#47;</label> 
+            <label id="lblMaxHPValue" class="clsCharacterAttributeValues"> 1500</label>
+            <br />
+            <hr />
+            <label id="lblMP">MP::</label>
+            <label id="lblCurrentMPValue" class="clsCharacterAttributeValues">500</label>
+            <label id="lblMaxMPValue" class="clsCharacterAttributeValues">500</label>
+            <br />
+            <hr />
+            <label id="lblLevel">Level:</label>
+            <label id="lblLevelValue" class="clsCharacterAttributeValues">20</label>
+
+        </div>
+
+        <div id="divInventory" class="clsInventoryDiv">
+            
+        </div>
+
+        <div id="divExperienceBar">
+            test
+        </div>
+    </div>
+
+    <script src="../Scripts/jquery-2.0.0.min.js"></script>
+    <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
+    <script src="../Scripts/jquery.masonry.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            BuildInventoryItemTable();
+
+            $('.clsInventoryContainer').masonry({
+                itemSelector: ".clsPartyMemberRow",
+                columnWidth: 240
+            });
+        });
+
+        function BuildInventoryItemTable() {
+            var numberOfInventoryRows = 5;
+            var numberOfInventoryColumns = 5;
+            var table = '<table id="tblInventory">';
+            table += '<tbody>';
+
+            var currentItemID = 1;
+            for (var x = 1; x <= numberOfInventoryRows; x++) {
+                var row = '<tr>';
+
+                for (var y = 1; y <= numberOfInventoryColumns; y++) {
+                    var item = '<td id="tdItem' + currentItemID + '" class="clsInventoryTableCell clsActionBarButton">';
+                    
+                    item += '</td>';
+
+                    row += item;
+                    currentItemID++;
+                }
+
+                row += '</tr>';
+
+                table += row;
+            }
+
+            table += '</tbody>';
+            table += '</table>';
+
+            $('#divInventory').append(table);
+        }
+
+    </script>
 </body>
 </html>

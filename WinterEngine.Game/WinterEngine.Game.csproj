@@ -127,7 +127,13 @@
       <DependentUpon>chatguientity.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\GuiBaseEntity.cs" />
+    <Compile Include="Entities\GuiBaseEntity.Event.cs">
+      <DependentUpon>GuiBaseEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entities\GuiBaseEntity.Generated.cs">
+      <DependentUpon>GuiBaseEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\GuiBaseEntity.Generated.Event.cs">
       <DependentUpon>GuiBaseEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\InventoryGuiEntity.cs" />

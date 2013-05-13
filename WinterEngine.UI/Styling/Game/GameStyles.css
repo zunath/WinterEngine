@@ -71,3 +71,37 @@ input[type="button"]:active
 	border-style:solid;
 	border-width: 1px;
 }
+
+/* CHARACTER AND INVENTORY */
+
+.clsInventoryBody
+{
+	background-color:#AAA;
+}
+
+.clsInventoryTableCell
+{
+    float:none;
+    text-align:center;
+}
+
+.clsCharacterInformation
+{
+    background-color: #ccc;
+    float:left;
+    border:solid;
+    border-width:1px;
+    padding-right:2px;
+}
+
+.clsInventoryDiv
+{
+    background-color: #ccc;
+    float:left;
+}
+
+.clsCharacterAttributeValues
+{
+    float:right;
+    padding:2px;
+}
