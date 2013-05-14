@@ -44,7 +44,6 @@ namespace WinterEngine.Game.Screens
 		#endif
 		
 		private FlatRedBall.Graphics.Layer GUILayer;
-		private WinterEngine.Game.Entities.InventoryGuiEntity InventoryGuiEntityInstance;
 
 		public ServerListScreen()
 			: base("ServerListScreen")
@@ -57,8 +56,6 @@ namespace WinterEngine.Game.Screens
 			LoadStaticContent(ContentManagerName);
 			GUILayer = new FlatRedBall.Graphics.Layer();
 			GUILayer.Name = "GUILayer";
-			InventoryGuiEntityInstance = new WinterEngine.Game.Entities.InventoryGuiEntity(ContentManagerName, false);
-			InventoryGuiEntityInstance.Name = "InventoryGuiEntityInstance";
 			
 			
 			PostInitialize();
@@ -93,7 +90,6 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				InventoryGuiEntityInstance.Activity();
 			}
 			else
 			{
@@ -118,11 +114,6 @@ namespace WinterEngine.Game.Screens
 			{
 				SpriteManager.RemoveLayer(GUILayer);
 			}
-			if (InventoryGuiEntityInstance != null)
-			{
-				InventoryGuiEntityInstance.Destroy();
-				InventoryGuiEntityInstance.Detach();
-			}
 
 			base.Destroy();
 
@@ -140,11 +131,9 @@ namespace WinterEngine.Game.Screens
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
-			InventoryGuiEntityInstance.AddToManagers(mLayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
-			InventoryGuiEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -162,10 +151,7 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
-			WinterEngine.Game.Entities.ActionBarGuiEntity.LoadStaticContent(contentManagerName);
-			WinterEngine.Game.Entities.PartyGuiEntity.LoadStaticContent(contentManagerName);
 			WinterEngine.Game.Entities.ServerListGuiEntity.LoadStaticContent(contentManagerName);
-			WinterEngine.Game.Entities.InventoryGuiEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

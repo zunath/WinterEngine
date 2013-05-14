@@ -118,13 +118,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\ActionBarGuiEntity.cs" />
-    <Compile Include="Entities\ActionBarGuiEntity.Generated.cs">
-      <DependentUpon>ActionBarGuiEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\ChatGuiEntity.cs" />
-    <Compile Include="Entities\ChatGuiEntity.Generated.cs">
-      <DependentUpon>chatguientity.cs</DependentUpon>
+    <Compile Include="Entities\GameUIEntity.cs" />
+    <Compile Include="Entities\GameUIEntity.Generated.cs">
+      <DependentUpon>GameUIEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\GuiBaseEntity.cs" />
     <Compile Include="Entities\GuiBaseEntity.Event.cs">
@@ -136,25 +132,9 @@
     <Compile Include="Entities\GuiBaseEntity.Generated.Event.cs">
       <DependentUpon>GuiBaseEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\InventoryGuiEntity.cs" />
-    <Compile Include="Entities\InventoryGuiEntity.Generated.cs">
-      <DependentUpon>InventoryGuiEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\MiniMapGuiEntity.cs" />
-    <Compile Include="Entities\MiniMapGuiEntity.Generated.cs">
-      <DependentUpon>MiniMapGuiEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\PartyGuiEntity.cs" />
-    <Compile Include="Entities\PartyGuiEntity.Generated.cs">
-      <DependentUpon>partyguientity.cs</DependentUpon>
-    </Compile>
     <Compile Include="Entities\ServerListGuiEntity.cs" />
     <Compile Include="Entities\ServerListGuiEntity.Generated.cs">
       <DependentUpon>ServerListGuiEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\StatusEffectsGuiEntity.cs" />
-    <Compile Include="Entities\StatusEffectsGuiEntity.Generated.cs">
-      <DependentUpon>StatusEffectsGuiEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalContent.Generated.cs" />
     <Compile Include="Performance\IPoolable.Generated.cs" />

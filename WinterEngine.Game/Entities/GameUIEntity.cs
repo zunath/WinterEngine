@@ -24,7 +24,7 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class StatusEffectsGuiEntity
+	public partial class GameUIEntity
 	{
 		private void CustomInitialize()
 		{

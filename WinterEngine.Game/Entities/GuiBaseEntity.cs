@@ -103,7 +103,6 @@ namespace WinterEngine.Game.Entities
         }
         #endregion
 
-
         #region Rendering Methods
 
         private void SetUpDrawSurfaces()
