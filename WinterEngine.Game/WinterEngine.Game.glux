@@ -26,8 +26,19 @@
           <SourceClassType>Entities\ServerListGuiEntity</SourceClassType>
           <InstanceName>ServerListGuiEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
+          <AttachToCamera>true</AttachToCamera>
           <AddToManagers>true</AddToManagers>
           <IsDisabled>true</IsDisabled>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <LayerOn>GUILayer</LayerOn>
+        </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>Entity</SourceType>
+          <SourceClassType>Entities\GameUIEntity</SourceClassType>
+          <InstanceName>GameUIEntityInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <AttachToCamera>true</AttachToCamera>
+          <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
           <LayerOn>GUILayer</LayerOn>
         </NamedObjectSave>
@@ -94,57 +105,86 @@
   </Screens>
   <Entities>
     <EntitySave>
-      <Name>Entities\GameUIEntity</Name>
-      <Is2D>true</Is2D>
-    </EntitySave>
-    <EntitySave>
       <CustomVariables>
         <CustomVariable>
           <Properties>
             <PropertySave>
               <Name>Type</Name>
-              <ValueAsString>int</ValueAsString>
+              <ValueAsString>string</ValueAsString>
             </PropertySave>
             <PropertySave>
               <Name>CreatesProperties</Name>
               <ValueAsBool>true</ValueAsBool>
             </PropertySave>
           </Properties>
-          <Name>Height</Name>
-          <Type>int</Type>
-          <SetByDerived>true</SetByDerived>
+          <Name>ResourcePath</Name>
+          <Type>string</Type>
+          <DefaultValue xsi:type="xsd:string">file:///./Components/GameUI.html</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
         <CustomVariable>
           <Properties>
             <PropertySave>
               <Name>Type</Name>
-              <ValueAsString>int</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
+              <ValueAsString>float</ValueAsString>
             </PropertySave>
           </Properties>
-          <Name>Width</Name>
-          <Type>int</Type>
-          <SetByDerived>true</SetByDerived>
+          <Name>ScaleX</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">1</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
         <CustomVariable>
           <Properties>
             <PropertySave>
               <Name>Type</Name>
-              <ValueAsString>bool</ValueAsString>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>ScaleY</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">1</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
             </PropertySave>
             <PropertySave>
               <Name>CreatesProperties</Name>
               <ValueAsBool>true</ValueAsBool>
             </PropertySave>
           </Properties>
-          <Name>IsTransparent</Name>
-          <Type>bool</Type>
-          <DefaultValue xsi:type="xsd:boolean">false</DefaultValue>
-          <SetByDerived>true</SetByDerived>
+          <Name>X</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>Y</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+      </CustomVariables>
+      <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
+      <Name>Entities\GameUIEntity</Name>
+      <Is2D>true</Is2D>
+    </EntitySave>
+    <EntitySave>
+      <CustomVariables>
         <CustomVariable>
           <Properties>
             <PropertySave>
@@ -252,54 +292,6 @@
     </EntitySave>
     <EntitySave>
       <CustomVariables>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>int</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Height</Name>
-          <Type>int</Type>
-          <DefaultValue xsi:type="xsd:int">600</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>int</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Width</Name>
-          <Type>int</Type>
-          <DefaultValue xsi:type="xsd:int">800</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>bool</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>IsTransparent</Name>
-          <Type>bool</Type>
-          <DefaultValue xsi:type="xsd:boolean">false</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
         <CustomVariable>
           <Properties>
             <PropertySave>

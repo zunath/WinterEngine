@@ -31,7 +31,6 @@ namespace WinterEngine.Game.Entities
         private Bitmap _frameBuffer;
         private Rectangle _drawRectangle;
         private byte[] _bytes;
-        private bool _isLocalFile;
         
         #endregion
 
@@ -51,30 +50,17 @@ namespace WinterEngine.Game.Entities
             get { return new Uri(ResourcePath); }
         }
 
-        /// <summary>
-        /// Returns true if the resource path is for a local file.
-        /// Returns false if the resource path is for an internet URL address.
-        /// </summary>
-        public bool IsLocalFile
-        {
-            get { return _isLocalFile; }
-            set { _isLocalFile = value; }
-        }
-
         #endregion
 
         #region FRB Event Handling
 
         private void CustomInitialize()
-		{
-            _webView = WebCore.CreateWebView(Width, Height);
-            if (IsTransparent)
-            {
-                _webView.IsTransparent = true;
-            }
+        {
+            _webView = WebCore.CreateWebView(SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
+            _webView.IsTransparent = true;
+            
             _webView.Source = URI;
             SetUpDrawSurfaces();
-            
             // DEBUGGING
             _webView.FocusView();
             // END DEBUGGING
@@ -107,9 +93,9 @@ namespace WinterEngine.Game.Entities
 
         private void SetUpDrawSurfaces()
         {
-            _texture = new Texture2D(FlatRedBallServices.GraphicsDevice, Width, Height);
-            _frameBuffer = new Bitmap(Width, Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            _drawRectangle = new Rectangle(0, 0, Width, Height);
+            _texture = new Texture2D(FlatRedBallServices.GraphicsDevice, SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
+            _frameBuffer = new Bitmap(SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            _drawRectangle = new Rectangle(0, 0, SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
             SpriteInstance.Texture = _texture;
         }
 
@@ -153,18 +139,15 @@ namespace WinterEngine.Game.Entities
         {
             if (!_webView.IsLoading && InputManager.Mouse.IsInGameWindow())
             {
-                int relativeMouseX = (int)GuiManager.Cursor.WorldXAt(0.0f);
-                int relativeMouseY = (int)GuiManager.Cursor.WorldYAt(0.0f);
+                int relativeMouseX = (int)GuiManager.Cursor.ScreenX;
+                int relativeMouseY = (int)GuiManager.Cursor.ScreenY;
 
-                int entityScreenX = 0;
-                int entityScreenY = 0;
-
-                Rectangle windowRectangle = new Rectangle((int)this.X, (int)this.Y, this.Width, this.Height);
+                Rectangle windowRectangle = new Rectangle(0, 0, SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
 
 
                 // Mouse down and scroll wheel events only fire if the mouse is within the bounds of the
                 // GUI window.
-                if (windowRectangle.Contains((int)GuiManager.Cursor.WorldXAt(0.0f), (int)GuiManager.Cursor.WorldYAt(0.0f)))
+                if (windowRectangle.Contains(relativeMouseX, relativeMouseY))
                 {
                     _webView.InjectMouseMove(relativeMouseX, relativeMouseY);
 

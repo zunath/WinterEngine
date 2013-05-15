@@ -44,6 +44,7 @@ namespace WinterEngine.Game.Screens
 		#endif
 		
 		private FlatRedBall.Graphics.Layer GUILayer;
+		private WinterEngine.Game.Entities.GameUIEntity GameUIEntityInstance;
 
 		public ServerListScreen()
 			: base("ServerListScreen")
@@ -56,6 +57,8 @@ namespace WinterEngine.Game.Screens
 			LoadStaticContent(ContentManagerName);
 			GUILayer = new FlatRedBall.Graphics.Layer();
 			GUILayer.Name = "GUILayer";
+			GameUIEntityInstance = new WinterEngine.Game.Entities.GameUIEntity(ContentManagerName, false);
+			GameUIEntityInstance.Name = "GameUIEntityInstance";
 			
 			
 			PostInitialize();
@@ -90,6 +93,7 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
+				GameUIEntityInstance.Activity();
 			}
 			else
 			{
@@ -114,6 +118,11 @@ namespace WinterEngine.Game.Screens
 			{
 				SpriteManager.RemoveLayer(GUILayer);
 			}
+			if (GameUIEntityInstance != null)
+			{
+				GameUIEntityInstance.Destroy();
+				GameUIEntityInstance.Detach();
+			}
 
 			base.Destroy();
 
@@ -127,13 +136,21 @@ namespace WinterEngine.Game.Screens
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
 			GUILayer.RelativeToCamera = false;
+			if (GameUIEntityInstance.Parent == null)
+			{
+				GameUIEntityInstance.CopyAbsoluteToRelative();
+				GameUIEntityInstance.RelativeZ += -40;
+				GameUIEntityInstance.AttachTo(SpriteManager.Camera, false);
+			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
+			GameUIEntityInstance.AddToManagers(GUILayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
+			GameUIEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -152,6 +169,7 @@ namespace WinterEngine.Game.Screens
 			}
 			#endif
 			WinterEngine.Game.Entities.ServerListGuiEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.GameUIEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

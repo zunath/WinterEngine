@@ -7,36 +7,112 @@
 
     <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
     <link rel="stylesheet" href="../Styling/Game/GameStyles.css" />
-</head>
-<body class="clsActionBarBody">
-    <table id="tblActionBar">
-        <tbody>
-            <tr class="clsNoHighlight">
-                <td>
-                    <input id="btnHotBar1" type="button" value="1" class="clsActionBarButton clsNoHighlight" /></td>
-                <td>
-                    <input id="btnHotBar2" type="button" value="2" class="clsActionBarButton clsNoHighlight" /></td>
-                <td>
-                    <input id="btnHotBar3" type="button" value="3" class="clsActionBarButton clsNoHighlight" /></td>
-                <td>
-                    <input id="btnHotBar4" type="button" value="4" class="clsActionBarButton clsNoHighlight" /></td>
-                <td>
-                    <input id="btnHotBar5" type="button" value="5" class="clsActionBarButton clsNoHighlight" /></td>
-                <td>
-                    <input id="btnHotBar6" type="button" value="6" class="clsActionBarButton clsNoHighlight" /></td>
-                <td>
-                    <input id="btnHotBar7" type="button" value="7" class="clsActionBarButton clsNoHighlight" /></td>
-                <td>
-                    <input id="btnHotBar8" type="button" value="8" class="clsActionBarButton clsNoHighlight" /></td>
-                <td>
-                    <input id="btnHotBar9" type="button" value="9" class="clsActionBarButton clsNoHighlight" /></td>
-                <td>
-                    <input id="btnHotBar10" type="button" value="10" class="clsActionBarButton clsNoHighlight" /></td>
-            </tr>
-        </tbody>
-    </table>
 
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
+    <script src="../Scripts/jquery.masonry.min.js"></script>
+    <script src="../Scripts/GameUI.js"></script>
+</head>
+<body>
+
+    <div id="divMasonryContainer">
+
+        <div id="divStatusBar">
+        </div>
+
+        <div id="divGameArea">
+        </div>
+
+        <div id="divMiniMap">
+        </div>
+
+        <div id="divStatusEffects">
+        </div>
+
+        <div id="divChatBox">
+
+        </div>
+
+        <div id="divParty">
+            <div class="clsPartyMemberRow">
+                <span>Party Member #1</span>
+            </div>
+            <div class="clsPartyMemberRow">
+                <span>Party Member #2</span>
+            </div>
+            <div class="clsPartyMemberRow">
+                <span>Party Member #3</span>
+            </div>
+            <div class="clsPartyMemberRow">
+                <span>Party Member #4</span>
+            </div>
+        </div>
+
+        <div id="divActionBar">
+            <table id="tblActionBar">
+                <tbody>
+                    <tr>
+                        <td>
+                            <input id="btnHotBar1" type="button" value="1" class="clsActionBarButton" /></td>
+                        <td>
+                            <input id="btnHotBar2" type="button" value="2" class="clsActionBarButton" /></td>
+                        <td>
+                            <input id="btnHotBar3" type="button" value="3" class="clsActionBarButton" /></td>
+                        <td>
+                            <input id="btnHotBar4" type="button" value="4" class="clsActionBarButton" /></td>
+                        <td>
+                            <input id="btnHotBar5" type="button" value="5" class="clsActionBarButton" /></td>
+                        <td>
+                            <input id="btnHotBar6" type="button" value="6" class="clsActionBarButton" /></td>
+                        <td>
+                            <input id="btnHotBar7" type="button" value="7" class="clsActionBarButton" /></td>
+                        <td>
+                            <input id="btnHotBar8" type="button" value="8" class="clsActionBarButton" /></td>
+                        <td>
+                            <input id="btnHotBar9" type="button" value="9" class="clsActionBarButton" /></td>
+                        <td>
+                            <input id="btnHotBar10" type="button" value="10" class="clsActionBarButton" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="divInventory">
+            <div id="divCharacterInformation">
+                <label id="lblHP">HP:</label>
+                <i id="hpValue" class="clsCharacterAttributeValues">1000 / 1500</i>
+                <br />
+                <hr />
+                <label id="lblMP">MP:</label>
+                <i id="mpValue" class="clsCharacterAttributeValues">500 / 750</i>
+                <br />
+                <hr />
+                <label id="lblLevel">Level:</label>
+                <i id="levelValue" class="clsCharacterAttributeValues">20</i>
+                <br />
+                <hr />
+                <label id="lblExperience">Experience:</label>
+                <i id="experienceValue" class="clsCharacterAttributeValues">200 / 500</i>
+            </div>
+            <div id="divItems">
+            </div>
+
+            <div id="divExperienceBar">
+            </div>
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            BuildInventoryItemTable();
+            OpenInventory();
+        });
+
+
+    </script>
+
 </body>
 </html>

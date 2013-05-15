@@ -59,20 +59,6 @@ namespace WinterEngine.Game.Entities
 		static List<string> LoadedContentManagers = new List<string>();
 		
 		private FlatRedBall.Sprite SpriteInstance;
-		public virtual int Height { get; set; }
-		public virtual int Width { get; set; }
-		bool mIsTransparent = false;
-		public virtual bool IsTransparent
-		{
-			set
-			{
-				mIsTransparent = value;
-			}
-			get
-			{
-				return mIsTransparent;
-			}
-		}
 		public virtual string ResourcePath { get; set; }
 		public virtual float ScaleX
 		{

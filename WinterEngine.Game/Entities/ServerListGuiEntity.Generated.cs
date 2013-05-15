@@ -140,9 +140,6 @@ namespace WinterEngine.Game.Entities
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
 			base.PostInitialize();
-			Height = 600;
-			Width = 800;
-			IsTransparent = false;
 			ResourcePath = "file:///./Components/ServerList.html";
 			ScaleX = 1f;
 			ScaleY = 1f;
@@ -168,9 +165,6 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
-			Height = 600;
-			Width = 800;
-			IsTransparent = false;
 			ResourcePath = "file:///./Components/ServerList.html";
 			ScaleX = 1f;
 			ScaleY = 1f;
