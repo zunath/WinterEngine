@@ -1,9 +1,78 @@
 ﻿
-function OpenInventory() {
+/* MAIN UI JQUERY FUNCTIONS */
+
+function InitializeAllComponents() {
+    InitializeActionBar();
+    InitializeChatBox();
+    InitializeGameArea();
+    InitializeInventory();
+    InitializeJournal();
+    InitializeMiniMap();
+    InitializeParty();
+    InitializeProgressBar();
+    InitializeStatusBar();
+    InitializeStatusEffects();
+}
+
+/* COMPONENT INITIALIZATION FUNCTIONS */
+
+function InitializeProgressBar() {
+
+    $('#divExperienceProgressBar').progressbar({
+        value: 50
+    });
+
+    $('#divExperienceProgressBar').draggable({
+        disabled: false,
+        opacity: 0.5,
+        scroll: false
+    });
+
+    var componentWidth = $('#divExperienceProgressBar').width();
+    var componentHeight = $('#divExperienceProgressBar').height();
+
+    var rightPosition = $(window).width() - componentWidth;
+    var topPosition = $(window).height() - componentHeight - 50;
+
+    alert(rightPosition);
+
+    $('#divExperienceProgressBar').css('right', rightPosition);
+    $('#divExperienceProgressBar').css('top', topPosition);
+
+}
+
+function InitializeInventory() {
     $('#divInventory').dialog({
         title: 'Inventory',
-        resizable: false
+        resizable: false,
+        autoOpen: false
     });
+
+    BuildInventoryItemTable();
+}
+
+function InitializeStatusBar() {
+}
+
+function InitializeGameArea() {
+}
+
+function InitializeMiniMap() {
+}
+
+function InitializeStatusEffects() {
+}
+
+function InitializeChatBox() {
+}
+
+function InitializeJournal() {
+}
+
+function InitializeParty() {
+}
+
+function InitializeActionBar() {
 }
 
 function BuildInventoryItemTable() {
