@@ -40,13 +40,13 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class GameUIEntity : WinterEngine.Game.Entities.GuiBaseEntity, IDestroyable
+	public partial class ToolsetUIEntity : PositionedObject, IDestroyable
 	{
         // This is made global so that static lazy-loaded content can access it.
-        public static new string ContentManagerName
+        public static string ContentManagerName
         {
-            get{ return Entities.GuiBaseEntity.ContentManagerName;}
-            set{ Entities.GuiBaseEntity.ContentManagerName = value;}
+            get;
+            set;
         }
 
 		// Generated Fields
@@ -59,54 +59,59 @@ namespace WinterEngine.Game.Entities
 		
 		public int Index { get; set; }
 		public bool Used { get; set; }
+		protected Layer LayerProvidedByContainer = null;
 
-        public GameUIEntity(string contentManagerName) :
+        public ToolsetUIEntity(string contentManagerName) :
             this(contentManagerName, true)
         {
         }
 
 
-        public GameUIEntity(string contentManagerName, bool addToManagers) :
-			base(contentManagerName, addToManagers)
+        public ToolsetUIEntity(string contentManagerName, bool addToManagers) :
+			base()
 		{
 			// Don't delete this:
             ContentManagerName = contentManagerName;
-           
+            InitializeEntity(addToManagers);
 
 		}
 
-		protected override void InitializeEntity(bool addToManagers)
+		protected virtual void InitializeEntity(bool addToManagers)
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
 			
-			base.InitializeEntity(addToManagers);
+			PostInitialize();
+			if (addToManagers)
+			{
+				AddToManagers(null);
+			}
 
 
 		}
 
 // Generated AddToManagers
-		public override void AddToManagers (Layer layerToAddTo)
+		public virtual void AddToManagers (Layer layerToAddTo)
 		{
 			LayerProvidedByContainer = layerToAddTo;
-			base.AddToManagers(layerToAddTo);
+			SpriteManager.AddPositionedObject(this);
+			AddToManagersBottomUp(layerToAddTo);
 			CustomInitialize();
 		}
 
-		public override void Activity()
+		public virtual void Activity()
 		{
 			// Generated Activity
-			base.Activity();
 			
 			CustomActivity();
 			
 			// After Custom Activity
 		}
 
-		public override void Destroy()
+		public virtual void Destroy()
 		{
 			// Generated Destroy
-			base.Destroy();
+			SpriteManager.RemovePositionedObject(this);
 			
 
 
@@ -114,19 +119,14 @@ namespace WinterEngine.Game.Entities
 		}
 
 		// Generated Methods
-		public override void PostInitialize ()
+		public virtual void PostInitialize ()
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
-			base.PostInitialize();
-			ResourcePath = "file:///./Components/GameUI.html";
-			X = 0f;
-			Y = 0f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
-		public override void AddToManagersBottomUp (Layer layerToAddTo)
+		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
 		{
-			base.AddToManagersBottomUp(layerToAddTo);
 			// We move this back to the origin and unrotate it so that anything attached to it can just use its absolute position
 			float oldRotationX = RotationX;
 			float oldRotationY = RotationY;
@@ -142,9 +142,6 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
-			ResourcePath = "file:///./Components/GameUI.html";
-			X = 0f;
-			Y = 0f;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
@@ -152,20 +149,18 @@ namespace WinterEngine.Game.Entities
 			RotationY = oldRotationY;
 			RotationZ = oldRotationZ;
 		}
-		public override void ConvertToManuallyUpdated ()
+		public virtual void ConvertToManuallyUpdated ()
 		{
-			base.ConvertToManuallyUpdated();
 			this.ForceUpdateDependenciesDeep();
 			SpriteManager.ConvertToManuallyUpdated(this);
 		}
-		public static new void LoadStaticContent (string contentManagerName)
+		public static void LoadStaticContent (string contentManagerName)
 		{
 			if (string.IsNullOrEmpty(contentManagerName))
 			{
 				throw new ArgumentException("contentManagerName cannot be empty or null");
 			}
 			ContentManagerName = contentManagerName;
-			GuiBaseEntity.LoadStaticContent(contentManagerName);
 			#if DEBUG
 			if (contentManagerName == FlatRedBallServices.GlobalContentManager)
 			{
@@ -184,7 +179,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("GameUIEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("ToolsetUIEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -195,14 +190,14 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("GameUIEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("ToolsetUIEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
 			}
 			CustomLoadStaticContent(contentManagerName);
 		}
-		public static new void UnloadStaticContent ()
+		public static void UnloadStaticContent ()
 		{
 			if (LoadedContentManagers.Count != 0)
 			{
@@ -214,11 +209,11 @@ namespace WinterEngine.Game.Entities
 			}
 		}
 		[System.Obsolete("Use GetFile instead")]
-		public static new object GetStaticMember (string memberName)
+		public static object GetStaticMember (string memberName)
 		{
 			return null;
 		}
-		public static new object GetFile (string memberName)
+		public static object GetFile (string memberName)
 		{
 			return null;
 		}
@@ -226,9 +221,15 @@ namespace WinterEngine.Game.Entities
 		{
 			return null;
 		}
-		public override void SetToIgnorePausing ()
+		protected bool mIsPaused;
+		public override void Pause (InstructionList instructions)
 		{
-			base.SetToIgnorePausing();
+			base.Pause(instructions);
+			mIsPaused = true;
+		}
+		public virtual void SetToIgnorePausing ()
+		{
+			InstructionManager.IgnorePausingFor(this);
 		}
 		public void MoveToLayer (Layer layerToMoveTo)
 		{
@@ -239,7 +240,7 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class GameUIEntityExtensionMethods
+	public static class ToolsetUIEntityExtensionMethods
 	{
 	}
 	

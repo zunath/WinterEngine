@@ -3,6 +3,31 @@
   <Screens>
     <ScreenSave>
       <Name>Screens\MainMenuScreen</Name>
+      <NamedObjects>
+        <NamedObjectSave>
+          <CustomProperty>
+            <Type>bool</Type>
+            <Member>RelativeToCamera</Member>
+            <ValueAsBool>false</ValueAsBool>
+          </CustomProperty>
+          <SourceType>FlatRedBallType</SourceType>
+          <SourceClassType>Layer</SourceClassType>
+          <InstanceName>GUILayer</InstanceName>
+          <AttachToContainer>false</AttachToContainer>
+          <AddToManagers>true</AddToManagers>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <Is2D>true</Is2D>
+          <LayerCoordinateType>MatchScreenResolution</LayerCoordinateType>
+        </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>Entity</SourceType>
+          <SourceClassType>Entities\MainMenuUIEntity</SourceClassType>
+          <InstanceName>MainMenuGuiEntityInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <AddToManagers>true</AddToManagers>
+          <IndependentOfCamera>true</IndependentOfCamera>
+        </NamedObjectSave>
+      </NamedObjects>
     </ScreenSave>
     <ScreenSave>
       <Name>Screens\ServerListScreen</Name>
@@ -20,10 +45,11 @@
           <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
           <Is2D>true</Is2D>
+          <LayerCoordinateType>MatchScreenResolution</LayerCoordinateType>
         </NamedObjectSave>
         <NamedObjectSave>
           <SourceType>Entity</SourceType>
-          <SourceClassType>Entities\ServerListGuiEntity</SourceClassType>
+          <SourceClassType>Entities\ServerListUIEntity</SourceClassType>
           <InstanceName>ServerListGuiEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <AttachToCamera>true</AttachToCamera>
@@ -101,6 +127,9 @@
           <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
       </NamedObjects>
+    </ScreenSave>
+    <ScreenSave>
+      <Name>Screens\ToolsetScreen</Name>
     </ScreenSave>
   </Screens>
   <Entities>
@@ -206,34 +235,6 @@
               <Name>Type</Name>
               <ValueAsString>float</ValueAsString>
             </PropertySave>
-          </Properties>
-          <Name>ScaleX</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">1</DefaultValue>
-          <SetByDerived>true</SetByDerived>
-          <SourceObject>SpriteInstance</SourceObject>
-          <SourceObjectProperty>ScaleX</SourceObjectProperty>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-          </Properties>
-          <Name>ScaleY</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">1</DefaultValue>
-          <SetByDerived>true</SetByDerived>
-          <SourceObject>SpriteInstance</SourceObject>
-          <SourceObjectProperty>ScaleY</SourceObjectProperty>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
             <PropertySave>
               <Name>CreatesProperties</Name>
               <ValueAsBool>true</ValueAsBool>
@@ -262,32 +263,62 @@
           <SetByDerived>true</SetByDerived>
         </CustomVariable>
       </CustomVariables>
-      <ImplementsIClickable>true</ImplementsIClickable>
-      <ImplementsIVisible>true</ImplementsIVisible>
-      <ImplementsIWindow>true</ImplementsIWindow>
       <Name>Entities\GuiBaseEntity</Name>
-      <NamedObjects>
-        <NamedObjectSave>
-          <CustomProperty>
-            <Type>float</Type>
-            <Member>PixelSize</Member>
-            <ValueAsFloat>0.5</ValueAsFloat>
-          </CustomProperty>
-          <SourceType>FlatRedBallType</SourceType>
-          <SourceClassType>Sprite</SourceClassType>
-          <InstanceName>SpriteInstance</InstanceName>
-          <AttachToContainer>true</AttachToContainer>
-          <AddToManagers>true</AddToManagers>
-          <IndependentOfCamera>true</IndependentOfCamera>
-        </NamedObjectSave>
-      </NamedObjects>
-      <Events>
-        <EventResponseSave>
-          <EventName>Click</EventName>
-          <BeforeOrAfter>Before</BeforeOrAfter>
-          <DelegateType />
-        </EventResponseSave>
-      </Events>
+      <Is2D>true</Is2D>
+    </EntitySave>
+    <EntitySave>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>string</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>ResourcePath</Name>
+          <Type>string</Type>
+          <DefaultValue xsi:type="xsd:string">file:///./Components/MainMenu.html</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>X</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>Y</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+      </CustomVariables>
+      <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
+      <Name>Entities\MainMenuUIEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
@@ -359,7 +390,11 @@
       </CustomVariables>
       <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
       <ImplementsIVisible>true</ImplementsIVisible>
-      <Name>Entities\ServerListGuiEntity</Name>
+      <Name>Entities\ServerListUIEntity</Name>
+      <Is2D>true</Is2D>
+    </EntitySave>
+    <EntitySave>
+      <Name>Entities\ToolsetUIEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>
   </Entities>
@@ -369,7 +404,7 @@
     <RecordLockContention>false</RecordLockContention>
   </GlobalContentSettingsSave>
   <SyncedProjects />
-  <StartUpScreen>Screens\ServerListScreen</StartUpScreen>
+  <StartUpScreen>Screens\MainMenuScreen</StartUpScreen>
   <In2D>false</In2D>
   <SetResolution>false</SetResolution>
   <ResolutionWidth>800</ResolutionWidth>

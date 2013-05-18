@@ -1,0 +1,18 @@
+﻿
+input[type="button"]:hover
+{
+    background-color: #e8e4e4;
+}
+
+input[type="button"]:active
+{
+    background-color: yellow;
+}
+
+input[type="button"]
+{
+	background-color:#CCC;
+   	border-style:solid;
+	border-width: 1px;
+
+}

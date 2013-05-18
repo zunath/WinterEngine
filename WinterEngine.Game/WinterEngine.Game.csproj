@@ -132,9 +132,17 @@
     <Compile Include="Entities\GuiBaseEntity.Generated.Event.cs">
       <DependentUpon>GuiBaseEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ServerListGuiEntity.cs" />
-    <Compile Include="Entities\ServerListGuiEntity.Generated.cs">
-      <DependentUpon>ServerListGuiEntity.cs</DependentUpon>
+    <Compile Include="Entities\MainMenuUIEntity.cs" />
+    <Compile Include="Entities\MainMenuUIEntity.Generated.cs">
+      <DependentUpon>mainmenuuientity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ServerListUIEntity.cs" />
+    <Compile Include="Entities\ServerListUIEntity.Generated.cs">
+      <DependentUpon>serverlistuientity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ToolsetUIEntity.cs" />
+    <Compile Include="Entities\ToolsetUIEntity.Generated.cs">
+      <DependentUpon>ToolsetUIEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalContent.Generated.cs" />
     <Compile Include="Performance\IPoolable.Generated.cs" />
@@ -160,6 +168,11 @@
     <Compile Include="Screens\SplashScreen.Generated.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Screens\ToolsetScreen.cs" />
+    <Compile Include="Screens\ToolsetScreen.Generated.cs">
+      <DependentUpon>ToolsetScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\WinterEngineService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

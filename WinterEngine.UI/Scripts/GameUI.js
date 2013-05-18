@@ -12,6 +12,7 @@ function InitializeAllComponents() {
     InitializeProgressBar();
     InitializeStatusBar();
     InitializeStatusEffects();
+    InitializeMasonryContainer();
 }
 
 /* COMPONENT INITIALIZATION FUNCTIONS */
@@ -21,21 +22,20 @@ function InitializeProgressBar() {
     $('#divExperienceProgressBar').progressbar({
         value: 50
     });
-
+    /*
     $('#divExperienceProgressBar').draggable({
         disabled: false,
         opacity: 0.5,
         scroll: false
     });
-
+    */
     var componentWidth = $('#divExperienceProgressBar').width();
     var componentHeight = $('#divExperienceProgressBar').height();
 
     var rightPosition = $(window).width() - componentWidth;
     var topPosition = $(window).height() - componentHeight - 50;
 
-    alert(rightPosition);
-
+    
     $('#divExperienceProgressBar').css('right', rightPosition);
     $('#divExperienceProgressBar').css('top', topPosition);
 
@@ -73,6 +73,14 @@ function InitializeParty() {
 }
 
 function InitializeActionBar() {
+}
+
+function InitializeMasonryContainer() {
+    var windowHeight = $(window).height();
+    var windowWidth = $(window).width();
+
+    $('#divMasonryContainer').css('max-height', windowHeight);
+    $('#divMasonryContainer').css('max-width', windowWidth);
 }
 
 function BuildInventoryItemTable() {

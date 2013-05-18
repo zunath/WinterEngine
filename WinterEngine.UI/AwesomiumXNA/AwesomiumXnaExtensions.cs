@@ -3,16 +3,15 @@
 using System;
 using Awesomium.Core;
 using Microsoft.Xna.Framework.Graphics;
-/*
+
 namespace AwesomiumXNA
 {
     public static class AwesomiumXnaExtensions
     {
-        public static Texture2D RenderTexture2D(this RenderBuffer buffer, Texture2D texture)
+        public static Texture2D RenderTexture2D(this BitmapSurface Buffer, Texture2D Texture)
         {
-            TextureFormatConverter.DirectBlit(buffer, ref texture);
-            return texture;
+            TextureFormatConverter.DirectBlit(Buffer, ref Texture);
+            return Texture;
         }
     }
 }
-*/

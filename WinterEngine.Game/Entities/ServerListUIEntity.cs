@@ -27,7 +27,7 @@ using WinterEngine.Network.Entities;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class ServerListGuiEntity
+	public partial class ServerListUIEntity
     {
         #region Fields
 

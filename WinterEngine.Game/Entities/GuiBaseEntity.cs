@@ -13,9 +13,10 @@ using WinterEngine.UI.AwesomiumXNA;
 using FlatRedBall.Math;
 using WinterEngine.Network;
 using WinterEngine.Network.Entities;
-using System.Windows.Forms;
 using FlatRedBall.Gui;
-
+using WinterEngine.Game.Services;
+using Microsoft.Xna.Framework.Graphics;
+using AwesomiumXNA;
 
 
 #endif
@@ -28,10 +29,9 @@ namespace WinterEngine.Game.Entities
 
         private WebView _webView;
         private Texture2D _texture;
-        private Bitmap _frameBuffer;
-        private Rectangle _drawRectangle;
-        private byte[] _bytes;
-        
+        private SpriteBatch _batch;
+        private JSObject _globalJavascriptObject;
+
         #endregion
 
         #region Properties
@@ -40,6 +40,11 @@ namespace WinterEngine.Game.Entities
         {
             get { return _webView; }
             set { _webView = value; }
+        }
+
+        public JSObject GlobalJavascriptObject
+        {
+            get { return _globalJavascriptObject; }
         }
 
         /// <summary>
@@ -56,30 +61,19 @@ namespace WinterEngine.Game.Entities
 
         private void CustomInitialize()
         {
-            _webView = WebCore.CreateWebView(SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
-            _webView.IsTransparent = true;
-            
-            _webView.Source = URI;
-            SetUpDrawSurfaces();
-            // DEBUGGING
-            _webView.FocusView();
-            // END DEBUGGING
+            InitializeAwesomium();
 
-		}
+            WinterEngineService.OnXNAUpdate += UpdateAwesomium;
+            WinterEngineService.OnXNADraw += DrawAwesomium;
+        }
 
 		private void CustomActivity()
 		{
-            RenderAwesomiumTexture();
-            ManageUserInput();
 		}
 
 		private void CustomDestroy()
         {
             _texture.Dispose();
-            _frameBuffer.Dispose();
-            SpriteInstance.Texture = null;
-            _texture = null;
-            _bytes = null;
 		}
 
         private static void CustomLoadStaticContent(string contentManagerName)
@@ -89,39 +83,19 @@ namespace WinterEngine.Game.Entities
         }
         #endregion
 
-        #region Rendering Methods
+        #region Methods
 
-        private void SetUpDrawSurfaces()
-        {
-            _texture = new Texture2D(FlatRedBallServices.GraphicsDevice, SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
-            _frameBuffer = new Bitmap(SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            _drawRectangle = new Rectangle(0, 0, SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
-            SpriteInstance.Texture = _texture;
-        }
+        #endregion
+
+        #region Rendering Methods
 
         private void RenderAwesomiumTexture()
         {
             BitmapSurface surface = (BitmapSurface)_webView.Surface;
 
-            // only render if the view needs it and the texture still exists
-            if (!Object.ReferenceEquals(surface, null) && surface.IsDirty && !_texture.IsDisposed)
+            if (surface != null)
             {
-                // create some bitmap data that we can draw to programmatically
-                BitmapData bits = _frameBuffer.LockBits(_drawRectangle, ImageLockMode.ReadWrite, _frameBuffer.PixelFormat);
-
-                surface.CopyTo(bits.Scan0, bits.Stride, 4, true, false);
-
-                // create our pixel buffer
-                _bytes = new byte[bits.Height * bits.Stride];
-
-                // use interop to copy unmanaged memory into a managed type we can work with
-                System.Runtime.InteropServices.Marshal.Copy(bits.Scan0, _bytes, 0, _bytes.Length);
-
-                // unlock the bits and update texture
-                _frameBuffer.UnlockBits(bits);
-                _texture.SetData(_bytes);
-
-                surface.IsDirty = true;
+                surface.RenderTexture2D(_texture);
             }
         }
 
@@ -135,55 +109,22 @@ namespace WinterEngine.Game.Entities
 
         #region Input handling
 
-        private void ManageUserInput()
+        private void MouseMoveHandler(object sender, MouseEventArgs e)
         {
-            if (!_webView.IsLoading && InputManager.Mouse.IsInGameWindow())
-            {
-                int relativeMouseX = (int)GuiManager.Cursor.ScreenX;
-                int relativeMouseY = (int)GuiManager.Cursor.ScreenY;
-
-                Rectangle windowRectangle = new Rectangle(0, 0, SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
-
-
-                // Mouse down and scroll wheel events only fire if the mouse is within the bounds of the
-                // GUI window.
-                if (windowRectangle.Contains(relativeMouseX, relativeMouseY))
-                {
-                    _webView.InjectMouseMove(relativeMouseX, relativeMouseY);
-
-                    // Left mouse button pushed down.
-                    if (InputManager.Mouse.ButtonDown(Mouse.MouseButtons.LeftButton))
-                    {
-                        _webView.InjectMouseDown(MouseButton.Left);
-                    }
-                    // Right mouse button pushed down
-                    if (InputManager.Mouse.ButtonDown(Mouse.MouseButtons.RightButton))
-                    {
-                        _webView.InjectMouseDown(MouseButton.Right);
-                    }
-
-                    // Mouse wheel scroll - multiply by 10 because FRB values are very small.
-                    _webView.InjectMouseWheel((int)InputManager.Mouse.ScrollWheel * 10, 0);
-                }
-
-                // Left mouse button released.
-                if (InputManager.Mouse.ButtonReleased(Mouse.MouseButtons.LeftButton))
-                {
-                    _webView.InjectMouseUp(MouseButton.Left);
-                }
-                // Right mouse button released.
-                if (InputManager.Mouse.ButtonReleased(Mouse.MouseButtons.RightButton))
-                {
-                    _webView.InjectMouseUp(MouseButton.Right);
-                }
-
-
-                // Keyboard entry handling
-                
-            }
+            _webView.InjectMouseMove(e.X, e.Y);
         }
 
-        public void FullKeyHandler(object sender, uint msg, IntPtr wParam, IntPtr lParam)
+        private void MouseDownHandler(object sender, MouseEventArgs e)
+        {
+            _webView.InjectMouseDown((Awesomium.Core.MouseButton)((int)e.Button - 1));
+        }
+
+        private void MouseUpHandler(object sender, MouseEventArgs e)
+        {
+            _webView.InjectMouseUp((Awesomium.Core.MouseButton)((int)e.Button - 1));
+        }
+
+        private void FullKeyHandler(object sender, uint msg, IntPtr wParam, IntPtr lParam)
         {
             if (!_webView.IsLoading)
             {
@@ -197,6 +138,71 @@ namespace WinterEngine.Game.Entities
         #endregion
 
         #region Awesomium Event Handling
+
+        private void InitializeAwesomium()
+        {
+            SetUpAwesomiumDimensions();
+
+            if (!InputSystem.IsInitialized)
+            {
+                InputSystem.Initialize(FlatRedBallServices.Game.Window);
+            }
+
+            InputSystem.MouseMove += MouseMoveHandler;
+            InputSystem.MouseDown += MouseDownHandler;
+            InputSystem.MouseUp += MouseUpHandler;
+            InputSystem.FullKeyHandler += FullKeyHandler;
+
+            FlatRedBallServices.Game.Window.ClientSizeChanged += ResizeWindow;
+            _webView.DocumentReady += OnDocumentReady;
+        }
+
+        private void OnDocumentReady(object sender, EventArgs e)
+        {
+            _webView.DocumentReady -= OnDocumentReady;
+            _globalJavascriptObject = _webView.CreateGlobalJavascriptObject("GlobalJavascriptObject");
+        }
+
+        private void UpdateAwesomium(object sender, EventArgs e)
+        {
+            RenderAwesomiumTexture();
+        }
+
+        private void DrawAwesomium(object sender, EventArgs e)
+        {
+            Microsoft.Xna.Framework.Rectangle destinationRectangle = new Microsoft.Xna.Framework.Rectangle(0, 0,
+                SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
+
+            _batch.Begin();
+
+            _batch.Draw(_texture, destinationRectangle, Microsoft.Xna.Framework.Color.White);
+            
+            _batch.End();
+        }
+
+        private void ResizeWindow(object sender, EventArgs e)
+        {
+            RefreshAwesomiumDimensions();
+        }
+
+        private void SetUpAwesomiumDimensions()
+        {
+            _webView = WebCore.CreateWebView(SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
+            _webView.IsTransparent = true;
+            _webView.Source = URI;
+            _batch = new SpriteBatch(FlatRedBallServices.GraphicsDevice);
+
+            _texture = new Texture2D(FlatRedBallServices.GraphicsDevice, SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
+
+            _webView.FocusView();
+        }
+
+        private void RefreshAwesomiumDimensions()
+        {
+            _webView.Width = SpriteManager.Camera.DestinationRectangle.Width;
+            _webView.Height = SpriteManager.Camera.DestinationRectangle.Height;
+            _texture = new Texture2D(FlatRedBallServices.GraphicsDevice, SpriteManager.Camera.DestinationRectangle.Width, SpriteManager.Camera.DestinationRectangle.Height);
+        }
 
         #endregion
 

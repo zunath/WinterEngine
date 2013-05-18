@@ -68,13 +68,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AwesomiumXNA\AwesomiumComponent.cs" />
-    <Compile Include="AwesomiumXNA\AwesomiumSharpExtensions.cs" />
+    <Compile Include="AwesomiumXNA\AwesomiumXnaExtensions.cs" />
     <Compile Include="AwesomiumXNA\EventInputHandling.cs" />
     <Compile Include="AwesomiumXNA\TextureConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Components\GameUI.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Components\MainMenu.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\DataTables\back_disabled.png">
@@ -113,6 +116,12 @@
     <Content Include="Images\DataTables\sort_desc_disabled.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Placeholder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\WinterEngineLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\GameUI.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -128,6 +137,9 @@
     <Content Include="Scripts\jquery.masonry.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\MainMenu.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Styling\DataTables\jquery.dataTables.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -138,6 +150,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Styling\Game\GameStyles.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Game\MainMenuStyles.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Game\SharedStyles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Styling\jQueryUI\images\animated-overlay.gif">

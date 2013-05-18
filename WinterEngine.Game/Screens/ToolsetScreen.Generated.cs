@@ -32,22 +32,19 @@ using Microsoft.Xna.Framework.Media;
 using WinterEngine.Game.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
-using FlatRedBall.Graphics;
 
 namespace WinterEngine.Game.Screens
 {
-	public partial class ServerListScreen : Screen
+	public partial class ToolsetScreen : Screen
 	{
 		// Generated Fields
 		#if DEBUG
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private FlatRedBall.Graphics.Layer GUILayer;
-		private WinterEngine.Game.Entities.GameUIEntity GameUIEntityInstance;
 
-		public ServerListScreen()
-			: base("ServerListScreen")
+		public ToolsetScreen()
+			: base("ToolsetScreen")
 		{
 		}
 
@@ -55,10 +52,6 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			GUILayer = new FlatRedBall.Graphics.Layer();
-			GUILayer.Name = "GUILayer";
-			GameUIEntityInstance = new WinterEngine.Game.Entities.GameUIEntity(ContentManagerName, false);
-			GameUIEntityInstance.Name = "GameUIEntityInstance";
 			
 			
 			PostInitialize();
@@ -73,9 +66,6 @@ namespace WinterEngine.Game.Screens
 // Generated AddToManagers
 		public override void AddToManagers ()
 		{
-			SpriteManager.AddLayer(GUILayer);
-			GUILayer.UsePixelCoordinates();
-			GUILayer.RelativeToCamera = false;
 			base.AddToManagers();
 			AddToManagersBottomUp();
 			CustomInitialize();
@@ -88,7 +78,6 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				GameUIEntityInstance.Activity();
 			}
 			else
 			{
@@ -109,15 +98,6 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
-			if (GUILayer != null)
-			{
-				SpriteManager.RemoveLayer(GUILayer);
-			}
-			if (GameUIEntityInstance != null)
-			{
-				GameUIEntityInstance.Destroy();
-				GameUIEntityInstance.Detach();
-			}
 
 			base.Destroy();
 
@@ -130,22 +110,13 @@ namespace WinterEngine.Game.Screens
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
-			GUILayer.RelativeToCamera = false;
-			if (GameUIEntityInstance.Parent == null)
-			{
-				GameUIEntityInstance.CopyAbsoluteToRelative();
-				GameUIEntityInstance.RelativeZ += -40;
-				GameUIEntityInstance.AttachTo(SpriteManager.Camera, false);
-			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
-			GameUIEntityInstance.AddToManagers(GUILayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
-			GameUIEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -163,8 +134,6 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
-			WinterEngine.Game.Entities.ServerListUIEntity.LoadStaticContent(contentManagerName);
-			WinterEngine.Game.Entities.GameUIEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

@@ -40,7 +40,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class GameUIEntity : WinterEngine.Game.Entities.GuiBaseEntity, IDestroyable
+	public partial class ServerListUIEntity : WinterEngine.Game.Entities.GuiBaseEntity, IDestroyable, IVisible
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static new string ContentManagerName
@@ -59,14 +59,58 @@ namespace WinterEngine.Game.Entities
 		
 		public int Index { get; set; }
 		public bool Used { get; set; }
+		public event EventHandler BeforeVisibleSet;
+		public event EventHandler AfterVisibleSet;
+		protected bool mVisible = true;
+		public virtual bool Visible
+		{
+			get
+			{
+				return mVisible;
+			}
+			set
+			{
+				if (BeforeVisibleSet != null)
+				{
+					BeforeVisibleSet(this, null);
+				}
+				mVisible = value;
+				if (AfterVisibleSet != null)
+				{
+					AfterVisibleSet(this, null);
+				}
+			}
+		}
+		public bool IgnoresParentVisibility { get; set; }
+		public bool AbsoluteVisible
+		{
+			get
+			{
+				return Visible && (Parent == null || IgnoresParentVisibility || Parent is IVisible == false || (Parent as IVisible).AbsoluteVisible);
+			}
+		}
+		IVisible IVisible.Parent
+		{
+			get
+			{
+				if (this.Parent != null && this.Parent is IVisible)
+				{
+					return this.Parent as IVisible;
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
 
-        public GameUIEntity(string contentManagerName) :
+        public ServerListUIEntity(string contentManagerName) :
             this(contentManagerName, true)
         {
         }
 
 
-        public GameUIEntity(string contentManagerName, bool addToManagers) :
+        public ServerListUIEntity(string contentManagerName, bool addToManagers) :
 			base(contentManagerName, addToManagers)
 		{
 			// Don't delete this:
@@ -119,7 +163,7 @@ namespace WinterEngine.Game.Entities
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
 			base.PostInitialize();
-			ResourcePath = "file:///./Components/GameUI.html";
+			ResourcePath = "file:///./Components/ServerList.html";
 			X = 0f;
 			Y = 0f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
@@ -142,7 +186,7 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
-			ResourcePath = "file:///./Components/GameUI.html";
+			ResourcePath = "file:///./Components/ServerList.html";
 			X = 0f;
 			Y = 0f;
 			X = oldX;
@@ -184,7 +228,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("GameUIEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("ServerListUIEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -195,7 +239,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("GameUIEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("ServerListUIEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -239,8 +283,16 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class GameUIEntityExtensionMethods
+	public static class ServerListUIEntityExtensionMethods
 	{
+		public static void SetVisible (this PositionedObjectList<ServerListUIEntity> list, bool value)
+		{
+			int count = list.Count;
+			for (int i = 0; i < count; i++)
+			{
+				list[i].Visible = value;
+			}
+		}
 	}
 	
 }

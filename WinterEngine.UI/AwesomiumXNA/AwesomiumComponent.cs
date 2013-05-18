@@ -190,7 +190,7 @@ namespace AwesomiumXNA
                     case WindowsMessage.KeyDown:
                     case WindowsMessage.KeyUp:
                     case WindowsMessage.Char:
-                        WebView.InjectKeyboardEventWin(lParam.Msg, (Int32)lParam.WParam, (Int32)lParam.LParam);
+                        WebView.InjectKeyboardEvent(lParam.Msg, (Int32)lParam.WParam, (Int32)lParam.LParam);
                         break;
 
                     case WindowsMessage.MouseMove:
@@ -300,5 +300,4 @@ namespace AwesomiumXNA
         }
     }
 }
-
 */

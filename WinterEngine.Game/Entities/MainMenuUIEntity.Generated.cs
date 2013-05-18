@@ -40,7 +40,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class ServerListGuiEntity : WinterEngine.Game.Entities.GuiBaseEntity, IDestroyable, IVisible
+	public partial class MainMenuUIEntity : WinterEngine.Game.Entities.GuiBaseEntity, IDestroyable
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static new string ContentManagerName
@@ -59,35 +59,14 @@ namespace WinterEngine.Game.Entities
 		
 		public int Index { get; set; }
 		public bool Used { get; set; }
-		public event EventHandler BeforeVisibleSet;
-		public event EventHandler AfterVisibleSet;
-		public override bool Visible
-		{
-			get
-			{
-				return mVisible;
-			}
-			set
-			{
-				if (BeforeVisibleSet != null)
-				{
-					BeforeVisibleSet(this, null);
-				}
-				base.Visible = value;
-				if (AfterVisibleSet != null)
-				{
-					AfterVisibleSet(this, null);
-				}
-			}
-		}
 
-        public ServerListGuiEntity(string contentManagerName) :
+        public MainMenuUIEntity(string contentManagerName) :
             this(contentManagerName, true)
         {
         }
 
 
-        public ServerListGuiEntity(string contentManagerName, bool addToManagers) :
+        public MainMenuUIEntity(string contentManagerName, bool addToManagers) :
 			base(contentManagerName, addToManagers)
 		{
 			// Don't delete this:
@@ -140,9 +119,7 @@ namespace WinterEngine.Game.Entities
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
 			base.PostInitialize();
-			ResourcePath = "file:///./Components/ServerList.html";
-			ScaleX = 1f;
-			ScaleY = 1f;
+			ResourcePath = "file:///./Components/MainMenu.html";
 			X = 0f;
 			Y = 0f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
@@ -165,9 +142,7 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
-			ResourcePath = "file:///./Components/ServerList.html";
-			ScaleX = 1f;
-			ScaleY = 1f;
+			ResourcePath = "file:///./Components/MainMenu.html";
 			X = 0f;
 			Y = 0f;
 			X = oldX;
@@ -209,7 +184,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("ServerListGuiEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("MainMenuUIEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -220,7 +195,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("ServerListGuiEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("MainMenuUIEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -264,16 +239,8 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class ServerListGuiEntityExtensionMethods
+	public static class MainMenuUIEntityExtensionMethods
 	{
-		public static void SetVisible (this PositionedObjectList<ServerListGuiEntity> list, bool value)
-		{
-			int count = list.Count;
-			for (int i = 0; i < count; i++)
-			{
-				list[i].Visible = value;
-			}
-		}
 	}
 	
 }
