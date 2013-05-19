@@ -161,3 +161,13 @@ function ToggleLoginPopUpControls(disabled) {
     $('#btnCreateAccount').attr('disabled', disabled);
 
 }
+
+/* Logo Links */
+
+function FlatRedBallLogoLink() {
+    GlobalJavascriptObject.FlatRedBallLogoLinkClick();
+}
+
+function XNALogoLink() {
+    GlobalJavascriptObject.XNALogoLinkClick();
+}

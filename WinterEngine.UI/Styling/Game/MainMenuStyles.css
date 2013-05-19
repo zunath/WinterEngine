@@ -53,3 +53,17 @@
 {
     text-align:center;
 }
+
+.clsFRBLogo
+{
+    float:right;
+    width: 28%;
+    height: 150%;
+}
+
+.clsXNALogo
+{
+    float:right;
+    width:25%;
+    height:100%;
+}

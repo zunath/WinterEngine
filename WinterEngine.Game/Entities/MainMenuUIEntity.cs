@@ -99,6 +99,11 @@ namespace WinterEngine.Game.Entities
             GlobalJavascriptObject.Bind("GetFirstName", true, GetFirstName);
             GlobalJavascriptObject.Bind("GetLastName", true, GetLastName);
             GlobalJavascriptObject.Bind("GetDateOfBirth", true, GetDateOfBirth);
+
+            // Logo Links
+            GlobalJavascriptObject.Bind("FlatRedBallLogoLinkClick", false, FlatRedBallLogoLinkClick);
+            GlobalJavascriptObject.Bind("XNALogoLinkClick", false, XNALogoLinkClick);
+
         }
 
         #endregion
@@ -169,6 +174,16 @@ namespace WinterEngine.Game.Entities
         private void ExitButtonClick(object sender, JavascriptMethodEventArgs args)
         {
             FlatRedBallServices.Game.Exit();
+        }
+
+        private void FlatRedBallLogoLinkClick(object sender, JavascriptMethodEventArgs args)
+        {
+            Process.Start("http://www.flatredball.com/");
+        }
+
+        private void XNALogoLinkClick(object sender, JavascriptMethodEventArgs args)
+        {
+            Process.Start("http://msdn.microsoft.com/en-us/centrum-xna.aspx");
         }
 
         #endregion
