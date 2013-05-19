@@ -11,8 +11,8 @@ namespace WinterEngine.Network.Configuration
         // Values are stored in this class rather than app.config because
         // libraries do not pick up their own app.config files - they use the 
         // application's app.config file.
-        private const string _masterServerURL = "https://www.winterengine.com/";
-        //private const string _masterServerURL = "http://localhost:12901/";
+        //private const string _masterServerURL = "https://www.winterengine.com/";
+        private const string _masterServerURL = "http://localhost:12901/";
         private const int _masterServerPort = 5122;
 
         /// <summary>

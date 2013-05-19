@@ -13,7 +13,6 @@ namespace WinterEngine.Network.Entities
         public string UserEmail { get; set; }
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
-        public DateTime UserBirthday { get; set; }
-        public UserProfileGenderTypeEnum UserGender { get; set; }
+        public DateTime UserDOB { get; set; }
     }
 }

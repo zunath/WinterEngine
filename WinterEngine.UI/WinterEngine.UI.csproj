@@ -137,6 +137,7 @@
     <Content Include="Scripts\jquery.masonry.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\MainMenu.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

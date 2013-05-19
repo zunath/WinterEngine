@@ -26,3 +26,30 @@
     font-size:16px;
     font-weight:bold;
 }
+
+.clsLoginButton
+{
+    width: 50%;
+    height: 100%;
+    border: dashed 5px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    float:left
+}
+
+.clsLoginInputBox
+{
+    width: 98%;
+    height: 98%;
+}
+
+.clsLoginDiv
+{
+    overflow: hidden;
+}
+
+.clsCreateAccountDiv
+{
+    text-align:center;
+}

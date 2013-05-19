@@ -17,6 +17,7 @@ using FlatRedBall.Gui;
 using WinterEngine.Game.Services;
 using Microsoft.Xna.Framework.Graphics;
 using AwesomiumXNA;
+using FlatRedBall.Graphics;
 
 
 #endif
@@ -73,7 +74,6 @@ namespace WinterEngine.Game.Entities
 
 		private void CustomDestroy()
         {
-            _texture.Dispose();
 		}
 
         private static void CustomLoadStaticContent(string contentManagerName)

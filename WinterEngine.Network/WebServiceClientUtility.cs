@@ -57,7 +57,9 @@ namespace WinterEngine.Network
         private string SendJsonRequest(string methodName, WebServiceMethodTypeEnum methodType, object jsonObject)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(BuildURLString(methodType) + methodName);
-            
+            request.ContentType = "application/json; charset=utf-8";
+            request.Method = "POST";
+
             using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
             {
                 writer.Write(jsonObject);
@@ -143,17 +145,21 @@ namespace WinterEngine.Network
 
         /// <summary>
         /// Sends a user's master server login credentials to the master server.
+        /// If successful, the user's profile information will be sent back
+        /// excluding the password.
         /// </summary>
         /// <param name="loginCredentials"></param>
         /// <returns></returns>
-        public bool AttemptUserLogin(LoginCredentials loginCredentials)
+        public UserProfile AttemptUserLogin(LoginCredentials loginCredentials)
         {
             try
             {
+                //loginCredentials.Password = BCrypt.Net.BCrypt.HashPassword(loginCredentials.Password);
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string jsonObject = serializer.Serialize(loginCredentials);
                 string result = SendJsonRequest("ValidateLoginCredentials", WebServiceMethodTypeEnum.User, jsonObject);
-                return serializer.Deserialize<bool>(result);
+                
+                return serializer.Deserialize<UserProfile>(result);
             }
             catch(Exception ex)
             {
@@ -170,6 +176,7 @@ namespace WinterEngine.Network
         {
             try
             {
+                //profile.UserPassword = BCrypt.Net.BCrypt.HashPassword(profile.UserPassword);
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string jsonObject = serializer.Serialize(profile);
                 string result = SendJsonRequest("UpdateUserProfile", WebServiceMethodTypeEnum.User, jsonObject);

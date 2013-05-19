@@ -130,6 +130,33 @@
     </ScreenSave>
     <ScreenSave>
       <Name>Screens\ToolsetScreen</Name>
+      <NamedObjects>
+        <NamedObjectSave>
+          <CustomProperty>
+            <Type>bool</Type>
+            <Member>RelativeToCamera</Member>
+            <ValueAsBool>false</ValueAsBool>
+          </CustomProperty>
+          <SourceType>FlatRedBallType</SourceType>
+          <SourceClassType>Layer</SourceClassType>
+          <InstanceName>GUILayer</InstanceName>
+          <AttachToContainer>false</AttachToContainer>
+          <AddToManagers>true</AddToManagers>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <Is2D>true</Is2D>
+          <LayerCoordinateType>MatchScreenResolution</LayerCoordinateType>
+        </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>Entity</SourceType>
+          <SourceClassType>Entities\ToolsetUIEntity</SourceClassType>
+          <InstanceName>ToolsetUIEntityInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <AttachToCamera>true</AttachToCamera>
+          <AddToManagers>true</AddToManagers>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <LayerOn>GUILayer</LayerOn>
+        </NamedObjectSave>
+      </NamedObjects>
     </ScreenSave>
   </Screens>
   <Entities>

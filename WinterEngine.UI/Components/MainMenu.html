@@ -13,16 +13,81 @@
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src="../Scripts/jquery.masonry.min.js"></script>
+    <script src="../Scripts/jquery.validate.js"></script>
     <script src="../Scripts/MainMenu.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            Initialize();
+        });
+    </script>
 </head>
 <body class="clsMainMenuBackground">
-    <img src="../Images/WinterEngineLogo.png" class="clsMainMenuLogo"/>
+    <img src="../Images/WinterEngineLogo.png" class="clsMainMenuLogo" />
     <br />
-    <input type="button" value="Find Server" class="clsMainMenuButton" onclick="FindServerButton();"/>
-    <input type="button" value="Toolset" class="clsMainMenuButton" onclick="ToolsetButton();" />
-    <input type="button" value="Settings" class="clsMainMenuButton" onclick="SettingsButton();" />
-    <input type="button" value="Forums" class="clsMainMenuButton" onclick="ForumsButton();" />
-    <input type="button" value="Exit" class="clsMainMenuButton" onclick="ExitButton();" />
+    <input id="btnLoginLogout" type="button" value="Login" class="clsMainMenuButton" onclick="OpenLoginBox();" />
+    <input id="btnProfile" type="button" value="My Profile" class="clsMainMenuButton" onclick="OpenUserProfileBox();" />
+    <input id="btnFindServer" type="button" value="Find Server" class="clsMainMenuButton" onclick="FindServerButton();" disabled="disabled" />
+    <input id="btnToolset" type="button" value="Toolset" class="clsMainMenuButton" onclick="ToolsetButton();" />
+    <input id="btnSettings" type="button" value="Game Settings" class="clsMainMenuButton" onclick="SettingsButton();" />
+    <input id="btnWebsite" type="button" value="Website" class="clsMainMenuButton" onclick="WebsiteButton();" />
+    <input id="btnForums" type="button" value="Forums" class="clsMainMenuButton" onclick="ForumsButton();" />
+    <input id="btnExit" type="button" value="Exit" class="clsMainMenuButton" onclick="ExitButton();" />
+
+
+    <div id="divLogin" class="clsLoginDiv">
+
+        <label id="lblUsername">Username:</label>
+        <input id="txtUsername" maxlength="32" type="text" class="clsLoginInputBox" />
+        <label id="lblPassword">Password:</label>
+        <input id="txtPassword" maxlength="60" type="password" class="clsLoginInputBox" />
+        <br />
+        <input id="chkSaveCredentials" type="checkbox" title="test"/>
+        <label for="chkSaveCredentials">Save credentials</label>
+        <br />
+        <div id="divLoggingInProgressBarContainer" class="clsHidden">
+            <br />
+            <div id="divLoggingInProgressBar"></div>
+        </div>
+        <label id="lblErrorMessage" class="clsErrorMessage clsHidden">Incorrect username or password</label>
+        <br />
+        <input id="btnLogin" type="button" value="Login" class="clsLoginButton" onclick="LoginButton();"/>
+        <input id="btnCancelLogin" type="button" value="Cancel" class="clsLoginButton" onclick="CloseLoginBox();"/>
+        <br />
+        <div class="clsCreateAccountDiv">
+            <input id="btnCreateAccount" type="button" value="Create Account" class="clsMainMenuButton" onclick="CreateAccountOpenBox();" />
+        </div>
+    </div>
+
+
+    <div id="divUserProfile" class="clsLoginDiv">
+        <label id="lblProfileUsername">Username:</label>
+        <input id="txtProfileUsername" type="text" disabled="disabled" readonly="true" class="clsLoginInputBox" />
+        
+        <label id="lblProfilePassword">Change Password:</label>
+        <input id="txtProfilePassword" type="password" class="clsLoginInputBox" />
+        
+        <label id="lblConfirmProfilePassword">Confirm Change Password:</label>
+        <input id="txtConfirmProfilePassword" type="password" class="clsLoginInputBox" />
+        
+        <label id="lblEmail">Email:</label>
+        <input id="txtEmail" type="text" class="clsLoginInputBox required" />
+        
+        <label id="lblFirstName">First Name:</label>
+        <input id="txtFirstName" type="text" class="clsLoginInputBox" />
+        
+        <label id="lblLastName">Last Name:</label>
+        <input id="txtLastName" type="text" class="clsLoginInputBox" />
+        
+        <label id="lblDOB">Birthday:</label>
+        <input id="txtDOB" type="text" class="clsLoginInputBox" />
+        
+        <br />
+        <br />
+        
+        <input id="btnSaveProfile" type="button" value="Save Changes" class="clsLoginButton" onclick="SaveProfileButton();"/>
+        <input id="btnCancelProfile" type="button" value="Cancel" class="clsLoginButton" onclick="CloseUserProfileBox();" />
+    </div>
 
 </body>
 </html>
