@@ -134,11 +134,11 @@
     </Compile>
     <Compile Include="Entities\MainMenuUIEntity.cs" />
     <Compile Include="Entities\MainMenuUIEntity.Generated.cs">
-      <DependentUpon>mainmenuuientity.cs</DependentUpon>
+      <DependentUpon>MainMenuUIEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\ServerListUIEntity.cs" />
     <Compile Include="Entities\ServerListUIEntity.Generated.cs">
-      <DependentUpon>serverlistuientity.cs</DependentUpon>
+      <DependentUpon>ServerListUIEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\ToolsetUIEntity.cs" />
     <Compile Include="Entities\ToolsetUIEntity.Generated.cs">
