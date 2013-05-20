@@ -83,7 +83,7 @@
     <Compile Include="Enums\RequestTypeEnum.cs" />
     <Compile Include="Configuration\LobbyServerConfiguration.cs" />
     <Compile Include="Enums\PacketTypeEnum.cs" />
-    <Compile Include="Enums\UserProfileGenderTypeEnum.cs" />
+    <Compile Include="Enums\UserProfileResponseTypeEnum.cs" />
     <Compile Include="Enums\WebServiceMethodTypeEnum.cs" />
     <Compile Include="ExtendedEventArgs\ServerPropertiesEventArgs.cs" />
     <Compile Include="WebServiceClientUtility.cs" />

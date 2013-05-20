@@ -24,6 +24,7 @@ using FlatRedBall.Screens;
 using WinterEngine.Game.Screens;
 using WinterEngine.Network;
 using WinterEngine.Network.Entities;
+using WinterEngine.Network.Enums;
 
 
 #endif
@@ -90,6 +91,7 @@ namespace WinterEngine.Game.Entities
             GlobalJavascriptObject.Bind("ForumsButtonClick", false, ForumsButtonClick);
             GlobalJavascriptObject.Bind("ExitButtonClick", false, ExitButtonClick);
 
+            GlobalJavascriptObject.Bind("CreateProfileButtonClick", true, CreateProfileButtonClick);
             GlobalJavascriptObject.Bind("SaveProfileButtonClick", true, SaveProfileButtonClick);
         
             // User profile data binding
@@ -153,22 +155,40 @@ namespace WinterEngine.Game.Entities
             Process.Start("https://www.winterengine.com/forum");
         }
 
-        private void SaveProfileButtonClick(object sender, JavascriptMethodEventArgs args)
+        private void CreateProfileButtonClick(object sender, JavascriptMethodEventArgs args)
         {
-            if(!Object.ReferenceEquals(Profile, null))
-            {   
+            UserProfileResponseTypeEnum responseType = UserProfileResponseTypeEnum.Failure;
+
+            string password = args.Arguments[1];
+            string confirmPassword = args.Arguments[2];
+
+            if (password == confirmPassword)
+            {
                 UserProfile profile = new UserProfile
                 {
                     UserName = args.Arguments[0],
                     UserPassword = args.Arguments[1],
-                    UserEmail = args.Arguments[2],
-                    UserFirstName = args.Arguments[3],
-                    UserLastName = args.Arguments[4],
-                    UserDOB = DateTime.Parse(args.Arguments[5])
+                    UserEmail = args.Arguments[3],
+                    UserFirstName = args.Arguments[4],
+                    UserLastName = args.Arguments[5],
                 };
+                DateTime parsedDOB;
+                DateTime.TryParse(args.Arguments[6], out parsedDOB);
+                profile.UserDOB = parsedDOB;
+
                 WebServiceClientUtility utility = new WebServiceClientUtility();
-                args.Result = utility.SendUserProfile(profile);
+                responseType = utility.SendUserProfile(profile, true);
             }
+            else
+            {
+                responseType = UserProfileResponseTypeEnum.PasswordMismatch;
+            }
+            
+            args.Result = Convert.ToInt32(responseType);
+        }
+
+        private void SaveProfileButtonClick(object sender, JavascriptMethodEventArgs args)
+        {
         }
 
         private void ExitButtonClick(object sender, JavascriptMethodEventArgs args)

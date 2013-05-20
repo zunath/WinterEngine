@@ -171,16 +171,27 @@ namespace WinterEngine.Network
         /// Sends a user's profile to the master server.
         /// </summary>
         /// <param name="profile">The user's profile containing username, password, email, etc.</param>
+        /// <param name="createNewProfile">If true, the account will attempt to be created. If false, it will be updated.</param>
         /// <returns></returns>
-        public bool SendUserProfile(UserProfile profile)
+        public UserProfileResponseTypeEnum SendUserProfile(UserProfile profile, bool createNewProfile)
         {
             try
             {
                 //profile.UserPassword = BCrypt.Net.BCrypt.HashPassword(profile.UserPassword);
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string jsonObject = serializer.Serialize(profile);
-                string result = SendJsonRequest("UpdateUserProfile", WebServiceMethodTypeEnum.User, jsonObject);
-                return serializer.Deserialize<bool>(result);
+                string result;
+                
+                if(createNewProfile)
+                {
+                    result = SendJsonRequest("CreateUserProfile", WebServiceMethodTypeEnum.User, jsonObject);
+                }
+                else
+                {   
+                    result = SendJsonRequest("UpdateUserProfile", WebServiceMethodTypeEnum.User, jsonObject);
+                }
+
+                return serializer.Deserialize<UserProfileResponseTypeEnum>(result);
             }
             catch (Exception ex)
             {

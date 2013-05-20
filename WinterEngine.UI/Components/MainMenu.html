@@ -23,6 +23,7 @@
     </script>
 </head>
 <body class="clsMainMenuBackground">
+
     <img src="../Images/WinterEngineLogo.png" class="clsMainMenuLogo" />
     <br />
     <input id="btnLoginLogout" type="button" value="Login" class="clsMainMenuButton" onclick="OpenLoginBox();" />
@@ -33,63 +34,85 @@
     <input id="btnWebsite" type="button" value="Website" class="clsMainMenuButton" onclick="WebsiteButton();" />
     <input id="btnForums" type="button" value="Forums" class="clsMainMenuButton" onclick="ForumsButton();" />
     <input id="btnExit" type="button" value="Exit" class="clsMainMenuButton" onclick="ExitButton();" />
-    
+
     <img id="imgXNALogo" src="../Images/xnalogo.png" class="clsXNALogo" onclick="XNALogoLink();" />
     <img id="imgFRBLogo" src="../Images/FRBLogo.png" class="clsFRBLogo" onclick="FlatRedBallLogoLink();" />
-    
-    
+
+
     <div id="divLogin" class="clsLoginDiv">
 
-        <label id="lblUsername">Username:</label>
-        <input id="txtUsername" maxlength="32" type="text" class="clsLoginInputBox" />
-        <label id="lblPassword">Password:</label>
-        <input id="txtPassword" maxlength="60" type="password" class="clsLoginInputBox" />
-        <br />
-        <input id="chkSaveCredentials" type="checkbox" title="test"/>
-        <label for="chkSaveCredentials">Save credentials</label>
-        <br />
-        <div id="divLoggingInProgressBarContainer" class="clsHidden">
+        <form id="formLogin">
+
+            <label id="lblUsername">Username:</label>
+            <input id="txtUsername" maxlength="32" type="text" class="clsLoginInputBox required" />
+            <label id="lblPassword">Password:</label>
+            <input id="txtPassword" maxlength="60" type="password" class="clsLoginInputBox required" />
             <br />
-            <div id="divLoggingInProgressBar"></div>
-        </div>
-        <label id="lblErrorMessage" class="clsErrorMessage clsHidden">Incorrect username or password</label>
-        <br />
-        <input id="btnLogin" type="button" value="Login" class="clsLoginButton" onclick="LoginButton();"/>
-        <input id="btnCancelLogin" type="button" value="Cancel" class="clsLoginButton" onclick="CloseLoginBox();"/>
-        <br />
-        <div class="clsCreateAccountDiv">
-            <input id="btnCreateAccount" type="button" value="Create Account" class="clsMainMenuButton" onclick="CreateAccountOpenBox();" />
-        </div>
+            <input id="chkSaveCredentials" type="checkbox" title="test" />
+            <label for="chkSaveCredentials">Save credentials</label>
+            <br />
+            <div id="divLoggingInProgressBarContainer" class="clsHidden">
+                <br />
+                <div id="divLoggingInProgressBar"></div>
+            </div>
+            <label id="lblErrorMessage" class="clsErrorMessage clsHidden">Incorrect username or password</label>
+            <br />
+            <input id="btnLogin" type="button" value="Login" class="clsLoginButton" onclick="LoginButton();" />
+            <input id="btnCancelLogin" type="button" value="Cancel" class="clsLoginButton" onclick="CloseLoginBox();" />
+            <br />
+            <div class="clsCreateAccountDiv">
+                <input id="btnCreateAccount" type="button" value="Create Account" class="clsMainMenuButton" onclick="CreateAccountOpenBox();" />
+            </div>
+
+        </form>
     </div>
 
 
     <div id="divUserProfile" class="clsLoginDiv">
-        <label id="lblProfileUsername">Username:</label>
-        <input id="txtProfileUsername" type="text" disabled="disabled" readonly="true" class="clsLoginInputBox" />
-        
-        <label id="lblProfilePassword">Change Password:</label>
-        <input id="txtProfilePassword" type="password" class="clsLoginInputBox" />
-        
-        <label id="lblConfirmProfilePassword">Confirm Change Password:</label>
-        <input id="txtConfirmProfilePassword" type="password" class="clsLoginInputBox" />
-        
-        <label id="lblEmail">Email:</label>
-        <input id="txtEmail" type="text" class="clsLoginInputBox required" />
-        
-        <label id="lblFirstName">First Name:</label>
-        <input id="txtFirstName" type="text" class="clsLoginInputBox" />
-        
-        <label id="lblLastName">Last Name:</label>
-        <input id="txtLastName" type="text" class="clsLoginInputBox" />
-        
-        <label id="lblDOB">Birthday:</label>
-        <input id="txtDOB" type="text" class="clsLoginInputBox" />
-        
+
+        <form id="formUserProfile">
+            <label id="lblProfileError" class="clsErrorMessage clsHidden"></label>
+            <br />
+
+
+            <label id="lblProfileUsername">Username:</label>
+            <input id="txtProfileUsername" type="text" disabled="disabled" readonly="true" class="clsLoginInputBox required" />
+
+            <label id="lblProfilePassword">Change Password:</label>
+            <input id="txtProfilePassword" type="password" class="clsLoginInputBox" />
+
+            <label id="lblConfirmProfilePassword">Confirm Change Password:</label>
+            <input id="txtConfirmProfilePassword" type="password" class="clsLoginInputBox" />
+
+            <label id="lblEmail">Email:</label>
+            <input id="txtEmail" type="text" class="clsLoginInputBox required" />
+
+            <label id="lblFirstName">First Name:</label>
+            <input id="txtFirstName" type="text" class="clsLoginInputBox" />
+
+            <label id="lblLastName">Last Name:</label>
+            <input id="txtLastName" type="text" class="clsLoginInputBox" />
+
+            <label id="lblDOB">Birthday:</label>
+            <input id="txtDOB" type="text" class="clsLoginInputBox" />
+
+            <br />
+            <br />
+
+            <div id="divRecaptcha"></div>
+
+            <input id="btnSaveProfile" type="button" value="Save Changes" class="clsLoginButton" onclick="SaveProfileButton();" />
+            <input id="btnCancelProfile" type="button" value="Cancel" class="clsLoginButton" onclick="CloseUserProfileBox();" />
+        </form>
+    </div>
+
+
+    <div id="divSuccessBox">
+        <label id="lblSuccessMessage"></label>
         <br />
         <br />
-        
-        <input id="btnSaveProfile" type="button" value="Save Changes" class="clsLoginButton" onclick="SaveProfileButton();"/>
-        <input id="btnCancelProfile" type="button" value="Cancel" class="clsLoginButton" onclick="CloseUserProfileBox();" />
+        <input id="btnSuccessOK" type="button" value="OK" class="clsLoginButton" onclick="CloseSuccessBox();" />
+        <input id="btnSuccessResendEmail" type="button" value="Resend Email" class="clsLoginButton" onclick="ResendAccountActivationEmail();" />
     </div>
 
 </body>
