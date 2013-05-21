@@ -79,6 +79,12 @@ namespace WinterEngine.Game.Entities
 
         #region Awesomium Event Handling
 
+        /// <summary>
+        /// Handles binding the global javascript object to C# methods.
+        /// Enables javascript to call this entity's methods.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
         private void OnDocumentReady(object sender, EventArgs eventArgs)
         {
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
@@ -92,7 +98,8 @@ namespace WinterEngine.Game.Entities
             GlobalJavascriptObject.Bind("ExitButtonClick", false, ExitButtonClick);
 
             GlobalJavascriptObject.Bind("CreateProfileButtonClick", true, CreateProfileButtonClick);
-            GlobalJavascriptObject.Bind("SaveProfileButtonClick", true, SaveProfileButtonClick);
+            GlobalJavascriptObject.Bind("UpdateProfileButtonClick", true, UpdateProfileButtonClick);
+            GlobalJavascriptObject.Bind("ResendAccountActivationEmail", true, ResendAccountActivationEmail);
         
             // User profile data binding
             GlobalJavascriptObject.Bind("GetUserName", true, GetUserName);
@@ -112,6 +119,13 @@ namespace WinterEngine.Game.Entities
 
         #region UI Methods
 
+        /// <summary>
+        /// Sends login credentials to master server and attempts to log in.
+        /// Returns true if log in is successful.
+        /// Returns false if log in is unsuccessful.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void LoginButtonClick(object sender, JavascriptMethodEventArgs args)
         {
             string username = args.Arguments[0].ToString();
@@ -131,30 +145,59 @@ namespace WinterEngine.Game.Entities
             }
         }
 
+        /// <summary>
+        /// Changes active screen to the Server List screen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void FindServerButtonClick(object sender, JavascriptMethodEventArgs args)
         {
 
         }
 
+        /// <summary>
+        /// Changes active screen to the toolset screen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void ToolsetButtonClick(object sender, JavascriptMethodEventArgs args)
         {
-            ScreenManager.CurrentScreen.MoveToScreen(typeof(ToolsetScreen).FullName);
         }
 
         private void SettingsButtonClick(object sender, JavascriptMethodEventArgs args)
         {
         }
 
+        /// <summary>
+        /// Opens user's default browser and navigates to the Winter Engine website.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void WebsiteButtonClick(object sender, JavascriptMethodEventArgs args)
         {
             Process.Start("https://www.winterengine.com/");
         }
 
+        /// <summary>
+        /// Opens user's default browser and navigates to the Winter Engine forums.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void ForumsButtonClick(object sender, JavascriptMethodEventArgs args)
         {
             Process.Start("https://www.winterengine.com/forum");
         }
 
+        /// <summary>
+        /// Attempts to create a new user profile on the master server.
+        /// Can fail for any of the following reasons:
+        ///     - Username already exists
+        ///     - Invalid password
+        ///     - Password mismatch
+        ///     - Email address already in use
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void CreateProfileButtonClick(object sender, JavascriptMethodEventArgs args)
         {
             UserProfileResponseTypeEnum responseType = UserProfileResponseTypeEnum.Failure;
@@ -187,23 +230,50 @@ namespace WinterEngine.Game.Entities
             args.Result = Convert.ToInt32(responseType);
         }
 
-        private void SaveProfileButtonClick(object sender, JavascriptMethodEventArgs args)
+        private void UpdateProfileButtonClick(object sender, JavascriptMethodEventArgs args)
         {
         }
 
+        /// <summary>
+        /// Closes the game window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void ExitButtonClick(object sender, JavascriptMethodEventArgs args)
         {
             FlatRedBallServices.Game.Exit();
         }
 
+        /// <summary>
+        /// Opens user's default browser and navigates to the FlatRedBall website
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void FlatRedBallLogoLinkClick(object sender, JavascriptMethodEventArgs args)
         {
             Process.Start("http://www.flatredball.com/");
         }
 
+        /// <summary>
+        /// Opens user's default browser and navigates to the XNA website.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void XNALogoLinkClick(object sender, JavascriptMethodEventArgs args)
         {
             Process.Start("http://msdn.microsoft.com/en-us/centrum-xna.aspx");
+        }
+
+        /// <summary>
+        /// Sends request to master server to resend the activation email for a user's account.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void ResendAccountActivationEmail(object sender, JavascriptMethodEventArgs args)
+        {
+            string email = args.Arguments[0];
+            WebServiceClientUtility utility = new WebServiceClientUtility();
+            utility.RequestActivationEmailResend(email);
         }
 
         #endregion

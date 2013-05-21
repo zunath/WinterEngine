@@ -112,7 +112,15 @@
         <br />
         <br />
         <input id="btnSuccessOK" type="button" value="OK" class="clsLoginButton" onclick="CloseSuccessBox();" />
-        <input id="btnSuccessResendEmail" type="button" value="Resend Email" class="clsLoginButton" onclick="ResendAccountActivationEmail();" />
+    </div>
+
+    <div id="divAccountNotActivatedBox">
+        <label id="lblAccountNotActivatedMessage">Your account has not been activated. Please check your email for a link to active your account.</label>
+        <br />
+        <br />
+        <input id="btnAccountNotActivatedOK" type="button" value="OK" class="clsLoginButton" onclick="CloseAccountNotActivatedBox();" />
+        <input id="btnAccountNotActivatedResendEmail" type="button" value="Resend Email" class="clsLoginButton" onclick="ResendAccountActivationEmail();" />
+    
     </div>
 
 </body>

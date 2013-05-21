@@ -1,4 +1,13 @@
 ﻿
+/* Page Initialization */
+function Initialize() {
+    InitializeValidation();
+    InitializeLoginBox();
+    InitializeUserProfileBox();
+    InitializeSuccessBox();
+    InitializeAccountNotActivatedBox();
+}
+
 /* Awesomium Events */
 
 function LoginButton() {
@@ -106,7 +115,36 @@ function SaveProfileButton() {
 
 }
 
+/* Form Validation */
+
+function InitializeValidation() {
+
+    $('#formUserProfile').validate({
+        rules: {
+            txtEmail: {
+                email: true,
+                required: true
+            }
+        }
+    });
+}
+
 /* Account Login */
+
+function InitializeLoginBox() {
+    $('#divLogin').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Login',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
+
+    $('#divLoggingInProgressBar').progressbar({
+        value: false
+    });
+}
 
 function OpenLoginBox() {
     $('#divLogin').dialog("open");
@@ -120,6 +158,23 @@ function CloseLoginBox() {
 }
 
 /* User Profile */
+
+function InitializeUserProfileBox() {
+    $('#divUserProfile').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'My Profile',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
+
+    $('#txtDOB').datepicker({
+        changeYear: true,
+        yearRange: '1900:+0',
+        maxDate: '+0d'
+    });
+}
 
 function CreateAccountOpenBox() {
     $('#lblProfilePassword').text("Password:");
@@ -173,39 +228,9 @@ function CloseUserProfileBox() {
     }
 }
 
-/* Page Initialization */
-function Initialize() {
+/* SUCCESS BOX */
 
-    InitializeValidation();
-
-    $('#divLogin').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Login',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-
-    $('#divLoggingInProgressBar').progressbar({
-        value: false
-    });
-
-    $('#divUserProfile').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'My Profile',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-
-    $('#txtDOB').datepicker({
-        changeYear: true,
-        yearRange: '1900:+0',
-        maxDate : '+0d'
-    });
-
+function InitializeSuccessBox() {
     $('#divSuccessBox').dialog({
         modal: true,
         autoOpen: false,
@@ -216,22 +241,25 @@ function Initialize() {
     });
 }
 
-function InitializeValidation() {
+function CloseSuccessBox() {
+    $('#divSuccessBox').dialog('close');
+}
 
-    $('#formUserProfile').validate({
-        rules: {
-            txtEmail: {
-                email: true,
-                required: true
-            }
-        }
+/* ACCOUNT NOT ACTIVATED BOX */
+
+function InitializeAccountNotActivatedBox() {
+    $('#divAccountNotActivatedBox').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Account Inactive',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
     });
 }
 
-/* SUCCESS BOX */
-
-function CloseSuccessBox() {
-    $('#divSuccessBox').dialog('close');
+function CloseAccountNotActivatedBox() {
+    $('#divAccountNotActivatedBox').dialog('close');
 }
 
 function ResendAccountActivationEmail() {

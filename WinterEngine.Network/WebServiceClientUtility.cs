@@ -199,5 +199,25 @@ namespace WinterEngine.Network
             }
         }
 
+        public bool RequestActivationEmailResend(string email)
+        {
+            bool success = false;
+
+            try
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                string jsonObject = serializer.Serialize(email);
+                string result = SendJsonRequest("ResendActivationEmail", WebServiceMethodTypeEnum.User, jsonObject);
+
+                success = serializer.Deserialize<bool>(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error requesting activation email.", ex);
+            }
+
+            return success;
+        }
+
     }
 }

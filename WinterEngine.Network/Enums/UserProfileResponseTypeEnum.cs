@@ -21,6 +21,8 @@ namespace WinterEngine.Network.Enums
         [Description("Error: Account does not exist.")]
         AccountNotExist = 6,
         [Description("Error: An account is already attached to this email address.")]
-        AccountForEmailAlreadyExists = 7
+        AccountForEmailAlreadyExists = 7,
+        [Description("Account has not been activated.")]
+        AccountNotActivated = 8
     }
 }
