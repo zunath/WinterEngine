@@ -215,6 +215,7 @@ namespace WinterEngine.Game.Entities
                     UserFirstName = args.Arguments[4],
                     UserLastName = args.Arguments[5],
                 };
+
                 DateTime parsedDOB;
                 DateTime.TryParse(args.Arguments[6], out parsedDOB);
                 profile.UserDOB = parsedDOB;

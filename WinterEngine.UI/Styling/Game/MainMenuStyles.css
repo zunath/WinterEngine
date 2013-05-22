@@ -67,3 +67,8 @@
     width:25%;
     height:100%;
 }
+
+.clsFRBLogo:hover, .clsXNALogo:hover 
+{
+    opacity:0.5;
+}

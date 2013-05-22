@@ -154,7 +154,12 @@ namespace WinterEngine.Network
         {
             try
             {
-                //loginCredentials.Password = BCrypt.Net.BCrypt.HashPassword(loginCredentials.Password);
+                // Ensure that we don't send any invalid data to the server.
+                if (Object.ReferenceEquals(loginCredentials, null) || String.IsNullOrWhiteSpace(loginCredentials.Password) || String.IsNullOrWhiteSpace(loginCredentials.UserName))
+                {
+                    return null;
+                }
+
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string jsonObject = serializer.Serialize(loginCredentials);
                 string result = SendJsonRequest("ValidateLoginCredentials", WebServiceMethodTypeEnum.User, jsonObject);
