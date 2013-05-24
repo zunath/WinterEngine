@@ -82,27 +82,27 @@ function SaveProfileButton() {
             $('#lblSuccessMessage').text('Account created successfully. Please check your email for an activation link.');
             $('#divSuccessBox').dialog('open');
         }
-        // 2 = Username already exists
+            // 2 = Username already exists
         else if (responseType == 2) {
             $('#lblProfileError').removeClass('clsHidden');
             $('#lblProfileError').text("Error: Username already exists.");
         }
-        // 3 = Invalid password
+            // 3 = Invalid password
         else if (responseType == 3) {
             $('#lblProfileError').removeClass('clsHidden');
             $('#lblProfileError').text("Error: Invalid password.");
         }
-        // 4 = Failure (unknown reasons)
+            // 4 = Failure (unknown reasons)
         else if (responseType == 4) {
             $('#lblProfileError').removeClass('clsHidden');
             $('#lblProfileError').text("Unknown error. Please try again.");
         }
-        // 5 = Password mismatch
+            // 5 = Password mismatch
         else if (responseType == 5) {
             $('#lblProfileError').removeClass('clsHidden');
             $('#lblProfileError').text("Error: Passwords don't match.");
         }
-        // 7 = Email already in use
+            // 7 = Email already in use
         else if (responseType == 7) {
             $('#lblProfileError').removeClass('clsHidden');
             $('#lblProfileError').text("Error: Email already in use.");
@@ -120,6 +120,8 @@ function SaveProfileButton() {
 function InitializeValidation() {
 
     $('#formUserProfile').validate({
+        errorPlacement: $.noop, // Removes the text saying "this field is required"
+
         rules: {
             txtEmail: {
                 email: true,
@@ -185,7 +187,7 @@ function CreateAccountOpenBox() {
 
     $('#btnSaveProfile').data('AccountMode', 'create');
     $('#btnCancelProfile').data('AccountMode', 'create');
-    
+
     CloseLoginBox();
     $('#divUserProfile').dialog("open");
 }

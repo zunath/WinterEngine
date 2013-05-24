@@ -43,10 +43,10 @@
 
         <form id="formLogin">
 
-            <label id="lblUsername">Username:</label>
-            <input id="txtUsername" maxlength="32" type="text" class="clsLoginInputBox required" />
-            <label id="lblPassword">Password:</label>
-            <input id="txtPassword" maxlength="60" type="password" class="clsLoginInputBox required" />
+            <label id="lblUsername" for="txtUsername">Username:</label>
+            <input id="txtUsername" name="txtUsername" maxlength="32" type="text" class="clsLoginInputBox required" />
+            <label id="lblPassword" for="txtPassword">Password:</label>
+            <input id="txtPassword" name="txtPassword" maxlength="60" type="password" class="clsLoginInputBox required" />
             <br />
             <input id="chkSaveCredentials" type="checkbox" title="test" />
             <label for="chkSaveCredentials">Save credentials</label>
@@ -75,26 +75,26 @@
             <br />
 
 
-            <label id="lblProfileUsername">Username:</label>
-            <input id="txtProfileUsername" type="text" disabled="disabled" readonly="true" class="clsLoginInputBox required" />
+            <label id="lblProfileUsername" for="txtProfileUsername">Username:</label>
+            <input id="txtProfileUsername" name="txtProfileUsername" type="text" disabled="disabled" readonly="true" class="clsLoginInputBox required" maxlength="32"/>
 
-            <label id="lblProfilePassword">Change Password:</label>
-            <input id="txtProfilePassword" type="password" class="clsLoginInputBox required" />
+            <label id="lblProfilePassword" for="txtProfilePassword">Change Password:</label>
+            <input id="txtProfilePassword" name="txtProfilePassword" type="password" class="clsLoginInputBox" maxlength="60"/>
 
-            <label id="lblConfirmProfilePassword">Confirm Change Password:</label>
-            <input id="txtConfirmProfilePassword" type="password" class="clsLoginInputBox required" />
+            <label id="lblConfirmProfilePassword" for="txtConfirmProfilePassword">Confirm Change Password:</label>
+            <input id="txtConfirmProfilePassword" name="txtConfirmProfilePassword" type="password" class="clsLoginInputBox" maxlength="60" />
 
-            <label id="lblEmail">Email:</label>
-            <input id="txtEmail" type="text" class="clsLoginInputBox required" />
+            <label id="lblEmail" for="txtEmail">Email:</label>
+            <input id="txtEmail" name="txtEmail" type="text" class="clsLoginInputBox required" maxlength="254" />
 
-            <label id="lblFirstName">First Name:</label>
-            <input id="txtFirstName" type="text" class="clsLoginInputBox" />
+            <label id="lblFirstName" for="txtFirstName">First Name:</label>
+            <input id="txtFirstName" name="txtFirstName" type="text" class="clsLoginInputBox" maxlength="25" />
 
-            <label id="lblLastName">Last Name:</label>
-            <input id="txtLastName" type="text" class="clsLoginInputBox" />
+            <label id="lblLastName" for="txtLastName">Last Name:</label>
+            <input id="txtLastName" name="txtLastName" type="text" class="clsLoginInputBox" maxlength="25" />
 
-            <label id="lblDOB">Birthday:</label>
-            <input id="txtDOB" type="text" class="clsLoginInputBox required" />
+            <label id="lblDOB" for="txtDOB">Birthday:</label>
+            <input id="txtDOB" name="txtDOB" type="text" class="clsLoginInputBox" />
 
             <br />
             <br />
