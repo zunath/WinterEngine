@@ -135,7 +135,7 @@ namespace WinterEngine.Game.Entities
             WebServiceClientUtility utility = new WebServiceClientUtility();
             Profile = utility.AttemptUserLogin(loginCredentials);
 
-            if (!Object.ReferenceEquals(Profile, null))
+            if (Profile.UserID > 0)
             {
                 args.Result = true;
             }

@@ -41,7 +41,7 @@ namespace WinterEngine.Network
             {
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
-                    return reader.ReadToEnd();
+                    return ReplaceJsonArraySpecialCharacters(reader.ReadToEnd());
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace WinterEngine.Network
             {
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
-                    return reader.ReadToEnd();
+                    return ReplaceJsonArraySpecialCharacters(reader.ReadToEnd());
                 }
             }
         }
@@ -129,8 +129,6 @@ namespace WinterEngine.Network
             try
             {
                 string jsonObject = SendGetRequest("GetAllActiveServers", WebServiceMethodTypeEnum.Server);
-                jsonObject = ReplaceJsonArraySpecialCharacters(jsonObject);
-
                 List<ServerDetails> serverList = new List<ServerDetails>();
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 serverList = serializer.Deserialize<List<ServerDetails>>(jsonObject);
