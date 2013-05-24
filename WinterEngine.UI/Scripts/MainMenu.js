@@ -20,14 +20,21 @@ function LoginButton() {
     ToggleLoginPopUpControls(true);
 
     $('#divLoggingInProgressBarContainer').removeClass('clsHidden');
-    var loginSuccessful = GlobalJavascriptObject.LoginButtonClick($('#txtUsername').val(), $('#txtPassword').val());
+    var loginStatus = GlobalJavascriptObject.LoginButtonClick($('#txtUsername').val(), $('#txtPassword').val());
     $('#divLoggingInProgressBarContainer').addClass('clsHidden');
     ToggleLoginPopUpControls(false);
 
-    if (loginSuccessful) {
+    // 1 = Login succeeded
+    if (loginStatus == 1) {
 
     }
-    else {
+    // 8 = Account not activated
+    else if (loginStatus == 8) {
+        CloseLoginBox();
+        $('#divAccountNotActivatedBox').dialog('open');
+    }
+    // 3 = Invalid password
+    else if (loginStatus == 3) {
         $('#lblErrorMessage').removeClass('clsHidden');
     }
 }
@@ -168,6 +175,8 @@ function CloseLoginBox() {
     $('#txtUsername').val("");
     $('#txtPassword').val("");
     $('#lblErrorMessage').addClass('clsHidden');
+
+    $('.error').removeClass('error');
 }
 
 /* User Profile */
@@ -285,6 +294,9 @@ function CloseAccountNotActivatedBox() {
 }
 
 function ResendAccountActivationEmail() {
+    var email = GlobalJavascriptObject.GetEmail();
+    $('#btnAccountNotActivatedResendEmail').attr('disabled', 'disabled');
+    $('#lblAccountNotActivatedMessage').text('Activation email has been resent to ' + email);
     GlobalJavascriptObject.ResendAccountActivationEmail();
 }
 

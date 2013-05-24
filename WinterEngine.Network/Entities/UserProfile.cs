@@ -15,5 +15,6 @@ namespace WinterEngine.Network.Entities
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
         public DateTime UserDOB { get; set; }
+        public bool IsEmailVerified { get; set; }
     }
 }

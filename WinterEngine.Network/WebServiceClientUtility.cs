@@ -31,9 +31,9 @@ namespace WinterEngine.Network
         /// <param name="methodName">Name of the method on the server to use.</param>
         /// <param name="methodType">The type of method</param>
         /// <returns></returns>
-        private string SendGetRequest(string methodName, WebServiceMethodTypeEnum methodType)
+        private string SendGetRequest(string methodName, WebServiceMethodTypeEnum methodType, string queryString = "")
         {
-            WebRequest request = WebRequest.Create(BuildURLString(methodType) + methodName);
+            WebRequest request = WebRequest.Create(BuildURLString(methodType) + methodName + queryString);
             request.ContentType = "application/json; charset=utf-8";
             request.Method = "GET";
 
@@ -117,9 +117,12 @@ namespace WinterEngine.Network
 
         private string ReplaceJsonArraySpecialCharacters(string jsonObject)
         {
-            jsonObject = jsonObject.Replace("\\", "");                // Remove the back slashes
-            jsonObject = jsonObject.Remove(0, 1);                     // Remove quote at beginning of Json object
-            jsonObject = jsonObject.Remove(jsonObject.Length - 1, 1); // Remove quote at end of Json object
+            if (jsonObject.Length > 1)
+            {
+                jsonObject = jsonObject.Replace("\\", "");                // Remove the back slashes
+                jsonObject = jsonObject.Remove(0, 1);                     // Remove quote at beginning of Json object
+                jsonObject = jsonObject.Remove(jsonObject.Length - 1, 1); // Remove quote at end of Json object
+            }
 
             return jsonObject;
         }
@@ -209,8 +212,7 @@ namespace WinterEngine.Network
             try
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string jsonObject = serializer.Serialize(email);
-                string result = SendJsonRequest("ResendActivationEmail", WebServiceMethodTypeEnum.User, jsonObject);
+                string result = SendGetRequest("ResendActivationEmail", WebServiceMethodTypeEnum.User, "?email=" + email);
 
                 success = serializer.Deserialize<bool>(result);
             }

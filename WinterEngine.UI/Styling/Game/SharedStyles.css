@@ -15,12 +15,12 @@ body
 
 /* BUTTONS */
 
-input[type="button"]:hover
+input[type="button"]:hover:enabled
 {
     background-color: #e8e4e4;
 }
 
-input[type="button"]:active
+input[type="button"]:active:enabled
 {
     background-color: yellow;
 }

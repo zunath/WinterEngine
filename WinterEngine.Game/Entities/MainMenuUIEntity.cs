@@ -135,13 +135,17 @@ namespace WinterEngine.Game.Entities
             WebServiceClientUtility utility = new WebServiceClientUtility();
             Profile = utility.AttemptUserLogin(loginCredentials);
 
-            if (Profile.UserID > 0)
+            if (!Profile.IsEmailVerified)
             {
-                args.Result = true;
+                args.Result = (int)UserProfileResponseTypeEnum.AccountNotActivated;
+            }
+            else if (Profile.UserID > 0)
+            {
+                args.Result = (int)UserProfileResponseTypeEnum.Successful;
             }
             else
             {
-                args.Result = false;
+                args.Result = (int)UserProfileResponseTypeEnum.InvalidPassword;
             }
         }
 
@@ -272,9 +276,8 @@ namespace WinterEngine.Game.Entities
         /// <param name="args"></param>
         private void ResendAccountActivationEmail(object sender, JavascriptMethodEventArgs args)
         {
-            string email = args.Arguments[0];
             WebServiceClientUtility utility = new WebServiceClientUtility();
-            utility.RequestActivationEmailResend(email);
+            utility.RequestActivationEmailResend(Profile.UserEmail);
         }
 
         #endregion
