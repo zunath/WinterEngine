@@ -12,6 +12,10 @@ function Initialize() {
 
 function LoginButton() {
 
+    if (!$('#formLogin').valid()) {
+        return false;
+    }
+
     // Disable controls while logging in
     ToggleLoginPopUpControls(true);
 
@@ -129,6 +133,13 @@ function InitializeValidation() {
             }
         }
     });
+
+    $('#formLogin').validate({
+        errorPlacement: $.noop
+    });
+
+    
+
 }
 
 /* Account Login */
@@ -189,6 +200,10 @@ function CreateAccountOpenBox() {
     $('#btnCancelProfile').data('AccountMode', 'create');
 
     CloseLoginBox();
+
+    $('#txtProfilePassword').addClass('required');
+    $('#txtConfirmProfilePassword').addClass('required');
+
     $('#divUserProfile').dialog("open");
 }
 
@@ -208,6 +223,9 @@ function OpenUserProfileBox() {
     $('#txtLastName').val(GlobalJavascriptObject.GetLastName());
     $('#txtDOB').val(GlobalJavascriptObject.GetDateOfBirth());
 
+    $('#txtProfilePassword').removeClass('required');
+    $('#txtConfirmProfilePassword').removeClass('required');
+
     $('#divUserProfile').dialog("open");
 }
 
@@ -221,6 +239,8 @@ function CloseUserProfileBox() {
     $('#txtLastName').val("");
     $('#txtDOB').val("");
     $('#lblProfileError').addClass('clsHidden');
+
+    $('.error').removeClass('error');
 
     var accountMode = $('#btnCancelProfile').data('AccountMode');
     $('#divUserProfile').dialog("close");
