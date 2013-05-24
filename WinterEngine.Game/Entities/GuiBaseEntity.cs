@@ -31,7 +31,7 @@ namespace WinterEngine.Game.Entities
         private WebView _webView;
         private Texture2D _texture;
         private SpriteBatch _batch;
-        private JSObject _globalJavascriptObject;
+        private JSObject _entityJavascriptObject;
 
         #endregion
 
@@ -43,9 +43,9 @@ namespace WinterEngine.Game.Entities
             set { _webView = value; }
         }
 
-        public JSObject GlobalJavascriptObject
+        public JSObject EntityJavascriptObject
         {
-            get { return _globalJavascriptObject; }
+            get { return _entityJavascriptObject; }
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace WinterEngine.Game.Entities
         private void OnDocumentReady(object sender, EventArgs e)
         {
             _webView.DocumentReady -= OnDocumentReady;
-            _globalJavascriptObject = _webView.CreateGlobalJavascriptObject("GlobalJavascriptObject");
+            _entityJavascriptObject = _webView.CreateGlobalJavascriptObject("Entity");
         }
 
         private void UpdateAwesomium(object sender, EventArgs e)

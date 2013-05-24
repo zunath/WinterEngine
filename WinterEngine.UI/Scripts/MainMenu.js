@@ -20,7 +20,7 @@ function LoginButton() {
     ToggleLoginPopUpControls(true);
 
     $('#divLoggingInProgressBarContainer').removeClass('clsHidden');
-    var loginStatus = GlobalJavascriptObject.LoginButtonClick($('#txtUsername').val(), $('#txtPassword').val());
+    var loginStatus = Entity.LoginButtonClick($('#txtUsername').val(), $('#txtPassword').val());
     $('#divLoggingInProgressBarContainer').addClass('clsHidden');
     ToggleLoginPopUpControls(false);
 
@@ -40,27 +40,27 @@ function LoginButton() {
 }
 
 function FindServerButton() {
-    GlobalJavascriptObject.FindServerButtonClick();
+    Entity.FindServerButtonClick();
 }
 
 function ToolsetButton() {
-    GlobalJavascriptObject.ToolsetButtonClick();
+    Entity.ToolsetButtonClick();
 }
 
 function SettingsButton() {
-    GlobalJavascriptObject.SettingsButtonClick();
+    Entity.SettingsButtonClick();
 }
 
 function WebsiteButton() {
-    GlobalJavascriptObject.WebsiteButtonClick();
+    Entity.WebsiteButtonClick();
 }
 
 function ForumsButton() {
-    GlobalJavascriptObject.ForumsButtonClick();
+    Entity.ForumsButtonClick();
 }
 
 function ExitButton() {
-    GlobalJavascriptObject.ExitButtonClick();
+    Entity.ExitButtonClick();
 }
 
 function SaveProfileButton() {
@@ -84,7 +84,7 @@ function SaveProfileButton() {
         var username = $('#txtProfileUsername').val();
 
         // Note: Refer to UserProfileResponseTypeEnum.cs for values
-        var responseType = GlobalJavascriptObject.CreateProfileButtonClick(username, password, confirmPassword, email, firstName, lastName, dob);
+        var responseType = Entity.CreateProfileButtonClick(username, password, confirmPassword, email, firstName, lastName, dob);
 
         // 1 = Success
         if (responseType == 1) {
@@ -121,7 +121,7 @@ function SaveProfileButton() {
 
     }
     else if (profileMode == 'modify') {
-        GlobalJavascriptObject.SaveProfileButtonClick(username, password, email, firstName, lastName, dob);
+        Entity.SaveProfileButtonClick(username, password, email, firstName, lastName, dob);
     }
 
 }
@@ -226,11 +226,11 @@ function OpenUserProfileBox() {
     $('#txtProfileUsername').attr('readonly', true);
     $('#btnSaveProfile').val("Save Changes");
 
-    $('#txtProfileUsername').val(GlobalJavascriptObject.GetUserName());
-    $('#txtEmail').val(GlobalJavascriptObject.GetEmail());
-    $('#txtFirstName').val(GlobalJavascriptObject.GetFirstName());
-    $('#txtLastName').val(GlobalJavascriptObject.GetLastName());
-    $('#txtDOB').val(GlobalJavascriptObject.GetDateOfBirth());
+    $('#txtProfileUsername').val(Entity.GetUserName());
+    $('#txtEmail').val(Entity.GetEmail());
+    $('#txtFirstName').val(Entity.GetFirstName());
+    $('#txtLastName').val(Entity.GetLastName());
+    $('#txtDOB').val(Entity.GetDateOfBirth());
 
     $('#txtProfilePassword').removeClass('required');
     $('#txtConfirmProfilePassword').removeClass('required');
@@ -294,10 +294,10 @@ function CloseAccountNotActivatedBox() {
 }
 
 function ResendAccountActivationEmail() {
-    var email = GlobalJavascriptObject.GetEmail();
+    var email = Entity.GetEmail();
     $('#btnAccountNotActivatedResendEmail').attr('disabled', 'disabled');
     $('#lblAccountNotActivatedMessage').text('Activation email has been resent to ' + email);
-    GlobalJavascriptObject.ResendAccountActivationEmail();
+    Entity.ResendAccountActivationEmail();
 }
 
 /* HELPER METHODS */
@@ -315,9 +315,9 @@ function ToggleLoginPopUpControls(disabled) {
 /* Logo Links */
 
 function FlatRedBallLogoLink() {
-    GlobalJavascriptObject.FlatRedBallLogoLinkClick();
+    Entity.FlatRedBallLogoLinkClick();
 }
 
 function XNALogoLink() {
-    GlobalJavascriptObject.XNALogoLinkClick();
+    Entity.XNALogoLinkClick();
 }

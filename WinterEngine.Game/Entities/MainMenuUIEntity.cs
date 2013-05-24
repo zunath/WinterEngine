@@ -89,29 +89,29 @@ namespace WinterEngine.Game.Entities
         {
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
-            GlobalJavascriptObject.Bind("LoginButtonClick", true, LoginButtonClick);
-            GlobalJavascriptObject.Bind("FindServerButtonClick", false, FindServerButtonClick);
-            GlobalJavascriptObject.Bind("ToolsetButtonClick", false, ToolsetButtonClick);
-            GlobalJavascriptObject.Bind("SettingsButtonClick", false, SettingsButtonClick);
-            GlobalJavascriptObject.Bind("WebsiteButtonClick", false, WebsiteButtonClick);
-            GlobalJavascriptObject.Bind("ForumsButtonClick", false, ForumsButtonClick);
-            GlobalJavascriptObject.Bind("ExitButtonClick", false, ExitButtonClick);
+            EntityJavascriptObject.Bind("LoginButtonClick", true, LoginButtonClick);
+            EntityJavascriptObject.Bind("FindServerButtonClick", false, FindServerButtonClick);
+            EntityJavascriptObject.Bind("ToolsetButtonClick", false, ToolsetButtonClick);
+            EntityJavascriptObject.Bind("SettingsButtonClick", false, SettingsButtonClick);
+            EntityJavascriptObject.Bind("WebsiteButtonClick", false, WebsiteButtonClick);
+            EntityJavascriptObject.Bind("ForumsButtonClick", false, ForumsButtonClick);
+            EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButtonClick);
 
-            GlobalJavascriptObject.Bind("CreateProfileButtonClick", true, CreateProfileButtonClick);
-            GlobalJavascriptObject.Bind("UpdateProfileButtonClick", true, UpdateProfileButtonClick);
-            GlobalJavascriptObject.Bind("ResendAccountActivationEmail", true, ResendAccountActivationEmail);
+            EntityJavascriptObject.Bind("CreateProfileButtonClick", true, CreateProfileButtonClick);
+            EntityJavascriptObject.Bind("UpdateProfileButtonClick", true, UpdateProfileButtonClick);
+            EntityJavascriptObject.Bind("ResendAccountActivationEmail", true, ResendAccountActivationEmail);
         
             // User profile data binding
-            GlobalJavascriptObject.Bind("GetUserName", true, GetUserName);
-            GlobalJavascriptObject.Bind("GetPassword", true, GetPassword);
-            GlobalJavascriptObject.Bind("GetEmail", true, GetEmail);
-            GlobalJavascriptObject.Bind("GetFirstName", true, GetFirstName);
-            GlobalJavascriptObject.Bind("GetLastName", true, GetLastName);
-            GlobalJavascriptObject.Bind("GetDateOfBirth", true, GetDateOfBirth);
+            EntityJavascriptObject.Bind("GetUserName", true, GetUserName);
+            EntityJavascriptObject.Bind("GetPassword", true, GetPassword);
+            EntityJavascriptObject.Bind("GetEmail", true, GetEmail);
+            EntityJavascriptObject.Bind("GetFirstName", true, GetFirstName);
+            EntityJavascriptObject.Bind("GetLastName", true, GetLastName);
+            EntityJavascriptObject.Bind("GetDateOfBirth", true, GetDateOfBirth);
 
             // Logo Links
-            GlobalJavascriptObject.Bind("FlatRedBallLogoLinkClick", false, FlatRedBallLogoLinkClick);
-            GlobalJavascriptObject.Bind("XNALogoLinkClick", false, XNALogoLinkClick);
+            EntityJavascriptObject.Bind("FlatRedBallLogoLinkClick", false, FlatRedBallLogoLinkClick);
+            EntityJavascriptObject.Bind("XNALogoLinkClick", false, XNALogoLinkClick);
 
         }
 

@@ -183,7 +183,6 @@ namespace WinterEngine.Network
         {
             try
             {
-                //profile.UserPassword = BCrypt.Net.BCrypt.HashPassword(profile.UserPassword);
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string jsonObject = serializer.Serialize(profile);
                 string result;
@@ -205,6 +204,11 @@ namespace WinterEngine.Network
             }
         }
 
+        /// <summary>
+        /// Sends a request to master server to resend account activation email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool RequestActivationEmailResend(string email)
         {
             bool success = false;
