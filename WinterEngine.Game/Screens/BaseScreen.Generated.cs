@@ -32,22 +32,19 @@ using Microsoft.Xna.Framework.Media;
 using WinterEngine.Game.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
-using FlatRedBall.Graphics;
 
 namespace WinterEngine.Game.Screens
 {
-	public partial class ToolsetScreen : BaseScreen
+	public partial class BaseScreen : Screen
 	{
 		// Generated Fields
 		#if DEBUG
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private FlatRedBall.Graphics.Layer GUILayer;
-		private WinterEngine.Game.Entities.ToolsetUIEntity ToolsetUIEntityInstance;
 
-		public ToolsetScreen()
-			: base()
+		public BaseScreen()
+			: base("BaseScreen")
 		{
 		}
 
@@ -55,23 +52,22 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			GUILayer = new FlatRedBall.Graphics.Layer();
-			GUILayer.Name = "GUILayer";
-			ToolsetUIEntityInstance = new WinterEngine.Game.Entities.ToolsetUIEntity(ContentManagerName, false);
-			ToolsetUIEntityInstance.Name = "ToolsetUIEntityInstance";
 			
 			
+			PostInitialize();
 			base.Initialize(addToManagers);
+			if (addToManagers)
+			{
+				AddToManagers();
+			}
 
         }
         
 // Generated AddToManagers
 		public override void AddToManagers ()
 		{
-			SpriteManager.AddLayer(GUILayer);
-			GUILayer.UsePixelCoordinates();
-			GUILayer.RelativeToCamera = false;
 			base.AddToManagers();
+			AddToManagersBottomUp();
 			CustomInitialize();
 		}
 
@@ -82,7 +78,6 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				ToolsetUIEntityInstance.Activity();
 			}
 			else
 			{
@@ -103,15 +98,6 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
-			if (GUILayer != null)
-			{
-				SpriteManager.RemoveLayer(GUILayer);
-			}
-			if (ToolsetUIEntityInstance != null)
-			{
-				ToolsetUIEntityInstance.Destroy();
-				ToolsetUIEntityInstance.Detach();
-			}
 
 			base.Destroy();
 
@@ -120,37 +106,24 @@ namespace WinterEngine.Game.Screens
 		}
 
 		// Generated Methods
-		public override void PostInitialize ()
+		public virtual void PostInitialize ()
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
-			base.PostInitialize();
-			GUILayer.RelativeToCamera = false;
-			if (ToolsetUIEntityInstance.Parent == null)
-			{
-				ToolsetUIEntityInstance.CopyAbsoluteToRelative();
-				ToolsetUIEntityInstance.RelativeZ += -40;
-				ToolsetUIEntityInstance.AttachTo(SpriteManager.Camera, false);
-			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
-		public override void AddToManagersBottomUp ()
+		public virtual void AddToManagersBottomUp ()
 		{
-			base.AddToManagersBottomUp();
-			ToolsetUIEntityInstance.AddToManagers(GUILayer);
 		}
-		public override void ConvertToManuallyUpdated ()
+		public virtual void ConvertToManuallyUpdated ()
 		{
-			base.ConvertToManuallyUpdated();
-			ToolsetUIEntityInstance.ConvertToManuallyUpdated();
 		}
-		public static new void LoadStaticContent (string contentManagerName)
+		public static void LoadStaticContent (string contentManagerName)
 		{
 			if (string.IsNullOrEmpty(contentManagerName))
 			{
 				throw new ArgumentException("contentManagerName cannot be empty or null");
 			}
-			BaseScreen.LoadStaticContent(contentManagerName);
 			#if DEBUG
 			if (contentManagerName == FlatRedBallServices.GlobalContentManager)
 			{
@@ -161,15 +134,14 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
-			WinterEngine.Game.Entities.ToolsetUIEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]
-		public static new object GetStaticMember (string memberName)
+		public static object GetStaticMember (string memberName)
 		{
 			return null;
 		}
-		public static new object GetFile (string memberName)
+		public static object GetFile (string memberName)
 		{
 			return null;
 		}

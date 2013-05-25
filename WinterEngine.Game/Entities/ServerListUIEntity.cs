@@ -37,6 +37,12 @@ namespace WinterEngine.Game.Entities
 
         #endregion
 
+        #region Events / Delegates
+
+        public event EventHandler OnChangeScreen;
+
+        #endregion
+
         #region FRB Event Handling
 
         private void CustomInitialize()
@@ -83,10 +89,28 @@ namespace WinterEngine.Game.Entities
 
         #region UI Methods
 
+        /// <summary>
+        /// Retrieves the list of active servers from the master server and passes the
+        /// JSON result to the UI.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GetServerList(object sender, JavascriptMethodEventArgs e)
         {
             WebServiceClientUtility utility = new WebServiceClientUtility();
             e.Result = utility.GetAllActiveServers();
+        }
+
+        /// <summary>
+        /// Handles connecting to a specified game server.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ConnectToServer(object sender, JavascriptMethodEventArgs e)
+        {
+            string ipAddress = e.Arguments[0];
+            int port = (int)e.Arguments[1];
+
         }
 
         #endregion

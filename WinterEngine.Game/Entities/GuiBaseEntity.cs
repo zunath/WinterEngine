@@ -74,6 +74,10 @@ namespace WinterEngine.Game.Entities
 
 		private void CustomDestroy()
         {
+            DisposeAwesomium();
+
+            WinterEngineService.OnXNAUpdate -= UpdateAwesomium;
+            WinterEngineService.OnXNADraw -= DrawAwesomium;
 		}
 
         private static void CustomLoadStaticContent(string contentManagerName)
@@ -111,22 +115,31 @@ namespace WinterEngine.Game.Entities
 
         private void MouseMoveHandler(object sender, MouseEventArgs e)
         {
-            _webView.InjectMouseMove(e.X, e.Y);
+            if (!AwesomiumWebView.IsDisposed)
+            {
+                _webView.InjectMouseMove(e.X, e.Y);
+            }
         }
 
         private void MouseDownHandler(object sender, MouseEventArgs e)
         {
-            _webView.InjectMouseDown((Awesomium.Core.MouseButton)((int)e.Button - 1));
+            if (!AwesomiumWebView.IsDisposed)
+            {
+                _webView.InjectMouseDown((Awesomium.Core.MouseButton)((int)e.Button - 1));
+            }
         }
 
         private void MouseUpHandler(object sender, MouseEventArgs e)
         {
-            _webView.InjectMouseUp((Awesomium.Core.MouseButton)((int)e.Button - 1));
+            if (!AwesomiumWebView.IsDisposed)
+            {
+                _webView.InjectMouseUp((Awesomium.Core.MouseButton)((int)e.Button - 1));
+            }
         }
 
         private void FullKeyHandler(object sender, uint msg, IntPtr wParam, IntPtr lParam)
         {
-            if (!_webView.IsLoading)
+            if (!AwesomiumWebView.IsLoading && !AwesomiumWebView.IsDisposed)
             {
                 Modifiers modifiers = new Modifiers();
                 WebKeyboardEvent keyEvent = new WebKeyboardEvent((uint)msg, (IntPtr)wParam, (IntPtr)lParam, modifiers);
@@ -155,6 +168,18 @@ namespace WinterEngine.Game.Entities
 
             FlatRedBallServices.Game.Window.ClientSizeChanged += ResizeWindow;
             _webView.DocumentReady += OnDocumentReady;
+        }
+
+        private void DisposeAwesomium()
+        {
+            AwesomiumWebView.Dispose();
+
+            InputSystem.MouseMove -= MouseMoveHandler;
+            InputSystem.MouseDown -= MouseDownHandler;
+            InputSystem.MouseUp -= MouseUpHandler;
+            InputSystem.FullKeyHandler -= FullKeyHandler;
+
+            FlatRedBallServices.Game.Window.ClientSizeChanged -= ResizeWindow;
         }
 
         private void OnDocumentReady(object sender, EventArgs e)

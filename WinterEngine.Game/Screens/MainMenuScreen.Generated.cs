@@ -36,7 +36,7 @@ using FlatRedBall.Graphics;
 
 namespace WinterEngine.Game.Screens
 {
-	public partial class MainMenuScreen : Screen
+	public partial class MainMenuScreen : BaseScreen
 	{
 		// Generated Fields
 		#if DEBUG
@@ -47,7 +47,7 @@ namespace WinterEngine.Game.Screens
 		private WinterEngine.Game.Entities.MainMenuUIEntity MainMenuGuiEntityInstance;
 
 		public MainMenuScreen()
-			: base("MainMenuScreen")
+			: base()
 		{
 		}
 
@@ -61,12 +61,7 @@ namespace WinterEngine.Game.Screens
 			MainMenuGuiEntityInstance.Name = "MainMenuGuiEntityInstance";
 			
 			
-			PostInitialize();
 			base.Initialize(addToManagers);
-			if (addToManagers)
-			{
-				AddToManagers();
-			}
 
         }
         
@@ -77,7 +72,6 @@ namespace WinterEngine.Game.Screens
 			GUILayer.UsePixelCoordinates();
 			GUILayer.RelativeToCamera = false;
 			base.AddToManagers();
-			AddToManagersBottomUp();
 			CustomInitialize();
 		}
 
@@ -126,27 +120,31 @@ namespace WinterEngine.Game.Screens
 		}
 
 		// Generated Methods
-		public virtual void PostInitialize ()
+		public override void PostInitialize ()
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
+			base.PostInitialize();
 			GUILayer.RelativeToCamera = false;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
-		public virtual void AddToManagersBottomUp ()
+		public override void AddToManagersBottomUp ()
 		{
+			base.AddToManagersBottomUp();
 			MainMenuGuiEntityInstance.AddToManagers(mLayer);
 		}
-		public virtual void ConvertToManuallyUpdated ()
+		public override void ConvertToManuallyUpdated ()
 		{
+			base.ConvertToManuallyUpdated();
 			MainMenuGuiEntityInstance.ConvertToManuallyUpdated();
 		}
-		public static void LoadStaticContent (string contentManagerName)
+		public static new void LoadStaticContent (string contentManagerName)
 		{
 			if (string.IsNullOrEmpty(contentManagerName))
 			{
 				throw new ArgumentException("contentManagerName cannot be empty or null");
 			}
+			BaseScreen.LoadStaticContent(contentManagerName);
 			#if DEBUG
 			if (contentManagerName == FlatRedBallServices.GlobalContentManager)
 			{
@@ -161,11 +159,11 @@ namespace WinterEngine.Game.Screens
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]
-		public static object GetStaticMember (string memberName)
+		public static new object GetStaticMember (string memberName)
 		{
 			return null;
 		}
-		public static object GetFile (string memberName)
+		public static new object GetFile (string memberName)
 		{
 			return null;
 		}

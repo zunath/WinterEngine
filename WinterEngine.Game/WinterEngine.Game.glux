@@ -2,6 +2,10 @@
 <GlueProjectSave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Screens>
     <ScreenSave>
+      <Name>Screens\BaseScreen</Name>
+    </ScreenSave>
+    <ScreenSave>
+      <BaseScreen>Screens\BaseScreen</BaseScreen>
       <Name>Screens\MainMenuScreen</Name>
       <NamedObjects>
         <NamedObjectSave>
@@ -30,6 +34,7 @@
       </NamedObjects>
     </ScreenSave>
     <ScreenSave>
+      <BaseScreen>Screens\BaseScreen</BaseScreen>
       <Name>Screens\ServerListScreen</Name>
       <NamedObjects>
         <NamedObjectSave>
@@ -52,10 +57,9 @@
           <SourceClassType>Entities\ServerListUIEntity</SourceClassType>
           <InstanceName>ServerListGuiEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
-          <AttachToCamera>true</AttachToCamera>
           <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
-          <LayerOn>GUILayer</LayerOn>
+          <LayerOn />
         </NamedObjectSave>
         <NamedObjectSave>
           <SourceType>Entity</SourceType>
@@ -129,6 +133,7 @@
       </NamedObjects>
     </ScreenSave>
     <ScreenSave>
+      <BaseScreen>Screens\BaseScreen</BaseScreen>
       <Name>Screens\ToolsetScreen</Name>
       <NamedObjects>
         <NamedObjectSave>
@@ -160,6 +165,60 @@
     </ScreenSave>
   </Screens>
   <Entities>
+    <EntitySave>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>string</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>ResourcePath</Name>
+          <Type>string</Type>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>X</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>Y</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+      </CustomVariables>
+      <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
+      <Name>Entities\CharacterCreationUIEntity</Name>
+      <Is2D>true</Is2D>
+    </EntitySave>
     <EntitySave>
       <CustomVariables>
         <CustomVariable>
@@ -383,7 +442,7 @@
     <RecordLockContention>false</RecordLockContention>
   </GlobalContentSettingsSave>
   <SyncedProjects />
-  <StartUpScreen>Screens\ServerListScreen</StartUpScreen>
+  <StartUpScreen>Screens\MainMenuScreen</StartUpScreen>
   <In2D>false</In2D>
   <SetResolution>false</SetResolution>
   <ResolutionWidth>800</ResolutionWidth>

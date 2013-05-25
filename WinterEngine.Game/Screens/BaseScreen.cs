@@ -20,31 +20,18 @@ using FlatRedBall.Localization;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
-using FlatRedBall.Screens;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 #endif
 
 namespace WinterEngine.Game.Screens
 {
-	public partial class MainMenuScreen
-    {
-        #region Fields
+	public partial class BaseScreen
+	{
 
-        #endregion
+		void CustomInitialize()
+		{
 
-        #region Properties
 
-        #endregion
-
-        #region Events / Delegates
-
-        #endregion
-
-        #region Methods
-
-        void CustomInitialize()
-        {
-            MainMenuGuiEntityInstance.OnChangeScreen += base.ChangeScreen;
 		}
 
 		void CustomActivity(bool firstTimeCalled)
@@ -56,6 +43,7 @@ namespace WinterEngine.Game.Screens
 		void CustomDestroy()
 		{
 
+
 		}
 
         static void CustomLoadStaticContent(string contentManagerName)
@@ -64,7 +52,14 @@ namespace WinterEngine.Game.Screens
 
         }
 
-        #endregion
+        #region Event Handling
 
-    }
+
+        protected void ChangeScreen(object sender, TypeOfEventArgs e)
+        {
+            this.MoveToScreen(e.ObjectType);
+        }
+
+        #endregion
+	}
 }

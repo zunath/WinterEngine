@@ -25,6 +25,7 @@ using WinterEngine.Game.Screens;
 using WinterEngine.Network;
 using WinterEngine.Network.Entities;
 using WinterEngine.Network.Enums;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
 
 
 #endif
@@ -47,6 +48,12 @@ namespace WinterEngine.Game.Entities
             get { return _userProfile; }
             set { _userProfile = value; }
         }
+
+        #endregion
+
+        #region Events / Delegates
+
+        public event EventHandler<TypeOfEventArgs> OnChangeScreen;
 
         #endregion
 
@@ -75,6 +82,18 @@ namespace WinterEngine.Game.Entities
 
         }
         
+        #endregion
+
+        #region Event Methods
+
+        public void RaiseChangeScreenEvent(TypeOfEventArgs screenType)
+        {
+            if (!Object.ReferenceEquals(OnChangeScreen, null))
+            {
+                OnChangeScreen(this, screenType);
+            }
+        }
+
         #endregion
 
         #region Awesomium Event Handling
@@ -166,7 +185,7 @@ namespace WinterEngine.Game.Entities
         /// <param name="args"></param>
         private void FindServerButtonClick(object sender, JavascriptMethodEventArgs args)
         {
-
+            RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(ServerListScreen)));
         }
 
         /// <summary>
@@ -176,6 +195,7 @@ namespace WinterEngine.Game.Entities
         /// <param name="args"></param>
         private void ToolsetButtonClick(object sender, JavascriptMethodEventArgs args)
         {
+            RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(ToolsetScreen)));
         }
 
         private void SettingsButtonClick(object sender, JavascriptMethodEventArgs args)

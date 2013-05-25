@@ -18,9 +18,9 @@
     <div id="divServerListContent">
         <h2 class="clsTitle">Server List</h2>
         
-        <label id="test">Testttt</label>
-        <input id="btnTest" value="Refresh" type="button" onclick="GetAllServers();" />
-
+        <input id="btnTest" class="clsFullButton" value="Get Servers" type="button" onclick="GetAllServers();" />
+        <br />
+        <br />
         <table id="tblServerList">
             <thead>
                 <tr>
@@ -36,7 +36,7 @@
                     </td>
                     <td>PVP Type
                     </td>
-                    <td>Join
+                    <td>Connect
                     </td>
                 </tr>
             </thead>
@@ -45,8 +45,9 @@
 
         </table>
         <br />
-        <br />
         
+        <input id="btnMainMenu" class="clsFullButton" value="Return to Main Menu" type="button" onclick="GoToMainMenu();" />
+
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
