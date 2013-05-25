@@ -54,9 +54,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BCrypt.Net">
-      <HintPath>..\packages\BCrypt-Official.0.1.107\lib\BCrypt.Net.dll</HintPath>
-    </Reference>
     <Reference Include="Lidgren.Network">
       <HintPath>..\References\Lidgren.Network.dll</HintPath>
     </Reference>
@@ -107,12 +104,6 @@
       <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
       <Name>WinterEngine.Library</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="LICENSE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

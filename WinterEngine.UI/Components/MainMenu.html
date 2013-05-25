@@ -26,8 +26,8 @@
 
     <img src="../Images/WinterEngineLogo.png" class="clsMainMenuLogo" />
     <br />
-    <input id="btnLoginLogout" type="button" value="Login" class="clsMainMenuButton" onclick="OpenLoginBox();" />
-    <input id="btnProfile" type="button" value="My Profile" class="clsMainMenuButton" onclick="OpenUserProfileBox();" />
+    <input id="btnLoginLogout" type="button" value="Login" class="clsMainMenuButton" onclick="LoginButton();" data-mode="login" />
+    <input id="btnProfile" type="button" value="My Profile" class="clsMainMenuButton" disabled="disabled" onclick="OpenUserProfileBox();" />
     <input id="btnFindServer" type="button" value="Find Server" class="clsMainMenuButton" onclick="FindServerButton();" disabled="disabled" />
     <input id="btnToolset" type="button" value="Toolset" class="clsMainMenuButton" onclick="ToolsetButton();" />
     <input id="btnSettings" type="button" value="Game Settings" class="clsMainMenuButton" onclick="SettingsButton();" />
@@ -57,7 +57,7 @@
             </div>
             <label id="lblErrorMessage" class="clsErrorMessage clsHidden">Incorrect username or password</label>
             <br />
-            <input id="btnLogin" type="button" value="Login" class="clsLoginButton" onclick="LoginButton();" />
+            <input id="btnLogin" type="button" value="Login" class="clsLoginButton" onclick="DoLogin();" />
             <input id="btnCancelLogin" type="button" value="Cancel" class="clsLoginButton" onclick="CloseLoginBox();" />
             <br />
             <div class="clsCreateAccountDiv">
@@ -106,7 +106,6 @@
         </form>
     </div>
 
-
     <div id="divSuccessBox">
         <label id="lblSuccessMessage"></label>
         <br />
@@ -120,7 +119,14 @@
         <br />
         <input id="btnAccountNotActivatedOK" type="button" value="OK" class="clsLoginButton" onclick="CloseAccountNotActivatedBox();" />
         <input id="btnAccountNotActivatedResendEmail" type="button" value="Resend Email" class="clsLoginButton" onclick="ResendAccountActivationEmail();" />
-    
+    </div>
+
+    <div id="divConfirmLogout">
+        <label id="lblConfirmLogout">Are you sure you want to log out?</label>
+        <br />
+        <br />
+        <input id="btnLogoutConfirm" type="button" value="Logout" class="clsLoginButton" onclick="DoLogout();" />
+        <input id="btnLogoutCancel" type="button" value="Cancel" class="clsLoginButton" onclick="CloseConfirmLogoutBox();" />
     </div>
 
 </body>

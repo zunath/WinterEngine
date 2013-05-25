@@ -90,6 +90,7 @@ namespace WinterEngine.Game.Entities
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
             EntityJavascriptObject.Bind("LoginButtonClick", true, LoginButtonClick);
+            EntityJavascriptObject.Bind("LogoutButtonClick", true, LogoutButtonClick);
             EntityJavascriptObject.Bind("FindServerButtonClick", false, FindServerButtonClick);
             EntityJavascriptObject.Bind("ToolsetButtonClick", false, ToolsetButtonClick);
             EntityJavascriptObject.Bind("SettingsButtonClick", false, SettingsButtonClick);
@@ -134,19 +135,29 @@ namespace WinterEngine.Game.Entities
 
             WebServiceClientUtility utility = new WebServiceClientUtility();
             Profile = utility.AttemptUserLogin(loginCredentials);
-
-            if (!Profile.IsEmailVerified)
-            {
-                args.Result = (int)UserProfileResponseTypeEnum.AccountNotActivated;
-            }
-            else if (Profile.UserID > 0)
+            
+            if (Profile.UserID > 0 && Profile.IsEmailVerified)
             {
                 args.Result = (int)UserProfileResponseTypeEnum.Successful;
+            }
+            else if (Profile.UserID > 0 && !Profile.IsEmailVerified)
+            {
+                args.Result = (int)UserProfileResponseTypeEnum.AccountNotActivated;
             }
             else
             {
                 args.Result = (int)UserProfileResponseTypeEnum.InvalidPassword;
             }
+        }
+
+        /// <summary>
+        /// Removes user's profile from memory, effectively logging them out.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void LogoutButtonClick(object sender, JavascriptMethodEventArgs args)
+        {
+            Profile = new UserProfile();
         }
 
         /// <summary>

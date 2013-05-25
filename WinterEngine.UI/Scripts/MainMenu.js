@@ -3,41 +3,29 @@
 function Initialize() {
     InitializeValidation();
     InitializeLoginBox();
+    InitializeLogoutBox();
     InitializeUserProfileBox();
     InitializeSuccessBox();
     InitializeAccountNotActivatedBox();
 }
 
-/* Awesomium Events */
+/* Account login/logout */
 
 function LoginButton() {
 
-    if (!$('#formLogin').valid()) {
-        return false;
+    var mode = $('#btnLoginLogout').data('mode');
+    $('#lblErrorMessage').addClass('clsHidden');
+
+    if (mode == 'login') {
+        OpenLoginBox();
     }
-
-    // Disable controls while logging in
-    ToggleLoginPopUpControls(true);
-
-    $('#divLoggingInProgressBarContainer').removeClass('clsHidden');
-    var loginStatus = Entity.LoginButtonClick($('#txtUsername').val(), $('#txtPassword').val());
-    $('#divLoggingInProgressBarContainer').addClass('clsHidden');
-    ToggleLoginPopUpControls(false);
-
-    // 1 = Login succeeded
-    if (loginStatus == 1) {
-
-    }
-    // 8 = Account not activated
-    else if (loginStatus == 8) {
-        CloseLoginBox();
-        $('#divAccountNotActivatedBox').dialog('open');
-    }
-    // 3 = Invalid password
-    else if (loginStatus == 3) {
-        $('#lblErrorMessage').removeClass('clsHidden');
+    else if (mode == 'logout') {
+        ShowLogoutConfirmation();
     }
 }
+
+
+/* Other main menu buttons */
 
 function FindServerButton() {
     Entity.FindServerButtonClick();
@@ -164,6 +152,19 @@ function InitializeLoginBox() {
     $('#divLoggingInProgressBar').progressbar({
         value: false
     });
+
+    
+}
+
+function InitializeLogoutBox() {
+    $('#divConfirmLogout').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Logout?',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
 }
 
 function OpenLoginBox() {
@@ -178,6 +179,58 @@ function CloseLoginBox() {
 
     $('.error').removeClass('error');
 }
+
+function DoLogin() {
+
+    if (!$('#formLogin').valid()) {
+        return false;
+    }
+
+    // Disable controls while logging in
+    ToggleLoginPopUpControls(true);
+
+    $('#divLoggingInProgressBarContainer').removeClass('clsHidden');
+    var loginStatus = Entity.LoginButtonClick($('#txtUsername').val(), $('#txtPassword').val());
+    $('#divLoggingInProgressBarContainer').addClass('clsHidden');
+    ToggleLoginPopUpControls(false);
+
+    // 1 = Login succeeded
+    if (loginStatus == 1) {
+        CloseLoginBox();
+        $('#btnProfile').removeAttr('disabled');
+        $('#btnFindServer').removeAttr('disabled');
+        $('#btnLoginLogout').val('Logout');
+        $('#btnLoginLogout').data('mode', 'logout');
+    }
+        // 8 = Account not activated
+    else if (loginStatus == 8) {
+        CloseLoginBox();
+        $('#divAccountNotActivatedBox').dialog('open');
+    }
+        // 3 = Invalid password
+    else if (loginStatus == 3) {
+        $('#lblErrorMessage').removeClass('clsHidden');
+    }
+}
+
+function ShowLogoutConfirmation() {
+    $('#divConfirmLogout').dialog('open');
+}
+
+function DoLogout() {
+    Entity.LogoutButtonClick();
+
+    $('#btnProfile').attr('disabled', 'disabled');
+    $('#btnFindServer').attr('disabled', 'disabled');
+    $('#btnLoginLogout').val('Login');
+    $('#btnLoginLogout').data('mode', 'login');
+    CloseConfirmLogoutBox();
+}
+
+function CloseConfirmLogoutBox() {
+    $('#divConfirmLogout').dialog('close');
+}
+
 
 /* User Profile */
 
