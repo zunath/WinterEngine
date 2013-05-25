@@ -6,13 +6,11 @@
     <title></title>
 
     <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
-    <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
-    <link rel="stylesheet" href="../Styling/Game/MainMenuStyles.css" />
+    <link rel="stylesheet" href="../Styling/Game/MenuStyles.css" />
 
 
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
-    <script src="../Scripts/jquery.masonry.min.js"></script>
     <script src="../Scripts/jquery.validate.js"></script>
     <script src="../Scripts/MainMenu.js"></script>
 
@@ -22,18 +20,18 @@
         });
     </script>
 </head>
-<body class="clsMainMenuBackground">
+<body>
 
     <img src="../Images/WinterEngineLogo.png" class="clsMainMenuLogo" />
     <br />
-    <input id="btnLoginLogout" type="button" value="Login" class="clsMainMenuButton" onclick="LoginButton();" data-mode="login" />
-    <input id="btnProfile" type="button" value="My Profile" class="clsMainMenuButton" disabled="disabled" onclick="OpenUserProfileBox();" />
-    <input id="btnFindServer" type="button" value="Find Server" class="clsMainMenuButton" onclick="FindServerButton();" disabled="disabled" />
-    <input id="btnToolset" type="button" value="Toolset" class="clsMainMenuButton" onclick="ToolsetButton();" />
-    <input id="btnSettings" type="button" value="Game Settings" class="clsMainMenuButton" onclick="SettingsButton();" />
-    <input id="btnWebsite" type="button" value="Website" class="clsMainMenuButton" onclick="WebsiteButton();" />
-    <input id="btnForums" type="button" value="Forums" class="clsMainMenuButton" onclick="ForumsButton();" />
-    <input id="btnExit" type="button" value="Exit" class="clsMainMenuButton" onclick="ExitButton();" />
+    <input id="btnLoginLogout" type="button" value="Login" class="clsFullButton" onclick="LoginButton();" data-mode="login" />
+    <input id="btnProfile" type="button" value="My Profile" class="clsFullButton" disabled="disabled" onclick="OpenUserProfileBox();" />
+    <input id="btnFindServer" type="button" value="Find Server" class="clsFullButton" onclick="FindServerButton();" disabled="disabled" />
+    <input id="btnToolset" type="button" value="Toolset" class="clsFullButton" onclick="ToolsetButton();" />
+    <input id="btnSettings" type="button" value="Game Settings" class="clsFullButton" onclick="SettingsButton();" />
+    <input id="btnWebsite" type="button" value="Website" class="clsFullButton" onclick="WebsiteButton();" />
+    <input id="btnForums" type="button" value="Forums" class="clsFullButton" onclick="ForumsButton();" />
+    <input id="btnExit" type="button" value="Exit" class="clsFullButton" onclick="ExitButton();" />
 
     <img id="imgXNALogo" src="../Images/xnalogo.png" class="clsXNALogo" onclick="XNALogoLink();" />
     <img id="imgFRBLogo" src="../Images/FRBLogo.png" class="clsFRBLogo" onclick="FlatRedBallLogoLink();" />
@@ -57,11 +55,11 @@
             </div>
             <label id="lblErrorMessage" class="clsErrorMessage clsHidden">Incorrect username or password</label>
             <br />
-            <input id="btnLogin" type="button" value="Login" class="clsLoginButton" onclick="DoLogin();" />
-            <input id="btnCancelLogin" type="button" value="Cancel" class="clsLoginButton" onclick="CloseLoginBox();" />
+            <input id="btnLogin" type="button" value="Login" class="clsHalfButton" onclick="DoLogin();" />
+            <input id="btnCancelLogin" type="button" value="Cancel" class="clsHalfButton" onclick="CloseLoginBox();" />
             <br />
             <div class="clsCreateAccountDiv">
-                <input id="btnCreateAccount" type="button" value="Create Account" class="clsMainMenuButton" onclick="CreateAccountOpenBox();" />
+                <input id="btnCreateAccount" type="button" value="Create Account" class="clsFullButton" onclick="CreateAccountOpenBox();" />
             </div>
 
         </form>
@@ -101,8 +99,8 @@
 
             <div id="divRecaptcha"></div>
 
-            <input id="btnSaveProfile" type="button" value="Save Changes" class="clsLoginButton" onclick="SaveProfileButton();" />
-            <input id="btnCancelProfile" type="button" value="Cancel" class="clsLoginButton" onclick="CloseUserProfileBox();" />
+            <input id="btnSaveProfile" type="button" value="Save Changes" class="clsHalfButton" onclick="SaveProfileButton();" />
+            <input id="btnCancelProfile" type="button" value="Cancel" class="clsHalfButton" onclick="CloseUserProfileBox();" />
         </form>
     </div>
 
@@ -110,23 +108,23 @@
         <label id="lblSuccessMessage"></label>
         <br />
         <br />
-        <input id="btnSuccessOK" type="button" value="OK" class="clsMainMenuButton" onclick="CloseSuccessBox();" />
+        <input id="btnSuccessOK" type="button" value="OK" class="clsFullButton" onclick="CloseSuccessBox();" />
     </div>
 
     <div id="divAccountNotActivatedBox">
         <label id="lblAccountNotActivatedMessage">Your account has not been activated. Please check your email for a link to activate your account.</label>
         <br />
         <br />
-        <input id="btnAccountNotActivatedOK" type="button" value="OK" class="clsLoginButton" onclick="CloseAccountNotActivatedBox();" />
-        <input id="btnAccountNotActivatedResendEmail" type="button" value="Resend Email" class="clsLoginButton" onclick="ResendAccountActivationEmail();" />
+        <input id="btnAccountNotActivatedOK" type="button" value="OK" class="clsHalfButton" onclick="CloseAccountNotActivatedBox();" />
+        <input id="btnAccountNotActivatedResendEmail" type="button" value="Resend Email" class="clsHalfButton" onclick="ResendAccountActivationEmail();" />
     </div>
 
     <div id="divConfirmLogout">
         <label id="lblConfirmLogout">Are you sure you want to log out?</label>
         <br />
         <br />
-        <input id="btnLogoutConfirm" type="button" value="Logout" class="clsLoginButton" onclick="DoLogout();" />
-        <input id="btnLogoutCancel" type="button" value="Cancel" class="clsLoginButton" onclick="CloseConfirmLogoutBox();" />
+        <input id="btnLogoutConfirm" type="button" value="Logout" class="clsHalfButton" onclick="DoLogout();" />
+        <input id="btnLogoutCancel" type="button" value="Cancel" class="clsHalfButton" onclick="CloseConfirmLogoutBox();" />
     </div>
 
 </body>

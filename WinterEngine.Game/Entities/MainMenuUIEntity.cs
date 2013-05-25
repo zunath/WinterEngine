@@ -98,8 +98,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("ForumsButtonClick", false, ForumsButtonClick);
             EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButtonClick);
 
-            EntityJavascriptObject.Bind("CreateProfileButtonClick", true, CreateProfileButtonClick);
-            EntityJavascriptObject.Bind("UpdateProfileButtonClick", true, UpdateProfileButtonClick);
+            EntityJavascriptObject.Bind("UpsertProfileButtonClick", true, UpsertProfileButtonClick);
             EntityJavascriptObject.Bind("ResendAccountActivationEmail", true, ResendAccountActivationEmail);
         
             // User profile data binding
@@ -213,12 +212,13 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void CreateProfileButtonClick(object sender, JavascriptMethodEventArgs args)
+        private void UpsertProfileButtonClick(object sender, JavascriptMethodEventArgs args)
         {
             UserProfileResponseTypeEnum responseType = UserProfileResponseTypeEnum.Failure;
 
             string password = args.Arguments[1];
             string confirmPassword = args.Arguments[2];
+            bool isCreatingNewProfile = (bool)args.Arguments[7];
 
             if (password == confirmPassword)
             {
@@ -236,7 +236,7 @@ namespace WinterEngine.Game.Entities
                 profile.UserDOB = parsedDOB;
 
                 WebServiceClientUtility utility = new WebServiceClientUtility();
-                responseType = utility.SendUserProfile(profile, true);
+                responseType = utility.SendUserProfile(profile, isCreatingNewProfile);
             }
             else
             {
@@ -244,10 +244,6 @@ namespace WinterEngine.Game.Entities
             }
             
             args.Result = Convert.ToInt32(responseType);
-        }
-
-        private void UpdateProfileButtonClick(object sender, JavascriptMethodEventArgs args)
-        {
         }
 
         /// <summary>

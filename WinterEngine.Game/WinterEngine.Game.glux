@@ -54,7 +54,6 @@
           <AttachToContainer>true</AttachToContainer>
           <AttachToCamera>true</AttachToCamera>
           <AddToManagers>true</AddToManagers>
-          <IsDisabled>true</IsDisabled>
           <IndependentOfCamera>true</IndependentOfCamera>
           <LayerOn>GUILayer</LayerOn>
         </NamedObjectSave>
@@ -65,6 +64,7 @@
           <AttachToContainer>true</AttachToContainer>
           <AttachToCamera>true</AttachToCamera>
           <AddToManagers>true</AddToManagers>
+          <IsDisabled>true</IsDisabled>
           <IndependentOfCamera>true</IndependentOfCamera>
           <LayerOn>GUILayer</LayerOn>
         </NamedObjectSave>
@@ -176,30 +176,6 @@
           <Name>ResourcePath</Name>
           <Type>string</Type>
           <DefaultValue xsi:type="xsd:string">file:///./Components/GameUI.html</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-          </Properties>
-          <Name>ScaleX</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">1</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-          </Properties>
-          <Name>ScaleY</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">1</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
         <CustomVariable>
@@ -373,30 +349,6 @@
               <ValueAsString>float</ValueAsString>
             </PropertySave>
           </Properties>
-          <Name>ScaleX</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">1</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-          </Properties>
-          <Name>ScaleY</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">1</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-          </Properties>
           <Name>X</Name>
           <Type>float</Type>
           <DefaultValue xsi:type="xsd:float">0</DefaultValue>
@@ -431,7 +383,7 @@
     <RecordLockContention>false</RecordLockContention>
   </GlobalContentSettingsSave>
   <SyncedProjects />
-  <StartUpScreen>Screens\MainMenuScreen</StartUpScreen>
+  <StartUpScreen>Screens\ServerListScreen</StartUpScreen>
   <In2D>false</In2D>
   <SetResolution>false</SetResolution>
   <ResolutionWidth>800</ResolutionWidth>

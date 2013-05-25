@@ -44,7 +44,7 @@ namespace WinterEngine.Game.Screens
 		#endif
 		
 		private FlatRedBall.Graphics.Layer GUILayer;
-		private WinterEngine.Game.Entities.GameUIEntity GameUIEntityInstance;
+		private WinterEngine.Game.Entities.ServerListUIEntity ServerListGuiEntityInstance;
 
 		public ServerListScreen()
 			: base("ServerListScreen")
@@ -57,8 +57,8 @@ namespace WinterEngine.Game.Screens
 			LoadStaticContent(ContentManagerName);
 			GUILayer = new FlatRedBall.Graphics.Layer();
 			GUILayer.Name = "GUILayer";
-			GameUIEntityInstance = new WinterEngine.Game.Entities.GameUIEntity(ContentManagerName, false);
-			GameUIEntityInstance.Name = "GameUIEntityInstance";
+			ServerListGuiEntityInstance = new WinterEngine.Game.Entities.ServerListUIEntity(ContentManagerName, false);
+			ServerListGuiEntityInstance.Name = "ServerListGuiEntityInstance";
 			
 			
 			PostInitialize();
@@ -88,7 +88,7 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				GameUIEntityInstance.Activity();
+				ServerListGuiEntityInstance.Activity();
 			}
 			else
 			{
@@ -113,10 +113,10 @@ namespace WinterEngine.Game.Screens
 			{
 				SpriteManager.RemoveLayer(GUILayer);
 			}
-			if (GameUIEntityInstance != null)
+			if (ServerListGuiEntityInstance != null)
 			{
-				GameUIEntityInstance.Destroy();
-				GameUIEntityInstance.Detach();
+				ServerListGuiEntityInstance.Destroy();
+				ServerListGuiEntityInstance.Detach();
 			}
 
 			base.Destroy();
@@ -131,21 +131,21 @@ namespace WinterEngine.Game.Screens
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
 			GUILayer.RelativeToCamera = false;
-			if (GameUIEntityInstance.Parent == null)
+			if (ServerListGuiEntityInstance.Parent == null)
 			{
-				GameUIEntityInstance.CopyAbsoluteToRelative();
-				GameUIEntityInstance.RelativeZ += -40;
-				GameUIEntityInstance.AttachTo(SpriteManager.Camera, false);
+				ServerListGuiEntityInstance.CopyAbsoluteToRelative();
+				ServerListGuiEntityInstance.RelativeZ += -40;
+				ServerListGuiEntityInstance.AttachTo(SpriteManager.Camera, false);
 			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
-			GameUIEntityInstance.AddToManagers(GUILayer);
+			ServerListGuiEntityInstance.AddToManagers(GUILayer);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
-			GameUIEntityInstance.ConvertToManuallyUpdated();
+			ServerListGuiEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{

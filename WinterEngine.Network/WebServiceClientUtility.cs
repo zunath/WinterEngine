@@ -127,16 +127,11 @@ namespace WinterEngine.Network
             return jsonObject;
         }
 
-        public List<ServerDetails> GetAllActiveServers()
+        public string GetAllActiveServers()
         {
             try
             {
-                string jsonObject = SendGetRequest("GetAllActiveServers", WebServiceMethodTypeEnum.Server);
-                List<ServerDetails> serverList = new List<ServerDetails>();
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                serverList = serializer.Deserialize<List<ServerDetails>>(jsonObject);
-
-                return serverList;
+                return SendGetRequest("GetAllActiveServers", WebServiceMethodTypeEnum.Server);
             }
             catch(Exception ex)
             {

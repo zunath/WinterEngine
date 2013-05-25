@@ -41,8 +41,7 @@ namespace WinterEngine.Game.Entities
 
         private void CustomInitialize()
 		{
-            InitializeAwesomiumEventSubscriptions();
-
+            AwesomiumWebView.DocumentReady += OnDocumentReady;
 		}
 
 		private void CustomActivity()
@@ -67,45 +66,27 @@ namespace WinterEngine.Game.Entities
 
         #region Awesomium Event Handling 
 
+        /// <summary>
+        /// Handles binding the global javascript object to C# methods.
+        /// Enables javascript to call this entity's methods.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnDocumentReady(object sender, EventArgs e)
         {
-            BuildServerList();
-        }
+            AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
-        public void InitializeAwesomiumEventSubscriptions()
-        {
-            AwesomiumWebView.DocumentReady += OnDocumentReady;
+            EntityJavascriptObject.Bind("GetServerList", true, GetServerList);
         }
 
         #endregion
 
-        #region Methods
+        #region UI Methods
 
-
-        private void BuildServerList()
+        private void GetServerList(object sender, JavascriptMethodEventArgs e)
         {
             WebServiceClientUtility utility = new WebServiceClientUtility();
-            List<ServerDetails> serverList = utility.GetAllActiveServers();
-
-            JSObject jObject = AwesomiumWebView.CreateGlobalJavascriptObject("ServerList");
-
-            foreach (ServerDetails server in serverList)
-            {
-                /*
-                JSValue val = jobject.Invoke("AddServerDetailsToTable",
-                    new JSValue(server.ServerName),
-                    new JSValue(""),
-                    new JSValue(""),
-                    //new JSValue(server.Connection.ServerIPAddress.ToString()),
-                    //new JSValue(server.Connection.ServerPort),
-                    new JSValue(server.ServerMaxLevel),
-                    new JSValue(server.ServerMaxPlayers),
-                    new JSValue(server.ServerMaxPlayers),
-                    new JSValue(server.GameType.ToString()),
-                    new JSValue(server.PVPType.ToString()));
-                */
-            }
-
+            e.Result = utility.GetAllActiveServers();
         }
 
         #endregion

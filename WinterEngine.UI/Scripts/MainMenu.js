@@ -68,49 +68,52 @@ function SaveProfileButton() {
     var dob = $('#txtDOB').val();
 
 
+    var username = $('#txtProfileUsername').val();
+
+    // Note: Refer to UserProfileResponseTypeEnum.cs for values
+    var responseType;
+
     if (profileMode == 'create') {
-        var username = $('#txtProfileUsername').val();
-
-        // Note: Refer to UserProfileResponseTypeEnum.cs for values
-        var responseType = Entity.CreateProfileButtonClick(username, password, confirmPassword, email, firstName, lastName, dob);
-
-        // 1 = Success
-        if (responseType == 1) {
-            $('#btnCancelProfile').data('AccountMode', '');
-            CloseUserProfileBox();
-            $('#lblSuccessMessage').text('Account created successfully. Please check your email for an activation link.');
-            $('#divSuccessBox').dialog('open');
-        }
-            // 2 = Username already exists
-        else if (responseType == 2) {
-            $('#lblProfileError').removeClass('clsHidden');
-            $('#lblProfileError').text("Error: Username already exists.");
-        }
-            // 3 = Invalid password
-        else if (responseType == 3) {
-            $('#lblProfileError').removeClass('clsHidden');
-            $('#lblProfileError').text("Error: Invalid password.");
-        }
-            // 4 = Failure (unknown reasons)
-        else if (responseType == 4) {
-            $('#lblProfileError').removeClass('clsHidden');
-            $('#lblProfileError').text("Unknown error. Please try again.");
-        }
-            // 5 = Password mismatch
-        else if (responseType == 5) {
-            $('#lblProfileError').removeClass('clsHidden');
-            $('#lblProfileError').text("Error: Passwords don't match.");
-        }
-            // 7 = Email already in use
-        else if (responseType == 7) {
-            $('#lblProfileError').removeClass('clsHidden');
-            $('#lblProfileError').text("Error: Email already in use.");
-        }
-
+        responseType = Entity.UpsertProfileButtonClick(username, password, confirmPassword, email, firstName, lastName, dob, true);
     }
     else if (profileMode == 'modify') {
-        Entity.SaveProfileButtonClick(username, password, email, firstName, lastName, dob);
+        responseType = Entity.UpsertProfileButtonClick(username, password, confirmPassword, email, firstName, lastName, dob, false);
     }
+
+
+    // 1 = Success
+    if (responseType == 1) {
+        $('#btnCancelProfile').data('AccountMode', '');
+        CloseUserProfileBox();
+        $('#lblSuccessMessage').text('Account created successfully. Please check your email for an activation link.');
+        $('#divSuccessBox').dialog('open');
+    }
+        // 2 = Username already exists
+    else if (responseType == 2) {
+        $('#lblProfileError').removeClass('clsHidden');
+        $('#lblProfileError').text("Error: Username already exists.");
+    }
+        // 3 = Invalid password
+    else if (responseType == 3) {
+        $('#lblProfileError').removeClass('clsHidden');
+        $('#lblProfileError').text("Error: Invalid password.");
+    }
+        // 4 = Failure (unknown reasons)
+    else if (responseType == 4) {
+        $('#lblProfileError').removeClass('clsHidden');
+        $('#lblProfileError').text("Unknown error. Please try again.");
+    }
+        // 5 = Password mismatch
+    else if (responseType == 5) {
+        $('#lblProfileError').removeClass('clsHidden');
+        $('#lblProfileError').text("Error: Passwords don't match.");
+    }
+        // 7 = Email already in use
+    else if (responseType == 7) {
+        $('#lblProfileError').removeClass('clsHidden');
+        $('#lblProfileError').text("Error: Email already in use.");
+    }
+
 
 }
 
@@ -133,7 +136,7 @@ function InitializeValidation() {
         errorPlacement: $.noop
     });
 
-    
+
 
 }
 
@@ -153,7 +156,7 @@ function InitializeLoginBox() {
         value: false
     });
 
-    
+
 }
 
 function InitializeLogoutBox() {

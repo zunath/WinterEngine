@@ -4,114 +4,55 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <link rel="stylesheet" href="../Styling/Themes/SilverOrchid/style.css" />
-    <link rel="stylesheet" href="../Styling/Game/GameStyles.css" />
-    <link rel="stylesheet" href="../Styling/DataTables/jquery.dataTables.css" />
-    <link rel="stylesheet" href="../Styling/DataTables/jquery.dataTables_themeroller.css" />
+    <link rel="stylesheet" href="../Styling/Game/MenuStyles.css" />
     <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
 
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
+    <script src="../Scripts/jquery.validate.js"></script>
     <script src="../Scripts/jquery.dataTables.min.js"></script>
+    <script src="../Scripts/ServerList.js"></script>
 
 </head>
 <body>
-    <h2 class="clsCenter">Server List</h2>
-    <table id="tblServerList">
-        <thead>
-            <tr>
-                <td>
-                    Server Name
-                </td>
-                <td>
-                    Address
-                </td>
-                <td>
-                    Max Level
-                </td>
-                <td>
-                    Players
-                </td>
-                <td>
-                    Game Type
-                </td>
-                <td>
-                    PVP Type
-                </td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    server1
-                </td>
-                <td>
-                    add
-                </td>
-                <td>
-                    ppl
-                </td>
-                <td>
-                    1
-                </td>
-                <td>
-                    rle
-                </td>
-                <td>
-                    full
-                </td>
-            </tr>
-        </tbody>
+    <div id="divServerListContent">
+        <h2 class="clsTitle">Server List</h2>
+        
+        <label id="test">Testttt</label>
+        <input id="btnTest" value="Refresh" type="button" onclick="GetAllServers();" />
 
-    </table>
+        <table id="tblServerList">
+            <thead>
+                <tr>
+                    <td>Server Name
+                    </td>
+                    <td>Address
+                    </td>
+                    <td>Max Level
+                    </td>
+                    <td>Players
+                    </td>
+                    <td>Game Type
+                    </td>
+                    <td>PVP Type
+                    </td>
+                    <td>Join
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
 
-    
-    <label id="lbltest">test</label>
-
-    <input id="btnTest" value="Refresh" type="button" onclick="AddServerDetailsToTable('28282', '192.22.22.22', '3131', 100, 2, 198, 'ROleplay', 'full');" />
-
-
+        </table>
+        <br />
+        <br />
+        
+    </div>
     <script type="text/javascript">
-        $(document).ready(function test() {
+        $(document).ready(function () {
 
-            //$.getJSON('https://www.winterengine.com/api/APIControllers/Server/GetAllActiveServers', function (data) {
-
-            //$('#lbltest').text($ServerList);
-            /*
-            $.each(data, function (ipAddress, port, name, description, maxLevel, maxPlayers, currentPlayers, gameType, pvpType) {
-                var row;
-                row.push('<tr>');
-                row.push('<td>' + name + '</td>');
-                row.push('<td>' + ipAddress + ':' + port + '</td>');
-                row.push('<td>' + maxLevel + '</td>');
-                row.push('<td>' + currentPlayers + ' / ' + maxPlayers + '</td>');
-                row.push('<td>' + gameType + '</td>');
-                row.push('<td>' + pvpType + '</td>');
-                row.push('</tr>');
-
-                $('#tblServerList').append(row);
-            });
-            */
-
-            $('#tblServerList').dataTable();
-
+            Initialize();
         });
-
-        function AddServerDetailsToTable(serverName, ipAddress, port, maxLevel, currentPlayers, maxPlayers, gameType, pvpType) {
-
-            var row = '<tr>';
-
-            row += '<td>' + serverName + '</td>';
-            row += '<td>' + ipAddress + ':' + port + '</td>';
-            row += '<td>' + maxLevel + '</td>';
-            row += '<td>' + + currentPlayers + ' / ' + maxPlayers + '</td>';
-            row += '<td>' + gameType + '</td>';
-            row += '<td>' + pvpType + '</td>';
-
-            row += '</tr>';
-
-            $('#tblServerList').append(row);
-        }
 
     </script>
 
