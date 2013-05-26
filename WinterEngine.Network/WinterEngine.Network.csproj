@@ -81,17 +81,12 @@
     <Compile Include="Enums\PacketTypeEnum.cs" />
     <Compile Include="Enums\UserProfileResponseTypeEnum.cs" />
     <Compile Include="Enums\WebServiceMethodTypeEnum.cs" />
-    <Compile Include="ExtendedEventArgs\ServerPropertiesEventArgs.cs" />
     <Compile Include="WebServiceClientUtility.cs" />
-    <Compile Include="Packets\ClientServerListPacket.cs" />
     <Compile Include="Servers\ClientServer.cs" />
-    <Compile Include="Listeners\FileTransferListener.cs" />
-    <Compile Include="Servers\LobbyServer.cs" />
     <Compile Include="NetworkAgent.cs" />
     <Compile Include="PacketFactory.cs" />
     <Compile Include="Packets\Packet.cs" />
     <Compile Include="Packets\RequestPacket.cs" />
-    <Compile Include="Packets\ServerDetailsPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -17,12 +17,6 @@ namespace WinterEngine.Network
 
             switch (packetType)
             {
-                case PacketTypeEnum.Server:
-                {
-                    ServerDetailsPacket packet = new ServerDetailsPacket();
-                    message.ReadAllProperties(packet);
-                    return packet;
-                }
                 default:
                 {
                     return null;

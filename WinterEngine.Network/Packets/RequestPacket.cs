@@ -6,10 +6,6 @@ using WinterEngine.Network.Enums;
 
 namespace WinterEngine.Network.Packets
 {
-    /// <summary>
-    /// Sent From: Client, Client-Server, or Master Server
-    /// Sent To: Client, Client-Server or Master Server
-    /// </summary>
     public class RequestPacket : Packet
     {
         #region Fields

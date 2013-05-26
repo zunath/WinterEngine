@@ -13,6 +13,6 @@ namespace WinterEngine.Network.Enums
         [Description("user")]
         User = 2,
         [Description("server")]
-        Server = 3,
+        Server = 3
     }
 }

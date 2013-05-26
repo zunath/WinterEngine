@@ -16,7 +16,6 @@ using WinterEngine.Network;
 using WinterEngine.Network.Clients;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Entities;
-using WinterEngine.Network.ExtendedEventArgs;
 using WinterEngine.Network.Servers;
 using Xceed.Wpf.Toolkit;
 

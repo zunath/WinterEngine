@@ -7,6 +7,5 @@ namespace WinterEngine.Network.Enums
 {
     public enum RequestTypeEnum : byte
     {
-        LobbyServerList = 1
     }
 }

@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Entities;
-using WinterEngine.Network.ExtendedEventArgs;
 using WinterEngine.Network.Packets;
 
 namespace WinterEngine.Network.Clients
