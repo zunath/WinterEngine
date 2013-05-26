@@ -4,12 +4,12 @@ using System.Windows.Forms;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects.Enumerations;
-
 using WinterEngine.Editor.ExtendedEventArgs;
 using WinterEngine.Editor.Forms;
 using WinterEngine.Editor.Managers;
 using WinterEngine.ERF;
 using WinterEngine.Library.Factories;
+using WinterEngine.Library.Managers;
 using WinterEngine.Library.Utility;
 
 namespace WinterEngine.Editor.Controls

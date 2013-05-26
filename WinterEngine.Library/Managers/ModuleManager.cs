@@ -13,7 +13,7 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Utility;
 using WinterEngine.DataAccess.FileAccess;
 
-namespace WinterEngine.Editor.Managers
+namespace WinterEngine.Library.Managers
 {
     public class ModuleManager
     {
@@ -68,6 +68,13 @@ namespace WinterEngine.Editor.Managers
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Constructor which creates an empty WinterModule.
+        /// </summary>
+        public ModuleManager()
+        {
+        }
 
         /// <summary>
         /// Constructor which creates a blank WinterModule.
@@ -197,7 +204,10 @@ namespace WinterEngine.Editor.Managers
                 // Delete the backup since the new save was successful.
                 File.Delete(backupPath);
 
-                _moduleSavedMethod();
+                if (!Object.ReferenceEquals(_moduleSavedMethod, null))
+                {
+                    _moduleSavedMethod();
+                }
             }
         }
 
@@ -236,7 +246,10 @@ namespace WinterEngine.Editor.Managers
 
             if(CheckForMissingContentPackages())
             {
-                _moduleOpenedMethod();
+                if (!Object.ReferenceEquals(_moduleOpenedMethod, null))
+                {
+                    _moduleOpenedMethod();
+                }
             }
         }
 
@@ -255,7 +268,10 @@ namespace WinterEngine.Editor.Managers
             this.ModulePath = "";
             this.TemporaryDirectoryPath = "";
 
-            _moduleClosedMethod();
+            if (!Object.ReferenceEquals(_moduleClosedMethod, null))
+            {
+                _moduleClosedMethod();
+            }
         }
 
         /// <summary>

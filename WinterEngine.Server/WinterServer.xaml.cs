@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
@@ -6,8 +7,11 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using Microsoft.Win32;
 using WinterEngine.DataAccess.Factories;
+using WinterEngine.DataAccess.Repositories;
+using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Factories;
+using WinterEngine.Library.Managers;
 using WinterEngine.Network;
 using WinterEngine.Network.Clients;
 using WinterEngine.Network.Configuration;
@@ -21,7 +25,7 @@ namespace WinterEngine.Server
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WinterServer : Window
     {
         #region Fields
 
@@ -39,7 +43,7 @@ namespace WinterEngine.Server
         /// <summary>
         /// Gets or sets the master server client
         /// </summary>
-        private LobbyClient MasterClient { get; set; }
+        private MasterServerClient MasterClient { get; set; }
 
         /// <summary>
         /// Gets or sets the open file dialog.
@@ -47,14 +51,14 @@ namespace WinterEngine.Server
         private OpenFileDialog OpenFile
         {
             get { return _openFile; }
-            set {_openFile = value;}
+            set { _openFile = value; }
         }
 
         #endregion
 
         #region Constructors
 
-        public MainWindow()
+        public WinterServer()
         {
             InitializeComponent();
         }
@@ -75,7 +79,7 @@ namespace WinterEngine.Server
             GameServer.OnServerStart += Server_OnServerStart;
             GameServer.OnServerShutdown += Server_OnServerShutdown;
 
-            MasterClient = new LobbyClient();
+            MasterClient = new MasterServerClient();
 
             OpenFile = new OpenFileDialog();
             InitializeOpenFileDialog();
@@ -193,7 +197,17 @@ namespace WinterEngine.Server
         /// <param name="e"></param>
         private void LoadModule(object sender, CancelEventArgs e)
         {
-            textBoxModuleFileName.Text = Path.GetFileNameWithoutExtension(OpenFile.SafeFileName);
+            string path = OpenFile.FileName;
+            textBoxModuleFileName.Text = Path.GetFileNameWithoutExtension(path);
+
+            ModuleManager manager = new ModuleManager();
+            manager.OpenModule(path);
+
+            using (ContentPackageRepository repo = new ContentPackageRepository())
+            {
+                List<ContentPackage> packages = repo.GetAll();
+                Console.WriteLine("");
+            }
         }
 
         /// <summary>
@@ -236,7 +250,7 @@ namespace WinterEngine.Server
         /// <returns></returns>
         private ServerDetails BuildServerDetails()
         {
-            if(Object.ReferenceEquals(listBoxGameType.SelectedItem, null))
+            if (Object.ReferenceEquals(listBoxGameType.SelectedItem, null))
             {
                 listBoxGameType.SelectedIndex = 0;
             }
@@ -255,7 +269,8 @@ namespace WinterEngine.Server
                         ServerPort = (ushort)numericPort.Value,
                         ServerDescription = textBoxDescription.Text,
                         GameTypeID = (GameTypeEnum)listBoxGameType.SelectedItem,
-                        PVPTypeID = (PVPTypeEnum)comboBoxPVPType.SelectedItem
+                        PVPTypeID = (PVPTypeEnum)comboBoxPVPType.SelectedItem,
+                        IsAutoDownloadEnabled = (bool)checkBoxAllowFileAutoDownload.IsChecked
                     };
 
             return details;
@@ -340,7 +355,21 @@ namespace WinterEngine.Server
             }
         }
 
+        /// <summary>
+        /// Calls RaiseServerDetailsChangedEvent when called for any check box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CheckBoxChanged(object sender, RoutedEventArgs e)
+        {
+            if (!Object.ReferenceEquals(MasterClient, null))
+            {
+                MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
+            }
+        }
+
         #endregion
+
 
 
     }

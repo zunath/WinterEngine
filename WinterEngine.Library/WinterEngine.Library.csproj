@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="ContentBuilder.cs" />
     <Compile Include="ErrorLogger.cs" />
+    <Compile Include="Managers\ModuleManager.cs" />
     <Compile Include="Utility\EnumerationHelper.cs" />
     <Compile Include="Utility\ErrorHelper.cs" />
     <Compile Include="Utility\FileHelper.cs" />

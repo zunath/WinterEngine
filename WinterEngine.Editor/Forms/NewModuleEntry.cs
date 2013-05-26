@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using WinterEngine.Editor.ExtendedEventArgs;
 using WinterEngine.Editor.Managers;
+using WinterEngine.Library.Managers;
 using WinterEngine.Library.Utility;
 
 namespace WinterEngine.Editor.Forms

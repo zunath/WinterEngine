@@ -11,7 +11,7 @@ using WinterEngine.Network.Packets;
 
 namespace WinterEngine.Network.Clients
 {
-    public class LobbyClient
+    public class MasterServerClient
     {
         #region Fields
 
@@ -63,7 +63,7 @@ namespace WinterEngine.Network.Clients
         /// <summary>
         /// Constructs a new LobbyClient object
         /// </summary>
-        public LobbyClient()
+        public MasterServerClient()
         {
             ConnectionThread = new BackgroundWorker();
             ConnectionThread.DoWork += ProcessConnection;
@@ -116,7 +116,7 @@ namespace WinterEngine.Network.Clients
         {
             try
             {
-                SyncWithLobbyServer();
+                SyncWithMasterServer();
             }
             catch (Exception ex)
             {
@@ -128,7 +128,7 @@ namespace WinterEngine.Network.Clients
         /// Syncs server information details with the master server.
         /// </summary>
         /// <param name="serverDetails"></param>
-        private void SyncWithLobbyServer()
+        private void SyncWithMasterServer()
         {
             while (IsConnectionRunning)
             {

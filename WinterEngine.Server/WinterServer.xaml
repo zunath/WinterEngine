@@ -1,7 +1,7 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinterEngine.Server.MainWindow"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WinterEngine.Server.WinterServer"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:dtos="clr-namespace:WinterEngine.DataTransferObjects.Enumerations;assembly=WinterEngine.DataTransferObjects"
     Title="Winter Engine - Server" Height="384" Width="528" ResizeMode="NoResize"
@@ -58,13 +58,14 @@
                 		ItemsSource="{Binding Source={StaticResource PVPTypes}}" Grid.Column="1" SelectionChanged="ComboBoxChanged"
                         SelectedIndex="0"/>
                     <TextBox x:Name="textBoxDMPassword" HorizontalAlignment="Left" Height="23" Margin="265,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" MaxLength="32" Grid.Column="1" TextChanged="TextBoxChanged"/>
-                    <Label Content="DM Password:" HorizontalAlignment="Left" Margin="175,228,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Label Content="GM Password:" HorizontalAlignment="Left" Margin="175,228,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <Label Content="Player Password:" HorizontalAlignment="Left" Margin="162,201,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <TextBox x:Name="textBoxPlayerPassword" HorizontalAlignment="Left" Height="23" Margin="265,204,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" MaxLength="32" Grid.Column="1" TextChanged="TextBoxChanged"/>
                     <TextBox x:Name="textBoxModuleFileName" HorizontalAlignment="Left" Height="23" Margin="42,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" MaxLength="32" IsReadOnly="True" IsEnabled="False" Grid.Column="1"/>
                     <Button x:Name="buttonBrowse" Content="Browse" HorizontalAlignment="Left" Margin="194,37,0,0" VerticalAlignment="Top" Width="75" Click="buttonBrowse_Click" Grid.Column="1"/>
                     <Label Content="Port:" Grid.Column="1" HorizontalAlignment="Left" Margin="307,37,0,0" VerticalAlignment="Top"/>
                     <xctk:IntegerUpDown x:Name="numericPort" Grid.Column="1" HorizontalAlignment="Left" Margin="357,39,0,0" VerticalAlignment="Top" Width="80" Minimum="1" Maximum="65535" LostFocus="SetDefaultValues_Port" ValueChanged="NumericIntegerChanged"/>
+                    <CheckBox x:Name="checkBoxAllowFileAutoDownload" Content="Allow File Auto-Download" Grid.Column="1" HorizontalAlignment="Left" Margin="274,183,0,0" VerticalAlignment="Top" IsChecked="True" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" />
                 </Grid>
             </TabItem>
             <TabItem Header="Description">
