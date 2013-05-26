@@ -63,11 +63,16 @@
   <PropertyGroup>
     <StartupObject>WinterEngine.Server.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FlatRedBall, Version=2011.11.13.868, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\Xna4Pc\FlatRedBall.dll</HintPath>
-    </Reference>
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
@@ -123,11 +128,9 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
-    <Content Include="Libraries\Xna4Pc\FlatRedBall.Content.dll" />
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Libraries\Xna4Pc\FlatRedBall.dll" />
-    <None Include="Libraries\Xna4Pc\FlatRedBall.XML" />
+    <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
