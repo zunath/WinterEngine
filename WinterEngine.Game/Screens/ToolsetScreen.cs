@@ -29,8 +29,7 @@ namespace WinterEngine.Game.Screens
 
 		void CustomInitialize()
 		{
-
-
+            ToolsetUIEntityInstance.OnChangeScreen += base.ChangeScreen;
 		}
 
 		void CustomActivity(bool firstTimeCalled)

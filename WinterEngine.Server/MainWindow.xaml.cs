@@ -254,8 +254,8 @@ namespace WinterEngine.Server
                         ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value),
                         ServerPort = (ushort)numericPort.Value,
                         ServerDescription = textBoxDescription.Text,
-                        GameType = (GameTypeEnum)listBoxGameType.SelectedItem,
-                        PVPType = (PVPTypeEnum)comboBoxPVPType.SelectedItem
+                        GameTypeID = (GameTypeEnum)listBoxGameType.SelectedItem,
+                        PVPTypeID = (PVPTypeEnum)comboBoxPVPType.SelectedItem
                     };
 
             return details;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Script.Serialization;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.Library.Utility;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Entities;
@@ -87,8 +88,7 @@ namespace WinterEngine.Network
             try
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string jsonResult = SendGetRequest("GetServerIPAddress", WebServiceMethodTypeEnum.Server);
-                return serializer.Deserialize<string>(jsonResult);
+                return SendGetRequest("GetServerIPAddress", WebServiceMethodTypeEnum.Server);
             }
             catch
             {

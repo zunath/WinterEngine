@@ -76,7 +76,6 @@
     <Compile Include="Entities\ConnectionAddress.cs" />
     <Compile Include="Entities\LoginCredentials.cs" />
     <Compile Include="Entities\ServerDetails.cs" />
-    <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Enums\RequestTypeEnum.cs" />
     <Compile Include="Configuration\LobbyServerConfiguration.cs" />
     <Compile Include="Enums\PacketTypeEnum.cs" />

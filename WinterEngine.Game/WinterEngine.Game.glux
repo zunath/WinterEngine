@@ -9,21 +9,6 @@
       <Name>Screens\MainMenuScreen</Name>
       <NamedObjects>
         <NamedObjectSave>
-          <CustomProperty>
-            <Type>bool</Type>
-            <Member>RelativeToCamera</Member>
-            <ValueAsBool>false</ValueAsBool>
-          </CustomProperty>
-          <SourceType>FlatRedBallType</SourceType>
-          <SourceClassType>Layer</SourceClassType>
-          <InstanceName>GUILayer</InstanceName>
-          <AttachToContainer>false</AttachToContainer>
-          <AddToManagers>true</AddToManagers>
-          <IndependentOfCamera>true</IndependentOfCamera>
-          <Is2D>true</Is2D>
-          <LayerCoordinateType>MatchScreenResolution</LayerCoordinateType>
-        </NamedObjectSave>
-        <NamedObjectSave>
           <SourceType>Entity</SourceType>
           <SourceClassType>Entities\MainMenuUIEntity</SourceClassType>
           <InstanceName>MainMenuGuiEntityInstance</InstanceName>
@@ -37,21 +22,6 @@
       <BaseScreen>Screens\BaseScreen</BaseScreen>
       <Name>Screens\ServerListScreen</Name>
       <NamedObjects>
-        <NamedObjectSave>
-          <CustomProperty>
-            <Type>bool</Type>
-            <Member>RelativeToCamera</Member>
-            <ValueAsBool>false</ValueAsBool>
-          </CustomProperty>
-          <SourceType>FlatRedBallType</SourceType>
-          <SourceClassType>Layer</SourceClassType>
-          <InstanceName>GUILayer</InstanceName>
-          <AttachToContainer>true</AttachToContainer>
-          <AddToManagers>true</AddToManagers>
-          <IndependentOfCamera>true</IndependentOfCamera>
-          <Is2D>true</Is2D>
-          <LayerCoordinateType>MatchScreenResolution</LayerCoordinateType>
-        </NamedObjectSave>
         <NamedObjectSave>
           <SourceType>Entity</SourceType>
           <SourceClassType>Entities\ServerListUIEntity</SourceClassType>
@@ -70,7 +40,6 @@
           <AddToManagers>true</AddToManagers>
           <IsDisabled>true</IsDisabled>
           <IndependentOfCamera>true</IndependentOfCamera>
-          <LayerOn>GUILayer</LayerOn>
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>
@@ -165,6 +134,10 @@
     </ScreenSave>
   </Screens>
   <Entities>
+    <EntitySave>
+      <Name>Entities\Character</Name>
+      <Is2D>true</Is2D>
+    </EntitySave>
     <EntitySave>
       <CustomVariables>
         <CustomVariable>
@@ -432,6 +405,57 @@
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>string</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>ResourcePath</Name>
+          <Type>string</Type>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>X</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>Y</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+      </CustomVariables>
+      <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
+      <ImplementsIVisible>true</ImplementsIVisible>
       <Name>Entities\ToolsetUIEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>

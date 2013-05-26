@@ -4,7 +4,6 @@
 
 function GetAllServers() {
     var jsonServerList = Entity.GetServerList();
-
     var servers = JSON.parse(jsonServerList);
     
     $('#tblServerList').dataTable().fnClearTable();
@@ -19,7 +18,8 @@ function GetAllServers() {
             currentServer.ServerCurrentPlayers + ' / ' + currentServer.ServerMaxPlayers,
             currentServer.GameType,
             currentServer.PVPType,
-            '<input id="server_' + index + '" type="button" value="Connect" onclick="ConnectToServer(\'' + currentServer.ServerIPAddress + '\', ' + currentServer.ServerPort + ');" />'
+            '<input id="server_' + index + '" type="button" value="Connect" onclick="ConnectToServer(\'' +
+                currentServer.ServerIPAddress + '\', ' + currentServer.ServerPort + ');" class="clsConnectButton" />'
         ]);
 
     }
@@ -35,12 +35,14 @@ function InitializeDataTable() {
         "bAutoWidth": false,
         "sPaginationType": 'full_numbers',
         "iDisplayLength": 9
-
     });
 
 
 }
 
+function GoToMainMenu() {
+    Entity.GoToMainMenu();
+}
 
 function ConnectToServer(ipAddress, port) {
     Entity.ConnectToServer(ipAddress, port);

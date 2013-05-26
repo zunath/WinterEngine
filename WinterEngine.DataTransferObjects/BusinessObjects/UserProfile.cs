@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.Network.Enums;
 
-namespace WinterEngine.Network.Entities
+namespace WinterEngine.DataTransferObjects.BusinessObjects
 {
     public class UserProfile
     {
@@ -16,5 +15,6 @@ namespace WinterEngine.Network.Entities
         public string UserLastName { get; set; }
         public DateTime UserDOB { get; set; }
         public bool IsEmailVerified { get; set; }
+        public bool IsLoggedIn { get; set; }
     }
 }

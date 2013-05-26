@@ -2,13 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.Network.Entities;
 
 namespace WinterEngine.Game.Services
 {
     public static class WinterEngineService
     {
+        #region Fields
+
+        private static UserProfile _userProfile;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the currently active user profile.
+        /// </summary>
+        public static UserProfile ActiveUserProfile
+        {
+            get { return _userProfile; }
+        }
+
+        #endregion
+
+        #region Events / Delegates
+
         public static event EventHandler OnXNAUpdate;
         public static event EventHandler OnXNADraw;
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Hooks into the raw XNA update method. 
@@ -34,5 +60,15 @@ namespace WinterEngine.Game.Services
             }
         }
 
+        /// <summary>
+        /// Replaces any existing user profile with a specified one.
+        /// </summary>
+        /// <param name="profile"></param>
+        public static void InitializeUserProfile(UserProfile profile)
+        {
+            _userProfile = profile;
+        }
+
+        #endregion
     }
 }

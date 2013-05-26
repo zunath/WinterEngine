@@ -18,6 +18,7 @@ using WinterEngine.Game.Services;
 using Microsoft.Xna.Framework.Graphics;
 using AwesomiumXNA;
 using FlatRedBall.Graphics;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
 
 
 #endif
@@ -58,6 +59,12 @@ namespace WinterEngine.Game.Entities
 
         #endregion
 
+        #region Events / Delegates
+
+        public event EventHandler<TypeOfEventArgs> OnChangeScreen;
+
+        #endregion
+
         #region FRB Event Handling
 
         private void CustomInitialize()
@@ -88,6 +95,16 @@ namespace WinterEngine.Game.Entities
         #endregion
 
         #region Methods
+
+
+        public void RaiseChangeScreenEvent(TypeOfEventArgs screenType)
+        {
+            if (!Object.ReferenceEquals(OnChangeScreen, null))
+            {
+                OnChangeScreen(this, screenType);
+            }
+        }
+
 
         #endregion
 

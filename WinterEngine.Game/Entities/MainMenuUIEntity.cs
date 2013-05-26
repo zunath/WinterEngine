@@ -26,6 +26,8 @@ using WinterEngine.Network;
 using WinterEngine.Network.Entities;
 using WinterEngine.Network.Enums;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
+using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.Game.Services;
 
 
 #endif
@@ -34,29 +36,6 @@ namespace WinterEngine.Game.Entities
 {
 	public partial class MainMenuUIEntity
     {
-
-        #region Fields
-
-        private UserProfile _userProfile;
-
-        #endregion
-
-        #region Properties
-
-        private UserProfile Profile
-        {
-            get { return _userProfile; }
-            set { _userProfile = value; }
-        }
-
-        #endregion
-
-        #region Events / Delegates
-
-        public event EventHandler<TypeOfEventArgs> OnChangeScreen;
-
-        #endregion
-
         #region FRB Events
 
         private void CustomInitialize()
@@ -84,17 +63,6 @@ namespace WinterEngine.Game.Entities
         
         #endregion
 
-        #region Event Methods
-
-        public void RaiseChangeScreenEvent(TypeOfEventArgs screenType)
-        {
-            if (!Object.ReferenceEquals(OnChangeScreen, null))
-            {
-                OnChangeScreen(this, screenType);
-            }
-        }
-
-        #endregion
 
         #region Awesomium Event Handling
 
@@ -127,11 +95,16 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("GetFirstName", true, GetFirstName);
             EntityJavascriptObject.Bind("GetLastName", true, GetLastName);
             EntityJavascriptObject.Bind("GetDateOfBirth", true, GetDateOfBirth);
+            EntityJavascriptObject.Bind("GetIsLoggedIn", true, GetIsLoggedIn);
 
             // Logo Links
             EntityJavascriptObject.Bind("FlatRedBallLogoLinkClick", false, FlatRedBallLogoLinkClick);
             EntityJavascriptObject.Bind("XNALogoLinkClick", false, XNALogoLinkClick);
 
+
+            // This method fires after the client side OnDocumentReady - must call it here to 
+            // toggle logged-in options.
+            RunJavaScriptMethod("CheckIfLoggedIn();");
         }
 
         #endregion
@@ -152,13 +125,14 @@ namespace WinterEngine.Game.Entities
             LoginCredentials loginCredentials = new LoginCredentials { UserName = username, Password = password};
 
             WebServiceClientUtility utility = new WebServiceClientUtility();
-            Profile = utility.AttemptUserLogin(loginCredentials);
-            
-            if (Profile.UserID > 0 && Profile.IsEmailVerified)
+            WinterEngineService.InitializeUserProfile(utility.AttemptUserLogin(loginCredentials));
+
+            if (WinterEngineService.ActiveUserProfile.UserID > 0 && WinterEngineService.ActiveUserProfile.IsEmailVerified)
             {
+                WinterEngineService.ActiveUserProfile.IsLoggedIn = true;
                 args.Result = (int)UserProfileResponseTypeEnum.Successful;
             }
-            else if (Profile.UserID > 0 && !Profile.IsEmailVerified)
+            else if (WinterEngineService.ActiveUserProfile.UserID > 0 && !WinterEngineService.ActiveUserProfile.IsEmailVerified)
             {
                 args.Result = (int)UserProfileResponseTypeEnum.AccountNotActivated;
             }
@@ -175,7 +149,7 @@ namespace WinterEngine.Game.Entities
         /// <param name="args"></param>
         private void LogoutButtonClick(object sender, JavascriptMethodEventArgs args)
         {
-            Profile = new UserProfile();
+            WinterEngineService.InitializeUserProfile(new UserProfile());
         }
 
         /// <summary>
@@ -304,7 +278,7 @@ namespace WinterEngine.Game.Entities
         private void ResendAccountActivationEmail(object sender, JavascriptMethodEventArgs args)
         {
             WebServiceClientUtility utility = new WebServiceClientUtility();
-            utility.RequestActivationEmailResend(Profile.UserEmail);
+            utility.RequestActivationEmailResend(WinterEngineService.ActiveUserProfile.UserEmail);
         }
 
         #endregion
@@ -313,51 +287,62 @@ namespace WinterEngine.Game.Entities
 
         private void GetUserName(object sender, JavascriptMethodEventArgs e)
         {
-            if (!Object.ReferenceEquals(Profile, null))
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
             {
-                e.Result = Profile.UserName;
+                e.Result = WinterEngineService.ActiveUserProfile.UserName;
             }
         }
 
         private void GetPassword(object sender, JavascriptMethodEventArgs e)
         {
-            if (!Object.ReferenceEquals(Profile, null))
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
             {
-                e.Result = Profile.UserPassword;
+                e.Result = WinterEngineService.ActiveUserProfile.UserPassword;
             }
         }
 
         private void GetEmail(object sender, JavascriptMethodEventArgs e)
         {
-            if (!Object.ReferenceEquals(Profile, null))
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
             {
-                e.Result = Profile.UserEmail;
+                e.Result = WinterEngineService.ActiveUserProfile.UserEmail;
             }
         }
 
         private void GetFirstName(object sender, JavascriptMethodEventArgs e)
         {
-            if (!Object.ReferenceEquals(Profile, null))
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
             {
-                e.Result = Profile.UserFirstName;
+                e.Result = WinterEngineService.ActiveUserProfile.UserFirstName;
             }
         }
 
         private void GetLastName(object sender, JavascriptMethodEventArgs e)
         {
-            if (!Object.ReferenceEquals(Profile, null))
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
             {
-                e.Result = Profile.UserLastName;
+                e.Result = WinterEngineService.ActiveUserProfile.UserLastName;
             }
         }
 
         private void GetDateOfBirth(object sender, JavascriptMethodEventArgs e)
         {
-            if (!Object.ReferenceEquals(Profile, null))
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
             {
-                e.Result = Profile.UserDOB.ToString("MM/dd/yyyy");
+                e.Result = WinterEngineService.ActiveUserProfile.UserDOB.ToString("MM/dd/yyyy");
             }
         }
+
+        private void GetIsLoggedIn(object sender, JavascriptMethodEventArgs e)
+        {
+            e.Result = false;
+
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
+            {
+                e.Result = WinterEngineService.ActiveUserProfile.IsLoggedIn;
+            }
+        }
+
         #endregion
     }
 }

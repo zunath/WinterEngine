@@ -21,6 +21,8 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.Network;
 using Awesomium.Core;
 using WinterEngine.Network.Entities;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
+using WinterEngine.Game.Screens;
 
 
 #endif
@@ -34,12 +36,6 @@ namespace WinterEngine.Game.Entities
         #endregion
 
         #region Properties
-
-        #endregion
-
-        #region Events / Delegates
-
-        public event EventHandler OnChangeScreen;
 
         #endregion
 
@@ -83,6 +79,7 @@ namespace WinterEngine.Game.Entities
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
             EntityJavascriptObject.Bind("GetServerList", true, GetServerList);
+            EntityJavascriptObject.Bind("GoToMainMenu", true, GoToMainMenu);
         }
 
         #endregion
@@ -111,6 +108,11 @@ namespace WinterEngine.Game.Entities
             string ipAddress = e.Arguments[0];
             int port = (int)e.Arguments[1];
 
+        }
+
+        private void GoToMainMenu(object sender, JavascriptMethodEventArgs e)
+        {
+            RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(MainMenuScreen)));
         }
 
         #endregion

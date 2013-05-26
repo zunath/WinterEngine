@@ -77,6 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\UserProfile.cs" />
     <Compile Include="Enumerations\ContentBuilderFileTypeEnum.cs" />
     <Compile Include="Enumerations\DirectoryTypeEnum.cs" />
     <Compile Include="Enumerations\GameTypeEnum.cs" />

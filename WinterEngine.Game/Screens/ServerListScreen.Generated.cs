@@ -32,7 +32,6 @@ using Microsoft.Xna.Framework.Media;
 using WinterEngine.Game.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
-using FlatRedBall.Graphics;
 
 namespace WinterEngine.Game.Screens
 {
@@ -43,7 +42,6 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private FlatRedBall.Graphics.Layer GUILayer;
 		private WinterEngine.Game.Entities.ServerListUIEntity ServerListGuiEntityInstance;
 
 		public ServerListScreen()
@@ -55,8 +53,6 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			GUILayer = new FlatRedBall.Graphics.Layer();
-			GUILayer.Name = "GUILayer";
 			ServerListGuiEntityInstance = new WinterEngine.Game.Entities.ServerListUIEntity(ContentManagerName, false);
 			ServerListGuiEntityInstance.Name = "ServerListGuiEntityInstance";
 			
@@ -68,9 +64,6 @@ namespace WinterEngine.Game.Screens
 // Generated AddToManagers
 		public override void AddToManagers ()
 		{
-			SpriteManager.AddLayer(GUILayer);
-			GUILayer.UsePixelCoordinates();
-			GUILayer.RelativeToCamera = false;
 			base.AddToManagers();
 			CustomInitialize();
 		}
@@ -103,10 +96,6 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
-			if (GUILayer != null)
-			{
-				SpriteManager.RemoveLayer(GUILayer);
-			}
 			if (ServerListGuiEntityInstance != null)
 			{
 				ServerListGuiEntityInstance.Destroy();
@@ -125,7 +114,6 @@ namespace WinterEngine.Game.Screens
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
 			base.PostInitialize();
-			GUILayer.RelativeToCamera = false;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public override void AddToManagersBottomUp ()

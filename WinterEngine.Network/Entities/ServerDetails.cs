@@ -54,9 +54,9 @@ namespace WinterEngine.Network.Entities
         [DataMember]
         public ushort ServerPort { get; set; }
         [DataMember]
-        public PVPTypeEnum PVPType { get; set; }
+        public PVPTypeEnum PVPTypeID { get; set; }
         [DataMember]
-        public GameTypeEnum GameType { get; set; }
+        public GameTypeEnum GameTypeID { get; set; }
 
         #endregion
 

@@ -162,10 +162,12 @@ input.error
 
 /* SERVER LIST */
 
-.clsServerListDiv
+.clsConnectButton
 {
-    background-color: lightgrey;
+    background-color: lightblue;
 }
+
+
 
 /* DATA TABLES */
 

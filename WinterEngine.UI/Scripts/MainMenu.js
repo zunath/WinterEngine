@@ -9,6 +9,12 @@ function Initialize() {
     InitializeAccountNotActivatedBox();
 }
 
+// Method is called from the entity's OnDocumentReady method.
+function CheckIfLoggedIn() {
+    var isLoggedIn = Entity.GetIsLoggedIn();
+    ToggleIsLoggedIn(isLoggedIn);
+}
+
 /* Account login/logout */
 
 function LoginButton() {
@@ -159,6 +165,22 @@ function InitializeLoginBox() {
 
 }
 
+function ToggleIsLoggedIn(isLoggedIn) {
+
+    if (isLoggedIn) {
+        $('#btnProfile').removeAttr('disabled');
+        $('#btnFindServer').removeAttr('disabled');
+        $('#btnLoginLogout').val('Logout');
+        $('#btnLoginLogout').data('mode', 'logout');
+    }
+    else {
+        $('#btnProfile').attr('disabled', 'disabled');
+        $('#btnFindServer').attr('disabled', 'disabled');
+        $('#btnLoginLogout').val('Login');
+        $('#btnLoginLogout').data('mode', 'login');
+    }
+}
+
 function InitializeLogoutBox() {
     $('#divConfirmLogout').dialog({
         modal: true,
@@ -200,10 +222,7 @@ function DoLogin() {
     // 1 = Login succeeded
     if (loginStatus == 1) {
         CloseLoginBox();
-        $('#btnProfile').removeAttr('disabled');
-        $('#btnFindServer').removeAttr('disabled');
-        $('#btnLoginLogout').val('Logout');
-        $('#btnLoginLogout').data('mode', 'logout');
+        ToggleIsLoggedIn(true);
     }
         // 8 = Account not activated
     else if (loginStatus == 8) {
