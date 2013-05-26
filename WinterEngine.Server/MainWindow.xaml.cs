@@ -347,8 +347,19 @@ namespace WinterEngine.Server
 
         void GameServerThread_DoWork(object sender, DoWorkEventArgs e)
         {
-            GameServer server = new GameServer();
-            
+            try
+            {
+                GameServer gameServer = new GameServer();
+
+                while (IsRunning)
+                {
+                    gameServer.Process();
+                }
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         #endregion
@@ -369,9 +380,9 @@ namespace WinterEngine.Server
                     masterClient.Process(serverCopy);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 

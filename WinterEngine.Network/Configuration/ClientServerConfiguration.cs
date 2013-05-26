@@ -11,7 +11,7 @@ namespace WinterEngine.Network.Configuration
         private const int ClientServerPort = 5121;
 
         /// <summary>
-        /// Returns the default port number used by the client-server.
+        /// Returns the default port number used by the game server.
         /// This may be overridden by the end-user.
         /// </summary>
         public static int DefaultPort
@@ -20,7 +20,7 @@ namespace WinterEngine.Network.Configuration
         }
 
         /// <summary>
-        /// Returns the unique application ID used by the client-server
+        /// Returns the unique application ID used by the game server
         /// </summary>
         public static string ApplicationID
         {

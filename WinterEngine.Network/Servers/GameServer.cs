@@ -18,22 +18,11 @@ namespace WinterEngine.Network.Servers
     {
         #region Fields
 
-        private BackgroundWorker _networkThread;
         private NetworkAgent _agent;
-        private bool _isServerRunning;
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the network thread used for packet processing.
-        /// </summary>
-        private BackgroundWorker NetworkThread
-        {
-            get { return _networkThread; }
-            set { _networkThread = value; }
-        }
 
         /// <summary>
         /// Gets or sets the network agent.
@@ -44,106 +33,28 @@ namespace WinterEngine.Network.Servers
             set { _agent = value; }
         }
 
-        /// <summary>
-        /// Gets or sets whether the client server is running.
-        /// </summary>
-        public bool IsServerRunning
-        {
-            get { return _isServerRunning; }
-            set { _isServerRunning = value; }
-        }
-
         #endregion
 
         #region Constructors
 
         public GameServer()
         {
-            NetworkThread = new BackgroundWorker();
-            NetworkThread.WorkerSupportsCancellation = true;
-            NetworkThread.DoWork += RunNetworkThread;
-
             Agent = new NetworkAgent(AgentRole.Server, ClientServerConfiguration.ApplicationID, ClientServerConfiguration.DefaultPort);
         }
 
         #endregion
 
-        #region Events / Delegates
-
-        public event EventHandler OnServerStart;
-        public event EventHandler OnServerShutdown;
-
-        #endregion
-
         #region Methods - Main Thread
 
-        /// <summary>
-        /// Starts the client-server server instance.
-        /// </summary>
-        public void Start()
+        public void Process()
         {
-            try
-            {
-                IsServerRunning = true;
-                NetworkThread.RunWorkerAsync();
-
-                if (!Object.ReferenceEquals(OnServerStart, null))
-                {
-                    OnServerStart(this, new EventArgs());
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error starting the client-server. Method: Start() in ClientServer", ex);
-            }
-        }
-
-        /// <summary>
-        /// Shuts down the client-server server instance.
-        /// </summary>
-        public void Shutdown()
-        {
-            try
-            {
-                IsServerRunning = false;
-                NetworkThread.CancelAsync();
-
-                if (!Object.ReferenceEquals(OnServerShutdown, null))
-                {
-                    OnServerShutdown(this, new EventArgs());
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error shutting down the client-server. Method: Shutdown() in ClientServer", ex);
-            }
+            CheckForMessages();
+            Thread.Sleep(5);
         }
 
         #endregion
 
         #region Methods - Network Thread
-
-        /// <summary>
-        /// Handles checking for new messages from clients, processing them, and updating the game state.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RunNetworkThread(object sender, DoWorkEventArgs e)
-        {
-            try
-            {
-
-                while (IsServerRunning)
-                {
-                    CheckForMessages();
-                    Thread.Sleep(5);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error: Method: RunNetworkThread() in ClientServer.cs", ex);
-            }
-        }
 
         /// <summary>
         /// Checks for messages and processes them.
