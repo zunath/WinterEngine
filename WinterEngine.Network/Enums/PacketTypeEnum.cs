@@ -8,8 +8,6 @@ namespace WinterEngine.Network.Enums
 {
     public enum PacketTypeEnum : byte
     {
-        Server = 1,
-        Request = 2,
-        ClientServerList = 3,
+        Request = 1,
     }
 }

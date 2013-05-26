@@ -24,25 +24,46 @@ namespace WinterEngine.Server
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class WinterServer : Window
+    public partial class MainWindow : Window
     {
         #region Fields
 
+        private bool _isRunning;
         private OpenFileDialog _openFile;
+        private List<ContentPackage> _contentPackages;
+        private BackgroundWorker _masterServerThread;
+        private BackgroundWorker _gameServerThread;
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// Gets or sets the client-server server
+        /// Gets or sets whether the game server and master client are running.
         /// </summary>
-        private ClientServer GameServer { get; set; }
+        private bool IsRunning
+        {
+            get { return _isRunning; }
+            set { _isRunning = value; }
+        }
 
         /// <summary>
-        /// Gets or sets the master server client
+        /// Gets or sets the thread responsible for managing the master server client.
         /// </summary>
-        private MasterServerClient MasterClient { get; set; }
+        private BackgroundWorker MasterServerThread
+        {
+            get { return _masterServerThread; }
+            set { _masterServerThread = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the thread responsible for managing the game server.
+        /// </summary>
+        private BackgroundWorker GameServerThread
+        {
+            get { return _gameServerThread; }
+            set { _gameServerThread = value; }
+        }
 
         /// <summary>
         /// Gets or sets the open file dialog.
@@ -53,11 +74,20 @@ namespace WinterEngine.Server
             set { _openFile = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the list of content packages used by the active module.
+        /// </summary>
+        private List<ContentPackage> ContentPackageList
+        {
+            get { return _contentPackages; }
+            set { _contentPackages = value; }
+        }
+
         #endregion
 
         #region Constructors
 
-        public WinterServer()
+        public MainWindow()
         {
             InitializeComponent();
         }
@@ -74,11 +104,15 @@ namespace WinterEngine.Server
         /// <param name="e"></param>
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            GameServer = new ClientServer();
-            GameServer.OnServerStart += Server_OnServerStart;
-            GameServer.OnServerShutdown += Server_OnServerShutdown;
+            GameServerThread = new BackgroundWorker();
+            GameServerThread.WorkerSupportsCancellation = true;
+            GameServerThread.WorkerReportsProgress = false;
+            GameServerThread.DoWork += GameServerThread_DoWork;
 
-            MasterClient = new MasterServerClient();
+            MasterServerThread = new BackgroundWorker();
+            MasterServerThread.WorkerSupportsCancellation = true;
+            MasterServerThread.WorkerReportsProgress = false;
+            MasterServerThread.DoWork += MasterServerThread_DoWork;
 
             OpenFile = new OpenFileDialog();
             InitializeOpenFileDialog();
@@ -90,22 +124,6 @@ namespace WinterEngine.Server
             numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.DefaultValue);
 
             UpdateExternalIPAddress();
-            MasterClient.OnServerPropertiesChanged += MasterClient_OnServerPropertiesChanged;
-        }
-
-        private void MasterClient_OnServerPropertiesChanged(object sender, EventArgs e)
-        {
-            MasterClient.ServerInformation = BuildServerDetails();
-        }
-
-        private void Server_OnServerShutdown(object sender, EventArgs e)
-        {
-            buttonStartStop.Content = "Start Server";
-        }
-
-        private void Server_OnServerStart(object sender, EventArgs e)
-        {
-            buttonStartStop.Content = "Shutdown";
         }
 
         /// <summary>
@@ -135,17 +153,27 @@ namespace WinterEngine.Server
         /// <param name="e"></param>
         private void buttonStartStop_Click(object sender, RoutedEventArgs e)
         {
-            if (GameServer.IsServerRunning)
+            if (IsRunning)
             {
                 ToggleServerStatusMode(false);
-                GameServer.Shutdown();
-                MasterClient.Shutdown();
+                buttonStartStop.Content = "Start Server";
+        
             }
             else
             {
                 ToggleServerStatusMode(true);
-                GameServer.Start();
-                MasterClient.Start(BuildServerDetails());
+
+                if (!GameServerThread.IsBusy)
+                {
+                    GameServerThread.RunWorkerAsync();
+                }
+
+                if (!MasterServerThread.IsBusy)
+                {
+                    MasterServerThread.RunWorkerAsync(BuildServerDetails());
+                }
+                 
+                buttonStartStop.Content = "Shutdown";
             }
         }
 
@@ -181,7 +209,7 @@ namespace WinterEngine.Server
             FileExtensionFactory winterExtensions = new FileExtensionFactory();
             string fileExtension = winterExtensions.GetFileExtension(FileTypeEnum.Module);
             OpenFile.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
-
+            
             OpenFile.AddExtension = true;
             OpenFile.Title = "Open Module";
             OpenFile.Multiselect = false;
@@ -204,8 +232,7 @@ namespace WinterEngine.Server
 
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                List<ContentPackage> packages = repo.GetAll();
-                Console.WriteLine("");
+                ContentPackageList = repo.GetAll();
             }
         }
 
@@ -215,13 +242,13 @@ namespace WinterEngine.Server
         /// <param name="serverStarted">Set to true if the server is started. Set to false if the server is stopped.</param>
         private void ToggleServerStatusMode(bool serverStarted)
         {
+            IsRunning = serverStarted;
             buttonBrowse.IsEnabled = !serverStarted;
+            numericPort.IsEnabled = !serverStarted;
 
             textBoxServerMessage.IsEnabled = serverStarted;
             buttonBanAccount.IsEnabled = serverStarted;
             buttonBootPlayer.IsEnabled = serverStarted;
-
-            numericPort.IsEnabled = !serverStarted;
         }
 
         /// <summary>
@@ -247,7 +274,7 @@ namespace WinterEngine.Server
         /// Builds a ServerDetails object based on data put into the form's fields.
         /// </summary>
         /// <returns></returns>
-        private ServerDetails BuildServerDetails()
+        private WinterServer BuildServerDetails()
         {
             if (Object.ReferenceEquals(listBoxGameType.SelectedItem, null))
             {
@@ -259,8 +286,7 @@ namespace WinterEngine.Server
                 comboBoxPVPType.SelectedIndex = 0;
             }
 
-            ServerDetails details =
-                    new ServerDetails
+            WinterServer server = new WinterServer
                     {
                         ServerName = textBoxServerName.Text,
                         ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value),
@@ -272,7 +298,7 @@ namespace WinterEngine.Server
                         IsAutoDownloadEnabled = (bool)checkBoxAllowFileAutoDownload.IsChecked
                     };
 
-            return details;
+            return server;
         }
 
         #endregion
@@ -315,61 +341,41 @@ namespace WinterEngine.Server
             numericPort.Text = Convert.ToString(numericPort.Value);
         }
 
-        /// <summary>
-        /// Calls RaiseServerDetailsChangedEvent when called for any text box.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!Object.ReferenceEquals(MasterClient, null))
-            {
-                MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
-            }
-        }
+        #endregion
 
-        /// <summary>
-        /// Calls RaiseServerDetailsChangedEvent when called for any combo box or list box.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ComboBoxChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (!Object.ReferenceEquals(MasterClient, null))
-            {
-                MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
-            }
-        }
+        #region Game server thread
 
-        /// <summary>
-        /// Calls RaiseServerDetailsChangedEvent when called for any numeric integer up/down control.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void NumericIntegerChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        void GameServerThread_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (!Object.ReferenceEquals(MasterClient, null))
-            {
-                MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
-            }
-        }
-
-        /// <summary>
-        /// Calls RaiseServerDetailsChangedEvent when called for any check box.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CheckBoxChanged(object sender, RoutedEventArgs e)
-        {
-            if (!Object.ReferenceEquals(MasterClient, null))
-            {
-                MasterClient_OnServerPropertiesChanged(sender, new EventArgs());
-            }
+            GameServer server = new GameServer();
+            
         }
 
         #endregion
 
+        #region Master client thread
 
+        void MasterServerThread_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                MasterServerClient masterClient = new MasterServerClient();
+                WinterServer serverCopy = e.Argument as WinterServer;
+
+                while (IsRunning)
+                {
+                    this.Dispatcher.Invoke(DispatcherPriority.Normal,
+                        new Action(() => { serverCopy = BuildServerDetails(); }));
+                    masterClient.Process(serverCopy);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
 
     }
 }

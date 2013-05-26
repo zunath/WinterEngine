@@ -6,14 +6,14 @@ using System.Text;
 
 namespace WinterEngine.Network.Configuration
 {
+    // Values are stored in this class rather than app.config because
+    // libraries do not pick up their own app.config files - they use the 
+    // application's app.config file.
     public class MasterServerConfiguration
     {
-        // Values are stored in this class rather than app.config because
-        // libraries do not pick up their own app.config files - they use the 
-        // application's app.config file.
         private const string _masterServerURL = "https://www.winterengine.com/";
-        //private const string _masterServerURL = "http://localhost:12901/";
-        private const int _masterServerPort = 5122;
+        //private const string _masterServerURL = "http://localhost:12901/";            // For debugging
+        private const int _syncDelaySeconds = 3; // DEFAULT: 30
 
         /// <summary>
         /// Returns the IP address of the master server
@@ -38,13 +38,14 @@ namespace WinterEngine.Network.Configuration
         }
 
         /// <summary>
-        /// Returns the port of the master server
+        /// Returns the number of seconds before a master server client will attempt to sync
+        /// to the master server.
         /// </summary>
-        public static int Port
+        public static int SyncDelaySeconds
         {
             get
             {
-                return _masterServerPort;
+                return _syncDelaySeconds;
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿function Initialize() {
     InitializeDataTable();
+    InitializeConnectingBox();
 }
 
 function GetAllServers() {
@@ -46,4 +47,15 @@ function GoToMainMenu() {
 
 function ConnectToServer(ipAddress, port) {
     Entity.ConnectToServer(ipAddress, port);
+}
+
+function InitializeConnectingBox() {
+    $('#divConnectingToServer').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Connecting',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
 }

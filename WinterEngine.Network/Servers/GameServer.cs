@@ -14,7 +14,7 @@ using WinterEngine.Network.Packets;
 
 namespace WinterEngine.Network.Servers
 {
-    public class ClientServer
+    public class GameServer
     {
         #region Fields
 
@@ -57,7 +57,7 @@ namespace WinterEngine.Network.Servers
 
         #region Constructors
 
-        public ClientServer()
+        public GameServer()
         {
             NetworkThread = new BackgroundWorker();
             NetworkThread.WorkerSupportsCancellation = true;
@@ -125,7 +125,6 @@ namespace WinterEngine.Network.Servers
 
         /// <summary>
         /// Handles checking for new messages from clients, processing them, and updating the game state.
-        /// Also syncs with the master server 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

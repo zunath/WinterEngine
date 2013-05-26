@@ -10,7 +10,7 @@ using WinterEngine.Network.Entities;
 
 namespace WinterEngine.Network.Entities
 {
-    public class ServerDetails
+    public class WinterServer
     {
         #region Fields
 
@@ -54,7 +54,7 @@ namespace WinterEngine.Network.Entities
 
         #region Constructors
 
-        public ServerDetails()
+        public WinterServer()
         {
             Connection = new ConnectionAddress();
             LastPacketReceived = DateTime.UtcNow;
@@ -71,7 +71,7 @@ namespace WinterEngine.Network.Entities
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            ServerDetails comparedObject = obj as ServerDetails;
+            WinterServer comparedObject = obj as WinterServer;
 
             if (Object.ReferenceEquals(comparedObject, null))
             {

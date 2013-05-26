@@ -13,7 +13,7 @@ namespace WinterEngine.Server
         static void Main(string[] args)
         {
             Application app = new Application();
-            app.Run(new WinterServer());
+            app.Run(new MainWindow());
 
         }
     }

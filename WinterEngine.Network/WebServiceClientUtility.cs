@@ -101,7 +101,7 @@ namespace WinterEngine.Network
         /// tracks the active server list.
         /// </summary>
         /// <param name="details">The server details to send to the master server.</param>
-        public string SendServerDetails(ServerDetails details)
+        public string SendServerDetails(WinterServer details)
         {
             try
             {
