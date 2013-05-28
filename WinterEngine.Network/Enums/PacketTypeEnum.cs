@@ -9,5 +9,6 @@ namespace WinterEngine.Network.Enums
     public enum PacketTypeEnum : byte
     {
         Request = 1,
+        ContentPackageList = 2
     }
 }

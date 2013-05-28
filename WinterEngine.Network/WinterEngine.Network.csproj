@@ -58,6 +58,9 @@
       <HintPath>..\References\Lidgren.Network.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.2.0.0.621\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -70,26 +73,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clients\FileStreamingClient.cs" />
+    <Compile Include="Clients\GameNetworkClient.cs" />
     <Compile Include="Clients\MasterServerClient.cs" />
-    <Compile Include="Configuration\ClientServerConfiguration.cs" />
+    <Compile Include="Configuration\GameServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />
-    <Compile Include="Entities\ConnectionAddress.cs" />
-    <Compile Include="Entities\LoginCredentials.cs" />
-    <Compile Include="Entities\WinterServer.cs" />
     <Compile Include="Enums\RequestTypeEnum.cs" />
     <Compile Include="Enums\PacketTypeEnum.cs" />
     <Compile Include="Enums\UserProfileResponseTypeEnum.cs" />
     <Compile Include="Enums\WebServiceMethodTypeEnum.cs" />
+    <Compile Include="Packets\ContentPackageListPacket.cs" />
     <Compile Include="WebServiceClientUtility.cs" />
-    <Compile Include="Servers\GameServer.cs" />
+    <Compile Include="Listeners\GameListener.cs" />
     <Compile Include="NetworkAgent.cs" />
-    <Compile Include="PacketFactory.cs" />
     <Compile Include="Packets\Packet.cs" />
     <Compile Include="Packets\RequestPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WinterEngine.DataAccess\WinterEngine.DataAccess.csproj">
+      <Project>{0e481c4b-dd8f-4b26-84e7-cacda79288f0}</Project>
+      <Name>WinterEngine.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WinterEngine.DataTransferObjects\WinterEngine.DataTransferObjects.csproj">
       <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>
       <Name>WinterEngine.DataTransferObjects</Name>
@@ -98,6 +102,9 @@
       <Project>{483cd518-a771-4fda-a97e-dc2e42aef780}</Project>
       <Name>WinterEngine.Library</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

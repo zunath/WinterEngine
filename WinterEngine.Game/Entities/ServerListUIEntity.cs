@@ -20,9 +20,11 @@ using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.Network;
 using Awesomium.Core;
-using WinterEngine.Network.Entities;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.Game.Screens;
+using WinterEngine.Network.Clients;
+using System.ComponentModel;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 
 
 #endif
@@ -33,9 +35,17 @@ namespace WinterEngine.Game.Entities
     {
         #region Fields
 
+        private GameNetworkClient _networkClient;
+
         #endregion
 
         #region Properties
+
+        private GameNetworkClient NetworkClient
+        {
+            get { return _networkClient; }
+            set { _networkClient = value; }
+        }
 
         #endregion
 
@@ -48,8 +58,10 @@ namespace WinterEngine.Game.Entities
 
 		private void CustomActivity()
 		{
-
-
+            if (!Object.ReferenceEquals(NetworkClient, null) && NetworkClient.IsConnected)
+            {
+                NetworkClient.Process();
+            }
 		}
 
 		private void CustomDestroy()
@@ -79,6 +91,7 @@ namespace WinterEngine.Game.Entities
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
             EntityJavascriptObject.Bind("GetServerList", true, GetServerList);
+            EntityJavascriptObject.Bind("ConnectToServer", true, ConnectToServer);
             EntityJavascriptObject.Bind("GoToMainMenu", true, GoToMainMenu);
         }
 
@@ -105,9 +118,13 @@ namespace WinterEngine.Game.Entities
         /// <param name="e"></param>
         private void ConnectToServer(object sender, JavascriptMethodEventArgs e)
         {
-            string ipAddress = e.Arguments[0];
-            int port = (int)e.Arguments[1];
+            ConnectionAddress address = new ConnectionAddress
+            {
+                ServerIPAddress = e.Arguments[0],
+                ServerPort = (int)e.Arguments[1]
+            };
 
+            NetworkClient = new GameNetworkClient(address);            
         }
 
         private void GoToMainMenu(object sender, JavascriptMethodEventArgs e)

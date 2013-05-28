@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinterEngine.DataTransferObjects.BusinessObjects;
-using WinterEngine.Network.Entities;
 
 namespace WinterEngine.Game.Services
 {

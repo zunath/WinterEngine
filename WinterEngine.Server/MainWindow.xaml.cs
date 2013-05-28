@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
 using Microsoft.Win32;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.Library.Factories;
+using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.Library.Managers;
 using WinterEngine.Network;
 using WinterEngine.Network.Clients;
 using WinterEngine.Network.Configuration;
-using WinterEngine.Network.Entities;
-using WinterEngine.Network.Servers;
+using WinterEngine.Network.Listeners;
 using Xceed.Wpf.Toolkit;
 
 namespace WinterEngine.Server
@@ -32,7 +31,7 @@ namespace WinterEngine.Server
         private OpenFileDialog _openFile;
         private List<ContentPackage> _contentPackages;
         private BackgroundWorker _masterServerThread;
-        private BackgroundWorker _gameServerThread;
+        private BackgroundWorker _gameListenerThread;
 
         #endregion
 
@@ -57,12 +56,12 @@ namespace WinterEngine.Server
         }
 
         /// <summary>
-        /// Gets or sets the thread responsible for managing the game server.
+        /// Gets or sets the thread responsible for managing the game listener.
         /// </summary>
-        private BackgroundWorker GameServerThread
+        private BackgroundWorker GameListenerThread
         {
-            get { return _gameServerThread; }
-            set { _gameServerThread = value; }
+            get { return _gameListenerThread; }
+            set { _gameListenerThread = value; }
         }
 
         /// <summary>
@@ -104,20 +103,22 @@ namespace WinterEngine.Server
         /// <param name="e"></param>
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            GameServerThread = new BackgroundWorker();
-            GameServerThread.WorkerSupportsCancellation = true;
-            GameServerThread.WorkerReportsProgress = false;
-            GameServerThread.DoWork += GameServerThread_DoWork;
+            GameListenerThread = new BackgroundWorker();
+            GameListenerThread.WorkerSupportsCancellation = true;
+            GameListenerThread.WorkerReportsProgress = false;
+            GameListenerThread.DoWork += GameServerThread_DoWork;
+            GameListenerThread.RunWorkerCompleted += GameListenerThread_RunWorkerCompleted;
 
             MasterServerThread = new BackgroundWorker();
             MasterServerThread.WorkerSupportsCancellation = true;
             MasterServerThread.WorkerReportsProgress = false;
             MasterServerThread.DoWork += MasterServerThread_DoWork;
+            MasterServerThread.RunWorkerCompleted += MasterServerThread_RunWorkerCompleted;
 
             OpenFile = new OpenFileDialog();
             InitializeOpenFileDialog();
 
-            numericPort.DefaultValue = ClientServerConfiguration.DefaultPort;
+            numericPort.DefaultValue = GameServerConfiguration.DefaultGamePort;
             numericPort.Text = Convert.ToString(numericPort.DefaultValue);
 
             numericMaxLevel.Text = Convert.ToString(numericMaxLevel.DefaultValue);
@@ -163,16 +164,16 @@ namespace WinterEngine.Server
             {
                 ToggleServerStatusMode(true);
 
-                if (!GameServerThread.IsBusy)
+                if (!GameListenerThread.IsBusy)
                 {
-                    GameServerThread.RunWorkerAsync();
+                    GameListenerThread.RunWorkerAsync(numericPort.Value);
                 }
 
                 if (!MasterServerThread.IsBusy)
                 {
                     MasterServerThread.RunWorkerAsync(BuildServerDetails());
                 }
-                 
+
                 buttonStartStop.Content = "Shutdown";
             }
         }
@@ -349,7 +350,7 @@ namespace WinterEngine.Server
         {
             try
             {
-                GameServer gameServer = new GameServer();
+                GameListener gameServer = new GameListener((int)e.Argument, ContentPackageList);
 
                 while (IsRunning)
                 {
@@ -359,6 +360,14 @@ namespace WinterEngine.Server
             catch
             {
                 throw;
+            }
+        }
+
+        void GameListenerThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (!Object.ReferenceEquals(e.Error, null))
+            {
+                throw e.Error;
             }
         }
 
@@ -386,7 +395,15 @@ namespace WinterEngine.Server
             }
         }
 
-        #endregion
+        void MasterServerThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (!Object.ReferenceEquals(e.Error, null))
+            {
+                throw e.Error;
+            }
+        }
 
+
+        #endregion
     }
 }

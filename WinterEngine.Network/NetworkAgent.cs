@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Lidgren.Network;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using Lidgren.Network;
+using ProtoBuf;
 using WinterEngine.Network.Packets;
 
 namespace WinterEngine.Network
@@ -94,9 +94,9 @@ namespace WinterEngine.Network
         /// <param name="packet"></param>
         public void WriteMessage(Packet packet)
         {
-            // The first byte is always the packet type.
-            mOutgoingMessage.Write((byte)packet.PacketType);
-            mOutgoingMessage.WriteAllProperties(packet);
+            MemoryStream stream = new MemoryStream();
+            Serializer.Serialize<Packet>(stream, packet); // Protobuf serialization
+            mOutgoingMessage.Write(stream.ToArray());
         }
 
         /// <summary>
@@ -169,5 +169,27 @@ namespace WinterEngine.Network
             }
             return mIncomingMessages;
         }
+
+        public List<Packet> CheckForPackets()
+        {
+            List<NetIncomingMessage> messages = CheckForMessages();
+            List<Packet> packets = new List<Packet>();
+            BinaryFormatter formatter = new BinaryFormatter();
+            MemoryStream stream = new MemoryStream();
+            Packet currentPacket;
+
+            foreach (NetIncomingMessage currentMessage in messages)
+            {
+                stream = new MemoryStream(currentMessage.ReadBytes(currentMessage.LengthBytes));
+                currentPacket = Serializer.Deserialize<Packet>(stream);
+                currentPacket.SenderConnection = currentMessage.SenderConnection;
+
+                packets.Add(currentPacket);
+            }
+
+            return packets;
+        }
+
+
     }
 }

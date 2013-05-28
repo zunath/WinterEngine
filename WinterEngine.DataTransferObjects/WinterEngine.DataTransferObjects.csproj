@@ -77,7 +77,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\ConnectionAddress.cs" />
+    <Compile Include="BusinessObjects\LoginCredentials.cs" />
     <Compile Include="BusinessObjects\UserProfile.cs" />
+    <Compile Include="BusinessObjects\WinterServer.cs" />
     <Compile Include="Enumerations\ContentBuilderFileTypeEnum.cs" />
     <Compile Include="Enumerations\DirectoryTypeEnum.cs" />
     <Compile Include="Enumerations\GameTypeEnum.cs" />
@@ -88,6 +91,7 @@
     <Compile Include="Enumerations\ResourceTypeEnum.cs" />
     <Compile Include="Enumerations\ContentPackageResourceTypeEnum.cs" />
     <Compile Include="Enumerations\TilesetEditorModeTypeEnum.cs" />
+    <Compile Include="EventArgsExtended\AutoDownloaderStatusEventArgs.cs" />
     <Compile Include="EventArgsExtended\GameObjectEventArgs.cs" />
     <Compile Include="EventArgsExtended\PositionEventArgs.cs" />
     <Compile Include="EventArgsExtended\TypeOfEventArgs.cs" />

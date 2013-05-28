@@ -5,16 +5,13 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace WinterEngine.Network.Entities
+namespace WinterEngine.DataTransferObjects.BusinessObjects
 {
-    [DataContract]
     public class ConnectionAddress
     {
         #region Properties
 
-        [DataMember]
         public string ServerIPAddress { get; set; }
-        [DataMember]
         public int ServerPort { get; set; }
 
         #endregion

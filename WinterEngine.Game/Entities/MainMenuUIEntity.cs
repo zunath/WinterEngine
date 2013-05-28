@@ -23,7 +23,6 @@ using System.Diagnostics;
 using FlatRedBall.Screens;
 using WinterEngine.Game.Screens;
 using WinterEngine.Network;
-using WinterEngine.Network.Entities;
 using WinterEngine.Network.Enums;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.BusinessObjects;

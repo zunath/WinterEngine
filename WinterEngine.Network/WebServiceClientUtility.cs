@@ -8,7 +8,6 @@ using System.Web.Script.Serialization;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.Library.Utility;
 using WinterEngine.Network.Configuration;
-using WinterEngine.Network.Entities;
 using WinterEngine.Network.Enums;
 
 namespace WinterEngine.Network

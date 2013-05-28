@@ -4,11 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
-using Lidgren.Network;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.Network.Entities;
 
-namespace WinterEngine.Network.Entities
+namespace WinterEngine.DataTransferObjects.BusinessObjects
 {
     public class WinterServer
     {

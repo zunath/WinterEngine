@@ -12,7 +12,6 @@ using System.Drawing.Imaging;
 using WinterEngine.UI.AwesomiumXNA;
 using FlatRedBall.Math;
 using WinterEngine.Network;
-using WinterEngine.Network.Entities;
 using FlatRedBall.Gui;
 using WinterEngine.Game.Services;
 using Microsoft.Xna.Framework.Graphics;

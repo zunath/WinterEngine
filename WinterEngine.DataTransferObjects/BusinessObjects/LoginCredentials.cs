@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WinterEngine.Network.Entities
+namespace WinterEngine.DataTransferObjects.BusinessObjects
 {
     public class LoginCredentials
     {
