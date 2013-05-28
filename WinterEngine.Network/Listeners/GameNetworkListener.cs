@@ -44,34 +44,52 @@ namespace WinterEngine.Network.Listeners
             get { return _agent; }
             set { _agent = value; }
         }
-
+        
+        /// <summary>
+        /// Gets the list of content packages being streamed by the listener to clients.
+        /// </summary>
         private List<ContentPackage> ContentPackageList
         {
             get { return _contentPackages; }
         }
 
+        /// <summary>
+        /// Gets the name of the content packages being streamed by the listener to clients.
+        /// </summary>
         private List<string> ContentPackageFileNames
         {
             get { return _contentPackageNames; }
         }
 
+        /// <summary>
+        /// Gets the file paths of the content packages being streamed by the listener to clients.
+        /// </summary>
         private List<string> ContentPackageFilePaths
         {
             get { return _contentPackagePaths; }
         }
 
+        /// <summary>
+        /// Gets or sets the list of incoming packets that need to be processed by the listener.
+        /// </summary>
         private List<PacketBase> IncomingPackets
         {
             get { return _incomingPackets; }
             set { _incomingPackets = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the list of clients to which the listener is streaming files.
+        /// </summary>
         private Dictionary<NetConnection, FileTransferProgress> FileTransferClients
         {
             get { return _fileTransferClients; }
             set { _fileTransferClients = value; }
         }
 
+        /// <summary>
+        /// The file extension factory used for file streaming.
+        /// </summary>
         private FileExtensionFactory FileExtensionFactory
         {
             get { return _fileExtensionFactory; }
@@ -81,6 +99,11 @@ namespace WinterEngine.Network.Listeners
 
         #region Constructors
 
+        /// <summary>
+        /// Constructs a new GameNetworkListener object and initializes all values.
+        /// </summary>
+        /// <param name="customPort">The port to run the listener on</param>
+        /// <param name="contentPackages">The content packages to be streamed to users on connection.</param>
         public GameNetworkListener(int customPort, List<ContentPackage> contentPackages)
         {
             if (customPort <= 0)
@@ -164,6 +187,10 @@ namespace WinterEngine.Network.Listeners
             }
         }
 
+        /// <summary>
+        /// Sends a packet containing the list of file names to the sender of the received packet.
+        /// </summary>
+        /// <param name="receivedPacket"></param>
         private void SendContentPackageList(PacketBase receivedPacket)
         {
             ContentPackageListPacket packet = new ContentPackageListPacket

@@ -108,11 +108,9 @@ namespace WinterEngine.Network
         /// <summary>
         /// Reads every message in the queue and returns a list of data messages.
         /// Other message types just write a Console note.
-        /// This should be called every update by the Game Screen
-        /// The Game Screen should implement the actual handling of messages.
         /// </summary>
         /// <returns></returns>
-        public List<NetIncomingMessage> CheckForMessages()
+        private List<NetIncomingMessage> CheckForMessages()
         {
             mIncomingMessages.Clear();
             NetIncomingMessage incomingMessage;
@@ -159,6 +157,10 @@ namespace WinterEngine.Network
             return mIncomingMessages;
         }
 
+        /// <summary>
+        /// Checks for queued messages and deserializes them into packets.
+        /// </summary>
+        /// <returns></returns>
         public List<PacketBase> CheckForPackets()
         {
             List<NetIncomingMessage> messages = CheckForMessages();
