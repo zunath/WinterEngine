@@ -16,7 +16,7 @@ using WinterEngine.Network.Packets;
 
 namespace WinterEngine.Network.Listeners
 {
-    public class GameListener
+    public class GameNetworkListener
     {
         #region Fields
 
@@ -24,7 +24,7 @@ namespace WinterEngine.Network.Listeners
         private List<ContentPackage> _contentPackages;
         private List<string> _contentPackageNames;
         private List<string> _contentPackagePaths;
-        private List<Packet> _incomingPackets;
+        private List<PacketBase> _incomingPackets;
 
         #endregion
 
@@ -54,7 +54,7 @@ namespace WinterEngine.Network.Listeners
             get { return _contentPackagePaths; }
         }
 
-        private List<Packet> IncomingPackets
+        private List<PacketBase> IncomingPackets
         {
             get { return _incomingPackets; }
             set { _incomingPackets = value; }
@@ -64,14 +64,14 @@ namespace WinterEngine.Network.Listeners
 
         #region Constructors
 
-        public GameListener(int customPort, List<ContentPackage> contentPackages)
+        public GameNetworkListener(int customPort, List<ContentPackage> contentPackages)
         {
             if (customPort <= 0)
             {
                 customPort = GameServerConfiguration.DefaultGamePort;
             }
 
-            Agent = new NetworkAgent(AgentRole.Server, GameServerConfiguration.ApplicationID, customPort);
+            Agent = new NetworkAgent(AgentRoleEnum.Server, GameServerConfiguration.ApplicationID, customPort);
             this._contentPackages = contentPackages;
 
             _contentPackageNames = new List<string>();
@@ -86,14 +86,14 @@ namespace WinterEngine.Network.Listeners
 
         #endregion
 
-        #region Methods
+        #region Methods - General
 
         public void Process()
         {
             // Checks for messages and processes them.
             IncomingPackets = Agent.CheckForPackets();
 
-            foreach (Packet packet in IncomingPackets)
+            foreach (PacketBase packet in IncomingPackets)
             {
                 ProcessPacket(packet);
             }
@@ -107,18 +107,24 @@ namespace WinterEngine.Network.Listeners
         /// </summary>
         /// <param name="message"></param>
         /// <param name="factory"></param>
-        private void ProcessPacket(Packet packet)
+        private void ProcessPacket(PacketBase packet)
         {
-            switch (packet.PacketType)
+            Type packetType = packet.GetType();
+
+            if (packetType == typeof(RequestPacket))
             {
-                case PacketTypeEnum.Request:
-                    ProcessRequest(packet as RequestPacket);
-                    break;
-                default:
-                    // Invalid packet type.
-                    break;
+                ProcessRequest(packet as RequestPacket);
+            }
+            else if (packetType == typeof(FileRequestPacket))
+            {
+                ProcessFileTransfer(packet as FileRequestPacket);
             }
         }
+
+
+        #endregion
+
+        #region Methods - Request Processing
 
         /// <summary>
         /// Processes a request, sending data to sender if necessary.
@@ -136,18 +142,23 @@ namespace WinterEngine.Network.Listeners
             }
         }
 
-        #endregion
-
-        #region Methods - Packet Processing
-
-        private void SendContentPackageList(Packet receivedPacket)
+        private void SendContentPackageList(PacketBase receivedPacket)
         {
             ContentPackageListPacket packet = new ContentPackageListPacket
             {
                 FileNames = ContentPackageFileNames
             };
             Agent.WriteMessage(packet);
-            Agent.SendMessage(receivedPacket.SenderConnection, true);
+            Agent.SendMessage(receivedPacket.SenderConnection, NetDeliveryMethod.ReliableSequenced);
+            
+        }
+
+        #endregion
+
+        #region Methods - File transfer processing
+
+        private void ProcessFileTransfer(FileRequestPacket packet)
+        {
             
         }
 

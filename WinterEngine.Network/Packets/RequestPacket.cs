@@ -8,10 +8,9 @@ using WinterEngine.Network.Enums;
 namespace WinterEngine.Network.Packets
 {
     [ProtoContract]
-    public class RequestPacket : Packet
+    public class RequestPacket : PacketBase
     {
         #region Fields
-        private PacketTypeEnum _packetType = PacketTypeEnum.Request;
         private RequestTypeEnum _requestType;
 
         #endregion
@@ -32,16 +31,6 @@ namespace WinterEngine.Network.Packets
             {
                 _requestType = value;
             }
-        }
-
-        /// <summary>
-        /// Gets or sets this packet's type
-        /// </summary>
-        [ProtoMember(2)]
-        public override PacketTypeEnum PacketType
-        {
-            get { return _packetType; }
-            set { _packetType = value; }
         }
 
         #endregion

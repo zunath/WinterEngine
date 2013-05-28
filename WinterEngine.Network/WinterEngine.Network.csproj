@@ -77,15 +77,17 @@
     <Compile Include="Clients\MasterServerClient.cs" />
     <Compile Include="Configuration\GameServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />
+    <Compile Include="Enums\AgentRoleEnum.cs" />
+    <Compile Include="Enums\FileRequestTypeEnum.cs" />
     <Compile Include="Enums\RequestTypeEnum.cs" />
-    <Compile Include="Enums\PacketTypeEnum.cs" />
     <Compile Include="Enums\UserProfileResponseTypeEnum.cs" />
     <Compile Include="Enums\WebServiceMethodTypeEnum.cs" />
     <Compile Include="Packets\ContentPackageListPacket.cs" />
+    <Compile Include="Packets\FileRequestPacket.cs" />
     <Compile Include="WebServiceClientUtility.cs" />
-    <Compile Include="Listeners\GameListener.cs" />
+    <Compile Include="Listeners\GameNetworkListener.cs" />
     <Compile Include="NetworkAgent.cs" />
-    <Compile Include="Packets\Packet.cs" />
+    <Compile Include="Packets\PacketBase.cs" />
     <Compile Include="Packets\RequestPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

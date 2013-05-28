@@ -17,6 +17,7 @@ namespace WinterEngine.Network.Clients
 
         private NetworkAgent _agent;
         private List<NetIncomingMessage> _incomingMessages;
+        private NetConnection _serverConnection;
 
         #endregion
 
@@ -49,13 +50,28 @@ namespace WinterEngine.Network.Clients
             }
         }
 
+        private NetConnection ServerConnection
+        {
+            get
+            {
+                if (IsConnected)
+                {
+                    return Agent.Connections[0];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         #endregion
 
         #region Constructors
 
         public GameNetworkClient(ConnectionAddress address)
         {
-            Agent = new NetworkAgent(AgentRole.Client, GameServerConfiguration.ApplicationID, address.ServerPort);
+            Agent = new NetworkAgent(AgentRoleEnum.Client, GameServerConfiguration.ApplicationID, address.ServerPort);
             Agent.Connect(address.ServerIPAddress);
         }
         
@@ -74,7 +90,7 @@ namespace WinterEngine.Network.Clients
 
             RequestPacket packet = new RequestPacket(RequestTypeEnum.ServerContentPackageList);
             Agent.WriteMessage(packet);
-            Agent.SendMessage(Agent.Connections[0]);
+            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
 
             Thread.Sleep(5);
         }

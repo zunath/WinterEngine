@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace WinterEngine.Network.Enums
 {
-    public enum PacketTypeEnum : byte
+    public enum FileRequestTypeEnum : byte
     {
-        Request = 1,
-        ContentPackageList = 2
+        StartFileRequest = 1,
+        CancelFileRequest = 2
     }
 }

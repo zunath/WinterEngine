@@ -4,25 +4,20 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Lidgren.Network;
 using ProtoBuf;
+using WinterEngine.Network.Enums;
 using WinterEngine.Network.Packets;
 
 namespace WinterEngine.Network
 {
-    public enum AgentRole
-    {
-        Client,
-        Server
-    }
-
     public class NetworkAgent
     {
         private NetPeer mPeer;
         private NetPeerConfiguration mConfig;
-        private AgentRole mRole;
+        private AgentRoleEnum mRole;
         private int port = 5121;
         private NetOutgoingMessage mOutgoingMessage;
         private List<NetIncomingMessage> mIncomingMessages;
-        
+
         public List<NetConnection> Connections
         {
             get
@@ -34,7 +29,7 @@ namespace WinterEngine.Network
         /// <summary>
         /// Customize appIdentifier. Note: Client and server appIdentifier must be the same.
         /// </summary>
-        public NetworkAgent(AgentRole role, string tag, int customPort)
+        public NetworkAgent(AgentRoleEnum role, string tag, int customPort)
         {
             mRole = role;
             mConfig = new NetPeerConfiguration(tag);
@@ -45,14 +40,14 @@ namespace WinterEngine.Network
 
         private void Initialize()
         {
-            if (mRole == AgentRole.Server)
+            if (mRole == AgentRoleEnum.Server)
             {
                 mConfig.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
                 mConfig.Port = port;
                 //Casts the NetPeer to a NetServer
                 mPeer = new NetServer(mConfig);
             }
-            if (mRole == AgentRole.Client)
+            if (mRole == AgentRoleEnum.Client)
             {
                 mConfig.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
                 //Casts the NetPeer to a NetClient
@@ -70,7 +65,7 @@ namespace WinterEngine.Network
         /// </summary>
         public void Connect(string ip)
         {
-            if (mRole == AgentRole.Client)
+            if (mRole == AgentRoleEnum.Client)
             {
                 mPeer.Connect(ip, port);
             }
@@ -92,26 +87,20 @@ namespace WinterEngine.Network
         /// Writes a packet's properties to an outgoing message.
         /// </summary>
         /// <param name="packet"></param>
-        public void WriteMessage(Packet packet)
+        public void WriteMessage(PacketBase packet)
         {
             MemoryStream stream = new MemoryStream();
-            Serializer.Serialize<Packet>(stream, packet); // Protobuf serialization
+            Serializer.Serialize<PacketBase>(stream, packet); // Protobuf serialization
             mOutgoingMessage.Write(stream.ToArray());
         }
 
         /// <summary>
-        /// Sends off mOutgoingMessage and then clears it for the next send.
-        /// Defaults to UnreliableSequenced for fast transfer which guarantees that older messages
-        /// won't be processed after new messages. If IsGuaranteed is true it uses ReliableSequenced
-        /// which is safer but much slower.
+        /// Sends the outgoing message and clears it for the next send.
         /// </summary>
-        public void SendMessage(NetConnection recipient)
+        /// <param name="recipient">The recipient of the packet</param>
+        /// <param name="method">The delivery method</param>
+        public void SendMessage(NetConnection recipient, NetDeliveryMethod method)
         {
-            SendMessage(recipient, false);
-        }
-        public void SendMessage(NetConnection recipient, bool IsGuaranteed)
-        {
-            NetDeliveryMethod method = IsGuaranteed ? NetDeliveryMethod.ReliableOrdered : NetDeliveryMethod.UnreliableSequenced;
             mPeer.SendMessage(mOutgoingMessage, recipient, method);
             mOutgoingMessage = mPeer.CreateMessage();
         }
@@ -140,12 +129,12 @@ namespace WinterEngine.Network
                     case NetIncomingMessageType.DebugMessage:
                     case NetIncomingMessageType.WarningMessage:
                     case NetIncomingMessageType.ErrorMessage:
-                        if (mRole == AgentRole.Server)
+                        if (mRole == AgentRoleEnum.Server)
                             output += incomingMessage.ReadString() + "\n";
                         break;
                     case NetIncomingMessageType.StatusChanged:
                         NetConnectionStatus status = (NetConnectionStatus)incomingMessage.ReadByte();
-                        if (mRole == AgentRole.Server)
+                        if (mRole == AgentRoleEnum.Server)
                             output += "Status Message: " + incomingMessage.ReadString() + "\n";
 
                         if (status == NetConnectionStatus.Connected)
@@ -161,7 +150,7 @@ namespace WinterEngine.Network
                         break;
                 }
             }
-            if (mRole == AgentRole.Server)
+            if (mRole == AgentRoleEnum.Server)
             {
                 StreamWriter textOut = new StreamWriter(new FileStream("log.txt", FileMode.Append, FileAccess.Write));
                 textOut.Write(output);
@@ -170,18 +159,17 @@ namespace WinterEngine.Network
             return mIncomingMessages;
         }
 
-        public List<Packet> CheckForPackets()
+        public List<PacketBase> CheckForPackets()
         {
             List<NetIncomingMessage> messages = CheckForMessages();
-            List<Packet> packets = new List<Packet>();
-            BinaryFormatter formatter = new BinaryFormatter();
+            List<PacketBase> packets = new List<PacketBase>();
             MemoryStream stream = new MemoryStream();
-            Packet currentPacket;
+            PacketBase currentPacket;
 
             foreach (NetIncomingMessage currentMessage in messages)
             {
                 stream = new MemoryStream(currentMessage.ReadBytes(currentMessage.LengthBytes));
-                currentPacket = Serializer.Deserialize<Packet>(stream);
+                currentPacket = Serializer.Deserialize<PacketBase>(stream); // Protobuf deserialization
                 currentPacket.SenderConnection = currentMessage.SenderConnection;
 
                 packets.Add(currentPacket);

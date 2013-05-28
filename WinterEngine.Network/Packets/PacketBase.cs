@@ -11,17 +11,15 @@ namespace WinterEngine.Network.Packets
     [ProtoContract]
     [ProtoInclude(100, typeof(RequestPacket))]
     [ProtoInclude(101, typeof(ContentPackageListPacket))]
-    public class Packet
+    [ProtoInclude(102, typeof(FileRequestPacket))]
+    public class PacketBase
     {
-        [ProtoMember(1)]
-        public virtual PacketTypeEnum PacketType { get; set; }
-
         /// <summary>
         /// Gets or sets the sender's NetConnection
         /// </summary>
         public NetConnection SenderConnection { get; set; }
 
-        public Packet()
+        public PacketBase()
         {
         }
 

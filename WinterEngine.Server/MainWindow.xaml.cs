@@ -350,7 +350,7 @@ namespace WinterEngine.Server
         {
             try
             {
-                GameListener gameServer = new GameListener((int)e.Argument, ContentPackageList);
+                GameNetworkListener gameServer = new GameNetworkListener((int)e.Argument, ContentPackageList);
 
                 while (IsRunning)
                 {
