@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using Lidgren.Network;
+using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Enums;
 using WinterEngine.Network.Packets;
@@ -16,8 +20,9 @@ namespace WinterEngine.Network.Clients
         #region Fields
 
         private NetworkAgent _agent;
-        private List<NetIncomingMessage> _incomingMessages;
-        private NetConnection _serverConnection;
+        private List<PacketBase> _incomingPackets;
+        private FileExtensionFactory _fileExtensionFactory;
+        private List<string> _missingFiles;
 
         #endregion
 
@@ -29,10 +34,10 @@ namespace WinterEngine.Network.Clients
             set { _agent = value; }
         }
 
-        private List<NetIncomingMessage> IncomingMessages
+        private List<PacketBase> IncomingPackets
         {
-            get { return _incomingMessages; }
-            set { _incomingMessages = value; }
+            get { return _incomingPackets; }
+            set { _incomingPackets = value; }
         }
 
         public bool IsConnected
@@ -65,6 +70,17 @@ namespace WinterEngine.Network.Clients
             }
         }
 
+        private FileExtensionFactory FileExtensionFactory
+        {
+            get { return _fileExtensionFactory; }
+        }
+
+        private List<string> MissingFiles
+        {
+            get { return _missingFiles; }
+            set { _missingFiles = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -73,24 +89,22 @@ namespace WinterEngine.Network.Clients
         {
             Agent = new NetworkAgent(AgentRoleEnum.Client, GameServerConfiguration.ApplicationID, address.ServerPort);
             Agent.Connect(address.ServerIPAddress);
+            _fileExtensionFactory = new FileExtensionFactory();
+            _missingFiles = new List<string>();
         }
         
         #endregion
 
-        #region Public Methods
+        #region Methods - General
 
         public void Process()
         {
-            IncomingMessages = Agent.CheckForMessages();
+            IncomingPackets = Agent.CheckForPackets();
 
-            foreach (NetIncomingMessage message in IncomingMessages)
+            foreach (PacketBase packet in IncomingPackets)
             {
-                ProcessPacket(message);
+                ProcessPacket(packet);
             }
-
-            RequestPacket packet = new RequestPacket(RequestTypeEnum.ServerContentPackageList);
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
 
             Thread.Sleep(5);
         }
@@ -100,12 +114,91 @@ namespace WinterEngine.Network.Clients
             Agent.Shutdown();
         }
 
+        private void ProcessPacket(PacketBase packet)
+        {
+            Type packetType = packet.GetType();
+
+            if (packetType == typeof(StreamingFilePacket))
+            {
+                ProcessStreamingFilePacket(packet as StreamingFilePacket);
+            }
+            else if (packetType == typeof(ContentPackageListPacket))
+            {
+                ProcessContentPackageListPacket(packet as ContentPackageListPacket);
+            }
+        }
+
         #endregion
 
-        #region Private Methods
+        #region Methods - File Streaming
 
-        private void ProcessPacket(NetIncomingMessage message)
+        public void RequestServerContentPackageList()
         {
+            RequestPacket packet = new RequestPacket(RequestTypeEnum.ServerContentPackageList);
+
+            Agent.WriteMessage(packet);
+            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
+        }
+
+        private void ProcessStreamingFilePacket(StreamingFilePacket packet)
+        {
+            if (Path.GetExtension(packet.FileName) == FileExtensionFactory.GetFileExtension(FileTypeEnum.ContentPackage))
+            {
+                string filePath = DirectoryPaths.ContentPackageDirectoryPath + packet.FileName;
+                if (!File.Exists(filePath))
+                {
+                    File.Create(filePath).Close();
+                }
+                
+                using (FileStream fileStream = new FileStream(filePath, FileMode.Append))
+                {
+                    fileStream.Write(packet.FileBytes, (int)fileStream.Length, (int)packet.FileBytes.Length);
+
+                    fileStream.Close();
+                }
+
+                // If this is the end of the file, we need to remove it from the list
+                // and request the next file from the server.
+                if (packet.IsEndOfFile)
+                {
+                    MissingFiles.Remove(packet.FileName);
+
+                    if (MissingFiles.Count > 0)
+                    {
+                        RequestFileFromServer(MissingFiles[0]);
+                    }
+                }
+            }
+        }
+
+        private void RequestFileFromServer(string fileName)
+        {
+            FileRequestPacket packet = new FileRequestPacket
+            {
+                FileRequestType = FileRequestTypeEnum.StartFileRequest,
+                FileName = fileName
+            };
+
+            Agent.WriteMessage(packet);
+            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
+        }
+
+        private void ProcessContentPackageListPacket(ContentPackageListPacket packet)
+        {
+            foreach (string fileName in packet.FileNames)
+            {
+                string filePath = DirectoryPaths.ContentPackageDirectoryPath + fileName;
+
+                if (!File.Exists(filePath))
+                {
+                    MissingFiles.Add(fileName);
+                }
+            }
+
+            if (MissingFiles.Count > 0)
+            {
+                RequestFileFromServer(MissingFiles[0]);
+            }
         }
 
         #endregion

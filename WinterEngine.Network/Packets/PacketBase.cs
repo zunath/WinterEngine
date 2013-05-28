@@ -12,6 +12,7 @@ namespace WinterEngine.Network.Packets
     [ProtoInclude(100, typeof(RequestPacket))]
     [ProtoInclude(101, typeof(ContentPackageListPacket))]
     [ProtoInclude(102, typeof(FileRequestPacket))]
+    [ProtoInclude(103, typeof(StreamingFilePacket))]
     public class PacketBase
     {
         /// <summary>

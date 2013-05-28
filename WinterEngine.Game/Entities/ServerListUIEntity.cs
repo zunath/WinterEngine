@@ -124,7 +124,8 @@ namespace WinterEngine.Game.Entities
                 ServerPort = (int)e.Arguments[1]
             };
 
-            NetworkClient = new GameNetworkClient(address);            
+            NetworkClient = new GameNetworkClient(address);
+            NetworkClient.RequestServerContentPackageList();
         }
 
         private void GoToMainMenu(object sender, JavascriptMethodEventArgs e)

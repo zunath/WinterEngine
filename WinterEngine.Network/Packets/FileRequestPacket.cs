@@ -15,6 +15,7 @@ namespace WinterEngine.Network.Packets
     {
         #region Fields
         private string _fileName;
+        private FileRequestTypeEnum _fileRequestType;
 
         #endregion
 
@@ -25,6 +26,13 @@ namespace WinterEngine.Network.Packets
         {
             get { return _fileName; }
             set { _fileName = value; }
+        }
+
+        [ProtoMember(2)]
+        public FileRequestTypeEnum FileRequestType
+        {
+            get { return _fileRequestType; }
+            set { _fileRequestType = value; }
         }
 
         #endregion

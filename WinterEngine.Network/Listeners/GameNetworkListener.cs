@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
 using Lidgren.Network;
+using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Paths;
+using WinterEngine.Network.BusinessObjects;
 using WinterEngine.Network.Clients;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Enums;
@@ -25,6 +29,8 @@ namespace WinterEngine.Network.Listeners
         private List<string> _contentPackageNames;
         private List<string> _contentPackagePaths;
         private List<PacketBase> _incomingPackets;
+        private Dictionary<NetConnection, FileTransferProgress> _fileTransferClients;
+        private FileExtensionFactory _fileExtensionFactory;
 
         #endregion
 
@@ -60,6 +66,17 @@ namespace WinterEngine.Network.Listeners
             set { _incomingPackets = value; }
         }
 
+        private Dictionary<NetConnection, FileTransferProgress> FileTransferClients
+        {
+            get { return _fileTransferClients; }
+            set { _fileTransferClients = value; }
+        }
+
+        private FileExtensionFactory FileExtensionFactory
+        {
+            get { return _fileExtensionFactory; }
+        }
+
         #endregion
 
         #region Constructors
@@ -82,6 +99,8 @@ namespace WinterEngine.Network.Listeners
                 _contentPackagePaths.Add(DirectoryPaths.ContentPackageDirectoryPath + package.FileName);
             }
 
+            _fileExtensionFactory = new FileExtensionFactory();
+            _fileTransferClients = new Dictionary<NetConnection, FileTransferProgress>();
         }
 
         #endregion
@@ -97,6 +116,9 @@ namespace WinterEngine.Network.Listeners
             {
                 ProcessPacket(packet);
             }
+
+            StreamFilesToClients();
+
             Thread.Sleep(5);
         }
 
@@ -157,9 +179,81 @@ namespace WinterEngine.Network.Listeners
 
         #region Methods - File transfer processing
 
+        /// <summary>
+        /// Receives a file request packet and either starts a file transfer or cancels an existing one.
+        /// </summary>
+        /// <param name="packet"></param>
         private void ProcessFileTransfer(FileRequestPacket packet)
         {
-            
+            if (packet.FileRequestType == FileRequestTypeEnum.StartFileRequest)
+            {
+                string serverFilePath = DirectoryPaths.ContentPackageDirectoryPath + packet.FileName;
+
+                // Safety check - make sure the file exists and it has an appropriate extension.
+                if (Path.GetExtension(packet.FileName) != FileExtensionFactory.GetFileExtension(FileTypeEnum.ContentPackage) ||
+                    !File.Exists(serverFilePath))
+                {
+                    return; // EARLY EXIT
+                }
+
+                // Build a new client and add them to the list.
+                FileTransferProgress client = new FileTransferProgress
+                {
+                    BytesSent = 0,
+                    FilePath = serverFilePath
+                };
+                FileTransferClients.Add(packet.SenderConnection, client);
+            }
+            else if (packet.FileRequestType == FileRequestTypeEnum.CancelFileRequest)
+            {
+                // Remove a client from the streaming list.
+                FileTransferClients.Remove(packet.SenderConnection);
+            }
+        }
+
+        /// <summary>
+        /// Handles streaming the next segment of files to users downloading content packages.
+        /// </summary>
+        private void StreamFilesToClients()
+        {
+            foreach (KeyValuePair<NetConnection, FileTransferProgress> client in FileTransferClients)
+            {
+                if (File.Exists(client.Value.FilePath))
+                {
+                    using (FileStream fileStream = new FileStream(client.Value.FilePath, FileMode.Open))
+                    {
+                        bool isEndOfFile = false;
+                        int numberOfBytesToSend = GameServerConfiguration.FileTransferBufferSize;
+                        int numberOfBytesRemaining = (int)fileStream.Length - client.Value.BytesSent;
+
+                        if (numberOfBytesRemaining < GameServerConfiguration.FileTransferBufferSize)
+                        {
+                            numberOfBytesToSend = numberOfBytesRemaining;
+                            isEndOfFile = true;
+                        }
+
+                        byte[] bytesToSend = new byte[numberOfBytesToSend];
+                        fileStream.Read(bytesToSend, (int)client.Value.BytesSent, numberOfBytesToSend); // TO-DO: Fix this run time error 2013-05-27
+
+                        StreamingFilePacket packet = new StreamingFilePacket
+                        {
+                            FileName = Path.GetFileName(client.Value.FilePath),
+                            FileBytes = bytesToSend,
+                            IsEndOfFile = isEndOfFile
+                        };
+                        Agent.WriteMessage(packet);
+                        Agent.SendMessage(client.Key, NetDeliveryMethod.ReliableOrdered);
+
+                        client.Value.BytesSent += numberOfBytesToSend;
+
+                        // Remove client from streaming list if this was the last part of the file to be sent
+                        if (client.Value.BytesSent >= (int)fileStream.Length)
+                        {
+                            FileTransferClients.Remove(client.Key);
+                        }
+                    }
+                }
+            }
         }
 
         #endregion
