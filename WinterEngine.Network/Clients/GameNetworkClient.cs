@@ -27,7 +27,7 @@ namespace WinterEngine.Network.Clients
         #endregion
 
         #region Properties
-
+        
         /// <summary>
         /// Gets or sets the network agent which is used to send and receive packets to/from the server.
         /// </summary>
@@ -36,7 +36,7 @@ namespace WinterEngine.Network.Clients
             get { return _agent; }
             set { _agent = value; }
         }
-
+        
         /// <summary>
         /// Gets or sets the list of packets which are waiting to be processed by the client.
         /// </summary>
@@ -115,7 +115,7 @@ namespace WinterEngine.Network.Clients
             _fileExtensionFactory = new FileExtensionFactory();
             _missingFiles = new List<string>();
         }
-        
+
         #endregion
 
         #region Methods - General
@@ -131,6 +131,8 @@ namespace WinterEngine.Network.Clients
             {
                 ProcessPacket(packet);
             }
+
+            Thread.Sleep(5);
         }
 
         /// <summary>
@@ -188,12 +190,10 @@ namespace WinterEngine.Network.Clients
                 {
                     File.Create(filePath).Close();
                 }
-                
+
                 using (FileStream fileStream = new FileStream(filePath, FileMode.Append))
                 {
-                    fileStream.Write(packet.FileBytes, (int)fileStream.Length, (int)packet.FileBytes.Length);
-
-                    fileStream.Close();
+                    fileStream.Write(packet.FileBytes, 0, (int)packet.FileBytes.Length);
                 }
 
                 // If this is the end of the file, we need to remove it from the list

@@ -44,7 +44,7 @@ namespace WinterEngine.Network.Listeners
             get { return _agent; }
             set { _agent = value; }
         }
-        
+
         /// <summary>
         /// Gets the list of content packages being streamed by the listener to clients.
         /// </summary>
@@ -104,7 +104,7 @@ namespace WinterEngine.Network.Listeners
         /// </summary>
         /// <param name="customPort">The port to run the listener on</param>
         /// <param name="contentPackages">The content packages to be streamed to users on connection.</param>
-        public GameNetworkListener(int customPort, List<ContentPackage> contentPackages)
+         public GameNetworkListener(int customPort, List<ContentPackage> contentPackages)
         {
             if (customPort <= 0)
             {
@@ -199,7 +199,7 @@ namespace WinterEngine.Network.Listeners
             };
             Agent.WriteMessage(packet);
             Agent.SendMessage(receivedPacket.SenderConnection, NetDeliveryMethod.ReliableSequenced);
-            
+
         }
 
         #endregion
@@ -243,15 +243,19 @@ namespace WinterEngine.Network.Listeners
         /// </summary>
         private void StreamFilesToClients()
         {
-            foreach (KeyValuePair<NetConnection, FileTransferProgress> client in FileTransferClients)
+            List<NetConnection> connectionList = FileTransferClients.Keys.ToList();
+
+            foreach (NetConnection currentConnection in connectionList)
             {
-                if (File.Exists(client.Value.FilePath))
+                FileTransferProgress clientProgress = FileTransferClients[currentConnection];
+
+                if (File.Exists(clientProgress.FilePath))
                 {
-                    using (FileStream fileStream = new FileStream(client.Value.FilePath, FileMode.Open))
+                    using (FileStream fileStream = new FileStream(clientProgress.FilePath, FileMode.Open))
                     {
                         bool isEndOfFile = false;
                         int numberOfBytesToSend = GameServerConfiguration.FileTransferBufferSize;
-                        int numberOfBytesRemaining = (int)fileStream.Length - client.Value.BytesSent;
+                        int numberOfBytesRemaining = (int)fileStream.Length - clientProgress.BytesSent;
 
                         if (numberOfBytesRemaining < GameServerConfiguration.FileTransferBufferSize)
                         {
@@ -259,24 +263,25 @@ namespace WinterEngine.Network.Listeners
                             isEndOfFile = true;
                         }
 
+                        fileStream.Position = clientProgress.BytesSent;
                         byte[] bytesToSend = new byte[numberOfBytesToSend];
-                        fileStream.Read(bytesToSend, (int)client.Value.BytesSent, numberOfBytesToSend); // TO-DO: Fix this run time error 2013-05-27
+                        fileStream.Read(bytesToSend, 0, numberOfBytesToSend);
 
                         StreamingFilePacket packet = new StreamingFilePacket
                         {
-                            FileName = Path.GetFileName(client.Value.FilePath),
+                            FileName = Path.GetFileName(clientProgress.FilePath),
                             FileBytes = bytesToSend,
                             IsEndOfFile = isEndOfFile
                         };
                         Agent.WriteMessage(packet);
-                        Agent.SendMessage(client.Key, NetDeliveryMethod.ReliableOrdered);
+                        Agent.SendMessage(currentConnection, NetDeliveryMethod.ReliableOrdered);
 
-                        client.Value.BytesSent += numberOfBytesToSend;
+                        clientProgress.BytesSent += numberOfBytesToSend;
 
                         // Remove client from streaming list if this was the last part of the file to be sent
-                        if (client.Value.BytesSent >= (int)fileStream.Length)
+                        if (clientProgress.BytesSent >= (int)fileStream.Length)
                         {
-                            FileTransferClients.Remove(client.Key);
+                            FileTransferClients.Remove(currentConnection);
                         }
                     }
                 }
