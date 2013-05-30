@@ -1,10 +1,55 @@
-﻿function Initialize() {
+﻿/* Initialization */
+
+function Initialize() {
     InitializeDataTable();
     InitializeConnectingBox();
+    InitializeLoadingBox();
 }
 
+function InitializeDataTable() {
+    $('#tblServerList').dataTable({
+        "sDom": 'rfrtpi',
+        "bPaginate": true,
+        "bLengthChange": false,
+        "bFilter": true,
+        "bSort": true,
+        "bAutoWidth": false,
+        "sPaginationType": 'full_numbers',
+        "iDisplayLength": 9
+    });
+}
+
+function InitializeConnectingBox() {
+    $('#divConnectingToServer').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Connecting',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
+}
+
+function InitializeLoadingBox() {
+    $('#divLoading').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Loading...',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false,
+        closeOnEscape: false
+    });
+}
+
+/* Button Functionality */
+
 function GetAllServers() {
-    var jsonServerList = Entity.GetServerList();
+    $('#divLoading').dialog('open');
+    Entity.GetServerList();
+}
+
+function GetAllServers_Callback(jsonServerList) {
     var servers = JSON.parse(jsonServerList);
     
     $('#tblServerList').dataTable().fnClearTable();
@@ -22,23 +67,9 @@ function GetAllServers() {
             '<input id="server_' + index + '" type="button" value="Connect" onclick="ConnectToServer(\'' +
                 currentServer.ServerIPAddress + '\', ' + currentServer.ServerPort + ');" class="clsConnectButton" />'
         ]);
-
     }
-}
-       
-function InitializeDataTable() {
-    $('#tblServerList').dataTable({
-        "sDom": 'rfrtpi',
-        "bPaginate": true,
-        "bLengthChange": false,
-        "bFilter": true,
-        "bSort": true,
-        "bAutoWidth": false,
-        "sPaginationType": 'full_numbers',
-        "iDisplayLength": 9
-    });
 
-
+    $('#divLoading').dialog('close');
 }
 
 function GoToMainMenu() {
@@ -46,16 +77,8 @@ function GoToMainMenu() {
 }
 
 function ConnectToServer(ipAddress, port) {
-    Entity.ConnectToServer(ipAddress, port);
-}
 
-function InitializeConnectingBox() {
-    $('#divConnectingToServer').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Connecting',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
+    $('divConnectingToServer').dialog('open');
+
+    Entity.ConnectToServer(ipAddress, port);
 }

@@ -247,5 +247,26 @@ namespace WinterEngine.Game.Entities
 
         #endregion
 
+        #region Awesomium API Wrappers
+
+        /// <summary>
+        /// Performs an asynchronous callback to the active web view.
+        /// This prevents the UI from being blocked on slow C# methods (such as web service calls)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void AsyncJavascriptCallback(string callback, params JSValue[] args)
+        {
+            JSObject window = AwesomiumWebView.ExecuteJavascriptWithResult("window");
+
+            using (window)
+            {
+                window.InvokeAsync(callback, args);
+            }
+
+        }
+
+        #endregion
+
     }
 }

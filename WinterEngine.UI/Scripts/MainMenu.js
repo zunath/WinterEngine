@@ -7,6 +7,7 @@ function Initialize() {
     InitializeUserProfileBox();
     InitializeSuccessBox();
     InitializeAccountNotActivatedBox();
+    InitializeLoadingBox();
 }
 
 // Method is called from the entity's OnDocumentReady method.
@@ -63,6 +64,8 @@ function SaveProfileButton() {
         return false;
     }
 
+    $('#divLoading').dialog('open');
+
     var profileMode = $('#btnSaveProfile').data('AccountMode');
 
     // Perform validation checks on data before sending to server
@@ -85,7 +88,9 @@ function SaveProfileButton() {
     else if (profileMode == 'modify') {
         responseType = Entity.UpsertProfileButtonClick(username, password, confirmPassword, email, firstName, lastName, dob, false);
     }
+}
 
+function SaveProfileButton_Callback(responseType) {
 
     // 1 = Success
     if (responseType == 1) {
@@ -120,7 +125,7 @@ function SaveProfileButton() {
         $('#lblProfileError').text("Error: Email already in use.");
     }
 
-
+    $('#divLoading').dialog('close');
 }
 
 /* Form Validation */
@@ -141,9 +146,6 @@ function InitializeValidation() {
     $('#formLogin').validate({
         errorPlacement: $.noop
     });
-
-
-
 }
 
 /* Account Login */
@@ -161,8 +163,6 @@ function InitializeLoginBox() {
     $('#divLoggingInProgressBar').progressbar({
         value: false
     });
-
-
 }
 
 function ToggleIsLoggedIn(isLoggedIn) {
@@ -395,4 +395,18 @@ function FlatRedBallLogoLink() {
 
 function XNALogoLink() {
     Entity.XNALogoLinkClick();
+}
+
+/* Loading Pop-Up */
+
+function InitializeLoadingBox() {
+    $('#divLoading').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Loading...',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false,
+        closeOnEscape: false
+    });
 }

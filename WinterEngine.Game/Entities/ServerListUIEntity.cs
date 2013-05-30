@@ -36,6 +36,7 @@ namespace WinterEngine.Game.Entities
         #region Fields
 
         private GameNetworkClient _networkClient;
+        private WebServiceClientUtility _webServiceUtility;
 
         #endregion
 
@@ -45,6 +46,19 @@ namespace WinterEngine.Game.Entities
         {
             get { return _networkClient; }
             set { _networkClient = value; }
+        }
+
+        private WebServiceClientUtility WebUtility
+        {
+            get
+            {
+                if (_webServiceUtility == null)
+                {
+                    _webServiceUtility = new WebServiceClientUtility();
+                }
+
+                return _webServiceUtility;
+            }
         }
 
         #endregion
@@ -90,8 +104,8 @@ namespace WinterEngine.Game.Entities
         {
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
-            EntityJavascriptObject.Bind("GetServerList", true, GetServerList);
-            EntityJavascriptObject.Bind("ConnectToServer", true, ConnectToServer);
+            EntityJavascriptObject.Bind("GetServerList", false, GetServerList);
+            EntityJavascriptObject.Bind("ConnectToServer", false, ConnectToServer);
             EntityJavascriptObject.Bind("GoToMainMenu", true, GoToMainMenu);
         }
 
@@ -107,8 +121,8 @@ namespace WinterEngine.Game.Entities
         /// <param name="e"></param>
         private void GetServerList(object sender, JavascriptMethodEventArgs e)
         {
-            WebServiceClientUtility utility = new WebServiceClientUtility();
-            e.Result = utility.GetAllActiveServers();
+            string jsonServerList = WebUtility.GetAllActiveServers();
+            AsyncJavascriptCallback("GetAllServers_Callback", jsonServerList);
         }
 
         /// <summary>

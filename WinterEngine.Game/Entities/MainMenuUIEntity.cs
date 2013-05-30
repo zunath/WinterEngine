@@ -84,7 +84,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("ForumsButtonClick", false, ForumsButtonClick);
             EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButtonClick);
 
-            EntityJavascriptObject.Bind("UpsertProfileButtonClick", true, UpsertProfileButtonClick);
+            EntityJavascriptObject.Bind("UpsertProfileButtonClick", false, UpsertProfileButtonClick);
             EntityJavascriptObject.Bind("ResendAccountActivationEmail", true, ResendAccountActivationEmail);
         
             // User profile data binding
@@ -235,8 +235,8 @@ namespace WinterEngine.Game.Entities
             {
                 responseType = UserProfileResponseTypeEnum.PasswordMismatch;
             }
-            
-            args.Result = Convert.ToInt32(responseType);
+
+            AsyncJavascriptCallback("SaveProfileButton_Callback", Convert.ToInt32(responseType));
         }
 
         /// <summary>
