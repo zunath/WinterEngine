@@ -7,7 +7,13 @@ function Initialize() {
     InitializeUserProfileBox();
     InitializeSuccessBox();
     InitializeAccountNotActivatedBox();
-    InitializeLoadingBox();
+    InitializeProgressBars();
+}
+
+function InitializeProgressBars() {
+    $('.clsProgressBar').progressbar({
+        value: false
+    });
 }
 
 // Method is called from the entity's OnDocumentReady method.
@@ -64,8 +70,7 @@ function SaveProfileButton() {
         return false;
     }
 
-    $('#divLoading').dialog('open');
-
+    $('#divProfileProgressBarContainer').removeClass('clsHidden');
     var profileMode = $('#btnSaveProfile').data('AccountMode');
 
     // Perform validation checks on data before sending to server
@@ -75,12 +80,7 @@ function SaveProfileButton() {
     var firstName = $('#txtFirstName').val();
     var lastName = $('#txtLastName').val();
     var dob = $('#txtDOB').val();
-
-
     var username = $('#txtProfileUsername').val();
-
-    // Note: Refer to UserProfileResponseTypeEnum.cs for values
-    var responseType;
 
     if (profileMode == 'create') {
         responseType = Entity.UpsertProfileButtonClick(username, password, confirmPassword, email, firstName, lastName, dob, true);
@@ -91,7 +91,7 @@ function SaveProfileButton() {
 }
 
 function SaveProfileButton_Callback(responseType) {
-
+    // Note: Refer to UserProfileResponseTypeEnum.cs for values
     // 1 = Success
     if (responseType == 1) {
         $('#btnCancelProfile').data('AccountMode', '');
@@ -125,7 +125,7 @@ function SaveProfileButton_Callback(responseType) {
         $('#lblProfileError').text("Error: Email already in use.");
     }
 
-    $('#divLoading').dialog('close');
+    $('#divProfileProgressBarContainer').addClass('clsHidden');
 }
 
 /* Form Validation */
@@ -158,10 +158,6 @@ function InitializeLoginBox() {
         resizable: false,
         dialogClass: 'jqueryUIDialogNoCloseButton',
         draggable: false
-    });
-
-    $('#divLoggingInProgressBar').progressbar({
-        value: false
     });
 }
 
@@ -211,11 +207,16 @@ function DoLogin() {
         return false;
     }
 
+    $('#lblErrorMessage').addClass('clsHidden');
+
     // Disable controls while logging in
     ToggleLoginPopUpControls(true);
 
     $('#divLoggingInProgressBarContainer').removeClass('clsHidden');
-    var loginStatus = Entity.LoginButtonClick($('#txtUsername').val(), $('#txtPassword').val());
+    Entity.LoginButtonClick($('#txtUsername').val(), $('#txtPassword').val());
+}
+
+function DoLogin_Callback(loginStatus) {
     $('#divLoggingInProgressBarContainer').addClass('clsHidden');
     ToggleLoginPopUpControls(false);
 
@@ -395,18 +396,4 @@ function FlatRedBallLogoLink() {
 
 function XNALogoLink() {
     Entity.XNALogoLinkClick();
-}
-
-/* Loading Pop-Up */
-
-function InitializeLoadingBox() {
-    $('#divLoading').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Loading...',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false,
-        closeOnEscape: false
-    });
 }

@@ -22,10 +22,6 @@
 </head>
 <body>
 
-    <div id="divLoading">
-        <label id="lblLoading">Sending account information...</label>
-    </div>
-
     <img src="../Images/WinterEngineLogo.png" class="clsMainMenuLogo" />
     <br />
     <input id="btnLoginLogout" type="button" value="Login" class="clsFullButton" onclick="LoginButton();" data-mode="login" />
@@ -55,7 +51,7 @@
             <br />
             <div id="divLoggingInProgressBarContainer" class="clsHidden">
                 <br />
-                <div id="divLoggingInProgressBar"></div>
+                <div id="divLoggingInProgressBar" class="clsProgressBar"></div>
             </div>
             <label id="lblErrorMessage" class="clsErrorMessage clsHidden">Incorrect username or password</label>
             <br />
@@ -99,10 +95,11 @@
             <input id="txtDOB" name="txtDOB" type="text" class="clsLoginInputBox" />
 
             <br />
+            <div id="divProfileProgressBarContainer" class="clsHidden">
+                <br />
+                <div id="divProfileProgressBar" class="clsProgressBar"></div>
+            </div>
             <br />
-
-            <div id="divRecaptcha"></div>
-
             <input id="btnSaveProfile" type="button" value="Save Changes" class="clsHalfButton" onclick="SaveProfileButton();" />
             <input id="btnCancelProfile" type="button" value="Cancel" class="clsHalfButton" onclick="CloseUserProfileBox();" />
         </form>

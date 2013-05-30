@@ -35,6 +35,29 @@ namespace WinterEngine.Game.Entities
 {
 	public partial class MainMenuUIEntity
     {
+        #region Fields
+
+        private WebServiceClientUtility _webClientUtility;
+
+        #endregion
+
+        #region Properties
+
+        private WebServiceClientUtility WebUtility
+        {
+            get
+            {
+                if (_webClientUtility == null)
+                {
+                    _webClientUtility = new WebServiceClientUtility();
+                }
+
+                return _webClientUtility;
+            }
+        }
+
+        #endregion
+
         #region FRB Events
 
         private void CustomInitialize()
@@ -62,7 +85,6 @@ namespace WinterEngine.Game.Entities
         
         #endregion
 
-
         #region Awesomium Event Handling
 
         /// <summary>
@@ -75,7 +97,7 @@ namespace WinterEngine.Game.Entities
         {
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
-            EntityJavascriptObject.Bind("LoginButtonClick", true, LoginButtonClick);
+            EntityJavascriptObject.Bind("LoginButtonClick", false, LoginButtonClick);
             EntityJavascriptObject.Bind("LogoutButtonClick", true, LogoutButtonClick);
             EntityJavascriptObject.Bind("FindServerButtonClick", false, FindServerButtonClick);
             EntityJavascriptObject.Bind("ToolsetButtonClick", false, ToolsetButtonClick);
@@ -85,7 +107,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButtonClick);
 
             EntityJavascriptObject.Bind("UpsertProfileButtonClick", false, UpsertProfileButtonClick);
-            EntityJavascriptObject.Bind("ResendAccountActivationEmail", true, ResendAccountActivationEmail);
+            EntityJavascriptObject.Bind("ResendAccountActivationEmail", false, ResendAccountActivationEmail);
         
             // User profile data binding
             EntityJavascriptObject.Bind("GetUserName", true, GetUserName);
@@ -122,23 +144,24 @@ namespace WinterEngine.Game.Entities
             string username = args.Arguments[0].ToString();
             string password = args.Arguments[1].ToString();
             LoginCredentials loginCredentials = new LoginCredentials { UserName = username, Password = password};
-
-            WebServiceClientUtility utility = new WebServiceClientUtility();
-            WinterEngineService.InitializeUserProfile(utility.AttemptUserLogin(loginCredentials));
+            WinterEngineService.InitializeUserProfile(WebUtility.AttemptUserLogin(loginCredentials));
+            UserProfileResponseTypeEnum responseType = UserProfileResponseTypeEnum.Failure;
 
             if (WinterEngineService.ActiveUserProfile.UserID > 0 && WinterEngineService.ActiveUserProfile.IsEmailVerified)
             {
                 WinterEngineService.ActiveUserProfile.IsLoggedIn = true;
-                args.Result = (int)UserProfileResponseTypeEnum.Successful;
+                responseType = UserProfileResponseTypeEnum.Successful;
             }
             else if (WinterEngineService.ActiveUserProfile.UserID > 0 && !WinterEngineService.ActiveUserProfile.IsEmailVerified)
             {
-                args.Result = (int)UserProfileResponseTypeEnum.AccountNotActivated;
+                responseType = UserProfileResponseTypeEnum.AccountNotActivated;
             }
             else
             {
-                args.Result = (int)UserProfileResponseTypeEnum.InvalidPassword;
+                responseType = UserProfileResponseTypeEnum.InvalidPassword;
             }
+
+            AsyncJavascriptCallback("DoLogin_Callback", (int)responseType);
         }
 
         /// <summary>
@@ -228,8 +251,7 @@ namespace WinterEngine.Game.Entities
                 DateTime.TryParse(args.Arguments[6], out parsedDOB);
                 profile.UserDOB = parsedDOB;
 
-                WebServiceClientUtility utility = new WebServiceClientUtility();
-                responseType = utility.SendUserProfile(profile, isCreatingNewProfile);
+                responseType = WebUtility.SendUserProfile(profile, isCreatingNewProfile);
             }
             else
             {
@@ -276,8 +298,7 @@ namespace WinterEngine.Game.Entities
         /// <param name="args"></param>
         private void ResendAccountActivationEmail(object sender, JavascriptMethodEventArgs args)
         {
-            WebServiceClientUtility utility = new WebServiceClientUtility();
-            utility.RequestActivationEmailResend(WinterEngineService.ActiveUserProfile.UserEmail);
+            WebUtility.RequestActivationEmailResend(WinterEngineService.ActiveUserProfile.UserEmail);
         }
 
         #endregion
