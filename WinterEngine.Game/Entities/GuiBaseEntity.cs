@@ -253,8 +253,8 @@ namespace WinterEngine.Game.Entities
         /// Performs an asynchronous callback to the active web view.
         /// This prevents the UI from being blocked on slow C# methods (such as web service calls)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="callback">The name of the javascript function to call.</param>
+        /// <param name="args">The arguments to pass to the javascript function.</param>
         protected void AsyncJavascriptCallback(string callback, params JSValue[] args)
         {
             JSObject window = AwesomiumWebView.ExecuteJavascriptWithResult("window");
