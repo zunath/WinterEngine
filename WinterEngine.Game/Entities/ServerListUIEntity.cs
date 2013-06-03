@@ -139,7 +139,15 @@ namespace WinterEngine.Game.Entities
             };
 
             NetworkClient = new GameNetworkClient(address);
-            NetworkClient.RequestServerContentPackageList();
+
+            if (NetworkClient.IsConnected)
+            {
+                NetworkClient.RequestServerContentPackageList();
+            }
+            else
+            {
+                AsyncJavascriptCallback("UnableToConnectToServer");
+            }
         }
 
         private void GoToMainMenu(object sender, JavascriptMethodEventArgs e)

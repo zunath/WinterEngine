@@ -11,12 +11,18 @@ namespace WinterEngine.Network
 {
     public class NetworkAgent
     {
+        #region Fields
+
         private NetPeer mPeer;
         private NetPeerConfiguration mConfig;
         private AgentRoleEnum mRole;
-        private int port = 5121;
+        private int port;
         private NetOutgoingMessage mOutgoingMessage;
         private List<NetIncomingMessage> mIncomingMessages;
+
+        #endregion
+
+        #region Properties
 
         public List<NetConnection> Connections
         {
@@ -25,6 +31,10 @@ namespace WinterEngine.Network
                 return mPeer.Connections;
             }
         }
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Customize appIdentifier. Note: Client and server appIdentifier must be the same.
@@ -37,6 +47,10 @@ namespace WinterEngine.Network
 
             Initialize();
         }
+
+        #endregion
+
+        #region Methods
 
         private void Initialize()
         {
@@ -63,16 +77,21 @@ namespace WinterEngine.Network
         /// <summary>
         /// Connects to a server. Throws an exception if you attempt to call Connect as a Server.
         /// </summary>
-        public void Connect(string ip)
+        public bool Connect(string ip)
         {
+            bool success = false;
+
             if (mRole == AgentRoleEnum.Client)
             {
                 mPeer.Connect(ip, port);
+                success = true;
             }
             else
             {
                 throw new SystemException("Attempted to connect as server. Only clients should connect.");
             }
+
+            return success;
         }
 
         /// <summary>
@@ -99,10 +118,18 @@ namespace WinterEngine.Network
         /// </summary>
         /// <param name="recipient">The recipient of the packet</param>
         /// <param name="method">The delivery method</param>
-        public void SendMessage(NetConnection recipient, NetDeliveryMethod method)
+        public bool SendMessage(NetConnection recipient, NetDeliveryMethod method)
         {
-            mPeer.SendMessage(mOutgoingMessage, recipient, method);
-            mOutgoingMessage = mPeer.CreateMessage();
+            bool success = false;
+
+            if (!Object.ReferenceEquals(recipient, null))
+            {
+                mPeer.SendMessage(mOutgoingMessage, recipient, method);
+                mOutgoingMessage = mPeer.CreateMessage();
+                success = true;
+            }
+
+            return success;
         }
 
         /// <summary>
@@ -179,7 +206,7 @@ namespace WinterEngine.Network
 
             return packets;
         }
-
+        #endregion
 
     }
 }

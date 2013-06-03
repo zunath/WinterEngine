@@ -4,6 +4,7 @@ function Initialize() {
     InitializeDataTable();
     InitializeConnectingBox();
     InitializeLoadingBox();
+    InitializeUnableToConnectToServerBox();
 }
 
 function InitializeDataTable() {
@@ -39,6 +40,17 @@ function InitializeLoadingBox() {
         dialogClass: 'jqueryUIDialogNoCloseButton',
         draggable: false,
         closeOnEscape: false
+    });
+}
+
+function InitializeUnableToConnectToServerBox() {
+    $('#divUnableToConnectToServer').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Connection Failed',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
     });
 }
 
@@ -81,4 +93,16 @@ function ConnectToServer(ipAddress, port) {
     $('divConnectingToServer').dialog('open');
 
     Entity.ConnectToServer(ipAddress, port);
+}
+
+/* Server connection failures */
+
+function UnableToConnectToServer() {
+    $('#divLoading').dialog('close');
+    $('#divConnectingToServer').dialog('close');
+    $('#divUnableToConnectToServer').dialog('open');
+}
+
+function UnableToConnectToServerClose() {
+    $('#divUnableToConnectToServer').dialog('close');
 }
