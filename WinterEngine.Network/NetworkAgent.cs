@@ -69,7 +69,7 @@ namespace WinterEngine.Network
             }
 
             mPeer.Start();
-
+            
             mIncomingMessages = new List<NetIncomingMessage>();
             mOutgoingMessage = mPeer.CreateMessage();
         }
@@ -118,18 +118,10 @@ namespace WinterEngine.Network
         /// </summary>
         /// <param name="recipient">The recipient of the packet</param>
         /// <param name="method">The delivery method</param>
-        public bool SendMessage(NetConnection recipient, NetDeliveryMethod method)
+        public void SendMessage(NetConnection recipient, NetDeliveryMethod method)
         {
-            bool success = false;
-
-            if (!Object.ReferenceEquals(recipient, null))
-            {
-                mPeer.SendMessage(mOutgoingMessage, recipient, method);
-                mOutgoingMessage = mPeer.CreateMessage();
-                success = true;
-            }
-
-            return success;
+            mPeer.SendMessage(mOutgoingMessage, recipient, method);
+            mOutgoingMessage = mPeer.CreateMessage();
         }
 
         /// <summary>

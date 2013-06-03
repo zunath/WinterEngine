@@ -212,7 +212,6 @@ namespace WinterEngine.DataAccess.Repositories
                             dbResource.FileName = resource.FileName;
                             dbResource.FileType = resource.FileType;
                             dbResource.IsSystemResource = resource.IsSystemResource;
-                            dbResource.ResourceID = resource.ResourceID;
                             dbResource.ResourceName = resource.ResourceName;
                             dbResource.ResourcePath = resource.ResourcePath;
                             dbResource.ResourceTypeID = resource.ResourceTypeID;

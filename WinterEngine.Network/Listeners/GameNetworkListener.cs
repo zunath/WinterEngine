@@ -162,7 +162,7 @@ namespace WinterEngine.Network.Listeners
             }
             else if (packetType == typeof(FileRequestPacket))
             {
-                ProcessFileTransfer(packet as FileRequestPacket);
+                ProcessFileTransferRequest(packet as FileRequestPacket);
             }
         }
 
@@ -210,7 +210,7 @@ namespace WinterEngine.Network.Listeners
         /// Receives a file request packet and either starts a file transfer or cancels an existing one.
         /// </summary>
         /// <param name="packet"></param>
-        private void ProcessFileTransfer(FileRequestPacket packet)
+        private void ProcessFileTransferRequest(FileRequestPacket packet)
         {
             if (packet.FileRequestType == FileRequestTypeEnum.StartFileRequest)
             {
@@ -229,7 +229,18 @@ namespace WinterEngine.Network.Listeners
                     BytesSent = 0,
                     FilePath = serverFilePath
                 };
+
                 FileTransferClients.Add(packet.SenderConnection, client);
+
+                // Send the size of the file back to client so they can track the download's progress.
+                StreamingFileDetailsPacket fileDetails = new StreamingFileDetailsPacket
+                {
+                    FileSize = new FileInfo(serverFilePath).Length
+                };
+
+                Agent.WriteMessage(fileDetails);
+                Agent.SendMessage(packet.SenderConnection, NetDeliveryMethod.ReliableOrdered);
+
             }
             else if (packet.FileRequestType == FileRequestTypeEnum.CancelFileRequest)
             {

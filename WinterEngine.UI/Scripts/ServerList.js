@@ -5,6 +5,7 @@ function Initialize() {
     InitializeConnectingBox();
     InitializeLoadingBox();
     InitializeUnableToConnectToServerBox();
+    InitializeDownloadProgressBar();
 }
 
 function InitializeDataTable() {
@@ -54,6 +55,13 @@ function InitializeUnableToConnectToServerBox() {
     });
 }
 
+function InitializeDownloadProgressBar() {
+    $('#divDownloadProgress').progressbar({
+        max: 100,
+        value: 0
+    });
+}
+
 /* Button Functionality */
 
 function GetAllServers() {
@@ -90,9 +98,22 @@ function GoToMainMenu() {
 
 function ConnectToServer(ipAddress, port) {
 
-    $('divConnectingToServer').dialog('open');
-
+    $('#divConnectingToServer').dialog('open');
     Entity.ConnectToServer(ipAddress, port);
+}
+
+function UpdateDownloadProgressBar(percentComplete, fileName) {
+
+    $('#lblConnectingToServer').text('Downloading File: ' + fileName);
+
+    $('#divDownloadProgress').removeClass('clsHidden');
+    $("#divDownloadProgress").progressbar("option", "value", percentComplete);
+
+}
+
+function CancelConnectToServer() {
+    $('#divConnectingToServer').dialog('close');
+    Entity.CancelConnectToServer();
 }
 
 /* Server connection failures */

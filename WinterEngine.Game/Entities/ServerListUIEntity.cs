@@ -42,12 +42,18 @@ namespace WinterEngine.Game.Entities
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the network client used to communicate to servers.
+        /// </summary>
         private GameNetworkClient NetworkClient
         {
             get { return _networkClient; }
             set { _networkClient = value; }
         }
 
+        /// <summary>
+        /// Gets the web utility used for making calls to the master server.
+        /// </summary>
         private WebServiceClientUtility WebUtility
         {
             get
@@ -75,7 +81,13 @@ namespace WinterEngine.Game.Entities
             if (!Object.ReferenceEquals(NetworkClient, null) && NetworkClient.IsConnected)
             {
                 NetworkClient.Process();
+
+                if (NetworkClient.IsDownloadingFile && !String.IsNullOrWhiteSpace(NetworkClient.FileStreamerLastReceivedFile))
+                {
+                    AsyncJavascriptCallback("UpdateDownloadProgressBar", NetworkClient.GetFileStreamerPercentComplete(), NetworkClient.FileStreamerLastReceivedFile);
+                }
             }
+
 		}
 
 		private void CustomDestroy()
@@ -107,6 +119,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("GetServerList", false, GetServerList);
             EntityJavascriptObject.Bind("ConnectToServer", false, ConnectToServer);
             EntityJavascriptObject.Bind("GoToMainMenu", true, GoToMainMenu);
+            EntityJavascriptObject.Bind("CancelConnectToServer", false, CancelConnectToServer);
         }
 
         #endregion
@@ -139,15 +152,12 @@ namespace WinterEngine.Game.Entities
             };
 
             NetworkClient = new GameNetworkClient(address);
+            NetworkClient.RequestServerContentPackageList();
+        }
 
-            if (NetworkClient.IsConnected)
-            {
-                NetworkClient.RequestServerContentPackageList();
-            }
-            else
-            {
-                AsyncJavascriptCallback("UnableToConnectToServer");
-            }
+        private void CancelConnectToServer(object sender, JavascriptMethodEventArgs e)
+        {
+
         }
 
         private void GoToMainMenu(object sender, JavascriptMethodEventArgs e)

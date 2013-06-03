@@ -15,14 +15,13 @@ using WinterEngine.Network.Packets;
 
 namespace WinterEngine.Network.Clients
 {
-    public class GameNetworkClient
+    public partial class GameNetworkClient
     {
         #region Fields
 
         private NetworkAgent _agent;
         private List<PacketBase> _incomingPackets;
         private FileExtensionFactory _fileExtensionFactory;
-        private List<string> _missingFiles;
 
         #endregion
 
@@ -88,17 +87,17 @@ namespace WinterEngine.Network.Clients
         /// </summary>
         private FileExtensionFactory FileExtensionFactory
         {
-            get { return _fileExtensionFactory; }
+            get 
+            {
+                if (_fileExtensionFactory == null)
+                {
+                    _fileExtensionFactory = new FileExtensionFactory();
+                }
+
+                return _fileExtensionFactory; 
+            }
         }
 
-        /// <summary>
-        /// Gets or sets the list of missing files which are required by the server.
-        /// </summary>
-        private List<string> MissingFiles
-        {
-            get { return _missingFiles; }
-            set { _missingFiles = value; }
-        }
 
         #endregion
 
@@ -112,8 +111,6 @@ namespace WinterEngine.Network.Clients
         {
             Agent = new NetworkAgent(AgentRoleEnum.Client, GameServerConfiguration.ApplicationID, address.ServerPort);
             Agent.Connect(address.ServerIPAddress);
-            _fileExtensionFactory = new FileExtensionFactory();
-            _missingFiles = new List<string>();
         }
 
         #endregion
@@ -159,97 +156,13 @@ namespace WinterEngine.Network.Clients
             {
                 ProcessContentPackageListPacket(packet as ContentPackageListPacket);
             }
-        }
-
-        #endregion
-
-        #region Methods - File Streaming
-
-        /// <summary>
-        /// Sends a request packet to the server asking for the list of content packages.
-        /// </summary>
-        public void RequestServerContentPackageList()
-        {
-            RequestPacket packet = new RequestPacket(RequestTypeEnum.ServerContentPackageList);
-
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
-        }
-
-        /// <summary>
-        /// Processes a streaming file packet, building a file as bytes are received.
-        /// Files received must be content packages for security reasons.
-        /// </summary>
-        /// <param name="packet"></param>
-        private void ProcessStreamingFilePacket(StreamingFilePacket packet)
-        {
-            if (Path.GetExtension(packet.FileName) == FileExtensionFactory.GetFileExtension(FileTypeEnum.ContentPackage))
+            else if (packetType == typeof(StreamingFileDetailsPacket))
             {
-                string filePath = DirectoryPaths.ContentPackageDirectoryPath + packet.FileName;
-                if (!File.Exists(filePath))
-                {
-                    File.Create(filePath).Close();
-                }
-
-                using (FileStream fileStream = new FileStream(filePath, FileMode.Append))
-                {
-                    fileStream.Write(packet.FileBytes, 0, (int)packet.FileBytes.Length);
-                }
-
-                // If this is the end of the file, we need to remove it from the list
-                // and request the next file from the server.
-                if (packet.IsEndOfFile)
-                {
-                    MissingFiles.Remove(packet.FileName);
-
-                    if (MissingFiles.Count > 0)
-                    {
-                        RequestFileFromServer(MissingFiles[0]);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Sends a request to start initiating a specific file's data transfer
-        /// </summary>
-        /// <param name="fileName"></param>
-        private void RequestFileFromServer(string fileName)
-        {
-            FileRequestPacket packet = new FileRequestPacket
-            {
-                FileRequestType = FileRequestTypeEnum.StartFileRequest,
-                FileName = fileName
-            };
-
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
-        }
-
-        /// <summary>
-        /// Processes a packet containing a list of content package files.
-        /// Files which are not on the client's machine will be added to a list to be downloaded.
-        /// The first file in this list is requested at the end of this method call.
-        /// </summary>
-        /// <param name="packet"></param>
-        private void ProcessContentPackageListPacket(ContentPackageListPacket packet)
-        {
-            foreach (string fileName in packet.FileNames)
-            {
-                string filePath = DirectoryPaths.ContentPackageDirectoryPath + fileName;
-
-                if (!File.Exists(filePath))
-                {
-                    MissingFiles.Add(fileName);
-                }
-            }
-
-            if (MissingFiles.Count > 0)
-            {
-                RequestFileFromServer(MissingFiles[0]);
+                ProcessStreamingFileDetailsPacket(packet as StreamingFileDetailsPacket);
             }
         }
 
         #endregion
+
     }
 }

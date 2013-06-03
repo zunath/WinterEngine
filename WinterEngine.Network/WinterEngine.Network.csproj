@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\FileTransferProgress.cs" />
     <Compile Include="Clients\GameNetworkClient.cs" />
+    <Compile Include="Clients\GameNetworkClient.FileStreamer.cs" />
     <Compile Include="Clients\MasterServerClient.cs" />
     <Compile Include="Configuration\GameServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Enums\WebServiceMethodTypeEnum.cs" />
     <Compile Include="Packets\ContentPackageListPacket.cs" />
     <Compile Include="Packets\FileRequestPacket.cs" />
+    <Compile Include="Packets\StreamingFileDetailsPacket.cs" />
     <Compile Include="Packets\StreamingFilePacket.cs" />
     <Compile Include="WebServiceClientUtility.cs" />
     <Compile Include="Listeners\GameNetworkListener.cs" />
