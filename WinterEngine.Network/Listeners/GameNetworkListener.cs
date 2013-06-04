@@ -182,6 +182,9 @@ namespace WinterEngine.Network.Listeners
                 case RequestTypeEnum.ServerContentPackageList:
                     SendContentPackageList(packet);
                     break;
+                case RequestTypeEnum.Disconnect:
+                    DisconnectClientFromServer(packet as RequestPacket);
+                    break;
                 default:
                     break;
             }
@@ -200,6 +203,17 @@ namespace WinterEngine.Network.Listeners
             Agent.WriteMessage(packet);
             Agent.SendMessage(receivedPacket.SenderConnection, NetDeliveryMethod.ReliableSequenced);
 
+        }
+
+        private void DisconnectClientFromServer(RequestPacket packet)
+        {
+            FileTransferClients.Remove(packet.SenderConnection);
+            NetConnection connection = Agent.Connections.FirstOrDefault(x => x.RemoteEndPoint == packet.SenderConnection.RemoteEndPoint);
+
+            if (!Object.ReferenceEquals(connection, null))
+            {
+                connection.Disconnect("Disconnecting from client");
+            }
         }
 
         #endregion

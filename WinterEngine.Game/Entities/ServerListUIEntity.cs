@@ -47,7 +47,15 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         private GameNetworkClient NetworkClient
         {
-            get { return _networkClient; }
+            get 
+            {
+                if (_networkClient == null)
+                {
+                    _networkClient = new GameNetworkClient();
+                }
+
+                return _networkClient; 
+            }
             set { _networkClient = value; }
         }
 
@@ -118,7 +126,7 @@ namespace WinterEngine.Game.Entities
 
             EntityJavascriptObject.Bind("GetServerList", false, GetServerList);
             EntityJavascriptObject.Bind("ConnectToServer", false, ConnectToServer);
-            EntityJavascriptObject.Bind("GoToMainMenu", true, GoToMainMenu);
+            EntityJavascriptObject.Bind("GoToMainMenu", false, GoToMainMenu);
             EntityJavascriptObject.Bind("CancelConnectToServer", false, CancelConnectToServer);
         }
 
@@ -145,19 +153,23 @@ namespace WinterEngine.Game.Entities
         /// <param name="e"></param>
         private void ConnectToServer(object sender, JavascriptMethodEventArgs e)
         {
+            _networkClient = new GameNetworkClient();
+
             ConnectionAddress address = new ConnectionAddress
             {
                 ServerIPAddress = e.Arguments[0],
                 ServerPort = (int)e.Arguments[1]
             };
 
-            NetworkClient = new GameNetworkClient(address);
+            NetworkClient.Connect(address);
             NetworkClient.RequestServerContentPackageList();
+            
         }
 
         private void CancelConnectToServer(object sender, JavascriptMethodEventArgs e)
         {
-
+            NetworkClient.CancelRequestFileFromServer();
+            NetworkClient.Disconnect();
         }
 
         private void GoToMainMenu(object sender, JavascriptMethodEventArgs e)

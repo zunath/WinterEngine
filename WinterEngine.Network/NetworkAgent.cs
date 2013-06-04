@@ -24,11 +24,22 @@ namespace WinterEngine.Network
 
         #region Properties
 
+        /// <summary>
+        /// Returns a list of connections in use by the agent.
+        /// </summary>
         public List<NetConnection> Connections
         {
             get
             {
                 return mPeer.Connections;
+            }
+        }
+
+        public NetPeerStatus Status
+        {
+            get
+            {
+                return mPeer.Status;
             }
         }
 
@@ -41,6 +52,8 @@ namespace WinterEngine.Network
         /// </summary>
         public NetworkAgent(AgentRoleEnum role, string tag, int customPort)
         {
+            
+
             mRole = role;
             mConfig = new NetPeerConfiguration(tag);
             port = customPort;
@@ -61,7 +74,8 @@ namespace WinterEngine.Network
                 //Casts the NetPeer to a NetServer
                 mPeer = new NetServer(mConfig);
             }
-            if (mRole == AgentRoleEnum.Client)
+
+            else if (mRole == AgentRoleEnum.Client)
             {
                 mConfig.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
                 //Casts the NetPeer to a NetClient
@@ -77,29 +91,27 @@ namespace WinterEngine.Network
         /// <summary>
         /// Connects to a server. Throws an exception if you attempt to call Connect as a Server.
         /// </summary>
-        public bool Connect(string ip)
+        public void Connect(string ip)
         {
-            bool success = false;
-
             if (mRole == AgentRoleEnum.Client)
             {
                 mPeer.Connect(ip, port);
-                success = true;
             }
             else
             {
                 throw new SystemException("Attempted to connect as server. Only clients should connect.");
             }
-
-            return success;
         }
 
         /// <summary>
-        /// Closes the NetPeer
+        /// Disconnects from all connections
         /// </summary>
-        public void Shutdown()
+        public void Disconnect()
         {
-            mPeer.Shutdown("Closing connection.");
+            foreach (NetConnection connection in Connections)
+            {
+                connection.Disconnect("Disconnecting");
+            }
         }
 
         /// <summary>
@@ -121,7 +133,7 @@ namespace WinterEngine.Network
         public void SendMessage(NetConnection recipient, NetDeliveryMethod method)
         {
             mPeer.SendMessage(mOutgoingMessage, recipient, method);
-            mOutgoingMessage = mPeer.CreateMessage();
+            mOutgoingMessage = mPeer.CreateMessage();   
         }
 
         /// <summary>
@@ -152,8 +164,9 @@ namespace WinterEngine.Network
                     case NetIncomingMessageType.StatusChanged:
                         NetConnectionStatus status = (NetConnectionStatus)incomingMessage.ReadByte();
                         if (mRole == AgentRoleEnum.Server)
+                        {
                             output += "Status Message: " + incomingMessage.ReadString() + "\n";
-
+                        }
                         if (status == NetConnectionStatus.Connected)
                         {
                             //PLAYER CONNECTED

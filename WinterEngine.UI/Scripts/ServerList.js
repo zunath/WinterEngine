@@ -113,6 +113,9 @@ function UpdateDownloadProgressBar(percentComplete, fileName) {
 
 function CancelConnectToServer() {
     $('#divConnectingToServer').dialog('close');
+    $('#divDownloadProgress').addClass('clsHidden');
+    $('#divDownloadProgress').progressbar("option", "value", 0);
+    $('#lblConnectingToServer').text('Please wait while a connection to the server is established.');
     Entity.CancelConnectToServer();
 }
 

@@ -74,10 +74,18 @@ namespace WinterEngine.Network.Clients
         /// </summary>
         public void RequestServerContentPackageList()
         {
-            RequestPacket packet = new RequestPacket(RequestTypeEnum.ServerContentPackageList);
+            while (!IsConnected && Agent.Status == NetPeerStatus.Starting)
+            {
+                Console.WriteLine("");
+            }
 
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
+            if (Agent.Status == NetPeerStatus.Running)
+            {
+                RequestPacket packet = new RequestPacket(RequestTypeEnum.ServerContentPackageList);
+
+                Agent.WriteMessage(packet);
+                Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
+            }
         }
 
         /// <summary>
@@ -87,7 +95,7 @@ namespace WinterEngine.Network.Clients
         /// <param name="packet"></param>
         private void ProcessStreamingFilePacket(StreamingFilePacket packet)
         {
-            if (Path.GetExtension(packet.FileName) == FileExtensionFactory.GetFileExtension(FileTypeEnum.ContentPackage))
+            if (Path.GetExtension(packet.FileName) == FileExtensionFactory.GetFileExtension(FileTypeEnum.ContentPackage) && IsDownloadingFile)
             {
                 string filePath = DirectoryPaths.ContentPackageDirectoryPath + packet.FileName;
                 if (!File.Exists(filePath))
@@ -144,6 +152,7 @@ namespace WinterEngine.Network.Clients
             {
                 FileRequestType = FileRequestTypeEnum.CancelFileRequest
             };
+            IsDownloadingFile = false;
 
             Agent.WriteMessage(packet);
             Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
@@ -154,6 +163,10 @@ namespace WinterEngine.Network.Clients
             {
                 File.Delete(filePath);
             }
+
+            _fileStreamerFileSize = 0;
+            FileStreamerLastReceivedFile = "";
+            FileStreamerMissingFiles.Clear();
 
         }
 

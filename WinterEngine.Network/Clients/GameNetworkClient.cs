@@ -53,7 +53,7 @@ namespace WinterEngine.Network.Clients
         {
             get
             {
-                if (Agent.Connections.Count > 0)
+                if (Agent != null && Agent.Connections.Count > 0)
                 {
                     return true;
                 }
@@ -98,19 +98,34 @@ namespace WinterEngine.Network.Clients
             }
         }
 
+        /// <summary>
+        /// Returns the status of the server connection.
+        /// </summary>
+        public NetConnectionStatus Status
+        {
+            get
+            {
+                if (Object.ReferenceEquals(ServerConnection, null))
+                {
+                    return NetConnectionStatus.None;
+                }
+                else
+                {
+                    return ServerConnection.Status;
+                }
+            }
+        }
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Constructs a new GameNetworkClient and connects to the specified network address.
+        /// Constructs a new GameNetworkClient.
         /// </summary>
         /// <param name="address"></param>
-        public GameNetworkClient(ConnectionAddress address)
+        public GameNetworkClient()
         {
-            Agent = new NetworkAgent(AgentRoleEnum.Client, GameServerConfiguration.ApplicationID, address.ServerPort);
-            Agent.Connect(address.ServerIPAddress);
         }
 
         #endregion
@@ -133,11 +148,26 @@ namespace WinterEngine.Network.Clients
         }
 
         /// <summary>
+        /// Connects the game network client to the specified address.
+        /// </summary>
+        /// <param name="address"></param>
+        public void Connect(ConnectionAddress address)
+        {
+            Agent = new NetworkAgent(AgentRoleEnum.Client, GameServerConfiguration.ApplicationID, address.ServerPort);
+            Agent.Connect(address.ServerIPAddress);
+        }
+
+        /// <summary>
         /// Disconnects from the server.
         /// </summary>
         public void Disconnect()
         {
-            Agent.Shutdown();
+            if (IsConnected)
+            {
+                SendDisconnectRequest();
+                IncomingPackets.Clear();
+                Agent.Disconnect();
+            }
         }
 
         /// <summary>
@@ -160,6 +190,17 @@ namespace WinterEngine.Network.Clients
             {
                 ProcessStreamingFileDetailsPacket(packet as StreamingFileDetailsPacket);
             }
+        }
+
+        private void SendDisconnectRequest()
+        {
+            RequestPacket packet = new RequestPacket
+            {
+                RequestType = RequestTypeEnum.Disconnect
+            };
+
+            Agent.WriteMessage(packet);
+            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
         }
 
         #endregion
