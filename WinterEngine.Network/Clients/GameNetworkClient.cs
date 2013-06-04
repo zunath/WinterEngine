@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using Lidgren.Network;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
-using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Enums;
 using WinterEngine.Network.Packets;
@@ -153,7 +148,15 @@ namespace WinterEngine.Network.Clients
         /// <param name="address"></param>
         public void Connect(ConnectionAddress address)
         {
-            Agent = new NetworkAgent(AgentRoleEnum.Client, GameServerConfiguration.ApplicationID, address.ServerPort);
+            if (Agent == null)
+            {
+                Agent = new NetworkAgent(AgentRoleEnum.Client, GameServerConfiguration.ApplicationID, address.ServerPort);
+            }
+            else
+            {
+                Agent.Port = address.ServerPort;
+            }
+
             Agent.Connect(address.ServerIPAddress);
         }
 
@@ -164,8 +167,6 @@ namespace WinterEngine.Network.Clients
         {
             if (IsConnected)
             {
-                SendDisconnectRequest();
-                IncomingPackets.Clear();
                 Agent.Disconnect();
             }
         }

@@ -10,6 +10,7 @@ using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.Library.Managers;
 using WinterEngine.Network;
@@ -351,6 +352,7 @@ namespace WinterEngine.Server
             try
             {
                 GameNetworkListener gameServer = new GameNetworkListener((int)e.Argument, ContentPackageList);
+                gameServer.OnLogMessage += gameServer_OnLogMessageReceived;
 
                 while (IsRunning)
                 {
@@ -369,6 +371,12 @@ namespace WinterEngine.Server
             {
                 throw e.Error;
             }
+        }
+
+        void gameServer_OnLogMessageReceived(object sender, NetworkLogMessageEventArgs e)
+        {
+            this.Dispatcher.Invoke(DispatcherPriority.Normal,
+                new Action(() => { txtLog.Text += e.Message + "\n"; }));
         }
 
         #endregion

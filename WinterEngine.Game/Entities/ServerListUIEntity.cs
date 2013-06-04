@@ -153,8 +153,6 @@ namespace WinterEngine.Game.Entities
         /// <param name="e"></param>
         private void ConnectToServer(object sender, JavascriptMethodEventArgs e)
         {
-            _networkClient = new GameNetworkClient();
-
             ConnectionAddress address = new ConnectionAddress
             {
                 ServerIPAddress = e.Arguments[0],
@@ -163,7 +161,6 @@ namespace WinterEngine.Game.Entities
 
             NetworkClient.Connect(address);
             NetworkClient.RequestServerContentPackageList();
-            
         }
 
         private void CancelConnectToServer(object sender, JavascriptMethodEventArgs e)

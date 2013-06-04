@@ -78,6 +78,13 @@
                     <ListBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ListBox>
                 </Grid>
             </TabItem>
+            <TabItem Header="Log">
+                <ScrollViewer>
+                    <TextBlock Name="txtLog" TextWrapping="Wrap" Text="" 
+                               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                               />
+                </ScrollViewer>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

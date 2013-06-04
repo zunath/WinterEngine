@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading;
 using Lidgren.Network;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.Network.BusinessObjects;
-using WinterEngine.Network.Clients;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Enums;
 using WinterEngine.Network.Packets;
@@ -104,7 +100,7 @@ namespace WinterEngine.Network.Listeners
         /// </summary>
         /// <param name="customPort">The port to run the listener on</param>
         /// <param name="contentPackages">The content packages to be streamed to users on connection.</param>
-         public GameNetworkListener(int customPort, List<ContentPackage> contentPackages)
+        public GameNetworkListener(int customPort, List<ContentPackage> contentPackages)
         {
             if (customPort <= 0)
             {
@@ -125,6 +121,13 @@ namespace WinterEngine.Network.Listeners
             _fileExtensionFactory = new FileExtensionFactory();
             _fileTransferClients = new Dictionary<NetConnection, FileTransferProgress>();
         }
+
+        #endregion
+
+        #region Events / Delegates
+
+        public event EventHandler<NetworkLogMessageEventArgs> OnLogMessage;
+        
 
         #endregion
 
@@ -166,6 +169,14 @@ namespace WinterEngine.Network.Listeners
             }
         }
 
+        private void RaiseOnLogMessageEvent(string message)
+        {
+            if (!Object.ReferenceEquals(OnLogMessage, null))
+            {
+                NetworkLogMessageEventArgs e = new NetworkLogMessageEventArgs { Message = message };
+                OnLogMessage(this, e);
+            }
+        }
 
         #endregion
 
@@ -177,6 +188,8 @@ namespace WinterEngine.Network.Listeners
         /// <param name="packet"></param>
         private void ProcessRequest(RequestPacket packet)
         {
+            RaiseOnLogMessageEvent("Request Packet received: " + packet.RequestType);
+
             switch (packet.RequestType)
             {
                 case RequestTypeEnum.ServerContentPackageList:
@@ -207,6 +220,10 @@ namespace WinterEngine.Network.Listeners
 
         private void DisconnectClientFromServer(RequestPacket packet)
         {
+            RaiseOnLogMessageEvent("Beginning to disconnect client: " 
+                + packet.SenderConnection.RemoteEndPoint.Address + ":"  
+                + packet.SenderConnection.RemoteEndPoint.Port);
+
             FileTransferClients.Remove(packet.SenderConnection);
             NetConnection connection = Agent.Connections.FirstOrDefault(x => x.RemoteEndPoint == packet.SenderConnection.RemoteEndPoint);
 
@@ -214,6 +231,10 @@ namespace WinterEngine.Network.Listeners
             {
                 connection.Disconnect("Disconnecting from client");
             }
+
+            RaiseOnLogMessageEvent("Disconnected client: "
+                + packet.SenderConnection.RemoteEndPoint.Address + ":"
+                + packet.SenderConnection.RemoteEndPoint.Port);
         }
 
         #endregion

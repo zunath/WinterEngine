@@ -13,12 +13,12 @@ namespace WinterEngine.Network
     {
         #region Fields
 
-        private NetPeer mPeer;
-        private NetPeerConfiguration mConfig;
-        private AgentRoleEnum mRole;
-        private int port;
-        private NetOutgoingMessage mOutgoingMessage;
-        private List<NetIncomingMessage> mIncomingMessages;
+        private NetPeer _peer;
+        private NetPeerConfiguration _configuration;
+        private AgentRoleEnum _role;
+        private int _port;
+        private NetOutgoingMessage _outgoingMessage;
+        private List<NetIncomingMessage> _incomingMessages;
 
         #endregion
 
@@ -31,7 +31,7 @@ namespace WinterEngine.Network
         {
             get
             {
-                return mPeer.Connections;
+                return _peer.Connections;
             }
         }
 
@@ -39,8 +39,14 @@ namespace WinterEngine.Network
         {
             get
             {
-                return mPeer.Status;
+                return _peer.Status;
             }
+        }
+
+        public int Port
+        {
+            get { return _port; }
+            set { _port = value; }
         }
 
         #endregion
@@ -52,11 +58,9 @@ namespace WinterEngine.Network
         /// </summary>
         public NetworkAgent(AgentRoleEnum role, string tag, int customPort)
         {
-            
-
-            mRole = role;
-            mConfig = new NetPeerConfiguration(tag);
-            port = customPort;
+            _role = role;
+            _configuration = new NetPeerConfiguration(tag);
+            _port = customPort;
 
             Initialize();
         }
@@ -67,25 +71,25 @@ namespace WinterEngine.Network
 
         private void Initialize()
         {
-            if (mRole == AgentRoleEnum.Server)
+            if (_role == AgentRoleEnum.Server)
             {
-                mConfig.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
-                mConfig.Port = port;
+                _configuration.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
+                _configuration.Port = _port;
                 //Casts the NetPeer to a NetServer
-                mPeer = new NetServer(mConfig);
+                _peer = new NetServer(_configuration);
             }
 
-            else if (mRole == AgentRoleEnum.Client)
+            else if (_role == AgentRoleEnum.Client)
             {
-                mConfig.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
+                _configuration.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
                 //Casts the NetPeer to a NetClient
-                mPeer = new NetClient(mConfig);
+                _peer = new NetClient(_configuration);
             }
 
-            mPeer.Start();
+            _peer.Start();
             
-            mIncomingMessages = new List<NetIncomingMessage>();
-            mOutgoingMessage = mPeer.CreateMessage();
+            _incomingMessages = new List<NetIncomingMessage>();
+            _outgoingMessage = _peer.CreateMessage();
         }
 
         /// <summary>
@@ -93,9 +97,9 @@ namespace WinterEngine.Network
         /// </summary>
         public void Connect(string ip)
         {
-            if (mRole == AgentRoleEnum.Client)
+            if (_role == AgentRoleEnum.Client)
             {
-                mPeer.Connect(ip, port);
+                _peer.Connect(ip, _port);
             }
             else
             {
@@ -114,6 +118,11 @@ namespace WinterEngine.Network
             }
         }
 
+        public void Shutdown()
+        {
+            _peer.Shutdown("Shutting down");
+        }
+
         /// <summary>
         /// Writes a packet's properties to an outgoing message.
         /// </summary>
@@ -122,7 +131,7 @@ namespace WinterEngine.Network
         {
             MemoryStream stream = new MemoryStream();
             Serializer.Serialize<PacketBase>(stream, packet); // Protobuf serialization
-            mOutgoingMessage.Write(stream.ToArray());
+            _outgoingMessage.Write(stream.ToArray());
         }
 
         /// <summary>
@@ -132,8 +141,8 @@ namespace WinterEngine.Network
         /// <param name="method">The delivery method</param>
         public void SendMessage(NetConnection recipient, NetDeliveryMethod method)
         {
-            mPeer.SendMessage(mOutgoingMessage, recipient, method);
-            mOutgoingMessage = mPeer.CreateMessage();   
+            _peer.SendMessage(_outgoingMessage, recipient, method);
+            _outgoingMessage = _peer.CreateMessage();   
         }
 
         /// <summary>
@@ -143,50 +152,43 @@ namespace WinterEngine.Network
         /// <returns></returns>
         private List<NetIncomingMessage> CheckForMessages()
         {
-            mIncomingMessages.Clear();
+            _incomingMessages.Clear();
             NetIncomingMessage incomingMessage;
-            string output = "";
 
-            while ((incomingMessage = mPeer.ReadMessage()) != null)
+            while ((incomingMessage = _peer.ReadMessage()) != null)
             {
                 switch (incomingMessage.MessageType)
                 {
                     case NetIncomingMessageType.DiscoveryRequest:
-                        mPeer.SendDiscoveryResponse(null, incomingMessage.SenderEndPoint);
+                        _peer.SendDiscoveryResponse(null, incomingMessage.SenderEndPoint);
                         break;
                     case NetIncomingMessageType.VerboseDebugMessage:
                     case NetIncomingMessageType.DebugMessage:
                     case NetIncomingMessageType.WarningMessage:
                     case NetIncomingMessageType.ErrorMessage:
-                        if (mRole == AgentRoleEnum.Server)
-                            output += incomingMessage.ReadString() + "\n";
                         break;
                     case NetIncomingMessageType.StatusChanged:
                         NetConnectionStatus status = (NetConnectionStatus)incomingMessage.ReadByte();
-                        if (mRole == AgentRoleEnum.Server)
-                        {
-                            output += "Status Message: " + incomingMessage.ReadString() + "\n";
-                        }
+                        
                         if (status == NetConnectionStatus.Connected)
                         {
-                            //PLAYER CONNECTED
+                        
                         }
+                        else if (status == NetConnectionStatus.Disconnected)
+                        {
+                        }
+
+
                         break;
                     case NetIncomingMessageType.Data:
-                        mIncomingMessages.Add(incomingMessage);
+                        _incomingMessages.Add(incomingMessage);
                         break;
                     default:
                         // unknown message type
                         break;
                 }
             }
-            if (mRole == AgentRoleEnum.Server)
-            {
-                StreamWriter textOut = new StreamWriter(new FileStream("log.txt", FileMode.Append, FileAccess.Write));
-                textOut.Write(output);
-                textOut.Close();
-            }
-            return mIncomingMessages;
+            return _incomingMessages;
         }
 
         /// <summary>

@@ -93,6 +93,7 @@
     <Compile Include="Enumerations\TilesetEditorModeTypeEnum.cs" />
     <Compile Include="EventArgsExtended\AutoDownloaderStatusEventArgs.cs" />
     <Compile Include="EventArgsExtended\GameObjectEventArgs.cs" />
+    <Compile Include="EventArgsExtended\NetworkLogMessageEventArgs.cs" />
     <Compile Include="EventArgsExtended\PositionEventArgs.cs" />
     <Compile Include="EventArgsExtended\TypeOfEventArgs.cs" />
     <Compile Include="IEntity.cs" />
