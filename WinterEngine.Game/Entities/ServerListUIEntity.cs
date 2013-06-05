@@ -86,16 +86,12 @@ namespace WinterEngine.Game.Entities
 
 		private void CustomActivity()
 		{
-            if (!Object.ReferenceEquals(NetworkClient, null) && NetworkClient.IsConnected)
+            NetworkClient.Process();
+
+            if (NetworkClient.IsDownloadingFile && !String.IsNullOrWhiteSpace(NetworkClient.FileStreamerLastReceivedFile))
             {
-                NetworkClient.Process();
-
-                if (NetworkClient.IsDownloadingFile && !String.IsNullOrWhiteSpace(NetworkClient.FileStreamerLastReceivedFile))
-                {
-                    AsyncJavascriptCallback("UpdateDownloadProgressBar", NetworkClient.GetFileStreamerPercentComplete(), NetworkClient.FileStreamerLastReceivedFile);
-                }
+                AsyncJavascriptCallback("UpdateDownloadProgressBar", NetworkClient.GetFileStreamerPercentComplete(), NetworkClient.FileStreamerLastReceivedFile);
             }
-
 		}
 
 		private void CustomDestroy()
@@ -160,7 +156,6 @@ namespace WinterEngine.Game.Entities
             };
 
             NetworkClient.Connect(address);
-            NetworkClient.RequestServerContentPackageList();
         }
 
         private void CancelConnectToServer(object sender, JavascriptMethodEventArgs e)

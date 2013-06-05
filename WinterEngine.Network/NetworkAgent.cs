@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Lidgren.Network;
 using ProtoBuf;
+using WinterEngine.Network.BusinessObjects;
 using WinterEngine.Network.Enums;
 using WinterEngine.Network.Packets;
 
@@ -67,6 +68,23 @@ namespace WinterEngine.Network
 
         #endregion
 
+        #region Events / Delegates
+
+        /// <summary>
+        /// Event hook which fires after a connection has been established.
+        /// </summary>
+        public event EventHandler<ConnectionStatusEventArgs> OnConnected;
+        /// <summary>
+        /// Event hook which fires after a client has begun disconnecting.
+        /// </summary>
+        public event EventHandler<ConnectionStatusEventArgs> OnDisconnecting;
+        /// <summary>
+        /// Event hook which fires after a client has disconnected.
+        /// </summary>
+        public event EventHandler<ConnectionStatusEventArgs> OnDisconnected;
+
+        #endregion
+
         #region Methods
 
         private void Initialize()
@@ -75,6 +93,7 @@ namespace WinterEngine.Network
             {
                 _configuration.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
                 _configuration.Port = _port;
+                
                 //Casts the NetPeer to a NetServer
                 _peer = new NetServer(_configuration);
             }
@@ -118,11 +137,6 @@ namespace WinterEngine.Network
             }
         }
 
-        public void Shutdown()
-        {
-            _peer.Shutdown("Shutting down");
-        }
-
         /// <summary>
         /// Writes a packet's properties to an outgoing message.
         /// </summary>
@@ -141,8 +155,11 @@ namespace WinterEngine.Network
         /// <param name="method">The delivery method</param>
         public void SendMessage(NetConnection recipient, NetDeliveryMethod method)
         {
-            _peer.SendMessage(_outgoingMessage, recipient, method);
-            _outgoingMessage = _peer.CreateMessage();   
+            if (!Object.ReferenceEquals(recipient, null))
+            {
+                _peer.SendMessage(_outgoingMessage, recipient, method);
+                _outgoingMessage = _peer.CreateMessage();
+            }
         }
 
         /// <summary>
@@ -168,18 +185,39 @@ namespace WinterEngine.Network
                     case NetIncomingMessageType.ErrorMessage:
                         break;
                     case NetIncomingMessageType.StatusChanged:
+                    {
+
                         NetConnectionStatus status = (NetConnectionStatus)incomingMessage.ReadByte();
-                        
+                        ConnectionStatusEventArgs e = new ConnectionStatusEventArgs 
+                        { 
+                            Connection = incomingMessage.SenderConnection 
+                        };
+
                         if (status == NetConnectionStatus.Connected)
                         {
-                        
+                            if (!Object.ReferenceEquals(OnConnected, null))
+                            {
+                                OnConnected(this, e);
+                            }
+                        }
+                        else if (status == NetConnectionStatus.Disconnecting)
+                        {
+                            if (!Object.ReferenceEquals(OnDisconnecting, null))
+                            {
+                                OnDisconnecting(this, e);
+                            }
                         }
                         else if (status == NetConnectionStatus.Disconnected)
                         {
+                            if (!Object.ReferenceEquals(OnDisconnected, null))
+                            {
+                                OnDisconnected(this, e);
+                            }
                         }
 
 
                         break;
+                    }
                     case NetIncomingMessageType.Data:
                         _incomingMessages.Add(incomingMessage);
                         break;

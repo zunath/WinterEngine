@@ -82,7 +82,7 @@
                 <ScrollViewer>
                     <TextBlock Name="txtLog" TextWrapping="Wrap" Text="" 
                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                               />
+                               IsEnabled="False"/>
                 </ScrollViewer>
             </TabItem>
         </TabControl>

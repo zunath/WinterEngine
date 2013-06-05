@@ -132,14 +132,15 @@ namespace WinterEngine.Network.Clients
         /// </summary>
         public void Process()
         {
-            IncomingPackets = Agent.CheckForPackets();
-
-            foreach (PacketBase packet in IncomingPackets)
+            if (!Object.ReferenceEquals(Agent, null))
             {
-                ProcessPacket(packet);
-            }
+                IncomingPackets = Agent.CheckForPackets();
 
-            Thread.Sleep(5);
+                foreach (PacketBase packet in IncomingPackets)
+                {
+                    ProcessPacket(packet);
+                }
+            }
         }
 
         /// <summary>
@@ -168,6 +169,7 @@ namespace WinterEngine.Network.Clients
             if (IsConnected)
             {
                 Agent.Disconnect();
+                //SendDisconnectRequest();
             }
         }
 
@@ -191,17 +193,6 @@ namespace WinterEngine.Network.Clients
             {
                 ProcessStreamingFileDetailsPacket(packet as StreamingFileDetailsPacket);
             }
-        }
-
-        private void SendDisconnectRequest()
-        {
-            RequestPacket packet = new RequestPacket
-            {
-                RequestType = RequestTypeEnum.Disconnect
-            };
-
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
         }
 
         #endregion

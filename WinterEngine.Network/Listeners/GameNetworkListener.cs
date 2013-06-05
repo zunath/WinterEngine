@@ -108,6 +108,7 @@ namespace WinterEngine.Network.Listeners
             }
 
             Agent = new NetworkAgent(AgentRoleEnum.Server, GameServerConfiguration.ApplicationID, customPort);
+            Agent.OnConnected += Agent_OnConnectionEstablished;
             this._contentPackages = contentPackages;
 
             _contentPackageNames = new List<string>();
@@ -121,6 +122,7 @@ namespace WinterEngine.Network.Listeners
             _fileExtensionFactory = new FileExtensionFactory();
             _fileTransferClients = new Dictionary<NetConnection, FileTransferProgress>();
         }
+
 
         #endregion
 
@@ -178,6 +180,12 @@ namespace WinterEngine.Network.Listeners
             }
         }
 
+        private void Agent_OnConnectionEstablished(object sender, ConnectionStatusEventArgs e)
+        {
+            SendContentPackageList(e.Connection);
+            RaiseOnLogMessageEvent("Connection established: " + e.Connection.RemoteEndPoint.Address + ":" + e.Connection.RemoteEndPoint.Port);
+        }
+
         #endregion
 
         #region Methods - Request Processing
@@ -192,9 +200,6 @@ namespace WinterEngine.Network.Listeners
 
             switch (packet.RequestType)
             {
-                case RequestTypeEnum.ServerContentPackageList:
-                    SendContentPackageList(packet);
-                    break;
                 case RequestTypeEnum.Disconnect:
                     DisconnectClientFromServer(packet as RequestPacket);
                     break;
@@ -207,14 +212,14 @@ namespace WinterEngine.Network.Listeners
         /// Sends a packet containing the list of file names to the sender of the received packet.
         /// </summary>
         /// <param name="receivedPacket"></param>
-        private void SendContentPackageList(PacketBase receivedPacket)
+        private void SendContentPackageList(NetConnection connection)
         {
             ContentPackageListPacket packet = new ContentPackageListPacket
             {
                 FileNames = ContentPackageFileNames
             };
             Agent.WriteMessage(packet);
-            Agent.SendMessage(receivedPacket.SenderConnection, NetDeliveryMethod.ReliableSequenced);
+            Agent.SendMessage(connection, NetDeliveryMethod.ReliableSequenced);
 
         }
 

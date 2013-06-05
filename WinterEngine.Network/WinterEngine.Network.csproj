@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\ConnectionStatusEventArgs.cs" />
     <Compile Include="BusinessObjects\FileTransferProgress.cs" />
     <Compile Include="Clients\GameNetworkClient.cs" />
     <Compile Include="Clients\GameNetworkClient.FileStreamer.cs" />
