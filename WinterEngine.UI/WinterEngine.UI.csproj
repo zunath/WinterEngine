@@ -93,6 +93,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Components\CharacterSelection.html" />
     <Content Include="Components\GameUI.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -144,6 +145,7 @@
     <Content Include="Images\xnalogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\CharacterSelection.js" />
     <Content Include="Scripts\GameUI.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

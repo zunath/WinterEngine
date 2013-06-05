@@ -23,6 +23,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         private int _locationAreaID;
         private bool _isGameMaster;
         private List<LocalVariable> _localVariables;
+        private string _fileName;
 
         #endregion
 
@@ -94,9 +95,21 @@ namespace WinterEngine.DataTransferObjects.GameObjects
             set { _localVariables = value; }
         }
 
+        public string FileName
+        {
+            get { return _fileName; }
+            set { _fileName = value; }
+        }
+
         #endregion
 
         #region Constructors
+
+        public PlayerCharacter()
+        {
+            LocalVariables = new List<LocalVariable>();
+        }
+     
 
         #endregion
     }

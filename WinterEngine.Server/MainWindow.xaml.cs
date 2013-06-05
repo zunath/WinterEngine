@@ -18,6 +18,8 @@ using WinterEngine.Network.Clients;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Listeners;
 using Xceed.Wpf.Toolkit;
+using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataAccess.FileAccess;
 
 namespace WinterEngine.Server
 {
@@ -126,6 +128,7 @@ namespace WinterEngine.Server
             numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.DefaultValue);
 
             UpdateExternalIPAddress();
+
         }
 
         /// <summary>

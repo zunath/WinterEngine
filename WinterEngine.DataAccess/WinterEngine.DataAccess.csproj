@@ -82,7 +82,7 @@
     <Compile Include="Factories\FileExtensionFactory.cs" />
     <Compile Include="Factories\GameObjectFactory.cs" />
     <Compile Include="Factories\GameResourceFactory.cs" />
-    <Compile Include="FileAccess\CharacterVaultRepository.cs" />
+    <Compile Include="FileAccess\PlayerCharacterRepository.cs" />
     <Compile Include="FileAccess\FileArchiveManager.cs" />
     <Compile Include="Interface\IGenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
