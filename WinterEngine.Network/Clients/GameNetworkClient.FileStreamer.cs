@@ -19,7 +19,8 @@ namespace WinterEngine.Network.Clients
         private List<string> _fileStreamerMissingFiles;
         private long _fileStreamerFileSize;
         private string _fileStreamerLastReceivedFile;
-        private bool _isDownloadingFile;
+        private FileStreamerStatusEnum _fileStreamStatus;
+        
 
         #endregion
 
@@ -59,10 +60,10 @@ namespace WinterEngine.Network.Clients
             private set { _fileStreamerLastReceivedFile = value; }
         }
 
-        public bool IsDownloadingFile
+        public FileStreamerStatusEnum FileStreamerStatus
         {
-            get { return _isDownloadingFile; }
-            private set { _isDownloadingFile = value; }
+            get { return _fileStreamStatus; }
+            private set { _fileStreamStatus = value; }
         }
 
         #endregion
@@ -74,11 +75,6 @@ namespace WinterEngine.Network.Clients
         /// </summary>
         public void RequestServerContentPackageList()
         {
-            while (!IsConnected && Agent.Status == NetPeerStatus.Starting)
-            {
-                Console.WriteLine("");
-            }
-
             if (Agent.Status == NetPeerStatus.Running)
             {
                 RequestPacket packet = new RequestPacket(RequestTypeEnum.ServerContentPackageList);
@@ -95,7 +91,7 @@ namespace WinterEngine.Network.Clients
         /// <param name="packet"></param>
         private void ProcessStreamingFilePacket(StreamingFilePacket packet)
         {
-            if (Path.GetExtension(packet.FileName) == FileExtensionFactory.GetFileExtension(FileTypeEnum.ContentPackage) && IsDownloadingFile)
+            if (Path.GetExtension(packet.FileName) == FileExtensionFactory.GetFileExtension(FileTypeEnum.ContentPackage) && FileStreamerStatus == FileStreamerStatusEnum.Downloading)
             {
                 string filePath = DirectoryPaths.ContentPackageDirectoryPath + packet.FileName;
                 if (!File.Exists(filePath))
@@ -115,11 +111,15 @@ namespace WinterEngine.Network.Clients
                 if (packet.IsEndOfFile)
                 {
                     FileStreamerMissingFiles.Remove(packet.FileName);
-                    IsDownloadingFile = false;
 
                     if (FileStreamerMissingFiles.Count > 0)
                     {
+                        FileStreamerStatus = FileStreamerStatusEnum.Stopped;
                         RequestFileFromServer(FileStreamerMissingFiles[0]);
+                    }
+                    else
+                    {
+                        FileStreamerStatus = FileStreamerStatusEnum.Complete;
                     }
                 }
             }
@@ -131,7 +131,7 @@ namespace WinterEngine.Network.Clients
         /// <param name="fileName"></param>
         private void RequestFileFromServer(string fileName)
         {
-            IsDownloadingFile = true;
+            FileStreamerStatus = FileStreamerStatusEnum.Downloading;
 
             FileRequestPacket packet = new FileRequestPacket
             {
@@ -152,7 +152,7 @@ namespace WinterEngine.Network.Clients
             {
                 FileRequestType = FileRequestTypeEnum.CancelFileRequest
             };
-            IsDownloadingFile = false;
+            FileStreamerStatus = FileStreamerStatusEnum.Stopped;
 
             Agent.WriteMessage(packet);
             Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
@@ -191,6 +191,10 @@ namespace WinterEngine.Network.Clients
             if (FileStreamerMissingFiles.Count > 0)
             {
                 RequestFileFromServer(FileStreamerMissingFiles[0]);
+            }
+            else
+            {
+                FileStreamerStatus = FileStreamerStatusEnum.Complete;
             }
         }
 

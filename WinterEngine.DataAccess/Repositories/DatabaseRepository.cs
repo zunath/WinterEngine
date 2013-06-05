@@ -64,7 +64,7 @@ namespace WinterEngine.DataAccess
 
             // Initialize the database - will create the database file at the specified location.
             // Also creates tables based on the code-first model.
-            using (WinterContext context = new WinterContext(connectionString))
+            using (ModuleDataContext context = new ModuleDataContext(connectionString))
             {
                 context.Database.Initialize(true);
             }

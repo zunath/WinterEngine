@@ -25,6 +25,7 @@ using WinterEngine.Game.Screens;
 using WinterEngine.Network.Clients;
 using System.ComponentModel;
 using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 
 #endif
@@ -88,9 +89,15 @@ namespace WinterEngine.Game.Entities
 		{
             NetworkClient.Process();
 
-            if (NetworkClient.IsDownloadingFile && !String.IsNullOrWhiteSpace(NetworkClient.FileStreamerLastReceivedFile))
+            if (NetworkClient.FileStreamerStatus == FileStreamerStatusEnum.Downloading
+                && !String.IsNullOrWhiteSpace(NetworkClient.FileStreamerLastReceivedFile))
             {
                 AsyncJavascriptCallback("UpdateDownloadProgressBar", NetworkClient.GetFileStreamerPercentComplete(), NetworkClient.FileStreamerLastReceivedFile);
+            }
+            else if (NetworkClient.FileStreamerStatus == FileStreamerStatusEnum.Complete)
+            {
+                // We've received all files and are ready to move to the character selection screen.
+                
             }
 		}
 

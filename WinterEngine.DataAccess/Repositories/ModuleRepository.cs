@@ -19,7 +19,7 @@ namespace WinterEngine.DataAccess
         /// <param name="gameModule"></param>
         public void Add(GameModule gameModule)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (ModuleDataContext context = new ModuleDataContext(WinterConnectionInformation.ActiveConnectionString))
             {
                 context.Modules.Add(gameModule);
                 context.SaveChanges();
@@ -33,7 +33,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public GameModule GetModule()
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (ModuleDataContext context = new ModuleDataContext(WinterConnectionInformation.ActiveConnectionString))
             {
                 var query = from module
                             in context.Modules
@@ -49,7 +49,7 @@ namespace WinterEngine.DataAccess
         /// <param name="module"></param>
         public void UpdateModule(GameModule module)
         {
-            using (WinterContext context = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+            using (ModuleDataContext context = new ModuleDataContext(WinterConnectionInformation.ActiveConnectionString))
             {
                 var query = from mod
                             in context.Modules

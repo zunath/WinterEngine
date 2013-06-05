@@ -48,6 +48,9 @@ namespace WinterEngine.DataAccess.Factories
                 // Database files
                 case FileTypeEnum.Database:
                     return ".sdf";
+                // Player character files
+                case FileTypeEnum.PlayerCharacter:
+                    return ".wpc";
                 default:
                     return "";
             }
@@ -84,6 +87,9 @@ namespace WinterEngine.DataAccess.Factories
                 // Database files
                 case ".sdf":
                     return FileTypeEnum.Database;
+                // Player character files
+                case ".wpc":
+                    return FileTypeEnum.PlayerCharacter;
                 default:
                     return FileTypeEnum.Invalid;
             }

@@ -55,10 +55,10 @@ namespace WinterEngine.DataAccess.Repositories
             List<GameObjectBase> nonDuplicateList = new List<GameObjectBase>();
 
             // Connect to the ERF database
-            using (WinterContext erfContext = new WinterContext(ConnectionString))
+            using (ModuleDataContext erfContext = new ModuleDataContext(ConnectionString))
             {
                 // Connect to the main application database.
-                using (WinterContext mainContext = new WinterContext(WinterConnectionInformation.ActiveConnectionString))
+                using (ModuleDataContext mainContext = new ModuleDataContext(WinterConnectionInformation.ActiveConnectionString))
                 {
                     foreach (Area area in erfContext.Areas)
                     {

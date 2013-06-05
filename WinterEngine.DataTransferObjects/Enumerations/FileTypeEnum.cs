@@ -29,6 +29,9 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("Sound File")]
         Sound = 9,           // .wav  - Sound files
         [Description("Database File")]
-        Database = 10         // .sdf  - Database files  
+        Database = 10,         // .sdf  - Database files  
+        [Description("Player Character File")]
+        PlayerCharacter = 11
+
     }
 }

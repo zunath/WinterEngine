@@ -11,6 +11,7 @@ namespace WinterEngine.DataTransferObjects.Paths
         #region Fields
 
         private const string _contentPackagePath = "ContentPacks";
+        private const string _characterVaultPath = "CharacterVault";
 
         #endregion
 
@@ -24,6 +25,18 @@ namespace WinterEngine.DataTransferObjects.Paths
             get 
             {
                 return FileManager.RelativeDirectory + @"Content/" + _contentPackagePath + "/";
+            }
+        }
+
+        /// <summary>
+        /// Gets the path to the character vault directory which contains all of the characters
+        /// created on a server by players.
+        /// </summary>
+        public static string CharacterVaultDirectoryPath
+        {
+            get
+            {
+                return FileManager.RelativeDirectory + @"Content/" + _characterVaultPath + "/";
             }
         }
 

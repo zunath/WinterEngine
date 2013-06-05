@@ -80,7 +80,7 @@ namespace WinterEngine.Game.Screens
 				}
 			}
 		}
-		private FlatRedBall.Scene SceneFile;
+		protected FlatRedBall.Scene SceneFile;
 		
 		private FlatRedBall.Sprite SpriteObject;
 		public float SpriteObjectAlpha

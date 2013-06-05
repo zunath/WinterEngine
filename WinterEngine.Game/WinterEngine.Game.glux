@@ -87,6 +87,7 @@
         <ReferencedFileSave>
           <Name>Screens/SplashScreen/SceneFile.scnx</Name>
           <IsSharedStatic>false</IsSharedStatic>
+          <AddToManagers>true</AddToManagers>
         </ReferencedFileSave>
       </ReferencedFiles>
       <NamedObjects>
@@ -134,10 +135,6 @@
     </ScreenSave>
   </Screens>
   <Entities>
-    <EntitySave>
-      <Name>Entities\Character</Name>
-      <Is2D>true</Is2D>
-    </EntitySave>
     <EntitySave>
       <CustomVariables>
         <CustomVariable>

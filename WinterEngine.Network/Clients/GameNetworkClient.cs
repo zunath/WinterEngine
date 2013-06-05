@@ -169,7 +169,6 @@ namespace WinterEngine.Network.Clients
             if (IsConnected)
             {
                 Agent.Disconnect();
-                //SendDisconnectRequest();
             }
         }
 

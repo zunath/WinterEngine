@@ -3,7 +3,7 @@ using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.DataAccess.Contexts
 {
-    public class WinterContext : DbContext
+    public class ModuleDataContext : DbContext
     {
         public DbSet<Area> Areas { get; set; }
         public DbSet<Creature> Creatures { get; set; }
@@ -20,7 +20,7 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<ContentPackage> ContentPackages { get; set; }
         public DbSet<ContentPackageResource> ContentPackageResources { get; set; }
 
-        public WinterContext(string connString) : base(connString)
+        public ModuleDataContext(string connString) : base(connString)
         {
         }
 

@@ -14,13 +14,13 @@ namespace WinterEngine.DataAccess
     public class UnitOfWork : IDisposable
     {
         private Guid InstanceIdentifier;
-        private WinterContext context;
-        public WinterContext Context { get { return context; } }
+        private ModuleDataContext context;
+        public ModuleDataContext Context { get { return context; } }
         private bool disposed;
 
         public UnitOfWork()
         {
-            context = new WinterContext(WinterConnectionInformation.ActiveConnectionString);
+            context = new ModuleDataContext(WinterConnectionInformation.ActiveConnectionString);
             InstanceIdentifier = Guid.NewGuid();
             disposed = false;
         }
@@ -32,12 +32,12 @@ namespace WinterEngine.DataAccess
                 connectionString = WinterConnectionInformation.ActiveConnectionString;
             }
 
-            context = new WinterContext(connectionString);
+            context = new ModuleDataContext(connectionString);
             InstanceIdentifier = Guid.NewGuid();
             disposed = false;
         }
 
-        public UnitOfWork(WinterContext context)
+        public UnitOfWork(ModuleDataContext context)
         {
             this.context = context;
             InstanceIdentifier = Guid.NewGuid();
@@ -46,57 +46,57 @@ namespace WinterEngine.DataAccess
 
         #region Game object repositories
 
-        private GenericRepository<WinterContext, Area> areaRepository;
-        public GenericRepository<WinterContext, Area> AreaRepository
+        private GenericRepository<ModuleDataContext, Area> areaRepository;
+        public GenericRepository<ModuleDataContext, Area> AreaRepository
         {
             get
             {
                 if (this.areaRepository == null)
                 {
                     this.areaRepository
-                        = new GenericRepository<WinterContext, Area>(context);
+                        = new GenericRepository<ModuleDataContext, Area>(context);
                 }
                 return areaRepository;
             }
         }
 
-        private GenericRepository<WinterContext, Creature> creatureRepository;
-        public GenericRepository<WinterContext, Creature> CreatureRepository
+        private GenericRepository<ModuleDataContext, Creature> creatureRepository;
+        public GenericRepository<ModuleDataContext, Creature> CreatureRepository
         {
             get
             {
                 if (this.creatureRepository == null)
                 {
                     this.creatureRepository
-                        = new GenericRepository<WinterContext, Creature>(context);
+                        = new GenericRepository<ModuleDataContext, Creature>(context);
                 }
                 return creatureRepository;
             }
         }
 
-        private GenericRepository<WinterContext, Item> itemRepository;
-        public GenericRepository<WinterContext, Item> ItemRepository
+        private GenericRepository<ModuleDataContext, Item> itemRepository;
+        public GenericRepository<ModuleDataContext, Item> ItemRepository
         {
             get
             {
                 if (this.itemRepository == null)
                 {
                     this.itemRepository
-                        = new GenericRepository<WinterContext, Item>(context);
+                        = new GenericRepository<ModuleDataContext, Item>(context);
                 }
                 return itemRepository;
             }
         }
 
-        private GenericRepository<WinterContext, Placeable> placeableRepository;
-        public GenericRepository<WinterContext, Placeable> PlaceableRepository
+        private GenericRepository<ModuleDataContext, Placeable> placeableRepository;
+        public GenericRepository<ModuleDataContext, Placeable> PlaceableRepository
         {
             get
             {
                 if (this.placeableRepository == null)
                 {
                     this.placeableRepository
-                        = new GenericRepository<WinterContext, Placeable>(context);
+                        = new GenericRepository<ModuleDataContext, Placeable>(context);
                 }
                 return placeableRepository;
             }
@@ -108,83 +108,83 @@ namespace WinterEngine.DataAccess
 
         #region Resource repositories
 
-        private GenericRepository<WinterContext, Category> categoryRepository;
-        public GenericRepository<WinterContext, Category> CategoryRepository
+        private GenericRepository<ModuleDataContext, Category> categoryRepository;
+        public GenericRepository<ModuleDataContext, Category> CategoryRepository
         {
             get
             {
                 if (this.categoryRepository == null)
                 {
                     this.categoryRepository
-                        = new GenericRepository<WinterContext, Category>(context);
+                        = new GenericRepository<ModuleDataContext, Category>(context);
                 }
                 return categoryRepository;
             }
         }
 
-        private GenericRepository<WinterContext, ContentPackage> contentPackageRepository;
-        public GenericRepository<WinterContext, ContentPackage> ContentPackageRepository
+        private GenericRepository<ModuleDataContext, ContentPackage> contentPackageRepository;
+        public GenericRepository<ModuleDataContext, ContentPackage> ContentPackageRepository
         {
             get
             {
                 if (this.contentPackageRepository == null)
                 {
                     this.contentPackageRepository
-                        = new GenericRepository<WinterContext, ContentPackage>(context);
+                        = new GenericRepository<ModuleDataContext, ContentPackage>(context);
                 }
                 return contentPackageRepository;
             }
         }
-        private GenericRepository<WinterContext, ContentPackageResource> contentPackageResourceRepository;
-        public GenericRepository<WinterContext, ContentPackageResource> ContentPackageResourceRepository
+        private GenericRepository<ModuleDataContext, ContentPackageResource> contentPackageResourceRepository;
+        public GenericRepository<ModuleDataContext, ContentPackageResource> ContentPackageResourceRepository
         {
             get
             {
                 if (this.contentPackageResourceRepository== null)
                 {
                     this.contentPackageResourceRepository
-                        = new GenericRepository<WinterContext, ContentPackageResource>(context);
+                        = new GenericRepository<ModuleDataContext, ContentPackageResource>(context);
                 }
                 return contentPackageResourceRepository;
             }
         }
         
-        private GenericRepository<WinterContext, ItemProperty> itemPropertyRepository;
-        public GenericRepository<WinterContext, ItemProperty> ItemPropertyRepository
+        private GenericRepository<ModuleDataContext, ItemProperty> itemPropertyRepository;
+        public GenericRepository<ModuleDataContext, ItemProperty> ItemPropertyRepository
         {
             get
             {
                 if (this.itemPropertyRepository == null)
                 {
                     this.itemPropertyRepository
-                        = new GenericRepository<WinterContext, ItemProperty>(context);
+                        = new GenericRepository<ModuleDataContext, ItemProperty>(context);
                 }
                 return itemPropertyRepository;
             }
         }
 
-        private GenericRepository<WinterContext, ItemType> itemTypeRepository;
-        public GenericRepository<WinterContext, ItemType> ItemTypeRepository
+        private GenericRepository<ModuleDataContext, ItemType> itemTypeRepository;
+        public GenericRepository<ModuleDataContext, ItemType> ItemTypeRepository
         {
             get
             {
                 if (this.itemTypeRepository == null)
                 {
                     this.itemTypeRepository
-                        = new GenericRepository<WinterContext, ItemType>(context);
+                        = new GenericRepository<ModuleDataContext, ItemType>(context);
                 }
                 return itemTypeRepository;
             }
         }
-        private GenericRepository<WinterContext, Race> raceRepository;
-        public GenericRepository<WinterContext, Race> RaceRepository
+        private GenericRepository<ModuleDataContext, Race> raceRepository;
+        public GenericRepository<ModuleDataContext, Race> RaceRepository
         {
             get
             {
                 if (this.raceRepository == null)
                 {
                     this.raceRepository
-                        = new GenericRepository<WinterContext, Race>(context);
+                        = new GenericRepository<ModuleDataContext, Race>(context);
                 }
                 return raceRepository;
             }
@@ -193,30 +193,30 @@ namespace WinterEngine.DataAccess
 
         #region Mapping repositories
         
-        private GenericRepository<WinterContext, Tile> tileRepository;
-        public GenericRepository<WinterContext, Tile> TileRepository
+        private GenericRepository<ModuleDataContext, Tile> tileRepository;
+        public GenericRepository<ModuleDataContext, Tile> TileRepository
         {
             get
             {
                 if (this.tileRepository == null)
                 {
                     this.tileRepository
-                        = new GenericRepository<WinterContext, Tile>(context);
+                        = new GenericRepository<ModuleDataContext, Tile>(context);
                 }
                 return tileRepository;
             }
         }
         
         
-        private GenericRepository<WinterContext, Map> mapRepository;
-        public GenericRepository<WinterContext, Map> MapRepository
+        private GenericRepository<ModuleDataContext, Map> mapRepository;
+        public GenericRepository<ModuleDataContext, Map> MapRepository
         {
             get
             {
                 if (this.mapRepository == null)
                 {
                     this.mapRepository
-                        = new GenericRepository<WinterContext, Map>(context);
+                        = new GenericRepository<ModuleDataContext, Map>(context);
                 }
                 return mapRepository;
             }
