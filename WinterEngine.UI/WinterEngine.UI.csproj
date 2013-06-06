@@ -93,7 +93,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Components\CharacterSelection.html" />
+    <Content Include="Components\CharacterSelection.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Components\GameUI.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -145,7 +147,9 @@
     <Content Include="Images\xnalogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\CharacterSelection.js" />
+    <Content Include="Scripts\CharacterSelection.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\GameUI.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -156,9 +160,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\jquery-2.0.0.min.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Scripts\jquery.masonry.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\jquery.validate.js">
@@ -237,9 +238,9 @@
     <Content Include="Styling\jQueryUI\jquery-ui-1.10.3.custom.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Components\ServerList.html">
+    <Content Include="Components\ServerList.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Images\DataTables\Sorting icons.psd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

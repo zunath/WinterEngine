@@ -46,7 +46,7 @@ input[type="button"]
 
 /* TABLES */
 
-table
+table.clsServerList
 {
     background-color: lightgrey;
     width: 100%;
@@ -61,7 +61,7 @@ thead
 
 td
 {
-    border: 2px solid;
+    border: 1px solid;
     text-align: center;
 }
 
@@ -108,6 +108,27 @@ td
     font-size: 16px;
     font-weight: bold;
     float:left
+}
+
+.clsQuarterButton
+{
+    width: 25%;
+    height: 100%;
+    border: dashed 5px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    float:left
+}
+
+.clsNonResizeable
+{
+    resize: none;
+}
+
+ul.clsNoBullets
+{
+    list-style-type: none;
 }
 
 /* JQUERY UI */
@@ -167,7 +188,112 @@ input.error
     background-color: lightblue;
 }
 
+/* CHARACTER SELECTION */
 
+.clsCharacterSelectionHeader
+{
+    text-align:center;
+    background-color: lightgrey;
+    border: solid 1px;
+    border-radius: 15px;
+}
+
+.clsPaneHalfLeft
+{
+    width: 49%;
+    height: 100%;
+    float: left;
+    background-color: lightgrey;
+    border:solid 2px;
+}
+
+.clsPaneHalfRight
+{
+    width: 49%;
+    height: 100%;
+    float:right;
+    background-color: lightgrey;
+    border: solid 2px;
+}
+
+.clsPaneRounded
+{
+    border-radius: 15px;
+    padding-bottom: 10px;
+}
+
+.clsPaneContent
+{
+    width: 100%;
+    height: 100%;
+}
+
+.clsCharacterList
+{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 60%;
+}
+
+.clsServerDetails
+{
+    width: 99.4%;
+}
+
+.clsCharacterSelectionButtonGroup
+{
+    width: 100%;
+    float:left;
+    padding-top: 10px;
+}
+
+.clsCharacterAttributeTable
+{
+    width: 90%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.clsLevelProgressBar
+{
+    width: 95%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.clsCharacterDetails
+{
+    background-color: lightgrey;
+}
+
+.clsServerNameHeader
+{
+    text-align: center;
+    background-color:white;
+    border: 1px solid;
+}
+
+.clsSkillsList
+{
+    text-align: center;
+    float: left;
+    width: 49%;
+    border: 1px solid;
+}
+
+.clsAbilitiesList
+{
+    text-align: center;
+    float: left;
+    width: 49%;
+    border:1px solid;
+}
+
+.clsCharacterPortrait
+{
+}
 
 /* DATA TABLES */
 

@@ -35,16 +35,16 @@ using FlatRedBall.Screens;
 
 namespace WinterEngine.Game.Screens
 {
-	public partial class ServerListScreen : BaseScreen
+	public partial class CharacterSelectScreen : BaseScreen
 	{
 		// Generated Fields
 		#if DEBUG
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private WinterEngine.Game.Entities.ServerListUIEntity ServerListGuiEntityInstance;
+		private WinterEngine.Game.Entities.CharacterSelectUIEntity CharacterSelectUIEntityInstance;
 
-		public ServerListScreen()
+		public CharacterSelectScreen()
 			: base()
 		{
 		}
@@ -53,8 +53,8 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			ServerListGuiEntityInstance = new WinterEngine.Game.Entities.ServerListUIEntity(ContentManagerName, false);
-			ServerListGuiEntityInstance.Name = "ServerListGuiEntityInstance";
+			CharacterSelectUIEntityInstance = new WinterEngine.Game.Entities.CharacterSelectUIEntity(ContentManagerName, false);
+			CharacterSelectUIEntityInstance.Name = "CharacterSelectUIEntityInstance";
 			
 			
 			base.Initialize(addToManagers);
@@ -75,7 +75,7 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				ServerListGuiEntityInstance.Activity();
+				CharacterSelectUIEntityInstance.Activity();
 			}
 			else
 			{
@@ -96,10 +96,10 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
-			if (ServerListGuiEntityInstance != null)
+			if (CharacterSelectUIEntityInstance != null)
 			{
-				ServerListGuiEntityInstance.Destroy();
-				ServerListGuiEntityInstance.Detach();
+				CharacterSelectUIEntityInstance.Destroy();
+				CharacterSelectUIEntityInstance.Detach();
 			}
 
 			base.Destroy();
@@ -119,12 +119,12 @@ namespace WinterEngine.Game.Screens
 		public override void AddToManagersBottomUp ()
 		{
 			base.AddToManagersBottomUp();
-			ServerListGuiEntityInstance.AddToManagers(mLayer);
+			CharacterSelectUIEntityInstance.AddToManagers(mLayer);
 		}
 		public override void ConvertToManuallyUpdated ()
 		{
 			base.ConvertToManuallyUpdated();
-			ServerListGuiEntityInstance.ConvertToManuallyUpdated();
+			CharacterSelectUIEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static new void LoadStaticContent (string contentManagerName)
 		{
@@ -143,7 +143,7 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
-			WinterEngine.Game.Entities.ServerListUIEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.CharacterSelectUIEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

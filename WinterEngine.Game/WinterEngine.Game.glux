@@ -6,6 +6,20 @@
     </ScreenSave>
     <ScreenSave>
       <BaseScreen>Screens\BaseScreen</BaseScreen>
+      <Name>Screens\CharacterSelectScreen</Name>
+      <NamedObjects>
+        <NamedObjectSave>
+          <SourceType>Entity</SourceType>
+          <SourceClassType>Entities\CharacterSelectUIEntity</SourceClassType>
+          <InstanceName>CharacterSelectUIEntityInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <AddToManagers>true</AddToManagers>
+          <IndependentOfCamera>true</IndependentOfCamera>
+        </NamedObjectSave>
+      </NamedObjects>
+    </ScreenSave>
+    <ScreenSave>
+      <BaseScreen>Screens\BaseScreen</BaseScreen>
       <Name>Screens\MainMenuScreen</Name>
       <NamedObjects>
         <NamedObjectSave>
@@ -30,16 +44,6 @@
           <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
           <LayerOn />
-        </NamedObjectSave>
-        <NamedObjectSave>
-          <SourceType>Entity</SourceType>
-          <SourceClassType>Entities\GameUIEntity</SourceClassType>
-          <InstanceName>GameUIEntityInstance</InstanceName>
-          <AttachToContainer>true</AttachToContainer>
-          <AttachToCamera>true</AttachToCamera>
-          <AddToManagers>true</AddToManagers>
-          <IsDisabled>true</IsDisabled>
-          <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>
@@ -187,6 +191,62 @@
       </CustomVariables>
       <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
       <Name>Entities\CharacterCreationUIEntity</Name>
+      <Is2D>true</Is2D>
+    </EntitySave>
+    <EntitySave>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>string</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>ResourcePath</Name>
+          <Type>string</Type>
+          <DefaultValue xsi:type="xsd:string">file:///./Components/CharacterSelection.html</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>X</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>float</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>Y</Name>
+          <Type>float</Type>
+          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+      </CustomVariables>
+      <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
+      <ImplementsIVisible>true</ImplementsIVisible>
+      <Name>Entities\CharacterSelectUIEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
@@ -463,7 +523,7 @@
     <RecordLockContention>false</RecordLockContention>
   </GlobalContentSettingsSave>
   <SyncedProjects />
-  <StartUpScreen>Screens\ServerListScreen</StartUpScreen>
+  <StartUpScreen>Screens\CharacterSelectScreen</StartUpScreen>
   <In2D>false</In2D>
   <SetResolution>false</SetResolution>
   <ResolutionWidth>800</ResolutionWidth>

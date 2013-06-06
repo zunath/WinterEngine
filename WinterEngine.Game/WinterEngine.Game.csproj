@@ -133,6 +133,10 @@
     <Compile Include="Entities\CharacterCreationUIEntity.Generated.cs">
       <DependentUpon>CharacterCreationUIEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entities\CharacterSelectUIEntity.cs" />
+    <Compile Include="Entities\CharacterSelectUIEntity.Generated.cs">
+      <DependentUpon>CharacterSelectUIEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entities\GameUIEntity.cs" />
     <Compile Include="Entities\GameUIEntity.Generated.cs">
       <DependentUpon>GameUIEntity.cs</DependentUpon>
@@ -168,6 +172,10 @@
     <Compile Include="Screens\BaseScreen.cs" />
     <Compile Include="Screens\BaseScreen.Generated.cs">
       <DependentUpon>BaseScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\CharacterSelectScreen.cs" />
+    <Compile Include="Screens\CharacterSelectScreen.Generated.cs">
+      <DependentUpon>CharacterSelectScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.Event.cs">
