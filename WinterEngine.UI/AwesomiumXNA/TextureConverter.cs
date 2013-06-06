@@ -201,27 +201,11 @@ namespace AwesomiumXNA
         {
             //TODO : Test if d3dt can be cached
             IDirect3DTexture9 d3dt = GetIUnknownObject<IDirect3DTexture9>(texture2d);
-            //XE.Performance.Log("IDirect3DTexture9 Is "+(d3dt!=null ? d3dt.ToString():"null"));
-
-            //D3DSURFACE_DESC desc=new D3DSURFACE_DESC();
-            //Marshal.ThrowExceptionForHR(d3dt.GetLevelDesc(0, out desc));
-            //XE.Performance.Log("LevelDesc Format "+desc.Format.ToString());
-            //XE.Performance.Log("LevelDesc MultiSampleQuality "+desc.MultiSampleQuality.ToString());
-            //XE.Performance.Log("LevelDesc MultiSampleType "+desc.MultiSampleType.ToString());
-            //XE.Performance.Log("LevelDesc Pool "+desc.Pool.ToString());
-            //XE.Performance.Log("LevelDesc Type "+desc.Type.ToString());
-            //XE.Performance.Log("LevelDesc Usage "+desc.Usage.ToString());
-            //XE.Performance.Log("LevelDesc Width "+desc.Width.ToString());
-            //XE.Performance.Log("LevelDesc Height "+desc.Height.ToString());
 
             D3DLOCKED_RECT lockrect = new D3DLOCKED_RECT();
             RECT rect = new RECT();
             Marshal.ThrowExceptionForHR(d3dt.LockRect(0, out  lockrect, rect, 0));
-            //XE.Performance.Log("LockRect Pitch "+lockrect.Pitch.ToString());
-            //XE.Performance.Log("LockRect pBits "+((uint)lockrect.pBits).ToString());
-
-            //buffer.CopyTo(destBuffer, destRowSpan, destDepth, convertoRGBA, flipY);
-
+            
             buffer.CopyTo((IntPtr)(uint)(lockrect.pBits), lockrect.Pitch, 4, false, false);
             d3dt.UnlockRect(0);
 

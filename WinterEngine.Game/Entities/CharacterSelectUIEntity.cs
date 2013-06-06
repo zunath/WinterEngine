@@ -32,28 +32,10 @@ namespace WinterEngine.Game.Entities
     {
         #region Fields
 
-        private GameNetworkClient _networkClient;
-
+        
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the network client used to communicate to servers.
-        /// </summary>
-        private GameNetworkClient NetworkClient
-        {
-            get
-            {
-                if (_networkClient == null)
-                {
-                    _networkClient = new GameNetworkClient();
-                }
-
-                return _networkClient;
-            }
-            set { _networkClient = value; }
-        }
 
         #endregion
 

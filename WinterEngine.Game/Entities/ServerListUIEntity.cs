@@ -26,6 +26,7 @@ using WinterEngine.Network.Clients;
 using System.ComponentModel;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.Game.Services;
 
 
 #endif
@@ -36,29 +37,11 @@ namespace WinterEngine.Game.Entities
     {
         #region Fields
 
-        private GameNetworkClient _networkClient;
         private WebServiceClientUtility _webServiceUtility;
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the network client used to communicate to servers.
-        /// </summary>
-        private GameNetworkClient NetworkClient
-        {
-            get 
-            {
-                if (_networkClient == null)
-                {
-                    _networkClient = new GameNetworkClient();
-                }
-
-                return _networkClient; 
-            }
-            set { _networkClient = value; }
-        }
 
         /// <summary>
         /// Gets the web utility used for making calls to the master server.
@@ -83,18 +66,19 @@ namespace WinterEngine.Game.Entities
         private void CustomInitialize()
 		{
             AwesomiumWebView.DocumentReady += OnDocumentReady;
+            WinterEngineService.InitializeNetworkClient(new GameNetworkClient());
 		}
 
 		private void CustomActivity()
 		{
-            NetworkClient.Process();
+            WinterEngineService.NetworkClient.Process();
 
-            if (NetworkClient.FileStreamerStatus == FileStreamerStatusEnum.Downloading
-                && !String.IsNullOrWhiteSpace(NetworkClient.FileStreamerLastReceivedFile))
+            if (WinterEngineService.NetworkClient.FileStreamerStatus == FileStreamerStatusEnum.Downloading
+                && !String.IsNullOrWhiteSpace(WinterEngineService.NetworkClient.FileStreamerLastReceivedFile))
             {
-                AsyncJavascriptCallback("UpdateDownloadProgressBar", NetworkClient.GetFileStreamerPercentComplete(), NetworkClient.FileStreamerLastReceivedFile);
+                AsyncJavascriptCallback("UpdateDownloadProgressBar", WinterEngineService.NetworkClient.GetFileStreamerPercentComplete(), WinterEngineService.NetworkClient.FileStreamerLastReceivedFile);
             }
-            else if (NetworkClient.FileStreamerStatus == FileStreamerStatusEnum.Complete)
+            else if (WinterEngineService.NetworkClient.FileStreamerStatus == FileStreamerStatusEnum.Complete)
             {
                 // We've received all files and are ready to move to the character selection screen.
                 RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(CharacterSelectScreen)));
@@ -162,13 +146,13 @@ namespace WinterEngine.Game.Entities
                 ServerPort = (int)e.Arguments[1]
             };
 
-            NetworkClient.Connect(address);
+            WinterEngineService.NetworkClient.Connect(address);
         }
 
         private void CancelConnectToServer(object sender, JavascriptMethodEventArgs e)
         {
-            NetworkClient.CancelRequestFileFromServer();
-            NetworkClient.Disconnect();
+            WinterEngineService.NetworkClient.CancelRequestFileFromServer();
+            WinterEngineService.NetworkClient.Disconnect();
         }
 
         private void GoToMainMenu(object sender, JavascriptMethodEventArgs e)

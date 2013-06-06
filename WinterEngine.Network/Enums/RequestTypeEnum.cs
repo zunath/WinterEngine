@@ -7,7 +7,5 @@ namespace WinterEngine.Network.Enums
 {
     public enum RequestTypeEnum : byte
     {
-        ServerContentPackageList = 1,
-        Disconnect = 2
     }
 }

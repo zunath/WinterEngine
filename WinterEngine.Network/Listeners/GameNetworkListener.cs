@@ -200,9 +200,6 @@ namespace WinterEngine.Network.Listeners
 
             switch (packet.RequestType)
             {
-                case RequestTypeEnum.Disconnect:
-                    DisconnectClientFromServer(packet as RequestPacket);
-                    break;
                 default:
                     break;
             }
@@ -221,25 +218,6 @@ namespace WinterEngine.Network.Listeners
             Agent.WriteMessage(packet);
             Agent.SendMessage(connection, NetDeliveryMethod.ReliableSequenced);
 
-        }
-
-        private void DisconnectClientFromServer(RequestPacket packet)
-        {
-            RaiseOnLogMessageEvent("Beginning to disconnect client: " 
-                + packet.SenderConnection.RemoteEndPoint.Address + ":"  
-                + packet.SenderConnection.RemoteEndPoint.Port);
-
-            FileTransferClients.Remove(packet.SenderConnection);
-            NetConnection connection = Agent.Connections.FirstOrDefault(x => x.RemoteEndPoint == packet.SenderConnection.RemoteEndPoint);
-
-            if (!Object.ReferenceEquals(connection, null))
-            {
-                connection.Disconnect("Disconnecting from client");
-            }
-
-            RaiseOnLogMessageEvent("Disconnected client: "
-                + packet.SenderConnection.RemoteEndPoint.Address + ":"
-                + packet.SenderConnection.RemoteEndPoint.Port);
         }
 
         #endregion

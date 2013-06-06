@@ -71,20 +71,6 @@ namespace WinterEngine.Network.Clients
         #region Methods
 
         /// <summary>
-        /// Sends a request packet to the server asking for the list of content packages.
-        /// </summary>
-        public void RequestServerContentPackageList()
-        {
-            if (Agent.Status == NetPeerStatus.Running)
-            {
-                RequestPacket packet = new RequestPacket(RequestTypeEnum.ServerContentPackageList);
-
-                Agent.WriteMessage(packet);
-                Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
-            }
-        }
-
-        /// <summary>
         /// Processes a streaming file packet, building a file as bytes are received.
         /// Files received must be content packages for security reasons.
         /// </summary>

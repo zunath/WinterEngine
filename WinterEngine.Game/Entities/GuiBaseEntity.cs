@@ -115,7 +115,7 @@ namespace WinterEngine.Game.Entities
 
             if (surface != null)
             {
-                surface.RenderTexture2D(_texture);
+                _texture = surface.RenderTexture2D(_texture);
             }
         }
 

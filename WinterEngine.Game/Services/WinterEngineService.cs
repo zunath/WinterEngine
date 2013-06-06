@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.Network.Clients;
 
 namespace WinterEngine.Game.Services
 {
@@ -11,6 +12,7 @@ namespace WinterEngine.Game.Services
         #region Fields
 
         private static UserProfile _userProfile;
+        private static GameNetworkClient _networkClient;
 
         #endregion
 
@@ -22,6 +24,14 @@ namespace WinterEngine.Game.Services
         public static UserProfile ActiveUserProfile
         {
             get { return _userProfile; }
+        }
+
+        /// <summary>
+        /// Gets the active network client which contains data about the current connection.
+        /// </summary>
+        public static GameNetworkClient NetworkClient
+        {
+            get { return _networkClient; }
         }
 
         #endregion
@@ -66,6 +76,15 @@ namespace WinterEngine.Game.Services
         public static void InitializeUserProfile(UserProfile profile)
         {
             _userProfile = profile;
+        }
+
+        /// <summary>
+        /// Replaces any existing game network client with a specified one.
+        /// </summary>
+        /// <param name="client"></param>
+        public static void InitializeNetworkClient(GameNetworkClient client)
+        {
+            _networkClient = client;
         }
 
         #endregion
