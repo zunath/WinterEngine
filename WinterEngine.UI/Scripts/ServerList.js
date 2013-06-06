@@ -85,7 +85,7 @@ function GetAllServers_Callback(jsonServerList) {
             currentServer.GameType,
             currentServer.PVPType,
             '<input id="server_' + index + '" type="button" value="Connect" onclick="ConnectToServer(\'' +
-                currentServer.ServerIPAddress + '\', ' + currentServer.ServerPort + ');" class="clsConnectButton" />'
+                currentServer.ServerIPAddress + '\', ' + currentServer.ServerPort + ');" />'
         ]);
     }
 
