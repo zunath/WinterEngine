@@ -18,6 +18,10 @@ using GuiManager = FlatRedBall.Gui.GuiManager;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
+using Awesomium.Core;
+using WinterEngine.Network.Clients;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
+using WinterEngine.Game.Screens;
 
 
 #endif
@@ -25,10 +29,39 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 namespace WinterEngine.Game.Entities
 {
 	public partial class CharacterSelectUIEntity
-	{
-		private void CustomInitialize()
-		{
+    {
+        #region Fields
 
+        private GameNetworkClient _networkClient;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the network client used to communicate to servers.
+        /// </summary>
+        private GameNetworkClient NetworkClient
+        {
+            get
+            {
+                if (_networkClient == null)
+                {
+                    _networkClient = new GameNetworkClient();
+                }
+
+                return _networkClient;
+            }
+            set { _networkClient = value; }
+        }
+
+        #endregion
+
+        #region FRB Event Handling
+
+        private void CustomInitialize()
+        {
+            AwesomiumWebView.DocumentReady += OnDocumentReady;
 
 		}
 
@@ -47,7 +80,64 @@ namespace WinterEngine.Game.Entities
         private static void CustomLoadStaticContent(string contentManagerName)
         {
 
-
         }
-	}
+
+        #endregion
+
+        #region Awesomium Event Handling
+
+        /// <summary>
+        /// Handles binding the global javascript object to C# methods.
+        /// Enables javascript to call this entity's methods.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnDocumentReady(object sender, EventArgs e)
+        {
+            AwesomiumWebView.DocumentReady -= OnDocumentReady;
+
+            // Page Initialization
+            EntityJavascriptObject.Bind("InitializeServerInformation", false, InitializeServerInformation);
+            EntityJavascriptObject.Bind("InitializeCharacterList", false, InitializeCharacterList);
+
+            // Button Functionality
+            EntityJavascriptObject.Bind("NewCharacter", false, CancelCharacterSelection);
+            EntityJavascriptObject.Bind("DeleteCharacter", false, CancelCharacterSelection);
+            EntityJavascriptObject.Bind("JoinServer", false, CancelCharacterSelection);
+            EntityJavascriptObject.Bind("CancelCharacterSelection", false, CancelCharacterSelection);
+        }
+
+        #endregion
+
+        #region UI Methods
+
+        private void InitializeServerInformation(object sender, JavascriptMethodEventArgs e)
+        {
+            AsyncJavascriptCallback("InitializeServerInformation_Callback");
+        }
+
+        private void InitializeCharacterList(object sender, JavascriptMethodEventArgs e)
+        {
+            AsyncJavascriptCallback("InitializeCharacterList_Callback");
+        }
+
+        private void NewCharacter(object sender, JavascriptMethodEventArgs e)
+        {
+        }
+
+        private void DeleteCharacter(object sender, JavascriptMethodEventArgs e)
+        {
+        }
+
+        private void JoinServer(object sender, JavascriptMethodEventArgs e)
+        {
+        }
+
+        private void CancelCharacterSelection(object sender, JavascriptMethodEventArgs e)
+        {
+            RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(ServerListScreen)));
+        }
+
+        #endregion
+    }
 }

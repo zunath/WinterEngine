@@ -26,7 +26,7 @@
     <div id="divServerNameAndAnnouncement">
         
         <div id="divServerName" class="clsServerNameHeader">
-            <b>Server Name</b>
+            <span id="spnServerName" class="clsBold">Server Name</span>
         </div>
         <textarea id="tarServerAnnouncements" 
             rows="3" 
@@ -59,7 +59,10 @@
             <div id="divCharacterDetails" class="clsCharacterDetails">
 
                 <div class="clsCenter">
-                    <b>Zunath Zintuachi</b> (Human)
+                    <b>
+                        <span id="spnCharacterName" >Zunath Zintuachi</span>
+                    </b> 
+                    <span id="spnCharacterRace"> (Human) </span>
                 </div> 
                 <br />
                 <table id="tblCharacterAttributes" class="clsCharacterAttributeTable">
@@ -93,9 +96,7 @@
                 </div>
                 <br />
                 <br />
-                <div id="divLevelProgressBar" class="clsLevelProgressBar">
-                    
-                </div>
+                <div id="divLevelProgressBar" class="clsLevelProgressBar"></div>
 
             </div>
 
@@ -105,10 +106,10 @@
 
     <div id="divButtonGroup" class="clsCharacterSelectionButtonGroup">
 
-        <input id="btnNewCharacter" type="button" value="New Character" class="clsQuarterButton" />
-        <input id="btnDeleteCharacter" type="button" value="Delete Character" class="clsQuarterButton" />
-        <input id="btnJoinServer" type="button" value="Join" class="clsQuarterButton" />
-        <input id="btnCancel" type="button" value="Cancel" class="clsQuarterButton" />
+        <input id="btnNewCharacter" type="button" value="New Character" class="clsQuarterButton" onclick="NewCharacterButton();" />
+        <input id="btnDeleteCharacter" type="button" value="Delete Character" class="clsQuarterButton" onclick="DeleteCharacterButton();" />
+        <input id="btnJoinServer" type="button" value="Join" class="clsQuarterButton" onclick="JoinServerButton();" />
+        <input id="btnCancel" type="button" value="Cancel" class="clsQuarterButton" onclick="CancelCharacterSelectionButton();" />
         
     </div>
 </body>

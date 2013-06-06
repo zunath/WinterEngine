@@ -58,6 +58,11 @@ td
 
 /* GENERAL STYLES */
 
+.clsBold 
+{
+    font-weight: bold;
+}
+
 .clsCenter
 {
     text-align: center;

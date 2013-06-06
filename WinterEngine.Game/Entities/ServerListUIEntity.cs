@@ -97,7 +97,7 @@ namespace WinterEngine.Game.Entities
             else if (NetworkClient.FileStreamerStatus == FileStreamerStatusEnum.Complete)
             {
                 // We've received all files and are ready to move to the character selection screen.
-                
+                RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(CharacterSelectScreen)));
             }
 		}
 
