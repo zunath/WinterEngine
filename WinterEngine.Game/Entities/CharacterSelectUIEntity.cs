@@ -83,9 +83,9 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("InitializeCharacterList", false, InitializeCharacterList);
 
             // Button Functionality
-            EntityJavascriptObject.Bind("NewCharacter", false, CancelCharacterSelection);
-            EntityJavascriptObject.Bind("DeleteCharacter", false, CancelCharacterSelection);
-            EntityJavascriptObject.Bind("JoinServer", false, CancelCharacterSelection);
+            EntityJavascriptObject.Bind("NewCharacter", false, NewCharacter);
+            EntityJavascriptObject.Bind("DeleteCharacter", false, DeleteCharacter);
+            EntityJavascriptObject.Bind("JoinServer", false, JoinServer);
             EntityJavascriptObject.Bind("CancelCharacterSelection", false, CancelCharacterSelection);
         }
 

@@ -4,11 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    
-    <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
     <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
     <link rel="stylesheet" href="../Styling/Game/CharacterSelectionStyles.css" />
-
+    <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
+    
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src="../Scripts/jquery.validate.js"></script>
@@ -86,11 +85,11 @@
                 </table>
                 <br />
                 <div id="divSkills" class="clsSkillsList">
-                    <b>Skills</b>
+                    <span class="clsCenter clsBold">Skills</span>
                 </div>
 
                 <div id="divAbilities" class="clsAbilitiesList">
-                    <b class="clsCenter">Abilities</b>
+                    <span class="clsCenter clsBold">Abilities</span>
 
 
                 </div>
@@ -99,9 +98,7 @@
                 <div id="divLevelProgressBar" class="clsLevelProgressBar"></div>
 
             </div>
-
         </div>
-
     </div>
 
     <div id="divButtonGroup" class="clsCharacterSelectionButtonGroup">
@@ -112,5 +109,17 @@
         <input id="btnCancel" type="button" value="Cancel" class="clsQuarterButton" onclick="CancelCharacterSelectionButton();" />
         
     </div>
+
+
+    <div id="divDeleteCharacterPopUpBox">
+        <label id="lblDeleteCharacterConfirmation">
+            Are you sure you want to permanently delete your character?
+        </label>
+        <br />
+        <br />
+        <input id="btnConfirmDeleteCharacter" type="button" value="Delete" class="clsHalfButton" onclick="ConfirmDeleteCharacterButton();" />
+        <input id="btnCancelDeleteCharacter" type="button" value="Cancel" class="clsHalfButton" onclick="CancelDeleteCharacterButton();" />
+    </div>
+
 </body>
 </html>
