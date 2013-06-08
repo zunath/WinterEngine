@@ -192,6 +192,23 @@ namespace WinterEngine.Network.Clients
             {
                 ProcessStreamingFileDetailsPacket(packet as StreamingFileDetailsPacket);
             }
+            else if (packetType == typeof(CharacterSelectionPacket))
+            {
+                ProcessCharacterSelectionPacket(packet as CharacterSelectionPacket);
+            }
+        }
+
+        /// <summary>
+        /// Sends a request packet to the currently connected server.
+        /// </summary>
+        /// <param name="requestType"></param>
+        /// <param name="deliveryMethod"></param>
+        public void SendRequest(RequestTypeEnum requestType)
+        {
+            RequestPacket packet = new RequestPacket(requestType);
+
+            Agent.WriteMessage(packet);
+            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableUnordered);
         }
 
         #endregion

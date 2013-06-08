@@ -22,6 +22,8 @@ using Awesomium.Core;
 using WinterEngine.Network.Clients;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.Game.Screens;
+using WinterEngine.Game.Services;
+using WinterEngine.Network.Enums;
 
 
 #endif
@@ -49,8 +51,10 @@ namespace WinterEngine.Game.Entities
 
 		private void CustomActivity()
 		{
-
-
+            if (!Object.ReferenceEquals(WinterEngineService.NetworkClient, null))
+            {
+                WinterEngineService.NetworkClient.Process();
+            }
 		}
 
 		private void CustomDestroy()
@@ -79,27 +83,37 @@ namespace WinterEngine.Game.Entities
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
             // Page Initialization
-            EntityJavascriptObject.Bind("InitializeServerInformation", false, InitializeServerInformation);
-            EntityJavascriptObject.Bind("InitializeCharacterList", false, InitializeCharacterList);
+            EntityJavascriptObject.Bind("InitializePage", false, InitializePage);
 
             // Button Functionality
             EntityJavascriptObject.Bind("NewCharacter", false, NewCharacter);
             EntityJavascriptObject.Bind("DeleteCharacter", false, DeleteCharacter);
             EntityJavascriptObject.Bind("JoinServer", false, JoinServer);
             EntityJavascriptObject.Bind("CancelCharacterSelection", false, CancelCharacterSelection);
+
+
+            // There is a bug with Awesomium's rendering which is preventing the loading pop up from
+            // displaying in the correct position when called from the Initialize() method in the JS file.
+            AsyncJavascriptCallback("InitializeLoadingPopUpBox_Callback");
         }
 
         #endregion
 
         #region UI Methods
 
-        private void InitializeServerInformation(object sender, JavascriptMethodEventArgs e)
+        private void InitializeLoadingPopUpBox(object sender, JavascriptMethodEventArgs e)
         {
-            AsyncJavascriptCallback("InitializeServerInformation_Callback");
+        }
+
+        private void InitializePage(object sender, JavascriptMethodEventArgs e)
+        {
+            WinterEngineService.NetworkClient.SendRequest(RequestTypeEnum.CharacterSelection);
         }
 
         private void InitializeCharacterList(object sender, JavascriptMethodEventArgs e)
         {
+
+            AsyncJavascriptCallback("InitializeServerInformation_Callback");
             AsyncJavascriptCallback("InitializeCharacterList_Callback");
         }
 

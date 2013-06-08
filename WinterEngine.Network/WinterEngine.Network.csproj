@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\ConnectionStatusEventArgs.cs" />
     <Compile Include="BusinessObjects\FileTransferProgress.cs" />
+    <Compile Include="Clients\GameNetworkClient.CharacterSelection.cs" />
     <Compile Include="Clients\GameNetworkClient.cs" />
     <Compile Include="Clients\GameNetworkClient.FileStreamer.cs" />
     <Compile Include="Clients\MasterServerClient.cs" />
@@ -85,6 +86,10 @@
     <Compile Include="Enums\RequestTypeEnum.cs" />
     <Compile Include="Enums\UserProfileResponseTypeEnum.cs" />
     <Compile Include="Enums\WebServiceMethodTypeEnum.cs" />
+    <Compile Include="Listeners\GameNetworkListener.CharacterSelection.cs" />
+    <Compile Include="Listeners\GameNetworkListener.FileStreamer.cs" />
+    <Compile Include="Listeners\GameNetworkListener.Requests.cs" />
+    <Compile Include="Packets\CharacterSelectionPacket.cs" />
     <Compile Include="Packets\ContentPackageListPacket.cs" />
     <Compile Include="Packets\FileRequestPacket.cs" />
     <Compile Include="Packets\StreamingFileDetailsPacket.cs" />

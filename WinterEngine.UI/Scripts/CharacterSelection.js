@@ -1,10 +1,12 @@
 ﻿/* Page Initialization */
+var ServerInformationReceived = false;
+var CharacterListReceived = false;
 
 function Initialize() {
+    InitializeLoadingPopUpBox();
     InitializeLevelProgressBar();
     InitializeDeleteCharacterPopUpBox();
-    InitializeServerInformation();
-    InitializeCharacterList();
+    InitializePage();
 }
 
 function InitializeLevelProgressBar() {
@@ -14,20 +16,16 @@ function InitializeLevelProgressBar() {
     });
 }
 
-function InitializeServerInformation() {
-    Entity.InitializeServerInformation();
-}
-
 function InitializeServerInformation_Callback(serverName, announcementMessage) {
     $('#spnServerName').text(serverName);
     $('#tarServerAnnouncements').text('Announcement: ' + announcementMessage);
 }
 
-function InitializeCharacterList() {
+function InitializePage() {
     Entity.InitializeCharacterList();
 }
 
-function InitializeCharacterList_Callback() {
+function InitializePage_Callback() {
 }
 
 function InitializeDeleteCharacterPopUpBox() {
@@ -41,15 +39,20 @@ function InitializeDeleteCharacterPopUpBox() {
     });
 }
 
-function LoadCharacterInformation(name, race, str, con, dex, int, wis, exp, maxExp) {
-    $('#spnCharacterName').text(name);
-    $('#spnCharacterRace').text(race);
+function InitializeLoadingPopUpBox() {
+    $('#divLoading').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Loading...',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false,
+        closeOnEscape: false
+    });
+}
 
-    $('#tdStrengthValue').text(str);
-    $('#tdConstitutionValue').text(con);
-    $('#tdDexterityValue').text(dex);
-    $('#tdIntelligenceValue').text(int);
-    $('#tdWisdomValue').text(wis);
+function InitializeLoadingPopUpBox_Callback() {
+    $('#divLoading').dialog('open');
 }
 
 /* Button Functionality */
@@ -76,4 +79,15 @@ function CancelCharacterSelectionButton() {
 
 function CancelDeleteCharacterButton() {
     $('#divDeleteCharacterPopUpBox').dialog('close');
+}
+
+function LoadCharacterInformation(name, race, str, con, dex, int, wis, exp, maxExp) {
+    $('#spnCharacterName').text(name);
+    $('#spnCharacterRace').text(race);
+
+    $('#tdStrengthValue').text(str);
+    $('#tdConstitutionValue').text(con);
+    $('#tdDexterityValue').text(dex);
+    $('#tdIntelligenceValue').text(int);
+    $('#tdWisdomValue').text(wis);
 }
