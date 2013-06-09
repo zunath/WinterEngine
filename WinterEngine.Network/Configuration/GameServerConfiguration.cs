@@ -11,7 +11,7 @@ namespace WinterEngine.Network.Configuration
         private const int ClientServerPort = 5121;
         private const int FileTransferListenerPort = 20;
         private const int FileTransferBufferSizeBytes = 8192;
-        private const string PacketEncryptionKey = "";
+        private const string PacketEncryptionKey = "supersecretpassword"; // Change for release
 
         /// <summary>
         /// Returns the default UDP port number used by the game server.
@@ -23,7 +23,7 @@ namespace WinterEngine.Network.Configuration
         }
 
         /// <summary>
-        /// Returns the default TCP port number used by the file transfer listener.
+        /// Returns the default UDP port number used by the file transfer listener.
         /// This may be overridden by the end-user.
         /// </summary>
         public static int DefaultFileTransferPort

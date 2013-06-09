@@ -270,6 +270,12 @@ namespace WinterEngine.Network
             return packets;
         }
 
+        /// <summary>
+        /// Sends a packet to the specified connection using the specified delivery method.
+        /// </summary>
+        /// <param name="packet">The packet to send.</param>
+        /// <param name="connection">The connection to send the packet to.</param>
+        /// <param name="deliveryMethod">The delivery method used for the delivery.</param>
         public void SendPacket(PacketBase packet, NetConnection connection, NetDeliveryMethod deliveryMethod)
         {
             WriteMessage(packet);

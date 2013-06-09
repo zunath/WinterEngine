@@ -38,7 +38,7 @@ namespace WinterEngine.Game
             FlatRedBallServices.InitializeFlatRedBall(this, graphics);
 			GlobalContent.Initialize();
 
-			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Game.Screens.CharacterSelectScreen));
+			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Game.Screens.ServerListScreen));
 
             base.Initialize();
             Window.AllowUserResizing = true;

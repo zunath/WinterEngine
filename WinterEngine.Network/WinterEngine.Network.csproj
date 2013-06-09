@@ -75,10 +75,8 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\ConnectionStatusEventArgs.cs" />
     <Compile Include="BusinessObjects\FileTransferProgress.cs" />
-    <Compile Include="Clients\GameNetworkClient.CharacterSelection.cs" />
+    <Compile Include="BusinessObjects\PacketReceivedEventArgs.cs" />
     <Compile Include="Clients\GameNetworkClient.cs" />
-    <Compile Include="Clients\GameNetworkClient.FileStreamer.cs" />
-    <Compile Include="Clients\GameNetworkClient.Requests.cs" />
     <Compile Include="Clients\MasterServerClient.cs" />
     <Compile Include="Configuration\GameServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />

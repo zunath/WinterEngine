@@ -4,6 +4,7 @@ using System.Threading;
 using Lidgren.Network;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.Network.BusinessObjects;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Enums;
 using WinterEngine.Network.Packets;
@@ -135,6 +136,12 @@ namespace WinterEngine.Network.Clients
 
         #endregion
 
+        #region Events / Delegates
+
+        public event EventHandler<PacketReceivedEventArgs> OnPacketReceived;
+
+        #endregion
+
         #region Methods - General
 
         /// <summary>
@@ -146,9 +153,12 @@ namespace WinterEngine.Network.Clients
             {
                 IncomingPackets = Agent.CheckForPackets();
 
-                foreach (PacketBase packet in IncomingPackets)
+                if (!Object.ReferenceEquals(OnPacketReceived, null))
                 {
-                    ProcessPacket(packet);
+                    foreach (PacketBase packet in IncomingPackets)
+                    {
+                        OnPacketReceived(this, new PacketReceivedEventArgs(packet));
+                    }
                 }
             }
         }
@@ -183,36 +193,6 @@ namespace WinterEngine.Network.Clients
         }
 
         /// <summary>
-        /// Handles processing each individual packet based on its type.
-        /// </summary>
-        /// <param name="packet"></param>
-        private void ProcessPacket(PacketBase packet)
-        {
-            Type packetType = packet.GetType();
-
-            if (packetType == typeof(StreamingFilePacket))
-            {
-                ProcessStreamingFilePacket(packet as StreamingFilePacket);
-            }
-            else if (packetType == typeof(ContentPackageListPacket))
-            {
-                ProcessContentPackageListPacket(packet as ContentPackageListPacket);
-            }
-            else if (packetType == typeof(StreamingFileDetailsPacket))
-            {
-                ProcessStreamingFileDetailsPacket(packet as StreamingFileDetailsPacket);
-            }
-            else if (packetType == typeof(CharacterSelectionPacket))
-            {
-                ProcessCharacterSelectionPacket(packet as CharacterSelectionPacket);
-            }
-            else if (packetType == typeof(RequestPacket))
-            {
-                ProcessRequest(packet as RequestPacket);
-            }
-        }
-
-        /// <summary>
         /// Sends a request packet to the currently connected server.
         /// </summary>
         /// <param name="requestType"></param>
@@ -221,6 +201,16 @@ namespace WinterEngine.Network.Clients
         {
             RequestPacket packet = new RequestPacket(requestType);
             Agent.SendPacket(packet, ServerConnection, NetDeliveryMethod.ReliableUnordered);
+        }
+
+        /// <summary>
+        /// Sends a packet to the currently connected server.
+        /// </summary>
+        /// <param name="packet"></param>
+        /// <param name="deliveryMethod"></param>
+        public void SendPacket(PacketBase packet, NetDeliveryMethod deliveryMethod)
+        {
+            Agent.SendPacket(packet, ServerConnection, deliveryMethod);
         }
 
         #endregion

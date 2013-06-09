@@ -24,6 +24,9 @@ using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.Game.Screens;
 using WinterEngine.Game.Services;
 using WinterEngine.Network.Enums;
+using WinterEngine.Network.BusinessObjects;
+using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.Network.Packets;
 
 
 #endif
@@ -34,10 +37,45 @@ namespace WinterEngine.Game.Entities
     {
         #region Fields
 
-        
+        private string _serverName;
+        private string _serverAnnouncements;
+        private List<PlayerCharacter> _playerCharacters;
+
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Returns the name of the server the user is currently connected to.
+        /// </summary>
+        public string ServerName
+        {
+            get { return _serverName; }
+        }
+
+        /// <summary>
+        /// Returns the announcements specified by the server host.
+        /// </summary>
+        public string ServerAnnouncements
+        {
+            get { return _serverAnnouncements; }
+        }
+
+        /// <summary>
+        /// Returns a list of player characters which exist on the active user's account.
+        /// </summary>
+        public List<PlayerCharacter> AccountPlayerCharacters
+        {
+            get
+            {
+                if (_playerCharacters == null)
+                {
+                    _playerCharacters = new List<PlayerCharacter>();
+                }
+
+                return _playerCharacters;
+            }
+        }
 
         #endregion
 
@@ -46,7 +84,7 @@ namespace WinterEngine.Game.Entities
         private void CustomInitialize()
         {
             AwesomiumWebView.DocumentReady += OnDocumentReady;
-
+            WinterEngineService.NetworkClient.OnPacketReceived += NetworkClient_OnPacketReceived;
 		}
 
 		private void CustomActivity()
@@ -59,7 +97,7 @@ namespace WinterEngine.Game.Entities
 
 		private void CustomDestroy()
 		{
-
+            WinterEngineService.NetworkClient.OnPacketReceived -= NetworkClient_OnPacketReceived;
 
 		}
 
@@ -132,6 +170,32 @@ namespace WinterEngine.Game.Entities
         private void CancelCharacterSelection(object sender, JavascriptMethodEventArgs e)
         {
             RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(ServerListScreen)));
+        }
+
+        #endregion
+
+        #region Network Methods
+
+
+        private void NetworkClient_OnPacketReceived(object sender, PacketReceivedEventArgs e)
+        {
+            Type packetType = e.Packet.GetType();
+
+            if (packetType == typeof(CharacterSelectionPacket))
+            {
+                ProcessCharacterSelectionPacket(e.Packet as CharacterSelectionPacket);
+            }
+        }
+
+        /// <summary>
+        /// Processes a packet containing data related to the character selection screen.
+        /// </summary>
+        /// <param name="packet"></param>
+        private void ProcessCharacterSelectionPacket(CharacterSelectionPacket packet)
+        {
+            _playerCharacters = packet.PlayerList;
+            _serverName = packet.ServerName;
+            _serverAnnouncements = packet.ServerAnnouncement;
         }
 
         #endregion
