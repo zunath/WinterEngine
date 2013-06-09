@@ -37,8 +37,6 @@ namespace WinterEngine.Game.Entities
     {
         #region Fields
 
-        private string _serverName;
-        private string _serverAnnouncements;
         private List<PlayerCharacter> _playerCharacters;
 
         #endregion
@@ -46,25 +44,9 @@ namespace WinterEngine.Game.Entities
         #region Properties
 
         /// <summary>
-        /// Returns the name of the server the user is currently connected to.
-        /// </summary>
-        public string ServerName
-        {
-            get { return _serverName; }
-        }
-
-        /// <summary>
-        /// Returns the announcements specified by the server host.
-        /// </summary>
-        public string ServerAnnouncements
-        {
-            get { return _serverAnnouncements; }
-        }
-
-        /// <summary>
         /// Returns a list of player characters which exist on the active user's account.
         /// </summary>
-        public List<PlayerCharacter> AccountPlayerCharacters
+        private List<PlayerCharacter> PlayerCharacters
         {
             get
             {
@@ -98,7 +80,6 @@ namespace WinterEngine.Game.Entities
 		private void CustomDestroy()
 		{
             WinterEngineService.NetworkClient.OnPacketReceived -= NetworkClient_OnPacketReceived;
-
 		}
 
         private static void CustomLoadStaticContent(string contentManagerName)
@@ -129,30 +110,20 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("JoinServer", false, JoinServer);
             EntityJavascriptObject.Bind("CancelCharacterSelection", false, CancelCharacterSelection);
 
-
             // There is a bug with Awesomium's rendering which is preventing the loading pop up from
             // displaying in the correct position when called from the Initialize() method in the JS file.
             AsyncJavascriptCallback("InitializeLoadingPopUpBox_Callback");
+
+            AsyncJavascriptCallback("InitializePage");
         }
 
         #endregion
 
         #region UI Methods
 
-        private void InitializeLoadingPopUpBox(object sender, JavascriptMethodEventArgs e)
-        {
-        }
-
         private void InitializePage(object sender, JavascriptMethodEventArgs e)
         {
             WinterEngineService.NetworkClient.SendRequest(RequestTypeEnum.CharacterSelection);
-        }
-
-        private void InitializeCharacterList(object sender, JavascriptMethodEventArgs e)
-        {
-
-            AsyncJavascriptCallback("InitializeServerInformation_Callback");
-            AsyncJavascriptCallback("InitializeCharacterList_Callback");
         }
 
         private void NewCharacter(object sender, JavascriptMethodEventArgs e)
@@ -169,6 +140,7 @@ namespace WinterEngine.Game.Entities
 
         private void CancelCharacterSelection(object sender, JavascriptMethodEventArgs e)
         {
+            WinterEngineService.NetworkClient.Disconnect();
             RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(ServerListScreen)));
         }
 
@@ -176,7 +148,11 @@ namespace WinterEngine.Game.Entities
 
         #region Network Methods
 
-
+        /// <summary>
+        /// Processes packets as they are received.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NetworkClient_OnPacketReceived(object sender, PacketReceivedEventArgs e)
         {
             Type packetType = e.Packet.GetType();
@@ -194,8 +170,8 @@ namespace WinterEngine.Game.Entities
         private void ProcessCharacterSelectionPacket(CharacterSelectionPacket packet)
         {
             _playerCharacters = packet.PlayerList;
-            _serverName = packet.ServerName;
-            _serverAnnouncements = packet.ServerAnnouncement;
+
+            AsyncJavascriptCallback("InitializeServerInformation_Callback", packet.ServerName, packet.ServerAnnouncement);
         }
 
         #endregion

@@ -190,6 +190,8 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("ConnectToServer", false, ConnectToServer);
             EntityJavascriptObject.Bind("GoToMainMenu", false, GoToMainMenu);
             EntityJavascriptObject.Bind("CancelConnectToServer", false, CancelConnectToServer);
+
+            AsyncJavascriptCallback("GetAllServers");
         }
 
         #endregion

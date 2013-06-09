@@ -1,12 +1,9 @@
 ﻿/* Page Initialization */
-var ServerInformationReceived = false;
-var CharacterListReceived = false;
 
 function Initialize() {
     InitializeLoadingPopUpBox();
     InitializeLevelProgressBar();
     InitializeDeleteCharacterPopUpBox();
-    InitializePage();
 }
 
 function InitializeLevelProgressBar() {
@@ -22,10 +19,7 @@ function InitializeServerInformation_Callback(serverName, announcementMessage) {
 }
 
 function InitializePage() {
-    Entity.InitializeCharacterList();
-}
-
-function InitializePage_Callback() {
+    Entity.InitializePage();
 }
 
 function InitializeDeleteCharacterPopUpBox() {
