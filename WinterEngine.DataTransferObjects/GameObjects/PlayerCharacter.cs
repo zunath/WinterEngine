@@ -4,10 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using ProtoBuf;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 
 namespace WinterEngine.DataTransferObjects.GameObjects
 {
+    [ProtoContract]
     public class PlayerCharacter
     {
         #region Fields
@@ -29,72 +31,84 @@ namespace WinterEngine.DataTransferObjects.GameObjects
 
         #region Properties
 
+        [ProtoMember(1)]
         public int PlayerID
         {
             get { return _playerID; }
             set { _playerID = value; }
         }
 
+        [ProtoMember(2)]
         public string FirstName
         {
             get { return _firstName; }
             set { _firstName = value; }
         }
 
+        [ProtoMember(3)]
         public string LastName
         {
             get { return _lastName; }
             set { _lastName = value; }
         }
 
+        [ProtoMember(4)]
         public int Age
         {
             get { return _age; }
             set { _age = value; }
         }
 
+        [ProtoMember(5)]
         public string Biography
         {
             get { return _biography; }
             set { _biography = value; }
         }
 
+        [ProtoMember(6)]
         public bool IsGameMaster
         {
             get { return _isGameMaster; }
             set { _isGameMaster = value; }
         }
 
+        [ProtoMember(7)]
         public float X
         {
             get { return _locationX; }
             set { _locationX = value; }
         }
 
+        [ProtoMember(8)]
         public float Y
         {
             get { return _locationY; }
             set { _locationY = value; }
         }
 
+        [ProtoMember(9)]
         public float Z
         {
             get { return _locationZ; }
             set { _locationZ = value; }
         }
 
+        [ProtoMember(10)]
         public int AreaID
         {
             get { return _locationAreaID; }
             set { _locationAreaID = value; }
         }
 
+        [ProtoMember(11)]
         public List<LocalVariable> LocalVariables
         {
             get { return _localVariables; }
             set { _localVariables = value; }
         }
 
+        [ProtoMember(12)]
         public string FileName
         {
             get { return _fileName; }

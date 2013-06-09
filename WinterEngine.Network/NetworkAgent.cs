@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Lidgren.Network;
 using ProtoBuf;
 using WinterEngine.Network.BusinessObjects;
+using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Enums;
 using WinterEngine.Network.Packets;
 
@@ -20,6 +21,7 @@ namespace WinterEngine.Network
         private int _port;
         private NetOutgoingMessage _outgoingMessage;
         private List<NetIncomingMessage> _incomingMessages;
+        private INetEncryption _encryption;
 
         #endregion
 
@@ -48,6 +50,12 @@ namespace WinterEngine.Network
         {
             get { return _port; }
             set { _port = value; }
+        }
+
+        private INetEncryption Encryption
+        {
+            get { return _encryption; }
+            set { _encryption = value; }
         }
 
         #endregion
@@ -89,6 +97,8 @@ namespace WinterEngine.Network
 
         private void Initialize()
         {
+            Encryption = new NetXtea(GameServerConfiguration.EncryptionKey);
+
             if (_role == AgentRoleEnum.Server)
             {
                 _configuration.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
@@ -137,6 +147,11 @@ namespace WinterEngine.Network
             }
         }
 
+        public void Shutdown()
+        {
+            _peer.Shutdown("Shutting down server");
+        }
+
         /// <summary>
         /// Writes a packet's properties to an outgoing message.
         /// </summary>
@@ -157,6 +172,8 @@ namespace WinterEngine.Network
         {
             if (!Object.ReferenceEquals(recipient, null))
             {
+                _outgoingMessage.Encrypt(Encryption);
+
                 _peer.SendMessage(_outgoingMessage, recipient, method);
                 _outgoingMessage = _peer.CreateMessage();
             }
@@ -219,6 +236,7 @@ namespace WinterEngine.Network
                         break;
                     }
                     case NetIncomingMessageType.Data:
+                        incomingMessage.Decrypt(Encryption);
                         _incomingMessages.Add(incomingMessage);
                         break;
                     default:

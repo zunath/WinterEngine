@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Web.Script.Serialization;
 using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects.BusinessObjects
@@ -20,6 +21,8 @@ namespace WinterEngine.DataTransferObjects.BusinessObjects
 
         public string ServerName { get; set; }
         public string ServerDescription { get; set; }
+        [ScriptIgnore]
+        public string ServerAnnouncement { get; set; }
         public byte ServerMaxPlayers { get; set; }
         public byte ServerMaxLevel { get; set; }
         public float Ping { get; set; }

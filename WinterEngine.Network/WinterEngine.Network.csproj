@@ -78,6 +78,7 @@
     <Compile Include="Clients\GameNetworkClient.CharacterSelection.cs" />
     <Compile Include="Clients\GameNetworkClient.cs" />
     <Compile Include="Clients\GameNetworkClient.FileStreamer.cs" />
+    <Compile Include="Clients\GameNetworkClient.Requests.cs" />
     <Compile Include="Clients\MasterServerClient.cs" />
     <Compile Include="Configuration\GameServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Packets\FileRequestPacket.cs" />
     <Compile Include="Packets\StreamingFileDetailsPacket.cs" />
     <Compile Include="Packets\StreamingFilePacket.cs" />
+    <Compile Include="Packets\UsernamePacket.cs" />
     <Compile Include="WebServiceClientUtility.cs" />
     <Compile Include="Listeners\GameNetworkListener.cs" />
     <Compile Include="NetworkAgent.cs" />

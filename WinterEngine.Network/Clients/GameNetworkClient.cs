@@ -17,6 +17,7 @@ namespace WinterEngine.Network.Clients
         private NetworkAgent _agent;
         private List<PacketBase> _incomingPackets;
         private FileExtensionFactory _fileExtensionFactory;
+        private string _username;
 
         #endregion
 
@@ -111,6 +112,15 @@ namespace WinterEngine.Network.Clients
             }
         }
 
+        /// <summary>
+        /// Gets or sets the username of the client.
+        /// </summary>
+        public string Username
+        {
+            get { return _username; }
+            set { _username = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -195,6 +205,10 @@ namespace WinterEngine.Network.Clients
             else if (packetType == typeof(CharacterSelectionPacket))
             {
                 ProcessCharacterSelectionPacket(packet as CharacterSelectionPacket);
+            }
+            else if (packetType == typeof(RequestPacket))
+            {
+                ProcessRequest(packet as RequestPacket);
             }
         }
 

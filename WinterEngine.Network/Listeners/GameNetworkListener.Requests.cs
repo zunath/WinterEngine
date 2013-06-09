@@ -20,7 +20,6 @@ namespace WinterEngine.Network.Listeners
 
         #region Methods
 
-
         /// <summary>
         /// Processes a request, sending data to sender if necessary.
         /// </summary>
@@ -32,7 +31,7 @@ namespace WinterEngine.Network.Listeners
             switch (packet.RequestType)
             {
                 case RequestTypeEnum.CharacterSelection:
-                    ProcessCharacterSelectionRequest();
+                    ProcessCharacterSelectionRequest(packet);
                     break;
                 default:
                     break;

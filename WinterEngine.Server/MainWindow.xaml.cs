@@ -35,6 +35,7 @@ namespace WinterEngine.Server
         private List<ContentPackage> _contentPackages;
         private BackgroundWorker _masterServerThread;
         private BackgroundWorker _gameListenerThread;
+        private BindingList<string> _connectedUsernames;
 
         #endregion
 
@@ -85,6 +86,15 @@ namespace WinterEngine.Server
             set { _contentPackages = value; }
         }
 
+        /// <summary>
+        /// Gets the usernames currently connected to the server.
+        /// </summary>
+        protected BindingList<string> ConnectedUsernames
+        {
+            get { return _connectedUsernames; }
+            set { _connectedUsernames = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -127,6 +137,9 @@ namespace WinterEngine.Server
             numericMaxLevel.Text = Convert.ToString(numericMaxLevel.DefaultValue);
             numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.DefaultValue);
 
+            ConnectedUsernames = new BindingList<string>();
+            listBoxPlayers.ItemsSource = ConnectedUsernames;
+
             UpdateExternalIPAddress();
 
         }
@@ -162,7 +175,6 @@ namespace WinterEngine.Server
             {
                 ToggleServerStatusMode(false);
                 buttonStartStop.Content = "Start Server";
-        
             }
             else
             {
@@ -170,7 +182,7 @@ namespace WinterEngine.Server
 
                 if (!GameListenerThread.IsBusy)
                 {
-                    GameListenerThread.RunWorkerAsync(numericPort.Value);
+                    GameListenerThread.RunWorkerAsync(BuildServerDetails());
                 }
 
                 if (!MasterServerThread.IsBusy)
@@ -298,6 +310,7 @@ namespace WinterEngine.Server
                         ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value),
                         ServerPort = (ushort)numericPort.Value,
                         ServerDescription = textBoxDescription.Text,
+                        ServerAnnouncement = textBoxAnnouncement.Text,
                         GameTypeID = (GameTypeEnum)listBoxGameType.SelectedItem,
                         PVPTypeID = (PVPTypeEnum)comboBoxPVPType.SelectedItem,
                         IsAutoDownloadEnabled = (bool)checkBoxAllowFileAutoDownload.IsChecked
@@ -346,21 +359,51 @@ namespace WinterEngine.Server
             numericPort.Text = Convert.ToString(numericPort.Value);
         }
 
+        private void UpdateUsersList(List<string> updatedUsernameList)
+        {
+            foreach (string username in ConnectedUsernames)
+            {
+                if (!updatedUsernameList.Contains(username))
+                {
+                    ConnectedUsernames.Remove(username);
+                }
+            }
+
+            foreach (string username in updatedUsernameList)
+            {
+                if (!ConnectedUsernames.Contains(username))
+                {
+                    ConnectedUsernames.Add(username);
+                }
+            }
+
+            listBoxPlayers.ItemsSource = ConnectedUsernames;
+        }
+
         #endregion
 
         #region Game server thread
 
-        void GameServerThread_DoWork(object sender, DoWorkEventArgs e)
+        private void GameServerThread_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
-                GameNetworkListener gameServer = new GameNetworkListener((int)e.Argument, ContentPackageList);
+                WinterServer serverCopy = e.Argument as WinterServer;
+                GameNetworkListener gameServer = new GameNetworkListener(serverCopy.ServerPort, ContentPackageList);
                 gameServer.OnLogMessage += gameServer_OnLogMessageReceived;
 
                 while (IsRunning)
                 {
-                    gameServer.Process();
+                    this.Dispatcher.Invoke(DispatcherPriority.Normal,
+                        new Action(() => { serverCopy = BuildServerDetails(); }));
+
+                    gameServer.Process(serverCopy);
+
+                    this.Dispatcher.Invoke(DispatcherPriority.Normal,
+                        new Action(() => { UpdateUsersList(gameServer.ConnectedUsernames); }));
                 }
+
+                gameServer.Shutdown();
             }
             catch
             {
@@ -368,15 +411,17 @@ namespace WinterEngine.Server
             }
         }
 
-        void GameListenerThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void GameListenerThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            ConnectedUsernames.Clear();
+
             if (!Object.ReferenceEquals(e.Error, null))
             {
                 throw e.Error;
             }
         }
 
-        void gameServer_OnLogMessageReceived(object sender, NetworkLogMessageEventArgs e)
+        private void gameServer_OnLogMessageReceived(object sender, NetworkLogMessageEventArgs e)
         {
             this.Dispatcher.Invoke(DispatcherPriority.Normal,
                 new Action(() => { txtLog.Text += e.Message + "\n"; }));
@@ -386,7 +431,7 @@ namespace WinterEngine.Server
 
         #region Master client thread
 
-        void MasterServerThread_DoWork(object sender, DoWorkEventArgs e)
+        private void MasterServerThread_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
@@ -398,6 +443,7 @@ namespace WinterEngine.Server
                     this.Dispatcher.Invoke(DispatcherPriority.Normal,
                         new Action(() => { serverCopy = BuildServerDetails(); }));
                     masterClient.Process(serverCopy);
+
                 }
             }
             catch
@@ -406,7 +452,7 @@ namespace WinterEngine.Server
             }
         }
 
-        void MasterServerThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void MasterServerThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (!Object.ReferenceEquals(e.Error, null))
             {

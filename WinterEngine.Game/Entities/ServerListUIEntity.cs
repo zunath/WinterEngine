@@ -66,7 +66,14 @@ namespace WinterEngine.Game.Entities
         private void CustomInitialize()
 		{
             AwesomiumWebView.DocumentReady += OnDocumentReady;
-            WinterEngineService.InitializeNetworkClient(new GameNetworkClient());
+
+            GameNetworkClient client = new GameNetworkClient();
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
+            {
+                client.Username = WinterEngineService.ActiveUserProfile.UserName;
+            }
+
+            WinterEngineService.InitializeNetworkClient(client);
 		}
 
 		private void CustomActivity()

@@ -6,6 +6,7 @@ using System.Threading;
 using Lidgren.Network;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Paths;
@@ -23,6 +24,8 @@ namespace WinterEngine.Network.Listeners
         private NetworkAgent _agent;
         private List<PacketBase> _incomingPackets;
         private FileExtensionFactory _fileExtensionFactory;
+        private WinterServer _serverDetails;
+        private Dictionary<NetConnection, string> _connectionUsernames;
 
         #endregion
 
@@ -54,6 +57,40 @@ namespace WinterEngine.Network.Listeners
             get { return _fileExtensionFactory; }
         }
 
+        /// <summary>
+        /// Gets or sets the server information object.
+        /// </summary>
+        private WinterServer ServerDetails
+        {
+            get { return _serverDetails; }
+            set { _serverDetails = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the dictionary containing the link between clients' NetConnections and their usernames.
+        /// </summary>
+        private Dictionary<NetConnection, string> ConnectionUsernames
+        {
+            get 
+            {
+                if (_connectionUsernames == null)
+                {
+                    _connectionUsernames = new Dictionary<NetConnection, string>();
+                }
+
+                return _connectionUsernames; 
+            }
+            set { _connectionUsernames = value; }
+        }
+
+        /// <summary>
+        /// Gets the list of usernames currently connected to the server.
+        /// </summary>
+        public List<string> ConnectedUsernames
+        {
+            get { return ConnectionUsernames.Values.ToList(); }
+        }
+
         #endregion
 
         #region Constructors
@@ -72,6 +109,7 @@ namespace WinterEngine.Network.Listeners
 
             Agent = new NetworkAgent(AgentRoleEnum.Server, GameServerConfiguration.ApplicationID, customPort);
             Agent.OnConnected += Agent_OnConnectionEstablished;
+            Agent.OnDisconnected += Agent_OnDisconnected;
             this._contentPackages = contentPackages;
 
             _contentPackageNames = new List<string>();
@@ -97,8 +135,14 @@ namespace WinterEngine.Network.Listeners
 
         #region Methods - General
 
-        public void Process()
+        public void Shutdown()
         {
+            Agent.Shutdown();
+        }
+
+        public void Process(WinterServer serverDetails)
+        {
+            ServerDetails = serverDetails;
             // Checks for messages and processes them.
             IncomingPackets = Agent.CheckForPackets();
 
@@ -131,6 +175,10 @@ namespace WinterEngine.Network.Listeners
             {
                 ProcessFileTransferRequest(packet as FileRequestPacket);
             }
+            else if (packetType == typeof(UsernamePacket))
+            {
+                ProcessUsernamePacket(packet as UsernamePacket);
+            }
         }
 
         private void RaiseOnLogMessageEvent(string message)
@@ -146,6 +194,24 @@ namespace WinterEngine.Network.Listeners
         {
             SendContentPackageList(e.Connection);
             RaiseOnLogMessageEvent("Connection established: " + e.Connection.RemoteEndPoint.Address + ":" + e.Connection.RemoteEndPoint.Port);
+
+            // Send a request for the user's username.
+            RequestPacket packet = new RequestPacket(RequestTypeEnum.Username);
+            Agent.WriteMessage(packet);
+            Agent.SendMessage(e.Connection, NetDeliveryMethod.ReliableUnordered);
+        }
+
+        private void Agent_OnDisconnected(object sender, ConnectionStatusEventArgs e)
+        {
+            ConnectionUsernames.Remove(e.Connection);
+        }
+
+        private void ProcessUsernamePacket(UsernamePacket packet)
+        {
+            if(!ConnectionUsernames.ContainsKey(packet.SenderConnection))
+            {
+                ConnectionUsernames.Add(packet.SenderConnection, packet.Username);
+            }
         }
 
         #endregion

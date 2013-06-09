@@ -7,6 +7,7 @@ namespace WinterEngine.Network.Enums
 {
     public enum RequestTypeEnum : byte
     {
-        CharacterSelection = 1
+        CharacterSelection = 1,
+        Username = 2
     }
 }
