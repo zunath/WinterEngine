@@ -11,7 +11,7 @@ namespace WinterEngine.Network.Packets
     public class CharacterSelectionPacket : PacketBase
     {
         [ProtoMember(1)]
-        public List<PlayerCharacter> PlayerList { get; set; }
+        public List<PlayerCharacter> CharacterList { get; set; }
         [ProtoMember(2)]
         public string ServerName { get; set; }
         [ProtoMember(3)]

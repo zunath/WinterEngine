@@ -359,13 +359,17 @@ namespace WinterEngine.Server
             numericPort.Text = Convert.ToString(numericPort.Value);
         }
 
+        /// <summary>
+        /// Adds or removes usernames from the list of players.
+        /// </summary>
+        /// <param name="updatedUsernameList"></param>
         private void UpdateUsersList(List<string> updatedUsernameList)
         {
-            foreach (string username in ConnectedUsernames)
+            for (int index = ConnectedUsernames.Count - 1; index >= 0; index--)
             {
-                if (!updatedUsernameList.Contains(username))
+                if (!updatedUsernameList.Contains(ConnectedUsernames[index]))
                 {
-                    ConnectedUsernames.Remove(username);
+                    ConnectedUsernames.RemoveAt(index);
                 }
             }
 
@@ -376,8 +380,6 @@ namespace WinterEngine.Server
                     ConnectedUsernames.Add(username);
                 }
             }
-
-            listBoxPlayers.ItemsSource = ConnectedUsernames;
         }
 
         #endregion

@@ -169,7 +169,7 @@ namespace WinterEngine.Game.Entities
         /// <param name="packet"></param>
         private void ProcessCharacterSelectionPacket(CharacterSelectionPacket packet)
         {
-            _playerCharacters = packet.PlayerList;
+            _playerCharacters = packet.CharacterList;
 
             AsyncJavascriptCallback("InitializeServerInformation_Callback", packet.ServerName, packet.ServerAnnouncement);
         }

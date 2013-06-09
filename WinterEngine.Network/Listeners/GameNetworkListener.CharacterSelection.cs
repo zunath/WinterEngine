@@ -28,17 +28,23 @@ namespace WinterEngine.Network.Listeners
         {
             List<PlayerCharacter> characterList = new List<PlayerCharacter>();
 
-            using (PlayerCharacterRepository repo = new PlayerCharacterRepository())
+            if (ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
             {
+                string username = ConnectionUsernamesDictionary[packet.SenderConnection];
+                using (PlayerCharacterRepository repo = new PlayerCharacterRepository())
+                {
+                    characterList = repo.GetCharactersByUsername(username);
+                }
+
+                CharacterSelectionPacket resultPacket = new CharacterSelectionPacket
+                {
+                    ServerAnnouncement = ServerDetails.ServerAnnouncement,
+                    ServerName = ServerDetails.ServerName,
+                    CharacterList = characterList
+                };
+
+                Agent.SendPacket(resultPacket, packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);
             }
-
-            CharacterSelectionPacket resultPacket = new CharacterSelectionPacket
-            {
-                ServerAnnouncement = ServerDetails.ServerAnnouncement,
-                ServerName = ServerDetails.ServerName
-            };
-
-            Agent.SendPacket(resultPacket, packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);
         }
 
         #endregion

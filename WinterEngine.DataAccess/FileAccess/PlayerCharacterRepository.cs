@@ -40,20 +40,25 @@ namespace WinterEngine.DataAccess.FileAccess
         #region Methods
 
         /// <summary>
-        /// Generates a list of PlayerCharacter objects which are tied to a specific player profile.
+        /// Generates a list of PlayerCharacter objects which are tied to a specific player username.
         /// </summary>
         /// <param name="playerProfile"></param>
         /// <returns></returns>
-        public List<PlayerCharacter> GetCharactersByAccount(UserProfile playerProfile)
+        public List<PlayerCharacter> GetCharactersByUsername(string username)
         {
-            string extension = FileExtensionFactory.GetFileExtension(FileTypeEnum.PlayerCharacter);
-            List<string> filePaths = Directory.GetFiles(DirectoryPaths.CharacterVaultDirectoryPath + playerProfile.UserName, "*." + extension).ToList();
-
             List<PlayerCharacter> characters = new List<PlayerCharacter>();
 
-            foreach (string file in filePaths)
+            string extension = FileExtensionFactory.GetFileExtension(FileTypeEnum.PlayerCharacter);
+            string path = DirectoryPaths.CharacterVaultDirectoryPath + username;
+
+            if (Directory.Exists(path))
             {
-                characters.Add(DeserializePlayerCharacterFile(file));
+                List<string> filePaths = Directory.GetFiles(path, "*." + extension).ToList();
+
+                foreach (string file in filePaths)
+                {
+                    characters.Add(DeserializePlayerCharacterFile(file));
+                }
             }
 
             return characters;

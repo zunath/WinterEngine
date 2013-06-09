@@ -257,6 +257,10 @@ namespace WinterEngine.Game.Entities
             {
                 ProcessStreamingFileDetailsPacket(e.Packet as StreamingFileDetailsPacket);
             }
+            else if (packetType == typeof(RequestPacket))
+            {
+                ProcessRequest(e.Packet as RequestPacket);
+            }
         }
 
 
@@ -422,11 +426,14 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         private void ProcessUsernameRequest()
         {
-            UsernamePacket packet = new UsernamePacket
+            if (WinterEngineService.ActiveUserProfile != null)
             {
-                Username = WinterEngineService.ActiveUserProfile.UserName
-            };
-            WinterEngineService.NetworkClient.SendPacket(packet, NetDeliveryMethod.ReliableUnordered);
+                UsernamePacket packet = new UsernamePacket
+                {
+                    Username = WinterEngineService.ActiveUserProfile.UserName
+                };
+                WinterEngineService.NetworkClient.SendPacket(packet, NetDeliveryMethod.ReliableUnordered);
+            }
         }
 
         #endregion

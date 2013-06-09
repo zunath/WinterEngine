@@ -69,7 +69,7 @@ namespace WinterEngine.Network.Listeners
         /// <summary>
         /// Gets or sets the dictionary containing the link between clients' NetConnections and their usernames.
         /// </summary>
-        private Dictionary<NetConnection, string> ConnectionUsernames
+        private Dictionary<NetConnection, string> ConnectionUsernamesDictionary
         {
             get 
             {
@@ -88,7 +88,7 @@ namespace WinterEngine.Network.Listeners
         /// </summary>
         public List<string> ConnectedUsernames
         {
-            get { return ConnectionUsernames.Values.ToList(); }
+            get { return ConnectionUsernamesDictionary.Values.ToList(); }
         }
 
         #endregion
@@ -202,14 +202,14 @@ namespace WinterEngine.Network.Listeners
 
         private void Agent_OnDisconnected(object sender, ConnectionStatusEventArgs e)
         {
-            ConnectionUsernames.Remove(e.Connection);
+            ConnectionUsernamesDictionary.Remove(e.Connection);
         }
 
         private void ProcessUsernamePacket(UsernamePacket packet)
         {
-            if(!ConnectionUsernames.ContainsKey(packet.SenderConnection))
+            if(!ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
             {
-                ConnectionUsernames.Add(packet.SenderConnection, packet.Username);
+                ConnectionUsernamesDictionary.Add(packet.SenderConnection, packet.Username);
             }
         }
 
