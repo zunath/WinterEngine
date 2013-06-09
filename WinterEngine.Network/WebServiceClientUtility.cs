@@ -108,9 +108,9 @@ namespace WinterEngine.Network
                 string jsonObject = serializer.Serialize(details);
                 return SendJsonRequest("UpdateServerDetails", WebServiceMethodTypeEnum.Server, jsonObject);
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception("Error sending server details.", ex);
+                throw;
             }
         }
 
@@ -221,6 +221,7 @@ namespace WinterEngine.Network
 
             return success;
         }
+
 
     }
 }

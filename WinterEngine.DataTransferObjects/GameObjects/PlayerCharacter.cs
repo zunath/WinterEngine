@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using ProtoBuf;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 
@@ -74,6 +75,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         }
 
         [ProtoMember(7)]
+        [XmlIgnore]
         public float X
         {
             get { return _locationX; }
@@ -81,6 +83,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         }
 
         [ProtoMember(8)]
+        [XmlIgnore]
         public float Y
         {
             get { return _locationY; }
@@ -88,6 +91,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         }
 
         [ProtoMember(9)]
+        [XmlIgnore]
         public float Z
         {
             get { return _locationZ; }
@@ -95,6 +99,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         }
 
         [ProtoMember(10)]
+        [XmlIgnore]
         public int AreaID
         {
             get { return _locationAreaID; }
@@ -109,6 +114,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         }
 
         [ProtoMember(12)]
+        [XmlIgnore]
         public string FileName
         {
             get { return _fileName; }

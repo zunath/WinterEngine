@@ -115,6 +115,8 @@ namespace WinterEngine.DataAccess.FileAccess
                 character = serializer.Deserialize(stream) as PlayerCharacter;
             }
 
+            character.FileName = Path.GetFileName(filePath);
+
             return character;
         }
 
