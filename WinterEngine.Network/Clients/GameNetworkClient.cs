@@ -220,9 +220,7 @@ namespace WinterEngine.Network.Clients
         public void SendRequest(RequestTypeEnum requestType)
         {
             RequestPacket packet = new RequestPacket(requestType);
-
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableUnordered);
+            Agent.SendPacket(packet, ServerConnection, NetDeliveryMethod.ReliableUnordered);
         }
 
         #endregion

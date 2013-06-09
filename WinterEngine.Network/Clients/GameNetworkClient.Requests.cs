@@ -41,9 +41,7 @@ namespace WinterEngine.Network.Clients
             {
                 Username = this.Username
             };
-
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableUnordered);
+            Agent.SendPacket(packet, ServerConnection, NetDeliveryMethod.ReliableUnordered);
         }
 
         #endregion

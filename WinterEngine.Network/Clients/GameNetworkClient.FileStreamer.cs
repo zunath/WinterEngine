@@ -125,8 +125,7 @@ namespace WinterEngine.Network.Clients
                 FileName = fileName
             };
 
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
+            Agent.SendPacket(packet, ServerConnection, NetDeliveryMethod.ReliableSequenced);
         }
 
         /// <summary>
@@ -140,8 +139,7 @@ namespace WinterEngine.Network.Clients
             };
             FileStreamerStatus = FileStreamerStatusEnum.Stopped;
 
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(ServerConnection, NetDeliveryMethod.ReliableSequenced);
+            Agent.SendPacket(packet, ServerConnection, NetDeliveryMethod.ReliableSequenced);
 
             // Remove partially downloaded file, if it exists.
             string filePath = DirectoryPaths.ContentPackageDirectoryPath + FileStreamerLastReceivedFile;

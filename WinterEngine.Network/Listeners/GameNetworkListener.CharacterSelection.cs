@@ -38,8 +38,7 @@ namespace WinterEngine.Network.Listeners
                 ServerName = ServerDetails.ServerName
             };
 
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);
+            Agent.SendPacket(resultPacket, packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);
         }
 
         #endregion

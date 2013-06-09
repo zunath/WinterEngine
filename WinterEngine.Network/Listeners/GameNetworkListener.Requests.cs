@@ -48,9 +48,7 @@ namespace WinterEngine.Network.Listeners
             {
                 FileNames = ContentPackageFileNames
             };
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(connection, NetDeliveryMethod.ReliableSequenced);
-
+            Agent.SendPacket(packet, connection, NetDeliveryMethod.ReliableSequenced);
         }
 
         #endregion

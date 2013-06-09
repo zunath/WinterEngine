@@ -197,8 +197,7 @@ namespace WinterEngine.Network.Listeners
 
             // Send a request for the user's username.
             RequestPacket packet = new RequestPacket(RequestTypeEnum.Username);
-            Agent.WriteMessage(packet);
-            Agent.SendMessage(e.Connection, NetDeliveryMethod.ReliableUnordered);
+            Agent.SendPacket(packet, e.Connection, NetDeliveryMethod.ReliableUnordered);
         }
 
         private void Agent_OnDisconnected(object sender, ConnectionStatusEventArgs e)

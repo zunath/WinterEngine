@@ -98,9 +98,7 @@ namespace WinterEngine.Network.Listeners
                     FileSize = new FileInfo(serverFilePath).Length
                 };
 
-                Agent.WriteMessage(fileDetails);
-                Agent.SendMessage(packet.SenderConnection, NetDeliveryMethod.ReliableOrdered);
-
+                Agent.SendPacket(fileDetails, packet.SenderConnection, NetDeliveryMethod.ReliableOrdered);
             }
             else if (packet.FileRequestType == FileRequestTypeEnum.CancelFileRequest)
             {
@@ -144,8 +142,8 @@ namespace WinterEngine.Network.Listeners
                             FileBytes = bytesToSend,
                             IsEndOfFile = isEndOfFile
                         };
-                        Agent.WriteMessage(packet);
-                        Agent.SendMessage(currentConnection, NetDeliveryMethod.ReliableOrdered);
+                        
+                        Agent.SendPacket(packet, currentConnection, NetDeliveryMethod.ReliableOrdered);
 
                         clientProgress.BytesSent += numberOfBytesToSend;
 

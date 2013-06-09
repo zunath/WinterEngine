@@ -156,7 +156,7 @@ namespace WinterEngine.Network
         /// Writes a packet's properties to an outgoing message.
         /// </summary>
         /// <param name="packet"></param>
-        public void WriteMessage(PacketBase packet)
+        private void WriteMessage(PacketBase packet)
         {
             MemoryStream stream = new MemoryStream();
             Serializer.Serialize<PacketBase>(stream, packet); // Protobuf serialization
@@ -168,7 +168,7 @@ namespace WinterEngine.Network
         /// </summary>
         /// <param name="recipient">The recipient of the packet</param>
         /// <param name="method">The delivery method</param>
-        public void SendMessage(NetConnection recipient, NetDeliveryMethod method)
+        private void SendMessage(NetConnection recipient, NetDeliveryMethod method)
         {
             if (!Object.ReferenceEquals(recipient, null))
             {
@@ -269,6 +269,13 @@ namespace WinterEngine.Network
 
             return packets;
         }
+
+        public void SendPacket(PacketBase packet, NetConnection connection, NetDeliveryMethod deliveryMethod)
+        {
+            WriteMessage(packet);
+            SendMessage(connection, deliveryMethod);
+        }
+
         #endregion
 
     }
