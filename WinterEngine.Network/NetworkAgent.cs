@@ -99,6 +99,14 @@ namespace WinterEngine.Network
         {
             Encryption = new NetXtea(GameServerConfiguration.EncryptionKey);
 
+            #if DEBUG
+            _configuration.SimulatedMinimumLatency = GameServerConfiguration.SimulatedMinimumLatency;
+            _configuration.SimulatedRandomLatency = GameServerConfiguration.SimulatedRandomLatency;
+            _configuration.SimulatedDuplicatesChance = GameServerConfiguration.SimulatedDuplicates;
+            _configuration.SimulatedLoss = GameServerConfiguration.SimulatedPacketLoss;
+            #endif
+
+
             if (_role == AgentRoleEnum.Server)
             {
                 _configuration.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
@@ -128,6 +136,7 @@ namespace WinterEngine.Network
         {
             if (_role == AgentRoleEnum.Client)
             {
+                _incomingMessages.Clear(); // Remove any old, out of date packets from being processed.
                 _peer.Connect(ip, _port);
             }
             else

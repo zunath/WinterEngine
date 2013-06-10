@@ -27,6 +27,8 @@ using WinterEngine.Network.Enums;
 using WinterEngine.Network.BusinessObjects;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.Network.Packets;
+using System.Web.Script.Serialization;
+using Lidgren.Network;
 
 
 #endif
@@ -123,7 +125,7 @@ namespace WinterEngine.Game.Entities
 
         private void InitializePage(object sender, JavascriptMethodEventArgs e)
         {
-            WinterEngineService.NetworkClient.SendRequest(RequestTypeEnum.CharacterSelection);
+            WinterEngineService.NetworkClient.SendRequest(RequestTypeEnum.CharacterSelection, NetDeliveryMethod.ReliableOrdered);
         }
 
         private void NewCharacter(object sender, JavascriptMethodEventArgs e)
@@ -170,8 +172,10 @@ namespace WinterEngine.Game.Entities
         private void ProcessCharacterSelectionPacket(CharacterSelectionPacket packet)
         {
             _playerCharacters = packet.CharacterList;
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            string jsonCharacterList = serializer.Serialize(_playerCharacters);
 
-            AsyncJavascriptCallback("InitializeServerInformation_Callback", packet.ServerName, packet.ServerAnnouncement);
+            AsyncJavascriptCallback("InitializeServerInformation_Callback", packet.ServerName, packet.ServerAnnouncement, packet.CanDeleteCharacters, jsonCharacterList);
         }
 
         #endregion

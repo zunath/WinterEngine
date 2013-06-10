@@ -40,7 +40,8 @@ namespace WinterEngine.Network.Listeners
                 {
                     ServerAnnouncement = ServerDetails.ServerAnnouncement,
                     ServerName = ServerDetails.ServerName,
-                    CharacterList = characterList
+                    CharacterList = characterList,
+                    CanDeleteCharacters = ServerDetails.IsCharacterDeletionEnabled
                 };
 
                 Agent.SendPacket(resultPacket, packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);

@@ -142,6 +142,26 @@ namespace WinterEngine.Server
 
             UpdateExternalIPAddress();
 
+            /*
+            using (PlayerCharacterRepository repo = new PlayerCharacterRepository())
+            {
+                UserProfile profile = new UserProfile
+                {
+                    UserName = "z"
+                };
+
+                PlayerCharacter character = new PlayerCharacter
+                {
+                    Age = 22,
+                    Biography = "test bio",
+                    FirstName = "Zunath",
+                    LastName = "Zintuachi",
+                    IsGameMaster = false
+                };
+
+                repo.SerializePlayerCharacterFile(character, profile);
+            }
+            */
         }
 
         /// <summary>
@@ -313,7 +333,8 @@ namespace WinterEngine.Server
                         ServerAnnouncement = textBoxAnnouncement.Text,
                         GameTypeID = (GameTypeEnum)listBoxGameType.SelectedItem,
                         PVPTypeID = (PVPTypeEnum)comboBoxPVPType.SelectedItem,
-                        IsAutoDownloadEnabled = (bool)checkBoxAllowFileAutoDownload.IsChecked
+                        IsAutoDownloadEnabled = (bool)checkBoxAllowFileAutoDownload.IsChecked,
+                        IsCharacterDeletionEnabled = (bool)checkBoxAllowCharacterDeletion.IsChecked
                     };
 
             return server;

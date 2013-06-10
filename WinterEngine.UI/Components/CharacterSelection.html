@@ -39,8 +39,12 @@
 
 
         <div id="divCharacterList" class="clsCharacterList">
-            <h2 class="clsCenter">Character List</h2>
+            <h2 class="clsCenter">Please select a character...</h2>
             <hr />
+            
+            <div id="divCharacters">
+                <!-- Populated by BuildCharacterList() function -->
+            </div>
         </div>
 
     </div>
@@ -59,9 +63,9 @@
 
                 <div class="clsCenter">
                     <b>
-                        <span id="spnCharacterName" >Zunath Zintuachi</span>
+                        <span id="spnCharacterName" >Please select a character</span>
                     </b> 
-                    <span id="spnCharacterRace"> (Human) </span>
+                    <span id="spnCharacterRace"></span>
                 </div> 
                 <br />
                 <table id="tblCharacterAttributes" class="clsCharacterAttributeTable">
@@ -75,11 +79,11 @@
                         </tr>
                     </thead>
                     <tr>
-                        <td id="tdStrengthValue">20</td>
-                        <td id="tdConstitutionValue">20</td>
-                        <td id="tdDexterityValue">20</td>
-                        <td id="tdIntelligenceValue">20</td>
-                        <td id="tdWisdomValue">20</td>
+                        <td id="tdStrengthValue">N/A</td>
+                        <td id="tdConstitutionValue">N/A</td>
+                        <td id="tdDexterityValue">N/A</td>
+                        <td id="tdIntelligenceValue">N/A</td>
+                        <td id="tdWisdomValue">N/A</td>
 
                     </tr>
                 </table>
@@ -104,12 +108,11 @@
     <div id="divButtonGroup" class="clsCharacterSelectionButtonGroup">
 
         <input id="btnNewCharacter" type="button" value="New Character" class="clsQuarterButton" onclick="NewCharacterButton();" />
-        <input id="btnDeleteCharacter" type="button" value="Delete Character" class="clsQuarterButton" onclick="DeleteCharacterButton();" />
-        <input id="btnJoinServer" type="button" value="Join" class="clsQuarterButton" onclick="JoinServerButton();" />
+        <input id="btnDeleteCharacter" type="button" value="Delete Character" class="clsQuarterButton" disabled="disabled" onclick="DeleteCharacterButton();" />
+        <input id="btnJoinServer" type="button" value="Join" class="clsQuarterButton" disabled="disabled" onclick="JoinServerButton();" />
         <input id="btnCancel" type="button" value="Cancel" class="clsQuarterButton" onclick="CancelCharacterSelectionButton();" />
         
     </div>
-
 
     <div id="divDeleteCharacterPopUpBox">
         <label id="lblDeleteCharacterConfirmation">
@@ -129,6 +132,18 @@
         <br />
         <input id="btnCancelLoading" type="button" value="Cancel" class="clsFullButton" onclick="CancelCharacterSelectionButton();" />
     </div>
+
+
+    <div id="divCharacterClone" class="clsCharacterEntry clsHidden">
+                
+        <img src="-" class="clsCharacterPortrait" />
+                
+        <span id="spnCharacterNameClone">
+            
+        </span>
+        <br />
+    </div>
+
 
 </body>
 </html>

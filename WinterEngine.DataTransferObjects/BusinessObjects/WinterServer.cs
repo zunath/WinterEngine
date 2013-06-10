@@ -50,6 +50,7 @@ namespace WinterEngine.DataTransferObjects.BusinessObjects
         public PVPTypeEnum PVPTypeID { get; set; }
         public GameTypeEnum GameTypeID { get; set; }
         public bool IsAutoDownloadEnabled { get; set; }
+        public bool IsCharacterDeletionEnabled { get; set; }
 
         #endregion
 

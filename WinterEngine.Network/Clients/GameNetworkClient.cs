@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Web.Script.Serialization;
 using Lidgren.Network;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
@@ -96,24 +97,6 @@ namespace WinterEngine.Network.Clients
         }
 
         /// <summary>
-        /// Returns the status of the server connection.
-        /// </summary>
-        public NetConnectionStatus Status
-        {
-            get
-            {
-                if (Object.ReferenceEquals(ServerConnection, null))
-                {
-                    return NetConnectionStatus.None;
-                }
-                else
-                {
-                    return ServerConnection.Status;
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the username of the client.
         /// </summary>
         public string Username
@@ -186,10 +169,7 @@ namespace WinterEngine.Network.Clients
         /// </summary>
         public void Disconnect()
         {
-            if (IsConnected)
-            {
-                Agent.Disconnect();
-            }
+            Agent.Disconnect();
         }
 
         /// <summary>
@@ -197,10 +177,10 @@ namespace WinterEngine.Network.Clients
         /// </summary>
         /// <param name="requestType"></param>
         /// <param name="deliveryMethod"></param>
-        public void SendRequest(RequestTypeEnum requestType)
+        public void SendRequest(RequestTypeEnum requestType, NetDeliveryMethod deliveryMethod = NetDeliveryMethod.ReliableUnordered)
         {
             RequestPacket packet = new RequestPacket(requestType);
-            Agent.SendPacket(packet, ServerConnection, NetDeliveryMethod.ReliableUnordered);
+            Agent.SendPacket(packet, ServerConnection, deliveryMethod);
         }
 
         /// <summary>

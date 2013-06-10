@@ -16,5 +16,7 @@ namespace WinterEngine.Network.Packets
         public string ServerName { get; set; }
         [ProtoMember(3)]
         public string ServerAnnouncement { get; set; }
+        [ProtoMember(4)]
+        public bool CanDeleteCharacters { get; set; }
     }
 }

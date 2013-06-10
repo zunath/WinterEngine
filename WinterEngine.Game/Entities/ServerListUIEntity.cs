@@ -158,6 +158,7 @@ namespace WinterEngine.Game.Entities
                 // We've received all files and are ready to move to the character selection screen.
                 RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(CharacterSelectScreen)));
             }
+            
 		}
 
 		private void CustomDestroy()

@@ -13,6 +13,13 @@ namespace WinterEngine.Network.Configuration
         private const int FileTransferBufferSizeBytes = 8192;
         private const string PacketEncryptionKey = "supersecretpassword"; // Change for release
 
+        #if DEBUG
+        private const float LidgrenSimulatedPacketLoss = 0.0f;
+        private const float LidgrenSimulatedDuplicates = 0.0f;
+        private const float LidgrenSimulatedMinimumLatency = 0.4f;
+        private const float LidgrenSimulatedRandomLatency = 0.0f;
+        #endif
+
         /// <summary>
         /// Returns the default UDP port number used by the game server.
         /// This may be overridden by the end-user.
@@ -50,6 +57,9 @@ namespace WinterEngine.Network.Configuration
             }
         }
 
+        /// <summary>
+        /// Returns the encryption key used for packet transfer.
+        /// </summary>
         public static string EncryptionKey
         {
             get
@@ -57,5 +67,27 @@ namespace WinterEngine.Network.Configuration
                 return PacketEncryptionKey;
             }
         }
+
+        #if DEBUG
+        public static float SimulatedPacketLoss
+        {
+            get { return LidgrenSimulatedPacketLoss; }
+        }
+
+        public static float SimulatedDuplicates
+        {
+            get { return LidgrenSimulatedDuplicates; }
+        }
+
+        public static float SimulatedMinimumLatency
+        {
+            get { return LidgrenSimulatedMinimumLatency; }
+        }
+
+        public static float SimulatedRandomLatency
+        {
+            get { return LidgrenSimulatedRandomLatency; }
+        }
+        #endif
     }
 }

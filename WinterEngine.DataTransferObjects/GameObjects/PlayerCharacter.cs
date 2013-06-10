@@ -18,6 +18,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         private int _playerID;
         private string _firstName;
         private string _lastName;
+        private Race _race;
         private int _age;
         private string _biography;
         private float _locationX;
@@ -54,27 +55,34 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         }
 
         [ProtoMember(4)]
+        public Race CharacterRace
+        {
+            get { return _race; }
+            set { _race = value; }
+        }
+
+        [ProtoMember(5)]
         public int Age
         {
             get { return _age; }
             set { _age = value; }
         }
 
-        [ProtoMember(5)]
+        [ProtoMember(6)]
         public string Biography
         {
             get { return _biography; }
             set { _biography = value; }
         }
 
-        [ProtoMember(6)]
+        [ProtoMember(7)]
         public bool IsGameMaster
         {
             get { return _isGameMaster; }
             set { _isGameMaster = value; }
         }
 
-        [ProtoMember(7)]
+        [ProtoMember(8)]
         [XmlIgnore]
         public float X
         {
@@ -82,7 +90,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
             set { _locationX = value; }
         }
 
-        [ProtoMember(8)]
+        [ProtoMember(9)]
         [XmlIgnore]
         public float Y
         {
@@ -90,7 +98,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
             set { _locationY = value; }
         }
 
-        [ProtoMember(9)]
+        [ProtoMember(10)]
         [XmlIgnore]
         public float Z
         {
@@ -98,7 +106,7 @@ namespace WinterEngine.DataTransferObjects.GameObjects
             set { _locationZ = value; }
         }
 
-        [ProtoMember(10)]
+        [ProtoMember(11)]
         [XmlIgnore]
         public int AreaID
         {
@@ -106,14 +114,14 @@ namespace WinterEngine.DataTransferObjects.GameObjects
             set { _locationAreaID = value; }
         }
 
-        [ProtoMember(11)]
+        [ProtoMember(12)]
         public List<LocalVariable> LocalVariables
         {
             get { return _localVariables; }
             set { _localVariables = value; }
         }
 
-        [ProtoMember(12)]
+        [ProtoMember(13)]
         [XmlIgnore]
         public string FileName
         {

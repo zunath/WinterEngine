@@ -81,6 +81,7 @@
     <Compile Include="Configuration\GameServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />
     <Compile Include="Enums\AgentRoleEnum.cs" />
+    <Compile Include="Enums\ConnectionStateEnum.cs" />
     <Compile Include="Enums\FileRequestTypeEnum.cs" />
     <Compile Include="Enums\RequestTypeEnum.cs" />
     <Compile Include="Enums\UserProfileResponseTypeEnum.cs" />

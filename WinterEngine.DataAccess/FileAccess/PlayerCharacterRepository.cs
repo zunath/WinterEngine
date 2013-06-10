@@ -53,7 +53,7 @@ namespace WinterEngine.DataAccess.FileAccess
 
             if (Directory.Exists(path))
             {
-                List<string> filePaths = Directory.GetFiles(path, "*." + extension).ToList();
+                List<string> filePaths = Directory.GetFiles(path, "*" + extension).ToList();
 
                 foreach (string file in filePaths)
                 {

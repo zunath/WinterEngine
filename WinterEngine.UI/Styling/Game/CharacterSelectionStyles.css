@@ -102,4 +102,29 @@
 
 .clsCharacterPortrait
 {
+    width: 64px;
+    height: 64px;
+    float: left;
+}
+
+.clsCharacterEntry
+{
+    text-align: center;
+    height: 64px;
+    font-weight: bold;
+}
+
+.clsCharacterEntry:hover
+{
+    background-color: #E8E4E4;
+}
+
+.clsCharacterEntry:active
+{
+    background-color: yellow;
+}
+
+.clsCharacterActive
+{
+    background-color: yellow;
 }
