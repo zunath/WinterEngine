@@ -29,6 +29,7 @@ using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.Network.Packets;
 using System.Web.Script.Serialization;
 using Lidgren.Network;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 
 
 #endif

@@ -47,7 +47,7 @@ namespace WinterEngine.Game.Services
 
         /// <summary>
         /// Hooks into the raw XNA update method. 
-        /// This is called before FlatRedBall and internal XNA methods.
+        /// This is called after FlatRedBall and internal XNA methods.
         /// </summary>
         public static void Update()
         {
@@ -59,7 +59,7 @@ namespace WinterEngine.Game.Services
 
         /// <summary>
         /// Hooks into the raw XNA draw method.
-        /// This is called before FlatRedBall and internal XNA methods.
+        /// This is called after FlatRedBall and internal XNA methods.
         /// </summary>
         public static void Draw()
         {
@@ -82,8 +82,14 @@ namespace WinterEngine.Game.Services
         /// Replaces any existing game network client with a specified one.
         /// </summary>
         /// <param name="client"></param>
-        public static void InitializeNetworkClient(GameNetworkClient client)
+        public static void InitializeNetworkClient()
         {
+            GameNetworkClient client = new GameNetworkClient();
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
+            {
+                client.Username = WinterEngineService.ActiveUserProfile.UserName;
+            }
+
             _networkClient = client;
         }
 

@@ -120,13 +120,7 @@ namespace WinterEngine.Game.Entities
 		{
             AwesomiumWebView.DocumentReady += OnDocumentReady;
 
-            GameNetworkClient client = new GameNetworkClient();
-            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
-            {
-                client.Username = WinterEngineService.ActiveUserProfile.UserName;
-            }
-
-            WinterEngineService.InitializeNetworkClient(client);
+            WinterEngineService.InitializeNetworkClient();
             WinterEngineService.NetworkClient.OnPacketReceived += NetworkClient_OnPacketReceived;
 		}
 
@@ -143,7 +137,6 @@ namespace WinterEngine.Game.Entities
                 // We've received all files and are ready to move to the character selection screen.
                 RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(CharacterSelectScreen)));
             }
-            
 		}
 
 		private void CustomDestroy()
