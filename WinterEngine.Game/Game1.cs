@@ -50,18 +50,18 @@ namespace WinterEngine.Game
         protected override void Update(GameTime gameTime)
         {
             FlatRedBallServices.Update(gameTime);
+            WinterEngineService.Update();
             FlatRedBall.Screens.ScreenManager.Activity();
             base.Update(gameTime);
 
-            WinterEngineService.Update();
         }
 
         protected override void Draw(GameTime gameTime)
         {
             FlatRedBallServices.Draw();
+            WinterEngineService.Draw();
             base.Draw(gameTime);
 
-            WinterEngineService.Draw();
         }
     }
 }
