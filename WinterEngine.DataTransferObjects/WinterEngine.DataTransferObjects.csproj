@@ -86,6 +86,7 @@
     <Compile Include="BusinessObjects\UserProfile.cs" />
     <Compile Include="BusinessObjects\WinterServer.cs" />
     <Compile Include="Enumerations\ContentBuilderFileTypeEnum.cs" />
+    <Compile Include="Enumerations\DeleteCharacterTypeEnum.cs" />
     <Compile Include="Enumerations\DirectoryTypeEnum.cs" />
     <Compile Include="Enumerations\FileStreamerStatusEnum.cs" />
     <Compile Include="Enumerations\GameTypeEnum.cs" />

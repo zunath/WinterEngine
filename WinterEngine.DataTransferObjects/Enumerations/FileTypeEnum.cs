@@ -31,7 +31,9 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("Database File")]
         Database = 10,         // .sdf  - Database files  
         [Description("Player Character File")]
-        PlayerCharacter = 11
+        PlayerCharacter = 11,  // .wpc - Player character files
+        [Description("Deleted Player Character File")]
+        DeletedPlayerCharacter = 12 // .dwpc - Deleted player character files
 
     }
 }

@@ -5,6 +5,7 @@ function Initialize() {
     InitializeLoadingPopUpBox();
     InitializeLevelProgressBar();
     InitializeDeleteCharacterPopUpBox();
+    InitializeDeleteCharacterResponseBox();
 }
 
 function InitializeLevelProgressBar() {
@@ -39,6 +40,17 @@ function InitializeDeleteCharacterPopUpBox() {
     });
 }
 
+function InitializeDeleteCharacterResponseBox() {
+    $('#btnDeleteCharacterResponsePopUpBoxOKButton').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Delete Character',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
+}
+
 function InitializeLoadingPopUpBox() {
     $('#divLoading').dialog({
         modal: true,
@@ -62,11 +74,47 @@ function NewCharacterButton() {
 }
 
 function DeleteCharacterButton() {
+    $('#lblDeleteCharacterConfirmation').text('Are you sure you want to permanently delete your character?');
     $('#divDeleteCharacterPopUpBox').dialog('open');
 }
 
 function ConfirmDeleteCharacterButton() {
-    Entity.DeleteCharacter();
+    var fileName = $('.clsCharacterActive').data('fileName');
+    Entity.DeleteCharacter(fileName);
+}
+
+function ConfirmDeleteCharacterButton_Callback(responseID) {
+    // Response IDs are found in the DeleteCharacterTypeEnum.cs file
+
+    $('#divDeleteCharacterPopUpBox').dialog('close');
+
+    // 2 = Accepted
+    if (responseID == 2) {
+        $('.clsCharacterActive').hide();
+        return;
+    }
+    // 3 = Denied
+    else if (responseID == 3) {
+        $('#lblDeleteCharacterResponsePopUpBox').text('Your request to delete your character has been denied.');
+    }
+    // 4 = DeniedDisabled
+    else if (responseID == 4) {
+        $('#lblDeleteCharacterResponsePopUpBox').text('The server has disabled character deletion.');
+    }
+    // 5 = FileNotFound
+    else if (responseID == 5) {
+        $('#lblDeleteCharacterResponsePopUpBox').text('Character does not exist.');
+    }
+    // 6 = Error
+    else if (responseID == 6) {
+        $('#lblDeleteCharacterResponsePopUpBox').text('An error occurred. Your character has not been deleted.');
+    }
+
+    $('#divDeleteCharacterResponsePopUpBox').dialog('open');
+}
+
+function CloseDeleteCharacterResponsePopUpBox() {
+    $('#btnDeleteCharacterResponsePopUpBoxOKButton').dialog('close');
 }
 
 function JoinServerButton() {
@@ -132,6 +180,8 @@ function BuildCharacterList(characterList) {
         $(selector).data('dex', '3');
         $(selector).data('int', '4');
         $(selector).data('wis', '5');
+
+        $(selector).data('fileName', currentCharacter.FileName);
 
         $(selector).click(function () {
             LoadCharacterInformation(index);

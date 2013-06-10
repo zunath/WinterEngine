@@ -30,6 +30,7 @@ using WinterEngine.Network.Packets;
 using System.Web.Script.Serialization;
 using Lidgren.Network;
 using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 
 #endif
@@ -135,6 +136,9 @@ namespace WinterEngine.Game.Entities
 
         private void DeleteCharacter(object sender, JavascriptMethodEventArgs e)
         {
+            string fileName = e.Arguments[0];
+            DeleteCharacterPacket packet = new DeleteCharacterPacket(fileName, DeleteCharacterTypeEnum.Request);
+            WinterEngineService.NetworkClient.SendPacket(packet, NetDeliveryMethod.ReliableUnordered);
         }
 
         private void JoinServer(object sender, JavascriptMethodEventArgs e)
@@ -164,6 +168,10 @@ namespace WinterEngine.Game.Entities
             {
                 ProcessCharacterSelectionPacket(e.Packet as CharacterSelectionPacket);
             }
+            else if (packetType == typeof(DeleteCharacterPacket))
+            {
+                ProcessDeleteCharacterResponsePacket(e.Packet as DeleteCharacterPacket);
+            }
         }
 
         /// <summary>
@@ -177,6 +185,15 @@ namespace WinterEngine.Game.Entities
             string jsonCharacterList = serializer.Serialize(_playerCharacters);
 
             AsyncJavascriptCallback("InitializeServerInformation_Callback", packet.ServerName, packet.ServerAnnouncement, packet.CanDeleteCharacters, jsonCharacterList);
+        }
+
+        /// <summary>
+        /// Processes a packet containing the delete character response.
+        /// </summary>
+        /// <param name="packet"></param>
+        private void ProcessDeleteCharacterResponsePacket(DeleteCharacterPacket packet)
+        {
+            AsyncJavascriptCallback("ConfirmDeleteCharacterButton_Callback", (int)packet.DeleteRequestType);
         }
 
         #endregion

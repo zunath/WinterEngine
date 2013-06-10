@@ -51,6 +51,9 @@ namespace WinterEngine.DataAccess.Factories
                 // Player character files
                 case FileTypeEnum.PlayerCharacter:
                     return ".wpc";
+                // "Deleted" player character files
+                case FileTypeEnum.DeletedPlayerCharacter:
+                    return ".dwpc";
                 default:
                     return "";
             }
@@ -90,6 +93,9 @@ namespace WinterEngine.DataAccess.Factories
                 // Player character files
                 case ".wpc":
                     return FileTypeEnum.PlayerCharacter;
+                // Delete player character files
+                case ".dwpc":
+                    return FileTypeEnum.DeletedPlayerCharacter;
                 default:
                     return FileTypeEnum.Invalid;
             }

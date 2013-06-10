@@ -155,6 +155,44 @@ namespace WinterEngine.DataAccess.FileAccess
             return fileName;
         }
 
+        /// <summary>
+        /// Attempts to delete the specified player character file. 
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public DeleteCharacterTypeEnum DeletePlayerCharacterFile(string filePath)
+        {
+            DeleteCharacterTypeEnum response = DeleteCharacterTypeEnum.Denied;
+
+            string fileName = Path.GetFileName(filePath);
+            string extension = Path.GetExtension(filePath);
+            string path = Path.GetDirectoryName(filePath);
+
+            if (extension == FileExtensionFactory.GetFileExtension(FileTypeEnum.PlayerCharacter))
+            {
+                try
+                {
+                    if (File.Exists(filePath))
+                    {
+                        // "Deleting" is really just changing the file extension.
+                        string newPath = path + fileName + FileExtensionFactory.GetFileExtension(FileTypeEnum.DeletedPlayerCharacter);
+                        File.Move(filePath, newPath);
+                        response = DeleteCharacterTypeEnum.Accepted;
+                    }
+                    else
+                    {
+                        response = DeleteCharacterTypeEnum.FileNotFound;
+                    }
+                }
+                catch
+                {
+                    response = DeleteCharacterTypeEnum.Error;
+                }
+            }
+
+            return response;
+        }
+
         #endregion
 
         public void Dispose()

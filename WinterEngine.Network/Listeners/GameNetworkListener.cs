@@ -179,6 +179,10 @@ namespace WinterEngine.Network.Listeners
             {
                 ProcessUsernamePacket(packet as UsernamePacket);
             }
+            else if (packetType == typeof(DeleteCharacterPacket))
+            {
+                ProcessDeleteCharacterRequest(packet as DeleteCharacterPacket);
+            }
         }
 
         private void RaiseOnLogMessageEvent(string message)

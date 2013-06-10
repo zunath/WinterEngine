@@ -6,6 +6,9 @@ using Lidgren.Network;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.Network.Packets;
+using WinterEngine.Network.Enums;
+using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.Paths;
 
 namespace WinterEngine.Network.Listeners
 {
@@ -46,6 +49,32 @@ namespace WinterEngine.Network.Listeners
 
                 Agent.SendPacket(resultPacket, packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);
             }
+        }
+
+        /// <summary>
+        /// Processes a delete character request and returns a response.
+        /// </summary>
+        /// <param name="packet"></param>
+        private void ProcessDeleteCharacterRequest(DeleteCharacterPacket packet)
+        {
+            DeleteCharacterTypeEnum responseType = DeleteCharacterTypeEnum.Denied;
+
+            if (ServerDetails.IsCharacterDeletionEnabled)
+            {
+                string filePath = DirectoryPaths.CharacterVaultDirectoryPath + ConnectionUsernamesDictionary[packet.SenderConnection] + "/" + packet.FileName;
+
+                using(PlayerCharacterRepository repo = new PlayerCharacterRepository())
+                {
+                    responseType = repo.DeletePlayerCharacterFile(filePath);
+                }
+            }
+            else
+            {
+                responseType = DeleteCharacterTypeEnum.DeniedDisabled;
+            }
+
+            DeleteCharacterPacket response = new DeleteCharacterPacket(packet.FileName, responseType);
+            Agent.SendPacket(response, packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);
         }
 
         #endregion

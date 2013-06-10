@@ -91,6 +91,7 @@
     <Compile Include="Listeners\GameNetworkListener.Requests.cs" />
     <Compile Include="Packets\CharacterSelectionPacket.cs" />
     <Compile Include="Packets\ContentPackageListPacket.cs" />
+    <Compile Include="Packets\DeleteCharacterPacket.cs" />
     <Compile Include="Packets\FileRequestPacket.cs" />
     <Compile Include="Packets\StreamingFileDetailsPacket.cs" />
     <Compile Include="Packets\StreamingFilePacket.cs" />
