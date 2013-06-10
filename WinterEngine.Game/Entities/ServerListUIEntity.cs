@@ -1,29 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using FlatRedBall;
-using FlatRedBall.Input;
-using FlatRedBall.Instructions;
-using FlatRedBall.AI.Pathfinding;
-using FlatRedBall.Graphics.Animation;
-using FlatRedBall.Graphics.Particle;
 
-using FlatRedBall.Math.Geometry;
-using FlatRedBall.Math.Splines;
-using BitmapFont = FlatRedBall.Graphics.BitmapFont;
-using Cursor = FlatRedBall.Gui.Cursor;
-using GuiManager = FlatRedBall.Gui.GuiManager;
+
 
 #if FRB_XNA || SILVERLIGHT
-using Keys = Microsoft.Xna.Framework.Input.Keys;
-using Vector3 = Microsoft.Xna.Framework.Vector3;
-using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.Network;
 using Awesomium.Core;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.Game.Screens;
 using WinterEngine.Network.Clients;
-using System.ComponentModel;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Game.Services;
@@ -114,16 +99,16 @@ namespace WinterEngine.Game.Entities
         /// <summary>
         /// Gets the last file received by the file streamer.
         /// </summary>
-        public string LastReceivedFile
+        private string LastReceivedFile
         {
             get { return _lastReceivedFile; }
-            private set { _lastReceivedFile = value; }
+            set { _lastReceivedFile = value; }
         }
 
-        public FileStreamerStatusEnum FileStreamStatus
+        private FileStreamerStatusEnum FileStreamStatus
         {
             get { return _fileStreamStatus; }
-            private set { _fileStreamStatus = value; }
+            set { _fileStreamStatus = value; }
         }
 
 
@@ -388,25 +373,27 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         private void CancelRequestFileFromServer()
         {
-            FileRequestPacket packet = new FileRequestPacket
+            if (FileStreamStatus == FileStreamerStatusEnum.Downloading)
             {
-                FileRequestType = FileRequestTypeEnum.CancelFileRequest
-            };
-            FileStreamStatus = FileStreamerStatusEnum.Stopped;
+                FileRequestPacket packet = new FileRequestPacket
+                {
+                    FileRequestType = FileRequestTypeEnum.CancelFileRequest
+                };
+                FileStreamStatus = FileStreamerStatusEnum.Stopped;
 
-            WinterEngineService.NetworkClient.SendPacket(packet, NetDeliveryMethod.ReliableSequenced);
+                WinterEngineService.NetworkClient.SendPacket(packet, NetDeliveryMethod.ReliableSequenced);
 
-            // Remove partially downloaded file, if it exists.
-            string filePath = DirectoryPaths.ContentPackageDirectoryPath + LastReceivedFile;
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
+                // Remove partially downloaded file, if it exists.
+                string filePath = DirectoryPaths.ContentPackageDirectoryPath + LastReceivedFile;
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                FileSize = 0;
+                LastReceivedFile = "";
+                MissingFiles.Clear();
             }
-
-            FileSize = 0;
-            LastReceivedFile = "";
-            MissingFiles.Clear();
-
         }
 
         private void ProcessRequest(RequestPacket packet)

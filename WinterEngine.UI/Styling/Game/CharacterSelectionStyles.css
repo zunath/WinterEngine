@@ -112,6 +112,8 @@
     text-align: center;
     height: 64px;
     font-weight: bold;
+    border: solid 1px;
+    width: 98%;
 }
 
 .clsCharacterEntry:hover
