@@ -77,6 +77,7 @@ namespace WinterEngine.Game.Entities
 		{
             if (!Object.ReferenceEquals(WinterEngineService.NetworkClient, null))
             {
+                CheckForLostConnection();
                 WinterEngineService.NetworkClient.Process();
             }
 		}
@@ -150,6 +151,18 @@ namespace WinterEngine.Game.Entities
             WinterEngineService.NetworkClient.Disconnect();
             RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(ServerListScreen)));
         }
+
+        /// <summary>
+        /// If a lost connection is detected, a pop up box will display.
+        /// </summary>
+        private void CheckForLostConnection()
+        {
+            if (!WinterEngineService.NetworkClient.IsConnected)
+            {
+                AsyncJavascriptCallback("DisplayLostConnectionBox");
+            }
+        }
+
 
         #endregion
 

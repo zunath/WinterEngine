@@ -1,8 +1,10 @@
 ﻿/* Page Initialization */
 var CanDeleteCharacters = false;
+var SelectedCharacterDiv;
 
 function Initialize() {
     InitializeLoadingPopUpBox();
+    InitializeLostConnectionPopUpBox();
     InitializeLevelProgressBar();
     InitializeDeleteCharacterPopUpBox();
     InitializeDeleteCharacterResponseBox();
@@ -51,6 +53,18 @@ function InitializeDeleteCharacterResponseBox() {
     });
 }
 
+function InitializeLostConnectionPopUpBox() {
+    $('#divLostConnection').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Connection Lost!',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false,
+        closeOnEscape: false
+    });
+}
+
 function InitializeLoadingPopUpBox() {
     $('#divLoading').dialog({
         modal: true,
@@ -79,7 +93,7 @@ function DeleteCharacterButton() {
 }
 
 function ConfirmDeleteCharacterButton() {
-    var fileName = $('.clsCharacterActive').data('fileName');
+    var fileName = $(SelectedCharacterDiv).data('fileName');
     Entity.DeleteCharacter(fileName);
 }
 
@@ -131,7 +145,7 @@ function CancelDeleteCharacterButton() {
 
 function LoadCharacterInformation(characterID) {
 
-    var selectedCharacter = $('#divCharacter' + characterID);
+    SelectedCharacterDiv = $('#divCharacter' + characterID);
     $('.clsCharacterActive').removeClass('clsCharacterActive');
     $(selectedCharacter).addClass('clsCharacterActive');
 
@@ -183,8 +197,16 @@ function BuildCharacterList(characterList) {
 
         $(selector).data('fileName', currentCharacter.FileName);
 
-        $(selector).click(function () {
-            LoadCharacterInformation(index);
-        });
+        $(selector).click(LoadCharacterInformation(index));
     }
+}
+
+/* Lost Connection */
+
+function LostConnectionOKButton() {
+    Entity.CancelCharacterSelection();
+}
+
+function DisplayLostConnectionBox() {
+    $('#divLostConnection').dialog('open');
 }
