@@ -12,6 +12,10 @@ namespace WinterEngine.Network.Packets
         [ProtoMember(2)]
         public DeleteCharacterTypeEnum DeleteRequestType { get; set; }
 
+        public DeleteCharacterPacket()
+        {
+        }
+
         public DeleteCharacterPacket(string fileName, DeleteCharacterTypeEnum requestType)
         {
             this.FileName = fileName;
