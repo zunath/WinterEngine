@@ -189,11 +189,11 @@ function BuildCharacterList(characterList) {
         $(selector).data('name', currentCharacter.FirstName + ' ' + currentCharacter.LastName);
         $(selector).data('race', currentCharacter.Race); 
 
-        $(selector).data('str', '1');
-        $(selector).data('con', '2');
-        $(selector).data('dex', '3');
-        $(selector).data('int', '4');
-        $(selector).data('wis', '5');
+        $(selector).data('str', currentCharacter.Strength);
+        $(selector).data('con', currentCharacter.Constitution);
+        $(selector).data('dex', currentCharacter.Dexterity);
+        $(selector).data('int', currentCharacter.Intelligence);
+        $(selector).data('wis', currentCharacter.Wisdom);
 
         $(selector).data('fileName', currentCharacter.FileName);
 

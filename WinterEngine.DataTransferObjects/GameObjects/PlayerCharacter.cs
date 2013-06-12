@@ -10,124 +10,24 @@ using WinterEngine.DataTransferObjects.BusinessObjects;
 
 namespace WinterEngine.DataTransferObjects.GameObjects
 {
+    [NotMapped]
     [ProtoContract]
-    public class PlayerCharacter
+    public class PlayerCharacter: Creature
     {
-        #region Fields
-
-        private int _playerID;
-        private string _firstName;
-        private string _lastName;
-        private Race _race;
-        private int _age;
-        private string _biography;
-        private float _locationX;
-        private float _locationY;
-        private float _locationZ;
-        private int _locationAreaID;
-        private bool _isGameMaster;
-        private List<LocalVariable> _localVariables;
-        private string _fileName;
-
-        #endregion
-
         #region Properties
 
         [ProtoMember(1)]
-        public int PlayerID
-        {
-            get { return _playerID; }
-            set { _playerID = value; }
-        }
+        public int PlayerID { get; set; }
 
         [ProtoMember(2)]
-        public string FirstName
-        {
-            get { return _firstName; }
-            set { _firstName = value; }
-        }
+        public int Age { get; set; }
 
         [ProtoMember(3)]
-        public string LastName
-        {
-            get { return _lastName; }
-            set { _lastName = value; }
-        }
+        public bool IsGameMaster { get; set; }
 
         [ProtoMember(4)]
-        public Race CharacterRace
-        {
-            get { return _race; }
-            set { _race = value; }
-        }
-
-        [ProtoMember(5)]
-        public int Age
-        {
-            get { return _age; }
-            set { _age = value; }
-        }
-
-        [ProtoMember(6)]
-        public string Biography
-        {
-            get { return _biography; }
-            set { _biography = value; }
-        }
-
-        [ProtoMember(7)]
-        public bool IsGameMaster
-        {
-            get { return _isGameMaster; }
-            set { _isGameMaster = value; }
-        }
-
-        [ProtoMember(8)]
         [XmlIgnore]
-        public float X
-        {
-            get { return _locationX; }
-            set { _locationX = value; }
-        }
-
-        [ProtoMember(9)]
-        [XmlIgnore]
-        public float Y
-        {
-            get { return _locationY; }
-            set { _locationY = value; }
-        }
-
-        [ProtoMember(10)]
-        [XmlIgnore]
-        public float Z
-        {
-            get { return _locationZ; }
-            set { _locationZ = value; }
-        }
-
-        [ProtoMember(11)]
-        [XmlIgnore]
-        public int AreaID
-        {
-            get { return _locationAreaID; }
-            set { _locationAreaID = value; }
-        }
-
-        [ProtoMember(12)]
-        public List<LocalVariable> LocalVariables
-        {
-            get { return _localVariables; }
-            set { _localVariables = value; }
-        }
-
-        [ProtoMember(13)]
-        [XmlIgnore]
-        public string FileName
-        {
-            get { return _fileName; }
-            set { _fileName = value; }
-        }
+        public string FileName { get; set; }
 
         #endregion
 
