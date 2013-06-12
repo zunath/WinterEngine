@@ -189,6 +189,11 @@ function BuildCharacterList(characterList) {
         $(selector).data('name', currentCharacter.FirstName + ' ' + currentCharacter.LastName);
         $(selector).data('race', currentCharacter.Race); 
 
+        $(selector).data('maxHP', currentCharacter.MaxHitPoints);
+        $(selector).data('maxMana', currentCharacter.MaxMana);
+        $(selector).data('hp', currentCharacter.HitPoints);
+        $(selector).data('mana', currentCharacter.Mana);
+
         $(selector).data('str', currentCharacter.Strength);
         $(selector).data('con', currentCharacter.Constitution);
         $(selector).data('dex', currentCharacter.Dexterity);

@@ -18,16 +18,15 @@ namespace WinterEngine.DataTransferObjects.GameObjects
 
         [ProtoMember(1)]
         public int PlayerID { get; set; }
-
         [ProtoMember(2)]
         public int Age { get; set; }
-
         [ProtoMember(3)]
         public bool IsGameMaster { get; set; }
-
         [ProtoMember(4)]
         [XmlIgnore]
         public string FileName { get; set; }
+        [ProtoMember(5)]
+        public int Experience { get; set; }
 
         #endregion
 

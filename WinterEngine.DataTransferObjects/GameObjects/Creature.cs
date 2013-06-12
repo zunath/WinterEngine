@@ -43,13 +43,15 @@ namespace WinterEngine.DataTransferObjects
         public int MaxHitPoints { get; set; }
         [ProtoMember(13)]
         public int MaxMana { get; set; }
+        [ProtoMember(14)]
+        public int Level { get; set; }
 
-        [ProtoMember(14)] // Protobuf / Packet serialization
+        [ProtoMember(15)] // Protobuf / Packet serialization
         [XmlIgnore] // PlayerCharacter XML serialization
         [NotMapped] // Entity Framework
         public Location Location { get; set; }
 
-        [ProtoMember(15)]
+        [ProtoMember(16)]
         [NotMapped]
         public List<LocalVariable> LocalVariables { get; set; }
 
