@@ -70,8 +70,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContentBuilder.cs" />
-    <Compile Include="ErrorLogger.cs" />
     <Compile Include="Managers\ModuleManager.cs" />
     <Compile Include="Utility\EnumerationHelper.cs" />
     <Compile Include="Utility\ErrorHelper.cs" />
