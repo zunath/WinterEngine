@@ -51,7 +51,7 @@ namespace WinterEngine.Network.Clients
         {
             get
             {
-                if (Agent != null && Agent.Connections.Count > 0)
+                if (ConnectionStatus == NetConnectionStatus.Connected)
                 {
                     return true;
                 }
@@ -59,6 +59,24 @@ namespace WinterEngine.Network.Clients
                 {
                     return false;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Returns the connection status of the client's connection to the server.
+        /// Returns NetConnectionStatus.None if no connections have been established or
+        /// NetworkAgent has not been initialized.
+        /// </summary>
+        public NetConnectionStatus ConnectionStatus
+        {
+            get
+            {
+                if (Agent != null && Agent.Connections.Count > 0)
+                {
+                    return Agent.Connections[0].Status;
+                }
+
+                return NetConnectionStatus.None;
             }
         }
 

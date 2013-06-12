@@ -197,7 +197,9 @@ function BuildCharacterList(characterList) {
 
         $(selector).data('fileName', currentCharacter.FileName);
 
-        $(selector).click(LoadCharacterInformation(index));
+        $(selector).click(function() {
+            LoadCharacterInformation(index);
+        });
     }
 }
 

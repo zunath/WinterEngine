@@ -41,27 +41,9 @@ namespace WinterEngine.Game.Entities
     {
         #region Fields
 
-        private List<PlayerCharacter> _playerCharacters;
-
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Returns a list of player characters which exist on the active user's account.
-        /// </summary>
-        private List<PlayerCharacter> PlayerCharacters
-        {
-            get
-            {
-                if (_playerCharacters == null)
-                {
-                    _playerCharacters = new List<PlayerCharacter>();
-                }
-
-                return _playerCharacters;
-            }
-        }
 
         #endregion
 
@@ -157,7 +139,9 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         private void CheckForLostConnection()
         {
-            if (!WinterEngineService.NetworkClient.IsConnected)
+            if (WinterEngineService.NetworkClient.ConnectionStatus == NetConnectionStatus.Disconnected ||
+                WinterEngineService.NetworkClient.ConnectionStatus == NetConnectionStatus.Disconnecting || 
+                WinterEngineService.NetworkClient.ConnectionStatus == NetConnectionStatus.None)
             {
                 AsyncJavascriptCallback("DisplayLostConnectionBox");
             }
@@ -193,9 +177,8 @@ namespace WinterEngine.Game.Entities
         /// <param name="packet"></param>
         private void ProcessCharacterSelectionPacket(CharacterSelectionPacket packet)
         {
-            _playerCharacters = packet.CharacterList;
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            string jsonCharacterList = serializer.Serialize(_playerCharacters);
+            string jsonCharacterList = serializer.Serialize(packet.CharacterList);
 
             AsyncJavascriptCallback("InitializeServerInformation_Callback", packet.ServerName, packet.ServerAnnouncement, packet.CanDeleteCharacters, jsonCharacterList);
         }
