@@ -29,15 +29,5 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         public int Experience { get; set; }
 
         #endregion
-
-        #region Constructors
-
-        public PlayerCharacter()
-        {
-            LocalVariables = new List<LocalVariable>();
-        }
-     
-
-        #endregion
     }
 }

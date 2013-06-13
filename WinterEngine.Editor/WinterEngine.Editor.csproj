@@ -189,15 +189,7 @@
     <Compile Include="Entities\MapEntity.Generated.cs">
       <DependentUpon>MapEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Enums\CameraMovementTypeEnum.cs" />
-    <Compile Include="Enums\ObjectRotationTypeEnum.cs" />
-    <Compile Include="Enums\ObjectSelectionTypeEnum.cs" />
-    <Compile Include="Enums\UserControlIDEnum.cs" />
-    <Compile Include="ExtendedEventArgs\CameraButtonPressEventArgs.cs" />
-    <Compile Include="ExtendedEventArgs\ModuleControlsEventArgs.cs" />
     <Compile Include="ExtendedEventArgs\ModuleCreationEventArgs.cs" />
-    <Compile Include="ExtendedEventArgs\ObjectRotationButtonPressEventArgs.cs" />
-    <Compile Include="ExtendedEventArgs\ObjectSelectionEventArgs.cs" />
     <Compile Include="Forms\ContentPackageCreator.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -32,7 +32,6 @@ using Microsoft.Xna.Framework.Media;
 using WinterEngine.Game.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
-using FlatRedBall.Graphics;
 
 namespace WinterEngine.Game.Screens
 {
@@ -43,7 +42,6 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private FlatRedBall.Graphics.Layer GUILayer;
 		private WinterEngine.Game.Entities.ToolsetUIEntity ToolsetUIEntityInstance;
 
 		public ToolsetScreen()
@@ -55,8 +53,6 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			GUILayer = new FlatRedBall.Graphics.Layer();
-			GUILayer.Name = "GUILayer";
 			ToolsetUIEntityInstance = new WinterEngine.Game.Entities.ToolsetUIEntity(ContentManagerName, false);
 			ToolsetUIEntityInstance.Name = "ToolsetUIEntityInstance";
 			
@@ -68,9 +64,6 @@ namespace WinterEngine.Game.Screens
 // Generated AddToManagers
 		public override void AddToManagers ()
 		{
-			SpriteManager.AddLayer(GUILayer);
-			GUILayer.UsePixelCoordinates();
-			GUILayer.RelativeToCamera = false;
 			base.AddToManagers();
 			CustomInitialize();
 		}
@@ -103,10 +96,6 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
-			if (GUILayer != null)
-			{
-				SpriteManager.RemoveLayer(GUILayer);
-			}
 			if (ToolsetUIEntityInstance != null)
 			{
 				ToolsetUIEntityInstance.Destroy();
@@ -125,19 +114,12 @@ namespace WinterEngine.Game.Screens
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
 			base.PostInitialize();
-			GUILayer.RelativeToCamera = false;
-			if (ToolsetUIEntityInstance.Parent == null)
-			{
-				ToolsetUIEntityInstance.CopyAbsoluteToRelative();
-				ToolsetUIEntityInstance.RelativeZ += -40;
-				ToolsetUIEntityInstance.AttachTo(SpriteManager.Camera, false);
-			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public override void AddToManagersBottomUp ()
 		{
 			base.AddToManagersBottomUp();
-			ToolsetUIEntityInstance.AddToManagers(GUILayer);
+			ToolsetUIEntityInstance.AddToManagers(mLayer);
 		}
 		public override void ConvertToManuallyUpdated ()
 		{

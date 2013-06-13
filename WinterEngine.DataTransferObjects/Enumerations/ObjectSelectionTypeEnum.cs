@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WinterEngine.Editor.Enums
+namespace WinterEngine.DataTransferObjects.Enumerations
 {
     public enum ObjectSelectionTypeEnum
     {

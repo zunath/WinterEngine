@@ -23,7 +23,6 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.Editor.Controls;
 using System.Windows.Forms;
 using WinterEngine.Editor.ExtendedEventArgs;
-using WinterEngine.Editor.Enums;
 using System.Drawing;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 

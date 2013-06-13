@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.Editor.Enums;
+using WinterEngine.DataTransferObjects.Enumerations;
 
-namespace WinterEngine.Editor.ExtendedEventArgs
+namespace WinterEngine.DataTransferObjects.EventArgsExtended
 {
     public class CameraButtonPressEventArgs : EventArgs
     {

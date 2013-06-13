@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WinterEngine.Editor.ExtendedEventArgs;
-using WinterEngine.Editor.Enums;
+using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
 
 namespace WinterEngine.Editor.Controls
 {

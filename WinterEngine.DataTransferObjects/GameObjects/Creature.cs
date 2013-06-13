@@ -57,5 +57,13 @@ namespace WinterEngine.DataTransferObjects
 
         #endregion
 
+        #region Constructors
+
+        public Creature()
+        {
+            LocalVariables = new List<LocalVariable>();
+        }
+
+        #endregion
     }
 }

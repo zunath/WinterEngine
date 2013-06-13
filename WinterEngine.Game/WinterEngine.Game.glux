@@ -111,29 +111,12 @@
       <Name>Screens\ToolsetScreen</Name>
       <NamedObjects>
         <NamedObjectSave>
-          <CustomProperty>
-            <Type>bool</Type>
-            <Member>RelativeToCamera</Member>
-            <ValueAsBool>false</ValueAsBool>
-          </CustomProperty>
-          <SourceType>FlatRedBallType</SourceType>
-          <SourceClassType>Layer</SourceClassType>
-          <InstanceName>GUILayer</InstanceName>
-          <AttachToContainer>false</AttachToContainer>
-          <AddToManagers>true</AddToManagers>
-          <IndependentOfCamera>true</IndependentOfCamera>
-          <Is2D>true</Is2D>
-          <LayerCoordinateType>MatchScreenResolution</LayerCoordinateType>
-        </NamedObjectSave>
-        <NamedObjectSave>
           <SourceType>Entity</SourceType>
           <SourceClassType>Entities\ToolsetUIEntity</SourceClassType>
           <InstanceName>ToolsetUIEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
-          <AttachToCamera>true</AttachToCamera>
           <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
-          <LayerOn>GUILayer</LayerOn>
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>
@@ -476,6 +459,7 @@
           </Properties>
           <Name>ResourcePath</Name>
           <Type>string</Type>
+          <DefaultValue xsi:type="xsd:string">file:///./Components/Toolset.html</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
         <CustomVariable>
@@ -523,7 +507,7 @@
     <RecordLockContention>false</RecordLockContention>
   </GlobalContentSettingsSave>
   <SyncedProjects />
-  <StartUpScreen>Screens\MainMenuScreen</StartUpScreen>
+  <StartUpScreen>Screens\ToolsetScreen</StartUpScreen>
   <In2D>false</In2D>
   <SetResolution>false</SetResolution>
   <ResolutionWidth>800</ResolutionWidth>

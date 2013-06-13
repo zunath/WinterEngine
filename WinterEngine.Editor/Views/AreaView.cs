@@ -8,9 +8,7 @@ using FlatRedBall;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
-
 using WinterEngine.Editor.Controls;
-using WinterEngine.Editor.Enums;
 using WinterEngine.Editor.ExtendedEventArgs;
 
 namespace WinterEngine.Editor.Views

@@ -25,29 +25,38 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 namespace WinterEngine.Game.Entities
 {
 	public partial class ToolsetUIEntity
-	{
-		private void CustomInitialize()
+    {
+        #region Fields
+
+        #endregion
+
+        #region Properties
+
+        #endregion
+
+        #region FRB Event Handling 
+
+        private void CustomInitialize()
 		{
-
-
 		}
 
 		private void CustomActivity()
 		{
-
-
 		}
 
 		private void CustomDestroy()
 		{
-
-
 		}
 
         private static void CustomLoadStaticContent(string contentManagerName)
         {
-
-
         }
-	}
+
+        #endregion
+
+        #region Awesomium Event Handling
+
+        #endregion
+
+    }
 }
