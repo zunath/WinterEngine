@@ -177,7 +177,7 @@
     <Content Include="Scripts\ServerList.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Toolset.js">
+    <Content Include="Scripts\Toolset.Initialization.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\Toolset.MenuBar.js">

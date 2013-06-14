@@ -12,8 +12,6 @@ function Initialize() {
     InitializeModulePropertiesBox();
     InitializeManageContentPackagesBox();
     InitializeContentPackageCreatorBox();
-
-    $('#divNewModuleBox').dialog('open');
 }
 
 function InitializeMainMenu() {
@@ -61,16 +59,56 @@ function InitializeOpenModuleBox() {
 }
 
 function InitializeImportBox() {
+    $('#divImportBox').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Import ERF',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
 }
 
 function InitializeExportBox() {
+    $('#divExportBox').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Export ERF',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
 }
 
 function InitializeModulePropertiesBox() {
+    $('#divModulePropertiesBox').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Module Properties',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
 }
 
 function InitializeManageContentPackagesBox() {
+    $('#divManageContentPackagesBox').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Manage Content Packages',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
 }
 
 function InitializeContentPackageCreatorBox() {
+    $('#divContentPackageCreatorBox').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Content Package Creator',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
 }

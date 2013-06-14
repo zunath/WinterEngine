@@ -243,10 +243,9 @@ namespace WinterEngine.Server
         /// </summary>
         private void InitializeOpenFileDialog()
         {
-            FileExtensionFactory winterExtensions = new FileExtensionFactory();
-            string fileExtension = winterExtensions.GetFileExtension(FileTypeEnum.Module);
-            OpenFile.Filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension;
-            
+            FileExtensionFactory fileExtensionFactory = new FileExtensionFactory();
+            OpenFile.Filter = fileExtensionFactory.BuildModuleFileFilter();
+
             OpenFile.AddExtension = true;
             OpenFile.Title = "Open Module";
             OpenFile.Multiselect = false;

@@ -1,5 +1,4 @@
-﻿
-/* Button Functionality - File Menu */
+﻿/* Button Functionality - File Menu */
 
 function NewModuleButtonClick() {
     $('#divNewModuleBox').dialog('open');
@@ -19,9 +18,11 @@ function NewModuleBoxCancelClick() {
 }
 
 function OpenModuleButtonClick() {
+    Entity.OpenModuleButtonClick();
 }
 
 function CloseModuleButtonClick() {
+    Entity.CloseModuleButtonClick();
 }
 
 function SaveModuleButtonClick() {
@@ -82,4 +83,17 @@ function AboutButtonClick() {
 
 function AboutBoxClose() {
     $('#divAboutBox').dialog('close');
+}
+
+
+
+/* General Methods */
+
+function ToggleMenuButton(selector, enable) {
+    if (enable) {
+        $(selector).addClass('ui-state-disabled');
+    }
+    else {
+        $(selector).removeClass('ui-state-disabled');
+    }
 }

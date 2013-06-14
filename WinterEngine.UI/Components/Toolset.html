@@ -13,7 +13,7 @@
     <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src="../Scripts/jquery.validate.js"></script>
     <script src="../Scripts/jquery.jstree.js"></script>
-    <script src="../Scripts/Toolset.js"></script>
+    <script src="../Scripts/Toolset.Initialization.js"></script>
     <script src="../Scripts/Toolset.MenuBar.js"></script>
     <script src="../Scripts/Toolset.ObjectBar.js"></script>
 
@@ -42,7 +42,7 @@
                             Open Module
                         </a>
                     </li>
-                    <li>
+                    <li class="ui-state-disabled">
                         <a href="#" onclick="CloseModuleButtonClick();">
                             Close Module
                         </a>
@@ -57,12 +57,12 @@
                             Save As...
                         </a>
                     </li>
-                    <li>
+                    <li class="ui-state-disabled">
                         <a href="#" onclick="ImportButtonClick();">
                             Import
                         </a>
                     </li>
-                    <li>
+                    <li class="ui-state-disabled">
                         <a href="#" onclick="ExportButtonClick();">
                             Export
                         </a>
@@ -82,32 +82,32 @@
             <li>
                 <a href="#">Edit</a>
                 <ul>
-                    <li>
+                    <li class="ui-state-disabled">
                         <a href="#" onclick="UndoButtonClick();">
                             Undo
                         </a>
                     </li>
-                    <li>
+                    <li class="ui-state-disabled">
                         <a href="#" onclick="RedoButtonClick();">
                             Redo
                         </a>
                     </li>
-                    <li>
+                    <li class="ui-state-disabled">
                         <a href="#" onclick="CopyButtonClick();">
                             Copy
                         </a>
                     </li>
-                    <li>
+                    <li class="ui-state-disabled">
                         <a href="#" onclick="CutButtonClick();">
                             Cut
                         </a>
                     </li>
-                    <li>
+                    <li class="ui-state-disabled">
                         <a href="#" onclick="PasteButtonClick();">
                             Paste
                         </a>
                     </li>
-                    <li>
+                    <li class="ui-state-disabled">
                         <a href="#" onclick="ModulePropertiesButtonClick();">
                             Module Properties
                         </a>
@@ -117,7 +117,7 @@
             <li>
                 <a href="#">Content</a>
                 <ul>
-                    <li>
+                    <li class="ui-state-disabled">
                         <a href="#" onclick="ManageContentPackagesButtonClick();">
                             Manage Content Packages
                         </a>
@@ -127,7 +127,7 @@
                             Content Package Creator
                         </a>
                     </li>
-                    <li>
+                    <li class="ui-state-disabled">
                         <a href="#" onclick="BuildModuleButtonClick();">
                             Build Module
                         </a>

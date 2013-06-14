@@ -135,5 +135,17 @@ namespace WinterEngine.DataAccess.Factories
 
             return filter;
         }
+
+        /// <summary>
+        /// Returns a string containing a filter for Open/Save File Dialogs for modules.
+        /// </summary>
+        /// <returns></returns>
+        public string BuildModuleFileFilter()
+        {
+            string fileExtension = GetFileExtension(FileTypeEnum.Module);
+            string filter = "Winter Module Files (*" + fileExtension + ") | " + "*" + fileExtension; ;
+
+            return filter;
+        }
     }
 }
