@@ -141,7 +141,16 @@ namespace WinterEngine.Game.Entities
         {
             if (!AwesomiumWebView.IsDisposed)
             {
-                _webView.InjectMouseDown((Awesomium.Core.MouseButton)((int)e.Button - 1));
+                MouseButton button = MouseButton.Left;
+                if (e.Button == WinMouseButton.Right)
+                {
+                    button = MouseButton.Right;
+                }
+                else if (e.Button == WinMouseButton.Middle)
+                {
+                    button = MouseButton.Middle;
+                }
+                _webView.InjectMouseDown(button);
             }
         }
 
@@ -149,7 +158,16 @@ namespace WinterEngine.Game.Entities
         {
             if (!AwesomiumWebView.IsDisposed)
             {
-                _webView.InjectMouseUp((Awesomium.Core.MouseButton)((int)e.Button - 1));
+                MouseButton button = MouseButton.Left;
+                if (e.Button == WinMouseButton.Right)
+                {
+                    button = MouseButton.Right;
+                }
+                else if (e.Button == WinMouseButton.Middle)
+                {
+                    button = MouseButton.Middle;
+                }
+                _webView.InjectMouseUp(button);
             }
         }
 

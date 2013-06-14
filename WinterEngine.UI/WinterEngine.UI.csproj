@@ -165,6 +165,9 @@
     <Content Include="Scripts\jquery-2.0.0.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\jquery.jstree.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\jquery.validate.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -183,7 +186,7 @@
     <Content Include="Styling\DataTables\jquery.dataTables_themeroller.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Editor\EditorStyles.css">
+    <Content Include="Styling\Toolset\ToolsetStyles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Styling\Game\CharacterSelectionStyles.css">

@@ -7,11 +7,12 @@
     
     <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
     <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
-    <link rel="stylesheet" href="../Styling/Game/ToolsetStyles.css" />
+    <link rel="stylesheet" href="../Styling/Toolset/ToolsetStyles.css" />
     
     <script src="../Scripts/jquery-2.0.0.min.js"></script>
     <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src="../Scripts/jquery.validate.js"></script>
+    <script src="../Scripts/jquery.jstree.js"></script>
     <script src="../Scripts/Toolset.js"></script>
 
     <script>
@@ -22,63 +23,127 @@
 
 </head>
 <body>
-
+    
     <div id="divMenuBar">
 
         <ul id="ulMenu">
             <li>
                 <a href="#">File</a>
-                <ul class="subnav">
+                <ul>
                     <li>
-                        New Module
+                        <a href="#" onclick="NewModuleButtonClick();">
+                            New Module
+                        </a>
                     </li>
                     <li>
-                        Open Module
+                        <a href="#" onclick="OpenModuleButtonClick();">
+                            Open Module
+                        </a>
                     </li>
                     <li>
-                        Close Module
+                        <a href="#" onclick="CloseModuleButtonClick();">
+                            Close Module
+                        </a>
                     </li>
                     <li>
-                        Save
+                        <a href="#" onclick="SaveModuleButtonClick();">
+                            Save
+                        </a>
                     </li>
                     <li>
-                        Save As...
+                        <a href="#" onclick="SaveAsModuleButtonClick();">
+                            Save As...
+                        </a>
                     </li>
                     <li>
-                        Import
+                        <a href="#" onclick="ImportButtonClick();">
+                            Import
+                        </a>
                     </li>
                     <li>
-                        Export
+                        <a href="#" onclick="ExportButtonClick();">
+                            Export
+                        </a>
                     </li>
                     <li>
-                        Recent Files
+                        <a href="#">
+                            Recent Files
+                        </a>
                     </li>
                     <li>
-                        Exit
+                        <a href="#" onclick="ExitButtonClick();">
+                            Exit
+                        </a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="#">Edit</a>
-                <ul class="subnav">
+                <ul>
                     <li>
-
+                        <a href="#" onclick="UndoButtonClick();">
+                            Undo
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="RedoButtonClick();">
+                            Redo
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="CopyButtonClick();">
+                            Copy
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="CutButtonClick();">
+                            Cut
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="PasteButtonClick();">
+                            Paste
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="ModulePropertiesButtonClick();">
+                            Module Properties
+                        </a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="#">Content</a>
-                <ul class="subnav">
+                <ul>
                     <li>
-
+                        <a href="#" onclick="ManageContentPackagesButtonClick();">
+                            Manage Content Packages
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="ContentPackageCreatorButtonClick();">
+                            Content Package Creator
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="BuildModuleButtonClick();">
+                            Build Module
+                        </a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="#">Help</a>
-                <ul class="subnav">
+                <ul>
                     <li>
-
+                        <a href="#" onclick="WinterEngineWebsiteButtonClick();">
+                            Winter Engine Website
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="AboutButtonClick();">
+                            About
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -86,7 +151,33 @@
 
     </div>
 
+    <div id="divObjectBar" class="clsObjectBarDiv">
+        <input id="btnAreas" type="button" class="clsObjectBarButton" value="Areas" />
+        <input id="btnCreatures" type="button" class="clsObjectBarButton" value="Creatures" />
+        <input id="btnItems" type="button" class="clsObjectBarButton" value="Items" />
+        <input id="btnPlaceables" type="button" class="clsObjectBarButton" value="Placeables" />
+        <input id="btnConversations" type="button" class="clsObjectBarButton" value="Conversations" />
+        <input id="btnScripts" type="button" class="clsObjectBarButton" value="Scripts" />
+        <input id="btnGraphics" type="button" class="clsObjectBarButton" value="Graphics" />
+    </div>
 
+    <div id="divTreeView" class="clsTreeViewDiv">
+
+        <ul>
+            <li><a>xxx</a></li>
+            <li><a>aaa</a>
+                <ul>
+                    <li>
+                        <a>Test 3</a>
+                    </li>
+                    <li>
+                        <a>Test 4</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
 
 </body>
 </html>

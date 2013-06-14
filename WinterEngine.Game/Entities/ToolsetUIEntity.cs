@@ -18,6 +18,8 @@ using GuiManager = FlatRedBall.Gui.GuiManager;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
+using Awesomium.Core;
+using System.Diagnostics;
 
 
 #endif
@@ -38,6 +40,7 @@ namespace WinterEngine.Game.Entities
 
         private void CustomInitialize()
 		{
+            AwesomiumWebView.DocumentReady += OnDocumentReady;
 		}
 
 		private void CustomActivity()
@@ -55,6 +58,49 @@ namespace WinterEngine.Game.Entities
         #endregion
 
         #region Awesomium Event Handling
+
+        private void OnDocumentReady(object sender, EventArgs e)
+        {
+            AwesomiumWebView.DocumentReady -= OnDocumentReady;
+
+            // File Menu Bindings
+
+            EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButton);
+
+            // Edit Menu Bindings
+
+            // Content Menu Bindings
+
+            // Help Menu Bindings
+            EntityJavascriptObject.Bind("WinterEngineWebsiteButtonClick", false, WinterEngineWebsiteButton);
+        }
+
+        #endregion
+
+        #region UI Methods - File Menu Bindings
+
+        private void ExitButton(object sender, JavascriptMethodEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region UI Methods - Edit Menu Bindings
+
+        #endregion
+
+        #region UI Methods - Content Menu Bindings
+
+        #endregion
+
+        #region UI Methods - Help Menu Bindings
+
+        private void WinterEngineWebsiteButton(object sender, JavascriptMethodEventArgs e)
+        {
+            Process.Start("https://www.winterengine.com");
+        }
+
 
         #endregion
 
