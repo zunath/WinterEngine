@@ -68,13 +68,20 @@
 
 .clsObjectBarDiv
 {
+    text-align: center;
     padding-top: 2px;
 }
 
-.clsObjectBarButton
+.clsActiveObjectType
 {
-    width: 14.2%;
-    float: left;
+    border: 1px solid #ffaf0f;
+	background: #f58400 url(images/ui-bg_inset-soft_30_f58400_1x100.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #ffffff;
+    font-weight: normal;
+	margin: -1px;
+	text-decoration: none;
+	background-image: url(images/ui-icons_222222_256x240.png);
 }
 
 /* Tree View */

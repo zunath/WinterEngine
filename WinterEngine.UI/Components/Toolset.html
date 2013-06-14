@@ -14,6 +14,8 @@
     <script src="../Scripts/jquery.validate.js"></script>
     <script src="../Scripts/jquery.jstree.js"></script>
     <script src="../Scripts/Toolset.js"></script>
+    <script src="../Scripts/Toolset.MenuBar.js"></script>
+    <script src="../Scripts/Toolset.ObjectBar.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -152,13 +154,43 @@
     </div>
 
     <div id="divObjectBar" class="clsObjectBarDiv">
-        <input id="btnAreas" type="button" class="clsObjectBarButton" value="Areas" />
-        <input id="btnCreatures" type="button" class="clsObjectBarButton" value="Creatures" />
-        <input id="btnItems" type="button" class="clsObjectBarButton" value="Items" />
-        <input id="btnPlaceables" type="button" class="clsObjectBarButton" value="Placeables" />
-        <input id="btnConversations" type="button" class="clsObjectBarButton" value="Conversations" />
-        <input id="btnScripts" type="button" class="clsObjectBarButton" value="Scripts" />
-        <input id="btnGraphics" type="button" class="clsObjectBarButton" value="Graphics" />
+        <ul id="ulObjectBar">
+            <li id="liAreas" class="clsActiveObjectType">
+                <a href="#" onclick="AreasButtonClick();">
+                    Areas
+                </a>
+            </li>
+            <li id="liCreatures">
+                <a href="#" onclick="CreaturesButtonClick();">    
+                    Creatures
+                </a>
+            </li>
+            <li id="liItems">
+                <a href="#" onclick="ItemsButtonClick();">
+                    Items
+                </a>
+            </li>
+            <li id="liPlaceables">
+                <a href="#" onclick="PlaceablesButtonClick();">
+                    Placeables
+                </a>
+            </li>
+            <li id="liConversations">
+                <a href="#" onclick="ConversationsButtonClick();">
+                    Conversations
+                </a>
+            </li>
+            <li id="liScripts">
+                <a href="#" onclick="ScriptsButtonClick();">
+                    Scripts
+                </a>
+            </li>
+            <li id="liGraphics">
+                <a href="#" onclick="GraphicsButtonClick();">
+                    Graphics
+                </a>
+            </li>
+        </ul>
     </div>
 
     <div id="divTreeView" class="clsTreeViewDiv">
@@ -177,6 +209,57 @@
             </li>
         </ul>
 
+    </div>
+
+    <div id="divNewModuleBox">
+        
+        <label>Name:</label>
+        <br />
+        <input id="txtModuleName" type="text" maxlength="64" />
+        <br />
+        <label>Tag:</label>
+        <br />
+        <input id="txtModuleTag" type="text" maxlength="32" />
+        <br />
+        <br />
+        <input id="btnNewModuleOK" type="button" class="clsHalfButton" value="OK" onclick="NewModuleBoxOKClick();" />
+        <input id="btnNewModuleCancel" type="button" class="clsHalfButton" value="Cancel" onclick="NewModuleBoxCancelClick();" />
+    </div>
+
+    <div id="divOpenModuleBox">
+
+    </div>
+
+    <div id="divImportBox">
+
+    </div>
+
+    <div id="divExportBox">
+
+    </div>
+
+    <div id="divModulePropertiesBox">
+
+    </div>
+
+    <div id="divManageContentPackagesBox">
+
+    </div>
+
+    <div id="divContentPackageCreatorBox">
+
+    </div>
+
+    <div id="divAboutBox">
+        <label id="lblAboutBox">
+            Winter Engine Toolset developed by Zunath.
+            <br />
+            <br />
+            https://www.winterengine.com/
+        </label>
+        <br />
+        <br />
+        <input id="btnAboutBoxOK" type="button" class="clsFullButton" value="OK" onclick="AboutBoxClose();"/>
     </div>
 
 </body>

@@ -2,13 +2,29 @@
 
 function Initialize() {
     InitializeMainMenu();
+    InitializeObjectSelectionMenu();
     InitializeTreeView();
+    InitializeAboutBox();
+    InitializeNewModuleBox();
+    InitializeOpenModuleBox();
+    InitializeImportBox();
+    InitializeExportBox();
+    InitializeModulePropertiesBox();
+    InitializeManageContentPackagesBox();
+    InitializeContentPackageCreatorBox();
+
+    $('#divNewModuleBox').dialog('open');
 }
 
 function InitializeMainMenu() {
 
     $('#ulMenu').menu({
         position: { my: 'left top', at: 'left bottom' }
+    });
+}
+
+function InitializeObjectSelectionMenu() {
+    $('#ulObjectBar').menu({
     });
 }
 
@@ -19,68 +35,42 @@ function InitializeTreeView() {
     });
 }
 
-/* Button Functionality - File Menu */
-
-function NewModuleButtonClick() {
+function InitializeAboutBox() {
+    $('#divAboutBox').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'About',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
 }
 
-function OpenModuleButtonClick() {
+function InitializeNewModuleBox() {
+    $('#divNewModuleBox').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'New Module',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
 }
 
-function CloseModuleButtonClick() {
+function InitializeOpenModuleBox() {
 }
 
-function SaveModuleButtonClick() {
+function InitializeImportBox() {
 }
 
-function SaveAsModuleButtonClick() {
+function InitializeExportBox() {
 }
 
-function ImportButtonClick() {
+function InitializeModulePropertiesBox() {
 }
 
-function ExportButtonClick() {
+function InitializeManageContentPackagesBox() {
 }
 
-function ExitButtonClick() {
-}
-
-/* Button Functionality - Edit Menu */
-
-function UndoButtonClick() {
-}
-
-function RedoButtonClick() {
-}
-
-function CopyButtonClick() {
-}
-
-function CutButtonClick() {
-}
-
-function PasteButtonClick() {
-}
-
-function ModulePropertiesButtonClick() {
-}
-
-/* Button Functionality - Content Menu */
-
-function ManageContentPackagesButtonClick() {
-}
-
-function ContentPackageCreatorButtonClick() {
-}
-
-function BuildModuleButtonClick() {
-}
-
-/* Button Functionality - Help Menu */
-
-function WinterEngineWebsiteButtonClick() {
-    Entity.WinterEngineWebsiteButtonClick();
-}
-
-function AboutButtonClick() {
+function InitializeContentPackageCreatorBox() {
 }

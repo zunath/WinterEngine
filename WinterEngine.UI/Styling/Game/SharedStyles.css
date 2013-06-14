@@ -127,6 +127,16 @@ ul.clsNoBullets
     list-style-type: none;
 }
 
+.clsFloatLeft
+{
+    float: left;
+}
+
+.clsFloatRight
+{
+    float: right;
+}
+
 /* JQUERY UI */
 .jqueryUIDialogNoCloseButton .ui-dialog-titlebar-close
 {
