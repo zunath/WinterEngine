@@ -227,7 +227,6 @@
     <Compile Include="Controls\ObjectBar.Designer.cs">
       <DependentUpon>ObjectBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Managers\GameResourceManager.cs" />
     <Compile Include="Performance\IPoolable.Generated.cs" />
     <Compile Include="Performance\PoolList.Generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

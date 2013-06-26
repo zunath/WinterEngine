@@ -13,6 +13,7 @@ function Initialize() {
     InitializeModulePropertiesBox();
     InitializeManageContentPackagesBox();
     InitializeContentPackageCreatorBox();
+    InitializeAlertBox();
 }
 
 function InitializeMainMenu() {
@@ -117,5 +118,16 @@ function InitializeContentPackageCreatorBox() {
 function InitializeValidation() {
     $('#formNewModule').validate({
         errorPlacement: $.noop
+    });
+}
+
+function InitializeAlertBox() {
+    $('#divAlertBox').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Alert',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
     });
 }

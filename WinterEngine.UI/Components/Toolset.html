@@ -33,47 +33,47 @@
                 <a href="#">File</a>
                 <ul>
                     <li>
-                        <a href="#" onclick="NewModuleButtonClick();">
+                        <a id="aNewModuleButton" href="#" onclick="NewModuleButtonClick();">
                             New Module
                         </a>
                     </li>
                     <li>
-                        <a href="#" onclick="OpenModuleButtonClick();">
+                        <a id="aOpenModuleButton" href="#" onclick="OpenModuleButtonClick();">
                             Open Module
                         </a>
                     </li>
-                    <li class="ui-state-disabled">
+                    <li id="aCloseModuleButton" class="ui-state-disabled">
                         <a href="#" onclick="CloseModuleButtonClick();">
                             Close Module
                         </a>
                     </li>
                     <li>
-                        <a href="#" onclick="SaveModuleButtonClick();">
+                        <a id="aSaveModuleButton" href="#" onclick="SaveModuleButtonClick();">
                             Save
                         </a>
                     </li>
                     <li>
-                        <a href="#" onclick="SaveAsModuleButtonClick();">
+                        <a id="aSaveAsButton" href="#" onclick="SaveAsModuleButtonClick();">
                             Save As...
                         </a>
                     </li>
-                    <li class="ui-state-disabled">
+                    <li id="aImportButton" class="ui-state-disabled">
                         <a href="#" onclick="ImportButtonClick();">
                             Import
                         </a>
                     </li>
-                    <li class="ui-state-disabled">
+                    <li id="aExportButton" class="ui-state-disabled">
                         <a href="#" onclick="ExportButtonClick();">
                             Export
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a id="aRecentFilesButton" href="#">
                             Recent Files
                         </a>
                     </li>
                     <li>
-                        <a href="#" onclick="ExitButtonClick();">
+                        <a id="aExitButton" href="#" onclick="ExitButtonClick();">
                             Exit
                         </a>
                     </li>
@@ -83,32 +83,32 @@
                 <a href="#">Edit</a>
                 <ul>
                     <li class="ui-state-disabled">
-                        <a href="#" onclick="UndoButtonClick();">
+                        <a id="aUndoButton" href="#" onclick="UndoButtonClick();">
                             Undo
                         </a>
                     </li>
                     <li class="ui-state-disabled">
-                        <a href="#" onclick="RedoButtonClick();">
+                        <a id="aRedoButton" href="#" onclick="RedoButtonClick();">
                             Redo
                         </a>
                     </li>
                     <li class="ui-state-disabled">
-                        <a href="#" onclick="CopyButtonClick();">
+                        <a id="aCopyButton" href="#" onclick="CopyButtonClick();">
                             Copy
                         </a>
                     </li>
                     <li class="ui-state-disabled">
-                        <a href="#" onclick="CutButtonClick();">
+                        <a id="aCutButton" href="#" onclick="CutButtonClick();">
                             Cut
                         </a>
                     </li>
                     <li class="ui-state-disabled">
-                        <a href="#" onclick="PasteButtonClick();">
+                        <a id="aPasteButton" href="#" onclick="PasteButtonClick();">
                             Paste
                         </a>
                     </li>
                     <li class="ui-state-disabled">
-                        <a href="#" onclick="ModulePropertiesButtonClick();">
+                        <a id="aModulePropertiesButton" href="#" onclick="ModulePropertiesButtonClick();">
                             Module Properties
                         </a>
                     </li>
@@ -118,17 +118,17 @@
                 <a href="#">Content</a>
                 <ul>
                     <li class="ui-state-disabled">
-                        <a href="#" onclick="ManageContentPackagesButtonClick();">
+                        <a id="aManageContentPackagesButton" href="#" onclick="ManageContentPackagesButtonClick();">
                             Manage Content Packages
                         </a>
                     </li>
                     <li>
-                        <a href="#" onclick="ContentPackageCreatorButtonClick();">
+                        <a id="aContentPackageCreatorButton" href="#" onclick="ContentPackageCreatorButtonClick();">
                             Content Package Creator
                         </a>
                     </li>
                     <li class="ui-state-disabled">
-                        <a href="#" onclick="BuildModuleButtonClick();">
+                        <a id="aBuildModuleButton" href="#" onclick="BuildModuleButtonClick();">
                             Build Module
                         </a>
                     </li>
@@ -138,12 +138,12 @@
                 <a href="#">Help</a>
                 <ul>
                     <li>
-                        <a href="#" onclick="WinterEngineWebsiteButtonClick();">
+                        <a id="aWinterEngineWebsiteButton" href="#" onclick="WinterEngineWebsiteButtonClick();">
                             Winter Engine Website
                         </a>
                     </li>
                     <li>
-                        <a href="#" onclick="AboutButtonClick();">
+                        <a id="aAboutButton" href="#" onclick="AboutButtonClick();">
                             About
                         </a>
                     </li>
@@ -213,7 +213,7 @@
 
     <div id="divNewModuleBox">
         
-        <label id="lblNewModuleError" class="clsHidden clsErrorMessage">There was an error creating a new module.</label>
+        <label id="lblNewModuleError" class="clsErrorMessage"></label>
 
         <form id="formNewModule">
             <label for="txtModuleName">Name:</label>
@@ -264,6 +264,15 @@
         <br />
         <br />
         <input id="btnAboutBoxOK" type="button" class="clsFullButton" value="OK" onclick="AboutBoxClose();"/>
+    </div>
+
+    <div id="divAlertBox">
+        <label id="lblAlertBox">
+
+        </label>
+        <br />
+        <br />
+        <input id="btnAlertBoxOK" type="button" class="clsFullButton" value="OK" onclick="CloseAlertBox();" />
     </div>
 
 </body>

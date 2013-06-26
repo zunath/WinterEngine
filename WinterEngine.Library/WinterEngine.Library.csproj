@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\GameResourceManager.cs" />
     <Compile Include="Managers\ModuleManager.cs" />
     <Compile Include="Utility\EnumerationHelper.cs" />
     <Compile Include="Utility\ErrorHelper.cs" />

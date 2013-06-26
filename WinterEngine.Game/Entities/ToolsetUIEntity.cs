@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
+using WinterEngine.Editor.Managers;
 
 
 #endif
@@ -144,6 +145,8 @@ namespace WinterEngine.Game.Entities
             // Edit Menu Bindings
 
             // Content Menu Bindings
+            EntityJavascriptObject.Bind("BuildModuleButtonClick", false, BuildModuleButton);
+
 
             // Help Menu Bindings
             EntityJavascriptObject.Bind("WinterEngineWebsiteButtonClick", false, WinterEngineWebsiteButton);
@@ -178,7 +181,7 @@ namespace WinterEngine.Game.Entities
             ModuleManager.ModuleTag = e.Arguments[1];
             bool success = ModuleManager.CreateModule();
 
-            AsyncJavascriptCallback("NewModuleBoxOKClick_Callback", success); // DEBUGGING
+            AsyncJavascriptCallback("NewModuleBoxOKClick_Callback", success);
         }
 
         private void OpenModuleButton(object sender, JavascriptMethodEventArgs e)
@@ -236,6 +239,29 @@ namespace WinterEngine.Game.Entities
         #endregion
 
         #region UI Methods - Content Menu Bindings
+
+        private void BuildModuleButton(object sender, JavascriptMethodEventArgs e)
+        {
+            bool success = false;
+            string callbackException = "";
+
+            try
+            {
+                using (GameResourceManager manager = new GameResourceManager())
+                {
+                    manager.RebuildModule();
+                }
+
+                success = true;
+            }
+            catch(Exception ex)
+            {
+                success = false;
+                callbackException = ex.StackTrace;
+            }
+
+            AsyncJavascriptCallback("BuildModuleButtonClick_Callback", success, callbackException);
+        }
 
         #endregion
 
