@@ -40,10 +40,3 @@
 {
     opacity:0.5;
 }
-
-input.error
-{
-    border-color: red;
-    border-style: solid;
-    border-width: 3px;
-}

@@ -4,11 +4,30 @@ function NewModuleButtonClick() {
     $('#divNewModuleBox').dialog('open');
 }
 
+function CloseNewModuleBox() {
+    $('#divNewModuleBox').dialog('close');
+    $('#lblNewModuleError').addClass('clsHidden');
+}
+
 function NewModuleBoxOKClick() {
+
+    if (!$('#formNewModule').valid()) {
+        return false;
+    }
+
     var moduleName = $('#txtModuleName').val();
     var moduleTag = $('#txtModuleTag').val();
 
     Entity.NewModuleButtonClick(moduleName, moduleTag);
+}
+
+function NewModuleBoxOKClick_Callback(success) {
+    if (success) {
+        CloseNewModuleBox();
+    }
+    else {
+        $('#lblNewModuleError').removeClass('clsHidden');
+    }
 }
 
 function NewModuleBoxCancelClick() {

@@ -213,17 +213,21 @@
 
     <div id="divNewModuleBox">
         
-        <label>Name:</label>
-        <br />
-        <input id="txtModuleName" type="text" maxlength="64" />
-        <br />
-        <label>Tag:</label>
-        <br />
-        <input id="txtModuleTag" type="text" maxlength="32" />
-        <br />
-        <br />
-        <input id="btnNewModuleOK" type="button" class="clsHalfButton" value="OK" onclick="NewModuleBoxOKClick();" />
-        <input id="btnNewModuleCancel" type="button" class="clsHalfButton" value="Cancel" onclick="NewModuleBoxCancelClick();" />
+        <label id="lblNewModuleError" class="clsHidden clsErrorMessage">There was an error creating a new module.</label>
+
+        <form id="formNewModule">
+            <label for="txtModuleName">Name:</label>
+            <br />
+            <input id="txtModuleName" class="required" type="text" maxlength="64" />
+            <br />
+            <label for="txtModuleTag">Tag:</label>
+            <br />
+            <input id="txtModuleTag" class="required" type="text" maxlength="32" />
+            <br />
+            <br />
+            <input id="btnNewModuleOK" type="button" class="clsHalfButton" value="OK" onclick="NewModuleBoxOKClick();" />
+            <input id="btnNewModuleCancel" type="button" class="clsHalfButton" value="Cancel" onclick="NewModuleBoxCancelClick();" />
+        </form>
     </div>
 
     <div id="divOpenModuleBox">

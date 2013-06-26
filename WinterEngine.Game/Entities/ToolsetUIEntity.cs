@@ -176,7 +176,9 @@ namespace WinterEngine.Game.Entities
         {
             ModuleManager.ModuleName = e.Arguments[0];
             ModuleManager.ModuleTag = e.Arguments[1];
-            ModuleManager.CreateModule();
+            bool success = ModuleManager.CreateModule();
+
+            AsyncJavascriptCallback("NewModuleBoxOKClick_Callback", success); // DEBUGGING
         }
 
         private void OpenModuleButton(object sender, JavascriptMethodEventArgs e)

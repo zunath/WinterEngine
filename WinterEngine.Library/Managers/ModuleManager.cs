@@ -149,32 +149,41 @@ namespace WinterEngine.Library.Managers
         /// Creates a new module in the temporary directory.
         /// Note that this module will not become permanent until a call to SaveModule() is made.
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="tempPath"></param>
-        public void CreateModule()
+        /// <returns>True if successful, false if unsuccessful</returns>
+        public bool CreateModule()
         {
-            using(FileArchiveManager manager = new FileArchiveManager())
+            try
             {
-                TemporaryDirectoryPath = manager.CreateUniqueDirectory();
+                using (FileArchiveManager manager = new FileArchiveManager())
+                {
+                    TemporaryDirectoryPath = manager.CreateUniqueDirectory();
+                }
+
+                // Build a new database file and structure.
+                using (DatabaseRepository repo = new DatabaseRepository())
+                {
+                    repo.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB", true);
+                }
+
+                // Add the module details to the correct table.
+                using (ModuleRepository repo = new ModuleRepository())
+                {
+                    GameModule gameModule = new GameModule();
+                    gameModule.ModuleName = ModuleName;
+                    gameModule.ModuleTag = ModuleTag;
+
+                    repo.Add(gameModule);
+                }
+
+                InitializeData();
+                LoadResourcePacks();
+
+                return true;
             }
-            // Build a new database file and structure.
-            using (DatabaseRepository repo = new DatabaseRepository())
+            catch
             {
-                repo.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB", true);
+                return false;
             }
-
-            // Add the module details to the correct table.
-            using (ModuleRepository repo = new ModuleRepository())
-            {
-                GameModule gameModule = new GameModule();
-                gameModule.ModuleName = ModuleName;
-                gameModule.ModuleTag = ModuleTag;
-
-                repo.Add(gameModule);
-            }
-
-            InitializeData();
-            LoadResourcePacks();
         }
 
         /// <summary>
@@ -272,6 +281,14 @@ namespace WinterEngine.Library.Managers
             {
                 _moduleClosedMethod();
             }
+        }
+
+        /// <summary>
+        /// DESTRUCTOR METHOD - Cleans up temporary files.
+        /// </summary>
+        ~ModuleManager()
+        {
+            CloseModule();
         }
 
         /// <summary>

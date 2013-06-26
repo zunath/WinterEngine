@@ -1,6 +1,7 @@
 ﻿/* Page Initialization */
 
 function Initialize() {
+    InitializeValidation();
     InitializeMainMenu();
     InitializeObjectSelectionMenu();
     InitializeTreeView();
@@ -110,5 +111,11 @@ function InitializeContentPackageCreatorBox() {
         resizable: false,
         dialogClass: 'jqueryUIDialogNoCloseButton',
         draggable: false
+    });
+}
+
+function InitializeValidation() {
+    $('#formNewModule').validate({
+        errorPlacement: $.noop
     });
 }
