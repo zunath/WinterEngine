@@ -25,6 +25,8 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.Editor.Managers;
+using WinterEngine.DataAccess.FileAccess;
+using System.Web.Script.Serialization;
 
 
 #endif
@@ -139,6 +141,9 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("OpenModuleButtonClick", false, OpenModuleButton);
             EntityJavascriptObject.Bind("SaveModuleButtonClick", false, SaveModuleButton);
             EntityJavascriptObject.Bind("SaveAsModuleButtonClick", false, SaveAsModuleButton);
+            EntityJavascriptObject.Bind("ImportButtonClick", false, ImportButtonClick);
+            EntityJavascriptObject.Bind("ExportButtonClick", false, ExportButtonClick);
+            EntityJavascriptObject.Bind("ExportToERFButtonClick", false, ExportToERFButtonClick);
             EntityJavascriptObject.Bind("CloseModuleButtonClick", false, OpenModuleButton);
             EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButton);
 
@@ -227,9 +232,54 @@ namespace WinterEngine.Game.Entities
             ModuleManager.CloseModule();
         }
 
-        private void ExitButton(object sender, JavascriptMethodEventArgs e)
+        private void ImportButtonClick(object sender, JavascriptMethodEventArgs e)
+        {
+            OpenFile.Filter = ExtensionFactory.BuildERFFileFilter();
+
+            if (OpenFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    List<GameObjectBase> gameObjects;
+                    using (ERFFileAccess repo = new ERFFileAccess())
+                    {
+                        gameObjects = repo.DeserializeERFFile(OpenFile.FileName);
+                    }
+
+                    string jsonGameObjects = new JavaScriptSerializer().Serialize(gameObjects);
+                    AsyncJavascriptCallback("ImportButtonClick_Callback", jsonGameObjects);
+                }
+                catch
+                {
+                    throw;
+                }
+
+            }
+        }
+
+        private void ExportButtonClick(object sender, JavascriptMethodEventArgs e)
+        {
+            OpenFile.Filter = ExtensionFactory.BuildERFFileFilter();
+
+            if (OpenFile.ShowDialog() == DialogResult.OK)
+            {
+                using (ERFFileAccess repo = new ERFFileAccess())
+                {
+                    List<GameObjectBase> gameObjects = repo.DeserializeERFFile(OpenFile.FileName);
+                    string jsonGameObjects = new JavaScriptSerializer().Serialize(gameObjects);
+                    AsyncJavascriptCallback("ExportButtonClick_Callback", jsonGameObjects);
+                }
+            }
+        }
+
+        private void ExportToERFButtonClick(object sender, JavascriptMethodEventArgs e)
         {
 
+        }
+
+        private void ExitButton(object sender, JavascriptMethodEventArgs e)
+        {
+            Application.Exit();
         }
 
         #endregion

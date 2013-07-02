@@ -12,7 +12,7 @@ using WinterEngine.DataTransferObjects.Paths;
 
 namespace WinterEngine.DataAccess.FileAccess
 {
-    public class PlayerCharacterRepository : IDisposable
+    public class PlayerCharacterFileAccess : IDisposable
     {
         #region Fields
 
@@ -113,16 +113,23 @@ namespace WinterEngine.DataAccess.FileAccess
         /// <returns></returns>
         public PlayerCharacter DeserializePlayerCharacterFile(string filePath)
         {
-            PlayerCharacter character;
-            XmlSerializer serializer = new XmlSerializer(typeof(PlayerCharacter));
-            using (FileStream stream = new FileStream(filePath, FileMode.Open))
+            try
             {
-                character = serializer.Deserialize(stream) as PlayerCharacter;
+                PlayerCharacter character;
+                XmlSerializer serializer = new XmlSerializer(typeof(PlayerCharacter));
+                using (FileStream stream = new FileStream(filePath, FileMode.Open))
+                {
+                    character = serializer.Deserialize(stream) as PlayerCharacter;
+                }
+
+                character.FileName = Path.GetFileName(filePath);
+
+                return character;
             }
-
-            character.FileName = Path.GetFileName(filePath);
-
-            return character;
+            catch
+            {
+                throw;
+            }
         }
 
         /// <summary>

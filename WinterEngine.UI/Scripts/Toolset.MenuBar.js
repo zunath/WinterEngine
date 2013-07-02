@@ -58,14 +58,27 @@ function SaveAsModuleButtonClick() {
 
 function ImportButtonClick() {
     if (IsMenuButtonDisabled($(this))) return;
+
+    Entity.ImportButtonClick();
+}
+
+function ImportButtonClick_Callback(jsonObjectList) {
+    $('#divImportBox').dialog('open');
 }
 
 function ExportButtonClick() {
     if (IsMenuButtonDisabled($(this))) return;
+
+}
+
+function ExportButtonClick_Callback(jsonObjectList) {
+    $('#divExportBox').dialog('open');
 }
 
 function ExitButtonClick() {
     if (IsMenuButtonDisabled($(this))) return;
+
+    Entity.ExitButtonClick();
 }
 
 /* Button Functionality - Edit Menu */

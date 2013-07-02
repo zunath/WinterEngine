@@ -137,6 +137,18 @@ namespace WinterEngine.DataAccess.Factories
         }
 
         /// <summary>
+        /// Returns a string containing a filter for Open/Save File Dialogs for ERF files.
+        /// </summary>
+        /// <returns></returns>
+        public string BuildERFFileFilter()
+        {
+            string filter = "All Available Types|*" + GetFileExtension(FileTypeEnum.Erf) +
+                            "|Winter ERF Files (" + GetFileExtension(FileTypeEnum.Erf) + ")|*" + GetFileExtension(FileTypeEnum.Erf);
+
+            return filter;
+        }
+
+        /// <summary>
         /// Returns a string containing a filter for Open/Save File Dialogs for modules.
         /// </summary>
         /// <returns></returns>
