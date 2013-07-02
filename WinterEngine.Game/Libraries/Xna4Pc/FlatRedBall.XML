@@ -3284,7 +3284,6 @@
         <member name="P:FlatRedBall.Graphics.GraphicsOptions.UseMultiSampling">
             <summary>
             Enables or disables multisampling
-            Use SetMultiSampling() to enable multisampling and specify options simultaneously
             </summary>
         </member>
         <member name="T:FlatRedBall.Graphics.IColorable">
