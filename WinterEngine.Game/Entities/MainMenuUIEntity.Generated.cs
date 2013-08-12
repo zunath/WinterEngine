@@ -119,9 +119,6 @@ namespace WinterEngine.Game.Entities
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
 			base.PostInitialize();
-			ResourcePath = "file:///./Components/MainMenu.html";
-			X = 0f;
-			Y = 0f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public override void AddToManagersBottomUp (Layer layerToAddTo)
@@ -142,15 +139,29 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
-			ResourcePath = "file:///./Components/MainMenu.html";
-			X = 0f;
-			Y = 0f;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
 			RotationX = oldRotationX;
 			RotationY = oldRotationY;
 			RotationZ = oldRotationZ;
+			ResourcePath = "file:///./Components/MainMenu.html";
+			if (Parent == null)
+			{
+				X = 0f;
+			}
+			else
+			{
+				RelativeX = 0f;
+			}
+			if (Parent == null)
+			{
+				Y = 0f;
+			}
+			else
+			{
+				RelativeY = 0f;
+			}
 		}
 		public override void ConvertToManuallyUpdated ()
 		{
