@@ -139,12 +139,12 @@ namespace WinterEngine.Game.Entities
 
             EntityJavascriptObject.Bind("NewModuleButtonClick", false, NewModuleButton);
             EntityJavascriptObject.Bind("OpenModuleButtonClick", false, OpenModuleButton);
+            EntityJavascriptObject.Bind("CloseModuleButtonClick", false, CloseModuleButton);
             EntityJavascriptObject.Bind("SaveModuleButtonClick", false, SaveModuleButton);
             EntityJavascriptObject.Bind("SaveAsModuleButtonClick", false, SaveAsModuleButton);
             EntityJavascriptObject.Bind("ImportButtonClick", false, ImportButtonClick);
             EntityJavascriptObject.Bind("ExportButtonClick", false, ExportButtonClick);
             EntityJavascriptObject.Bind("ExportToERFButtonClick", false, ExportToERFButtonClick);
-            EntityJavascriptObject.Bind("CloseModuleButtonClick", false, OpenModuleButton);
             EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButton);
 
             // Edit Menu Bindings
@@ -174,6 +174,7 @@ namespace WinterEngine.Game.Entities
 
         private void SaveModule()
         {
+            ModuleManager.SaveModule(ModuleFilePath);
         }
 
         #endregion
@@ -199,10 +200,13 @@ namespace WinterEngine.Game.Entities
                 {
                     ModuleFilePath = OpenFile.FileName;
                     ModuleManager.OpenModule(ModuleFilePath);
+
+                    AsyncJavascriptCallback("OpenModuleButtonClick_Callback", true);
                 }
             }
             catch
             {
+                AsyncJavascriptCallback("OpenModuleButtonClick_Callback", false);
                 throw;
             }
         }
@@ -221,8 +225,11 @@ namespace WinterEngine.Game.Entities
 
         private void SaveAsModuleButton(object sender, JavascriptMethodEventArgs e)
         {
+            SaveFile.Filter = ExtensionFactory.BuildModuleFileFilter();
+
             if (SaveFile.ShowDialog() == DialogResult.OK)
             {
+                ModuleFilePath = SaveFile.FileName;
                 SaveModule();
             }
         }

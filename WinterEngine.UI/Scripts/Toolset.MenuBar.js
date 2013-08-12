@@ -1,7 +1,7 @@
 ﻿/* Button Functionality - File Menu */
 
-function NewModuleButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function NewModuleButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
     $('#divNewModuleBox').dialog('open');
 }
 
@@ -28,6 +28,8 @@ function NewModuleBoxOKClick() {
 function NewModuleBoxOKClick_Callback(success) {
     if (success) {
         CloseNewModuleBox();
+
+        ToggleModuleActionButtons(true);
     }
     else {
         $('#lblNewModuleError').text('There was an error creating a new module.');
@@ -38,26 +40,41 @@ function NewModuleBoxCancelClick() {
     CloseNewModuleBox();
 }
 
-function OpenModuleButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function OpenModuleButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
     Entity.OpenModuleButtonClick();
 }
 
-function CloseModuleButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function OpenModuleButtonClick_Callback(success) {
+    if (success) {
+        ToggleModuleActionButtons(true);
+    }
+    else {
+        ToggleModuleActionButtons(false);
+    }
+}
+
+function CloseModuleButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
     Entity.CloseModuleButtonClick();
+
+    ToggleModuleActionButtons(false);
 }
 
-function SaveModuleButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function SaveModuleButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
+
+    Entity.SaveModuleButtonClick();
 }
 
-function SaveAsModuleButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function SaveAsModuleButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
+
+    Entity.SaveAsModuleButtonClick();
 }
 
-function ImportButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function ImportButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 
     Entity.ImportButtonClick();
 }
@@ -66,8 +83,8 @@ function ImportButtonClick_Callback(jsonObjectList) {
     $('#divImportBox').dialog('open');
 }
 
-function ExportButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function ExportButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 
 }
 
@@ -75,50 +92,50 @@ function ExportButtonClick_Callback(jsonObjectList) {
     $('#divExportBox').dialog('open');
 }
 
-function ExitButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function ExitButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 
     Entity.ExitButtonClick();
 }
 
 /* Button Functionality - Edit Menu */
 
-function UndoButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function UndoButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 }
 
-function RedoButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function RedoButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 }
 
-function CopyButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function CopyButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 }
 
-function CutButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function CutButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 }
 
-function PasteButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function PasteButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 }
 
-function ModulePropertiesButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function ModulePropertiesButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 }
 
 /* Button Functionality - Content Menu */
 
-function ManageContentPackagesButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function ManageContentPackagesButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 }
 
-function ContentPackageCreatorButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function ContentPackageCreatorButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 }
 
-function BuildModuleButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function BuildModuleButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 
     $('#lblAlertBox').text('Rebuilding module. Please wait...');
     $('#divAlertBox').dialog('open');
@@ -140,14 +157,14 @@ function BuildModuleButtonClick_Callback(success, exception) {
 
 /* Button Functionality - Help Menu */
 
-function WinterEngineWebsiteButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function WinterEngineWebsiteButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 
     Entity.WinterEngineWebsiteButtonClick();
 }
 
-function AboutButtonClick() {
-    if (IsMenuButtonDisabled($(this))) return;
+function AboutButtonClick(element) {
+    if (IsMenuButtonDisabled($(element))) return;
 
     $('#divAboutBox').dialog('open');
 }
@@ -160,15 +177,6 @@ function AboutBoxClose() {
 
 /* General Methods */
 
-function ToggleMenuButton(selector, enable) {
-    if (enable) {
-        $(selector).addClass('ui-state-disabled');
-    }
-    else {
-        $(selector).removeClass('ui-state-disabled');
-    }
-}
-
 function CloseAlertBox() {
     $('#divAlertBox').dialog('close');
 }
@@ -176,5 +184,24 @@ function CloseAlertBox() {
 function IsMenuButtonDisabled(button) {
     var isDisabled = button.parent().hasClass('ui-state-disabled');
 
+    alert(button.attr('id'));
+
     return isDisabled;
+}
+
+function ToggleModuleActionButtons(isEnabled) {
+    if (isEnabled) {
+        $('#liCloseModuleButton').removeClass('ui-state-disabled');
+        $('#liSaveModuleButton').removeClass('ui-state-disabled');
+        $('#liSaveAsButton').removeClass('ui-state-disabled');
+        $('#liImportButton').removeClass('ui-state-disabled');
+        $('#liExportButton').removeClass('ui-state-disabled');
+    }
+    else {
+        $('#liCloseModuleButton').addClass('ui-state-disabled');
+        $('#liSaveModuleButton').addClass('ui-state-disabled');
+        $('#liSaveAsButton').addClass('ui-state-disabled');
+        $('#liImportButton').addClass('ui-state-disabled');
+        $('#liExportButton').addClass('ui-state-disabled');
+    }
 }
