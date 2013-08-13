@@ -1,38 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using FlatRedBall;
-using FlatRedBall.Input;
-using FlatRedBall.Instructions;
-using FlatRedBall.AI.Pathfinding;
-using FlatRedBall.Graphics.Animation;
-using FlatRedBall.Graphics.Particle;
 
-using FlatRedBall.Math.Geometry;
-using FlatRedBall.Math.Splines;
-using BitmapFont = FlatRedBall.Graphics.BitmapFont;
-using Cursor = FlatRedBall.Gui.Cursor;
-using GuiManager = FlatRedBall.Gui.GuiManager;
 using Awesomium.Core;
 using System.Diagnostics;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.Library.Managers;
 using System.Windows.Forms;
-using System.Linq;
+
 
 #if FRB_XNA || SILVERLIGHT
-using Keys = Microsoft.Xna.Framework.Input.Keys;
-using Vector3 = Microsoft.Xna.Framework.Vector3;
-using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.Editor.Managers;
 using WinterEngine.DataAccess.FileAccess;
 using System.Web.Script.Serialization;
 using WinterEngine.DataAccess;
-using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
-using WinterEngine.DataTransferObjects.Resources;
+
 
 
 #endif
@@ -418,8 +402,17 @@ namespace WinterEngine.Game.Entities
                     scriptNodes = repo.GenerateJSTreeCategories();
                 }
 
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                // DEBUGGING
 
+                areaNodes.Add(new JSTreeNode("test1"));
+                areaNodes.Add(new JSTreeNode("test2"));
+                areaNodes.Add(new JSTreeNode("test3"));
+                areaNodes.Add(new JSTreeNode("test4"));
+
+                // END DEBUGGING
+
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                
                 AsyncJavascriptCallback("LoadTreeViews_Callback",
                     serializer.Serialize(areaNodes),
                     serializer.Serialize(creatureNodes),

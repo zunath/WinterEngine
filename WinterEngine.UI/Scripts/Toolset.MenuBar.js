@@ -216,17 +216,17 @@ function LoadTreeViews_Callback(jsonAreas,
     var areas = $.parseJSON(jsonAreas);
 
 
-
+    
     $('#divAreaTreeView').jstree({
-        "json_data" : {
-            "data": eval(jsonAreas)
+        "json_data": {
+            "data": [
+                areas
+            ]
         },
         "plugins": ["json_data", "ui", "themeroller", "sort", "contextmenu"],
         "animation": 0
         
     });
     
-    alert(jsonAreas);
-
     $('#divAreaTreeView').removeClass('clsHidden');
 }

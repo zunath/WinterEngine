@@ -133,7 +133,7 @@ namespace WinterEngine.DataAccess
         public List<JSTreeNode> GenerateJSTreeCategories()
         {
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Area).ToList();
+            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Placeable).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
@@ -141,7 +141,7 @@ namespace WinterEngine.DataAccess
                 foreach (Placeable placeable in placeables)
                 {
                     JSTreeNode childNode = new JSTreeNode(placeable.Name);
-                    categoryNode.Children.Add(childNode);
+                    categoryNode.children.Add(childNode);
                 }
 
                 treeNodes.Add(categoryNode);

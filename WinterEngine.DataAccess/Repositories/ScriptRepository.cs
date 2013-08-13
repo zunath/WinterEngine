@@ -82,7 +82,7 @@ namespace WinterEngine.DataAccess.Repositories
         public List<JSTreeNode> GenerateJSTreeCategories()
         {
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Area).ToList();
+            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Script).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
@@ -90,7 +90,7 @@ namespace WinterEngine.DataAccess.Repositories
                 foreach (Script script in scripts)
                 {
                     JSTreeNode childNode = new JSTreeNode(script.VisibleName);
-                    categoryNode.Children.Add(childNode);
+                    categoryNode.children.Add(childNode);
                 }
 
                 treeNodes.Add(categoryNode);
