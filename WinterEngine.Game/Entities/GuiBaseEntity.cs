@@ -13,6 +13,7 @@ using WinterEngine.UI.AwesomiumXNA;
 using FlatRedBall.Math;
 using WinterEngine.Network;
 using FlatRedBall.Gui;
+using WinForms = System.Windows.Forms;
 using WinterEngine.Game.Services;
 using Microsoft.Xna.Framework.Graphics;
 using AwesomiumXNA;
@@ -202,6 +203,12 @@ namespace WinterEngine.Game.Entities
 
             FlatRedBallServices.Game.Window.ClientSizeChanged += ResizeWindow;
             _webView.DocumentReady += OnDocumentReady;
+            _webView.ShowJavascriptDialog += OnJavascriptDialog;
+        }
+
+        private void OnJavascriptDialog(object sender, JavascriptDialogEventArgs e)
+        {
+            WinForms.MessageBox.Show(e.Message, "Javascript Pop-Up");
         }
 
         private void DisposeAwesomium()

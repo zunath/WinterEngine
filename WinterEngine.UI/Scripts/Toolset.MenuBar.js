@@ -28,8 +28,8 @@ function NewModuleBoxOKClick() {
 function NewModuleBoxOKClick_Callback(success) {
     if (success) {
         CloseNewModuleBox();
-
         ToggleModuleActionButtons(true);
+        Entity.LoadTreeViewData();
     }
     else {
         $('#lblNewModuleError').text('There was an error creating a new module.');
@@ -48,6 +48,7 @@ function OpenModuleButtonClick(element) {
 function OpenModuleButtonClick_Callback(success) {
     if (success) {
         ToggleModuleActionButtons(true);
+        Entity.LoadTreeViewData();
     }
     else {
         ToggleModuleActionButtons(false);
@@ -184,8 +185,6 @@ function CloseAlertBox() {
 function IsMenuButtonDisabled(button) {
     var isDisabled = button.parent().hasClass('ui-state-disabled');
 
-    alert(button.attr('id'));
-
     return isDisabled;
 }
 
@@ -204,4 +203,23 @@ function ToggleModuleActionButtons(isEnabled) {
         $('#liImportButton').addClass('ui-state-disabled');
         $('#liExportButton').addClass('ui-state-disabled');
     }
+}
+
+/* Tree View Methods */
+
+function LoadTreeViews_Callback(jsonAreas,
+                                jsonCreatures,
+                                jsonItems,
+                                jsonPlaceables,
+                                jsonConversations,
+                                jsonScripts) {
+    var areas = $.parseJSON(jsonAreas);
+
+
+
+    $('#divAreaTreeView').jstree({
+        "plugins": ["json_data", "ui", "themeroller", "sort", "contextmenu"],
+        "animation": 0,
+        "data": areas
+    });
 }

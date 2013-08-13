@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess.Contexts
 {
@@ -19,6 +20,8 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<Tile> Tiles { get; set; }
         public DbSet<ContentPackage> ContentPackages { get; set; }
         public DbSet<ContentPackageResource> ContentPackageResources { get; set; }
+        public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<Script> Scripts { get; set; }
 
         public ModuleDataContext(string connString) : base(connString)
         {

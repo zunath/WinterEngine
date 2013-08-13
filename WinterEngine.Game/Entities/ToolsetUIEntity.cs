@@ -19,6 +19,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.Library.Managers;
 using System.Windows.Forms;
+using System.Linq;
 
 #if FRB_XNA || SILVERLIGHT
 using Keys = Microsoft.Xna.Framework.Input.Keys;
@@ -27,6 +28,9 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.Editor.Managers;
 using WinterEngine.DataAccess.FileAccess;
 using System.Web.Script.Serialization;
+using WinterEngine.DataAccess;
+using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataAccess.Repositories;
 
 
 #endif
@@ -152,11 +156,9 @@ namespace WinterEngine.Game.Entities
             // Content Menu Bindings
             EntityJavascriptObject.Bind("BuildModuleButtonClick", false, BuildModuleButton);
 
-
             // Help Menu Bindings
             EntityJavascriptObject.Bind("WinterEngineWebsiteButtonClick", false, WinterEngineWebsiteButton);
-        
-            
+
             // Object Menu Bindings
             EntityJavascriptObject.Bind("AreasButtonClick", false, AreasButton);
             EntityJavascriptObject.Bind("CreaturesButtonClick", false, CreaturesButton);
@@ -166,6 +168,8 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("ScriptsButtonClick", false, ScriptsButton);
             EntityJavascriptObject.Bind("GraphicsButtonClick", false, GraphicsButton);
 
+            // Treeview Bindings
+            EntityJavascriptObject.Bind("LoadTreeViewData", false, LoadTreeViewData);
         }
 
         #endregion
@@ -371,6 +375,73 @@ namespace WinterEngine.Game.Entities
 
 
 
+        #endregion
+
+        #region UI Methods - Tree Views
+
+        private void LoadTreeViewData(object sender, JavascriptMethodEventArgs e)
+        {
+            try
+            {
+                List<Category> areaCategories;
+                List<Category> creatureCategories;
+                List<Category> itemCategories;
+                List<Category> placeableCategories;
+                List<Category> conversationCategories;
+                List<Category> scriptCategories;
+
+                using (CategoryRepository repo = new CategoryRepository())
+                {
+                    areaCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Area);
+                    creatureCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Creature);
+                    itemCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Item);
+                    placeableCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Placeable);
+                    conversationCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Conversation);
+                    scriptCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Script);
+                }
+
+                // Get each category's children for each object type
+                using (AreaRepository repo = new AreaRepository())
+                {
+                    areaCategories.ForEach(x => x.GameObjectChildren = repo.GetAllByResourceCategory(x).Cast<GameObjectBase>().ToList());
+                }
+                using (CreatureRepository repo = new CreatureRepository())
+                {
+                    creatureCategories.ForEach(x => x.GameObjectChildren = repo.GetAllByResourceCategory(x).Cast<GameObjectBase>().ToList());
+                }
+                using (ItemRepository repo = new ItemRepository())
+                {
+                    itemCategories.ForEach(x => x.GameObjectChildren = repo.GetAllByResourceCategory(x).Cast<GameObjectBase>().ToList());
+                }
+                using (PlaceableRepository repo = new PlaceableRepository())
+                {
+                    placeableCategories.ForEach(x => x.GameObjectChildren = repo.GetAllByResourceCategory(x).Cast<GameObjectBase>().ToList());
+                }
+                using (ConversationRepository repo = new ConversationRepository())
+                {
+                    conversationCategories.ForEach(x => x.GameResourceChildren = repo.GetAllByResourceCategory(x).Cast<GameResourceBase>().ToList());
+                }
+                using (ScriptRepository repo = new ScriptRepository())
+                {
+                    scriptCategories.ForEach(x => x.GameResourceChildren = repo.GetAllByResourceCategory(x).Cast<GameResourceBase>().ToList());
+                }
+
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                AsyncJavascriptCallback("LoadTreeViews_Callback",
+                    serializer.Serialize(areaCategories),
+                    serializer.Serialize(creatureCategories),
+                    serializer.Serialize(itemCategories),
+                    serializer.Serialize(placeableCategories),
+                    serializer.Serialize(conversationCategories),
+                    serializer.Serialize(scriptCategories));
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        
         #endregion
 
     }

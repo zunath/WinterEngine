@@ -4,7 +4,6 @@ function Initialize() {
     InitializeValidation();
     InitializeMainMenu();
     InitializeObjectSelectionMenu();
-    InitializeTreeView();
     InitializeAboutBox();
     InitializeNewModuleBox();
     InitializeOpenModuleBox();
@@ -27,14 +26,6 @@ function InitializeObjectSelectionMenu() {
     $('#ulObjectBar').menu({
     });
 }
-
-function InitializeTreeView() {
-    $('#divTreeView').jstree({
-        "plugins": ["html_data", "ui", "themeroller", "sort", "contextmenu"],
-        "animation": 0
-    });
-}
-
 function InitializeAboutBox() {
     $('#divAboutBox').dialog({
         modal: true,

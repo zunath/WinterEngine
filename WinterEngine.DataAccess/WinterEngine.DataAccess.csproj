@@ -90,6 +90,7 @@
     <Compile Include="Repositories\AreaRepository.cs" />
     <Compile Include="Repositories\ContentPackageRepository.cs" />
     <Compile Include="Repositories\ContentPackageResourceRepository.cs" />
+    <Compile Include="Repositories\ConversationRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\IGameObjectRepository.cs" />
     <Compile Include="Repositories\IResourceRepository.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Repositories\PlaceableRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\ScriptRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="WinterConnectionInformation.cs" />
   </ItemGroup>

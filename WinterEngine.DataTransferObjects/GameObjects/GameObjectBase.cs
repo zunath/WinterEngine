@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WinterEngine.DataTransferObjects.Enumerations;
@@ -19,12 +20,14 @@ namespace WinterEngine.DataTransferObjects
         private string _resref;
         private GameObjectTypeEnum _gameObjectType;
         private int _resourceCategoryID;
+        private Category _resourceCategory;
         private string _comment;
         private int? _graphicResourceID;
         private ContentPackageResource _graphicResource;
 
         // Temporary fields (not stored in database)
         private string _temporaryDisplayName;
+
 
         #endregion
 
@@ -110,6 +113,13 @@ namespace WinterEngine.DataTransferObjects
         {
             get { return _resourceCategoryID; }
             set { _resourceCategoryID = value; }
+        }
+        
+        [ForeignKey("ResourceCategoryID")]
+        public virtual Category ResourceCategory
+        {
+            get { return _resourceCategory; }
+            set { _resourceCategory = value; }
         }
 
         /// <summary>

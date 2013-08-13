@@ -15,6 +15,8 @@ namespace WinterEngine.DataTransferObjects
         #region Fields
 
         private GameObjectTypeEnum _gameObjectType;
+        private List<GameObjectBase> _gameObjectChildren;
+        private List<GameResourceBase> _gameResourceChildren;
 
         #endregion
 
@@ -43,6 +45,28 @@ namespace WinterEngine.DataTransferObjects
             // This field is not mapped to EF to prevent issues later on if the solution is upgraded to a later version of .NET
             get { return _gameObjectType; }
             set { _gameObjectType = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the children game objects this category contains.
+        /// Typically used with hierarchical data such as the tree views in the toolset.
+        /// </summary>
+        [NotMapped]
+        public List<GameObjectBase> GameObjectChildren
+        {
+            get { return _gameObjectChildren; }
+            set { _gameObjectChildren = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the children game resources this category contains.
+        /// Typically used with hierarchical data such as the tree views in the toolset.
+        /// </summary>
+        [NotMapped]
+        public List<GameResourceBase> GameResourceChildren
+        {
+            get { return _gameResourceChildren; }
+            set { _gameResourceChildren = value; }
         }
 
         #endregion

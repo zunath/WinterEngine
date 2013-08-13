@@ -7,6 +7,7 @@ using System.Text;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Resources;
 
 
 namespace WinterEngine.DataAccess
@@ -189,6 +190,33 @@ namespace WinterEngine.DataAccess
                 return raceRepository;
             }
         }
+        private GenericRepository<ModuleDataContext, Conversation> conversationRepository;
+        public GenericRepository<ModuleDataContext, Conversation> ConversationRepository
+        {
+            get
+            {
+                if (this.conversationRepository == null)
+                {
+                    this.conversationRepository
+                        = new GenericRepository<ModuleDataContext, Conversation>(context);
+                }
+                return conversationRepository;
+            }
+        }
+        private GenericRepository<ModuleDataContext, Script> scriptRepository;
+        public GenericRepository<ModuleDataContext, Script> ScriptRepository
+        {
+            get
+            {
+                if (this.scriptRepository == null)
+                {
+                    this.scriptRepository
+                        = new GenericRepository<ModuleDataContext, Script>(context);
+                }
+                return scriptRepository;
+            }
+        }
+
         #endregion
 
         #region Mapping repositories
