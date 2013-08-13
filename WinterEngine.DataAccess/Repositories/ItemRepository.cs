@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
+using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 
 
@@ -123,6 +125,29 @@ namespace WinterEngine.DataAccess
             return !Object.ReferenceEquals(item, null);
         }
 
+        /// <summary>
+        /// Generates a hierarchy of categories containing items for use in tree views.
+        /// </summary>
+        /// <returns></returns>
+        public List<JSTreeNode> GenerateJSTreeCategories()
+        {
+            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
+            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Area).ToList();
+            foreach (Category category in categories)
+            {
+                JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                List<Item> items = GetAllByResourceCategory(category);
+                foreach (Item item in items)
+                {
+                    JSTreeNode childNode = new JSTreeNode(item.Name);
+                    categoryNode.Children.Add(childNode);
+                }
+
+                treeNodes.Add(categoryNode);
+            }
+
+            return treeNodes;
+        }
 
         public override void Dispose()
         {

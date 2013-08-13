@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 
 
 namespace WinterEngine.DataAccess.Repositories
@@ -20,5 +21,6 @@ namespace WinterEngine.DataAccess.Repositories
         List<T> GetAllByResourceCategory(Category resourceCategory);
         T GetByResref(string resref);
         void DeleteAllByCategory(Category resourceCategory);
+        List<JSTreeNode> GenerateJSTreeCategories();
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 
 
@@ -126,6 +128,30 @@ namespace WinterEngine.DataAccess
         {
             Creature creature = Context.CreatureRepository.Get(x => x.Resref == resref).SingleOrDefault();
             return !Object.ReferenceEquals(creature, null);
+        }
+
+        /// <summary>
+        /// Generates a hierarchy of categories containing creatures for use in tree views.
+        /// </summary>
+        /// <returns></returns>
+        public List<JSTreeNode> GenerateJSTreeCategories()
+        {
+            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
+            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Area).ToList();
+            foreach (Category category in categories)
+            {
+                JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                List<Creature> creatures = GetAllByResourceCategory(category);
+                foreach (Creature creature in creatures)
+                {
+                    JSTreeNode childNode = new JSTreeNode(creature.Name);
+                    categoryNode.Children.Add(childNode);
+                }
+
+                treeNodes.Add(categoryNode);
+            }
+
+            return treeNodes;
         }
 
         public override void Dispose()

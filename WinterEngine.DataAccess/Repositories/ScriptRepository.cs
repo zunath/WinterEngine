@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess.Repositories
@@ -71,6 +73,30 @@ namespace WinterEngine.DataAccess.Repositories
         public List<Script> GetAllByResourceCategory(Category resourceCategory)
         {
             return Context.ScriptRepository.Get(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
+        }
+
+        /// <summary>
+        /// Generates a hierarchy of categories containing scripts for use in tree views.
+        /// </summary>
+        /// <returns></returns>
+        public List<JSTreeNode> GenerateJSTreeCategories()
+        {
+            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
+            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Area).ToList();
+            foreach (Category category in categories)
+            {
+                JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                List<Script> scripts = GetAllByResourceCategory(category);
+                foreach (Script script in scripts)
+                {
+                    JSTreeNode childNode = new JSTreeNode(script.VisibleName);
+                    categoryNode.Children.Add(childNode);
+                }
+
+                treeNodes.Add(categoryNode);
+            }
+
+            return treeNodes;
         }
 
         public override void Dispose()

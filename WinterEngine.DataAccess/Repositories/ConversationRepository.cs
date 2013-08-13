@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess.Repositories
@@ -71,6 +73,30 @@ namespace WinterEngine.DataAccess.Repositories
         public List<Conversation> GetAllByResourceCategory(Category resourceCategory)
         {
             return Context.ConversationRepository.Get(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
+        }
+        
+        /// <summary>
+        /// Generates a hierarchy of categories containing conversations for use in tree views.
+        /// </summary>
+        /// <returns></returns>
+        public List<JSTreeNode> GenerateJSTreeCategories()
+        {
+            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
+            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Area).ToList();
+            foreach (Category category in categories)
+            {
+                JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                List<Conversation> conversations = GetAllByResourceCategory(category);
+                foreach (Conversation conversation in conversations)
+                {
+                    JSTreeNode childNode = new JSTreeNode(conversation.VisibleName);
+                    categoryNode.Children.Add(childNode);
+                }
+
+                treeNodes.Add(categoryNode);
+            }
+
+            return treeNodes;
         }
 
         public override void Dispose()

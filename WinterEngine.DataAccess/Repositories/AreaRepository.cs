@@ -4,6 +4,8 @@ using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 
 namespace WinterEngine.DataAccess
@@ -124,6 +126,30 @@ namespace WinterEngine.DataAccess
         {
             Area area = Context.AreaRepository.Get(x => x.Resref == resref).SingleOrDefault();
             return !Object.ReferenceEquals(area, null);
+        }
+
+        /// <summary>
+        /// Generates a hierarchy of categories containing areas for use in tree views.
+        /// </summary>
+        /// <returns></returns>
+        public List<JSTreeNode> GenerateJSTreeCategories()
+        {
+            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
+            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Area).ToList();
+            foreach (Category category in categories)
+            {
+                JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                List<Area> areas = GetAllByResourceCategory(category);
+                foreach (Area area in areas)
+                {
+                    JSTreeNode childNode = new JSTreeNode(area.Name);
+                    categoryNode.Children.Add(childNode);
+                }
+
+                treeNodes.Add(categoryNode);
+            }
+
+            return treeNodes;
         }
 
         public override void Dispose()
