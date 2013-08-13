@@ -31,6 +31,7 @@ using System.Web.Script.Serialization;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess.Repositories;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 
 
 #endif
@@ -383,6 +384,7 @@ namespace WinterEngine.Game.Entities
         {
             try
             {
+                List<Category> allCategories;
                 List<Category> areaCategories;
                 List<Category> creatureCategories;
                 List<Category> itemCategories;
@@ -390,51 +392,80 @@ namespace WinterEngine.Game.Entities
                 List<Category> conversationCategories;
                 List<Category> scriptCategories;
 
+                List<JSTreeNode> areaNodes = new List<JSTreeNode>();
+                List<JSTreeNode> creatureNodes = new List<JSTreeNode>();
+                List<JSTreeNode> itemNodes = new List<JSTreeNode>();
+                List<JSTreeNode> placeableNodes = new List<JSTreeNode>();
+                List<JSTreeNode> conversationNodes = new List<JSTreeNode>();
+                List<JSTreeNode> scriptNodes = new List<JSTreeNode>();
+
                 using (CategoryRepository repo = new CategoryRepository())
                 {
-                    areaCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Area);
-                    creatureCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Creature);
-                    itemCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Item);
-                    placeableCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Placeable);
-                    conversationCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Conversation);
-                    scriptCategories = repo.GetAllResourceCategoriesByResourceType(GameObjectTypeEnum.Script);
+                    allCategories = repo.GetAll();
+                    areaCategories = allCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Area).ToList();
+                    creatureCategories = allCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Creature).ToList();
+                    itemCategories = allCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Item).ToList();
+                    placeableCategories = allCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Placeable).ToList();
+                    conversationCategories = allCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Conversation).ToList();
+                    scriptCategories = allCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Script).ToList();
                 }
 
                 // Get each category's children for each object type
                 using (AreaRepository repo = new AreaRepository())
                 {
-                    areaCategories.ForEach(x => x.GameObjectChildren = repo.GetAllByResourceCategory(x).Cast<GameObjectBase>().ToList());
+                    foreach (Category category in areaCategories)
+                    {
+                        JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                        List<Area> areas = repo.GetAllByResourceCategory(category);
+                        foreach (Area currentArea in areas)
+                        {
+                            JSTreeNode childNode = new JSTreeNode(currentArea.Name);
+                            categoryNode.Children.Add(childNode);
+                        }
+
+                        categoryNode.Children.Add(new JSTreeNode("Test child"));
+                        categoryNode.Children.Add(new JSTreeNode("Test child2"));
+                        categoryNode.Children.Add(new JSTreeNode("Test child3"));
+
+                        areaNodes.Add(categoryNode);
+                    }
                 }
                 using (CreatureRepository repo = new CreatureRepository())
                 {
-                    creatureCategories.ForEach(x => x.GameObjectChildren = repo.GetAllByResourceCategory(x).Cast<GameObjectBase>().ToList());
+                    foreach (Category category in areaCategories)
+                    {
+                        JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                        List<Creature> creatures = repo.GetAllByResourceCategory(category);
+                        foreach (Creature currentCreature in creatures)
+                        {
+                            JSTreeNode childNode = new JSTreeNode(currentCreature.Name);
+                            categoryNode.Children.Add(childNode);
+                        }
+                    }
                 }
                 using (ItemRepository repo = new ItemRepository())
                 {
-                    itemCategories.ForEach(x => x.GameObjectChildren = repo.GetAllByResourceCategory(x).Cast<GameObjectBase>().ToList());
-                }
-                using (PlaceableRepository repo = new PlaceableRepository())
-                {
-                    placeableCategories.ForEach(x => x.GameObjectChildren = repo.GetAllByResourceCategory(x).Cast<GameObjectBase>().ToList());
-                }
-                using (ConversationRepository repo = new ConversationRepository())
-                {
-                    conversationCategories.ForEach(x => x.GameResourceChildren = repo.GetAllByResourceCategory(x).Cast<GameResourceBase>().ToList());
-                }
-                using (ScriptRepository repo = new ScriptRepository())
-                {
-                    scriptCategories.ForEach(x => x.GameResourceChildren = repo.GetAllByResourceCategory(x).Cast<GameResourceBase>().ToList());
+                    foreach (Category category in areaCategories)
+                    {
+                        JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                        List<Item> items = repo.GetAllByResourceCategory(category);
+                        foreach (Item currentItem in items)
+                        {
+                            JSTreeNode childNode = new JSTreeNode(currentItem.Name);
+                            categoryNode.Children.Add(childNode);
+                        }
+                    }
                 }
 
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
 
                 AsyncJavascriptCallback("LoadTreeViews_Callback",
-                    serializer.Serialize(areaCategories),
-                    serializer.Serialize(creatureCategories),
-                    serializer.Serialize(itemCategories),
-                    serializer.Serialize(placeableCategories),
-                    serializer.Serialize(conversationCategories),
-                    serializer.Serialize(scriptCategories));
+                    serializer.Serialize(areaNodes),
+                    serializer.Serialize(creatureNodes),
+                    serializer.Serialize(itemNodes),
+                    serializer.Serialize(placeableNodes),
+                    serializer.Serialize(conversationNodes),
+                    serializer.Serialize(scriptNodes));
             }
             catch
             {

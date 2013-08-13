@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\ConnectionAddress.cs" />
+    <Compile Include="BusinessObjects\JSTreeNode.cs" />
     <Compile Include="BusinessObjects\Location.cs" />
     <Compile Include="BusinessObjects\LoginCredentials.cs" />
     <Compile Include="BusinessObjects\UserProfile.cs" />

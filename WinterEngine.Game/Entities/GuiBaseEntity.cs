@@ -204,6 +204,12 @@ namespace WinterEngine.Game.Entities
             FlatRedBallServices.Game.Window.ClientSizeChanged += ResizeWindow;
             _webView.DocumentReady += OnDocumentReady;
             _webView.ShowJavascriptDialog += OnJavascriptDialog;
+            _webView.ConsoleMessage += OnConsoleMessage;
+        }
+
+        private void OnConsoleMessage(object sender, ConsoleMessageEventArgs e)
+        {
+            WinForms.MessageBox.Show(e.Message, "Console Message");
         }
 
         private void OnJavascriptDialog(object sender, JavascriptDialogEventArgs e)
