@@ -113,17 +113,36 @@ function LoadTreeViews_Callback(jsonAreas,
     PopulateTreeView("#divPlaceableTreeView", $.parseJSON(jsonPlaceables));
     PopulateTreeView("#divConversationTreeView", $.parseJSON(jsonConversations));
     PopulateTreeView("#divScriptTreeView", $.parseJSON(jsonScripts));
-    
+
     $('#divAreaTreeView').removeClass('clsHidden');
 }
 
 function CreateNewObject() {
-    var caller = $('#divNewObject').data('NewObjectCaller');
-    var parent = $('#divNewObject').data('NewObjectParent');
+    if (!$('#formNewObject').valid()) return;
 
-    CreateObject_JSCallback(caller, parent, $('#txtObjectName').val());
-    CloseNewObjectBox();
+    var parent = $('#divNewObject').data('NewObjectParent');
+    var name = $('#txtObjectName').val();
+    var tag = $('#txtObjectTag').val();
+    var resref = $('#txtObjectResref').val();
+    var categoryID = $(parent).data('categoryid');
+    var gameObjectType = $(parent).data('gameobjecttype');
+
+    Entity.AddNewObject(name, tag, resref, categoryID, gameObjectType);
+
 }
+
+function CreateNewObject_Callback(success, errorMessage, gameObjectType, name) {
+    if (success) {
+        var caller = $('#divNewObject').data('NewObjectCaller');
+        var parent = $('#divNewObject').data('NewObjectParent');
+        caller.create(parent, null, name, null, true);
+        CloseNewObjectBox();
+    }
+    else {
+        $('#lblNewObjectErrors').text(errorMessage);
+    }
+}
+
 function CloseNewObjectBox() {
     $('#divNewObject').removeData('NewObjectCaller');
     $('#divNewObject').removeData('NewObjectParent');
@@ -131,22 +150,19 @@ function CloseNewObjectBox() {
 }
 
 function DeleteObject() {
-    var caller = $('#divConfirmDelete').data('DeleteObjectCaller');
-    var parent = $('#divConfirmDelete').data('DeleteObjectParent');
+    Entity.DeleteObject();
+}
 
-    DeleteObject_JSCallback(caller, parent);
-    CloseDeleteObjectBox();
+function DeleteObject_Callback(success, errorMessage) {
+    if (success) {
+        var caller = $('#divConfirmDelete').data('DeleteObjectCaller');
+        var parent = $('#divConfirmDelete').data('DeleteObjectParent');
+
+        caller.remove(parent);
+        CloseDeleteObjectBox();
+    }
 }
 
 function CloseDeleteObjectBox() {
     $('#divConfirmDelete').dialog('close');
-}
-
-/* TreeView Callbacks */
-function CreateObject_JSCallback(caller, parent, name) {
-    caller.create(parent, null, name, null, true);
-}
-
-function DeleteObject_JSCallback(caller, parent) {
-    caller.remove(parent);
 }

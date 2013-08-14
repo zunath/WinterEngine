@@ -92,6 +92,7 @@
     <Compile Include="Enumerations\ContentBuilderFileTypeEnum.cs" />
     <Compile Include="Enumerations\DeleteCharacterTypeEnum.cs" />
     <Compile Include="Enumerations\DirectoryTypeEnum.cs" />
+    <Compile Include="Enumerations\ErrorTypeEnum.cs" />
     <Compile Include="Enumerations\FileStreamerStatusEnum.cs" />
     <Compile Include="Enumerations\GameTypeEnum.cs" />
     <Compile Include="Enumerations\ItemPartEnum.cs" />

@@ -112,6 +112,10 @@ function InitializeValidation() {
     $('#formNewModule').validate({
         errorPlacement: $.noop
     });
+    $('#formNewObject').validate({
+        errorPlacement: $.noop
+    });
+
 }
 
 function InitializeAlertBox() {

@@ -16,6 +16,8 @@ using System.Web.Script.Serialization;
 using WinterEngine.DataAccess;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.Library.Utility;
 
 
 
@@ -156,6 +158,8 @@ namespace WinterEngine.Game.Entities
 
             // Treeview Bindings
             EntityJavascriptObject.Bind("LoadTreeViewData", false, LoadTreeViewData);
+            EntityJavascriptObject.Bind("AddNewObject", false, AddNewObject);
+            EntityJavascriptObject.Bind("DeleteObject", false, DeleteObject);
         }
 
         #endregion
@@ -419,7 +423,46 @@ namespace WinterEngine.Game.Entities
                 throw;
             }
         }
-        
+
+        private void AddNewObject(object sender, JavascriptMethodEventArgs e)
+        {
+            ErrorTypeEnum error = ErrorTypeEnum.None;
+            GameObjectFactory factory = new GameObjectFactory();
+            string name = e.Arguments[0];
+            string tag = e.Arguments[1];
+            string resref = e.Arguments[2];
+            int categoryID = (int)e.Arguments[3];
+            GameObjectTypeEnum gameObjectType =  (GameObjectTypeEnum)(int)e.Arguments[4];
+
+            if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
+            {
+                error = ErrorTypeEnum.ObjectResrefAlreadyExists;
+            }
+            else
+            {
+                GameObjectBase newObject = factory.CreateObject(gameObjectType);
+                newObject.Name = name;
+                newObject.Tag = tag;
+                newObject.Resref = resref;
+                newObject.ResourceCategoryID = categoryID;
+
+                factory.AddToDatabase(newObject);
+            }
+
+            AsyncJavascriptCallback("CreateNewObject_Callback", 
+                error == ErrorTypeEnum.None ? true : false, 
+                EnumerationHelper.GetEnumerationDescription(error),
+                (int)gameObjectType,
+                name);
+        }
+
+        private void DeleteObject(object sender, JavascriptMethodEventArgs e)
+        {
+            bool success = false;
+
+            AsyncJavascriptCallback("DeleteObject_Callback", success);
+        }
+
         #endregion
 
     }

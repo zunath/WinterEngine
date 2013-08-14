@@ -14,10 +14,7 @@ function CloseNewModuleBox() {
 }
 
 function NewModuleBoxOKClick() {
-
-    if (!$('#formNewModule').valid()) {
-        return false;
-    }
+    if (!$('#formNewModule').valid()) return;
 
     var moduleName = $('#txtModuleName').val();
     var moduleTag = $('#txtModuleTag').val();

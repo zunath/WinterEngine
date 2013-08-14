@@ -204,9 +204,9 @@
     
     <div id="divNewModuleBox">
         
-        <label id="lblNewModuleError" class="clsErrorMessage"></label>
-
-        <form id="formNewModule">
+        <form id="formNewModule" method="post">
+            <label id="lblNewModuleError" class="clsErrorMessage"></label>
+        
             <label for="txtModuleName">Name:</label>
             <br />
             <input id="txtModuleName" class="required" type="text" maxlength="64" />
@@ -267,22 +267,26 @@
     </div>
 
     <div id="divNewObject">
-        <label id="lblObjectName" for="txtObjectName">Name:</label>
-        <input id="txtObjectName" name="txtObjectName" type="text" class="required" maxlength="64" />
-        <br />
+        <form id="formNewObject" method="post">
+            <label id="lblNewObjectErrors" class="clsErrorMessage"></label>
+            <br />
+            <label id="lblObjectName" for="txtObjectName">Name:</label>
+            <input id="txtObjectName" name="txtObjectName" type="text" class="required" maxlength="64" />
+            <br />
 
-        <label id="lblObjectTag" for="txtObjectTag">Tag:</label>
-        <input id="txtObjectTag" name="txtObjectTag" type="text" class="required" maxlength="32" />
-        <br />
+            <label id="lblObjectTag" for="txtObjectTag">Tag:</label>
+            <input id="txtObjectTag" name="txtObjectTag" type="text" class="required" maxlength="32" />
+            <br />
 
-        <label id="lblObjectResref" for="txtObjectResref">Resref:</label>
-        <input id="txtObjectResref" name="txtObjectResref" type="text" class="required" maxlength="32" />
-        <br />
-        <br />
+            <label id="lblObjectResref" for="txtObjectResref">Resref:</label>
+            <input id="txtObjectResref" name="txtObjectResref" type="text" class="required" maxlength="32" />
+            <br />
+            <br />
 
-        <input id="btnCreateObject" type="button" value="Create" class="clsHalfButton" onclick="CreateNewObject();"/>
-        <input id="btnCancelObject" type="button" value="Cancel" class="clsHalfButton" onclick="CloseNewObjectBox();" />
-
+            <input id="btnCreateObject" type="button" value="Create" class="clsHalfButton" onclick="CreateNewObject();"/>
+            <input id="btnCancelObject" type="button" value="Cancel" class="clsHalfButton" onclick="CloseNewObjectBox();" />
+            
+        </form>
     </div>
 
     <div id="divConfirmDelete">
