@@ -266,5 +266,34 @@
         <input id="btnAlertBoxOK" type="button" class="clsFullButton" value="OK" onclick="CloseAlertBox();" />
     </div>
 
+    <div id="divNewObject">
+        <label id="lblObjectName" for="txtObjectName">Name:</label>
+        <input id="txtObjectName" name="txtObjectName" type="text" class="required" maxlength="64" />
+        <br />
+
+        <label id="lblObjectTag" for="txtObjectTag">Tag:</label>
+        <input id="txtObjectTag" name="txtObjectTag" type="text" class="required" maxlength="32" />
+        <br />
+
+        <label id="lblObjectResref" for="txtObjectResref">Resref:</label>
+        <input id="txtObjectResref" name="txtObjectResref" type="text" class="required" maxlength="32" />
+        <br />
+        <br />
+
+        <input id="btnCreateObject" type="button" value="Create" class="clsHalfButton" onclick="CreateNewObject();"/>
+        <input id="btnCancelObject" type="button" value="Cancel" class="clsHalfButton" onclick="CloseNewObjectBox();" />
+
+    </div>
+
+    <div id="divConfirmDelete">
+        <label id="lblConfirmDelete">
+            Are you sure you want to delete this object?
+        </label>
+        <br />
+        <br />
+        <input id="btnDeleteObjectConfirm" type="button" value="Delete" class="clsHalfButton" onclick="DeleteObject();" />
+        <input id="btnDeleteObjectCancel" type="button" value="Cancel" class="clsHalfButton" onclick="CloseDeleteObjectBox();" />
+    </div>
+
 </body>
 </html>

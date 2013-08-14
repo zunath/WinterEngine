@@ -1,8 +1,7 @@
-﻿
-function BuildObjectTreeViewContextMenu(node) {
+﻿function BuildObjectTreeViewContextMenu(node) {
     var items = {
         "CreateCategory": {
-            "label": "Create New Category",
+            "label": "Create Category",
             "action": function (obj) {
                 this.create(obj);
             }
@@ -10,7 +9,9 @@ function BuildObjectTreeViewContextMenu(node) {
         "CreateObject": {
             "label": "Create Object",
             "action": function (obj) {
-                this.create(obj);
+                $('#divNewObject').data('NewObjectCaller', this);
+                $('#divNewObject').data('NewObjectParent', obj);
+                $('#divNewObject').dialog('open');
             }
         },
         "Rename": {
@@ -22,17 +23,21 @@ function BuildObjectTreeViewContextMenu(node) {
         "DeleteCategory": {
             "label": "Delete Category",
             "action": function (obj) {
-                this.remove(obj);
+                $('#divConfirmDelete').data('DeleteObjectCaller', this);
+                $('#divConfirmDelete').data('DeleteObjectParent', obj);
+                $('#divConfirmDelete').dialog('open');
             }
         },
         "DeleteObject": {
             "label": "Delete Object",
             "action": function (obj) {
-                this.remove(obj);
+                $('#divConfirmDelete').data('DeleteObjectCaller', this);
+                $('#divConfirmDelete').data('DeleteObjectParent', obj);
+                $('#divConfirmDelete').dialog('open');
             }
         }
     };
-    /*
+    
     if ($(node).data("nodetype") == "root") {
         delete items.Rename;
         delete items.CreateObject;
@@ -40,6 +45,9 @@ function BuildObjectTreeViewContextMenu(node) {
         delete items.DeleteObject;
     }
     else if ($(node).data("nodetype") == "category") {
+        if ($(node).data("issystemresource") == "True") {
+            delete items.DeleteCategory;
+        }
         delete items.DeleteObject;
         delete items.CreateCategory;
     }
@@ -48,18 +56,19 @@ function BuildObjectTreeViewContextMenu(node) {
         delete items.CreateCategory;
         delete items.CreateObject;
     }
-    */
+    
     return items;
 }
 
 function PopulateTreeView(selector, data) {
     $(selector).jstree({
+        animation: 0,
+        "plugins": ["json_data", "ui", "themeroller", "sort", "crrm", "contextmenu", "types"],
         "json_data": {
             "data": [
                 data
             ]
         },
-        "plugins": ["json_data", "ui", "themeroller", "sort", "crrm", "contextmenu", "types"],
         "types": {
             type_attr: "data-nodetype",
             types: {
@@ -79,10 +88,14 @@ function PopulateTreeView(selector, data) {
 
                 }
             }
+        },
+        "contextmenu": {
+            items: BuildObjectTreeViewContextMenu
+        },
+        "crrm": {
         }
     });
 }
-    
 
 function HideAllTreeViews() {
     $('.clsTreeViewDiv').addClass('clsHidden');
@@ -102,4 +115,38 @@ function LoadTreeViews_Callback(jsonAreas,
     PopulateTreeView("#divScriptTreeView", $.parseJSON(jsonScripts));
     
     $('#divAreaTreeView').removeClass('clsHidden');
+}
+
+function CreateNewObject() {
+    var caller = $('#divNewObject').data('NewObjectCaller');
+    var parent = $('#divNewObject').data('NewObjectParent');
+
+    CreateObject_JSCallback(caller, parent, $('#txtObjectName').val());
+    CloseNewObjectBox();
+}
+function CloseNewObjectBox() {
+    $('#divNewObject').removeData('NewObjectCaller');
+    $('#divNewObject').removeData('NewObjectParent');
+    $('#divNewObject').dialog('close');
+}
+
+function DeleteObject() {
+    var caller = $('#divConfirmDelete').data('DeleteObjectCaller');
+    var parent = $('#divConfirmDelete').data('DeleteObjectParent');
+
+    DeleteObject_JSCallback(caller, parent);
+    CloseDeleteObjectBox();
+}
+
+function CloseDeleteObjectBox() {
+    $('#divConfirmDelete').dialog('close');
+}
+
+/* TreeView Callbacks */
+function CreateObject_JSCallback(caller, parent, name) {
+    caller.create(parent, null, name, null, true);
+}
+
+function DeleteObject_JSCallback(caller, parent) {
+    caller.remove(parent);
 }

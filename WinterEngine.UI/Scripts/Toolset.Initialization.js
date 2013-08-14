@@ -13,6 +13,8 @@ function Initialize() {
     InitializeManageContentPackagesBox();
     InitializeContentPackageCreatorBox();
     InitializeAlertBox();
+    InitializeCreateNewObjectBox();
+    InitializeDeleteObjectBox();
 }
 
 function InitializeMainMenu() {
@@ -117,6 +119,28 @@ function InitializeAlertBox() {
         modal: true,
         autoOpen: false,
         title: 'Alert',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
+}
+
+function InitializeCreateNewObjectBox() {
+    $('#divNewObject').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'New Object',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
+}
+
+function InitializeDeleteObjectBox() {
+    $('#divConfirmDelete').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Delete Object?',
         resizable: false,
         dialogClass: 'jqueryUIDialogNoCloseButton',
         draggable: false

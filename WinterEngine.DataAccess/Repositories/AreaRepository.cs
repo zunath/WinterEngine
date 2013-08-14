@@ -143,6 +143,7 @@ namespace WinterEngine.DataAccess
                 JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
                 categoryNode.attr.Add("data-nodeType", "category");
                 categoryNode.attr.Add("data-categoryID", Convert.ToString(category.ResourceID));
+                categoryNode.attr.Add("data-isSystemResource", Convert.ToString(category.IsSystemResource));
 
                 List<Area> areas = GetAllByResourceCategory(category);
                 foreach (Area area in areas)
