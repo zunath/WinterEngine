@@ -593,6 +593,13 @@ namespace WinterEngine.DataAccess.Factories
             {
                 throw new NotSupportedException();
             }
+
+            // Now remove the category itself.
+            using (CategoryRepository repo = new CategoryRepository())
+            {
+                Category dbCategory = repo.GetByID(resourceCategory.ResourceID);
+                repo.Delete(dbCategory);
+            }
         }
 
         /// <summary>

@@ -27,6 +27,9 @@
             "action": function (obj) {
                 $('#divConfirmDelete').data('DeleteObjectCaller', this);
                 $('#divConfirmDelete').data('DeleteObjectParent', obj);
+                $('#divConfirmDelete').data('DeleteMode', 'DeleteCategory');
+                $('#lblConfirmDelete').text('Are you sure you want to delete this category? ' +
+                    'All objects contained in this category will also be deleted.');
                 $('#divConfirmDelete').dialog('open');
             }
         },
@@ -36,6 +39,8 @@
                 
                 $('#divConfirmDelete').data('DeleteObjectCaller', this);
                 $('#divConfirmDelete').data('DeleteObjectParent', obj);
+                $('#divConfirmDelete').data('DeleteMode', 'DeleteObject');
+                $('#lblConfirmDelete').text('Are you sure you want to delete this ' + $('#hdnCurrentObjectMode').val() + '?');
                 $('#divConfirmDelete').dialog('open');
             }
         }
@@ -196,9 +201,16 @@ function DeleteObject() {
     var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
     var selectedNode = $(activeTreeSelector).jstree('get_selected');
     var gameObjectType = $('#hdnCurrentObjectMode').val();
-    var resref = $(selectedNode).data('resref');
+    var mode = $('#divConfirmDelete').data('DeleteMode');
 
-    Entity.DeleteObject(resref, gameObjectType);
+    if (mode == 'DeleteCategory') {
+        var categoryID = $(selectedNode).data('categoryid');
+        Entity.DeleteCategory(categoryID, gameObjectType);
+    }
+    else if (mode == 'DeleteObject') {
+        var resref = $(selectedNode).data('resref');
+        Entity.DeleteObject(resref, gameObjectType, true);
+    }
 }
 
 function DeleteObject_Callback(success, errorMessage) {

@@ -155,6 +155,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("LoadTreeViewData", false, LoadTreeViewData);
             EntityJavascriptObject.Bind("AddNewObject", false, AddNewObject);
             EntityJavascriptObject.Bind("AddNewCategory", false, AddNewCategory);
+            EntityJavascriptObject.Bind("DeleteCategory", false, DeleteCategory);
             EntityJavascriptObject.Bind("DeleteObject", false, DeleteObject);
         }
 
@@ -477,13 +478,33 @@ namespace WinterEngine.Game.Entities
                 resref);
         }
 
+        private void DeleteCategory(object sender, JavascriptMethodEventArgs e)
+        {
+            ErrorTypeEnum error = ErrorTypeEnum.None;
+            int categoryID = (int)e.Arguments[0];
+            GameObjectFactory factory = new GameObjectFactory();
+            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[1]);
+            Category categoryToRemove;
+
+            using(CategoryRepository repo = new CategoryRepository())
+            {
+                categoryToRemove = repo.GetByResourceCategoryID(categoryID);
+            }
+
+            factory.DeleteFromDatabaseByCategory(categoryToRemove, gameObjectType);
+
+            AsyncJavascriptCallback("DeleteObject_Callback",
+                error == ErrorTypeEnum.None ? true : false,
+                EnumerationHelper.GetEnumerationDescription(error));
+        }
+
         private void DeleteObject(object sender, JavascriptMethodEventArgs e)
         {
             ErrorTypeEnum error = ErrorTypeEnum.None;
             GameObjectFactory factory = new GameObjectFactory();
             string resref = e.Arguments[0];
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[1]);
-
+            
             if (!factory.DoesObjectExistInDatabase(resref, gameObjectType))
             {
                 error = ErrorTypeEnum.ObjectResrefDoesNotExist;
