@@ -146,6 +146,11 @@ function CreateNewObject_Callback(success, errorMessage, gameObjectType, name) {
 function CloseNewObjectBox() {
     $('#divNewObject').removeData('NewObjectCaller');
     $('#divNewObject').removeData('NewObjectParent');
+    $('#txtObjectName').val('');
+    $('#txtObjectTag').val('');
+    $('#txtObjectResref').val('');
+    $('#lblNewObjectErrors').text('');
+
     $('#divNewObject').dialog('close');
 }
 
