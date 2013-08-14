@@ -401,11 +401,11 @@ namespace WinterEngine.Game.Entities
                 }
                 using (ConversationRepository repo = new ConversationRepository())
                 {
-                    conversationRootNode = repo.GenerateJSTreeCategories();
+                    conversationRootNode = repo.GenerateJSTreeHierarchy();
                 }
                 using (ScriptRepository repo = new ScriptRepository())
                 {
-                    scriptRootNode = repo.GenerateJSTreeCategories();
+                    scriptRootNode = repo.GenerateJSTreeHierarchy();
                 }
 
                 JavaScriptSerializer serializer = new JavaScriptSerializer();

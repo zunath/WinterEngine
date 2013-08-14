@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace WinterEngine.DataTransferObjects.Resources
+namespace WinterEngine.DataTransferObjects
 {
     [Serializable]
     [Table("Conversations")]
-    public class Conversation : GameResourceBase
+    public class Conversation : GameObjectBase
     {
         #region Fields
         

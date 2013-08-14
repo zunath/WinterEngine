@@ -58,7 +58,7 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new area to upsert.</param>
         public void Upsert(Area area)
         {
-            if(area.GameObjectID <= 0)
+            if (area.ResourceID <= 0)
             {
                 Context.AreaRepository.Add(area);
             }
@@ -140,7 +140,7 @@ namespace WinterEngine.DataAccess
             List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Area).ToList();
             foreach (Category category in categories)
             {
-                JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                JSTreeNode categoryNode = new JSTreeNode(category.Name);
                 categoryNode.attr.Add("data-nodeType", "category");
                 categoryNode.attr.Add("data-categoryID", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-isSystemResource", Convert.ToString(category.IsSystemResource));
@@ -151,7 +151,7 @@ namespace WinterEngine.DataAccess
                 {
                     JSTreeNode childNode = new JSTreeNode(area.Name);
                     childNode.attr.Add("data-nodeType", "object");
-                    childNode.attr.Add("data-objectID", Convert.ToString(area.GameObjectID));
+                    childNode.attr.Add("data-objectID", Convert.ToString(area.ResourceID));
 
                     categoryNode.children.Add(childNode);
                 }

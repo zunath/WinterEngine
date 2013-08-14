@@ -70,11 +70,11 @@ namespace WinterEngine.DataTransferObjects
 
             if (String.IsNullOrWhiteSpace(visibleName))
             {
-                this.VisibleName = Path.GetFileNameWithoutExtension(path);
+                this.Name = Path.GetFileNameWithoutExtension(path);
             }
             else
             {
-                this.VisibleName = visibleName;
+                this.Name = visibleName;
             }
         }
 

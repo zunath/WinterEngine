@@ -55,7 +55,7 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new placeable to upsert.</param>
         public void Upsert(Placeable placeable)
         {
-            if (placeable.GameObjectID <= 0)
+            if (placeable.ResourceID <= 0)
             {
                 Context.PlaceableRepository.Add(placeable);
             }
@@ -137,7 +137,7 @@ namespace WinterEngine.DataAccess
             List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Placeable).ToList();
             foreach (Category category in categories)
             {
-                JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                JSTreeNode categoryNode = new JSTreeNode(category.Name);
                 List<Placeable> placeables = GetAllByResourceCategory(category);
                 foreach (Placeable placeable in placeables)
                 {

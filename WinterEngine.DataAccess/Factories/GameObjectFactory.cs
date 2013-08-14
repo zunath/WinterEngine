@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using WinterEngine.DataAccess;
+using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Resources;
 
 
 
 namespace WinterEngine.DataAccess.Factories
 {
     /// <summary>
-    /// Factory method for creating game objects.
+    /// Factory pattern class for creating game objects.
     /// </summary>
     public class GameObjectFactory
     {
@@ -28,7 +28,7 @@ namespace WinterEngine.DataAccess.Factories
                 case GameObjectTypeEnum.Area:
                     return new Area { GameObjectType = resourceType };
                 case GameObjectTypeEnum.Conversation:
-                    return null;
+                    return new Conversation { GameObjectType = resourceType };
                 case GameObjectTypeEnum.Creature:
                     return new Creature { GameObjectType = resourceType };
                 case GameObjectTypeEnum.Item:
@@ -36,7 +36,7 @@ namespace WinterEngine.DataAccess.Factories
                 case GameObjectTypeEnum.Placeable:
                     return new Placeable { GameObjectType = resourceType };
                 case GameObjectTypeEnum.Script:
-                    return null;
+                    return new Script { GameObjectType = resourceType };
                 default:
                     throw new Exception("Game object type not supported.");
             }
@@ -62,7 +62,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (winterObject.GameObjectType == GameObjectTypeEnum.Conversation)
             {
-                throw new NotImplementedException();
+                using (ConversationRepository repo = new ConversationRepository())
+                {
+                    repo.Add(winterObject as Conversation);
+                }
             }
             else if (winterObject.GameObjectType == GameObjectTypeEnum.Creature)
             {
@@ -87,7 +90,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (winterObject.GameObjectType == GameObjectTypeEnum.Script)
             {
-                throw new NotImplementedException();
+                using (ScriptRepository repo = new ScriptRepository())
+                {
+                    repo.Add(winterObject as Script);
+                }
             }
             else
             {
@@ -122,7 +128,13 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Conversation)
             {
-                throw new NotImplementedException();
+                using (ConversationRepository repo = new ConversationRepository(connectionString))
+                {
+                    foreach (Conversation conversation in gameObjectList)
+                    {
+                        repo.Add(conversation);
+                    }
+                }
             }
             else if (resourceType == GameObjectTypeEnum.Creature)
             {
@@ -156,7 +168,13 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Script)
             {
-                throw new NotImplementedException();
+                using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    foreach (Script script in gameObjectList)
+                    {
+                        repo.Add(script);
+                    }
+                }
             }
             else
             {
@@ -196,7 +214,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (gameObject.GameObjectType == GameObjectTypeEnum.Conversation)
             {
-                throw new NotImplementedException();
+                using (ConversationRepository repo = new ConversationRepository(connectionString))
+                {
+                    repo.Update(gameObject as Conversation);
+                }
             }
             else if (gameObject.GameObjectType == GameObjectTypeEnum.Creature)
             {
@@ -221,7 +242,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (gameObject.GameObjectType == GameObjectTypeEnum.Script)
             {
-                throw new NotImplementedException();
+                using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    repo.Update(gameObject as Script);
+                }
             }
             else
             {
@@ -247,7 +271,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (gameObject.GameObjectType == GameObjectTypeEnum.Conversation)
             {
-                throw new NotImplementedException();
+                using (ConversationRepository repo = new ConversationRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Conversation);
+                }
             }
             else if (gameObject.GameObjectType == GameObjectTypeEnum.Creature)
             {
@@ -272,7 +299,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (gameObject.GameObjectType == GameObjectTypeEnum.Script)
             {
-                throw new NotImplementedException();
+                using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Script);
+                }
             }
             else
             {
@@ -297,7 +327,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Conversation)
             {
-                throw new NotImplementedException();
+                using (ConversationRepository repo = new ConversationRepository(connectionString))
+                {
+                    repo.Delete(resref);
+                }
             }
             else if (resourceType == GameObjectTypeEnum.Creature)
             {
@@ -322,7 +355,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Script)
             {
-                throw new NotImplementedException();
+                using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    repo.Delete(resref);
+                }
             }
             else
             {
@@ -348,7 +384,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Conversation)
             {
-                throw new NotImplementedException();
+                using (ConversationRepository repo = new ConversationRepository(connectionString))
+                {
+                    return repo.GetAll().ConvertAll<GameObjectBase>(x => (GameObjectBase)x);
+                }
             }
             else if (resourceType == GameObjectTypeEnum.Creature)
             {
@@ -373,7 +412,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Script)
             {
-                throw new NotImplementedException();
+                using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    return repo.GetAll().ConvertAll<GameObjectBase>(x => (GameObjectBase)x);
+                }
             }
             else
             {
@@ -401,7 +443,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Conversation)
             {
-                throw new NotImplementedException();
+                using (ConversationRepository repo = new ConversationRepository(connectionString))
+                {
+                    return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObjectBase)x);
+                }
             }
             else if (resourceType == GameObjectTypeEnum.Creature)
             {
@@ -426,7 +471,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Script)
             {
-                throw new NotImplementedException();
+                using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObjectBase)x);
+                }
             }
             else
             {
@@ -452,7 +500,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Conversation)
             {
-                throw new NotImplementedException();
+                using (ConversationRepository repo = new ConversationRepository(connectionString))
+                {
+                    return repo.GetByResref(resref);
+                }
             }
             else if (resourceType == GameObjectTypeEnum.Creature)
             {
@@ -477,7 +528,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Script)
             {
-                throw new NotImplementedException();
+                using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    return repo.GetByResref(resref);
+                }
             }
             else
             {
@@ -502,7 +556,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Conversation)
             {
-                throw new NotImplementedException();
+                using (ConversationRepository repo = new ConversationRepository(connectionString))
+                {
+                    repo.DeleteAllByCategory(resourceCategory);
+                }
             }
             else if (resourceType == GameObjectTypeEnum.Creature)
             {
@@ -527,7 +584,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Script)
             {
-                throw new NotImplementedException();
+                using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    repo.DeleteAllByCategory(resourceCategory);
+                }
             }
             else
             {
@@ -554,7 +614,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Conversation)
             {
-                throw new NotImplementedException();
+                using (ConversationRepository repo = new ConversationRepository(connectionString))
+                {
+                    return repo.Exists(resref);
+                }
             }
             else if (resourceType == GameObjectTypeEnum.Creature)
             {
@@ -579,7 +642,10 @@ namespace WinterEngine.DataAccess.Factories
             }
             else if (resourceType == GameObjectTypeEnum.Script)
             {
-                throw new NotImplementedException();
+                using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    return repo.Exists(resref);
+                }
             }
             else
             {

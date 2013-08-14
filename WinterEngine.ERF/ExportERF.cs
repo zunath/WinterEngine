@@ -253,7 +253,7 @@ namespace WinterEngine.ERF
                 foreach (GameObjectBase currentGameObject in gameObjects)
                 {
                     string resourceTypeName = EnumerationHelper.GetEnumerationDescription(currentGameObject.GameObjectType);
-                    string categoryName = repo.GetByResourceCategoryID(currentGameObject.ResourceCategoryID).VisibleName;
+                    string categoryName = repo.GetByResourceCategoryID(currentGameObject.ResourceCategoryID).Name;
                     currentGameObject.TemporaryDisplayName = resourceTypeName + "/" + categoryName + "/" + currentGameObject.Name + " (" + currentGameObject.Resref + ")";
                     listBoxAvailable.Items.Add(currentGameObject);
                 }

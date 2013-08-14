@@ -358,7 +358,7 @@ namespace WinterEngine.Library.Managers
             // Add the "Uncategorized" category for each resource type.
             using (CategoryRepository repo = new CategoryRepository())
             {
-                Category category = new Category { VisibleName = "*Uncategorized", GameObjectType = GameObjectTypeEnum.Area, IsSystemResource = true };
+                Category category = new Category { Name = "*Uncategorized", GameObjectType = GameObjectTypeEnum.Area, IsSystemResource = true };
                 repo.Add(category);
                 repo.SaveChanges();
                 category.GameObjectType = GameObjectTypeEnum.Conversation;

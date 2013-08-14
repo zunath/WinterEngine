@@ -55,7 +55,7 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new item to upsert.</param>
         public void Upsert(Item item)
         {
-            if (item.GameObjectID <= 0)
+            if (item.ResourceID <= 0)
             {
                 Context.ItemRepository.Add(item);
             }
@@ -136,7 +136,7 @@ namespace WinterEngine.DataAccess
             List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Item).ToList();
             foreach (Category category in categories)
             {
-                JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                JSTreeNode categoryNode = new JSTreeNode(category.Name);
                 List<Item> items = GetAllByResourceCategory(category);
                 foreach (Item item in items)
                 {

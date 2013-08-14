@@ -15,7 +15,7 @@ namespace WinterEngine.DataTransferObjects
 
         private int _resourceID;
         private ResourceTypeEnum _resourceType;
-        private string _visibleName;
+        private string _name;
         private string _comment;
         private bool _isSystemResource;
 
@@ -37,10 +37,10 @@ namespace WinterEngine.DataTransferObjects
         /// Gets/Sets the publicly viewable name for a resource.
         /// </summary>
         [MaxLength(64)]
-        public string VisibleName
+        public string Name
         {
-            get { return _visibleName; }
-            set { _visibleName = value; }
+            get { return _name; }
+            set { _name = value; }
         }
 
         /// <summary>
@@ -96,9 +96,9 @@ namespace WinterEngine.DataTransferObjects
 
         public override string ToString()
         {
-            if (!String.IsNullOrWhiteSpace(VisibleName))
+            if (!String.IsNullOrWhiteSpace(Name))
             {
-                return VisibleName;
+                return Name;
             }
             else
             {

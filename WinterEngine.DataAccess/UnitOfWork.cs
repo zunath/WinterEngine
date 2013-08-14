@@ -7,7 +7,7 @@ using System.Text;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects.GameObjects;
 
 
 namespace WinterEngine.DataAccess

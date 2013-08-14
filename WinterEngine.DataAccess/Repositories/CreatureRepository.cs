@@ -47,10 +47,10 @@ namespace WinterEngine.DataAccess
         /// Updates an existing creature in the database with new values.
         /// </summary>
         /// <param name="resref">The resource reference to search for and update.</param>
-        /// <param name="newItem">The new creature that will replace the creature with the matching resref.</param>
+        /// <param name="newCreature">The new creature that will replace the creature with the matching resref.</param>
         public void Update(Creature newCreature)
         {
-            Context.Update(newCreature);
+            Context.CreatureRepository.Update(newCreature);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace WinterEngine.DataAccess
         /// <param name="creature">The new creature to upsert.</param>
         public void Upsert(Creature creature)
         {
-            if (creature.GameObjectID <= 0)
+            if (creature.ResourceID <= 0)
             {
                 Context.CreatureRepository.Add(creature);
             }
@@ -71,7 +71,7 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// Deletes an creature with the specified resref from the database.
+        /// Deletes a creature with the specified resref from the database.
         /// </summary>
         /// <param name="resref">The resource reference to search for and delete.</param>
         /// <returns></returns>
@@ -141,7 +141,7 @@ namespace WinterEngine.DataAccess
             List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Creature).ToList();
             foreach (Category category in categories)
             {
-                JSTreeNode categoryNode = new JSTreeNode(category.VisibleName);
+                JSTreeNode categoryNode = new JSTreeNode(category.Name);
                 List<Creature> creatures = GetAllByResourceCategory(category);
                 foreach (Creature creature in creatures)
                 {

@@ -167,7 +167,7 @@ namespace WinterEngine.Editor.Forms
             if (!Object.ReferenceEquals(package, null))
             {
                 textBoxDescription.Text = package.Description;
-                textBoxName.Text = package.VisibleName;
+                textBoxName.Text = package.Name;
             }
         }
 
@@ -181,7 +181,7 @@ namespace WinterEngine.Editor.Forms
             ContentPackage package = listBoxAvailableContentPackages.SelectedItem as ContentPackage;
             if (!Object.ReferenceEquals(package, null))
             {
-                textBoxName.Text = package.VisibleName;
+                textBoxName.Text = package.Name;
                 textBoxDescription.Text = package.Description;
             }
         }

@@ -215,7 +215,7 @@ namespace WinterEngine.DataAccess.Repositories
                             dbResource.ResourceName = resource.ResourceName;
                             dbResource.ResourcePath = resource.ResourcePath;
                             dbResource.ResourceTypeID = resource.ResourceTypeID;
-                            dbResource.VisibleName = resource.VisibleName;
+                            dbResource.Name = resource.Name;
                         }
                         else
                         {
@@ -421,7 +421,7 @@ namespace WinterEngine.DataAccess.Repositories
                         {
                             if (reader.ReadToFollowing("ContentPackageResources"))
                             {
-                                package.VisibleName = reader.GetAttribute("Name");
+                                package.Name = reader.GetAttribute("Name");
                                 package.Description = reader.GetAttribute("Description");
                             }
                         }

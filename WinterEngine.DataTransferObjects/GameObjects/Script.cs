@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace WinterEngine.DataTransferObjects.Resources
+namespace WinterEngine.DataTransferObjects
 {
     [Serializable]
     [Table("Scripts")]
-    public class Script : GameResourceBase
+    public class Script : GameObjectBase
     {
         #region Fields
 

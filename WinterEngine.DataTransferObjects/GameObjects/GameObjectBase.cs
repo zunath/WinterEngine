@@ -10,18 +10,15 @@ namespace WinterEngine.DataTransferObjects
     /// Base abstract class for Winter Engine game objects.
     /// </summary>
     [Serializable]
-    public abstract class GameObjectBase : IEntity
+    public abstract class GameObjectBase : GameResourceBase
     {
         #region Fields
 
-        private int _gameObjectID;
-        private string _name;
         private string _tag;
         private string _resref;
         private GameObjectTypeEnum _gameObjectType;
         private int _resourceCategoryID;
         private Category _resourceCategory;
-        private string _comment;
         private int? _graphicResourceID;
         private ContentPackageResource _graphicResource;
 
@@ -32,23 +29,6 @@ namespace WinterEngine.DataTransferObjects
         #endregion
 
         #region Properties
-
-        [Key]
-        public int GameObjectID
-        {
-            get { return _gameObjectID; }
-            set { _gameObjectID = value; }
-        }
-
-        /// <summary>
-        /// Gets/Sets the publicly viewable name for an object.
-        /// </summary>
-        [MaxLength(64)]
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
 
         /// <summary>
         /// Gets/Sets a particular object's tag.
@@ -120,16 +100,6 @@ namespace WinterEngine.DataTransferObjects
         {
             get { return _resourceCategory; }
             set { _resourceCategory = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the comment attached to an object in the toolset
-        /// </summary>
-        [MaxLength(4000)]
-        public string Comment
-        {
-            get { return _comment; }
-            set { _comment = value; }
         }
 
         /// <summary>

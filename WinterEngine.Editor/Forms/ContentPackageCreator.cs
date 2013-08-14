@@ -204,7 +204,7 @@ namespace WinterEngine.Editor.Forms
                     List<ContentPackageResource> resources = repo.GetContentPackageResourcesFromManifestFile(Package);
                     listBoxResources.Items.AddRange(resources.ToArray());
                     textBoxDescription.Text = Package.Description;
-                    textBoxName.Text = Package.VisibleName;
+                    textBoxName.Text = Package.Name;
                 }
 
                 pictureBoxPreview.Image = null;

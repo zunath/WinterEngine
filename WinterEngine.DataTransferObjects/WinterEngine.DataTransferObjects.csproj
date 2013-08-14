@@ -123,7 +123,7 @@
     <Compile Include="GameObjects\Area.cs" />
     <Compile Include="Resources\CharacterClass.cs" />
     <Compile Include="Resources\ContentPackage.cs" />
-    <Compile Include="Resources\Conversation.cs" />
+    <Compile Include="GameObjects\Conversation.cs" />
     <Compile Include="Resources\GameResourceBase.cs" />
     <Compile Include="Resources\ContentPackageResource.cs" />
     <Compile Include="Resources\ItemType.cs" />
@@ -141,7 +141,7 @@
     <Compile Include="Resources\Category.cs" />
     <Compile Include="BusinessObjects\LocalVariable.cs" />
     <Compile Include="GameObjects\PlayerCharacter.cs" />
-    <Compile Include="Resources\Script.cs" />
+    <Compile Include="GameObjects\Script.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
