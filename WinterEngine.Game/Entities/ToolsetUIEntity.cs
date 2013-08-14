@@ -432,7 +432,7 @@ namespace WinterEngine.Game.Entities
             string tag = e.Arguments[1];
             string resref = e.Arguments[2];
             int categoryID = (int)e.Arguments[3];
-            GameObjectTypeEnum gameObjectType =  (GameObjectTypeEnum)(int)e.Arguments[4];
+            GameObjectTypeEnum gameObjectType =  (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[4]);
 
             if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
             {
@@ -458,9 +458,23 @@ namespace WinterEngine.Game.Entities
 
         private void DeleteObject(object sender, JavascriptMethodEventArgs e)
         {
-            bool success = false;
+            ErrorTypeEnum error = ErrorTypeEnum.None;
+            GameObjectFactory factory = new GameObjectFactory();
+            string resref = e.Arguments[0];
+            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[1]);
 
-            AsyncJavascriptCallback("DeleteObject_Callback", success);
+            if (!factory.DoesObjectExistInDatabase(resref, gameObjectType))
+            {
+                error = ErrorTypeEnum.ObjectResrefDoesNotExist;
+            }
+            else
+            {
+                factory.DeleteFromDatabase(resref, gameObjectType);
+            }
+
+            AsyncJavascriptCallback("DeleteObject_Callback", 
+                error == ErrorTypeEnum.None ? true : false,
+                EnumerationHelper.GetEnumerationDescription(error));
         }
 
         #endregion

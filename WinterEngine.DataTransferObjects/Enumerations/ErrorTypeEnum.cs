@@ -11,6 +11,8 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("No errors.")]
         None,
         [Description("This resref already exists.")]
-        ObjectResrefAlreadyExists = 1
+        ObjectResrefAlreadyExists = 1,
+        [Description("This resref does not exist.")]
+        ObjectResrefDoesNotExist = 2
     }
 }

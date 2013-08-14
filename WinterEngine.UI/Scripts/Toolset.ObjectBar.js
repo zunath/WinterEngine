@@ -8,6 +8,8 @@ function AreasButtonClick() {
 
     $('.clsTreeViewDiv').addClass('clsHidden');
     $('#divAreaTreeView').removeClass('clsHidden');
+    $('#hdnCurrentObjectMode').val('Area');
+    $('#hdnActiveObjectTreeSelector').val('#divAreaTreeView');
 }
 
 function AreasButtonClick_Callback() {
@@ -20,6 +22,8 @@ function CreaturesButtonClick() {
 
     $('.clsTreeViewDiv').addClass('clsHidden');
     $('#divCreatureTreeView').removeClass('clsHidden');
+    $('#hdnCurrentObjectMode').val('Creature');
+    $('#hdnActiveObjectTreeSelector').val('#divCreatureTreeView');
 }
 
 function CreaturesButtonClick_Callback() {
@@ -32,6 +36,8 @@ function ItemsButtonClick() {
 
     $('.clsTreeViewDiv').addClass('clsHidden');
     $('#divItemTreeView').removeClass('clsHidden');
+    $('#hdnCurrentObjectMode').val('Item');
+    $('#hdnActiveObjectTreeSelector').val('#divItemTreeView');
 }
 
 function ItemsButtonClick_Callback() {
@@ -44,6 +50,8 @@ function PlaceablesButtonClick() {
 
     $('.clsTreeViewDiv').addClass('clsHidden');
     $('#divPlaceableTreeView').removeClass('clsHidden');
+    $('#hdnCurrentObjectMode').val('Placeable');
+    $('#hdnActiveObjectTreeSelector').val('#divPlaceableTreeView');
 }
 
 function PlaceablesButtonClick_Callback() {
@@ -56,6 +64,8 @@ function ConversationsButtonClick() {
 
     $('.clsTreeViewDiv').addClass('clsHidden');
     $('#divConversationTreeView').removeClass('clsHidden');
+    $('#hdnCurrentObjectMode').val('Conversation');
+    $('#hdnActiveObjectTreeSelector').val('#divConversationTreeView');
 }
 
 function ConversationsButtonClick_Callback() {
@@ -68,6 +78,8 @@ function ScriptsButtonClick() {
 
     $('.clsTreeViewDiv').addClass('clsHidden');
     $('#divScriptTreeView').removeClass('clsHidden');
+    $('#hdnCurrentObjectMode').val('Script');
+    $('#hdnActiveObjectTreeSelector').val('#divScriptTreeView');
 }
 
 function ScriptsButtonClick_Callback() {
@@ -80,6 +92,8 @@ function GraphicsButtonClick() {
 
     $('.clsTreeViewDiv').addClass('clsHidden');
     $('#divGraphicTreeView').removeClass('clsHidden');
+    $('#hdnCurrentObjectMode').val('Graphic');
+    $('#hdnActiveObjectTreeSelector').val('#divGraphicTreeView');
 }
 
 function GraphicsButtonClick_Callback() {

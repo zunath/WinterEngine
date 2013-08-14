@@ -144,14 +144,13 @@ namespace WinterEngine.DataAccess
                 categoryNode.attr.Add("data-nodeType", "category");
                 categoryNode.attr.Add("data-categoryID", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-isSystemResource", Convert.ToString(category.IsSystemResource));
-                categoryNode.attr.Add("data-gameObjectType", Convert.ToString((int)GameObjectTypeEnum.Area));
-
+                
                 List<Area> areas = GetAllByResourceCategory(category);
                 foreach (Area area in areas)
                 {
                     JSTreeNode childNode = new JSTreeNode(area.Name);
                     childNode.attr.Add("data-nodeType", "object");
-                    childNode.attr.Add("data-objectID", Convert.ToString(area.ResourceID));
+                    childNode.attr.Add("data-resref", area.Resref);
 
                     categoryNode.children.Add(childNode);
                 }

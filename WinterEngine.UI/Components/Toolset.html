@@ -26,7 +26,12 @@
 
 </head>
 <body>
-    
+    <!-- Hidden Fields -->
+    <input id="hdnCurrentObjectMode" type="hidden" value="Area" />
+    <input id="hdnActiveObjectTreeSelector" type="hidden" value="#divAreaTreeView" />
+
+    <!-- End Hidden Fields -->
+
     <div id="divMenuBar">
 
         <ul id="ulMenu">
@@ -292,6 +297,9 @@
     <div id="divConfirmDelete">
         <label id="lblConfirmDelete">
             Are you sure you want to delete this object?
+        </label>
+        <br />
+        <label id="lblConfirmDeleteErrors" class="clsErrorMessage">
         </label>
         <br />
         <br />

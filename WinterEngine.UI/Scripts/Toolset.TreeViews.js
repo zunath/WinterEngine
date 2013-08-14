@@ -29,8 +29,9 @@
             }
         },
         "DeleteObject": {
-            "label": "Delete Object",
+            "label": "Delete",
             "action": function (obj) {
+                
                 $('#divConfirmDelete').data('DeleteObjectCaller', this);
                 $('#divConfirmDelete').data('DeleteObjectParent', obj);
                 $('#divConfirmDelete').dialog('open');
@@ -125,7 +126,7 @@ function CreateNewObject() {
     var tag = $('#txtObjectTag').val();
     var resref = $('#txtObjectResref').val();
     var categoryID = $(parent).data('categoryid');
-    var gameObjectType = $(parent).data('gameobjecttype');
+    var gameObjectType = $('#hdnCurrentObjectMode').val();
 
     Entity.AddNewObject(name, tag, resref, categoryID, gameObjectType);
 
@@ -155,7 +156,12 @@ function CloseNewObjectBox() {
 }
 
 function DeleteObject() {
-    Entity.DeleteObject();
+    var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
+    var selectedNode = $(activeTreeSelector).jstree('get_selected');
+    var gameObjectType = $('#hdnCurrentObjectMode').val();
+    var resref = $(selectedNode).data('resref');
+
+    Entity.DeleteObject(resref, gameObjectType);
 }
 
 function DeleteObject_Callback(success, errorMessage) {
@@ -166,8 +172,14 @@ function DeleteObject_Callback(success, errorMessage) {
         caller.remove(parent);
         CloseDeleteObjectBox();
     }
+    else {
+        $('#lblConfirmDeleteErrors').text(errorMessage);
+    }
 }
 
 function CloseDeleteObjectBox() {
+    $('#divConfirmDelete').removeData('DeleteObjectCaller');
+    $('#divConfirmDelete').removeData('DeleteObjectParent');
+    $('#lblConfirmDeleteErrors').text('');
     $('#divConfirmDelete').dialog('close');
 }
