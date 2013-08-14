@@ -127,6 +127,15 @@ namespace WinterEngine.DataTransferObjects
 
         #endregion
 
+        #region Constructors
+
+        public GameObjectBase()
+        {
+            this.ResourceType = ResourceTypeEnum.GameObject;
+        }
+
+        #endregion
+
         #region Methods
         #endregion
 

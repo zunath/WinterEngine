@@ -8,8 +8,6 @@ using WinterEngine.DataAccess.Factories;
 using WinterEngine.Library.Managers;
 using System.Windows.Forms;
 
-
-#if FRB_XNA || SILVERLIGHT
 using WinterEngine.Editor.Managers;
 using WinterEngine.DataAccess.FileAccess;
 using System.Web.Script.Serialization;
@@ -19,9 +17,6 @@ using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Utility;
 
-
-
-#endif
 
 namespace WinterEngine.Game.Entities
 {
@@ -159,6 +154,7 @@ namespace WinterEngine.Game.Entities
             // Treeview Bindings
             EntityJavascriptObject.Bind("LoadTreeViewData", false, LoadTreeViewData);
             EntityJavascriptObject.Bind("AddNewObject", false, AddNewObject);
+            EntityJavascriptObject.Bind("AddNewCategory", false, AddNewCategory);
             EntityJavascriptObject.Bind("DeleteObject", false, DeleteObject);
         }
 
@@ -424,6 +420,30 @@ namespace WinterEngine.Game.Entities
             }
         }
 
+        private void AddNewCategory(object sender, JavascriptMethodEventArgs e)
+        {
+            ErrorTypeEnum error = ErrorTypeEnum.None;
+            string name = e.Arguments[0];
+            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[1]);
+            Category newCategory = new Category
+            {
+                IsSystemResource = false,
+                Name = name,
+                GameObjectType = gameObjectType
+            };
+
+            using (CategoryRepository repo = new CategoryRepository())
+            {
+                newCategory = repo.Add(newCategory);
+            }
+
+            AsyncJavascriptCallback("CreateNewCategory_Callback",
+                error == ErrorTypeEnum.None ? true : false,
+                EnumerationHelper.GetEnumerationDescription(error),
+                name,
+                newCategory.ResourceID);
+        }
+
         private void AddNewObject(object sender, JavascriptMethodEventArgs e)
         {
             ErrorTypeEnum error = ErrorTypeEnum.None;
@@ -453,7 +473,8 @@ namespace WinterEngine.Game.Entities
                 error == ErrorTypeEnum.None ? true : false, 
                 EnumerationHelper.GetEnumerationDescription(error),
                 (int)gameObjectType,
-                name);
+                name,
+                resref);
         }
 
         private void DeleteObject(object sender, JavascriptMethodEventArgs e)

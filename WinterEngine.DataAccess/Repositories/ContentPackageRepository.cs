@@ -38,9 +38,9 @@ namespace WinterEngine.DataAccess.Repositories
         /// Adds a content package to the database.
         /// </summary>
         /// <param name="package"></param>
-        public void Add(ContentPackage package)
+        public ContentPackage Add(ContentPackage package)
         {
-            Context.ContentPackageRepository.Add(package);
+            return Context.ContentPackageRepository.Add(package);
         }
             
         /// <summary>

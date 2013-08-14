@@ -15,6 +15,7 @@ function Initialize() {
     InitializeAlertBox();
     InitializeCreateNewObjectBox();
     InitializeDeleteObjectBox();
+    InitializeCreateCategoryBox();
 }
 
 function InitializeMainMenu() {
@@ -115,6 +116,9 @@ function InitializeValidation() {
     $('#formNewObject').validate({
         errorPlacement: $.noop
     });
+    $('#formNewCategory').validate({
+        errorPlacement: $.noop
+    });
 
 }
 
@@ -145,6 +149,17 @@ function InitializeDeleteObjectBox() {
         modal: true,
         autoOpen: false,
         title: 'Delete Object?',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
+}
+
+function InitializeCreateCategoryBox() {
+    $('#divCreateCategory').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Create Category',
         resizable: false,
         dialogClass: 'jqueryUIDialogNoCloseButton',
         draggable: false

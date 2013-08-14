@@ -24,9 +24,9 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        public void Add(ContentPackageResource resource)
+        public ContentPackageResource Add(ContentPackageResource resource)
         {
-            Context.ContentPackageResourceRepository.Add(resource);
+            return Context.ContentPackageResourceRepository.Add(resource);
         }
 
         public void Add(List<ContentPackageResource> resourceList)

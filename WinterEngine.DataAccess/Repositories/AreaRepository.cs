@@ -135,21 +135,21 @@ namespace WinterEngine.DataAccess
         public JSTreeNode GenerateJSTreeHierarchy()
         {
             JSTreeNode rootNode = new JSTreeNode("Areas");
-            rootNode.attr.Add("data-nodeType", "root");
+            rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
             List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Area).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);
-                categoryNode.attr.Add("data-nodeType", "category");
-                categoryNode.attr.Add("data-categoryID", Convert.ToString(category.ResourceID));
-                categoryNode.attr.Add("data-isSystemResource", Convert.ToString(category.IsSystemResource));
+                categoryNode.attr.Add("data-nodetype", "category");
+                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
+                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
                 
                 List<Area> areas = GetAllByResourceCategory(category);
                 foreach (Area area in areas)
                 {
                     JSTreeNode childNode = new JSTreeNode(area.Name);
-                    childNode.attr.Add("data-nodeType", "object");
+                    childNode.attr.Add("data-nodetype", "object");
                     childNode.attr.Add("data-resref", area.Resref);
 
                     categoryNode.children.Add(childNode);

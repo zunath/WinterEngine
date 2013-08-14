@@ -307,5 +307,19 @@
         <input id="btnDeleteObjectCancel" type="button" value="Cancel" class="clsHalfButton" onclick="CloseDeleteObjectBox();" />
     </div>
 
+    <div id="divCreateCategory">
+        <form id="formNewCategory" method="post">
+            <label id="lblNewCategoryErrors" class="clsErrorMessage">
+            </label>
+            <br />
+            <label id="lblCategoryName" for="txtCategoryName">Name:</label>
+            <input id="txtCategoryName" name="txtCategoryName" type="text" class="required" maxlength="64" />
+            <br />
+            <br />
+            <input id="btnCreateCategory" type="button" value="Create" class="clsHalfButton" onclick="CreateNewCategory();" />
+            <input id="btnCancelCreateCategory" type="button" value="Cancel" class="clsHalfButton" onclick="CloseNewCategoryBox();" />
+        </form>
+    </div>
+
 </body>
 </html>

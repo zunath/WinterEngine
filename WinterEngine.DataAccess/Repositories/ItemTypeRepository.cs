@@ -37,9 +37,9 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="itemType"></param>
         /// <returns></returns>
-        public void Add(ItemType itemType)
+        public ItemType Add(ItemType itemType)
         {
-            Context.ItemTypeRepository.Add(itemType);
+            return Context.ItemTypeRepository.Add(itemType);
         }
 
         /// <summary>

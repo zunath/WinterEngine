@@ -50,9 +50,9 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resourceCategory"></param>
         /// <returns></returns>
-        public void Add(Category resourceCategory)
+        public Category Add(Category resourceCategory)
         {
-            Context.CategoryRepository.Add(resourceCategory);
+            return Context.CategoryRepository.Add(resourceCategory);
         }
 
         public void Add(List<Category> categoryList)

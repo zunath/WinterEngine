@@ -21,6 +21,8 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("Races")]
         Race = 6,
         [Description("ContentPackageResources")]
-        ContentPackageResource = 7
+        ContentPackageResource = 7,
+        [Description("GameObject")]
+        GameObject = 8
     }
 }

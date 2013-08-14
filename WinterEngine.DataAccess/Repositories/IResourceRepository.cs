@@ -9,7 +9,7 @@ namespace WinterEngine.DataAccess.Repositories
 {
     interface IResourceRepository<T> : IDisposable where T : GameResourceBase
     {
-        void Add(T entity);
+        T Add(T entity);
         void Add(List<T> entityList);
         void Update(T entity);
         void Upsert(T entity);

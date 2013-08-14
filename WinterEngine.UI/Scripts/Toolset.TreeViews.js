@@ -3,7 +3,9 @@
         "CreateCategory": {
             "label": "Create Category",
             "action": function (obj) {
-                this.create(obj);
+                $('#divCreateCategory').data('NewCategoryCaller', this);
+                $('#divCreateCategory').data('NewCategoryParent', obj);
+                $('#divCreateCategory').dialog('open');
             }
         },
         "CreateObject": {
@@ -118,6 +120,30 @@ function LoadTreeViews_Callback(jsonAreas,
     $('#divAreaTreeView').removeClass('clsHidden');
 }
 
+function CreateNewCategory() {
+    if (!$('#formNewCategory').valid()) return;
+
+    var name = $('#txtCategoryName').val();
+    var gameObjectType = $('#hdnCurrentObjectMode').val();
+
+    Entity.AddNewCategory(name, gameObjectType);
+}
+
+function CreateNewCategory_Callback(success, errorMessage, name, categoryID) {
+    if (success) {
+        var caller = $('#divCreateCategory').data('NewCategoryCaller');
+        var parent = $('#divCreateCategory').data('NewCategoryParent');
+        var newCategory = caller.create(parent, null, name, null, true);
+        $(newCategory).data('nodetype', 'category');
+        $(newCategory).data('categoryid', categoryID);
+        
+        CloseNewCategoryBox();
+    }
+    else {
+        $('#lblNewCategoryErrors').text(errorMessage);
+    }
+}
+
 function CreateNewObject() {
     if (!$('#formNewObject').valid()) return;
 
@@ -132,16 +158,27 @@ function CreateNewObject() {
 
 }
 
-function CreateNewObject_Callback(success, errorMessage, gameObjectType, name) {
+function CreateNewObject_Callback(success, errorMessage, gameObjectType, name, resref) {
     if (success) {
         var caller = $('#divNewObject').data('NewObjectCaller');
         var parent = $('#divNewObject').data('NewObjectParent');
-        caller.create(parent, null, name, null, true);
+        var newObject = caller.create(parent, null, name, null, true);
+        $(newObject).data('resref', resref);
+        $(newObject).data('nodetype', 'object');
         CloseNewObjectBox();
     }
     else {
         $('#lblNewObjectErrors').text(errorMessage);
     }
+}
+
+function CloseNewCategoryBox() {
+    $('#divCreateCategory').removeData('NewCategoryCaller');
+    $('#divCreateCategory').removeData('NewCategoryParent');
+    $('#txtCategoryName').val('');
+    $('#lblNewCategoryErrors').text('');
+
+    $('#divCreateCategory').dialog('close');
 }
 
 function CloseNewObjectBox() {
