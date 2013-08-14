@@ -58,7 +58,10 @@ function OpenModuleButtonClick_Callback(success) {
 function CloseModuleButtonClick(element) {
     if (IsMenuButtonDisabled($(element))) return;
     Entity.CloseModuleButtonClick();
+}
 
+function CloseModuleButtonClick_Callback() {
+    HideAllTreeViews();
     ToggleModuleActionButtons(false);
 }
 
@@ -203,30 +206,4 @@ function ToggleModuleActionButtons(isEnabled) {
         $('#liImportButton').addClass('ui-state-disabled');
         $('#liExportButton').addClass('ui-state-disabled');
     }
-}
-
-/* Tree View Methods */
-
-function LoadTreeViews_Callback(jsonAreas,
-                                jsonCreatures,
-                                jsonItems,
-                                jsonPlaceables,
-                                jsonConversations,
-                                jsonScripts) {
-    var areas = $.parseJSON(jsonAreas);
-
-
-    
-    $('#divAreaTreeView').jstree({
-        "json_data": {
-            "data": [
-                areas
-            ]
-        },
-        "plugins": ["json_data", "ui", "themeroller", "sort", "contextmenu"],
-        "animation": 0
-        
-    });
-    
-    $('#divAreaTreeView').removeClass('clsHidden');
 }

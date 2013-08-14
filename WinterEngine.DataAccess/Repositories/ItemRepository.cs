@@ -129,8 +129,9 @@ namespace WinterEngine.DataAccess
         /// Generates a hierarchy of categories containing items for use in tree views.
         /// </summary>
         /// <returns></returns>
-        public List<JSTreeNode> GenerateJSTreeCategories()
+        public JSTreeNode GenerateJSTreeHierarchy()
         {
+            JSTreeNode rootNode = new JSTreeNode("Items");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
             List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Item).ToList();
             foreach (Category category in categories)
@@ -146,7 +147,8 @@ namespace WinterEngine.DataAccess
                 treeNodes.Add(categoryNode);
             }
 
-            return treeNodes;
+            rootNode.children = treeNodes;
+            return rootNode;
         }
 
         public override void Dispose()

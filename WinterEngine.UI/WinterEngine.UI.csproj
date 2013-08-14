@@ -186,6 +186,9 @@
     <Content Include="Scripts\Toolset.ObjectBar.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\Toolset.TreeViews.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Styling\DataTables\jquery.dataTables.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -21,6 +21,6 @@ namespace WinterEngine.DataAccess.Repositories
         List<T> GetAllByResourceCategory(Category resourceCategory);
         T GetByResref(string resref);
         void DeleteAllByCategory(Category resourceCategory);
-        List<JSTreeNode> GenerateJSTreeCategories();
+        JSTreeNode GenerateJSTreeHierarchy();
     }
 }

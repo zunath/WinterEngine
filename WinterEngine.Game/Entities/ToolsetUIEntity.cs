@@ -227,6 +227,8 @@ namespace WinterEngine.Game.Entities
         private void CloseModuleButton(object sender, JavascriptMethodEventArgs e)
         {
             ModuleManager.CloseModule();
+
+            AsyncJavascriptCallback("CloseModuleButtonClick_Callback");
         }
 
         private void ImportButtonClick(object sender, JavascriptMethodEventArgs e)
@@ -369,57 +371,48 @@ namespace WinterEngine.Game.Entities
         {
             try
             {
-                List<JSTreeNode> areaNodes = new List<JSTreeNode>();
-                List<JSTreeNode> creatureNodes = new List<JSTreeNode>();
-                List<JSTreeNode> itemNodes = new List<JSTreeNode>();
-                List<JSTreeNode> placeableNodes = new List<JSTreeNode>();
-                List<JSTreeNode> conversationNodes = new List<JSTreeNode>();
-                List<JSTreeNode> scriptNodes = new List<JSTreeNode>();
+                JSTreeNode areaRootNode;
+                JSTreeNode creatureRootNode;
+                JSTreeNode itemRootNode;
+                JSTreeNode placeableRootNode;
+                JSTreeNode conversationRootNode;
+                JSTreeNode scriptRootNode;
 
                 // Get each category's children for each object type
                 using (AreaRepository repo = new AreaRepository())
                 {
-                    areaNodes = repo.GenerateJSTreeCategories();
+                    areaRootNode = repo.GenerateJSTreeHierarchy();
                 }
                 using (CreatureRepository repo = new CreatureRepository())
                 {
-                    creatureNodes = repo.GenerateJSTreeCategories();
+                    creatureRootNode = repo.GenerateJSTreeHierarchy();
                 }
                 using (ItemRepository repo = new ItemRepository())
                 {
-                    itemNodes = repo.GenerateJSTreeCategories();
+                    itemRootNode = repo.GenerateJSTreeHierarchy();
                 }
                 using (PlaceableRepository repo = new PlaceableRepository())
                 {
-                    placeableNodes = repo.GenerateJSTreeCategories();
+                    placeableRootNode = repo.GenerateJSTreeHierarchy();
                 }
                 using (ConversationRepository repo = new ConversationRepository())
                 {
-                    conversationNodes = repo.GenerateJSTreeCategories();
+                    conversationRootNode = repo.GenerateJSTreeCategories();
                 }
                 using (ScriptRepository repo = new ScriptRepository())
                 {
-                    scriptNodes = repo.GenerateJSTreeCategories();
+                    scriptRootNode = repo.GenerateJSTreeCategories();
                 }
-
-                // DEBUGGING
-
-                areaNodes.Add(new JSTreeNode("test1"));
-                areaNodes.Add(new JSTreeNode("test2"));
-                areaNodes.Add(new JSTreeNode("test3"));
-                areaNodes.Add(new JSTreeNode("test4"));
-
-                // END DEBUGGING
 
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 
                 AsyncJavascriptCallback("LoadTreeViews_Callback",
-                    serializer.Serialize(areaNodes),
-                    serializer.Serialize(creatureNodes),
-                    serializer.Serialize(itemNodes),
-                    serializer.Serialize(placeableNodes),
-                    serializer.Serialize(conversationNodes),
-                    serializer.Serialize(scriptNodes));
+                    serializer.Serialize(areaRootNode),
+                    serializer.Serialize(creatureRootNode),
+                    serializer.Serialize(itemRootNode),
+                    serializer.Serialize(placeableRootNode),
+                    serializer.Serialize(conversationRootNode),
+                    serializer.Serialize(scriptRootNode));
             }
             catch
             {
