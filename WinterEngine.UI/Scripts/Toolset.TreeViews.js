@@ -3,30 +3,42 @@
         "CreateCategory": {
             "label": "Create Category",
             "action": function (obj) {
-                $('#divCreateCategory').data('NewCategoryCaller', this);
-                $('#divCreateCategory').data('NewCategoryParent', obj);
+                $('#divCreateCategory').data('Caller', this);
+                $('#divCreateCategory').data('Parent', obj);
                 $('#divCreateCategory').dialog('open');
             }
         },
         "CreateObject": {
             "label": "Create Object",
             "action": function (obj) {
-                $('#divNewObject').data('NewObjectCaller', this);
-                $('#divNewObject').data('NewObjectParent', obj);
+                $('#divNewObject').data('Caller', this);
+                $('#divNewObject').data('Parent', obj);
                 $('#divNewObject').dialog('open');
             }
         },
-        "Rename": {
+        "RenameCategory": {
             "label": "Rename",
             "action": function (obj) {
-                this.rename(obj);
+                $('#divRenameTreeNode').data('RenameMode', 'RenameCategory');
+                $('#divRenameTreeNode').data('Caller', this);
+                $('#divRenameTreeNode').data('Parent', obj);
+                $('#divRenameTreeNode').dialog('open');
+            }
+        },
+        "RenameObject": {
+            "label": "Rename",
+            "action": function (obj) {
+                $('#divRenameTreeNode').data('RenameMode', 'RenameObject');
+                $('#divRenameTreeNode').data('Caller', this);
+                $('#divRenameTreeNode').data('Parent', obj);
+                $('#divRenameTreeNode').dialog('open');
             }
         },
         "DeleteCategory": {
             "label": "Delete Category",
             "action": function (obj) {
-                $('#divConfirmDelete').data('DeleteObjectCaller', this);
-                $('#divConfirmDelete').data('DeleteObjectParent', obj);
+                $('#divConfirmDelete').data('Caller', this);
+                $('#divConfirmDelete').data('Parent', obj);
                 $('#divConfirmDelete').data('DeleteMode', 'DeleteCategory');
                 $('#lblConfirmDelete').text('Are you sure you want to delete this category? ' +
                     'All objects contained in this category will also be deleted.');
@@ -37,8 +49,8 @@
             "label": "Delete",
             "action": function (obj) {
                 
-                $('#divConfirmDelete').data('DeleteObjectCaller', this);
-                $('#divConfirmDelete').data('DeleteObjectParent', obj);
+                $('#divConfirmDelete').data('Caller', this);
+                $('#divConfirmDelete').data('Parent', obj);
                 $('#divConfirmDelete').data('DeleteMode', 'DeleteObject');
                 $('#lblConfirmDelete').text('Are you sure you want to delete this ' + $('#hdnCurrentObjectMode').val() + '?');
                 $('#divConfirmDelete').dialog('open');
@@ -56,6 +68,7 @@
         if ($(node).data("issystemresource") == "True") {
             delete items.DeleteCategory;
         }
+        delete items.RenameObject;
         delete items.DeleteObject;
         delete items.CreateCategory;
     }
@@ -63,6 +76,7 @@
         delete items.DeleteCategory;
         delete items.CreateCategory;
         delete items.CreateObject;
+        delete items.RenameCategory;
     }
     
     return items;
@@ -136,8 +150,8 @@ function CreateNewCategory() {
 
 function CreateNewCategory_Callback(success, errorMessage, name, categoryID) {
     if (success) {
-        var caller = $('#divCreateCategory').data('NewCategoryCaller');
-        var parent = $('#divCreateCategory').data('NewCategoryParent');
+        var caller = $('#divCreateCategory').data('Caller');
+        var parent = $('#divCreateCategory').data('Parent');
         var newCategory = caller.create(parent, null, name, null, true);
         $(newCategory).data('nodetype', 'category');
         $(newCategory).data('categoryid', categoryID);
@@ -152,7 +166,7 @@ function CreateNewCategory_Callback(success, errorMessage, name, categoryID) {
 function CreateNewObject() {
     if (!$('#formNewObject').valid()) return;
 
-    var parent = $('#divNewObject').data('NewObjectParent');
+    var parent = $('#divNewObject').data('Parent');
     var name = $('#txtObjectName').val();
     var tag = $('#txtObjectTag').val();
     var resref = $('#txtObjectResref').val();
@@ -165,8 +179,8 @@ function CreateNewObject() {
 
 function CreateNewObject_Callback(success, errorMessage, gameObjectType, name, resref) {
     if (success) {
-        var caller = $('#divNewObject').data('NewObjectCaller');
-        var parent = $('#divNewObject').data('NewObjectParent');
+        var caller = $('#divNewObject').data('Caller');
+        var parent = $('#divNewObject').data('Parent');
         var newObject = caller.create(parent, null, name, null, true);
         $(newObject).data('resref', resref);
         $(newObject).data('nodetype', 'object');
@@ -178,8 +192,8 @@ function CreateNewObject_Callback(success, errorMessage, gameObjectType, name, r
 }
 
 function CloseNewCategoryBox() {
-    $('#divCreateCategory').removeData('NewCategoryCaller');
-    $('#divCreateCategory').removeData('NewCategoryParent');
+    $('#divCreateCategory').removeData('Caller');
+    $('#divCreateCategory').removeData('Parent');
     $('#txtCategoryName').val('');
     $('#lblNewCategoryErrors').text('');
 
@@ -187,8 +201,8 @@ function CloseNewCategoryBox() {
 }
 
 function CloseNewObjectBox() {
-    $('#divNewObject').removeData('NewObjectCaller');
-    $('#divNewObject').removeData('NewObjectParent');
+    $('#divNewObject').removeData('Caller');
+    $('#divNewObject').removeData('Parent');
     $('#txtObjectName').val('');
     $('#txtObjectTag').val('');
     $('#txtObjectResref').val('');
@@ -215,8 +229,8 @@ function DeleteObject() {
 
 function DeleteObject_Callback(success, errorMessage) {
     if (success) {
-        var caller = $('#divConfirmDelete').data('DeleteObjectCaller');
-        var parent = $('#divConfirmDelete').data('DeleteObjectParent');
+        var caller = $('#divConfirmDelete').data('Caller');
+        var parent = $('#divConfirmDelete').data('Parent');
 
         caller.remove(parent);
         CloseDeleteObjectBox();
@@ -227,8 +241,47 @@ function DeleteObject_Callback(success, errorMessage) {
 }
 
 function CloseDeleteObjectBox() {
-    $('#divConfirmDelete').removeData('DeleteObjectCaller');
-    $('#divConfirmDelete').removeData('DeleteObjectParent');
+    $('#divConfirmDelete').removeData('Caller');
+    $('#divConfirmDelete').removeData('Parent');
     $('#lblConfirmDeleteErrors').text('');
     $('#divConfirmDelete').dialog('close');
 }
+
+function RenameObject() {
+    var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
+    var selectedNode = $(activeTreeSelector).jstree('get_selected');
+    var gameObjectType = $('#hdnCurrentObjectMode').val();
+    var mode = $('#divRenameTreeNode').data('RenameMode');
+    var newObjectName = $('#txtRenameTreeNode').val();
+
+    if (mode == "RenameCategory") {
+        var categoryID = $(selectedNode).data('categoryid');
+        Entity.RenameCategory(newObjectName, categoryID);
+    }
+    else if (mode == "RenameObject") {
+        var resref = $(selectedNode).data('resref');
+        Entity.RenameObject(newObjectName, resref, gameObjectType);
+    }
+}
+
+function RenameObject_Callback(success, errorMessage, newName) {
+    if (success) {
+        var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
+        var caller = $('#divRenameTreeNode').data('Caller');
+        var parent = $('#divRenameTreeNode').data('Parent');
+
+        $(activeTreeSelector).jstree('rename_node', [caller, newName]);
+        CloseRenameObjectBox();
+    }
+    else {
+        $('#lblRenameTreeNodeErrors').text(errorMessage);
+    }
+}
+
+function CloseRenameObjectBox() {
+    $('#divRenameTreeNode').removeData('Caller');
+    $('#divRenameTreeNode').removeData('Parent');
+    $('#lblRenameTreeNodeErrors').text('');
+    $('#divRenameTreeNode').dialog('close');
+}
+

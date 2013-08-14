@@ -16,6 +16,7 @@ function Initialize() {
     InitializeCreateNewObjectBox();
     InitializeDeleteObjectBox();
     InitializeCreateCategoryBox();
+    InitializeRenameTreeNodeBox();
 }
 
 function InitializeMainMenu() {
@@ -160,6 +161,17 @@ function InitializeCreateCategoryBox() {
         modal: true,
         autoOpen: false,
         title: 'Create Category',
+        resizable: false,
+        dialogClass: 'jqueryUIDialogNoCloseButton',
+        draggable: false
+    });
+}
+
+function InitializeRenameTreeNodeBox() {
+    $('#divRenameTreeNode').dialog({
+        modal: true,
+        autoOpen: false,
+        title: 'Rename Object',
         resizable: false,
         dialogClass: 'jqueryUIDialogNoCloseButton',
         draggable: false

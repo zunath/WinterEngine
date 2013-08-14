@@ -83,17 +83,6 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// Returns the resource category matching the resourceCategoryID passed in.
-        /// Returns null if resource category does not exist.
-        /// </summary>
-        /// <param name="resourceCategoryID"></param>
-        /// <returns></returns>
-        public Category GetByResourceCategoryID(int resourceID)
-        {
-            return Context.CategoryRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
-        }
-
-        /// <summary>
         /// Returns true if a resource category exists in the database.
         /// Returns false if a resource category does not exist in the database.
         /// </summary>

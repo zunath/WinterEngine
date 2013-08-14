@@ -157,6 +157,8 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("AddNewCategory", false, AddNewCategory);
             EntityJavascriptObject.Bind("DeleteCategory", false, DeleteCategory);
             EntityJavascriptObject.Bind("DeleteObject", false, DeleteObject);
+            EntityJavascriptObject.Bind("RenameCategory", false, RenameCategory);
+            EntityJavascriptObject.Bind("RenameObject", false, RenameObject);
         }
 
         #endregion
@@ -488,7 +490,7 @@ namespace WinterEngine.Game.Entities
 
             using(CategoryRepository repo = new CategoryRepository())
             {
-                categoryToRemove = repo.GetByResourceCategoryID(categoryID);
+                categoryToRemove = repo.GetByID(categoryID);
             }
 
             factory.DeleteFromDatabaseByCategory(categoryToRemove, gameObjectType);
@@ -517,6 +519,50 @@ namespace WinterEngine.Game.Entities
             AsyncJavascriptCallback("DeleteObject_Callback", 
                 error == ErrorTypeEnum.None ? true : false,
                 EnumerationHelper.GetEnumerationDescription(error));
+        }
+
+        private void RenameCategory(object sender, JavascriptMethodEventArgs e)
+        {
+            ErrorTypeEnum error = ErrorTypeEnum.None;
+            string name = e.Arguments[0];
+            int categoryID = (int)e.Arguments[1];
+            
+            using (CategoryRepository repo = new CategoryRepository())
+            {
+                Category dbCategory = repo.GetByID(categoryID);
+                dbCategory.Name = name;
+            }
+
+            AsyncJavascriptCallback("RenameObject_Callback",
+                error == ErrorTypeEnum.None ? true : false,
+                EnumerationHelper.GetEnumerationDescription(error),
+                name);
+        }
+
+        private void RenameObject(object sender, JavascriptMethodEventArgs e)
+        {
+            ErrorTypeEnum error = ErrorTypeEnum.None;
+            GameObjectFactory factory = new GameObjectFactory();
+            string name = e.Arguments[0];
+            string resref = e.Arguments[1];
+            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[2]);
+
+            GameObjectBase dbObject = factory.GetFromDatabaseByResref(resref, gameObjectType);
+
+            if (dbObject == null)
+            {
+                error = ErrorTypeEnum.ObjectResrefDoesNotExist;
+            }
+            else
+            {
+                dbObject.Name = name;
+                factory.UpdateInDatabase(dbObject);
+            }
+
+            AsyncJavascriptCallback("RenameObject_Callback",
+                error == ErrorTypeEnum.None ? true : false,
+                EnumerationHelper.GetEnumerationDescription(error),
+                name);
         }
 
         #endregion

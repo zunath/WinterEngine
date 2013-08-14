@@ -321,5 +321,18 @@
         </form>
     </div>
 
+    <div id="divRenameTreeNode">
+        <form id="formRenameTreeNode" method="post">
+            <label id="lblRenameTreeNodeErrors" class="clsErrorMessage"></label>
+            <br />
+            <label id="lblRenameTreeNode" for="txtRenameTreeNode">New Name:</label>
+            <input id="txtRenameTreeNode" name="txtRenameTreeNode" type="text" class="required" maxlength="64" />
+            <br />
+            <br />
+            <input id="btnRenameTreeNode" type="button" value="Rename" class="clsHalfButton" onclick="RenameObject();" />
+            <input id="btnCancelRenameTreeNode" type="button" value="Cancel" class="clsHalfButton" onclick="CloseRenameObjectBox();" />
+        </form>
+    </div>
+
 </body>
 </html>
