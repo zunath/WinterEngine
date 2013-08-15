@@ -1,4 +1,6 @@
-﻿function BuildObjectTreeViewContextMenu(node) {
+﻿
+// Builds the right-click context menu used on the tree views
+function BuildObjectTreeViewContextMenu(node) {
     var items = {
         "CreateCategory": {
             "label": "Create Category",
@@ -84,9 +86,10 @@
     return items;
 }
 
-function PopulateTreeView(selector, data) {
+// Initializes a specified div selector as a tree view.
+function InitializeTreeView(selector, data) {
     $(selector).jstree({
-        animation: 0,
+        "animation": 0,
         "plugins": ["json_data", "ui", "themeroller", "sort", "crrm", "contextmenu", "types"],
         "json_data": {
             "data": [
@@ -118,30 +121,74 @@ function PopulateTreeView(selector, data) {
         },
         "crrm": {
         }
+    })
+
+
+    .bind("	select_node.jstree", function (event) {
+        OnTreeViewNodeSelected();
     });
 }
 
+// Fires when a tree node is selected.
+// If a category or root node is selected, it is expanded.
+// If an object node is selected, it will be loaded into the editor.
+function OnTreeViewNodeSelected() {
+    var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
+    var selectedNode = $(activeTreeSelector).jstree('get_selected');
+    var nodeType = $(selectedNode).data('nodetype');
+
+    if (nodeType == 'category' || nodeType == 'root') {
+        $(activeTreeSelector).jstree('open_node', selectedNode);
+    }
+    else if (nodeType == 'object') {
+        LoadObject(selectedNode);
+    }
+}
+
+// Loads a specific tree node object into the editor.
+// Different sections of the editor display based on the type of object mode we're in.
+function LoadObject(treeNode) {
+    var objectMode = $('#hdnCurrentObjectMode').val();
+
+    if (objectMode == "Area") {
+    }
+    else if (objectMode == "Creature") {
+    }
+    else if (objectMode == "Item") {
+    }
+    else if (objectMode == "Placeable") {
+    }
+    else if (objectMode == "Conversation") {
+    }
+    else if (objectMode == "Script") {
+    }
+}
+
+// Convenience function to hide all tree view divs.
 function HideAllTreeViews() {
     $('.clsTreeViewDiv').addClass('clsHidden');
 }
 
+// CALLBACK FUNCTION
+// Initializes all tree views for the different object types.
 function LoadTreeViews_Callback(jsonAreas,
                                 jsonCreatures,
                                 jsonItems,
                                 jsonPlaceables,
                                 jsonConversations,
                                 jsonScripts) {
-    PopulateTreeView("#divAreaTreeView", $.parseJSON(jsonAreas));
-    PopulateTreeView("#divCreatureTreeView", $.parseJSON(jsonCreatures));
-    PopulateTreeView("#divItemTreeView", $.parseJSON(jsonItems));
-    PopulateTreeView("#divPlaceableTreeView", $.parseJSON(jsonPlaceables));
-    PopulateTreeView("#divConversationTreeView", $.parseJSON(jsonConversations));
-    PopulateTreeView("#divScriptTreeView", $.parseJSON(jsonScripts));
+    InitializeTreeView("#divAreaTreeView", $.parseJSON(jsonAreas));
+    InitializeTreeView("#divCreatureTreeView", $.parseJSON(jsonCreatures));
+    InitializeTreeView("#divItemTreeView", $.parseJSON(jsonItems));
+    InitializeTreeView("#divPlaceableTreeView", $.parseJSON(jsonPlaceables));
+    InitializeTreeView("#divConversationTreeView", $.parseJSON(jsonConversations));
+    InitializeTreeView("#divScriptTreeView", $.parseJSON(jsonScripts));
 
     var currentTreeSelector = $('#hdnActiveObjectTreeSelector').val();
     $(currentTreeSelector).removeClass('clsHidden');
 }
 
+// Handles requesting a new category be created.
 function CreateNewCategory() {
     if (!$('#formNewCategory').valid()) return;
 
@@ -151,6 +198,9 @@ function CreateNewCategory() {
     Entity.AddNewCategory(name, gameObjectType);
 }
 
+// CALLBACK FUNCTION
+// If successful, new category will be created in the UI.
+// If failed, error will display.
 function CreateNewCategory_Callback(success, errorMessage, name, categoryID) {
     if (success) {
         var caller = $('#divCreateCategory').data('Caller');
@@ -166,6 +216,7 @@ function CreateNewCategory_Callback(success, errorMessage, name, categoryID) {
     }
 }
 
+// Handles requesting a new object be created.
 function CreateNewObject() {
     if (!$('#formNewObject').valid()) return;
 
@@ -180,6 +231,9 @@ function CreateNewObject() {
 
 }
 
+// CALLBACK FUNCTION
+// If successful, a new object will be created in the UI.
+// If failed, error message will display.
 function CreateNewObject_Callback(success, errorMessage, gameObjectType, name, resref) {
     if (success) {
         var caller = $('#divNewObject').data('Caller');
@@ -194,6 +248,7 @@ function CreateNewObject_Callback(success, errorMessage, gameObjectType, name, r
     }
 }
 
+// Closes the pop-up div for new categories and clears all temporary data.
 function CloseNewCategoryBox() {
     $('#divCreateCategory').removeData('Caller');
     $('#divCreateCategory').removeData('Parent');
@@ -203,6 +258,7 @@ function CloseNewCategoryBox() {
     $('#divCreateCategory').dialog('close');
 }
 
+// Closes the pop-up div for new objects and clears all temporary data.
 function CloseNewObjectBox() {
     $('#divNewObject').removeData('Caller');
     $('#divNewObject').removeData('Parent');
@@ -214,6 +270,7 @@ function CloseNewObjectBox() {
     $('#divNewObject').dialog('close');
 }
 
+// Handles requesting that a category or object be deleted from database.
 function DeleteObject() {
     var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
     var selectedNode = $(activeTreeSelector).jstree('get_selected');
@@ -230,6 +287,9 @@ function DeleteObject() {
     }
 }
 
+// CALLBACK FUNCTION
+// If successful, removes the category or object node from the UI.
+// If failed, error message will display.
 function DeleteObject_Callback(success, errorMessage) {
     if (success) {
         var caller = $('#divConfirmDelete').data('Caller');
@@ -243,6 +303,7 @@ function DeleteObject_Callback(success, errorMessage) {
     }
 }
 
+// Closes the pop-up div for deleting objects and clears all temporary data.
 function CloseDeleteObjectBox() {
     $('#divConfirmDelete').removeData('Caller');
     $('#divConfirmDelete').removeData('Parent');
@@ -250,6 +311,7 @@ function CloseDeleteObjectBox() {
     $('#divConfirmDelete').dialog('close');
 }
 
+// Handles requesting that a category or object be renamed.
 function RenameObject() {
     var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
     var selectedNode = $(activeTreeSelector).jstree('get_selected');
@@ -267,6 +329,9 @@ function RenameObject() {
     }
 }
 
+// CALLBACK FUNCTION
+// If successful, object is renamed in the UI.
+// If failed, error message will display.
 function RenameObject_Callback(success, errorMessage, newName) {
     if (success) {
         var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
@@ -280,9 +345,8 @@ function RenameObject_Callback(success, errorMessage, newName) {
     }
 }
 
+// Closes the pop-up div for object/category renaming and clears all temporary data.
 function CloseRenameObjectBox() {
-    $('#divRenameTreeNode').removeData('Caller');
-    $('#divRenameTreeNode').removeData('Parent');
     $('#lblRenameTreeNodeErrors').text('');
     $('#txtRenameTreeNode').val('');
     $('#divRenameTreeNode').dialog('close');
