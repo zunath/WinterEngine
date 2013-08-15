@@ -153,19 +153,28 @@ namespace WinterEngine.DataAccess
         /// <summary>
         /// Generates a hierarchy of categories containing placeables for use in tree views.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The root node containing all other categories and placeables.</returns>
         public JSTreeNode GenerateJSTreeHierarchy()
         {
             JSTreeNode rootNode = new JSTreeNode("Placeables");
+            rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
             List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Placeable).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);
+                categoryNode.attr.Add("data-nodetype", "category");
+                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
+                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
+
                 List<Placeable> placeables = GetAllByResourceCategory(category);
                 foreach (Placeable placeable in placeables)
                 {
                     JSTreeNode childNode = new JSTreeNode(placeable.Name);
+                    childNode.attr.Add("data-nodetype", "object");
+                    childNode.attr.Add("data-resref", placeable.Resref);
+                    childNode.attr.Add("data-issystemresource", Convert.ToString(placeable.IsSystemResource));
+
                     categoryNode.children.Add(childNode);
                 }
 

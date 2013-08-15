@@ -53,51 +53,58 @@ namespace WinterEngine.DataAccess.Factories
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
         public void AddToDatabase(GameObjectBase winterObject, string connectionString = "")
         {
-            if (winterObject.GameObjectType == GameObjectTypeEnum.Area)
+            try
             {
-                using (AreaRepository repo = new AreaRepository(connectionString))
+                if (winterObject.GameObjectType == GameObjectTypeEnum.Area)
                 {
-                    repo.Add(winterObject as Area);
+                    using (AreaRepository repo = new AreaRepository(connectionString))
+                    {
+                        repo.Add(winterObject as Area);
+                    }
+                }
+                else if (winterObject.GameObjectType == GameObjectTypeEnum.Conversation)
+                {
+                    using (ConversationRepository repo = new ConversationRepository())
+                    {
+                        repo.Add(winterObject as Conversation);
+                    }
+                }
+                else if (winterObject.GameObjectType == GameObjectTypeEnum.Creature)
+                {
+                    using (CreatureRepository repo = new CreatureRepository(connectionString))
+                    {
+                        repo.Add(winterObject as Creature);
+                    }
+                }
+                else if (winterObject.GameObjectType == GameObjectTypeEnum.Item)
+                {
+                    using (ItemRepository repo = new ItemRepository(connectionString))
+                    {
+                        repo.Add(winterObject as Item);
+                    }
+                }
+                else if (winterObject.GameObjectType == GameObjectTypeEnum.Placeable)
+                {
+                    using (PlaceableRepository repo = new PlaceableRepository(connectionString))
+                    {
+                        repo.Add(winterObject as Placeable);
+                    }
+                }
+                else if (winterObject.GameObjectType == GameObjectTypeEnum.Script)
+                {
+                    using (ScriptRepository repo = new ScriptRepository())
+                    {
+                        repo.Add(winterObject as Script);
+                    }
+                }
+                else
+                {
+                    throw new NotSupportedException();
                 }
             }
-            else if (winterObject.GameObjectType == GameObjectTypeEnum.Conversation)
+            catch
             {
-                using (ConversationRepository repo = new ConversationRepository())
-                {
-                    repo.Add(winterObject as Conversation);
-                }
-            }
-            else if (winterObject.GameObjectType == GameObjectTypeEnum.Creature)
-            {
-                using (CreatureRepository repo = new CreatureRepository(connectionString))
-                {
-                    repo.Add(winterObject as Creature);
-                }
-            }
-            else if (winterObject.GameObjectType == GameObjectTypeEnum.Item)
-            {
-                using (ItemRepository repo = new ItemRepository(connectionString))
-                {
-                    repo.Add(winterObject as Item);
-                }
-            }
-            else if (winterObject.GameObjectType == GameObjectTypeEnum.Placeable)
-            {
-                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
-                {
-                    repo.Add(winterObject as Placeable);
-                }
-            }
-            else if (winterObject.GameObjectType == GameObjectTypeEnum.Script)
-            {
-                using (ScriptRepository repo = new ScriptRepository())
-                {
-                    repo.Add(winterObject as Script);
-                }
-            }
-            else
-            {
-                throw new NotSupportedException();
+                throw;
             }
 
         }

@@ -12,23 +12,16 @@ namespace WinterEngine.DataTransferObjects
     {
         #region Fields
 
-        private int _resourceCategoryID;
-        private Category _resourceCategory;
-
         #endregion
 
         #region Properties
 
-        public int ResourceCategoryID
-        {
-            get { return _resourceCategoryID; }
-            set { _resourceCategoryID = value; }
-        }
+        #endregion
 
-        public Category ResourceCategory
+        #region Constructors
+
+        public Script()
         {
-            get { return _resourceCategory; }
-            set { _resourceCategory = value; }
         }
 
         #endregion

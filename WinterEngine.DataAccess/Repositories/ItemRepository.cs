@@ -159,19 +159,28 @@ namespace WinterEngine.DataAccess
         /// <summary>
         /// Generates a hierarchy of categories containing items for use in tree views.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The root node containing all other categories and items.</returns>
         public JSTreeNode GenerateJSTreeHierarchy()
         {
             JSTreeNode rootNode = new JSTreeNode("Items");
+            rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
             List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Item).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);
+                categoryNode.attr.Add("data-nodetype", "category");
+                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
+                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
+
                 List<Item> items = GetAllByResourceCategory(category);
                 foreach (Item item in items)
                 {
                     JSTreeNode childNode = new JSTreeNode(item.Name);
+                    childNode.attr.Add("data-nodetype", "object");
+                    childNode.attr.Add("data-resref", item.Resref);
+                    childNode.attr.Add("data-issystemresource", Convert.ToString(item.IsSystemResource));
+
                     categoryNode.children.Add(childNode);
                 }
 

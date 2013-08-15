@@ -169,19 +169,28 @@ namespace WinterEngine.DataAccess
         /// <summary>
         /// Generates a hierarchy of categories containing creatures for use in tree views.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The root node containing all other categories and creatures.</returns>
         public JSTreeNode GenerateJSTreeHierarchy()
         {
             JSTreeNode rootNode = new JSTreeNode("Creatures");
+            rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
             List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Creature).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);
+                categoryNode.attr.Add("data-nodetype", "category");
+                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
+                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
+
                 List<Creature> creatures = GetAllByResourceCategory(category);
                 foreach (Creature creature in creatures)
                 {
                     JSTreeNode childNode = new JSTreeNode(creature.Name);
+                    childNode.attr.Add("data-nodetype", "object");
+                    childNode.attr.Add("data-resref", creature.Resref);
+                    childNode.attr.Add("data-issystemresource", Convert.ToString(creature.IsSystemResource));
+
                     categoryNode.children.Add(childNode);
                 }
 

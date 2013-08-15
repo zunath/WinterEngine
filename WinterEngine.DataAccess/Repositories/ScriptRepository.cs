@@ -151,19 +151,28 @@ namespace WinterEngine.DataAccess.Repositories
         /// <summary>
         /// Generates a hierarchy of categories containing scripts for use in tree views.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The root node containing all other categories and scripts.</returns>
         public JSTreeNode GenerateJSTreeHierarchy()
         {
             JSTreeNode rootNode = new JSTreeNode("Scripts");
+            rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
             List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Script).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);
+                categoryNode.attr.Add("data-nodetype", "category");
+                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
+                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
+
                 List<Script> scripts = GetAllByResourceCategory(category);
                 foreach (Script script in scripts)
                 {
                     JSTreeNode childNode = new JSTreeNode(script.Name);
+                    childNode.attr.Add("data-nodetype", "object");
+                    childNode.attr.Add("data-resref", script.Resref);
+                    childNode.attr.Add("data-issystemresource", Convert.ToString(script.IsSystemResource));
+
                     categoryNode.children.Add(childNode);
                 }
 

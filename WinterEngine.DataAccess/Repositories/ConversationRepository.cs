@@ -152,19 +152,28 @@ namespace WinterEngine.DataAccess.Repositories
         /// <summary>
         /// Generates a hierarchy of categories containing conversations for use in tree views.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The root node containing all other categories and conversations.</returns>
         public JSTreeNode GenerateJSTreeHierarchy()
         {
             JSTreeNode rootNode = new JSTreeNode("Conversations");
+            rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Creature).ToList();
+            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Conversation).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);
+                categoryNode.attr.Add("data-nodetype", "category");
+                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
+                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
+
                 List<Conversation> conversations = GetAllByResourceCategory(category);
                 foreach (Conversation conversation in conversations)
                 {
                     JSTreeNode childNode = new JSTreeNode(conversation.Name);
+                    childNode.attr.Add("data-nodetype", "object");
+                    childNode.attr.Add("data-resref", conversation.Resref);
+                    childNode.attr.Add("data-issystemresource", Convert.ToString(conversation.IsSystemResource));
+
                     categoryNode.children.Add(childNode);
                 }
 
