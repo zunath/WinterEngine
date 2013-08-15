@@ -17,6 +17,12 @@
     <script src="../Scripts/Toolset.TreeViews.js"></script>
     <script src="../Scripts/Toolset.MenuBar.js"></script>
     <script src="../Scripts/Toolset.ObjectBar.js"></script>
+    <script src="../Scripts/Toolset.ObjectTabs.Areas.js"></script>
+    <script src="../Scripts/Toolset.ObjectTabs.Conversations.js"></script>
+    <script src="../Scripts/Toolset.ObjectTabs.Creatures.js"></script>
+    <script src="../Scripts/Toolset.ObjectTabs.Items.js"></script>
+    <script src="../Scripts/Toolset.ObjectTabs.Placeables.js"></script>
+    <script src="../Scripts/Toolset.ObjectTabs.Scripts.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -29,6 +35,7 @@
     <!-- Hidden Fields -->
     <input id="hdnCurrentObjectMode" type="hidden" value="Area" />
     <input id="hdnActiveObjectTreeSelector" type="hidden" value="#divAreaTreeView" />
+    <input id="hdnActiveObjectPropertiesTabSelector" type="hidden" value="#divAreasTab" />
 
     <!-- End Hidden Fields -->
 
@@ -333,6 +340,89 @@
             <input id="btnCancelRenameTreeNode" type="button" value="Cancel" class="clsHalfButton" onclick="CloseRenameObjectBox();" />
         </form>
     </div>
+
+    <!-- MAIN WINDOW FILLER -->
+
+    <div id="divMainWindowFiller" class="clsFillerMain"></div>
+
+    <!-- OBJECT TAB CONTROLS -->
+
+    <div id="divAreasTab" class="clsHidden clsObjectTabDiv">
+        <ul>
+            <li>
+                <a href="#divAreasTab-Properties">Properties</a>
+            </li>
+            <li>
+                <a href="#divAreasTab-Properties">Properties</a>
+            </li>
+            <li>
+                <a href="#divAreasTab-Properties">Properties</a>
+            </li>
+            <li>
+                <a href="#divAreasTab-Properties">Properties</a>
+            </li>
+            <li>
+                <a href="#divAreasTab-Properties">Properties</a>
+            </li>
+        </ul>
+        <div id="divAreasTab-Properties">
+            
+        </div>
+    </div>
+    
+    <div id="divCreaturesTab" class="clsHidden clsObjectTabDiv">
+        <ul>
+            <li>
+                <a href="#divCreaturesTab-Properties">Properties</a>
+            </li>
+        </ul>
+        <div id="divCreaturesTab-Properties">
+            
+        </div>
+    </div>
+
+    <div id="divItemsTab" class="clsHidden clsObjectTabDiv">
+        <ul>
+            <li>
+                <a href="#divItemsTab-Properties">Properties</a>
+            </li>
+        </ul>
+        <div id="divItemsTab-Properties">
+            
+        </div>
+    </div>
+    <div id="divPlaceablesTab" class="clsHidden clsObjectTabDiv">
+        <ul>
+            <li>
+                <a href="#divPlaceablesTab-Properties">Properties</a>
+            </li>
+        </ul>
+        <div id="divPlaceablesTab-Properties">
+
+        </div>
+    </div>
+    <div id="divConversationsTab" class="clsHidden clsObjectTabDiv">
+        <ul>
+            <li>
+                <a href="#divConversationsTab-Properties">Properties</a>
+            </li>
+        </ul>
+        <div id="divConversationsTab-Properties">
+            
+        </div>
+    </div>
+    <div id="divScriptsTab" class="clsHidden clsObjectTabDiv">
+        <ul>
+            <li>
+                <a href="#divScriptsTab-Properties">Properties</a>
+            </li>
+        </ul>
+        <div id="divScriptsTab-Properties">
+            
+        </div>
+    </div>
+
+    <!-- END OBJECT TAB CONTROLS -->
 
 </body>
 </html>

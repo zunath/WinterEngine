@@ -17,6 +17,7 @@ function Initialize() {
     InitializeDeleteObjectBox();
     InitializeCreateCategoryBox();
     InitializeRenameTreeNodeBox();
+    InitializeTabbedContainers();
 }
 
 function InitializeMainMenu() {
@@ -176,4 +177,13 @@ function InitializeRenameTreeNodeBox() {
         dialogClass: 'jqueryUIDialogNoCloseButton',
         draggable: false
     });
+}
+
+function InitializeTabbedContainers() {
+    $('#divAreasTab').tabs();
+    $('#divCreaturesTab').tabs();
+    $('#divItemsTab').tabs();
+    $('#divPlaceablesTab').tabs();
+    $('#divConversationsTab').tabs();
+    $('#divScriptsTab').tabs();
 }

@@ -46,6 +46,7 @@ function OpenModuleButtonClick_Callback(success) {
     if (success) {
         ToggleModuleActionButtons(true);
         Entity.LoadTreeViewData();
+        ChangeObjectMode("Area");
     }
     else {
         ToggleModuleActionButtons(false);
@@ -58,6 +59,7 @@ function CloseModuleButtonClick(element) {
 }
 
 function CloseModuleButtonClick_Callback() {
+    ChangeObjectMode();
     HideAllTreeViews();
     ToggleModuleActionButtons(false);
 }

@@ -21,6 +21,7 @@ namespace WinterEngine.Game
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
             Content.RootDirectory = "Content";
 			

@@ -1,100 +1,132 @@
 ﻿
+// Displays tree view, properties window, and other
+// components based on object type.
+function ChangeObjectMode(objectMode) {
+    $('.clsObjectTabDiv').addClass('clsHidden');
+    $('.clsTreeViewDiv').addClass('clsHidden');
+    $('.clsActiveObjectType').removeClass('clsActiveObjectType');
+
+
+    if (objectMode == "Area") {
+        $('#liAreas').addClass('clsActiveObjectType');
+        $('#divAreasTab').removeClass('clsHidden');
+        $('#divAreaTreeView').removeClass('clsHidden');
+
+        $('#hdnCurrentObjectMode').val('Area');
+        $('#hdnActiveObjectTreeSelector').val('#divAreaTreeView');
+        $('#hdnActiveObjectPropertiesTabSelector').val('#divAreasTab');
+    }
+    else if (objectMode == "Creature") {
+        $('#liCreatures').addClass('clsActiveObjectType');
+        $('#divCreaturesTab').removeClass('clsHidden');
+        $('#divCreatureTreeView').removeClass('clsHidden');
+
+        $('#hdnCurrentObjectMode').val('Creature');
+        $('#hdnActiveObjectTreeSelector').val('#divCreatureTreeView');
+        $('#hdnActiveObjectPropertiesTabSelector').val('#divCreaturesTab');
+    }
+    else if (objectMode == "Item") {
+        $('#liItems').addClass('clsActiveObjectType');
+        $('#divItemsTab').removeClass('clsHidden');
+        $('#divItemTreeView').removeClass('clsHidden');
+        $('#hdnCurrentObjectMode').val('Item');
+        $('#hdnActiveObjectTreeSelector').val('#divItemTreeView');
+        $('#hdnActiveObjectPropertiesTabSelector').val('#divItemsTab');
+    }
+    else if (objectMode == "Placeable") {
+        $('#liPlaceables').addClass('clsActiveObjectType');
+        $('#divPlaceablesTab').removeClass('clsHidden');
+        $('#divPlaceableTreeView').removeClass('clsHidden');
+        $('#hdnCurrentObjectMode').val('Placeable');
+        $('#hdnActiveObjectTreeSelector').val('#divPlaceableTreeView');
+        $('#hdnActiveObjectPropertiesTabSelector').val('#divPlaceablesTab');
+    }
+    else if (objectMode == "Conversation") {
+        $('#liConversations').addClass('clsActiveObjectType');
+        $('#divConversationsTab').removeClass('clsHidden');
+        $('#divConversationTreeView').removeClass('clsHidden');
+        $('#hdnCurrentObjectMode').val('Conversation');
+        $('#hdnActiveObjectTreeSelector').val('#divConversationTreeView');
+        $('#hdnActiveObjectPropertiesTabSelector').val('#divConversationsTab');
+    }
+    else if (objectMode == "Script") {
+        $('#liScripts').addClass('clsActiveObjectType');
+        $('#divScriptsTab').removeClass('clsHidden');
+        $('#divScriptTreeView').removeClass('clsHidden');
+        $('#hdnCurrentObjectMode').val('Script');
+        $('#hdnActiveObjectTreeSelector').val('#divScriptTreeView');
+        $('#hdnActiveObjectPropertiesTabSelector').val('#divScriptsTab');
+    }
+    else if (objectMode == "Graphic") {
+        $('#liGraphics').addClass('clsActiveObjectType');
+        $('#divGraphicTreeView').removeClass('clsHidden');
+        $('#hdnCurrentObjectMode').val('Graphic');
+        $('#hdnActiveObjectTreeSelector').val('#divGraphicTreeView');
+        $('#hdnActiveObjectPropertiesTabSelector').val('#divGraphicsTab');
+    }
+    // Otherwise, hide all.
+    else {
+        $('#hdnActiveObjectTreeSelector').val('');
+        $('#hdnActiveObjectPropertiesTabSelector').val('');
+    }
+
+}
+
+
 /* Button Functionality - Object Selection Menu */
 
 function AreasButtonClick() {
-    $('.clsActiveObjectType').removeClass('clsActiveObjectType');
-    $('#liAreas').addClass('clsActiveObjectType');
     Entity.AreasButtonClick();
-
-    $('.clsTreeViewDiv').addClass('clsHidden');
-    $('#divAreaTreeView').removeClass('clsHidden');
-    $('#hdnCurrentObjectMode').val('Area');
-    $('#hdnActiveObjectTreeSelector').val('#divAreaTreeView');
 }
 
 function AreasButtonClick_Callback() {
+    ChangeObjectMode("Area");
 }
 
 function CreaturesButtonClick() {
-    $('.clsActiveObjectType').removeClass('clsActiveObjectType');
-    $('#liCreatures').addClass('clsActiveObjectType');
     Entity.CreaturesButtonClick();
-
-    $('.clsTreeViewDiv').addClass('clsHidden');
-    $('#divCreatureTreeView').removeClass('clsHidden');
-    $('#hdnCurrentObjectMode').val('Creature');
-    $('#hdnActiveObjectTreeSelector').val('#divCreatureTreeView');
 }
 
 function CreaturesButtonClick_Callback() {
+    ChangeObjectMode("Creature");
 }
 
 function ItemsButtonClick() {
-    $('.clsActiveObjectType').removeClass('clsActiveObjectType');
-    $('#liItems').addClass('clsActiveObjectType');
     Entity.ItemsButtonClick();
-
-    $('.clsTreeViewDiv').addClass('clsHidden');
-    $('#divItemTreeView').removeClass('clsHidden');
-    $('#hdnCurrentObjectMode').val('Item');
-    $('#hdnActiveObjectTreeSelector').val('#divItemTreeView');
 }
 
 function ItemsButtonClick_Callback() {
+    ChangeObjectMode("Item");
 }
 
 function PlaceablesButtonClick() {
-    $('.clsActiveObjectType').removeClass('clsActiveObjectType');
-    $('#liPlaceables').addClass('clsActiveObjectType');
     Entity.PlaceablesButtonClick();
-
-    $('.clsTreeViewDiv').addClass('clsHidden');
-    $('#divPlaceableTreeView').removeClass('clsHidden');
-    $('#hdnCurrentObjectMode').val('Placeable');
-    $('#hdnActiveObjectTreeSelector').val('#divPlaceableTreeView');
 }
 
 function PlaceablesButtonClick_Callback() {
+    ChangeObjectMode("Placeable");
 }
 
 function ConversationsButtonClick() {
-    $('.clsActiveObjectType').removeClass('clsActiveObjectType');
-    $('#liConversations').addClass('clsActiveObjectType');
     Entity.ConversationsButtonClick();
-
-    $('.clsTreeViewDiv').addClass('clsHidden');
-    $('#divConversationTreeView').removeClass('clsHidden');
-    $('#hdnCurrentObjectMode').val('Conversation');
-    $('#hdnActiveObjectTreeSelector').val('#divConversationTreeView');
 }
 
 function ConversationsButtonClick_Callback() {
+    ChangeObjectMode("Conversation");
 }
 
 function ScriptsButtonClick() {
-    $('.clsActiveObjectType').removeClass('clsActiveObjectType');
-    $('#liScripts').addClass('clsActiveObjectType');
     Entity.ScriptsButtonClick();
-
-    $('.clsTreeViewDiv').addClass('clsHidden');
-    $('#divScriptTreeView').removeClass('clsHidden');
-    $('#hdnCurrentObjectMode').val('Script');
-    $('#hdnActiveObjectTreeSelector').val('#divScriptTreeView');
 }
 
 function ScriptsButtonClick_Callback() {
+    ChangeObjectMode("Script");
 }
 
 function GraphicsButtonClick() {
-    $('.clsActiveObjectType').removeClass('clsActiveObjectType');
-    $('#liGraphics').addClass('clsActiveObjectType');
     Entity.GraphicsButtonClick();
-
-    $('.clsTreeViewDiv').addClass('clsHidden');
-    $('#divGraphicTreeView').removeClass('clsHidden');
-    $('#hdnCurrentObjectMode').val('Graphic');
-    $('#hdnActiveObjectTreeSelector').val('#divGraphicTreeView');
 }
 
 function GraphicsButtonClick_Callback() {
+    ChangeObjectMode("Graphic");
 }
