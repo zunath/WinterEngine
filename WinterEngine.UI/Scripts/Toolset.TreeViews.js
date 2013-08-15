@@ -20,9 +20,6 @@
             "label": "Rename",
             "action": function (obj) {
                 $('#divRenameTreeNode').data('RenameMode', 'RenameCategory');
-                $('#divRenameTreeNode').data('Caller', this);
-                $('#divRenameTreeNode').data('Parent', obj);
-
                 $('#divRenameTreeNode').dialog('open');
             }
         },
@@ -30,9 +27,6 @@
             "label": "Rename",
             "action": function (obj) {
                 $('#divRenameTreeNode').data('RenameMode', 'RenameObject');
-                $('#divRenameTreeNode').data('Caller', this);
-                $('#divRenameTreeNode').data('Parent', obj);
-
                 $('#divRenameTreeNode').dialog('open');
             }
         },
@@ -61,7 +55,8 @@
     };
     
     if ($(node).data("nodetype") == "root") {
-        delete items.Rename;
+        delete items.RenameCategory;
+        delete items.RenameObject;
         delete items.CreateObject;
         delete items.DeleteCategory;
         delete items.DeleteObject;
@@ -69,12 +64,17 @@
     else if ($(node).data("nodetype") == "category") {
         if ($(node).data("issystemresource") == "True") {
             delete items.DeleteCategory;
+            delete items.RenameCategory;
         }
         delete items.RenameObject;
         delete items.DeleteObject;
         delete items.CreateCategory;
     }
     else if ($(node).data("nodetype") == "object") {
+        if ($(node).data("issystemresource") == "True") {
+            delete items.RenameObject;
+            delete items.DeleteObject;
+        }
         delete items.DeleteCategory;
         delete items.CreateCategory;
         delete items.CreateObject;
@@ -270,10 +270,9 @@ function RenameObject() {
 function RenameObject_Callback(success, errorMessage, newName) {
     if (success) {
         var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
-        var caller = $('#divRenameTreeNode').data('Caller');
-        var parent = $('#divRenameTreeNode').data('Parent');
+        var selectedNode = $(activeTreeSelector).jstree('get_selected');
 
-        $(activeTreeSelector).jstree('rename_node', [caller, newName]);
+        $(activeTreeSelector).jstree('set_text', selectedNode, newName);
         CloseRenameObjectBox();
     }
     else {

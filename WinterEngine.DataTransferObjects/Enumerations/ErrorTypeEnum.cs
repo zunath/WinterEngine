@@ -13,6 +13,8 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("This resref already exists.")]
         ObjectResrefAlreadyExists = 1,
         [Description("This resref does not exist.")]
-        ObjectResrefDoesNotExist = 2
+        ObjectResrefDoesNotExist = 2,
+        [Description("System resources cannot be modified.")]
+        CannotChangeSystemResource = 3
     }
 }

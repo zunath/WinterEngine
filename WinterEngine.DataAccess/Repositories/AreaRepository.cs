@@ -174,6 +174,7 @@ namespace WinterEngine.DataAccess
                     JSTreeNode childNode = new JSTreeNode(area.Name);
                     childNode.attr.Add("data-nodetype", "object");
                     childNode.attr.Add("data-resref", area.Resref);
+                    childNode.attr.Add("data-issystemresource", Convert.ToString(area.IsSystemResource));
 
                     categoryNode.children.Add(childNode);
                 }

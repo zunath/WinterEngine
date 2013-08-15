@@ -530,7 +530,14 @@ namespace WinterEngine.Game.Entities
             using (CategoryRepository repo = new CategoryRepository())
             {
                 Category dbCategory = repo.GetByID(categoryID);
-                dbCategory.Name = name;
+                if (!dbCategory.IsSystemResource)
+                {
+                    dbCategory.Name = name;
+                }
+                else
+                {
+                    error = ErrorTypeEnum.CannotChangeSystemResource;
+                }
             }
 
             AsyncJavascriptCallback("RenameObject_Callback",
@@ -555,8 +562,15 @@ namespace WinterEngine.Game.Entities
             }
             else
             {
-                dbObject.Name = name;
-                factory.UpdateInDatabase(dbObject);
+                if (!dbObject.IsSystemResource)
+                {
+                    dbObject.Name = name;
+                    factory.UpdateInDatabase(dbObject);
+                }
+                else
+                {
+                    error = ErrorTypeEnum.CannotChangeSystemResource;
+                }
             }
 
             AsyncJavascriptCallback("RenameObject_Callback",
