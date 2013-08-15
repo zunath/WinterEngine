@@ -48,7 +48,27 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="newScript">The new script that will replace the script with the matching resref.</param>
         public void Update(Script newScript)
         {
-            Context.ScriptRepository.Update(newScript);
+            Script dbScript;
+            if (newScript.ResourceID <= 0)
+            {
+                dbScript = Context.ScriptRepository.Get(x => x.Resref == newScript.Resref).SingleOrDefault();
+            }
+            else
+            {
+                dbScript = Context.ScriptRepository.Get(x => x.ResourceID == newScript.ResourceID).SingleOrDefault();
+            }
+            if (dbScript == null) return;
+
+            dbScript.Comment = newScript.Comment;
+            dbScript.GameObjectTypeID = newScript.GameObjectTypeID;
+            dbScript.GraphicResourceID = newScript.GraphicResourceID;
+            dbScript.IsSystemResource = newScript.IsSystemResource;
+            dbScript.Name = newScript.Name;
+            dbScript.ResourceCategoryID = newScript.ResourceCategoryID;
+            dbScript.ResourceTypeID = newScript.ResourceTypeID;
+            dbScript.Resref = newScript.Resref;
+            dbScript.Tag = newScript.Tag;
+            dbScript.TemporaryDisplayName = newScript.TemporaryDisplayName;
         }
 
         /// <summary>
@@ -64,7 +84,7 @@ namespace WinterEngine.DataAccess.Repositories
             }
             else
             {
-                Context.ScriptRepository.Update(script);
+                Update(script);
             }
         }
 

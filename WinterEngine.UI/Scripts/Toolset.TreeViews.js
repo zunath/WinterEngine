@@ -22,6 +22,7 @@
                 $('#divRenameTreeNode').data('RenameMode', 'RenameCategory');
                 $('#divRenameTreeNode').data('Caller', this);
                 $('#divRenameTreeNode').data('Parent', obj);
+
                 $('#divRenameTreeNode').dialog('open');
             }
         },
@@ -31,6 +32,7 @@
                 $('#divRenameTreeNode').data('RenameMode', 'RenameObject');
                 $('#divRenameTreeNode').data('Caller', this);
                 $('#divRenameTreeNode').data('Parent', obj);
+
                 $('#divRenameTreeNode').dialog('open');
             }
         },
@@ -136,7 +138,8 @@ function LoadTreeViews_Callback(jsonAreas,
     PopulateTreeView("#divConversationTreeView", $.parseJSON(jsonConversations));
     PopulateTreeView("#divScriptTreeView", $.parseJSON(jsonScripts));
 
-    $('#divAreaTreeView').removeClass('clsHidden');
+    var currentTreeSelector = $('#hdnActiveObjectTreeSelector').val();
+    $(currentTreeSelector).removeClass('clsHidden');
 }
 
 function CreateNewCategory() {
@@ -282,6 +285,7 @@ function CloseRenameObjectBox() {
     $('#divRenameTreeNode').removeData('Caller');
     $('#divRenameTreeNode').removeData('Parent');
     $('#lblRenameTreeNodeErrors').text('');
+    $('#txtRenameTreeNode').val('');
     $('#divRenameTreeNode').dialog('close');
 }
 

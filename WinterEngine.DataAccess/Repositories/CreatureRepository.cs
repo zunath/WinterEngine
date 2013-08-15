@@ -50,7 +50,43 @@ namespace WinterEngine.DataAccess
         /// <param name="newCreature">The new creature that will replace the creature with the matching resref.</param>
         public void Update(Creature newCreature)
         {
-            Context.CreatureRepository.Update(newCreature);
+            Creature dbCreature;
+            if (newCreature.ResourceID <= 0)
+            {
+                dbCreature = Context.CreatureRepository.Get(x => x.Resref == newCreature.Resref).SingleOrDefault();
+            }
+            else
+            {
+                dbCreature = Context.CreatureRepository.Get(x => x.ResourceID == newCreature.ResourceID).SingleOrDefault();
+            }
+            if (dbCreature == null) return;
+
+            dbCreature.Comment = newCreature.Comment;
+            dbCreature.Constitution = newCreature.Constitution;
+            dbCreature.Description = newCreature.Description;
+            dbCreature.Dexterity = newCreature.Dexterity;
+            dbCreature.FirstName = newCreature.FirstName;
+            dbCreature.GameObjectTypeID = newCreature.GameObjectTypeID;
+            dbCreature.GraphicResourceID = newCreature.GraphicResourceID;
+            dbCreature.HitPoints = newCreature.HitPoints;
+            dbCreature.Intelligence = newCreature.Intelligence;
+            dbCreature.IsSystemResource = newCreature.IsSystemResource;
+            dbCreature.LastName = newCreature.LastName;
+            dbCreature.Level = newCreature.Level;
+            dbCreature.LocalVariables = newCreature.LocalVariables;
+            dbCreature.Location = newCreature.Location;
+            dbCreature.Mana = newCreature.Mana;
+            dbCreature.MaxHitPoints = newCreature.MaxHitPoints;
+            dbCreature.MaxMana = newCreature.MaxMana;
+            dbCreature.Name = newCreature.Name;
+            dbCreature.Race = newCreature.Race;
+            dbCreature.ResourceCategoryID = newCreature.ResourceCategoryID;
+            dbCreature.ResourceTypeID = newCreature.ResourceTypeID;
+            dbCreature.Resref = newCreature.Resref;
+            dbCreature.Strength = newCreature.Strength;
+            dbCreature.Tag = newCreature.Tag;
+            dbCreature.TemporaryDisplayName = newCreature.TemporaryDisplayName;
+            dbCreature.Wisdom = newCreature.Wisdom;
         }
 
         /// <summary>
@@ -66,7 +102,7 @@ namespace WinterEngine.DataAccess
             }
             else
             {
-                Context.CreatureRepository.Update(creature);
+                Update(creature);
             }
         }
 

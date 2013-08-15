@@ -210,6 +210,7 @@ namespace WinterEngine.DataAccess.Factories
                 using (AreaRepository repo = new AreaRepository(connectionString))
                 {
                     repo.Update(gameObject as Area);
+                    
                 }
             }
             else if (gameObject.GameObjectType == GameObjectTypeEnum.Conversation)

@@ -59,7 +59,16 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Update(ItemType itemType)
         {
-            Context.ItemTypeRepository.Update(itemType);
+            ItemType dbItemType = Context.ItemTypeRepository.Get(x => x.ResourceID == itemType.ResourceID).SingleOrDefault();
+            if (dbItemType == null) return;
+
+            dbItemType.Comment = itemType.Comment;
+            dbItemType.HasIcon = itemType.HasIcon;
+            dbItemType.IconHeight = itemType.IconHeight;
+            dbItemType.IconWidth = itemType.IconWidth;
+            dbItemType.IsSystemResource = itemType.IsSystemResource;
+            dbItemType.Name = itemType.Name;
+            dbItemType.ResourceTypeID = itemType.ResourceTypeID;
         }
 
         public void Upsert(ItemType itemType)
@@ -70,7 +79,7 @@ namespace WinterEngine.DataAccess
             }
             else
             {
-                Context.ItemTypeRepository.Update(itemType);
+                Update(itemType);
             }
         }
 

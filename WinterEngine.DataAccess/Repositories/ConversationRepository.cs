@@ -48,7 +48,28 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="newConversation">The new conversation that will replace the conversation with the matching resref.</param>
         public void Update(Conversation newConversation)
         {
-            Context.ConversationRepository.Update(newConversation);
+            Conversation dbConversation;
+            if (newConversation.ResourceID <= 0)
+            {
+                dbConversation = Context.ConversationRepository.Get(x => x.Resref == newConversation.Resref).SingleOrDefault();
+            }
+            else
+            {
+                dbConversation = Context.ConversationRepository.Get(x => x.ResourceID == newConversation.ResourceID).SingleOrDefault();
+            }
+            if (dbConversation == null) return;
+
+            dbConversation.Comment = newConversation.Comment;
+            dbConversation.GameObjectTypeID = newConversation.GameObjectTypeID;
+            dbConversation.GraphicResourceID = newConversation.GraphicResourceID;
+            dbConversation.IsSystemResource = newConversation.IsSystemResource;
+            dbConversation.Name = newConversation.Name;
+            dbConversation.ResourceCategoryID = newConversation.ResourceCategoryID;
+            dbConversation.ResourceTypeID = newConversation.ResourceTypeID;
+            dbConversation.Resref = newConversation.Resref;
+            dbConversation.Tag = newConversation.Tag;
+            dbConversation.TemporaryDisplayName = newConversation.TemporaryDisplayName;
+
         }
 
         /// <summary>
@@ -64,7 +85,7 @@ namespace WinterEngine.DataAccess.Repositories
             }
             else
             {
-                Context.ConversationRepository.Update(conversation);
+                Update(conversation);
             }
         }
 

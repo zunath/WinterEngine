@@ -67,7 +67,14 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Update(Category resourceCategory)
         {
-            Context.CategoryRepository.Update(resourceCategory);
+            Category dbCategory = Context.CategoryRepository.Get(x => x.ResourceID == resourceCategory.ResourceID).SingleOrDefault();
+            if (dbCategory == null) return;
+
+            dbCategory.Comment = resourceCategory.Comment;
+            dbCategory.GameObjectTypeID = resourceCategory.GameObjectTypeID;
+            dbCategory.IsSystemResource = resourceCategory.IsSystemResource;
+            dbCategory.Name = resourceCategory.Name;
+            dbCategory.ResourceTypeID = resourceCategory.ResourceTypeID;
         }
 
         public void Upsert(Category category)
@@ -78,7 +85,7 @@ namespace WinterEngine.DataAccess
             }
             else
             {
-                Context.CategoryRepository.Update(category);
+                Update(category);
             }
         }
 

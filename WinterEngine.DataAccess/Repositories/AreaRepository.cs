@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects.DataClasses;
 using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
@@ -45,17 +46,39 @@ namespace WinterEngine.DataAccess
         /// <summary>
         /// Updates an existing area in the database with new values.
         /// </summary>
-        /// <param name="newItem">The new area that will replace the area with the matching resref.</param>
+        /// <param name="newArea">The new area that will replace the area with the matching resref.</param>
         public void Update(Area newArea)
         {
-            Context.AreaRepository.Update(newArea);
+            Area dbArea;
+            if (newArea.ResourceID <= 0)
+            {
+                dbArea = Context.AreaRepository.Get(x => x.Resref == newArea.Resref).SingleOrDefault();
+            }
+            else
+            {
+                dbArea = Context.AreaRepository.Get(x => x.ResourceID == newArea.ResourceID).SingleOrDefault();
+            }
+            if (dbArea == null) return;
+
+            dbArea.Comment = newArea.Comment;
+            dbArea.GameObjectTypeID = newArea.GameObjectTypeID;
+            dbArea.GraphicResourceID = newArea.GraphicResourceID;
+            dbArea.IsSystemResource = newArea.IsSystemResource;
+            dbArea.Name = newArea.Name;
+            dbArea.ResourceCategoryID = newArea.ResourceCategoryID;
+            dbArea.ResourceTypeID = newArea.ResourceTypeID;
+            dbArea.Resref = newArea.Resref;
+            dbArea.Tag = newArea.Tag;
+            dbArea.TileMap = newArea.TileMap;
+
+            
         }
 
         /// <summary>
         /// If an area with the same resref is in the database, it will be replaced with newArea.
         /// If an area does not exist by newArea's resref, it will be added to the database.
         /// </summary>
-        /// <param name="newItem">The new area to upsert.</param>
+        /// <param name="area">The new area to upsert.</param>
         public void Upsert(Area area)
         {
             if (area.ResourceID <= 0)
@@ -64,7 +87,7 @@ namespace WinterEngine.DataAccess
             }
             else
             {
-                Context.AreaRepository.Update(area);
+                Update(area);
             }
         }
 

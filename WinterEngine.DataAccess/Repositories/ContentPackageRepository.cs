@@ -65,7 +65,7 @@ namespace WinterEngine.DataAccess.Repositories
             }
             else
             {
-                Context.ContentPackageRepository.Update(package);
+                Update(package);
             }
         }
 
@@ -75,7 +75,17 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="package"></param>
         public void Update(ContentPackage package)
         {
-            Context.ContentPackageRepository.Update(package);
+            ContentPackage dbPackage = Context.ContentPackageRepository.Get(x => x.ResourceID == package.ResourceID).SingleOrDefault();
+            if (dbPackage == null) return;
+
+            dbPackage.Comment = package.Comment;
+            dbPackage.ContentPackagePath = package.ContentPackagePath;
+            dbPackage.Description = package.Description;
+            dbPackage.FileName = package.FileName;
+            dbPackage.IsSystemResource = package.IsSystemResource;
+            dbPackage.Name = package.Name;
+            dbPackage.ResourceTypeID = package.ResourceTypeID;
+            
         }
 
         /// <summary>

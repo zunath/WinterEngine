@@ -45,7 +45,31 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new placeable that will replace the placeable with the matching resref.</param>
         public void Update(Placeable newPlaceable)
         {
-            Context.Update(newPlaceable);
+            Placeable dbPlaceable;
+            if (newPlaceable.ResourceID <= 0)
+            {
+                dbPlaceable = Context.PlaceableRepository.Get(x => x.Resref == newPlaceable.Resref).SingleOrDefault();
+            }
+            else
+            {
+                dbPlaceable = Context.PlaceableRepository.Get(x => x.ResourceID == newPlaceable.ResourceID).SingleOrDefault();
+            }
+            if (dbPlaceable == null) return;
+
+            dbPlaceable.Comment = newPlaceable.Comment;
+            dbPlaceable.Description = newPlaceable.Description;
+            dbPlaceable.GameObjectTypeID = newPlaceable.GameObjectTypeID;
+            dbPlaceable.GraphicResourceID = newPlaceable.GraphicResourceID;
+            dbPlaceable.HasInventory = newPlaceable.HasInventory;
+            dbPlaceable.InventoryItems = newPlaceable.InventoryItems;
+            dbPlaceable.IsSystemResource = newPlaceable.IsSystemResource;
+            dbPlaceable.IsUseable = newPlaceable.IsUseable;
+            dbPlaceable.Name = newPlaceable.Name;
+            dbPlaceable.ResourceCategoryID = newPlaceable.ResourceCategoryID;
+            dbPlaceable.ResourceTypeID = newPlaceable.ResourceTypeID;
+            dbPlaceable.Resref = newPlaceable.Resref;
+            dbPlaceable.Tag = newPlaceable.Tag;
+            dbPlaceable.TemporaryDisplayName = newPlaceable.TemporaryDisplayName;
         }
 
         /// <summary>
@@ -61,7 +85,7 @@ namespace WinterEngine.DataAccess
             }
             else
             {
-                Context.PlaceableRepository.Update(placeable);
+                Update(placeable);
             }
         }
 

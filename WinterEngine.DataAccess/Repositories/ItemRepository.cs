@@ -45,7 +45,38 @@ namespace WinterEngine.DataAccess
         /// <param name="newItem">The new item that will replace the item with the matching resref.</param>
         public void Update(Item newItem)
         {
-            Context.Update(newItem);
+            Item dbItem;
+            if (newItem.ResourceID <= 0)
+            {
+                dbItem = Context.ItemRepository.Get(x => x.Resref == newItem.Resref).SingleOrDefault();
+            }
+            else
+            {
+                dbItem = Context.ItemRepository.Get(x => x.ResourceID == newItem.ResourceID).SingleOrDefault();
+            }
+            if (dbItem == null) return;
+
+            dbItem.Comment = newItem.Comment;
+            dbItem.Description = newItem.Description;
+            dbItem.GameObjectTypeID = newItem.GameObjectTypeID;
+            dbItem.GraphicResourceID = newItem.GraphicResourceID;
+            dbItem.IsPlot = newItem.IsPlot;
+            dbItem.IsStolen = newItem.IsStolen;
+            dbItem.IsSystemResource = newItem.IsSystemResource;
+            dbItem.IsUndroppable = newItem.IsUndroppable;
+            dbItem.ItemProperties = newItem.ItemProperties;
+            dbItem.Name = newItem.Name;
+            dbItem.Price = newItem.Price;
+            dbItem.ResourceCategoryID = newItem.ResourceCategoryID;
+            dbItem.ResourceTypeID = newItem.ResourceTypeID;
+            dbItem.Resref = newItem.Resref;
+            dbItem.Tag = newItem.Tag;
+            dbItem.TemporaryDisplayName = newItem.TemporaryDisplayName;
+            dbItem.TileHeight = newItem.TileHeight;
+            dbItem.TileWidth = newItem.TileWidth;
+            dbItem.Type = newItem.Type;
+            dbItem.Weight = newItem.Weight;
+            
         }
 
         /// <summary>
@@ -61,7 +92,7 @@ namespace WinterEngine.DataAccess
             }
             else
             {
-                Context.ItemRepository.Update(item);
+                Update(item);
             }
         }
 
