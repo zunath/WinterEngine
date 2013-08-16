@@ -2,7 +2,7 @@
 {
     background-color : grey;
     overflow: hidden;
-
+    
     /* Disable highlighting */
     -webkit-touch-callout: none;
     -webkit-user-select: none;

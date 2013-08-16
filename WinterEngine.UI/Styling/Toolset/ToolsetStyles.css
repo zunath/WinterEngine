@@ -1,4 +1,9 @@
-﻿/* Navigation Menu */
+﻿body
+{
+    margin: 0px;
+}
+
+/* Navigation Menu */
 
 .ui-menu
 {
@@ -41,7 +46,7 @@
 
 .ui-menu > li
 {
-    margin: 5px 5px !important;
+    margin: 2px 2px !important;
     padding: 0 0 !important;
 }
 
@@ -64,6 +69,11 @@
     display: block;
 }
 
+.ui-accordion .ui-accordion-content
+{
+    padding: initial;
+}
+
 /* Transparent Fillers */
 /* Used to prevent UI from hiding game rendering*/
 
@@ -80,7 +90,6 @@
 .clsObjectBarDiv
 {
     text-align: center;
-    padding-top: 2px;
 }
 
 .clsActiveObjectType
@@ -99,8 +108,13 @@
 .clsTreeViewDiv
 {
     float: left;
+}
+
+.clsTreeViewContainer
+{
+    float:left;
+    height: 20%;
     width: 20%;
-    height: 95%;
 }
 
 /* Object Tabs Container */
@@ -108,6 +122,23 @@
 .clsObjectTabDiv
 {
     float: right;
-    width: 20%;
-    height: 95%;
+    width: 30%;
+    height: 100%;
+}
+
+.clsInputText
+{
+}
+
+.clsObjectTabContainer
+{
+    overflow: auto;
+    height: 500px;
+}
+
+.clsObjectTabItem
+{
+    padding-left: 10px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
 }

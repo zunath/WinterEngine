@@ -206,13 +206,15 @@
         </ul>
     </div>
     
-    <div id="divAreaTreeView" class="clsTreeViewDiv"></div>
-    <div id="divCreatureTreeView" class="clsTreeViewDiv clsHidden"></div>
-    <div id="divItemTreeView" class="clsTreeViewDiv clsHidden"></div>
-    <div id="divPlaceableTreeView" class="clsTreeViewDiv clsHidden"></div>
-    <div id="divConversationTreeView" class="clsTreeViewDiv clsHidden"></div>
-    <div id="divScriptTreeView" class="clsTreeViewDiv clsHidden"></div>
-    <div id="divGraphicTreeView" class="clsTreeViewDiv clsHidden"></div>
+    <div id="divTreeViewContainer" class="clsTreeViewContainer">
+        <div id="divAreaTreeView" class="clsTreeViewDiv"></div>
+        <div id="divCreatureTreeView" class="clsTreeViewDiv clsHidden"></div>
+        <div id="divItemTreeView" class="clsTreeViewDiv clsHidden"></div>
+        <div id="divPlaceableTreeView" class="clsTreeViewDiv clsHidden"></div>
+        <div id="divConversationTreeView" class="clsTreeViewDiv clsHidden"></div>
+        <div id="divScriptTreeView" class="clsTreeViewDiv clsHidden"></div>
+        <div id="divGraphicTreeView" class="clsTreeViewDiv clsHidden"></div>
+    </div>
     
     <div id="divNewModuleBox">
         
@@ -347,56 +349,63 @@
 
     <!-- OBJECT TAB CONTROLS -->
 
-    <div id="divAreasTab" class=" clsObjectTabDiv">
-        <h3>Properties</h3>
-        <div id="divAreasTab-Properties">
-            <br />
-            <div>
-                <label id="lblAreaProperties-Name" for="txtAreaProperties-Name">Name:</label>
-                <input id="txtAreaProperties-Name" type="text" maxlength="64" />
-                <br />
-                <br />
+    <div id="divObjectTabContainer" class="clsObjectTabContainer">
+        <div id="divAreasTab" class="clsObjectTabDiv">
+            <h3>Properties</h3>
+            <div id="divAreasTab-Properties" class="clsObjectTabItem">
+                <div>
+                    <label id="lblAreaProperties-Name" for="txtAreaProperties-Name">Name:</label>
+                    <input id="txtAreaProperties-Name" type="text" maxlength="64" class=""/>
+                </div>
+                <div>
+                    <label id="lblAreaProperties-Tag" for="txtAreaProperties-Tag">Tag:</label>
+                    <input id="txtAreaProperties-Tag" type="text" maxlength="32" class="" />
+                </div>
+                <div>
+                    <label id="lblAreaProperties-Resref" for="txtAreaProperties-Resref">Resref:</label>
+                    <input id="txtAreaProperties-Resref" type="text" maxlength="32" class="" />
+                </div>
             </div>
-            <div>
-                <label id="lblAreaProperties-Tag" for="txtAreaProperties-Tag">Tag:</label>
-                <input id="txtAreaProperties-Tag" type="text" maxlength="32" />
-            </div>
-            <div>
-                <label id="lblAreaProperties-Resref" for="txtAreaProperties-Resref">Resref:</label>
-                <input id="txtAreaProperties-Resref" type="text" maxlength="32" />
-            </div>
-            <br />
-            <br />
-        </div>
 
-    </div>
+            <h3>Test</h3>
+            <div id="divAreasTab-Test">
+
+            </div>
+        </div>
     
-    <div id="divCreaturesTab" class="clsHidden clsObjectTabDiv">
-        <div id="divCreaturesTab-Properties">
+        <div id="divCreaturesTab" class="clsHidden clsObjectTabDiv">
+            <h3>Properties</h3>
+            <div id="divCreaturesTab-Properties">
             
+            </div>
+        </div>
+
+        <div id="divItemsTab" class="clsHidden clsObjectTabDiv">
+            <h3>Properties</h3>
+            <div id="divItemsTab-Properties">
+            
+            </div>
+        </div>
+        <div id="divPlaceablesTab" class="clsHidden clsObjectTabDiv">
+            <h3>Properties</h3>
+            <div id="divPlaceablesTab-Properties">
+
+            </div>
+        </div>
+        <div id="divConversationsTab" class="clsHidden clsObjectTabDiv">
+            <h3>Properties</h3>
+            <div id="divConversationsTab-Properties">
+            
+            </div>
+        </div>
+        <div id="divScriptsTab" class="clsHidden clsObjectTabDiv">
+            <h3>Properties</h3>
+            <div id="divScriptsTab-Properties">
+            
+            </div>
         </div>
     </div>
 
-    <div id="divItemsTab" class="clsHidden clsObjectTabDiv">
-        <div id="divItemsTab-Properties">
-            
-        </div>
-    </div>
-    <div id="divPlaceablesTab" class="clsHidden clsObjectTabDiv">
-        <div id="divPlaceablesTab-Properties">
-
-        </div>
-    </div>
-    <div id="divConversationsTab" class="clsHidden clsObjectTabDiv">
-        <div id="divConversationsTab-Properties">
-            
-        </div>
-    </div>
-    <div id="divScriptsTab" class="clsHidden clsObjectTabDiv">
-        <div id="divScriptsTab-Properties">
-            
-        </div>
-    </div>
 
     <!-- END OBJECT TAB CONTROLS -->
 

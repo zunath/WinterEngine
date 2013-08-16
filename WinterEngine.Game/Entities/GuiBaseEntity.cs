@@ -158,6 +158,7 @@ namespace WinterEngine.Game.Entities
         private void DisposeAwesomium()
         {
             FlatRedBallServices.Game.Window.ClientSizeChanged -= ResizeWindow;
+            AwesomeComponent.WebView.Dispose();
         }
 
         private void OnDocumentReady(object sender, EventArgs e)
