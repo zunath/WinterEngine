@@ -184,7 +184,8 @@ namespace WinterEngine.Game.Entities
 
         private void ResizeWindow(object sender, EventArgs e)
         {
-            
+            AwesomeComponent.Resize(FlatRedBallServices.GraphicsDevice.Viewport.Width,
+                FlatRedBallServices.GraphicsDevice.Viewport.Height);
         }
 
 

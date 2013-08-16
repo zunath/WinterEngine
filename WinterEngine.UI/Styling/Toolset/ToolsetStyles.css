@@ -107,14 +107,7 @@
 
 .clsObjectTabDiv
 {
-    float: left;
+    float: right;
     width: 20%;
     height: 95%;
-}
-
-/* jQuery UI - Tabs */
-.ui-tabs .ui-tabs-nav li 
-{
-    height: 25px; 
-    font-size:12px; 
 }

@@ -180,10 +180,10 @@ function InitializeRenameTreeNodeBox() {
 }
 
 function InitializeTabbedContainers() {
-    $('#divAreasTab').tabs();
-    $('#divCreaturesTab').tabs();
-    $('#divItemsTab').tabs();
-    $('#divPlaceablesTab').tabs();
-    $('#divConversationsTab').tabs();
-    $('#divScriptsTab').tabs();
+    $('#divAreasTab').accordion();
+    $('#divCreaturesTab').accordion();
+    $('#divItemsTab').accordion();
+    $('#divPlaceablesTab').accordion();
+    $('#divConversationsTab').accordion();
+    $('#divScriptsTab').accordion();
 }

@@ -155,7 +155,8 @@ namespace AwesomiumXNA
             }
 
             //BitmapSurface asdf = ((BitmapSurface)WebView.Surface);
-            //asdf.Resized += WebView_ResizeComplete;
+            //WebView.Resized += WebView_ResizeComplete;
+            
             //WebView.FlushAlpha = false;
             WebView.IsTransparent = true;
 
@@ -239,10 +240,13 @@ namespace AwesomiumXNA
             return User32.CallNextHookEx(IntPtr.Zero, code, wParam, ref lParam);
         }
 
-        //private void WebView_ResizeComplete(Object sender, SurfaceResizedEventArgs e)
-        //{
-        //    resizing = false;
-        //}
+        public void Resize(int width, int height)
+        {
+            area.Width = width;
+            area.Height = height;
+            WebViewTexture = new Texture2D(Game.GraphicsDevice, area.Width, area.Height, false, SurfaceFormat.Color);
+            WebView.Resize(width, height);
+        }
 
         protected override void LoadContent()
         {
