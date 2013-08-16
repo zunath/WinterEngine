@@ -43,6 +43,7 @@ namespace WinterEngine.Game
 
             base.Initialize();
             Window.AllowUserResizing = true;
+            
             FlatRedBallServices.Game.IsMouseVisible = true;
             FlatRedBallServices.GraphicsOptions.BackgroundColor = Microsoft.Xna.Framework.Color.Black;
         }

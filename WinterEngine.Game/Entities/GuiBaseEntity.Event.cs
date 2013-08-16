@@ -17,10 +17,6 @@ namespace WinterEngine.Game.Entities
 	{
 		void OnClick (FlatRedBall.Gui.IWindow callingWindow)
         {
-            if (!_webView.IsLoading)
-            {
-
-            }
         }
 
 	}

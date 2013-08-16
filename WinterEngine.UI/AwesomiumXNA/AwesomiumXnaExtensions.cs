@@ -8,10 +8,10 @@ namespace AwesomiumXNA
 {
     public static class AwesomiumXnaExtensions
     {
-        public static Texture2D RenderTexture2D(this BitmapSurface Buffer, Texture2D Texture)
+        public static Texture2D RenderTexture2D(this BitmapSurface buffer, Texture2D texture)
         {
-            TextureFormatConverter.DirectBlit(Buffer, ref Texture);
-            return Texture;
+            TextureFormatConverter.DirectBlit(buffer, ref texture);
+            return texture;
         }
     }
 }

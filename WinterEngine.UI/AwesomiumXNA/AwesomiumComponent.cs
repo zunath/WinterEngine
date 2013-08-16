@@ -4,7 +4,7 @@ using Awesomium.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-/*
+
 namespace AwesomiumXNA
 {
     public class AwesomiumComponent : DrawableGameComponent
@@ -142,22 +142,34 @@ namespace AwesomiumXNA
         {
             this.area = area;
 
-            //WebCoreConfig.Default.ForceSingleProcess = true;
-            //WebCore.Initialize(new WebCoreConfig() { CustomCSS = "* {-webkit-user-select: none; } ::-webkit-scrollbar { visibility: hidden; }" });
+            // 2013-08-16 (zunath): Added check to make sure we don't reinitialize the WebCore
+            if (!WebCore.IsRunning)
+            {
+                WebCore.Initialize(new WebConfig());
+            }
             WebView = WebCore.CreateWebView(area.Width, area.Height);
-            WebView.ResizeComplete += WebView_ResizeComplete;
-            WebView.FlushAlpha = false;
+
+            while (WebView.IsLoading)
+            {
+                WebCore.Update();
+            }
+
+            //BitmapSurface asdf = ((BitmapSurface)WebView.Surface);
+            //asdf.Resized += WebView_ResizeComplete;
+            //WebView.FlushAlpha = false;
             WebView.IsTransparent = true;
 
             // WebView doesn't seem to listen when I say this
-            WebView.SelfUpdate = true;
+            //WebView.SelfUpdate = true;
             // So I have to say this:
             WebCore.AutoUpdatePeriod = 10000000;   // TEEENN MIILLLIOON
-
+            
             processMessages = ProcessMessages;
 
             // Create the message hook.
             hookHandle = User32.SetWindowsHookEx(3, processMessages, IntPtr.Zero, Kernel32.GetCurrentThreadId());
+
+            WebView.FocusView();
         }
 
 
@@ -190,7 +202,7 @@ namespace AwesomiumXNA
                     case WindowsMessage.KeyDown:
                     case WindowsMessage.KeyUp:
                     case WindowsMessage.Char:
-                        WebView.InjectKeyboardEvent(lParam.Msg, (Int32)lParam.WParam, (Int32)lParam.LParam);
+                        WebView.InjectKeyboardEvent(new WebKeyboardEvent((uint)lParam.Msg, lParam.WParam, lParam.LParam, 0));
                         break;
 
                     case WindowsMessage.MouseMove:
@@ -218,7 +230,7 @@ namespace AwesomiumXNA
 
                     case WindowsMessage.MouseWheel:
                         var delta = (((Int32)lParam.WParam) >> 16);
-                        WebView.InjectMouseWheel(delta / SystemMetrics.MouseWheelScrollDelta * 16 * SystemMetrics.MouseWheelScrollLines);
+                        WebView.InjectMouseWheel(delta / SystemMetrics.MouseWheelScrollDelta * 16 * SystemMetrics.MouseWheelScrollLines, 0);
                         break;
                 }
                 User32.TranslateMessage(ref lParam);
@@ -227,10 +239,10 @@ namespace AwesomiumXNA
             return User32.CallNextHookEx(IntPtr.Zero, code, wParam, ref lParam);
         }
 
-        private void WebView_ResizeComplete(Object sender, ResizeEventArgs e)
-        {
-            resizing = false;
-        }
+        //private void WebView_ResizeComplete(Object sender, SurfaceResizedEventArgs e)
+        //{
+        //    resizing = false;
+        //}
 
         protected override void LoadContent()
         {
@@ -246,20 +258,21 @@ namespace AwesomiumXNA
 
         public override void Update(GameTime gameTime)
         {
-            if (newArea.HasValue && !resizing && gameTime.TotalGameTime.TotalSeconds > 0.10f)
-            {
-                area = newArea.Value;
-                if (area.IsEmpty)
-                    area = GraphicsDevice.Viewport.Bounds;
+            //if (newArea.HasValue && !resizing && gameTime.TotalGameTime.TotalSeconds > 0.10f)
+            //{
+            //    area = newArea.Value;
+            //    if (area.IsEmpty)
+            //        area = GraphicsDevice.Viewport.Bounds;
 
-                WebView.Resize(area.Width, area.Height);
-                WebViewTexture = new Texture2D(Game.GraphicsDevice, area.Width, area.Height, false, SurfaceFormat.Color);
-                imageBytes = new Byte[area.Width * 4 * area.Height];
-                imagePtr = Marshal.AllocHGlobal(imageBytes.Length);
-                resizing = true;
+            //    ((BitmapSurface)WebView.Surface).Resized += WebView_ResizeComplete;
+            //    WebView.Resize(area.Width, area.Height);
+            //    WebViewTexture = new Texture2D(Game.GraphicsDevice, area.Width, area.Height, false, SurfaceFormat.Color);
+            //    imageBytes = new Byte[area.Width * 4 * area.Height];
+            //    imagePtr = Marshal.AllocHGlobal(imageBytes.Length);
+            //    resizing = true;
 
-                newArea = null;
-            }
+            //    newArea = null;
+            //}
 
             // Manually update the webcore so that we're not running 2 clocks
             WebCore.Update();
@@ -269,12 +282,12 @@ namespace AwesomiumXNA
 
         public override void Draw(GameTime gameTime)
         {
-            if (WebView.IsDirty)
+            if (WebView.Surface != null && ((BitmapSurface)WebView.Surface).IsDirty)
             {
-                RenderBuffer renderBuffer = WebView.Render();
+                BitmapSurface renderBuffer = ((BitmapSurface)WebView.Surface);
 #if false
 				// This was the original solution
-				renderBuffer.CopyTo(imagePtr, renderBuffer.Width * 4, 4, true);
+				renderBuffer.CopyTo(imagePtr, renderBuffer.Width * 4, 4, true, false);
 				Marshal.Copy(imagePtr, imageBytes, 0, imageBytes.Length);
 				WebViewTexture.SetData(imageBytes);
 #endif
@@ -285,13 +298,13 @@ namespace AwesomiumXNA
 					// This part saves us from double copying everything.
 					fixed (Byte* imagePtr = imageBytes)
 					{
-						renderBuffer.CopyTo((IntPtr)imagePtr, renderBuffer.Width * 4, 4, false);
+						renderBuffer.CopyTo((IntPtr)imagePtr, renderBuffer.Width * 4, 4, false, false);
 					}
 				}
 				WebViewTexture.SetData(imageBytes);
 #endif
 #if true
-                // Found this little trick online, and it's quite a lot faster than either method above
+                // Found this little trick online, and it's quite a lot faster than either method above (roughly 3x faster)
                 renderBuffer.RenderTexture2D(WebViewTexture);
 #endif
             }
@@ -300,4 +313,3 @@ namespace AwesomiumXNA
         }
     }
 }
-*/

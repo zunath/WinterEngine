@@ -205,11 +205,11 @@ namespace AwesomiumXNA
             D3DLOCKED_RECT lockrect = new D3DLOCKED_RECT();
             RECT rect = new RECT();
             Marshal.ThrowExceptionForHR(d3dt.LockRect(0, out  lockrect, rect, 0));
-            
+
             buffer.CopyTo((IntPtr)(uint)(lockrect.pBits), lockrect.Pitch, 4, false, false);
             d3dt.UnlockRect(0);
 
-            //Meve onto Dispose() if d3dt will be cached d3dt
+            //Move onto Dispose() if d3dt will be cached d3dt
             Marshal.ReleaseComObject(d3dt);
         }
 
