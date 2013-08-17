@@ -15,7 +15,7 @@ namespace WinterEngine.DataTransferObjects
         #endregion
 
         #region Properties
-
+        
         #endregion
 
         #region Constructors

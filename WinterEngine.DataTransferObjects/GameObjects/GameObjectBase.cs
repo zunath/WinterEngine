@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects
@@ -124,6 +125,8 @@ namespace WinterEngine.DataTransferObjects
             get { return _graphicResourceID; }
             set { _graphicResourceID = value; }
         }
+
+        public virtual List<LocalVariable> LocalVariables { get; set; }
 
         #endregion
 

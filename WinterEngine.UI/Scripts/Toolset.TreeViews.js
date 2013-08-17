@@ -50,7 +50,7 @@ function BuildObjectTreeViewContextMenu(node) {
                 $('#divConfirmDelete').data('Caller', this);
                 $('#divConfirmDelete').data('Parent', obj);
                 $('#divConfirmDelete').data('DeleteMode', 'DeleteObject');
-                $('#lblConfirmDelete').text('Are you sure you want to delete this ' + $('#hdnCurrentObjectMode').val() + '?');
+                $('#lblConfirmDelete').text('Are you sure you want to delete this ' + ToolsetViewModel.CurrentObjectMode() + '?');
                 $('#divConfirmDelete').dialog('open');
             }
         }
@@ -133,12 +133,11 @@ function InitializeTreeView(selector, data) {
 // If a category or root node is selected, it is expanded.
 // If an object node is selected, it will be loaded into the editor.
 function OnTreeViewNodeSelected() {
-    var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
-    var selectedNode = $(activeTreeSelector).jstree('get_selected');
+    var selectedNode = $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('get_selected');
     var nodeType = $(selectedNode).data('nodetype');
 
     if (nodeType == 'category' || nodeType == 'root') {
-        $(activeTreeSelector).jstree('open_node', selectedNode);
+        $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('open_node', selectedNode);
     }
     else if (nodeType == 'object') {
         LoadObject(selectedNode);
@@ -148,19 +147,17 @@ function OnTreeViewNodeSelected() {
 // Loads a specific tree node object into the editor.
 // Different sections of the editor display based on the type of object mode we're in.
 function LoadObject(treeNode) {
-    var objectMode = $('#hdnCurrentObjectMode').val();
-
-    if (objectMode == "Area") {
+    if (ToolsetViewModel.CurrentObjectMode() == "Area") {
     }
-    else if (objectMode == "Creature") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Creature") {
     }
-    else if (objectMode == "Item") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Item") {
     }
-    else if (objectMode == "Placeable") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Placeable") {
     }
-    else if (objectMode == "Conversation") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Conversation") {
     }
-    else if (objectMode == "Script") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Script") {
     }
 }
 
@@ -184,8 +181,7 @@ function LoadTreeViews_Callback(jsonAreas,
     InitializeTreeView("#divConversationTreeView", $.parseJSON(jsonConversations));
     InitializeTreeView("#divScriptTreeView", $.parseJSON(jsonScripts));
 
-    var currentTreeSelector = $('#hdnActiveObjectTreeSelector').val();
-    $(currentTreeSelector).removeClass('clsHidden');
+    $(ToolsetViewModel.CurrentObjectTreeSelector()).removeClass('clsHidden');
 }
 
 // Handles requesting a new category be created.
@@ -193,9 +189,8 @@ function CreateNewCategory() {
     if (!$('#formNewCategory').valid()) return;
 
     var name = $('#txtCategoryName').val();
-    var gameObjectType = $('#hdnCurrentObjectMode').val();
 
-    Entity.AddNewCategory(name, gameObjectType);
+    Entity.AddNewCategory(name, ToolsetViewModel.CurrentObjectMode());
 }
 
 // CALLBACK FUNCTION
@@ -225,9 +220,8 @@ function CreateNewObject() {
     var tag = $('#txtObjectTag').val();
     var resref = $('#txtObjectResref').val();
     var categoryID = $(parent).data('categoryid');
-    var gameObjectType = $('#hdnCurrentObjectMode').val();
 
-    Entity.AddNewObject(name, tag, resref, categoryID, gameObjectType);
+    Entity.AddNewObject(name, tag, resref, categoryID, ToolsetViewModel.CurrentObjectMode());
 
 }
 
@@ -272,18 +266,16 @@ function CloseNewObjectBox() {
 
 // Handles requesting that a category or object be deleted from database.
 function DeleteObject() {
-    var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
-    var selectedNode = $(activeTreeSelector).jstree('get_selected');
-    var gameObjectType = $('#hdnCurrentObjectMode').val();
+    var selectedNode = $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('get_selected');
     var mode = $('#divConfirmDelete').data('DeleteMode');
 
     if (mode == 'DeleteCategory') {
         var categoryID = $(selectedNode).data('categoryid');
-        Entity.DeleteCategory(categoryID, gameObjectType);
+        Entity.DeleteCategory(categoryID, ToolsetViewModel.CurrentObjectMode());
     }
     else if (mode == 'DeleteObject') {
         var resref = $(selectedNode).data('resref');
-        Entity.DeleteObject(resref, gameObjectType, true);
+        Entity.DeleteObject(resref, ToolsetViewModel.CurrentObjectMode(), true);
     }
 }
 
@@ -313,9 +305,7 @@ function CloseDeleteObjectBox() {
 
 // Handles requesting that a category or object be renamed.
 function RenameObject() {
-    var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
-    var selectedNode = $(activeTreeSelector).jstree('get_selected');
-    var gameObjectType = $('#hdnCurrentObjectMode').val();
+    var selectedNode = $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('get_selected');
     var mode = $('#divRenameTreeNode').data('RenameMode');
     var newObjectName = $('#txtRenameTreeNode').val();
 
@@ -325,7 +315,7 @@ function RenameObject() {
     }
     else if (mode == "RenameObject") {
         var resref = $(selectedNode).data('resref');
-        Entity.RenameObject(newObjectName, resref, gameObjectType);
+        Entity.RenameObject(newObjectName, resref, ToolsetViewModel.CurrentObjectMode());
     }
 }
 
@@ -334,10 +324,9 @@ function RenameObject() {
 // If failed, error message will display.
 function RenameObject_Callback(success, errorMessage, newName) {
     if (success) {
-        var activeTreeSelector = $('#hdnActiveObjectTreeSelector').val();
-        var selectedNode = $(activeTreeSelector).jstree('get_selected');
+        var selectedNode = $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('get_selected');
 
-        $(activeTreeSelector).jstree('set_text', selectedNode, newName);
+        $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('set_text', selectedNode, newName);
         CloseRenameObjectBox();
     }
     else {

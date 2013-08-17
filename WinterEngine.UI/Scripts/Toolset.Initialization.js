@@ -1,7 +1,7 @@
 ﻿/* Page Initialization */
 
 function Initialize() {
-    ko.applyBindings(new ToolsetViewModel());
+    ko.applyBindings(ToolsetViewModel);
     InitializeValidation();
     InitializeMainMenu();
     InitializeObjectSelectionMenu();

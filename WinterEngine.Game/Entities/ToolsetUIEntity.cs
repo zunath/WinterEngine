@@ -159,6 +159,10 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("DeleteObject", false, DeleteObject);
             EntityJavascriptObject.Bind("RenameCategory", false, RenameCategory);
             EntityJavascriptObject.Bind("RenameObject", false, RenameObject);
+
+            // Data Manipulation Bindings 
+            EntityJavascriptObject.Bind("SaveObjectData", false, SaveObjectData);
+            EntityJavascriptObject.Bind("LoadObjectData", false, LoadObjectData);
         }
 
         #endregion
@@ -449,35 +453,42 @@ namespace WinterEngine.Game.Entities
 
         private void AddNewObject(object sender, JavascriptMethodEventArgs e)
         {
-            ErrorTypeEnum error = ErrorTypeEnum.None;
-            GameObjectFactory factory = new GameObjectFactory();
-            string name = e.Arguments[0];
-            string tag = e.Arguments[1];
-            string resref = e.Arguments[2];
-            int categoryID = (int)e.Arguments[3];
-            GameObjectTypeEnum gameObjectType =  (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[4]);
-
-            if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
+            try
             {
-                error = ErrorTypeEnum.ObjectResrefAlreadyExists;
+                ErrorTypeEnum error = ErrorTypeEnum.None;
+                GameObjectFactory factory = new GameObjectFactory();
+                string name = e.Arguments[0];
+                string tag = e.Arguments[1];
+                string resref = e.Arguments[2];
+                int categoryID = (int)e.Arguments[3];
+                GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[4]);
+
+                if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
+                {
+                    error = ErrorTypeEnum.ObjectResrefAlreadyExists;
+                }
+                else
+                {
+                    GameObjectBase newObject = factory.CreateObject(gameObjectType);
+                    newObject.Name = name;
+                    newObject.Tag = tag;
+                    newObject.Resref = resref;
+                    newObject.ResourceCategoryID = categoryID;
+
+                    factory.AddToDatabase(newObject);
+                }
+
+                AsyncJavascriptCallback("CreateNewObject_Callback",
+                    error == ErrorTypeEnum.None ? true : false,
+                    EnumerationHelper.GetEnumerationDescription(error),
+                    (int)gameObjectType,
+                    name,
+                    resref);
             }
-            else
+            catch
             {
-                GameObjectBase newObject = factory.CreateObject(gameObjectType);
-                newObject.Name = name;
-                newObject.Tag = tag;
-                newObject.Resref = resref;
-                newObject.ResourceCategoryID = categoryID;
-
-                factory.AddToDatabase(newObject);
+                throw;
             }
-
-            AsyncJavascriptCallback("CreateNewObject_Callback", 
-                error == ErrorTypeEnum.None ? true : false, 
-                EnumerationHelper.GetEnumerationDescription(error),
-                (int)gameObjectType,
-                name,
-                resref);
         }
 
         private void DeleteCategory(object sender, JavascriptMethodEventArgs e)
@@ -577,6 +588,39 @@ namespace WinterEngine.Game.Entities
                 error == ErrorTypeEnum.None ? true : false,
                 EnumerationHelper.GetEnumerationDescription(error),
                 name);
+        }
+
+        #endregion
+
+        #region UI Methods - Data Manipulation
+
+        private void LoadObjectData(object sender, JavascriptMethodEventArgs e)
+        {
+            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
+        }
+
+        private void SaveObjectData(object sender, JavascriptMethodEventArgs e)
+        {
+            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
+
+            if (gameObjectType == GameObjectTypeEnum.Area)
+            {
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Conversation)
+            {
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Creature)
+            {
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Item)
+            {
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Placeable)
+            {
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Script)
+            {
+            }
         }
 
         #endregion

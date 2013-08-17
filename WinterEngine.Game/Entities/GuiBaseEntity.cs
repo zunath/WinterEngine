@@ -20,6 +20,7 @@ using AwesomiumXNA;
 using FlatRedBall.Graphics;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 
 #endif
@@ -79,6 +80,7 @@ namespace WinterEngine.Game.Entities
 
             WinterEngineService.OnXNAUpdate += UpdateAwesomium;
             WinterEngineService.OnXNADraw += DrawAwesomium;
+
         }
 
 		private void CustomActivity()

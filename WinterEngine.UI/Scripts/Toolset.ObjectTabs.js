@@ -1,17 +1,15 @@
 ﻿function ObjectTabApplyChanges() {
-    var mode = $('#hdnCurrentObjectMode').val();
-
-    if (objectMode == "Area") {
+    if (ToolsetViewModel.CurrentObjectMode() == "Area") {
     }
-    else if (objectMode == "Creature") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Creature") {
     }
-    else if (objectMode == "Item") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Item") {
     }
-    else if (objectMode == "Placeable") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Placeable") {
     }
-    else if (objectMode == "Conversation") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Conversation") {
     }
-    else if (objectMode == "Script") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Script") {
     }
 }
 
@@ -19,19 +17,17 @@ function ObjectTabApplyChanges_Callback() {
 }
 
 function ObjectTabDiscardChanges() {
-    var mode = $('#hdnCurrentObjectMode').val();
-
-    if (objectMode == "Area") {
+    if (ToolsetViewModel.CurrentObjectMode() == "Area") {
     }
-    else if (objectMode == "Creature") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Creature") {
     }
-    else if (objectMode == "Item") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Item") {
     }
-    else if (objectMode == "Placeable") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Placeable") {
     }
-    else if (objectMode == "Conversation") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Conversation") {
     }
-    else if (objectMode == "Script") {
+    else if (ToolsetViewModel.CurrentObjectMode() == "Script") {
     }
 }
 

@@ -12,63 +12,62 @@ function ChangeObjectMode(objectMode) {
         $('#liAreas').addClass('clsActiveObjectType');
         $('#divAreasTab').removeClass('clsHidden');
         $('#divAreaTreeView').removeClass('clsHidden');
-
-        $('#hdnCurrentObjectMode').val('Area');
-        $('#hdnActiveObjectTreeSelector').val('#divAreaTreeView');
-        $('#hdnActiveObjectPropertiesTabSelector').val('#divAreasTab');
+        ToolsetViewModel.CurrentObjectMode('Area');
+        ToolsetViewModel.CurrentObjectTreeSelector('#divAreaTreeView');
+        ToolsetViewModel.CurrentObjectTabSelector('#divAreasTab');
     }
     else if (objectMode == "Creature") {
         $('#liCreatures').addClass('clsActiveObjectType');
         $('#divCreaturesTab').removeClass('clsHidden');
         $('#divCreatureTreeView').removeClass('clsHidden');
 
-        $('#hdnCurrentObjectMode').val('Creature');
-        $('#hdnActiveObjectTreeSelector').val('#divCreatureTreeView');
-        $('#hdnActiveObjectPropertiesTabSelector').val('#divCreaturesTab');
+        ToolsetViewModel.CurrentObjectMode('Creature');
+        ToolsetViewModel.CurrentObjectTreeSelector('#divCreatureTreeView');
+        ToolsetViewModel.CurrentObjectTabSelector('#divCreaturesTab');
     }
     else if (objectMode == "Item") {
         $('#liItems').addClass('clsActiveObjectType');
         $('#divItemsTab').removeClass('clsHidden');
         $('#divItemTreeView').removeClass('clsHidden');
-        $('#hdnCurrentObjectMode').val('Item');
-        $('#hdnActiveObjectTreeSelector').val('#divItemTreeView');
-        $('#hdnActiveObjectPropertiesTabSelector').val('#divItemsTab');
+        ToolsetViewModel.CurrentObjectMode('Item');
+        ToolsetViewModel.CurrentObjectTreeSelector('#divItemTreeView');
+        ToolsetViewModel.CurrentObjectTabSelector('#divItemsTab');
     }
     else if (objectMode == "Placeable") {
         $('#liPlaceables').addClass('clsActiveObjectType');
         $('#divPlaceablesTab').removeClass('clsHidden');
         $('#divPlaceableTreeView').removeClass('clsHidden');
-        $('#hdnCurrentObjectMode').val('Placeable');
-        $('#hdnActiveObjectTreeSelector').val('#divPlaceableTreeView');
-        $('#hdnActiveObjectPropertiesTabSelector').val('#divPlaceablesTab');
+        ToolsetViewModel.CurrentObjectMode('Placeable');
+        ToolsetViewModel.CurrentObjectTreeSelector('#divPlaceableTreeView');
+        ToolsetViewModel.CurrentObjectTabSelector('#divPlaceablesTab');
     }
     else if (objectMode == "Conversation") {
         $('#liConversations').addClass('clsActiveObjectType');
         $('#divConversationsTab').removeClass('clsHidden');
         $('#divConversationTreeView').removeClass('clsHidden');
-        $('#hdnCurrentObjectMode').val('Conversation');
-        $('#hdnActiveObjectTreeSelector').val('#divConversationTreeView');
-        $('#hdnActiveObjectPropertiesTabSelector').val('#divConversationsTab');
+        ToolsetViewModel.CurrentObjectMode('Conversation');
+        ToolsetViewModel.CurrentObjectTreeSelector('#divConversationTreeView');
+        ToolsetViewModel.CurrentObjectTabSelector('#divConversationsTab');
     }
     else if (objectMode == "Script") {
         $('#liScripts').addClass('clsActiveObjectType');
         $('#divScriptsTab').removeClass('clsHidden');
         $('#divScriptTreeView').removeClass('clsHidden');
-        $('#hdnCurrentObjectMode').val('Script');
-        $('#hdnActiveObjectTreeSelector').val('#divScriptTreeView');
-        $('#hdnActiveObjectPropertiesTabSelector').val('#divScriptsTab');
+        ToolsetViewModel.CurrentObjectMode('Script');
+        ToolsetViewModel.CurrentObjectTreeSelector('#divScriptTreeView');
+        ToolsetViewModel.CurrentObjectTabSelector('#divScriptsTab');
     }
     else if (objectMode == "Graphic") {
         $('#liGraphics').addClass('clsActiveObjectType');
         $('#divGraphicTreeView').removeClass('clsHidden');
-        $('#hdnCurrentObjectMode').val('Graphic');
-        $('#hdnActiveObjectTreeSelector').val('#divGraphicTreeView');
-        $('#hdnActiveObjectPropertiesTabSelector').val('#divGraphicsTab');
+        ToolsetViewModel.CurrentObjectMode('Graphic');
+        ToolsetViewModel.CurrentObjectTreeSelector('#divGraphicTreeView');
+        ToolsetViewModel.CurrentObjectTabSelector('#divGraphicsTab');
     }
     // Otherwise, hide all.
     else {
-        $('#hdnActiveObjectTreeSelector').val('');
-        $('#hdnActiveObjectPropertiesTabSelector').val('');
+        ToolsetViewModel.CurrentObjectTreeSelector('');
+        ToolsetViewModel.CurrentObjectTabSelector('');
         $('#divObjectTabContainerButtons').addClass('clsHidden');
     }
 

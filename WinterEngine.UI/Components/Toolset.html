@@ -17,7 +17,7 @@
     <script src="../Scripts/jquery.validate.js"></script>
     <script src="../Scripts/jquery.jstree.js"></script>
     <script src="../Scripts/knockout-2.3.0.js"></script>
-    <script src="../Scripts/Toolset.ViewModels.js"></script>
+    <script src="../Scripts/Toolset.ViewModel.js"></script>
     <script src="../Scripts/Toolset.Initialization.js"></script>
     <script src="../Scripts/Toolset.TreeViews.js"></script>
     <script src="../Scripts/Toolset.MenuBar.js"></script>
@@ -32,13 +32,6 @@
 
 </head>
 <body>
-
-    <!-- Hidden Fields -->
-    <input id="hdnCurrentObjectMode" type="hidden" value="Area" />
-    <input id="hdnActiveObjectTreeSelector" type="hidden" value="#divAreaTreeView" />
-    <input id="hdnActiveObjectPropertiesTabSelector" type="hidden" value="#divAreasTab" />
-
-    <!-- End Hidden Fields -->
 
     <!-- MENU BAR CONTROL -->
 
@@ -239,21 +232,21 @@
             <h3>Music</h3>
             <div id="divAreasTab-Music">
                 <label>Background:</label>
-                <select id="selAreasMusic-Background" data-bind="value: AreaBackgroundMusic"></select>
+                <select id="selAreasMusic-Background" disabled="disabled" data-bind="value: AreaBackgroundMusic"></select>
 
                 <label>Battle:</label>
-                <select id="selAreasMusic-Battle" data-bind="value: AreaBattleMusic">
+                <select id="selAreasMusic-Battle" disabled="disabled" data-bind="value: AreaBattleMusic">
                 </select>
             </div>
 
             <h3>Description</h3>
             <div id="divAreasTab-Description">
-                <textarea id="txtAreasTab-Description" data-bind="value: AreaDescription"></textarea>
+                <textarea id="txtAreasTab-Description" disabled="disabled" data-bind="value: AreaDescription"></textarea>
             </div>
 
             <h3>Comments</h3>
             <div id="divAreasTab-Comments">
-                <textarea id="txtAreasTab-Comments" data-bind="value: AreaComments"></textarea>
+                <textarea id="txtAreasTab-Comments" disabled="disabled" data-bind="value: AreaComments"></textarea>
             </div>
 
             <h3>Local Variables</h3>
@@ -265,16 +258,16 @@
             <div id="divAreasTab-Events">
 
                 <label id="lblAreaEvents-OnAreaEnter">On Area Enter:</label>
-                <select id="selAreaEvents-OnAreaEnter" data-bind="value: AreaEventOnAreaEnter"></select>
+                <select id="selAreaEvents-OnAreaEnter" disabled="disabled" data-bind="value: AreaEventOnAreaEnter"></select>
                 
                 <label id="lblAreaEvents-OnAreaExit">On Area Exit:</label>
-                <select id="selAreaEvents-OnAreaExit" data-bind="value: AreaEventOnAreaExit"></select>
+                <select id="selAreaEvents-OnAreaExit" disabled="disabled" data-bind="value: AreaEventOnAreaExit"></select>
 
                 <label id="lblAreaEvents-OnAreaHeartbeat">On Area Heartbeat:</label>
-                <select id="selAreaEvents-OnAreaHeartbeat" data-bind="value: AreaEventOnAreaHeartbeat"></select>
+                <select id="selAreaEvents-OnAreaHeartbeat" disabled="disabled" data-bind="value: AreaEventOnAreaHeartbeat"></select>
                 
                 <label id="lblAreaEvents-OnUserDefinedEvent">On User Defined Event:</label>
-                <select id="selAreaEvents-OnUserDefinedEvent" data-bind="value: AreaEventOnAreaUserDefinedEvent"></select>
+                <select id="selAreaEvents-OnUserDefinedEvent" disabled="disabled" data-bind="value: AreaEventOnAreaUserDefinedEvent"></select>
 
             </div>
         </div>
@@ -292,23 +285,23 @@
                 <input id="txtCreatureDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: CreatureResref" />
 
                 <label id="lblCreatureDetails-Appearance" for="txtCreatureDetails-Appearance">Appearance:</label>
-                <select id="selCreatureDetails-Appearance" data-bind="value: CreatureAppearance"></select>
+                <select id="selCreatureDetails-Appearance" disabled="disabled" data-bind="value: CreatureAppearance"></select>
 
                 <label>Race:</label>
-                <select id="selCreatureDetails-Race" data-bind="value: CreatureRace"></select>
+                <select id="selCreatureDetails-Race" disabled="disabled" data-bind="value: CreatureRace"></select>
 
                 <label>Gender:</label>
-                <select id="selCreatureDetails-Gender" data-bind="value: CreatureGender"></select>
+                <select id="selCreatureDetails-Gender" disabled="disabled" data-bind="value: CreatureGender"></select>
 
                 <label>Faction:</label>
-                <select id="selCreatureDetails-Faction" data-bind="value: CreatureFaction"></select>
+                <select id="selCreatureDetails-Faction" disabled="disabled" data-bind="value: CreatureFaction"></select>
 
                 <label>Conversation:</label>
-                <select id="selCreatureDetails-Conversation" data-bind="value: CreatureConversation"></select>
+                <select id="selCreatureDetails-Conversation" disabled="disabled" data-bind="value: CreatureConversation"></select>
 
                 <label>
                     Is Invulnerable: 
-                    <input id="chkCreatureDetails-IsInvulnerable" type="checkbox" data-bind="value: CreatureName" />
+                    <input id="chkCreatureDetails-IsInvulnerable" disabled="disabled" type="checkbox" data-bind="value: CreatureName" />
                 </label>
                    
             </div>
@@ -316,25 +309,25 @@
             <h3>Attributes</h3>
             <div id="divCreaturesTab-Attributes">
                 <label>Hit Points:</label>
-                <input id="numCreaturesTab-HitPoints" type="number" max="65535" data-bind="value: CreatureHitPoints" />
+                <input id="numCreaturesTab-HitPoints" type="number" max="65535" disabled="disabled" data-bind="value: CreatureHitPoints" />
 
                 <label>Mana:</label>
-                <input id="numCreaturesTab-Mana" type="number" max="65535" data-bind="value: CreatureMana"/>
+                <input id="numCreaturesTab-Mana" type="number" max="65535" disabled="disabled" data-bind="value: CreatureMana"/>
 
                 <label>Strength:</label>
-                <input id="numCreaturesTab-Strength" type="number" max="255" data-bind="value: CreatureStrength"/>
+                <input id="numCreaturesTab-Strength" type="number" max="255" disabled="disabled" data-bind="value: CreatureStrength"/>
 
                 <label>Dexterity:</label>
-                <input id="numCreaturesTab-Dexterity" type="number" max="255" data-bind="value: CreatureDexterity"/>
+                <input id="numCreaturesTab-Dexterity" type="number" max="255" disabled="disabled" data-bind="value: CreatureDexterity"/>
 
                 <label>Constitution:</label>
-                <input id="numCreaturesTab-Constitution" type="number" max="255" data-bind="value: CreatureConstitution"/>
+                <input id="numCreaturesTab-Constitution" type="number" max="255" disabled="disabled" data-bind="value: CreatureConstitution"/>
 
                 <label>Intelligence:</label>
-                <input id="numCreaturesTab-Intelligence" type="number" max="255" data-bind="value: CreatureIntelligence"/>
+                <input id="numCreaturesTab-Intelligence" type="number" max="255" disabled="disabled" data-bind="value: CreatureIntelligence"/>
 
                 <label>Wisdom:</label>
-                <input id="numCreaturesTab-Wisdom" type="number" max="255" data-bind="value: CreatureWisdom"/>
+                <input id="numCreaturesTab-Wisdom" type="number" max="255" disabled="disabled" data-bind="value: CreatureWisdom"/>
 
             </div>
 
@@ -346,46 +339,46 @@
             <h3>Equipment</h3>
             <div id="divCreaturesTab-Equipment">
                 <label>Main Hand:</label>
-                <select id="selCreaturesTab-MainHand" data-bind="value: CreatureEquipmentMainHand"></select>
+                <select id="selCreaturesTab-MainHand" disabled="disabled" data-bind="value: CreatureEquipmentMainHand"></select>
                 
                 <label>Off Hand:</label>
-                <select id="selCreaturesTab-OffHand" data-bind="value: CreatureEquipmentOffHand"></select>
+                <select id="selCreaturesTab-OffHand" disabled="disabled" data-bind="value: CreatureEquipmentOffHand"></select>
                 
                 <label>Head:</label>
-                <select id="selCreaturesTab-Head" data-bind="value: CreatureEquipmentHead"></select>
+                <select id="selCreaturesTab-Head" disabled="disabled" data-bind="value: CreatureEquipmentHead"></select>
 
                 <label>Body:</label>
-                <select id="selCreaturesTab-Body" data-bind="value: CreatureEquipmentBody"></select>
+                <select id="selCreaturesTab-Body" disabled="disabled" data-bind="value: CreatureEquipmentBody"></select>
                 
                 <label>Back:</label>
-                <select id="selCreaturesTab-Back" data-bind="value: CreatureEquipmentBack"></select>
+                <select id="selCreaturesTab-Back" disabled="disabled" data-bind="value: CreatureEquipmentBack"></select>
 
                 <label>Hands:</label>
-                <select id="selCreaturesTab-Hands" data-bind="value: CreatureEquipmentHands"></select>
+                <select id="selCreaturesTab-Hands" disabled="disabled" data-bind="value: CreatureEquipmentHands"></select>
                 
                 <label>Waist:</label>
-                <select id="selCreaturesTab-Waist" data-bind="value: CreatureEquipmentWaist"></select>
+                <select id="selCreaturesTab-Waist" disabled="disabled" data-bind="value: CreatureEquipmentWaist"></select>
                 
                 <label>Legs:</label>
-                <select id="selCreaturesTab-Legs" data-bind="value: CreatureEquipmentLegs"></select>
+                <select id="selCreaturesTab-Legs" disabled="disabled" data-bind="value: CreatureEquipmentLegs"></select>
                 
                 <label>Feet:</label>
-                <select id="selCreaturesTab-Feet" data-bind="value: CreatureEquipmentFeet"></select>
+                <select id="selCreaturesTab-Feet" disabled="disabled" data-bind="value: CreatureEquipmentFeet"></select>
 
                 <label>Ear (L):</label>
-                <select id="selCreaturesTab-EarL" data-bind="value: CreatureEquipmentEarL"></select>
+                <select id="selCreaturesTab-EarL" disabled="disabled" data-bind="value: CreatureEquipmentEarL"></select>
                 
                 <label>Ear (R):</label>
-                <select id="selCreaturesTab-EarR" data-bind="value: CreatureEquipmentEarR"></select>
+                <select id="selCreaturesTab-EarR" disabled="disabled" data-bind="value: CreatureEquipmentEarR"></select>
                 
                 <label>Ring (L):</label>
-                <select id="selCreaturesTab-RingL" data-bind="value: CreatureEquipmentRingL"></select>
+                <select id="selCreaturesTab-RingL" disabled="disabled" data-bind="value: CreatureEquipmentRingL"></select>
                 
                 <label>Ring (R):</label>
-                <select id="selCreaturesTab-RingR" data-bind="value: CreatureEquipmentRingR"></select>
+                <select id="selCreaturesTab-RingR" disabled="disabled" data-bind="value: CreatureEquipmentRingR"></select>
                 
                 <label>Neck:</label>
-                <select id="selCreaturesTab-Neck" data-bind="value: CreatureEquipmentNeck"></select>
+                <select id="selCreaturesTab-Neck" disabled="disabled" data-bind="value: CreatureEquipmentNeck"></select>
                 
             </div>
 
@@ -395,12 +388,12 @@
 
             <h3>Description</h3>
             <div id="divCreaturesTab-Description" data-bind="value: CreatureDescription">
-                <textarea id="txtCreaturesTab-Description"></textarea>
+                <textarea id="txtCreaturesTab-Description" disabled="disabled" data-bind="value: CreatureDescription"></textarea>
             </div>
 
             <h3>Comments</h3>
             <div id="divCreaturesTab-Comments">
-                <textarea id="txtCreaturesTab-Comments" data-bind="value: CreatureComments"></textarea>
+                <textarea id="txtCreaturesTab-Comments" disabled="disabled" data-bind="value: CreatureComments"></textarea>
             </div>
 
             <h3>Local Variables</h3>
@@ -411,19 +404,19 @@
             <h3>Events</h3>
             <div id="divCreaturesTab-Events">
                 <label id="lblCreaturesEvents-OnSpawn">On Spawn:</label>
-                <select id="selCreaturesEvents-OnSpawn" data-bind="value: CreatureEventOnSpawn"></select>
+                <select id="selCreaturesEvents-OnSpawn" disabled="disabled" data-bind="value: CreatureEventOnSpawn"></select>
                 
                 <label id="lblCreaturesEvents-OnDamaged">On Damaged:</label>
-                <select id="selCreaturesEvents-OnDamaged" data-bind="value: CreatureEventOnDamaged"></select>
+                <select id="selCreaturesEvents-OnDamaged" disabled="disabled" data-bind="value: CreatureEventOnDamaged"></select>
                 
                 <label id="lblCreaturesEvents-OnDeath">On Death:</label>
-                <select id="selCreaturesEvents-OnDeath" data-bind="value: CreatureEventOnDeath"></select>
+                <select id="selCreaturesEvents-OnDeath" disabled="disabled" data-bind="value: CreatureEventOnDeath"></select>
                 
                 <label id="lblCreaturesEvents-OnConversation">On Conversation:</label>
-                <select id="selCreaturesEvents-OnConversation" data-bind="value: CreatureEventOnConversation"></select>
+                <select id="selCreaturesEvents-OnConversation" disabled="disabled" data-bind="value: CreatureEventOnConversation"></select>
 
                 <label id="lblCreaturesEvents-OnHeartbeat">On Heartbeat:</label>
-                <select id="selCreaturesEvents-OnHeartbeat" data-bind="value: CreatureEventOnHeartbeat"></select>
+                <select id="selCreaturesEvents-OnHeartbeat" disabled="disabled" data-bind="value: CreatureEventOnHeartbeat"></select>
 
             </div>
         </div>
@@ -444,12 +437,12 @@
             
             <h3>Description</h3>
             <div id="divItemsTab-Description">
-                <textarea id="txtItemDetails-Description" data-bind="value: ItemDescription"></textarea>
+                <textarea id="txtItemDetails-Description" disabled="disabled" data-bind="value: ItemDescription"></textarea>
             </div>
 
             <h3>Comments</h3>
             <div id="divItemsTab-Comments">
-                <textarea id="txtItemDetails-Comments" data-bind="value: ItemComments"></textarea>
+                <textarea id="txtItemDetails-Comments" disabled="disabled" data-bind="value: ItemComments"></textarea>
             </div>
 
             <h3>Local Variables</h3>
@@ -461,7 +454,7 @@
             <div id="divItemsTab-Events">
                 
                 <label id="lblItemsEvents-OnSpawn">On Spawn:</label>
-                <select id="selItemsEvents-OnSpawn" data-bind="value: ItemEventOnSpawn"></select>
+                <select id="selItemsEvents-OnSpawn" disabled="disabled" data-bind="value: ItemEventOnSpawn"></select>
 
             </div>
         </div>
@@ -481,12 +474,12 @@
             
             <h3>Description</h3>
             <div id="divPlaceableDetails-Description">
-                <textarea id="txtPlaceableDetails-Description" data-bind="value: PlaceableDescription"></textarea>
+                <textarea id="txtPlaceableDetails-Description" disabled="disabled" data-bind="value: PlaceableDescription"></textarea>
             </div>
 
             <h3>Comments</h3>
             <div id="divPlaceableDetails-Comments">
-                <textarea id="txtPlaceableDetails-Comments" data-bind="value: PlaceableComments"></textarea>
+                <textarea id="txtPlaceableDetails-Comments" disabled="disabled" data-bind="value: PlaceableComments"></textarea>
             </div>
 
             <h3>Local Variables</h3>
@@ -498,25 +491,25 @@
             <div id="divPlaceablesTab-Events">
                 
                 <label id="lblPlaceablesEvents-OnSpawn">On Spawn:</label>
-                <select id="selPlaceablesEvents-OnSpawn" data-bind="value: PlaceableEventOnSpawn"></select>
+                <select id="selPlaceablesEvents-OnSpawn" disabled="disabled" data-bind="value: PlaceableEventOnSpawn"></select>
 
                 <label id="lblPlaceablesEvents-OnDamaged">On Damaged:</label>
-                <select id="selPlaceablesEvents-OnDamaged" data-bind="value: PlaceableEventOnDamaged"></select>
+                <select id="selPlaceablesEvents-OnDamaged" disabled="disabled" data-bind="value: PlaceableEventOnDamaged"></select>
                 
                 <label id="lblPlaceablesEvents-OnDeath">On Death:</label>
-                <select id="selPlaceablesEvents-OnDeath" data-bind="value: PlaceableEventOnDeath"></select>
+                <select id="selPlaceablesEvents-OnDeath" disabled="disabled" data-bind="value: PlaceableEventOnDeath"></select>
                 
                 <label id="lblPlaceablesEvents-OnHeartbeat">On Heartbeat:</label>
-                <select id="selPlaceablesEvents-OnHeartbeat" data-bind="value: PlaceableEventOnHeartbeat"></select>
+                <select id="selPlaceablesEvents-OnHeartbeat" disabled="disabled" data-bind="value: PlaceableEventOnHeartbeat"></select>
                 
                 <label id="lblPlaceablesEvents-OnOpen">On Open:</label>
-                <select id="selPlaceablesEvents-OnOpen" data-bind="value: PlaceableEventOnOpen"></select>
+                <select id="selPlaceablesEvents-OnOpen" disabled="disabled" data-bind="value: PlaceableEventOnOpen"></select>
                 
                 <label id="lblPlaceablesEvents-OnClose">On Close:</label>
-                <select id="selPlaceablesEvents-OnClose" data-bind="value: PlaceableEventOnClose"></select>
+                <select id="selPlaceablesEvents-OnClose" disabled="disabled" data-bind="value: PlaceableEventOnClose"></select>
 
                 <label id="lblPlaceablesEvents-OnUsed">On Used:</label>
-                <select id="selPlaceablesEvents-OnUsed" data-bind="value: PlaceableEventOnUsed"></select>
+                <select id="selPlaceablesEvents-OnUsed" disabled="disabled" data-bind="value: PlaceableEventOnUsed"></select>
 
             </div>
         </div>
@@ -552,8 +545,8 @@
     </div>
 
     <div id="divObjectTabContainerButtons" class="pull-right offset12 clsHidden">
-        <input id="btnObjectTabApplyChanges" type="button" value="Apply Changes" />
-        <input id="btnObjectTabDiscardChanges" type="button" value="Discard Changes" />
+        <input id="btnObjectTabApplyChanges" type="button" value="Apply Changes" data-bind="click: SaveChanges" />
+        <input id="btnObjectTabDiscardChanges" type="button" value="Discard Changes" data-bind="click: DiscardChanges" />
     </div>
 
     <!-- END OBJECT TAB CONTROLS -->

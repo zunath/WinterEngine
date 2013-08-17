@@ -139,7 +139,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Race.cs" />
     <Compile Include="Resources\Category.cs" />
-    <Compile Include="BusinessObjects\LocalVariable.cs" />
+    <Compile Include="Resources\LocalVariable.cs" />
     <Compile Include="GameObjects\PlayerCharacter.cs" />
     <Compile Include="GameObjects\Script.cs" />
   </ItemGroup>

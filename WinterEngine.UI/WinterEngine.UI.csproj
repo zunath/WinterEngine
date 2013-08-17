@@ -195,7 +195,7 @@
     <Content Include="Scripts\Toolset.TreeViews.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Toolset.ViewModels.js">
+    <Content Include="Scripts\Toolset.ViewModel.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Styling\DataTables\jquery.dataTables.css">
