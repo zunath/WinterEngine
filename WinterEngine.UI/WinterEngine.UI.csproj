@@ -264,6 +264,12 @@
     <Content Include="Styling\jQueryUI\jquery-ui-1.10.3.custom.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Styling\Shared\bootstrap-responsive.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styling\Shared\bootstrap.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Styling\Toolset\ToolsetStyles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

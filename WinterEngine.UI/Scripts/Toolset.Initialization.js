@@ -180,10 +180,14 @@ function InitializeRenameTreeNodeBox() {
 }
 
 function InitializeTabbedContainers() {
-    $('#divAreasTab').accordion();
-    $('#divCreaturesTab').accordion();
-    $('#divItemsTab').accordion();
-    $('#divPlaceablesTab').accordion();
-    $('#divConversationsTab').accordion();
-    $('#divScriptsTab').accordion();
+    $('#divAreasTab').accordion({ collapsible: true, heightStyle: "content" });
+    $('#divCreaturesTab').accordion({ collapsible: true, heightStyle: "content" });
+    $('#divItemsTab').accordion({ collapsible: true, heightStyle: "content" });
+    $('#divPlaceablesTab').accordion({ collapsible: true, heightStyle: "content" });
+    $('#divConversationsTab').accordion({ collapsible: true, heightStyle: "content" });
+    $('#divScriptsTab').accordion({ collapsible: true, heightStyle: "content" });
+
+    // Seems to be a bug with making a div an accordion that is hidden.
+    // This is to correct that issue.
+    $('.clsObjectTabDiv').addClass('clsHidden');
 }
