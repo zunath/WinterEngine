@@ -13,66 +13,33 @@ namespace WinterEngine.DataTransferObjects
     {
         #region Fields
 
-        private ItemType _type;
-        private string _description;
-        private int _price;
-        private int _weight;
-        private bool _isUndroppable;
-        private bool _isPlot;
-        private bool _isStolen;
         private List<ItemProperty> _itemProperties;
-        private int _tileWidth;
-        private int _tileHeight;
 
         #endregion
 
         #region Properties
 
+        public string Description { get; set; }
+
         /// <summary>
         /// Gets or sets the item type of a particular item.
         /// </summary>
-        public ItemType Type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the viewable description for an item.
-        /// </summary>
-        [MaxLength(4000)]
-        public string Description
-        {
-            get { return _description; }
-            set { _description = value; }
-        }
+        public ItemType Type { get; set; }
 
         /// <summary>
         /// Gets or sets the price of an item.
         /// </summary>
-        public int Price
-        {
-            get { return _price; }
-            set { _price = value; }
-        }
+        public int Price { get; set; }
 
         /// <summary>
         /// Gets or sets the weight of an item.
         /// </summary>
-        public int Weight
-        {
-            get { return _weight; }
-            set { _weight = value; }
-        }
+        public int Weight { get; set; }
 
         /// <summary>
         /// Gets or sets whether or not an item can be dropped by a player.
         /// </summary>
-        public bool IsUndroppable
-        {
-            get { return _isUndroppable; }
-            set { _isUndroppable = value; }
-        }
+        public bool IsUndroppable { get; set; }
 
         /// <summary>
         /// Gets or sets the list of item properties for an item.
@@ -86,43 +53,24 @@ namespace WinterEngine.DataTransferObjects
         /// <summary>
         /// Gets or sets whether or not an item is plot.
         /// </summary>
-        public bool IsPlot
-        {
-            get { return _isPlot; }
-            set { _isPlot = value; }
-        }
+        public bool IsPlot { get; set; }
 
         /// <summary>
         /// Gets or sets whether or not an item is stolen.
         /// </summary>
-        public bool IsStolen
-        {
-            get { return _isStolen; }
-            set { _isStolen = value; }
-        }
+        public bool IsStolen { get; set; }
 
         /// <summary>
         /// Gets or sets the width of an inventory item.
         /// </summary>
-        public int TileWidth
-        {
-            get { return _tileWidth; }
-            set { _tileWidth = value; }
-        }
+        public int TileWidth { get; set; }
 
         /// <summary>
         /// Gets or sets the height of an inventory item.
         /// </summary>
-        public int TileHeight
-        {
-            get { return _tileHeight; }
-            set { _tileHeight = value; }
-        }
+        public int TileHeight { get; set; }
 
         #endregion
 
-        #region Methods
-
-        #endregion
     }
 }

@@ -127,6 +127,11 @@ namespace WinterEngine.DataAccess.Repositories
             return Context.ScriptRepository.Get(x => x.Resref == resref).SingleOrDefault();
         }
 
+        public Script GetByID(int resourceID)
+        {
+            return Context.ScriptRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
         /// <summary>
         /// Deletes all of the scripts attached to a specified category from the database.
         /// </summary>

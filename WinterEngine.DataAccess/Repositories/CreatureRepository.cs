@@ -145,6 +145,11 @@ namespace WinterEngine.DataAccess
             return Context.CreatureRepository.Get(x => x.Resref == resref).SingleOrDefault();
         }
 
+        public Creature GetByID(int resourceID)
+        {
+            return Context.CreatureRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
         /// <summary>
         /// Deletes all of the creatures attached to a specified category from the database.
         /// </summary>

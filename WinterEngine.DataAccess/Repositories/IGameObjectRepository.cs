@@ -19,6 +19,7 @@ namespace WinterEngine.DataAccess.Repositories
         bool Exists(string resref);
         List<T> GetAll();
         List<T> GetAllByResourceCategory(Category resourceCategory);
+        T GetByID(int resourceID);
         T GetByResref(string resref);
         void DeleteAllByCategory(Category resourceCategory);
         JSTreeNode GenerateJSTreeHierarchy();

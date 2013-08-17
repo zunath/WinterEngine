@@ -128,6 +128,11 @@ namespace WinterEngine.DataAccess
             return Context.PlaceableRepository.Get(x => x.Resref == resref).SingleOrDefault();
         }
 
+        public Placeable GetByID(int resourceID)
+        {
+            return Context.PlaceableRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
         /// <summary>
         /// Deletes all of the placeables attached to a specified category from the database.
         /// </summary>

@@ -547,6 +547,56 @@ namespace WinterEngine.DataAccess.Factories
             }
         }
 
+        public GameObjectBase GetFromDatabaseByID(int resourceID, GameObjectTypeEnum gameResourceType)
+        {
+            if (gameResourceType == GameObjectTypeEnum.Area)
+            {
+                using (AreaRepository repo = new AreaRepository())
+                {
+                    return repo.GetByID(resourceID);
+                }
+            }
+            else if (gameResourceType == GameObjectTypeEnum.Conversation)
+            {
+                using (ConversationRepository repo = new ConversationRepository())
+                {
+                    return repo.GetByID(resourceID);
+                }
+            }
+            else if (gameResourceType == GameObjectTypeEnum.Creature)
+            {
+                using (CreatureRepository repo = new CreatureRepository())
+                {
+                    return repo.GetByID(resourceID);
+                }
+            }
+            else if (gameResourceType == GameObjectTypeEnum.Item)
+            {
+                using (ItemRepository repo = new ItemRepository())
+                {
+                    return repo.GetByID(resourceID);
+                }
+            }
+            else if (gameResourceType == GameObjectTypeEnum.Placeable)
+            {
+                using (PlaceableRepository repo = new PlaceableRepository())
+                {
+                    return repo.GetByID(resourceID);
+                }
+            }
+            else if (gameResourceType == GameObjectTypeEnum.Script)
+            {
+                using (ScriptRepository repo = new ScriptRepository())
+                {
+                    return repo.GetByID(resourceID);
+                }
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
+        }
+
         /// <summary>
         /// Delete all objects from database that match a specified resource category.
         /// </summary>
@@ -669,5 +719,6 @@ namespace WinterEngine.DataAccess.Factories
         }
 
         #endregion
+
     }
 }

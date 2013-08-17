@@ -140,24 +140,7 @@ function OnTreeViewNodeSelected() {
         $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('open_node', selectedNode);
     }
     else if (nodeType == 'object') {
-        LoadObject(selectedNode);
-    }
-}
-
-// Loads a specific tree node object into the editor.
-// Different sections of the editor display based on the type of object mode we're in.
-function LoadObject(treeNode) {
-    if (ToolsetViewModel.CurrentObjectMode() == "Area") {
-    }
-    else if (ToolsetViewModel.CurrentObjectMode() == "Creature") {
-    }
-    else if (ToolsetViewModel.CurrentObjectMode() == "Item") {
-    }
-    else if (ToolsetViewModel.CurrentObjectMode() == "Placeable") {
-    }
-    else if (ToolsetViewModel.CurrentObjectMode() == "Conversation") {
-    }
-    else if (ToolsetViewModel.CurrentObjectMode() == "Script") {
+        LoadObjectData();
     }
 }
 

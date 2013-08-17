@@ -52,8 +52,43 @@ namespace WinterEngine.DataTransferObjects
         public Location Location { get; set; }
 
         [ProtoMember(16)]
-        [NotMapped]
-        public List<LocalVariable> LocalVariables { get; set; }
+        [XmlIgnore]
+        public bool IsInvulnerable { get; set; }
+
+        // EQUIPPED ITEMS
+
+        public Item MainHandItem { get; set; }
+        public Item OffHandItem { get; set; }
+        public Item HeadItem { get; set; }
+        public Item BodyItem { get; set; }
+        public Item BackItem { get; set; }
+        public Item HandsItem { get; set; }
+        public Item WaistItem { get; set; }
+        public Item LegsItem { get; set; }
+        public Item FeetItem { get; set; }
+        public Item EarLeftItem { get; set; }
+        public Item EarRightItem { get; set; }
+        public Item RingLeftItem { get; set; }
+        public Item RingRightItem { get; set; }
+        public Item NeckItem { get; set; }
+
+        // EVENT SCRIPTS
+        public int? OnSpawnEventScriptID { get; set; }
+        public int? OnDamagedEventScriptID { get; set; }
+        public int? OnDeathEventScriptID { get; set; }
+        public int? OnConversationEventScriptID { get; set; }
+        public int? OnHeartbeatEventScriptID { get; set; }
+
+        [ForeignKey("OnSpawnEventScriptID")]
+        public virtual Script OnSpawnEventScript { get; set; }
+        [ForeignKey("OnDamagedEventScriptID")]
+        public virtual Script OnDamagedEventScript { get; set; }
+        [ForeignKey("OnDeathEventScriptID")]
+        public virtual Script OnDeathEventScript { get; set; }
+        [ForeignKey("OnConversationEventScriptID")]
+        public virtual Script OnConversationEventScript { get; set; }
+        [ForeignKey("OnHeartbeatEventScriptID")]
+        public virtual Script OnHeartbeatEventScript { get; set; }
 
         #endregion
 
@@ -61,7 +96,6 @@ namespace WinterEngine.DataTransferObjects
 
         public Creature()
         {
-            LocalVariables = new List<LocalVariable>();
         }
 
         #endregion

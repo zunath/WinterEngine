@@ -128,6 +128,11 @@ namespace WinterEngine.DataAccess.Repositories
             return Context.ConversationRepository.Get(x => x.Resref == resref).SingleOrDefault();
         }
 
+        public Conversation GetByID(int resourceID)
+        {
+            return Context.ConversationRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
         /// <summary>
         /// Deletes all of the conversations attached to a specified category from the database.
         /// </summary>

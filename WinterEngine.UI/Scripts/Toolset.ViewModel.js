@@ -81,6 +81,15 @@
     ItemComments: ko.observable(),
     ItemLocalVariables: ko.observableArray([]),
 
+    ItemType: ko.observable(),
+    ItemPrice: ko.observable(),
+    ItemWeight: ko.observable(),
+    ItemIsUndroppable: ko.observable(),
+    ItemIsPlot: ko.observable(),
+    ItemIsStolen: ko.observable(),
+
+    ItemProperties: ko.observableArray([]),
+
     ItemEventOnSpawn: ko.observable(),
 
     /* Placeable Object Fields */
@@ -119,9 +128,6 @@
 
 
     /* Functions */
-
-    LoadObject: function() {
-    },
 
     SaveChanges: function () {
         var mode = ToolsetViewModel.CurrentObjectMode();

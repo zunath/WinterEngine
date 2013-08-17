@@ -135,6 +135,11 @@ namespace WinterEngine.DataAccess
             return Context.ItemRepository.Get(x => x.Resref == resref).SingleOrDefault();
         }
 
+        public Item GetByID(int resourceID)
+        {
+            return Context.ItemRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
         /// <summary>
         /// Deletes all of the items attached to a specified category from the database.
         /// </summary>

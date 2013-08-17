@@ -27,19 +27,19 @@ namespace WinterEngine.DataTransferObjects
         }
 
         // EVENT SCRIPTS
-        public int? OnAreaEnterEventScriptID { get; set; }
-        public int? OnAreaExitEventScriptID { get; set; }
-        public int? OnAreaHeartbeatEventScriptID { get; set; }
-        public int? OnAreaUserDefinedEventScriptID { get; set; }
+        public int? OnEnterEventScriptID { get; set; }
+        public int? OnExitEventScriptID { get; set; }
+        public int? OnHeartbeatEventScriptID { get; set; }
+        public int? OnUserDefinedEventScriptID { get; set; }
 
         
-        [ForeignKey("OnAreaEnterEventScriptID")]
+        [ForeignKey("OnEnterEventScriptID")]
         public virtual Script OnAreaEnterEventScript { get; set; }
-        [ForeignKey("OnAreaExitEventScriptID")]
+        [ForeignKey("OnExitEventScriptID")]
         public virtual Script OnAreaExitEventScript { get; set; }
-        [ForeignKey("OnAreaHeartbeatEventScriptID")]
+        [ForeignKey("OnHeartbeatEventScriptID")]
         public virtual Script OnAreaHeartbeatEventScript { get; set; }
-        [ForeignKey("OnAreaUserDefinedEventScriptID")]
+        [ForeignKey("OnUserDefinedEventScriptID")]
         public virtual Script OnAreaUserDefinedEventScript { get; set; }
         
         #endregion

@@ -130,6 +130,11 @@ namespace WinterEngine.DataAccess
             return Context.AreaRepository.Get(x => x.Resref == resref).SingleOrDefault();
         }
 
+        public Area GetByID(int resourceID)
+        {
+            return Context.AreaRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
         /// <summary>
         /// Deletes all of the areas attached to a specified category from the database.
         /// </summary>

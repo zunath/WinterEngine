@@ -1,20 +1,18 @@
 using System;
 using System.Collections.Generic;
-
-using Awesomium.Core;
 using System.Diagnostics;
-using WinterEngine.DataTransferObjects;
-using WinterEngine.DataAccess.Factories;
-using WinterEngine.Library.Managers;
-using System.Windows.Forms;
-
-using WinterEngine.Editor.Managers;
-using WinterEngine.DataAccess.FileAccess;
 using System.Web.Script.Serialization;
+using System.Windows.Forms;
+using Awesomium.Core;
 using WinterEngine.DataAccess;
+using WinterEngine.DataAccess.Factories;
+using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Repositories;
+using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.Editor.Managers;
+using WinterEngine.Library.Managers;
 using WinterEngine.Library.Utility;
 
 
@@ -596,31 +594,21 @@ namespace WinterEngine.Game.Entities
 
         private void LoadObjectData(object sender, JavascriptMethodEventArgs e)
         {
+            GameObjectFactory factory = new GameObjectFactory();
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
+            int resourceID = (int)e.Arguments[1];
+            GameObjectBase gameObject = factory.GetFromDatabaseByID(resourceID, gameObjectType);
+            string jsonObject = new JavaScriptSerializer().Serialize(gameObject);
+
+            AsyncJavascriptCallback("LoadObjectData_Callback", jsonObject);
         }
 
         private void SaveObjectData(object sender, JavascriptMethodEventArgs e)
         {
+            GameObjectFactory factory = new GameObjectFactory();
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
+            int resourceID = (int)e.Arguments[1];
 
-            if (gameObjectType == GameObjectTypeEnum.Area)
-            {
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Conversation)
-            {
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Creature)
-            {
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Item)
-            {
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Placeable)
-            {
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Script)
-            {
-            }
         }
 
         #endregion
