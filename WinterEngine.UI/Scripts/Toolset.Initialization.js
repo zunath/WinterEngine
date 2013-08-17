@@ -1,6 +1,7 @@
 ﻿/* Page Initialization */
 
 function Initialize() {
+    ko.applyBindings(new ToolsetViewModel());
     InitializeValidation();
     InitializeMainMenu();
     InitializeObjectSelectionMenu();
@@ -18,6 +19,9 @@ function Initialize() {
     InitializeCreateCategoryBox();
     InitializeRenameTreeNodeBox();
     InitializeTabbedContainers();
+
+    $("input[type=button]").button();
+
 }
 
 function InitializeMainMenu() {

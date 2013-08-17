@@ -3,6 +3,7 @@
 // components based on object type.
 function ChangeObjectMode(objectMode) {
     $('.clsObjectTabDiv').addClass('clsHidden');
+    $('#divObjectTabContainerButtons').removeClass('clsHidden');
     $('.clsTreeViewDiv').addClass('clsHidden');
     $('.clsActiveObjectType').removeClass('clsActiveObjectType');
 
@@ -68,6 +69,7 @@ function ChangeObjectMode(objectMode) {
     else {
         $('#hdnActiveObjectTreeSelector').val('');
         $('#hdnActiveObjectPropertiesTabSelector').val('');
+        $('#divObjectTabContainerButtons').addClass('clsHidden');
     }
 
 }
