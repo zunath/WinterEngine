@@ -245,7 +245,8 @@ namespace AwesomiumXNA
             area.Width = width;
             area.Height = height;
             WebViewTexture = new Texture2D(Game.GraphicsDevice, area.Width, area.Height, false, SurfaceFormat.Color);
-            WebView.Resize(width, height);
+            WebView.Resize(area.Width, area.Height);
+
         }
 
         protected override void LoadContent()
