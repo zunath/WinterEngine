@@ -123,7 +123,7 @@ namespace WinterEngine.Forms.Controls.Standard
             }
 
             GameObjectFactory factory = new GameObjectFactory();
-            if (factory.DoesObjectExistInDatabase(textBoxResref.Text, ResourceType))
+            //if (factory.DoesObjectExistInDatabase(textBoxResref.Text, ResourceType)) // 08-17-2013: Removed due to changes in new UI code. Left here as reference.
             {
                 errorProvider.SetError(textBoxResref, "This resref is already in use!");
                 _isValid = false;

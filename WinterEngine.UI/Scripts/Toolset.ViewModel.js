@@ -118,6 +118,9 @@
     ConversationName: ko.observable(),
     ConversationTag: ko.observable(),
     ConversationResref: ko.observable(),
+    ConversationDescription: ko.observable(),
+    ConversationComments: ko.observable(),
+    ConversationLocalVariables: ko.observable(),
 
     /* Script Object Fields */
 
@@ -125,34 +128,7 @@
     ScriptName: ko.observable(),
     ScriptTag: ko.observable(),
     ScriptResref: ko.observable(),
-
-
-    /* Functions */
-
-    SaveChanges: function () {
-        var mode = ToolsetViewModel.CurrentObjectMode();
-
-        if (mode == 'Area') {
-            Entity.SaveObjectData(mode);
-        }
-        else if (mode == 'Creature') {
-            Entity.SaveObjectData(mode);
-        }
-        else if (mode == 'Item') {
-            Entity.SaveObjectData(mode);
-        }
-        else if (mode == 'Placeable') {
-            Entity.SaveObjectData(mode);
-        }
-        else if (mode == 'Conversation') {
-            Entity.SaveObjectData(mode);
-        }
-        else if (mode == 'Script') {
-            Entity.SaveObjectData(mode);
-        }
-    },
-    DiscardChanges: function () {
-    
-    },
+    ScriptDescription: ko.observable(),
+    ScriptComments: ko.observable(),
 
 };

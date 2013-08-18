@@ -12,9 +12,6 @@ namespace WinterEngine.DataTransferObjects
     {
         #region Fields
 
-        private string _description;
-        private bool _isUseable;
-        private bool _hasInventory;
         private List<Item> _inventoryItems;
 
         #endregion
@@ -22,31 +19,14 @@ namespace WinterEngine.DataTransferObjects
         #region Properties
 
         /// <summary>
-        /// Gets or sets the description of a placeable.
-        /// </summary>
-        public string Description
-        {
-            get { return _description; }
-            set { _description = value; }
-        }
-
-        /// <summary>
         /// Gets or sets whether or not a placeable is useable in-game.
         /// </summary>
-        public bool IsUseable
-        {
-            get { return _isUseable; }
-            set { _isUseable = value; }
-        }
+        public bool IsUseable { get; set; }
 
         /// <summary>
         /// Gets or sets whether or not a placeable can contain items in its inventory.
         /// </summary>
-        public bool HasInventory
-        {
-            get { return _hasInventory; }
-            set { _hasInventory = value; }
-        }
+        public bool HasInventory { get; set; }
 
         /// <summary>
         /// Gets or sets the list of items contained in a placeable's inventory.

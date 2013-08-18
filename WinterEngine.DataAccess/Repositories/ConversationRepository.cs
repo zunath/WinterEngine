@@ -27,9 +27,9 @@ namespace WinterEngine.DataAccess.Repositories
         /// </summary>
         /// <param name="conversation">The conversation to add to the database.</param>
         /// <returns></returns>
-        public void Add(Conversation conversation)
+        public Conversation Add(Conversation conversation)
         {
-            Context.ConversationRepository.Add(conversation);
+            return Context.ConversationRepository.Add(conversation);
         }
 
         /// <summary>
@@ -94,9 +94,9 @@ namespace WinterEngine.DataAccess.Repositories
         /// </summary>
         /// <param name="resref">The resource reference to search for and delete.</param>
         /// <returns></returns>
-        public void Delete(string resref)
+        public void Delete(int resourceID)
         {
-            Conversation conversation = Context.ConversationRepository.Get(c => c.Resref == resref).SingleOrDefault();
+            Conversation conversation = Context.ConversationRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
             Context.ConversationRepository.Delete(conversation);
         }
 
@@ -176,7 +176,7 @@ namespace WinterEngine.DataAccess.Repositories
                 {
                     JSTreeNode childNode = new JSTreeNode(conversation.Name);
                     childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resref", conversation.Resref);
+                    childNode.attr.Add("data-resourceid", Convert.ToString(conversation.ResourceID));
                     childNode.attr.Add("data-issystemresource", Convert.ToString(conversation.IsSystemResource));
 
                     categoryNode.children.Add(childNode);

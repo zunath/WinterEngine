@@ -29,9 +29,9 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="placeable">The placeable to add to the database.</param>
         /// <returns></returns>
-        public void Add(Placeable placeable)
+        public Placeable Add(Placeable placeable)
         {
-            Context.PlaceableRepository.Add(placeable);
+            return Context.PlaceableRepository.Add(placeable);
         }
 
         public void Add(List<Placeable> placeableList)
@@ -94,9 +94,9 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resref">The resource reference to search for and delete.</param>
         /// <returns></returns>
-        public void Delete(string resref)
+        public void Delete(int resourceID)
         {
-            Placeable placeable = Context.PlaceableRepository.Get(p => p.Resref == resref).SingleOrDefault();
+            Placeable placeable = Context.PlaceableRepository.Get(p => p.ResourceID == resourceID).SingleOrDefault();
             Context.PlaceableRepository.Delete(placeable);
         }
 
@@ -177,7 +177,7 @@ namespace WinterEngine.DataAccess
                 {
                     JSTreeNode childNode = new JSTreeNode(placeable.Name);
                     childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resref", placeable.Resref);
+                    childNode.attr.Add("data-resourceid", Convert.ToString(placeable.ResourceID));
                     childNode.attr.Add("data-issystemresource", Convert.ToString(placeable.IsSystemResource));
 
                     categoryNode.children.Add(childNode);

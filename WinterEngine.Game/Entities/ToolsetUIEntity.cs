@@ -460,6 +460,7 @@ namespace WinterEngine.Game.Entities
                 string resref = e.Arguments[2];
                 int categoryID = (int)e.Arguments[3];
                 GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[4]);
+                int resourceID = 0;
 
                 if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
                 {
@@ -473,7 +474,7 @@ namespace WinterEngine.Game.Entities
                     newObject.Resref = resref;
                     newObject.ResourceCategoryID = categoryID;
 
-                    factory.AddToDatabase(newObject);
+                    resourceID = factory.AddToDatabase(newObject).ResourceID;
                 }
 
                 AsyncJavascriptCallback("CreateNewObject_Callback",
@@ -481,7 +482,7 @@ namespace WinterEngine.Game.Entities
                     EnumerationHelper.GetEnumerationDescription(error),
                     (int)gameObjectType,
                     name,
-                    resref);
+                    resourceID);
             }
             catch
             {
@@ -513,18 +514,11 @@ namespace WinterEngine.Game.Entities
         {
             ErrorTypeEnum error = ErrorTypeEnum.None;
             GameObjectFactory factory = new GameObjectFactory();
-            string resref = e.Arguments[0];
+            int resourceID = (int)e.Arguments[0];
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[1]);
             
-            if (!factory.DoesObjectExistInDatabase(resref, gameObjectType))
-            {
-                error = ErrorTypeEnum.ObjectResrefDoesNotExist;
-            }
-            else
-            {
-                factory.DeleteFromDatabase(resref, gameObjectType);
-            }
-
+            factory.DeleteFromDatabase(resourceID, gameObjectType);
+            
             AsyncJavascriptCallback("DeleteObject_Callback", 
                 error == ErrorTypeEnum.None ? true : false,
                 EnumerationHelper.GetEnumerationDescription(error));
@@ -560,10 +554,10 @@ namespace WinterEngine.Game.Entities
             ErrorTypeEnum error = ErrorTypeEnum.None;
             GameObjectFactory factory = new GameObjectFactory();
             string name = e.Arguments[0];
-            string resref = e.Arguments[1];
+            int resourceID = (int)e.Arguments[1];
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[2]);
 
-            GameObjectBase dbObject = factory.GetFromDatabaseByResref(resref, gameObjectType);
+            GameObjectBase dbObject = factory.GetFromDatabaseByID(resourceID, gameObjectType);
 
             if (dbObject == null)
             {

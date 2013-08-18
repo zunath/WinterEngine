@@ -27,9 +27,9 @@ namespace WinterEngine.DataAccess.Repositories
         /// </summary>
         /// <param name="script">The script to add to the database.</param>
         /// <returns></returns>
-        public void Add(Script script)
+        public Script Add(Script script)
         {
-            Context.ScriptRepository.Add(script);
+            return Context.ScriptRepository.Add(script);
         }
 
         /// <summary>
@@ -93,9 +93,9 @@ namespace WinterEngine.DataAccess.Repositories
         /// </summary>
         /// <param name="resref">The resource reference to search for and delete.</param>
         /// <returns></returns>
-        public void Delete(string resref)
+        public void Delete(int resourceID)
         {
-            Script script = Context.ScriptRepository.Get(c => c.Resref == resref).SingleOrDefault();
+            Script script = Context.ScriptRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
             Context.ScriptRepository.Delete(script);
         }
 
@@ -175,7 +175,7 @@ namespace WinterEngine.DataAccess.Repositories
                 {
                     JSTreeNode childNode = new JSTreeNode(script.Name);
                     childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resref", script.Resref);
+                    childNode.attr.Add("data-resourceid", Convert.ToString(script.ResourceID));
                     childNode.attr.Add("data-issystemresource", Convert.ToString(script.IsSystemResource));
 
                     categoryNode.children.Add(childNode);

@@ -21,8 +21,6 @@ namespace WinterEngine.DataTransferObjects
         public string LastName { get; set; }
         [ProtoMember(3)]
         public Race Race { get; set; }
-        [ProtoMember(4)]
-        public string Description { get; set; }
         [ProtoMember(5)]
         public int Strength { get; set; }
         [ProtoMember(6)]

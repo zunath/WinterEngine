@@ -29,9 +29,9 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="creature">The creature to add to the database.</param>
         /// <returns></returns>
-        public void Add(Creature creature)
+        public Creature Add(Creature creature)
         {
-            Context.CreatureRepository.Add(creature);
+            return Context.CreatureRepository.Add(creature);
         }
 
         /// <summary>
@@ -111,9 +111,9 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resref">The resource reference to search for and delete.</param>
         /// <returns></returns>
-        public void Delete(string resref)
+        public void Delete(int resourceID)
         {
-            Creature creature = Context.CreatureRepository.Get(c => c.Resref == resref).SingleOrDefault();
+            Creature creature = Context.CreatureRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
             Context.CreatureRepository.Delete(creature);
         }
 
@@ -193,7 +193,7 @@ namespace WinterEngine.DataAccess
                 {
                     JSTreeNode childNode = new JSTreeNode(creature.Name);
                     childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resref", creature.Resref);
+                    childNode.attr.Add("data-resourceid", Convert.ToString(creature.ResourceID));
                     childNode.attr.Add("data-issystemresource", Convert.ToString(creature.IsSystemResource));
 
                     categoryNode.children.Add(childNode);

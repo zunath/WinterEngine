@@ -29,9 +29,9 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="item">The item to add to the database.</param>
         /// <returns></returns>
-        public void Add(Item item)
+        public Item Add(Item item)
         {
-            Context.ItemRepository.Add(item);
+            return Context.ItemRepository.Add(item);
         }
 
         public void Add(List<Item> itemList)
@@ -101,9 +101,9 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="resref">The resource reference to search for and delete.</param>
         /// <returns></returns>
-        public void Delete(string resref)
+        public void Delete(int resourceID)
         {
-            Item item = Context.ItemRepository.Get(i => i.Resref == resref).SingleOrDefault();
+            Item item = Context.ItemRepository.Get(i => i.ResourceID == resourceID).SingleOrDefault();
             Context.ItemRepository.Delete(item);
         }
 
@@ -183,7 +183,7 @@ namespace WinterEngine.DataAccess
                 {
                     JSTreeNode childNode = new JSTreeNode(item.Name);
                     childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resref", item.Resref);
+                    childNode.attr.Add("data-resourceid", Convert.ToString(item.ResourceID));
                     childNode.attr.Add("data-issystemresource", Convert.ToString(item.IsSystemResource));
 
                     categoryNode.children.Add(childNode);

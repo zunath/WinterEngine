@@ -31,6 +31,9 @@ namespace WinterEngine.DataTransferObjects
 
         #region Properties
 
+        [MaxLength(4000)]
+        public string Description { get; set; }
+
         /// <summary>
         /// Gets/Sets a particular object's tag.
         /// </summary>

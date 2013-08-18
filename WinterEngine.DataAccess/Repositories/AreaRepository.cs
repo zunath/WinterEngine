@@ -29,9 +29,9 @@ namespace WinterEngine.DataAccess
         /// </summary>
         /// <param name="area">The area to add to the database.</param>
         /// <returns></returns>
-        public void Add(Area area)
+        public Area Add(Area area)
         {
-            Context.AreaRepository.Add(area);
+            return Context.AreaRepository.Add(area);
         }
 
         /// <summary>
@@ -92,13 +92,13 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// Deletes an area with the specified resref from the database.
+        /// Deletes an area with the specified resource ID from the database.
         /// </summary>
         /// <param name="resref">The resource reference to search for and delete.</param>
         /// <returns></returns>
-        public void Delete(string resref)
+        public void Delete(int resourceID)
         {
-            Area area = Context.AreaRepository.Get(a => a.Resref == resref).SingleOrDefault();
+            Area area = Context.AreaRepository.Get(a => a.ResourceID == resourceID).SingleOrDefault();
             Context.AreaRepository.Delete(area);
         }
 
@@ -178,7 +178,7 @@ namespace WinterEngine.DataAccess
                 {
                     JSTreeNode childNode = new JSTreeNode(area.Name);
                     childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resref", area.Resref);
+                    childNode.attr.Add("data-resourceid", Convert.ToString(area.ResourceID));
                     childNode.attr.Add("data-issystemresource", Convert.ToString(area.IsSystemResource));
 
                     categoryNode.children.Add(childNode);

@@ -292,7 +292,7 @@ namespace WinterEngine.Editor.Controls
                             GameObjectBase gameObject = gameObjectNode.Tag as GameObjectBase;
 
                             // If the game object does not exist in the database, remove it from the tree view.
-                            if (!factory.DoesObjectExistInDatabase(gameObject.Resref, GameObjectResourceType))
+                            //if (!factory.DoesObjectExistInDatabase(gameObject.Resref, GameObjectResourceType)) // 2013-08-13: Removed because of changes in new UI code. Left here as reference.
                             {
                                 treeView.Nodes[0].Nodes[index].Nodes.RemoveAt(gameObjectIndex);
                             }
@@ -507,7 +507,7 @@ namespace WinterEngine.Editor.Controls
                 {
                     // Remove this object from the database
                     GameObjectFactory factory = new GameObjectFactory();
-                    factory.DeleteFromDatabase(obj.Resref, GameObjectResourceType);
+                    //factory.DeleteFromDatabase(obj.Resref, GameObjectResourceType); // 2013-08-17: Removed because of changes in new UI code. Left here as reference in case I need it later.
                     
                     RefreshTreeView();
                     treeView.SelectedNode = treeView.TopNode;

@@ -211,12 +211,12 @@ function CreateNewObject() {
 // CALLBACK FUNCTION
 // If successful, a new object will be created in the UI.
 // If failed, error message will display.
-function CreateNewObject_Callback(success, errorMessage, gameObjectType, name, resref) {
+function CreateNewObject_Callback(success, errorMessage, gameObjectType, name, resourceID) {
     if (success) {
         var caller = $('#divNewObject').data('Caller');
         var parent = $('#divNewObject').data('Parent');
         var newObject = caller.create(parent, null, name, null, true);
-        $(newObject).data('resref', resref);
+        $(newObject).data('resourceid', resourceID);
         $(newObject).data('nodetype', 'object');
         CloseNewObjectBox();
     }
@@ -257,8 +257,8 @@ function DeleteObject() {
         Entity.DeleteCategory(categoryID, ToolsetViewModel.CurrentObjectMode());
     }
     else if (mode == 'DeleteObject') {
-        var resref = $(selectedNode).data('resref');
-        Entity.DeleteObject(resref, ToolsetViewModel.CurrentObjectMode(), true);
+        var resourceID = $(selectedNode).data('resourceid');
+        Entity.DeleteObject(resourceID, ToolsetViewModel.CurrentObjectMode(), true);
     }
 }
 
@@ -297,8 +297,8 @@ function RenameObject() {
         Entity.RenameCategory(newObjectName, categoryID);
     }
     else if (mode == "RenameObject") {
-        var resref = $(selectedNode).data('resref');
-        Entity.RenameObject(newObjectName, resref, ToolsetViewModel.CurrentObjectMode());
+        var resourceID = $(selectedNode).data('resourceid');
+        Entity.RenameObject(newObjectName, resourceID, ToolsetViewModel.CurrentObjectMode());
     }
 }
 

@@ -11,11 +11,11 @@ namespace WinterEngine.DataAccess.Repositories
 {
     interface IGameObjectRepository<T> : IDisposable where T: GameObjectBase
     {
-        void Add(T entity);
+        T Add(T entity);
         void Add(List<T> entityList);
         void Upsert(T entity);
         void Update(T entity);
-        void Delete(string resref);
+        void Delete(int resourceID);
         bool Exists(string resref);
         List<T> GetAll();
         List<T> GetAllByResourceCategory(Category resourceCategory);

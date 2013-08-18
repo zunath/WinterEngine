@@ -19,8 +19,6 @@ namespace WinterEngine.DataTransferObjects
 
         #region Properties
 
-        public string Description { get; set; }
-
         /// <summary>
         /// Gets or sets the item type of a particular item.
         /// </summary>
