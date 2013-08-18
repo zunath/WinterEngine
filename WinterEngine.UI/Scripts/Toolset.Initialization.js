@@ -1,7 +1,14 @@
-﻿/* Page Initialization */
+﻿
+var ToolsetViewModel;
+function InitializeViewModel() {
+
+    var data = Entity.GetModelJSON();
+    ToolsetViewModel = ko.mapping.fromJSON(data);
+    ko.applyBindings(ToolsetViewModel);
+}
 
 function Initialize() {
-    ko.applyBindings(ToolsetViewModel);
+    InitializeViewModel();
     InitializeValidation();
     InitializeMainMenu();
     InitializeObjectSelectionMenu();

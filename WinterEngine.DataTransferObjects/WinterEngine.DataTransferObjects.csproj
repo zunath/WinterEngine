@@ -142,6 +142,7 @@
     <Compile Include="Resources\LocalVariable.cs" />
     <Compile Include="GameObjects\PlayerCharacter.cs" />
     <Compile Include="GameObjects\Script.cs" />
+    <Compile Include="ViewModels\ToolsetViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

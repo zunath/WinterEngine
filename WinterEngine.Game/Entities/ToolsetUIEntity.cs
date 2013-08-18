@@ -11,6 +11,7 @@ using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.ViewModels;
 using WinterEngine.Editor.Managers;
 using WinterEngine.Library.Managers;
 using WinterEngine.Library.Utility;
@@ -140,15 +141,6 @@ namespace WinterEngine.Game.Entities
             // Help Menu Bindings
             EntityJavascriptObject.Bind("WinterEngineWebsiteButtonClick", false, WinterEngineWebsiteButton);
 
-            // Object Menu Bindings
-            EntityJavascriptObject.Bind("AreasButtonClick", false, AreasButton);
-            EntityJavascriptObject.Bind("CreaturesButtonClick", false, CreaturesButton);
-            EntityJavascriptObject.Bind("ItemsButtonClick", false, ItemsButton);
-            EntityJavascriptObject.Bind("PlaceablesButtonClick", false, PlaceablesButton);
-            EntityJavascriptObject.Bind("ConversationsButtonClick", false, ConversationsButton);
-            EntityJavascriptObject.Bind("ScriptsButtonClick", false, ScriptsButton);
-            EntityJavascriptObject.Bind("GraphicsButtonClick", false, GraphicsButton);
-
             // Treeview Bindings
             EntityJavascriptObject.Bind("LoadTreeViewData", false, LoadTreeViewData);
             EntityJavascriptObject.Bind("AddNewObject", false, AddNewObject);
@@ -159,8 +151,11 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("RenameObject", false, RenameObject);
 
             // Data Manipulation Bindings 
+            EntityJavascriptObject.Bind("GetModelJSON", true, GetModelJSON);
             EntityJavascriptObject.Bind("SaveObjectData", false, SaveObjectData);
             EntityJavascriptObject.Bind("LoadObjectData", false, LoadObjectData);
+
+            RunJavaScriptMethod("Initialize();");
         }
 
         #endregion
@@ -325,47 +320,6 @@ namespace WinterEngine.Game.Entities
         {
             Process.Start("https://www.winterengine.com");
         }
-
-
-        #endregion
-
-        #region UI Methods - Object Menu Bindings
-
-        private void AreasButton(object sender, JavascriptMethodEventArgs e)
-        {
-            AsyncJavascriptCallback("AreasButtonClick_Callback");
-        }
-
-        private void CreaturesButton(object sender, JavascriptMethodEventArgs e)
-        {
-            AsyncJavascriptCallback("CreaturesButtonClick_Callback");
-        }
-
-        private void ItemsButton(object sender, JavascriptMethodEventArgs e)
-        {
-            AsyncJavascriptCallback("ItemsButtonClick_Callback");
-        }
-
-        private void PlaceablesButton(object sender, JavascriptMethodEventArgs e)
-        {
-            AsyncJavascriptCallback("PlaceablesButtonClick_Callback");
-        }
-
-        private void ConversationsButton(object sender, JavascriptMethodEventArgs e)
-        {
-            AsyncJavascriptCallback("ConversationsButtonClick_Callback");
-        }
-
-        private void ScriptsButton(object sender, JavascriptMethodEventArgs e)
-        {
-            AsyncJavascriptCallback("ScriptsButtonClick_Callback");
-        }
-
-        private void GraphicsButton(object sender, JavascriptMethodEventArgs e)
-        {
-            AsyncJavascriptCallback("GraphicsButtonClick_Callback");
-        }
-
 
 
         #endregion
@@ -586,6 +540,17 @@ namespace WinterEngine.Game.Entities
 
         #region UI Methods - Data Manipulation
 
+        /// <summary>
+        /// Sends a JSON result to the UI containing model information.
+        /// This lets us get away with defining the model one time.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GetModelJSON(object sender, JavascriptMethodEventArgs e)
+        {
+            e.Result = new JavaScriptSerializer().Serialize(new ToolsetViewModel());
+        }
+
         private void LoadObjectData(object sender, JavascriptMethodEventArgs e)
         {
             GameObjectFactory factory = new GameObjectFactory();
@@ -603,6 +568,25 @@ namespace WinterEngine.Game.Entities
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
             int resourceID = (int)e.Arguments[1];
 
+            if (gameObjectType == GameObjectTypeEnum.Area)
+            {
+
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Conversation)
+            {
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Creature)
+            {
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Item)
+            {
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Placeable)
+            {
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Script)
+            {
+            }
         }
 
         #endregion

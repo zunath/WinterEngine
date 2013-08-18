@@ -77,57 +77,29 @@ function ChangeObjectMode(objectMode) {
 /* Button Functionality - Object Selection Menu */
 
 function AreasButtonClick() {
-    Entity.AreasButtonClick();
-}
-
-function AreasButtonClick_Callback() {
     ChangeObjectMode("Area");
 }
 
 function CreaturesButtonClick() {
-    Entity.CreaturesButtonClick();
-}
-
-function CreaturesButtonClick_Callback() {
     ChangeObjectMode("Creature");
 }
 
 function ItemsButtonClick() {
-    Entity.ItemsButtonClick();
-}
-
-function ItemsButtonClick_Callback() {
     ChangeObjectMode("Item");
 }
 
 function PlaceablesButtonClick() {
-    Entity.PlaceablesButtonClick();
-}
-
-function PlaceablesButtonClick_Callback() {
     ChangeObjectMode("Placeable");
 }
 
 function ConversationsButtonClick() {
-    Entity.ConversationsButtonClick();
-}
-
-function ConversationsButtonClick_Callback() {
     ChangeObjectMode("Conversation");
 }
 
 function ScriptsButtonClick() {
-    Entity.ScriptsButtonClick();
-}
-
-function ScriptsButtonClick_Callback() {
     ChangeObjectMode("Script");
 }
 
 function GraphicsButtonClick() {
-    Entity.GraphicsButtonClick();
-}
-
-function GraphicsButtonClick_Callback() {
     ChangeObjectMode("Graphic");
 }

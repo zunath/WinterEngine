@@ -27,6 +27,8 @@ function NewModuleBoxOKClick_Callback(success) {
         CloseNewModuleBox();
         ToggleModuleActionButtons(true);
         Entity.LoadTreeViewData();
+        ChangeObjectMode("Area");
+        $('#divObjectBar').removeClass('clsHidden');
     }
     else {
         $('#lblNewModuleError').text('There was an error creating a new module.');
@@ -47,6 +49,7 @@ function OpenModuleButtonClick_Callback(success) {
         ToggleModuleActionButtons(true);
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
+        $('#divObjectBar').removeClass('clsHidden');
     }
     else {
         ToggleModuleActionButtons(false);
@@ -62,6 +65,7 @@ function CloseModuleButtonClick_Callback() {
     ChangeObjectMode();
     HideAllTreeViews();
     ToggleModuleActionButtons(false);
+    $('#divObjectBar').addClass('clsHidden');
 }
 
 function SaveModuleButtonClick(element) {

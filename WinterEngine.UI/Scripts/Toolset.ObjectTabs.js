@@ -1,7 +1,7 @@
 ﻿// Called from Toolset.TreeViews.js: OnTreeViewNodeSelected()
-function LoadObjectData() {
+function LoadObjectData(resourceID) {
     var mode = ToolsetViewModel.CurrentObjectMode();
-    Entity.LoadObjectData(mode, 1);//resourceID); // DEBUGGING
+    Entity.LoadObjectData(mode, resourceID);
 }
 
 function LoadObjectData_Callback(jsonObject) {
@@ -9,13 +9,13 @@ function LoadObjectData_Callback(jsonObject) {
     var gameObject = $.parseJSON(jsonObject);
 
     if (mode == 'Area') {
-        ToolsetViewModel.AreaName(gameObject.Name);
-        ToolsetViewModel.AreaTag(gameObject.Tag);
-        ToolsetViewModel.AreaResref(gameObject.Resref);
+        ToolsetViewModel.ActiveArea.Name(gameObject.Name);
+        ToolsetViewModel.ActiveArea.Tag(gameObject.Tag);
+        ToolsetViewModel.ActiveArea.Resref(gameObject.Resref);
 
-        ToolsetViewModel.AreaDescription(gameObject.Description);
-        ToolsetViewModel.AreaComments(gameObject.Comment);
-        ToolsetViewModel.AreaLocalVariables(gameObject.LocalVariables);
+        ToolsetViewModel.ActiveArea.Description(gameObject.Description);
+        ToolsetViewModel.ActiveArea.Comment(gameObject.Comment);
+        ToolsetViewModel.ActiveArea.LocalVariables(gameObject.LocalVariables);
 
         $('.clsAreaObjectField').removeAttr('disabled');
         $('.clsCreatureObjectField').attr('disabled', 'disabled');
@@ -26,22 +26,22 @@ function LoadObjectData_Callback(jsonObject) {
 
     }
     else if (mode == 'Creature') {
-        ToolsetViewModel.CreatureName(gameObject.Name);
-        ToolsetViewModel.CreatureTag(gameObject.Tag);
-        ToolsetViewModel.CreatureResref(gameObject.Resref);
+        ToolsetViewModel.ActiveCreature.Name(gameObject.Name);
+        ToolsetViewModel.ActiveCreature.Tag(gameObject.Tag);
+        ToolsetViewModel.ActiveCreature.Resref(gameObject.Resref);
 
-        ToolsetViewModel.CreatureDescription(gameObject.Description);
-        ToolsetViewModel.CreatureComments(gameObject.Comment);
-        ToolsetViewModel.CreatureLocalVariables(gameObject.LocalVariables);
+        ToolsetViewModel.ActiveCreature.Description(gameObject.Description);
+        ToolsetViewModel.ActiveCreature.Comment(gameObject.Comment);
+        ToolsetViewModel.ActiveCreature.LocalVariables(gameObject.LocalVariables);
 
-        ToolsetViewModel.CreatureIsInvulnerable(gameObject.IsInvulnerable);
-        ToolsetViewModel.CreatureHitPoints(gameObject.MaxHitPoints);
-        ToolsetViewModel.CreatureMana(gameObject.MaxMana);
-        ToolsetViewModel.CreatureStrength(gameObject.Strength);
-        ToolsetViewModel.CreatureDexterity(gameObject.Dexterity);
-        ToolsetViewModel.CreatureConstitution(gameObject.Constitution);
-        ToolsetViewModel.CreatureIntelligence(gameObject.Intelligence);
-        ToolsetViewModel.CreatureWisdom(gameObject.Wisdom);
+        ToolsetViewModel.ActiveCreature.IsInvulnerable(gameObject.IsInvulnerable);
+        ToolsetViewModel.ActiveCreature.HitPoints(gameObject.MaxHitPoints);
+        ToolsetViewModel.ActiveCreature.Mana(gameObject.MaxMana);
+        ToolsetViewModel.ActiveCreature.Strength(gameObject.Strength);
+        ToolsetViewModel.ActiveCreature.Dexterity(gameObject.Dexterity);
+        ToolsetViewModel.ActiveCreature.Constitution(gameObject.Constitution);
+        ToolsetViewModel.ActiveCreature.Intelligence(gameObject.Intelligence);
+        ToolsetViewModel.ActiveCreature.Wisdom(gameObject.Wisdom);
 
         $('.clsAreaObjectField').attr('disabled', 'disabled');
         $('.clsCreatureObjectField').removeAttr('disabled');
@@ -51,19 +51,19 @@ function LoadObjectData_Callback(jsonObject) {
         $('.clsScriptObjectField').attr('disabled', 'disabled');
     }
     else if (mode == 'Item') {
-        ToolsetViewModel.ItemName(gameObject.Name);
-        ToolsetViewModel.ItemTag(gameObject.Tag);
-        ToolsetViewModel.ItemResref(gameObject.Resref);
+        ToolsetViewModel.ActiveItem.Name(gameObject.Name);
+        ToolsetViewModel.ActiveItem.Tag(gameObject.Tag);
+        ToolsetViewModel.ActiveItem.Resref(gameObject.Resref);
 
-        ToolsetViewModel.ItemDescription(gameObject.Description);
-        ToolsetViewModel.ItemComments(gameObject.Comment);
-        ToolsetViewModel.ItemLocalVariables(gameObject.LocalVariables);
+        ToolsetViewModel.ActiveItem.Description(gameObject.Description);
+        ToolsetViewModel.ActiveItem.Comment(gameObject.Comment);
+        ToolsetViewModel.ActiveItem.LocalVariables(gameObject.LocalVariables);
 
-        ToolsetViewModel.ItemPrice(gameObject.Price);
-        ToolsetViewModel.ItemWeight(gameObject.Weight);
-        ToolsetViewModel.ItemIsUndroppable(gameObject.IsUndroppable);
-        ToolsetViewModel.ItemIsPlot(gameObject.IsPlot);
-        ToolsetViewModel.ItemIsStolen(gameObject.IsStolen);
+        ToolsetViewModel.ActiveItem.Price(gameObject.Price);
+        ToolsetViewModel.ActiveItem.Weight(gameObject.Weight);
+        ToolsetViewModel.ActiveItem.IsUndroppable(gameObject.IsUndroppable);
+        ToolsetViewModel.ActiveItem.IsPlot(gameObject.IsPlot);
+        ToolsetViewModel.ActiveItem.IsStolen(gameObject.IsStolen);
 
         $('.clsAreaObjectField').attr('disabled', 'disabled');
         $('.clsCreatureObjectField').attr('disabled', 'disabled');
@@ -73,13 +73,13 @@ function LoadObjectData_Callback(jsonObject) {
         $('.clsScriptObjectField').attr('disabled', 'disabled');
     }
     else if (mode == 'Placeable') {
-        ToolsetViewModel.PlaceableName(gameObject.Name);
-        ToolsetViewModel.PlaceableTag(gameObject.Tag);
-        ToolsetViewModel.PlaceableResref(gameObject.Resref);
+        ToolsetViewModel.ActivePlaceable.Name(gameObject.Name);
+        ToolsetViewModel.ActivePlaceable.Tag(gameObject.Tag);
+        ToolsetViewModel.ActivePlaceable.Resref(gameObject.Resref);
 
-        ToolsetViewModel.PlaceableDescription(gameObject.Description);
-        ToolsetViewModel.PlaceableComments(gameObject.Comment);
-        ToolsetViewModel.PlaceableLocalVariables(gameObject.LocalVariables);
+        ToolsetViewModel.ActivePlaceable.Description(gameObject.Description);
+        ToolsetViewModel.ActivePlaceable.Comment(gameObject.Comment);
+        ToolsetViewModel.ActivePlaceable.LocalVariables(gameObject.LocalVariables);
 
 
         $('.clsAreaObjectField').attr('disabled', 'disabled');
@@ -90,13 +90,13 @@ function LoadObjectData_Callback(jsonObject) {
         $('.clsScriptObjectField').attr('disabled', 'disabled');
     }
     else if (mode == 'Conversation') {
-        ToolsetViewModel.ConversationName(gameObject.Name);
-        ToolsetViewModel.ConversationTag(gameObject.Tag);
-        ToolsetViewModel.ConversationResref(gameObject.Resref);
+        ToolsetViewModel.ActiveConversation.Name(gameObject.Name);
+        ToolsetViewModel.ActiveConversation.Tag(gameObject.Tag);
+        ToolsetViewModel.ActiveConversation.Resref(gameObject.Resref);
 
-        ToolsetViewModel.ConversationComments(gameObject.Description);
-        ToolsetViewModel.ConversationComments(gameObject.Comment);
-        ToolsetViewModel.ConversationLocalVariables(gameObject.LocalVariables);
+        ToolsetViewModel.ActiveConversation.Comment(gameObject.Description);
+        ToolsetViewModel.ActiveConversation.Comment(gameObject.Comment);
+        ToolsetViewModel.ActiveConversation.LocalVariables(gameObject.LocalVariables);
 
 
         $('.clsAreaObjectField').attr('disabled', 'disabled');
@@ -107,12 +107,12 @@ function LoadObjectData_Callback(jsonObject) {
         $('.clsScriptObjectField').attr('disabled', 'disabled');
     }
     else if (mode == 'Script') {
-        ToolsetViewModel.ScriptName(gameObject.Name);
-        ToolsetViewModel.ScriptTag(gameObject.Tag);
-        ToolsetViewModel.ScriptResref(gameObject.Resref);
+        ToolsetViewModel.ActiveScript.Name(gameObject.Name);
+        ToolsetViewModel.ActiveScript.Tag(gameObject.Tag);
+        ToolsetViewModel.ActiveScript.Resref(gameObject.Resref);
 
-        ToolsetViewModel.ScriptDescription(gameObject.Description);
-        ToolsetViewModel.ScriptComments(gameObject.Comment);
+        ToolsetViewModel.ActiveScript.Description(gameObject.Description);
+        ToolsetViewModel.ActiveScript.Comment(gameObject.Comment);
 
         $('.clsAreaObjectField').attr('disabled', 'disabled');
         $('.clsCreatureObjectField').attr('disabled', 'disabled');
@@ -127,6 +127,7 @@ function ObjectTabApplyChanges() {
     var mode = ToolsetViewModel.CurrentObjectMode();
 
     if (mode == "Area") {
+        
     }
     else if (mode == "Creature") {
     }

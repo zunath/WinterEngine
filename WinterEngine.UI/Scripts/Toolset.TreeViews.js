@@ -135,12 +135,13 @@ function InitializeTreeView(selector, data) {
 function OnTreeViewNodeSelected() {
     var selectedNode = $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('get_selected');
     var nodeType = $(selectedNode).data('nodetype');
+    var resourceID = $(selectedNode).data('resourceid');
 
     if (nodeType == 'category' || nodeType == 'root') {
         $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('open_node', selectedNode);
     }
     else if (nodeType == 'object') {
-        LoadObjectData();
+        LoadObjectData(resourceID);
     }
 }
 
