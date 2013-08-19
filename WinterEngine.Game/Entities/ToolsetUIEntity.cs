@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using Awesomium.Core;
+using Newtonsoft.Json;
 using WinterEngine.DataAccess;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.FileAccess;
@@ -245,7 +246,7 @@ namespace WinterEngine.Game.Entities
                         gameObjects = repo.DeserializeERFFile(OpenFile.FileName);
                     }
 
-                    string jsonGameObjects = new JavaScriptSerializer().Serialize(gameObjects);
+                    string jsonGameObjects = JsonConvert.SerializeObject(gameObjects);
                     AsyncJavascriptCallback("ImportButtonClick_Callback", jsonGameObjects);
                 }
                 catch
@@ -265,7 +266,7 @@ namespace WinterEngine.Game.Entities
                 using (ERFFileAccess repo = new ERFFileAccess())
                 {
                     List<GameObjectBase> gameObjects = repo.DeserializeERFFile(OpenFile.FileName);
-                    string jsonGameObjects = new JavaScriptSerializer().Serialize(gameObjects);
+                    string jsonGameObjects = JsonConvert.SerializeObject(gameObjects);
                     AsyncJavascriptCallback("ExportButtonClick_Callback", jsonGameObjects);
                 }
             }
@@ -363,15 +364,14 @@ namespace WinterEngine.Game.Entities
                     scriptRootNode = repo.GenerateJSTreeHierarchy();
                 }
 
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
                 
                 AsyncJavascriptCallback("LoadTreeViews_Callback",
-                    serializer.Serialize(areaRootNode),
-                    serializer.Serialize(creatureRootNode),
-                    serializer.Serialize(itemRootNode),
-                    serializer.Serialize(placeableRootNode),
-                    serializer.Serialize(conversationRootNode),
-                    serializer.Serialize(scriptRootNode));
+                    JsonConvert.SerializeObject(areaRootNode),
+                    JsonConvert.SerializeObject(creatureRootNode),
+                    JsonConvert.SerializeObject(itemRootNode),
+                    JsonConvert.SerializeObject(placeableRootNode),
+                    JsonConvert.SerializeObject(conversationRootNode),
+                    JsonConvert.SerializeObject(scriptRootNode));
             }
             catch
             {
@@ -548,7 +548,7 @@ namespace WinterEngine.Game.Entities
         /// <param name="e"></param>
         private void GetModelJSON(object sender, JavascriptMethodEventArgs e)
         {
-            e.Result = new JavaScriptSerializer().Serialize(new ToolsetViewModel());
+            e.Result = JsonConvert.SerializeObject(new ToolsetViewModel());
         }
 
         private void LoadObjectData(object sender, JavascriptMethodEventArgs e)
@@ -557,35 +557,46 @@ namespace WinterEngine.Game.Entities
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
             int resourceID = (int)e.Arguments[1];
             GameObjectBase gameObject = factory.GetFromDatabaseByID(resourceID, gameObjectType);
-            string jsonObject = new JavaScriptSerializer().Serialize(gameObject);
+            string jsonObject = JsonConvert.SerializeObject(gameObject);
 
             AsyncJavascriptCallback("LoadObjectData_Callback", jsonObject);
         }
 
         private void SaveObjectData(object sender, JavascriptMethodEventArgs e)
         {
-            GameObjectFactory factory = new GameObjectFactory();
-            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
-            int resourceID = (int)e.Arguments[1];
+            try
+            {
+                GameObjectFactory factory = new GameObjectFactory();
+                GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
+                string jsonModel = e.Arguments[1];
+                ToolsetViewModel model = JsonConvert.DeserializeObject<ToolsetViewModel>(jsonModel, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
 
-            if (gameObjectType == GameObjectTypeEnum.Area)
-            {
-
+                if (gameObjectType == GameObjectTypeEnum.Area)
+                {
+                    using (AreaRepository repo = new AreaRepository())
+                    {
+                        repo.Upsert(model.ActiveArea);
+                    }
+                }
+                else if (gameObjectType == GameObjectTypeEnum.Conversation)
+                {
+                }
+                else if (gameObjectType == GameObjectTypeEnum.Creature)
+                {
+                }
+                else if (gameObjectType == GameObjectTypeEnum.Item)
+                {
+                }
+                else if (gameObjectType == GameObjectTypeEnum.Placeable)
+                {
+                }
+                else if (gameObjectType == GameObjectTypeEnum.Script)
+                {
+                }
             }
-            else if (gameObjectType == GameObjectTypeEnum.Conversation)
+            catch
             {
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Creature)
-            {
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Item)
-            {
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Placeable)
-            {
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Script)
-            {
+                throw;
             }
         }
 

@@ -6,9 +6,11 @@ function LoadObjectData(resourceID) {
 
 function LoadObjectData_Callback(jsonObject) {
     var mode = ToolsetViewModel.CurrentObjectMode();
-    var gameObject = $.parseJSON(jsonObject);
+    var gameObject = ko.fromJSON(jsonObject);
 
     if (mode == 'Area') {
+        /*
+        ToolsetViewModel.ActiveArea.ResourceID(gameObject.ResourceID);
         ToolsetViewModel.ActiveArea.Name(gameObject.Name);
         ToolsetViewModel.ActiveArea.Tag(gameObject.Tag);
         ToolsetViewModel.ActiveArea.Resref(gameObject.Resref);
@@ -16,6 +18,9 @@ function LoadObjectData_Callback(jsonObject) {
         ToolsetViewModel.ActiveArea.Description(gameObject.Description);
         ToolsetViewModel.ActiveArea.Comment(gameObject.Comment);
         ToolsetViewModel.ActiveArea.LocalVariables(gameObject.LocalVariables);
+        */
+
+        ToolsetViewModel.ActiveArea(gameObject);
 
         $('.clsAreaObjectField').removeAttr('disabled');
         $('.clsCreatureObjectField').attr('disabled', 'disabled');
@@ -125,20 +130,8 @@ function LoadObjectData_Callback(jsonObject) {
 
 function ObjectTabApplyChanges() {
     var mode = ToolsetViewModel.CurrentObjectMode();
-
-    if (mode == "Area") {
-        
-    }
-    else if (mode == "Creature") {
-    }
-    else if (mode == "Item") {
-    }
-    else if (mode == "Placeable") {
-    }
-    else if (mode == "Conversation") {
-    }
-    else if (mode == "Script") {
-    }
+    var jsonModel = ko.toJSON(ToolsetViewModel);
+    Entity.SaveObjectData(mode, jsonModel);
 }
 
 function ObjectTabApplyChanges_Callback() {
