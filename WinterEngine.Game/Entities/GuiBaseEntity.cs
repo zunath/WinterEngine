@@ -9,7 +9,6 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using Awesomium.Core;
 using System.Drawing;
 using System.Drawing.Imaging;
-using WinterEngine.UI.AwesomiumXNA;
 using FlatRedBall.Math;
 using WinterEngine.Network;
 using FlatRedBall.Gui;

@@ -6,10 +6,10 @@ function LoadObjectData(resourceID) {
 
 function LoadObjectData_Callback(jsonObject) {
     var mode = ToolsetViewModel.CurrentObjectMode();
-    var gameObject = ko.fromJSON(jsonObject);
+    var gameObject = JSON.parse(jsonObject);
 
     if (mode == 'Area') {
-        /*
+        
         ToolsetViewModel.ActiveArea.ResourceID(gameObject.ResourceID);
         ToolsetViewModel.ActiveArea.Name(gameObject.Name);
         ToolsetViewModel.ActiveArea.Tag(gameObject.Tag);
@@ -18,9 +18,9 @@ function LoadObjectData_Callback(jsonObject) {
         ToolsetViewModel.ActiveArea.Description(gameObject.Description);
         ToolsetViewModel.ActiveArea.Comment(gameObject.Comment);
         ToolsetViewModel.ActiveArea.LocalVariables(gameObject.LocalVariables);
-        */
+        
 
-        ToolsetViewModel.ActiveArea(gameObject);
+        //ToolsetViewModel.ActiveArea = gameObject;
 
         $('.clsAreaObjectField').removeAttr('disabled');
         $('.clsCreatureObjectField').attr('disabled', 'disabled');
