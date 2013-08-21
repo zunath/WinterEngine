@@ -43,6 +43,7 @@ namespace WinterEngine.Game.Screens
 		#endif
 		
 		private WinterEngine.Game.Entities.ToolsetUIEntity ToolsetUIEntityInstance;
+		private WinterEngine.Game.Entities.MapEntity MapEntityInstance;
 
 		public ToolsetScreen()
 			: base()
@@ -55,6 +56,8 @@ namespace WinterEngine.Game.Screens
 			LoadStaticContent(ContentManagerName);
 			ToolsetUIEntityInstance = new WinterEngine.Game.Entities.ToolsetUIEntity(ContentManagerName, false);
 			ToolsetUIEntityInstance.Name = "ToolsetUIEntityInstance";
+			MapEntityInstance = new WinterEngine.Game.Entities.MapEntity(ContentManagerName, false);
+			MapEntityInstance.Name = "MapEntityInstance";
 			
 			
 			base.Initialize(addToManagers);
@@ -76,6 +79,7 @@ namespace WinterEngine.Game.Screens
 			{
 				
 				ToolsetUIEntityInstance.Activity();
+				MapEntityInstance.Activity();
 			}
 			else
 			{
@@ -101,6 +105,11 @@ namespace WinterEngine.Game.Screens
 				ToolsetUIEntityInstance.Destroy();
 				ToolsetUIEntityInstance.Detach();
 			}
+			if (MapEntityInstance != null)
+			{
+				MapEntityInstance.Destroy();
+				MapEntityInstance.Detach();
+			}
 
 			base.Destroy();
 
@@ -120,11 +129,13 @@ namespace WinterEngine.Game.Screens
 		{
 			base.AddToManagersBottomUp();
 			ToolsetUIEntityInstance.AddToManagers(mLayer);
+			MapEntityInstance.AddToManagers(mLayer);
 		}
 		public override void ConvertToManuallyUpdated ()
 		{
 			base.ConvertToManuallyUpdated();
 			ToolsetUIEntityInstance.ConvertToManuallyUpdated();
+			MapEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static new void LoadStaticContent (string contentManagerName)
 		{
@@ -144,6 +155,7 @@ namespace WinterEngine.Game.Screens
 			}
 			#endif
 			WinterEngine.Game.Entities.ToolsetUIEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.MapEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

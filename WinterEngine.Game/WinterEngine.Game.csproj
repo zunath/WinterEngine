@@ -165,6 +165,10 @@
     <Compile Include="Entities\MainMenuUIEntity.Generated.cs">
       <DependentUpon>MainMenuUIEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entities\MapEntity.cs" />
+    <Compile Include="Entities\MapEntity.Generated.cs">
+      <DependentUpon>MapEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entities\ServerListUIEntity.cs" />
     <Compile Include="Entities\ServerListUIEntity.Generated.cs">
       <DependentUpon>ServerListUIEntity.cs</DependentUpon>
@@ -174,6 +178,7 @@
       <DependentUpon>ToolsetUIEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalContent.Generated.cs" />
+    <Compile Include="Performance\IEntityFactory.Generated.cs" />
     <Compile Include="Performance\IPoolable.Generated.cs" />
     <Compile Include="Performance\PoolList.Generated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -210,6 +215,12 @@
       <DependentUpon>ToolsetScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\WinterEngineService.cs" />
+    <Compile Include="Setup\CameraSetup.cs" />
+    <Compile Include="TileGraphics\AnimationChainContainer.cs" />
+    <Compile Include="TileGraphics\LayeredTileMap.cs" />
+    <Compile Include="TileGraphics\MapDrawableBatch.cs" />
+    <Compile Include="TileGraphics\ReducedTileMapInfo.cs" />
+    <Compile Include="TileGraphics\Tileset.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

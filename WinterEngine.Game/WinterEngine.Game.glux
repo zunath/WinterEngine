@@ -2,9 +2,17 @@
 <GlueProjectSave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Screens>
     <ScreenSave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <Name>Screens\BaseScreen</Name>
     </ScreenSave>
     <ScreenSave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <BaseScreen>Screens\BaseScreen</BaseScreen>
       <Name>Screens\CharacterSelectScreen</Name>
       <NamedObjects>
@@ -13,12 +21,15 @@
           <SourceClassType>Entities\CharacterSelectUIEntity</SourceClassType>
           <InstanceName>CharacterSelectUIEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
-          <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>
     <ScreenSave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <BaseScreen>Screens\BaseScreen</BaseScreen>
       <Name>Screens\MainMenuScreen</Name>
       <NamedObjects>
@@ -27,12 +38,15 @@
           <SourceClassType>Entities\MainMenuUIEntity</SourceClassType>
           <InstanceName>MainMenuGuiEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
-          <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>
     <ScreenSave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <BaseScreen>Screens\BaseScreen</BaseScreen>
       <Name>Screens\ServerListScreen</Name>
       <NamedObjects>
@@ -41,13 +55,16 @@
           <SourceClassType>Entities\ServerListUIEntity</SourceClassType>
           <InstanceName>ServerListGuiEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
-          <AddToManagers>true</AddToManagers>
           <IndependentOfCamera>true</IndependentOfCamera>
           <LayerOn />
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>
     <ScreenSave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <States>
         <StateSave>
           <InstructionSaves>
@@ -91,7 +108,6 @@
         <ReferencedFileSave>
           <Name>Screens/SplashScreen/SceneFile.scnx</Name>
           <IsSharedStatic>false</IsSharedStatic>
-          <AddToManagers>true</AddToManagers>
         </ReferencedFileSave>
       </ReferencedFiles>
       <NamedObjects>
@@ -107,6 +123,10 @@
       </NamedObjects>
     </ScreenSave>
     <ScreenSave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <BaseScreen>Screens\BaseScreen</BaseScreen>
       <Name>Screens\ToolsetScreen</Name>
       <NamedObjects>
@@ -115,7 +135,14 @@
           <SourceClassType>Entities\ToolsetUIEntity</SourceClassType>
           <InstanceName>ToolsetUIEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
-          <AddToManagers>true</AddToManagers>
+          <IndependentOfCamera>true</IndependentOfCamera>
+        </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>Entity</SourceType>
+          <SourceFile />
+          <SourceClassType>Entities\MapEntity</SourceClassType>
+          <InstanceName>MapEntityInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
           <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
       </NamedObjects>
@@ -123,6 +150,10 @@
   </Screens>
   <Entities>
     <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <CustomVariables>
         <CustomVariable>
           <Properties>
@@ -177,6 +208,10 @@
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <CustomVariables>
         <CustomVariable>
           <Properties>
@@ -233,6 +268,10 @@
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <CustomVariables>
         <CustomVariable>
           <Properties>
@@ -288,6 +327,10 @@
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <CustomVariables>
         <CustomVariable>
           <Properties>
@@ -342,6 +385,10 @@
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <CustomVariables>
         <CustomVariable>
           <Properties>
@@ -397,6 +444,19 @@
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
+      <Name>Entities\MapEntity</Name>
+      <Is2D>true</Is2D>
+    </EntitySave>
+    <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <CustomVariables>
         <CustomVariable>
           <Properties>
@@ -445,6 +505,10 @@
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <CustomVariables>
         <CustomVariable>
           <Properties>

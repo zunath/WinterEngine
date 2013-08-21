@@ -181,6 +181,7 @@ namespace WinterEngine.Game.Screens
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
+			CameraSetup.ResetCamera(SpriteManager.Camera);
 			SceneFile.AddToManagers(mLayer);
 			SpriteObjectAlpha = 0f;
 		}

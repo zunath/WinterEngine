@@ -45,7 +45,7 @@ namespace WinterEngine.Game
             Window.AllowUserResizing = true;
             
             FlatRedBallServices.Game.IsMouseVisible = true;
-            FlatRedBallServices.GraphicsOptions.BackgroundColor = Microsoft.Xna.Framework.Color.Black;
+            FlatRedBallServices.GraphicsOptions.BackgroundColor = Microsoft.Xna.Framework.Color.LightGray;
             
             // Have to convert the game window to a form for some actions.
             form = Form.FromHandle(FlatRedBallServices.WindowHandle) as Form;

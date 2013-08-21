@@ -114,6 +114,7 @@ namespace WinterEngine.Game.Screens
 		}
 		public virtual void AddToManagersBottomUp ()
 		{
+			CameraSetup.ResetCamera(SpriteManager.Camera);
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
