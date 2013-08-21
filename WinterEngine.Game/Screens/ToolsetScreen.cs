@@ -32,6 +32,7 @@ namespace WinterEngine.Game.Screens
 		{
             ToolsetUIEntityInstance.OnChangeScreen += base.ChangeScreen;
             FlatRedBallServices.CornerGrabbingResize += ReactToResizing;
+            SpriteManager.Camera.Z = 1000; // Initial zoom distance
 		}
 
 		private void CustomActivity(bool firstTimeCalled)

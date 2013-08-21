@@ -82,11 +82,9 @@ namespace WinterEngine.Game.Entities
             ActiveArea = area;
 
             // DEBUGGING
-            SpriteManager.Camera.Orthogonal = true;
-            SpriteManager.Camera.OrthogonalWidth = FlatRedBallServices.ClientWidth;
-            SpriteManager.Camera.OrthogonalHeight = FlatRedBallServices.ClientHeight;
+            
             ActiveArea.TileMap = new Map();
-            ActiveArea.TileMap.Tiles = new Tile[20, 30];
+            ActiveArea.TileMap.Tiles = new Tile[10, 10];
 
             // END DEBUGGING
 
@@ -122,36 +120,6 @@ namespace WinterEngine.Game.Entities
         private static void CustomLoadStaticContent(string contentManagerName)
         {
 
-
-        }
-
-        #endregion
-
-        #region Event Handling
-
-        /// <summary>
-        /// Fires when a tile is selected from the AreaPropertiesControl.
-        /// This should be subscribed to the OnTileSelected event from that control in the EditorScreen.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void TileSelected(object sender, PositionEventArgs e)
-        {
-
-        }
-
-        public void AreaLoaded(object sender, GameObjectEventArgs e)
-        {
-            Area area = e.GameObject as Area;
-            ActiveArea = area;
-
-            // DEBUGGING
-            ActiveArea.TileMap = new Map();
-            ActiveArea.TileMap.Tiles = new Tile[5, 5];
-
-            // END DEBUGGING
-            
-            LoadMap();
 
         }
 
@@ -223,20 +191,20 @@ namespace WinterEngine.Game.Entities
 
             if (tileX > TileMap.NumberOfTilesWide)
             {
-                //tileX = TileMap.NumberOfTilesWide;
+                tileX = TileMap.NumberOfTilesWide;
             }
             else if (tileX < MapBatch.X)
             {
-                //tileX = (int)MapBatch.X;
+                tileX = (int)MapBatch.X;
             }
 
             if (tileY > TileMap.NumberOfTilesHigh)
             {
-                //tileY = TileMap.NumberOfTilesHigh;
+                tileY = TileMap.NumberOfTilesHigh;
             }
             else if (tileY < MapBatch.Y)
             {
-                //tileY = (int)MapBatch.Y;
+                tileY = (int)MapBatch.Y;
             }
 
             return new Vector2(tileX, tileY);
