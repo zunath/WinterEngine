@@ -86,7 +86,7 @@ namespace WinterEngine.Game.Entities
             SpriteManager.Camera.OrthogonalWidth = FlatRedBallServices.ClientWidth;
             SpriteManager.Camera.OrthogonalHeight = FlatRedBallServices.ClientHeight;
             ActiveArea.TileMap = new Map();
-            ActiveArea.TileMap.Tiles = new Tile[2, 2];
+            ActiveArea.TileMap.Tiles = new Tile[20, 30];
 
             // END DEBUGGING
 
