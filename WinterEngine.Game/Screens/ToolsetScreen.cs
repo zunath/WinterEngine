@@ -123,6 +123,7 @@ namespace WinterEngine.Game.Screens
         private void HandleUserInput()
         {
             HandleScrollWheel();
+            HandleCameraDrag();
         }
 
         private void HandleScrollWheel()
@@ -137,6 +138,18 @@ namespace WinterEngine.Game.Screens
                 else if (SpriteManager.Camera.Z < MinZoomDistance)
                 {
                     SpriteManager.Camera.Z = MinZoomDistance;
+                }
+            }
+        }
+
+        private void HandleCameraDrag()
+        {
+            if (!ToolsetUIEntityInstance.IsMouseOverUI)
+            {
+                if (InputManager.Mouse.ButtonDown(Mouse.MouseButtons.RightButton))
+                {
+                    SpriteManager.Camera.X -= InputManager.Mouse.XChange;
+                    SpriteManager.Camera.Y += InputManager.Mouse.YChange;
                 }
             }
         }
