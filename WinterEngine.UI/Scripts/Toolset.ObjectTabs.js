@@ -140,3 +140,8 @@ function ObjectTabApplyChanges_Callback() {
 function ObjectTabDiscardChanges() {
     LoadObjectData();
 }
+
+
+function SelectTile() {
+
+}

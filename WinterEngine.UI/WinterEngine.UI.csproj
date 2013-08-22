@@ -104,6 +104,9 @@
     <Content Include="Components\Toolset.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\%28Tileset%29 Wilderness.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\DataTables\back_disabled.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

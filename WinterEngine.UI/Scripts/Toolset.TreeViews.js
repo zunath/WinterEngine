@@ -273,6 +273,13 @@ function DeleteObject_Callback(success, errorMessage) {
 
         caller.remove(parent);
         CloseDeleteObjectBox();
+
+        $('.clsAreaObjectField').attr('disabled', 'disabled').val('');
+        $('.clsCreatureObjectField').attr('disabled', 'disabled').val('');
+        $('.clsItemObjectField').attr('disabled', 'disabled').val('');
+        $('.clsPlaceableObjectField').attr('disabled', 'disabled').val('');
+        $('.clsConversationObjectField').attr('disabled', 'disabled').val('');
+        $('.clsScriptObjectField').attr('disabled', 'disabled').val('');
     }
     else {
         $('#lblConfirmDeleteErrors').text(errorMessage);

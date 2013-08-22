@@ -38,6 +38,8 @@ namespace WinterEngine.Game.Entities
 
         #region Properties
 
+        public bool IsMouseOverUI { get; set; }
+
         private AwesomiumComponent AwesomeComponent
         {
             get { return _awesomium; }
@@ -77,7 +79,6 @@ namespace WinterEngine.Game.Entities
             _batch = new SpriteBatch(FlatRedBallServices.GraphicsDevice);
             InitializeAwesomium();
 
-            WinterEngineService.OnXNAUpdate += UpdateAwesomium;
             WinterEngineService.OnXNADraw += DrawAwesomium;
 
         }
@@ -90,7 +91,6 @@ namespace WinterEngine.Game.Entities
         {
             DisposeAwesomium();
 
-            WinterEngineService.OnXNAUpdate -= UpdateAwesomium;
             WinterEngineService.OnXNADraw -= DrawAwesomium;
 		}
 
@@ -122,11 +122,6 @@ namespace WinterEngine.Game.Entities
         {
             return AwesomeComponent.WebView.ExecuteJavascriptWithResult(methodName);
         }
-
-
-        #endregion
-
-        #region Input handling
 
 
         #endregion
@@ -166,10 +161,19 @@ namespace WinterEngine.Game.Entities
         {
             AwesomeComponent.WebView.DocumentReady -= OnDocumentReady;
             _entityJavascriptObject = AwesomeComponent.WebView.CreateGlobalJavascriptObject("Entity");
+
+            EntityJavascriptObject.Bind("MouseEnterUI", false, SetMouseIsInUITrue);
+            EntityJavascriptObject.Bind("MouseExitUI", false, SetMouseIsInUIFalse);
         }
 
-        private void UpdateAwesomium(object sender, EventArgs e)
+        private void SetMouseIsInUITrue(object sender, JavascriptMethodEventArgs e)
         {
+            IsMouseOverUI = true;
+        }
+
+        private void SetMouseIsInUIFalse(object sender, JavascriptMethodEventArgs e)
+        {
+            IsMouseOverUI = false;
         }
 
         private void DrawAwesomium(object sender, EventArgs e)

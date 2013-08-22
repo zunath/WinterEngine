@@ -446,7 +446,6 @@
     <EntitySave>
       <Tags>
         <string>GLUE</string>
-        <string>GLUE</string>
       </Tags>
       <Source>GLUE</Source>
       <Name>Entities\MapEntity</Name>

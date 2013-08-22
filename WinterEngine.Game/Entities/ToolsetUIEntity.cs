@@ -559,6 +559,11 @@ namespace WinterEngine.Game.Entities
             GameObjectBase gameObject = factory.GetFromDatabaseByID(resourceID, gameObjectType);
             string jsonObject = JsonConvert.SerializeObject(gameObject);
 
+            if (gameObjectType == GameObjectTypeEnum.Area)
+            {
+                
+            }
+
             AsyncJavascriptCallback("LoadObjectData_Callback", jsonObject);
         }
 

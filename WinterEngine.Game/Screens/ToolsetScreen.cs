@@ -20,24 +20,32 @@ using FlatRedBall.Localization;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
+using WinterEngine.Game.Entities;
 #endif
 
 namespace WinterEngine.Game.Screens
 {
 	public partial class ToolsetScreen
     {
+        #region Constants
+
+        const int MaxZoomDistance = 1000;
+        const int MinZoomDistance = 100;
+
+        #endregion
+
         #region FRB Event Handling
 
         private void CustomInitialize()
 		{
             ToolsetUIEntityInstance.OnChangeScreen += base.ChangeScreen;
             FlatRedBallServices.CornerGrabbingResize += ReactToResizing;
-            SpriteManager.Camera.Z = 1000; // Initial zoom distance
+            SpriteManager.Camera.Z = MaxZoomDistance; // Initial zoom distance
 		}
 
 		private void CustomActivity(bool firstTimeCalled)
 		{
-
+            HandleUserInput();
 
 		}
 
@@ -105,6 +113,31 @@ namespace WinterEngine.Game.Screens
                 SpriteManager.Cameras[0].FixAspectRatioYConstant();
 
                 #endregion
+            }
+        }
+
+        #endregion
+
+        #region Controls
+
+        private void HandleUserInput()
+        {
+            HandleScrollWheel();
+        }
+
+        private void HandleScrollWheel()
+        {
+            if (!ToolsetUIEntityInstance.IsMouseOverUI)
+            {
+                SpriteManager.Camera.Z -= InputManager.Mouse.ScrollWheel * 50;
+                if (SpriteManager.Camera.Z > MaxZoomDistance)
+                {
+                    SpriteManager.Camera.Z = MaxZoomDistance;
+                }
+                else if (SpriteManager.Camera.Z < MinZoomDistance)
+                {
+                    SpriteManager.Camera.Z = MinZoomDistance;
+                }
             }
         }
 
