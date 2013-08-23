@@ -94,7 +94,13 @@ namespace WinterEngine.Game.Entities
 
         #endregion
 
-        #region FRB Event Handling 
+        #region Events / Delegates
+
+        public event EventHandler OnAreaOpened;
+
+        #endregion
+
+        #region FRB Event Handling
 
         private void CustomInitialize()
         {
@@ -561,7 +567,10 @@ namespace WinterEngine.Game.Entities
 
             if (gameObjectType == GameObjectTypeEnum.Area)
             {
-                
+                if (!Object.ReferenceEquals(OnAreaOpened, null))
+                {
+                    OnAreaOpened(this, new EventArgs());
+                }
             }
 
             AsyncJavascriptCallback("LoadObjectData_Callback", jsonObject);

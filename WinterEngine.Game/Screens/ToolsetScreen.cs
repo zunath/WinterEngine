@@ -38,9 +38,8 @@ namespace WinterEngine.Game.Screens
 
         private void CustomInitialize()
 		{
-            ToolsetUIEntityInstance.OnChangeScreen += base.ChangeScreen;
-            FlatRedBallServices.CornerGrabbingResize += ReactToResizing;
             SpriteManager.Camera.Z = MaxZoomDistance; // Initial zoom distance
+            BindEvents();
 		}
 
 		private void CustomActivity(bool firstTimeCalled)
@@ -59,6 +58,17 @@ namespace WinterEngine.Game.Screens
         {
 
 
+        }
+
+        #endregion
+
+        #region Event Handling
+
+        private void BindEvents()
+        {
+            ToolsetUIEntityInstance.OnChangeScreen += base.ChangeScreen;
+            FlatRedBallServices.CornerGrabbingResize += ReactToResizing;
+            ToolsetUIEntityInstance.OnAreaOpened += OpenArea;
         }
 
         #endregion
@@ -152,6 +162,15 @@ namespace WinterEngine.Game.Screens
                     SpriteManager.Camera.Y += InputManager.Mouse.YChange;
                 }
             }
+        }
+
+        #endregion
+
+        #region User Actions
+
+        private void OpenArea(object sender, EventArgs e)
+        {
+
         }
 
         #endregion

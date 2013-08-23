@@ -13,52 +13,39 @@ namespace WinterEngine.DataTransferObjects
     [Table("Tiles")]
     public class Tile
     {
-        #region Fields
-
-        private int _tileID;
-        private int _texturePositionX;
-        private int _texturePositionY;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         /// Gets or sets the unique ID of this Tile
         /// </summary>
         [Key]
-        public int TileID
-        {
-            get { return _tileID; }
-            set { _tileID = value; }
-        }
+        public int TileID { get; set; }
 
         /// <summary>
-        /// Returns true if a tile has texture positions set.
-        /// Returns false if a tile does not have texture positions set.
+        /// Gets or sets the X cell position of the texture being used for this tile.
         /// </summary>
-        public bool HasGraphic
-        {
-            get
-            {
-                if (_texturePositionX > 0 && _texturePositionY > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
+        public int TextureCellX { get; set; }
+        /// <summary>
+        /// Gets or sets the Y cell position of the texture being used for this tile.
+        /// </summary>
+        public int TextureCellY { get; set; }
+        /// <summary>
+        /// Gets or sets the map height position of the tile.
+        /// </summary>
+        public int TileHeight { get; set; }
+        /// <summary>
+        /// Gets or sets the map X cell position of the tile.
+        /// </summary>
+        public int MapCellX { get; set; }
+        /// <summary>
+        /// Gets or sets the map Y cell position of the tile.
+        /// </summary>
+        public int MapCellY { get; set; }
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Constructs a new tile
-        /// </summary>
         public Tile()
         {
         }
@@ -66,10 +53,18 @@ namespace WinterEngine.DataTransferObjects
         /// <summary>
         /// Constructs a new tile with specified X and Y positions on the texture.
         /// </summary>
-        public Tile(int texturePositionX, int texturePositionY)
+        public Tile(int textureCellX, int textureCellY)
         {
-            this._texturePositionX = texturePositionX;
-            this._texturePositionY = texturePositionY;
+            this.TextureCellX = textureCellX;
+            this.TextureCellY = textureCellY;
+        }
+
+        public Tile(int textureCellX, int textureCellY, int mapCellX, int mapCellY)
+        {
+            this.TextureCellX = textureCellX;
+            this.TextureCellY = textureCellY;
+            this.MapCellX = mapCellX;
+            this.MapCellY = mapCellY;
         }
 
         #endregion

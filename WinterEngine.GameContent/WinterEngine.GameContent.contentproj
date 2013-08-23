@@ -48,10 +48,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ContentPacks\tileset2test.cpak">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>tileset2test</Name>
-    </None>
     <None Include="ContentPacks\tilesets.cpak">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>tilesets</Name>

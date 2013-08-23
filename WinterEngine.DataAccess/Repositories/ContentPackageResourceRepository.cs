@@ -138,35 +138,6 @@ namespace WinterEngine.DataAccess.Repositories
             }
         }
 
-
-        /// <summary>
-        /// Extracts a content builder resource from a content package to memory and returns the MemoryStream object.
-        /// </summary>
-        /// <param name="package"></param>
-        /// <param name="resource"></param>
-        /// <returns></returns>
-        public MemoryStream ExtractResourceToMemory(ContentPackageResource resource, ContentPackage package = null)
-        {
-            string path = "";
-
-            if (!Object.ReferenceEquals(package, null))
-            {
-                path = package.ContentPackagePath;
-            }
-            else
-            {
-                path = resource.Package.ContentPackagePath;
-            }
-
-            MemoryStream stream = new MemoryStream();
-            using (ZipFile zipFile = new ZipFile(path))
-            {
-                zipFile[resource.FileName].Extract(stream);
-            }
-
-            return stream;
-        }
-
         #endregion
     }
 }

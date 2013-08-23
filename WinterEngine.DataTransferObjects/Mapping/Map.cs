@@ -10,41 +10,30 @@ namespace WinterEngine.DataTransferObjects
     [Table("Maps")]
     public class Map : GameResourceBase
     {
-        #region Fields
-
-        private Tile[,] _tiles;
-        
-        #endregion
-
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the tiles used by this map.
+        /// </summary>
+        public List<Tile> Tiles { get; set; }
+
+        public int GraphicID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the spritesheet graphic used by this map.
+        /// </summary>
+        [ForeignKey("GraphicID")]
+        public ContentPackageResource Graphic { get; set; }
 
         /// <summary>
         /// Gets or sets the number of tiles wide this map is.
         /// </summary>
-        public int NumberOfTilesWide
-        {
-            get 
-            { 
-                return _tiles.GetLength(0); 
-            }
-        }
+        public int TilesWide { get; set; }
 
         /// <summary>
         /// Gets the number of tiles high this map is.
         /// </summary>
-        public int NumberOfTilesHigh
-        {
-            get 
-            { 
-                return _tiles.GetLength(1); 
-            }
-        }
-
-        public Tile[,] Tiles
-        {
-            get { return _tiles; }
-            set { _tiles = value; }
-        }
+        public int TilesHigh { get; set; }
 
         #endregion
 
@@ -52,6 +41,25 @@ namespace WinterEngine.DataTransferObjects
 
         public Map()
         {
+        }
+
+        public Map(int tilesWide, int tilesHigh)
+        {
+            this.TilesWide = tilesWide;
+            this.TilesHigh = tilesHigh;
+
+            int totalNumberOfTiles = tilesWide * tilesHigh;
+            Tiles = new List<Tile>();
+
+            Tile emptyTile = new Tile
+            {
+                
+            };
+
+            for (int index = 1; index <= totalNumberOfTiles; index++ )
+            {
+                Tiles.Add(emptyTile);
+            }
 
         }
 

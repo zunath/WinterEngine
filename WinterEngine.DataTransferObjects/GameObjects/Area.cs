@@ -12,19 +12,13 @@ namespace WinterEngine.DataTransferObjects
     [Table("Areas")]
     public class Area : GameObjectBase
     {
-        #region Fields
-
-        private Map _map;
-
-        #endregion
-
         #region Properties
 
-        public Map TileMap
-        {
-            get { return _map; }
-            set { _map = value; }
-        }
+        public int? TileMapID { get; set; }
+
+        [ForeignKey("TileMapID")]
+        public Map TileMap { get; set; }
+
 
         // EVENT SCRIPTS
         public int? OnEnterEventScriptID { get; set; }
