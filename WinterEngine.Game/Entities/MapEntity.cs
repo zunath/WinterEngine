@@ -103,8 +103,7 @@ namespace WinterEngine.Game.Entities
         private void CustomInitialize()
 		{
             EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Editor/Icons/TilesetEditor_CellSpriteSheet.png");
-            ActiveMap = new Map(10, 10);
-            LoadMap(ActiveMap);
+            ChangeMap(new Map(10, 10));
         }
 
         private void CustomActivity()
@@ -162,10 +161,15 @@ namespace WinterEngine.Game.Entities
             return ((y * (int)MappingEnum.TileHeight) + (x * (int)MappingEnum.TileHeight)) / 4;
         }
 
-        public void LoadMap(Map activeMap)
+        private void ChangeMap(Map activeMap)
         {
+            UnloadMap();
             ActiveMap = activeMap;
+            LoadMap();
+        }
 
+        private void LoadMap()
+        {
             EmptyMapBatch = new MapDrawableBatch(ActiveMap.TilesHigh * ActiveMap.TilesWide,
                 (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight, EditorSpritesheet);
 
@@ -176,8 +180,18 @@ namespace WinterEngine.Game.Entities
             //InitializeMapTiles(false);
         }
 
-        public void UnloadMap()
+        private void UnloadMap()
         {
+            if (ActiveMapBatch != null)
+            {
+                ActiveMapBatch.RemoveSelfFromListsBelongingTo();
+            }
+
+            if (EmptyMapBatch != null)
+            {
+                EmptyMapBatch.RemoveSelfFromListsBelongingTo();
+            }
+
             ActiveMap = null;
             ActiveMapBatch = null;
             MapSpriteSheet = null;

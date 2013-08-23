@@ -105,14 +105,8 @@
     <Compile Include="Enumerations\ContentPackageResourceTypeEnum.cs" />
     <Compile Include="Enumerations\TilesetEditorModeTypeEnum.cs" />
     <Compile Include="Enumerations\UserControlIDEnum.cs" />
-    <Compile Include="EventArgsExtended\AutoDownloaderStatusEventArgs.cs" />
-    <Compile Include="EventArgsExtended\CameraButtonPressEventArgs.cs" />
-    <Compile Include="EventArgsExtended\GameObjectEventArgs.cs" />
-    <Compile Include="EventArgsExtended\ModuleControlsEventArgs.cs" />
     <Compile Include="EventArgsExtended\NetworkLogMessageEventArgs.cs" />
-    <Compile Include="EventArgsExtended\ObjectRotationButtonPressEventArgs.cs" />
     <Compile Include="EventArgsExtended\ObjectSelectionEventArgs.cs" />
-    <Compile Include="EventArgsExtended\PositionEventArgs.cs" />
     <Compile Include="EventArgsExtended\TypeOfEventArgs.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="Mapping\Tile.cs" />

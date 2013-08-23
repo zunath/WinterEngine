@@ -8,11 +8,6 @@ namespace WinterEngine.DataTransferObjects.EventArgsExtended
 {
     public class ObjectSelectionEventArgs : EventArgs
     {
-        public ObjectSelectionTypeEnum ObjectType { get; set; }
-
-        public ObjectSelectionEventArgs(ObjectSelectionTypeEnum objectType)
-        {
-            this.ObjectType = objectType;
-        }
+        public int ResourceID { get; set; }
     }
 }
