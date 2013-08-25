@@ -12,6 +12,7 @@ namespace WinterEngine.DataTransferObjects.Paths
 
         private const string _contentPackagePath = "ContentPacks";
         private const string _characterVaultPath = "CharacterVault";
+        private const string _modulePath = "Modules";
 
         #endregion
 
@@ -37,6 +38,17 @@ namespace WinterEngine.DataTransferObjects.Paths
             get
             {
                 return FileManager.RelativeDirectory + @"Content/" + _characterVaultPath + "/";
+            }
+        }
+
+        /// <summary>
+        /// Gets the path to the modules directory.
+        /// </summary>
+        public static string ModuleDirectoryPath
+        {
+            get
+            {
+                return FileManager.RelativeDirectory + @"Content/" + _modulePath;
             }
         }
 

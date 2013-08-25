@@ -11,21 +11,26 @@ function Initialize() {
     InitializeViewModel();
     InitializeValidation();
     InitializeMainMenu();
-    InitializeObjectSelectionMenu();
-    InitializeAboutBox();
-    InitializeNewModuleBox();
-    InitializeOpenModuleBox();
-    InitializeImportBox();
-    InitializeExportBox();
-    InitializeModulePropertiesBox();
-    InitializeManageContentPackagesBox();
-    InitializeContentPackageCreatorBox();
-    InitializeAlertBox();
-    InitializeCreateNewObjectBox();
-    InitializeDeleteObjectBox();
-    InitializeCreateCategoryBox();
-    InitializeRenameTreeNodeBox();
+    $('#ulObjectBar').menu({}); // Object selection menu
+
+    InitializeDialogBox('#divAboutBox', 'About');
+    InitializeDialogBox('#divNewModuleBox', 'New Module');
+    InitializeDialogBox('#divOpenModuleBox', 'Open Module');
+    InitializeDialogBox('#divImportBox', 'Import ERF');
+    InitializeDialogBox('#divExportBox', 'Export ERF');
+    InitializeDialogBox('#divModulePropertiesBox', 'Module Properties');
+    InitializeDialogBox('#divManageContentPackagesBox', 'Manage Content Packages');
+    InitializeDialogBox('#divContentPackageCreatorBox', 'Content Package Creator');
+    InitializeDialogBox('#divAlertBox', 'Alert');
+    InitializeDialogBox('#divNewObject', 'New Object');
+    InitializeDialogBox('#divConfirmDelete', 'Delete Object');
+    InitializeDialogBox('#divCreateCategory', 'Create Category');
+    InitializeDialogBox('#divRenameTreeNode', 'Rename Object');
+    
     InitializeTabbedContainers();
+    InitializeManageContentPackagesBox();
+
+
 
     $("input[type=button]").button();
 
@@ -35,90 +40,6 @@ function InitializeMainMenu() {
 
     $('#ulMenu').menu({
         position: { my: 'left top', at: 'left bottom' }
-    });
-}
-
-function InitializeObjectSelectionMenu() {
-    $('#ulObjectBar').menu({
-    });
-}
-function InitializeAboutBox() {
-    $('#divAboutBox').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'About',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function InitializeNewModuleBox() {
-    $('#divNewModuleBox').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'New Module',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function InitializeOpenModuleBox() {
-}
-
-function InitializeImportBox() {
-    $('#divImportBox').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Import ERF',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function InitializeExportBox() {
-    $('#divExportBox').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Export ERF',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function InitializeModulePropertiesBox() {
-    $('#divModulePropertiesBox').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Module Properties',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function InitializeManageContentPackagesBox() {
-    $('#divManageContentPackagesBox').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Manage Content Packages',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function InitializeContentPackageCreatorBox() {
-    $('#divContentPackageCreatorBox').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Content Package Creator',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
     });
 }
 
@@ -135,55 +56,19 @@ function InitializeValidation() {
 
 }
 
-function InitializeAlertBox() {
-    $('#divAlertBox').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Alert',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
+function InitializeManageContentPackagesBox() {
+    InitializeDialogBox('#divManageContentPackages', 'Manage Packages');
+
+    $('#olAvailableContentPackages').selectable();
+    $('#olAttachedContentPackages').selectable();
 }
 
-function InitializeCreateNewObjectBox() {
-    $('#divNewObject').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'New Object',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
 
-function InitializeDeleteObjectBox() {
-    $('#divConfirmDelete').dialog({
+function InitializeDialogBox(selector, dialogTitle) {
+    $(selector).dialog({
         modal: true,
         autoOpen: false,
-        title: 'Delete Object?',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function InitializeCreateCategoryBox() {
-    $('#divCreateCategory').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Create Category',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function InitializeRenameTreeNodeBox() {
-    $('#divRenameTreeNode').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Rename Object',
+        title: dialogTitle,
         resizable: false,
         dialogClass: 'jqueryUIDialogNoCloseButton',
         draggable: false

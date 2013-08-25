@@ -53,7 +53,6 @@ namespace WinterEngine.Game
             form.Resize += HandleResize;
         }
 
-
         protected override void Update(GameTime gameTime)
         {
             FlatRedBallServices.Update(gameTime);

@@ -9,5 +9,10 @@ namespace WinterEngine.DataTransferObjects.EventArgsExtended
     public class ObjectSelectionEventArgs : EventArgs
     {
         public int ResourceID { get; set; }
+
+        public ObjectSelectionEventArgs(int resourceID)
+        {
+            this.ResourceID = resourceID;
+        }
     }
 }

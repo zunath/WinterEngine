@@ -48,9 +48,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ContentPacks\tilesets.cpak">
+    <None Include="ContentPacks\we_tilesets.cpak">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Name>tilesets</Name>
+      <Name>we_tilesets</Name>
     </None>
     <None Include="Screens\SplashScreen\frblogo512.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -72,6 +72,12 @@
   <ItemGroup>
     <Folder Include="CharacterVault\" />
     <Folder Include="Game\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Modules\deleteme.txt">
+      <Name>deleteme</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

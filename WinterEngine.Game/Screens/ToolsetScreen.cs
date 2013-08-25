@@ -21,6 +21,9 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.Game.Entities;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
+using WinterEngine.DataTransferObjects;
+using WinterEngine.DataAccess;
 #endif
 
 namespace WinterEngine.Game.Screens
@@ -68,7 +71,7 @@ namespace WinterEngine.Game.Screens
         {
             ToolsetUIEntityInstance.OnChangeScreen += base.ChangeScreen;
             FlatRedBallServices.CornerGrabbingResize += ReactToResizing;
-            ToolsetUIEntityInstance.OnAreaOpened += OpenArea;
+            ToolsetUIEntityInstance.OnAreaLoaded += OpenArea;
         }
 
         #endregion
@@ -168,9 +171,15 @@ namespace WinterEngine.Game.Screens
 
         #region User Actions
 
-        private void OpenArea(object sender, EventArgs e)
+        private void OpenArea(object sender, ObjectSelectionEventArgs e)
         {
+            Area selectedArea;
+            using (AreaRepository repo = new AreaRepository())
+            {
+                selectedArea = repo.GetByID(e.ResourceID);
+            }
 
+            MapEntityInstance.ChangeMap(selectedArea.TileMap);
         }
 
         #endregion

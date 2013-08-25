@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using Awesomium.Core;
@@ -12,6 +13,8 @@ using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
+using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.ViewModels;
 using WinterEngine.Editor.Managers;
 using WinterEngine.Library.Managers;
@@ -96,7 +99,7 @@ namespace WinterEngine.Game.Entities
 
         #region Events / Delegates
 
-        public event EventHandler OnAreaOpened;
+        public event EventHandler<ObjectSelectionEventArgs> OnAreaLoaded;
 
         #endregion
 
@@ -144,6 +147,7 @@ namespace WinterEngine.Game.Entities
 
             // Content Menu Bindings
             EntityJavascriptObject.Bind("BuildModuleButtonClick", false, BuildModuleButton);
+            EntityJavascriptObject.Bind("ManageContentPackagesButtonClick", false, ManageContentPackagesButton);
 
             // Help Menu Bindings
             EntityJavascriptObject.Bind("WinterEngineWebsiteButtonClick", false, WinterEngineWebsiteButton);
@@ -303,11 +307,7 @@ namespace WinterEngine.Game.Entities
 
             try
             {
-                using (GameResourceManager manager = new GameResourceManager())
-                {
-                    manager.RebuildModule();
-                }
-
+                GameResourceManager.RebuildModule();
                 success = true;
             }
             catch(Exception ex)
@@ -317,6 +317,36 @@ namespace WinterEngine.Game.Entities
             }
 
             AsyncJavascriptCallback("BuildModuleButtonClick_Callback", success, callbackException);
+        }
+
+        private void ManageContentPackagesButton(object sender, JavascriptMethodEventArgs e)
+        {
+            FileExtensionFactory factory = new FileExtensionFactory();
+            List<ContentPackage> attachedContentPackages;
+            List<ContentPackage> availableContentPackages = new List<ContentPackage>();
+
+            using (ContentPackageRepository repo = new ContentPackageRepository())
+            {
+                attachedContentPackages = repo.GetAll();
+            }
+
+            string[] files = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + factory.GetFileExtension(FileTypeEnum.ContentPackage));
+            foreach (string currentPackage in files)
+            {
+                ContentPackage package = new ContentPackage
+                {
+                    FileName = Path.GetFileName(currentPackage),
+                    ResourceType = ResourceTypeEnum.ContentPackage,
+                    Name = Path.GetFileNameWithoutExtension(currentPackage)
+                };
+
+                availableContentPackages.Add(package);
+            }
+
+            string jsonAttachedContentPackages = JsonConvert.SerializeObject(attachedContentPackages);
+            string jsonAvailableContentPackages = JsonConvert.SerializeObject(availableContentPackages);
+
+            AsyncJavascriptCallback("ManageContentPackagesButton_Callback", jsonAttachedContentPackages, jsonAvailableContentPackages);
         }
 
         #endregion
@@ -564,12 +594,13 @@ namespace WinterEngine.Game.Entities
             int resourceID = (int)e.Arguments[1];
             GameObjectBase gameObject = factory.GetFromDatabaseByID(resourceID, gameObjectType);
             string jsonObject = JsonConvert.SerializeObject(gameObject);
+            ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
 
             if (gameObjectType == GameObjectTypeEnum.Area)
             {
-                if (!Object.ReferenceEquals(OnAreaOpened, null))
+                if (!Object.ReferenceEquals(OnAreaLoaded, null))
                 {
-                    OnAreaOpened(this, new EventArgs());
+                    OnAreaLoaded(this, eventArgs);
                 }
             }
 
@@ -594,6 +625,7 @@ namespace WinterEngine.Game.Entities
                 }
                 else if (gameObjectType == GameObjectTypeEnum.Conversation)
                 {
+
                 }
                 else if (gameObjectType == GameObjectTypeEnum.Creature)
                 {

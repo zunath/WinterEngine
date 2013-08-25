@@ -65,11 +65,13 @@
     <Reference Include="BitFactory.Logging">
       <HintPath>..\References\BitFactory.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="FlatRedBall">
-      <HintPath>..\WinterEngine.Editor\Libraries\Xna4Pc\FlatRedBall.dll</HintPath>
+    <Reference Include="FlatRedBall, Version=2013.5.2.480, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WinterEngine.Game\Libraries\Xna4Pc\FlatRedBall.dll</HintPath>
     </Reference>
-    <Reference Include="FlatRedBall.Content">
-      <HintPath>..\WinterEngine.Editor\Libraries\Xna4Pc\FlatRedBall.Content.dll</HintPath>
+    <Reference Include="FlatRedBall.Content, Version=2013.5.2.480, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WinterEngine.Game\Libraries\Xna4Pc\FlatRedBall.Content.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Avatar, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
