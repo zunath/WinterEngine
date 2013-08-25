@@ -2,13 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Web.Script.Serialization;
-using System.Windows.Forms;
 using Awesomium.Core;
+using FlatRedBall;
 using Newtonsoft.Json;
 using WinterEngine.DataAccess;
 using WinterEngine.DataAccess.Factories;
-using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
@@ -29,8 +27,6 @@ namespace WinterEngine.Game.Entities
 
         private FileExtensionFactory _extensionFactory;
         private ModuleManager _moduleManager;
-        private SaveFileDialog _saveFile;
-        private OpenFileDialog _openFile;
 
         #endregion
 
@@ -63,35 +59,6 @@ namespace WinterEngine.Game.Entities
                 }
 
                 return _moduleManager;
-            }
-        }
-
-        private SaveFileDialog SaveFile
-        {
-            get
-            {
-                if (_saveFile == null)
-                {
-                    _saveFile = new SaveFileDialog();
-                    _saveFile.AddExtension = true;
-                }
-
-                return _saveFile;
-            }
-        }
-
-        private OpenFileDialog OpenFile
-        {
-            get
-            {
-                if (_openFile == null)
-                {
-                    _openFile = new OpenFileDialog();
-                    _openFile.AddExtension = true;
-                    _openFile.Multiselect = false;
-                }
-
-                return _openFile;
             }
         }
 
@@ -138,9 +105,6 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("CloseModuleButtonClick", false, CloseModuleButton);
             EntityJavascriptObject.Bind("SaveModuleButtonClick", false, SaveModuleButton);
             EntityJavascriptObject.Bind("SaveAsModuleButtonClick", false, SaveAsModuleButton);
-            EntityJavascriptObject.Bind("ImportButtonClick", false, ImportButtonClick);
-            EntityJavascriptObject.Bind("ExportButtonClick", false, ExportButtonClick);
-            EntityJavascriptObject.Bind("ExportToERFButtonClick", false, ExportToERFButtonClick);
             EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButton);
 
             // Edit Menu Bindings
@@ -192,23 +156,6 @@ namespace WinterEngine.Game.Entities
             AsyncJavascriptCallback("NewModuleBoxOKClick_Callback", success);
         }
 
-        private void GetModulesList(object sender, JavascriptMethodEventArgs e)
-        {
-            string[] files = Directory.GetFiles(DirectoryPaths.ModuleDirectoryPath, "*" 
-                + ExtensionFactory.GetFileExtension(FileTypeEnum.Module));
-            List<GameModule> moduleList = new List<GameModule>();
-            foreach(string current in files)
-            {
-                GameModule module = new GameModule
-                {
-                    FileName = Path.GetFileNameWithoutExtension(current)
-                };
-                moduleList.Add(module);
-            }
-
-            e.Result = JsonConvert.SerializeObject(moduleList);
-        }
-
         private void OpenModuleButton(object sender, JavascriptMethodEventArgs e)
         {
             try
@@ -230,7 +177,7 @@ namespace WinterEngine.Game.Entities
         {
             if (String.IsNullOrWhiteSpace(ModuleFilePath))
             {
-                SaveAsModuleButton(sender, e);
+                AsyncJavascriptCallback("ShowSaveAsModulePopUp");
             }
             else
             {
@@ -240,70 +187,35 @@ namespace WinterEngine.Game.Entities
 
         private void SaveAsModuleButton(object sender, JavascriptMethodEventArgs e)
         {
-            SaveFile.Filter = ExtensionFactory.BuildModuleFileFilter();
+            SaveAsResponseTypeEnum response = SaveAsResponseTypeEnum.SaveFailed;
+            string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] 
+                + ExtensionFactory.GetFileExtension(FileTypeEnum.Module);
+            bool forceOverwrite = e.Arguments[1];
 
-            if (SaveFile.ShowDialog() == DialogResult.OK)
+            if (File.Exists(filePath) && !forceOverwrite)
             {
-                ModuleFilePath = SaveFile.FileName;
-                SaveModule();
+                response = SaveAsResponseTypeEnum.FileNameAlreadyExists;
             }
+            else
+            {
+                ModuleFilePath = filePath;
+                SaveModule();
+                response = SaveAsResponseTypeEnum.SaveSuccessful;
+            }
+
+            AsyncJavascriptCallback("SaveAsModuleButtonClick_Callback", (int)response, e.Arguments[0]);
         }
 
         private void CloseModuleButton(object sender, JavascriptMethodEventArgs e)
         {
+            ModuleFilePath = null;
             ModuleManager.CloseModule();
-
             AsyncJavascriptCallback("CloseModuleButtonClick_Callback");
-        }
-
-        private void ImportButtonClick(object sender, JavascriptMethodEventArgs e)
-        {
-            OpenFile.Filter = ExtensionFactory.BuildERFFileFilter();
-
-            if (OpenFile.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    List<GameObjectBase> gameObjects;
-                    using (ERFFileAccess repo = new ERFFileAccess())
-                    {
-                        gameObjects = repo.DeserializeERFFile(OpenFile.FileName);
-                    }
-
-                    string jsonGameObjects = JsonConvert.SerializeObject(gameObjects);
-                    AsyncJavascriptCallback("ImportButtonClick_Callback", jsonGameObjects);
-                }
-                catch
-                {
-                    throw;
-                }
-
-            }
-        }
-
-        private void ExportButtonClick(object sender, JavascriptMethodEventArgs e)
-        {
-            OpenFile.Filter = ExtensionFactory.BuildERFFileFilter();
-
-            if (OpenFile.ShowDialog() == DialogResult.OK)
-            {
-                using (ERFFileAccess repo = new ERFFileAccess())
-                {
-                    List<GameObjectBase> gameObjects = repo.DeserializeERFFile(OpenFile.FileName);
-                    string jsonGameObjects = JsonConvert.SerializeObject(gameObjects);
-                    AsyncJavascriptCallback("ExportButtonClick_Callback", jsonGameObjects);
-                }
-            }
-        }
-
-        private void ExportToERFButtonClick(object sender, JavascriptMethodEventArgs e)
-        {
-
         }
 
         private void ExitButton(object sender, JavascriptMethodEventArgs e)
         {
-            Application.Exit();
+            FlatRedBallServices.Game.Exit();
         }
 
         #endregion
@@ -657,6 +569,23 @@ namespace WinterEngine.Game.Entities
             {
                 throw;
             }
+        }
+
+        private void GetModulesList(object sender, JavascriptMethodEventArgs e)
+        {
+            string[] files = Directory.GetFiles(DirectoryPaths.ModuleDirectoryPath, "*"
+                + ExtensionFactory.GetFileExtension(FileTypeEnum.Module));
+            List<GameModule> moduleList = new List<GameModule>();
+            foreach (string current in files)
+            {
+                GameModule module = new GameModule
+                {
+                    FileName = Path.GetFileNameWithoutExtension(current)
+                };
+                moduleList.Add(module);
+            }
+
+            e.Result = JsonConvert.SerializeObject(moduleList);
         }
 
         #endregion

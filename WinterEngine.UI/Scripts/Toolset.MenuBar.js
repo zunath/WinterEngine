@@ -43,7 +43,6 @@ function ShowOpenModulePopUp(element) {
     if (IsMenuButtonDisabled($(element))) return;
 
     var jsonModuleList = Entity.GetModulesList();
-
     ToolsetViewModel.ModuleList(JSON.parse(jsonModuleList));
 
     $('#divOpenModuleBox').dialog('open');
@@ -92,16 +91,65 @@ function SaveModuleButtonClick(element) {
     Entity.SaveModuleButtonClick();
 }
 
-function SaveAsModuleButtonClick(element) {
+function ShowSaveAsModulePopUp(element) {
     if (IsMenuButtonDisabled($(element))) return;
 
-    Entity.SaveAsModuleButtonClick();
+    var jsonModuleList = Entity.GetModulesList();
+    ToolsetViewModel.ModuleList(JSON.parse(jsonModuleList));
+    $('#divSaveAsModuleBox').dialog('open');
+}
+
+function SaveAsModuleButtonClick(element) {
+    var moduleName = $('#txtSaveAsModuleFileName').val();
+    Entity.SaveAsModuleButtonClick(moduleName, false);
+}
+
+function SaveAsModuleButtonClick_Callback(response, moduleName) {
+    if (response == 0) { // 0 = Save Failed
+        $('#lblSaveAsErrors').text('An error has occurred.');
+    }
+    else if (response == 1) { // 1 = Save Successful
+        CloseSaveAsModulePopUp();
+        CloseSaveAsModuleConfirmationPopUp(false);
+    }
+    else if (response == 2) { // 2 = File already exists
+        ShowSaveAsModuleConfirmationPopUp(moduleName);
+    }
+}
+
+function SaveAsModuleOverwriteButtonClick() {
+    var moduleName = $('#txtSaveAsModuleFileName').val();
+    Entity.SaveAsModuleButtonClick(moduleName, true);
+}
+
+function ShowSaveAsModuleConfirmationPopUp(moduleName) {
+    $('#spnSaveAsModuleOverwriteName').text(moduleName);
+    $('#divSaveAsOverwriteConfirmation').dialog('open');
+    $('#divSaveAsModuleBox').dialog('close');
+}
+
+function SelectExistingSaveAsModule() {
+    var selectedName = $('#selModulesListSaveAs option:selected').text();
+    $('#txtSaveAsModuleFileName').val(selectedName);
+}
+
+function CloseSaveAsModulePopUp() {
+    $('#divSaveAsModuleBox').dialog('close');
+    $('#txtSaveAsModuleFileName').val('');
+}
+
+function CloseSaveAsModuleConfirmationPopUp(showSaveAsPopUp) {
+    $('#divSaveAsOverwriteConfirmation').dialog('close');
+    $('#spnSaveAsModuleOverwriteName').text('');
+    if (showSaveAsPopUp) {
+        $('#divSaveAsModuleBox').dialog('open');
+    }
 }
 
 function ImportButtonClick(element) {
     if (IsMenuButtonDisabled($(element))) return;
 
-    Entity.ImportButtonClick();
+    //Entity.ImportButtonClick();
 }
 
 function ImportButtonClick_Callback(jsonObjectList) {

@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li id="liSaveAsButton" class="ui-state-disabled">
-                            <a id="aSaveAsButton" href="#" onclick="SaveAsModuleButtonClick(this);">Save As...
+                            <a id="aSaveAsButton" href="#" onclick="ShowSaveAsModulePopUp(this);">Save As...
                             </a>
                         </li>
                         <li id="liImportButton" class="ui-state-disabled">
@@ -544,7 +544,7 @@
         <!-- END OBJECT TAB CONTROLS -->
 
 
-        <!-- POP-UP BOXES -->
+        <!-- NEW MODULE POP-UP BOX -->
         <div id="divNewModuleBox">
 
             <form id="formNewModule">
@@ -568,22 +568,62 @@
             </form>
         </div>
 
+        <!-- END NEW MODULE POP-UP BOX -->
+
+        <!-- OPEN MODULE POP-UP BOX -->
+
         <div id="divOpenModuleBox">
             Please select a module to open.
             
-            <select id="selModulesList" size="5" data-bind="foreach: ModuleList">
-                <option data-bind="text: FileName"></option>
+            <select id="selModulesList" size="5" data-bind="foreach: ModuleList" >
+                <option data-bind="text: FileName" ondblclick="OpenModuleButtonClick();"></option>
             </select>
 
             <input id="btnOpenModuleOpenButton" type="button" value="Open" onclick="OpenModuleButtonClick();" />
             <input id="btnOpenModuleCancelButton" type="button" value="Cancel" onclick="CloseOpenModulePopUp();" />
         </div>
 
+        <!-- END OPEN MODULE POP-UP BOX -->
+
+        <!-- SAVE AS MODULE POP-UP BOX -->
+
+        <div id="divSaveAsModuleBox">
+            Please select a file name for this module.
+            
+            <label id="lblSaveAsErrors" class="clsErrorMessage"></label>
+
+            <select id="selModulesListSaveAs" size="5" data-bind="foreach: ModuleList">
+                <option data-bind="text: FileName" onclick="SelectExistingSaveAsModule();" ondblclick="SaveAsModuleButtonClick();"></option>
+            </select>
+
+            <input id="txtSaveAsModuleFileName" type="text" />
+
+            <input id="btnSaveAsModuleSaveButton" type="button" value="Save" onclick="SaveAsModuleButtonClick();" />
+            <input id="btnSaveAsModuleCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModulePopUp();" />
+        </div>
+
+        <div id="divSaveAsOverwriteConfirmation">
+            The file name <span id="spnSaveAsModuleOverwriteName"></span> already exists.
+            <br />
+            Do you want to overwrite the file?
+
+            <input id="btnSaveAsModuleOverwriteButton" type="button" value="Overwrite" onclick="SaveAsModuleOverwriteButtonClick();" />
+            <input id="btnSaveAsModuleOverwriteCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModuleConfirmationPopUp(true);" />
+        </div>
+
+        <!-- END SAVE AS MODULE POP-UP BOX -->
+
+        <!-- ERF IMPORT / EXPORT POP-UP BOXES -->
+
         <div id="divImportBox">
         </div>
 
         <div id="divExportBox">
         </div>
+
+        <!-- END ERF IMPORT / EXPORT POP-UP BOXES -->
+
+
 
         <div id="divModulePropertiesBox">
         </div>

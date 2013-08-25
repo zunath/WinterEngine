@@ -103,6 +103,7 @@
     <Compile Include="Enumerations\ResourceTypeChangedEventArgs.cs" />
     <Compile Include="Enumerations\ResourceTypeEnum.cs" />
     <Compile Include="Enumerations\ContentPackageResourceTypeEnum.cs" />
+    <Compile Include="Enumerations\SaveAsResponseTypeEnum.cs" />
     <Compile Include="Enumerations\TilesetEditorModeTypeEnum.cs" />
     <Compile Include="Enumerations\UserControlIDEnum.cs" />
     <Compile Include="EventArgsExtended\NetworkLogMessageEventArgs.cs" />

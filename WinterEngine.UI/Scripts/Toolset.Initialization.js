@@ -16,6 +16,8 @@ function Initialize() {
     InitializeDialogBox('#divAboutBox', 'About');
     InitializeDialogBox('#divNewModuleBox', 'New Module');
     InitializeDialogBox('#divOpenModuleBox', 'Open Module');
+    InitializeDialogBox("#divSaveAsModuleBox", "Save Module");
+    InitializeDialogBox('#divSaveAsOverwriteConfirmation', 'Save Confirmation');
     InitializeDialogBox('#divImportBox', 'Import ERF');
     InitializeDialogBox('#divExportBox', 'Export ERF');
     InitializeDialogBox('#divModulePropertiesBox', 'Module Properties');
