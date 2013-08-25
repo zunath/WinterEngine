@@ -42,7 +42,7 @@
                             </a>
                         </li>
                         <li id="liOpenModuleButton">
-                            <a id="aOpenModuleButton" href="#" onclick="OpenModuleButtonClick(this);">Open Module
+                            <a id="aOpenModuleButton" href="#" onclick="ShowOpenModulePopUp(this);">Open Module
                             </a>
                         </li>
                         <li id="liCloseModuleButton" class="ui-state-disabled">
@@ -570,8 +570,13 @@
 
         <div id="divOpenModuleBox">
             Please select a module to open.
+            
+            <select id="selModulesList" size="5" data-bind="foreach: ModuleList">
+                <option data-bind="text: FileName"></option>
+            </select>
 
-
+            <input id="btnOpenModuleOpenButton" type="button" value="Open" onclick="OpenModuleButtonClick();" />
+            <input id="btnOpenModuleCancelButton" type="button" value="Cancel" onclick="CloseOpenModulePopUp();" />
         </div>
 
         <div id="divImportBox">

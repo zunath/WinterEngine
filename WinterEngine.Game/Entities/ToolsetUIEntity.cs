@@ -165,6 +165,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("GetModelJSON", true, GetModelJSON);
             EntityJavascriptObject.Bind("SaveObjectData", false, SaveObjectData);
             EntityJavascriptObject.Bind("LoadObjectData", false, LoadObjectData);
+            EntityJavascriptObject.Bind("GetModulesList", true, GetModulesList);
 
             RunJavaScriptMethod("Initialize();");
         }
@@ -191,19 +192,32 @@ namespace WinterEngine.Game.Entities
             AsyncJavascriptCallback("NewModuleBoxOKClick_Callback", success);
         }
 
+        private void GetModulesList(object sender, JavascriptMethodEventArgs e)
+        {
+            string[] files = Directory.GetFiles(DirectoryPaths.ModuleDirectoryPath, "*" 
+                + ExtensionFactory.GetFileExtension(FileTypeEnum.Module));
+            List<GameModule> moduleList = new List<GameModule>();
+            foreach(string current in files)
+            {
+                GameModule module = new GameModule
+                {
+                    FileName = Path.GetFileNameWithoutExtension(current)
+                };
+                moduleList.Add(module);
+            }
+
+            e.Result = JsonConvert.SerializeObject(moduleList);
+        }
+
         private void OpenModuleButton(object sender, JavascriptMethodEventArgs e)
         {
             try
             {
-                OpenFile.Filter = ExtensionFactory.BuildModuleFileFilter();
+                string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] + ExtensionFactory.GetFileExtension(FileTypeEnum.Module);
+                ModuleFilePath = filePath;
+                ModuleManager.OpenModule(ModuleFilePath);
+                AsyncJavascriptCallback("OpenModuleButtonClick_Callback", true);
 
-                if (OpenFile.ShowDialog() == DialogResult.OK)
-                {
-                    ModuleFilePath = OpenFile.FileName;
-                    ModuleManager.OpenModule(ModuleFilePath);
-
-                    AsyncJavascriptCallback("OpenModuleButtonClick_Callback", true);
-                }
             }
             catch
             {
@@ -321,7 +335,6 @@ namespace WinterEngine.Game.Entities
 
         private void ManageContentPackagesButton(object sender, JavascriptMethodEventArgs e)
         {
-            FileExtensionFactory factory = new FileExtensionFactory();
             List<ContentPackage> attachedContentPackages;
             List<ContentPackage> availableContentPackages = new List<ContentPackage>();
 
@@ -330,7 +343,7 @@ namespace WinterEngine.Game.Entities
                 attachedContentPackages = repo.GetAll();
             }
 
-            string[] files = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + factory.GetFileExtension(FileTypeEnum.ContentPackage));
+            string[] files = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + ExtensionFactory.GetFileExtension(FileTypeEnum.ContentPackage));
             foreach (string currentPackage in files)
             {
                 ContentPackage package = new ContentPackage

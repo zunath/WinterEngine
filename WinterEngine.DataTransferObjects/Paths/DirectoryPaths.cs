@@ -48,7 +48,7 @@ namespace WinterEngine.DataTransferObjects.Paths
         {
             get
             {
-                return FileManager.RelativeDirectory + @"Content/" + _modulePath;
+                return FileManager.RelativeDirectory + @"Content/" + _modulePath + "/";
             }
         }
 

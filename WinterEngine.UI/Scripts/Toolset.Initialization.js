@@ -30,10 +30,7 @@ function Initialize() {
     InitializeTabbedContainers();
     InitializeManageContentPackagesBox();
 
-
-
     $("input[type=button]").button();
-
 }
 
 function InitializeMainMenu() {

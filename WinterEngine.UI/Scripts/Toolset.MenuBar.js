@@ -39,9 +39,26 @@ function NewModuleBoxCancelClick() {
     CloseNewModuleBox();
 }
 
-function OpenModuleButtonClick(element) {
+function ShowOpenModulePopUp(element) {
     if (IsMenuButtonDisabled($(element))) return;
-    Entity.OpenModuleButtonClick();
+
+    var jsonModuleList = Entity.GetModulesList();
+
+    ToolsetViewModel.ModuleList(JSON.parse(jsonModuleList));
+
+    $('#divOpenModuleBox').dialog('open');
+}
+
+function CloseOpenModulePopUp() {
+    $('#divOpenModuleBox').dialog('close');
+}
+
+function OpenModuleButtonClick(element) {
+    var selectedModule = $('#selModulesList option:selected').text();
+
+    if (selectedModule != '') {
+        Entity.OpenModuleButtonClick(selectedModule);
+    }
 }
 
 function OpenModuleButtonClick_Callback(success) {
@@ -50,6 +67,7 @@ function OpenModuleButtonClick_Callback(success) {
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
         $('#divObjectBar').removeClass('clsHidden');
+        CloseOpenModulePopUp();
     }
     else {
         ToggleModuleActionButtons(false);
