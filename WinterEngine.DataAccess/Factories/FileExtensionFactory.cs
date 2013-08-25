@@ -130,8 +130,10 @@ namespace WinterEngine.DataAccess.Factories
         /// <returns></returns>
         public string BuildContentPackageResourceFileFilter()
         {
-            string filter = "All Available Types|*.png|" +
-                            "Graphic Files (.PNG)|*.png";
+            string filter = "All Available Types|*.png;*.mp3;*.wav|" +
+                            "Graphic Files (.PNG)|*.png|" +
+                            "BGM Files (.MP3)|*.mp3|" + 
+                            "Sound Effect Files (.WAV)|*.wav";
 
             return filter;
         }

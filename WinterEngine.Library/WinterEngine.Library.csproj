@@ -84,11 +84,9 @@
     <Compile Include="Managers\GameResourceManager.cs" />
     <Compile Include="Managers\ModuleManager.cs" />
     <Compile Include="Utility\EnumerationHelper.cs" />
-    <Compile Include="Utility\ErrorHelper.cs" />
     <Compile Include="Utility\FileHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\GraphicHelper.cs" />
-    <Compile Include="Utility\TextHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

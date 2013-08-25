@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.Library.Factories;
 
 namespace WinterEngine.Library.Utility
 {
@@ -100,10 +99,9 @@ namespace WinterEngine.Library.Utility
                 TemporaryDirectoryPath = Directory.CreateDirectory(directoryPath + uniqueID + "/").FullName;
                 return TemporaryDirectoryPath;
             }
-            catch (Exception ex)
+            catch
             {
-                ErrorHelper.ShowErrorDialog("Error creating temporary directory: ", ex);
-                return "";
+                throw;
             }
         }
 

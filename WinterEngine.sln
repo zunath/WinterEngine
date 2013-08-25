@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.UI", "WinterEn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Server", "WinterEngine.Server\WinterEngine.Server.csproj", "{4BB5FCB0-6103-4F8D-AF63-B5BA5A7C674C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.ContentPackageCreator", "WinterEngine.ContentPackageCreator\WinterEngine.ContentPackageCreator.csproj", "{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,18 @@ Global
 		{4BB5FCB0-6103-4F8D-AF63-B5BA5A7C674C}.Release|x64.ActiveCfg = Release|x86
 		{4BB5FCB0-6103-4F8D-AF63-B5BA5A7C674C}.Release|x86.ActiveCfg = Release|x86
 		{4BB5FCB0-6103-4F8D-AF63-B5BA5A7C674C}.Release|x86.Build.0 = Release|x86
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Release|x64.ActiveCfg = Release|Any CPU
+		{2AB6CA62-100C-4BCF-AE3B-A57746FFB620}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

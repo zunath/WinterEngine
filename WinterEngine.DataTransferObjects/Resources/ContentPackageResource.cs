@@ -17,12 +17,8 @@ namespace WinterEngine.DataTransferObjects
         #region Fields
 
         private ContentPackage _contentPackage;
-        private string _resourceName;
-        private string _resourcePath;
         private ContentPackageResourceTypeEnum _contentPackageResourceType;
         private ContentBuilderFileTypeEnum _fileType;
-        private string _fileName;
-        private int _contentPackageID;
 
         #endregion
 
@@ -53,22 +49,13 @@ namespace WinterEngine.DataTransferObjects
         /// Gets or sets the name of the resource.
         /// </summary>
         [MaxLength(64)]
-        public string ResourceName
-        {
-            get { return _resourceName; }
-            set { _resourceName = value; }
-        }
+        public string ResourceName { get; set; }
 
         /// <summary>
         /// Gets or sets the path to the resource.
         /// </summary>
-        [MaxLength(4000)]
         [NotMapped]
-        public string ResourcePath
-        {
-            get { return _resourcePath; }
-            set { _resourcePath = value; }
-        }
+        public string ResourcePath { get; set; }
 
         public int ContentPackageResourceTypeID
         {
@@ -93,27 +80,15 @@ namespace WinterEngine.DataTransferObjects
         /// Gets or sets whether the resource is contained in a content package or exists on disk.
         /// </summary>
         [NotMapped]
-        public ContentBuilderFileTypeEnum FileType
-        {
-            get { return _fileType; }
-            set { _fileType = value; }
-        }
+        public ContentBuilderFileTypeEnum FileType { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the file. The file extension is included.
         /// </summary>
         [MaxLength(4000)]
-        public string FileName
-        {
-            get { return _fileName; }
-            set { _fileName = value; }
-        }
+        public string FileName { get; set; }
 
-        public int ContentPackageID
-        {
-            get { return _contentPackageID; }
-            set { _contentPackageID = value; }
-        }
+        public int ContentPackageID { get; set; }
 
         #endregion
 
