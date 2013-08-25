@@ -32,8 +32,6 @@ namespace WinterEngine.Game.Entities
 
         #region Properties
 
-        private string ModuleFilePath { get; set; }
-
         private FileExtensionFactory ExtensionFactory 
         {
             get
@@ -46,8 +44,6 @@ namespace WinterEngine.Game.Entities
                 return _extensionFactory;
             }
         }
-
-        private GameModule ActiveModule { get; set; }
 
         private ModuleManager ModuleManager
         {
@@ -140,7 +136,7 @@ namespace WinterEngine.Game.Entities
 
         private void SaveModule()
         {
-            ModuleManager.SaveModule(ModuleFilePath);
+            ModuleManager.SaveModule();
         }
 
         #endregion
@@ -161,8 +157,7 @@ namespace WinterEngine.Game.Entities
             try
             {
                 string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] + ExtensionFactory.GetFileExtension(FileTypeEnum.Module);
-                ModuleFilePath = filePath;
-                ModuleManager.OpenModule(ModuleFilePath);
+                ModuleManager.OpenModule(filePath);
                 AsyncJavascriptCallback("OpenModuleButtonClick_Callback", true);
 
             }
@@ -175,7 +170,7 @@ namespace WinterEngine.Game.Entities
 
         private void SaveModuleButton(object sender, JavascriptMethodEventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(ModuleFilePath))
+            if (String.IsNullOrWhiteSpace(ModuleManager.ModulePath))
             {
                 AsyncJavascriptCallback("ShowSaveAsModulePopUp");
             }
@@ -198,7 +193,7 @@ namespace WinterEngine.Game.Entities
             }
             else
             {
-                ModuleFilePath = filePath;
+                ModuleManager.ModulePath = filePath;
                 SaveModule();
                 response = SaveAsResponseTypeEnum.SaveSuccessful;
             }
@@ -208,7 +203,6 @@ namespace WinterEngine.Game.Entities
 
         private void CloseModuleButton(object sender, JavascriptMethodEventArgs e)
         {
-            ModuleFilePath = null;
             ModuleManager.CloseModule();
             AsyncJavascriptCallback("CloseModuleButtonClick_Callback");
         }
