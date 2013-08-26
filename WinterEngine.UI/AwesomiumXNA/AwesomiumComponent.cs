@@ -124,7 +124,6 @@ namespace AwesomiumXNA
 
         private Rectangle area;
         private Rectangle? newArea;
-        private Boolean resizing;
 
         public AwesomiumComponent(Game game, Rectangle area)
             : base(game)

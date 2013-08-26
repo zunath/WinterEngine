@@ -225,7 +225,7 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
-    <Content Include="Libraries\Xna4Pc\FlatRedBall.Content.dll" />
+    <None Include="Libraries\Xna4Pc\FlatRedBall.Content.dll" />
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="redball.BMP">
