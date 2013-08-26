@@ -108,6 +108,7 @@ namespace WinterEngine.Game.Entities
             // Content Menu Bindings
             EntityJavascriptObject.Bind("BuildModuleButtonClick", false, BuildModuleButton);
             EntityJavascriptObject.Bind("ManageContentPackagesButtonClick", false, ManageContentPackagesButton);
+            EntityJavascriptObject.Bind("UpdateContentPackages", false, UpdateContentPackages);
 
             // Help Menu Bindings
             EntityJavascriptObject.Bind("WinterEngineWebsiteButtonClick", false, WinterEngineWebsiteButton);
@@ -246,7 +247,7 @@ namespace WinterEngine.Game.Entities
 
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                attachedContentPackages = repo.GetAll();
+                attachedContentPackages = repo.GetAllNonSystemResource();
             }
 
             string[] files = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + ExtensionFactory.GetFileExtension(FileTypeEnum.ContentPackage));
@@ -266,6 +267,14 @@ namespace WinterEngine.Game.Entities
             string jsonAvailableContentPackages = JsonConvert.SerializeObject(availableContentPackages);
 
             AsyncJavascriptCallback("ManageContentPackagesButton_Callback", jsonAttachedContentPackages, jsonAvailableContentPackages);
+        }
+
+        private void UpdateContentPackages(object sender, JavascriptMethodEventArgs e)
+        {
+            string jsonUpdatedContentPackages = e.Arguments[0];
+            List<ContentPackage> contentPackageList = JsonConvert.DeserializeObject<List<ContentPackage>>(jsonUpdatedContentPackages);
+
+
         }
 
         #endregion

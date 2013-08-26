@@ -207,18 +207,45 @@ function ManageContentPackagesButtonClick(element) {
 
 function ManageContentPackagesButton_Callback(jsonAttachedContentPackages, jsonAvailableContentPackages) {
 
-    var attachedPackages = JSON.parse(jsonAttachedContentPackages);
-    var availablePackages = JSON.parse(jsonAvailableContentPackages);
+    ToolsetViewModel.AvailableContentPackages(JSON.parse(jsonAvailableContentPackages));
+    ToolsetViewModel.AttachedContentPackages(JSON.parse(jsonAttachedContentPackages));
 
     $('#divManageContentPackages').dialog('open');
 }
 
-function CloseManageContentPackagesBox() {
-    $('#divManageContentPackages').dialog('close');
+function ManageContentPackagesAddButton() {
+    var selectedItemName = $('#selAvailableContentPackages option:selected').text();
+    
+    var match = ko.utils.arrayFirst(ToolsetViewModel.AttachedContentPackages(), function (item) {
+        return item.Name === selectedItemName;
+    });
+
+    if (!match) {
+        ToolsetViewModel.AttachedContentPackages.push({ Name: selectedItemName });
+    }
 }
 
-function ContentPackageCreatorButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
+function ManageContentPackagesRemoveButton() {
+    var selectedItemName = $('#selAttachedContentPackages option:selected').text();
+
+    var match = ko.utils.arrayFirst(ToolsetViewModel.AttachedContentPackages(), function (item) {
+        if (item.Name === selectedItemName)
+            return item;
+    });
+
+    ToolsetViewModel.AttachedContentPackages.remove(match);
+}
+
+function ManageContentPackagesSaveChanges() {
+    var jsonUpdatedContentPackages = JSON.stringify(ToolsetViewModel.AttachedContentPackages());
+
+    Entity.UpdateContentPackages(jsonUpdatedContentPackages);
+}
+
+function CloseManageContentPackagesBox() {
+    $('#divManageContentPackages').dialog('close');
+    $('#selAvailableContentPackages').empty();
+    $('#selAttachedContentPackages').empty();
 }
 
 function BuildModuleButtonClick(element) {

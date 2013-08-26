@@ -14,6 +14,16 @@ namespace WinterEngine.Editor.Managers
     {
         #region Methods
 
+        public static void UpdateModuleContentPackages(List<ContentPackage> contentPackages)
+        {
+
+            foreach (ContentPackage package in contentPackages)
+            {
+                string path = DirectoryPaths.ContentPackageDirectoryPath + package.FileName;
+
+            }
+        }
+
         /// <summary>
         /// Handles refreshing content package resource links in the database and updating existing references.
         /// Content packages must have a valid path set for their path property.

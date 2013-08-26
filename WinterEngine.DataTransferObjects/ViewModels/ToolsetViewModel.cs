@@ -19,6 +19,8 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public Script ActiveScript { get; set; }
 
         public List<GameModule> ModuleList { get; set; }
+        public List<ContentPackage> AvailableContentPackages { get; set; }
+        public List<ContentPackage> AttachedContentPackages { get; set; }
 
         public ToolsetViewModel()
         {
@@ -32,6 +34,8 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             ActivePlaceable = new Placeable();
             ActiveScript = new Script();
             ModuleList = new List<GameModule>();
+            AvailableContentPackages = new List<ContentPackage>();
+            AttachedContentPackages = new List<ContentPackage>();
         }
     }
 }

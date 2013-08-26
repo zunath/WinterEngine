@@ -61,23 +61,6 @@ namespace WinterEngine.DataTransferObjects
             this.ResourceType = ResourceTypeEnum.ContentPackage;
         }
 
-        public ContentPackage(string path, bool isSystemResource, string visibleName = "")
-        {
-            this._contentPackagePath = path;
-            this._fileName = Path.GetFileName(path);
-            this.ResourceType = ResourceTypeEnum.ContentPackage;
-            this.IsSystemResource = isSystemResource;
-
-            if (String.IsNullOrWhiteSpace(visibleName))
-            {
-                this.Name = Path.GetFileNameWithoutExtension(path);
-            }
-            else
-            {
-                this.Name = visibleName;
-            }
-        }
-
         #endregion
 
         #region Overrides

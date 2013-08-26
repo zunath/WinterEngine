@@ -65,10 +65,6 @@
                             <a id="aExportButton" href="#" onclick="ExportButtonClick(this);">Export
                             </a>
                         </li>
-                        <li id="liRecentFilesButton">
-                            <a id="aRecentFilesButton" href="#">Recent Files
-                            </a>
-                        </li>
                         <li id="liExitButton">
                             <a id="aExitButton" href="#" onclick="ExitButtonClick(this);">Exit
                             </a>
@@ -109,10 +105,6 @@
                     <ul>
                         <li id="liManageContentPackagesButton" class="ui-state-disabled">
                             <a id="aManageContentPackagesButton" href="#" onclick="ManageContentPackagesButtonClick(this);">Manage Content Packages
-                            </a>
-                        </li>
-                        <li id="liContentPackageCreatorButton">
-                            <a id="aContentPackageCreatorButton" href="#" onclick="ContentPackageCreatorButtonClick(this);">Content Package Creator
                             </a>
                         </li>
                         <li id="liBuildModuleButton" class="ui-state-disabled">
@@ -718,21 +710,34 @@
 
         <div id="divManageContentPackages">
 
+            <label class="clsErrorMessage">WARNING: </label>
+            Adjusting the content package list can take a very long time. 
+            <br />
+            <br />
+            Please do not interrupt the process once it has started.
+            <br />
+            <br />
             <div id="divAvailableContentPackagesList">
-                <ol id="olAvailableContentPackages">
-                    <li>Test</li>
-                    <li>test 2</li>
-                </ol>
+                <label>Available Content Packages:</label>    
+                <select id="selAvailableContentPackages" size="6" data-bind="foreach: AvailableContentPackages" >
+                    <option data-bind="text: Name, Value: Name" ondblclick="ManageContentPackagesAddButton();"></option>
+                </select>
+
             </div>
+
+            <input id="btnAddContentPackage" type="button" value="Add" onclick="ManageContentPackagesAddButton();" />
+            <input id="btnRemoveContentPackage" type="button" value="Remove" onclick="ManageContentPackagesRemoveButton();" /> 
 
             <div id="divAttachedContentPackagesList">
-                <ol id="olAttachedContentPackages">
-                    <li>Test</li>
-                    <li>test 2</li>
-                </ol>
+                <br />
+                <label>Attached Content Packages:</label>    
+                <select id="selAttachedContentPackages" size="6" data-bind="foreach: AttachedContentPackages" >
+                    <option data-bind="text: Name, value: Name" ondblclick="ManageContentPackagesRemoveButton();"></option>
+                </select>
+
             </div>
 
-            <input id="btnManageContentPackagesOK" type="button" value="OK" />
+            <input id="btnManageContentPackagesSaveChanges" type="button" value="Save Changes" onclick="ManageContentPackagesSaveChanges();" />
             <input id="btnManageContentPackagesCancel" type="button" value="Cancel" onclick="CloseManageContentPackagesBox();" />
         </div>
 
