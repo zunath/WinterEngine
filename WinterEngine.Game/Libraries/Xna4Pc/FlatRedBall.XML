@@ -9129,6 +9129,12 @@
             portability between FlatRedBall Managed DirectX and FlatRedBall XNA.
             </summary>
         </member>
+        <member name="T:FlatRedBall.Instructions.DelegateInstruction">
+            <summary>
+            Represents an Instruction which can execute an instruction.  This is commonly used
+            with IInstructables to perform logic at a delayed time.
+            </summary>
+        </member>
         <member name="T:FlatRedBall.Instructions.Instruction">
             <summary>
             Class that supports the execution of custom logic at a future time.

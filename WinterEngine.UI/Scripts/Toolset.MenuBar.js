@@ -215,13 +215,14 @@ function ManageContentPackagesButton_Callback(jsonAttachedContentPackages, jsonA
 
 function ManageContentPackagesAddButton() {
     var selectedItemName = $('#selAvailableContentPackages option:selected').text();
+    var selectedItemFileName = $('#selAvailableContentPackages option:selected').val();
     
     var match = ko.utils.arrayFirst(ToolsetViewModel.AttachedContentPackages(), function (item) {
         return item.Name === selectedItemName;
     });
 
     if (!match) {
-        ToolsetViewModel.AttachedContentPackages.push({ Name: selectedItemName });
+        ToolsetViewModel.AttachedContentPackages.push({ Name: selectedItemName, FileName: selectedItemFileName });
     }
 }
 

@@ -12,6 +12,8 @@ using WinterEngine.DataTransferObjects.Enumerations;
 
 using WinterEngine.Library.Utility;
 using WinterEngine.DataAccess.FileAccess;
+using WinterEngine.DataAccess.Factories;
+using WinterEngine.DataTransferObjects.Paths;
 
 namespace WinterEngine.Library.Managers
 {
@@ -299,13 +301,16 @@ namespace WinterEngine.Library.Managers
         public bool CheckForMissingContentPackages()
         {
             List<string> missingContentPackages;
-            List<string> fileContentPackages;
+            List<string> fileContentPackages = new List<string>();
             List<string> moduleContentPackages;
 
+
             // Retrieve the existing content packages (ones which are in the ContentPackages directory)
-            using (ContentPackageRepository manager = new ContentPackageRepository())
+            FileExtensionFactory factory = new FileExtensionFactory();
+            string[] filePaths = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + factory.GetFileExtension(FileTypeEnum.ContentPackage));
+            foreach (string path in filePaths)
             {
-                fileContentPackages = manager.GetAllContentPackageFileNames();
+                fileContentPackages.Add(Path.GetFileName(path));
             }
 
             // Retrieve the required content packages (ones which are attached to the module)

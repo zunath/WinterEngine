@@ -21,7 +21,6 @@ namespace WinterEngine.Game
 				cameraToReset.Y = 0;
 				cameraToReset.XVelocity = 0;
 				cameraToReset.YVelocity = 0;
-				cameraToReset.Detach();
 			}
 
 	}

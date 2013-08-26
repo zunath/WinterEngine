@@ -40,14 +40,10 @@ namespace WinterEngine.DataAccess.Repositories
             if (dbResource == null) return;
 
             dbResource.Comment = resource.Comment;
-            dbResource.ContentPackageID = resource.ContentPackageID;
             dbResource.ContentPackageResourceTypeID = resource.ContentPackageResourceTypeID;
             dbResource.FileName = resource.FileName;
-            dbResource.FileType = resource.FileType;
             dbResource.IsSystemResource = resource.IsSystemResource;
             dbResource.Name = resource.Name;
-            dbResource.ResourceName = resource.ResourceName;
-            dbResource.ResourcePath = resource.ResourcePath;
             dbResource.ResourceTypeID = resource.ResourceTypeID;
             
         }
@@ -103,39 +99,6 @@ namespace WinterEngine.DataAccess.Repositories
         public ContentPackageResource GetByID(int resourceID)
         {
             return Context.ContentPackageResourceRepository.Get(x => x.ResourceID == resourceID, null, "Package").SingleOrDefault();
-        }
-
-        /// <summary>
-        /// Adds a list of content package resources to the database. Duplicate entries (based on FileName) are ignored.
-        /// </summary>
-        /// <param name="resourceList"></param>
-        public void AddIgnoreExisting(List<ContentPackageResource> resourceList)
-        {
-            foreach (ContentPackageResource resource in resourceList)
-            {
-                ContentPackageResource existingResource = Context.ContentPackageResourceRepository.Get(x => x.FileName == resource.FileName).SingleOrDefault();
-
-                if (Object.ReferenceEquals(existingResource, null))
-                {
-                    Context.ContentPackageResourceRepository.Add(resource);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Removes all resources in the specified ContentPackage which are not in the specified resource list
-        /// </summary>
-        /// <param name="package"></param>
-        /// <param name="resourceList"></param>
-        public void RemoveMissingResources(ContentPackage package, List<ContentPackageResource> resourceList)
-        {
-            List<ContentPackageResource> existingResources = Context.ContentPackageResourceRepository.Get(x => x.ContentPackageID == package.ResourceID).ToList();
-            List<ContentPackageResource> removedResources = existingResources.Except(resourceList).ToList();
-
-            foreach (ContentPackageResource resource in removedResources)
-            {
-                Context.ContentPackageResourceRepository.Delete(resource);
-            }
         }
 
         #endregion

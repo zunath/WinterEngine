@@ -1,14 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using FlatRedBall.AI.Pathfinding;
-using FlatRedBall.Graphics.Model;
 
-using FlatRedBall.Input;
-using FlatRedBall.Utilities;
-
-using FlatRedBall.Instructions;
-using FlatRedBall.Math.Splines;
 using BitmapFont = FlatRedBall.Graphics.BitmapFont;
 using Cursor = FlatRedBall.Gui.Cursor;
 using GuiManager = FlatRedBall.Gui.GuiManager;
@@ -19,6 +9,9 @@ using FlatRedBall.Math;
 using WinterEngine.Game.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 #if XNA4 || WINDOWS_8
 using Color = Microsoft.Xna.Framework.Color;
@@ -57,8 +50,6 @@ namespace WinterEngine.Game.Entities
 		static List<string> mRegisteredUnloads = new List<string>();
 		static List<string> LoadedContentManagers = new List<string>();
 		
-		public int Index { get; set; }
-		public bool Used { get; set; }
 		public event EventHandler BeforeVisibleSet;
 		public event EventHandler AfterVisibleSet;
 		protected bool mVisible = true;
@@ -285,8 +276,9 @@ namespace WinterEngine.Game.Entities
 		{
 			base.SetToIgnorePausing();
 		}
-		public void MoveToLayer (Layer layerToMoveTo)
+		public override void MoveToLayer (Layer layerToMoveTo)
 		{
+			base.MoveToLayer(layerToMoveTo);
 			LayerProvidedByContainer = layerToMoveTo;
 		}
 

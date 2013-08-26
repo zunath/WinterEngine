@@ -14,29 +14,41 @@ namespace WinterEngine.Editor.Managers
     {
         #region Methods
 
-        public static void UpdateModuleContentPackages(List<ContentPackage> contentPackages)
+        private static List<ContentPackageResource> GetAllResourcesInContentPackage(ContentPackage package)
         {
+            List<ContentPackageResource> resources = new List<ContentPackageResource>();
 
-            foreach (ContentPackage package in contentPackages)
-            {
-                string path = DirectoryPaths.ContentPackageDirectoryPath + package.FileName;
-
-            }
+            return resources;
         }
 
-        /// <summary>
-        /// Handles refreshing content package resource links in the database and updating existing references.
-        /// Content packages must have a valid path set for their path property.
-        /// </summary>
-        /// <param name="contentPackages"></param>
         public static void RebuildModule(List<ContentPackage> contentPackages)
         {
-            // Refresh all database links
-            using (ContentPackageRepository packageRepo = new ContentPackageRepository())
+            contentPackages.ForEach(a => a.ResourceList = GameResourceManager.GetAllResourcesInContentPackage(a));
+
+            using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                // Remove missing content packages, upsert the current set of content packages
-                packageRepo.ReplaceAll(contentPackages);
+                List<ContentPackage> existingContentPackages = repo.GetAllNonSystemResource();
+
+                // Update or remove existing
+                foreach (ContentPackage current in existingContentPackages)
+                {
+                    if (contentPackages.Exists(x => x.FileName == current.FileName))
+                    {
+                        repo.Update(current);
+                        contentPackages.RemoveAll(x => x.FileName == current.FileName);
+                    }
+                    else
+                    {
+                        repo.Delete(current);
+                    }
+                }
+
+                // Add the new ones
+                repo.Add(contentPackages);
             }
+
+            // TO-DO: Update object resource links.
+
         }
 
         /// <summary>

@@ -248,6 +248,9 @@ namespace WinterEngine.Game.Entities
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
                 attachedContentPackages = repo.GetAllNonSystemResource();
+                // We don't need to send the resource list to the GUI because it could contain a lot of data.
+                // We'll pick up the resource list when we go to do a save/rebuild of the module.
+                attachedContentPackages.ForEach(a => a.ResourceList = null);
             }
 
             string[] files = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + ExtensionFactory.GetFileExtension(FileTypeEnum.ContentPackage));
@@ -273,8 +276,7 @@ namespace WinterEngine.Game.Entities
         {
             string jsonUpdatedContentPackages = e.Arguments[0];
             List<ContentPackage> contentPackageList = JsonConvert.DeserializeObject<List<ContentPackage>>(jsonUpdatedContentPackages);
-
-
+            GameResourceManager.RebuildModule(contentPackageList);
         }
 
         #endregion

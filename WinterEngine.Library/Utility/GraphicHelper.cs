@@ -51,7 +51,7 @@ namespace WinterEngine.Library.Utility
             }
             else
             {
-                path = resource.Package.ContentPackagePath;
+                //path = resource.Package.ContentPackagePath;
             }
 
             MemoryStream stream = new MemoryStream();

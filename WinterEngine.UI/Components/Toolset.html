@@ -720,7 +720,7 @@
             <div id="divAvailableContentPackagesList">
                 <label>Available Content Packages:</label>    
                 <select id="selAvailableContentPackages" size="6" data-bind="foreach: AvailableContentPackages" >
-                    <option data-bind="text: Name, Value: Name" ondblclick="ManageContentPackagesAddButton();"></option>
+                    <option data-bind="text: Name, value: FileName" ondblclick="ManageContentPackagesAddButton();"></option>
                 </select>
 
             </div>
@@ -732,7 +732,7 @@
                 <br />
                 <label>Attached Content Packages:</label>    
                 <select id="selAttachedContentPackages" size="6" data-bind="foreach: AttachedContentPackages" >
-                    <option data-bind="text: Name, value: Name" ondblclick="ManageContentPackagesRemoveButton();"></option>
+                    <option data-bind="text: Name, value: FileName" ondblclick="ManageContentPackagesRemoveButton();"></option>
                 </select>
 
             </div>

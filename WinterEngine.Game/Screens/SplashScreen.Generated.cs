@@ -1,13 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using FlatRedBall.Math.Geometry;
-using FlatRedBall.AI.Pathfinding;
-using FlatRedBall.Input;
-using FlatRedBall.IO;
-using FlatRedBall.Instructions;
-using FlatRedBall.Math.Splines;
-using FlatRedBall.Utilities;
 using BitmapFont = FlatRedBall.Graphics.BitmapFont;
 
 using Cursor = FlatRedBall.Gui.Cursor;
@@ -32,6 +22,9 @@ using Microsoft.Xna.Framework.Media;
 using WinterEngine.Game.Entities;
 using FlatRedBall;
 using FlatRedBall.Screens;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace WinterEngine.Game.Screens
 {
@@ -219,7 +212,7 @@ namespace WinterEngine.Game.Screens
 				mLoadingState = value;
 			}
 		}
-		public Instruction InterpolateToState (VariableState stateToInterpolateTo, double secondsToTake)
+		public FlatRedBall.Instructions.Instruction InterpolateToState (VariableState stateToInterpolateTo, double secondsToTake)
 		{
 			switch(stateToInterpolateTo)
 			{
@@ -230,9 +223,9 @@ namespace WinterEngine.Game.Screens
 					SpriteObject.AlphaRate = (0f - SpriteObject.Alpha) / (float)secondsToTake;
 					break;
 			}
-			var instruction = new DelegateInstruction<VariableState>(StopStateInterpolation, stateToInterpolateTo);
-			instruction.TimeToExecute = TimeManager.CurrentTime + secondsToTake;
-			InstructionManager.Add(instruction);
+			var instruction = new FlatRedBall.Instructions.DelegateInstruction<VariableState>(StopStateInterpolation, stateToInterpolateTo);
+			instruction.TimeToExecute = FlatRedBall.TimeManager.CurrentTime + secondsToTake;
+			FlatRedBall.Instructions.InstructionManager.Add(instruction);
 			return instruction;
 		}
 		public void StopStateInterpolation (VariableState stateToStop)
