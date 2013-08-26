@@ -5,10 +5,10 @@ using System.Text;
 using System.Xml.Serialization;
 using WinterEngine.DataTransferObjects.Enumerations;
 
-namespace WinterEngine.DataTransferObjects.BusinessObjects
+namespace WinterEngine.DataTransferObjects.XMLObjects
 {
     // Content Package Creator (CPC) Resource
-    public class CPCResource
+    public class ContentPackageResourceXML
     {
         [XmlIgnore]
         public string FilePath { get; set; }

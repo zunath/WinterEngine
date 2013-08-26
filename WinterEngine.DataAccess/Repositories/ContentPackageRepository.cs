@@ -84,7 +84,6 @@ namespace WinterEngine.DataAccess.Repositories
             if (dbPackage == null) return;
 
             dbPackage.Comment = package.Comment;
-            dbPackage.ContentPackagePath = package.ContentPackagePath;
             dbPackage.Description = package.Description;
             dbPackage.FileName = package.FileName;
             dbPackage.IsSystemResource = package.IsSystemResource;

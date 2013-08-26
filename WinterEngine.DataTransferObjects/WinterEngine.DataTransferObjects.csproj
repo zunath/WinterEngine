@@ -83,7 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\ConnectionAddress.cs" />
-    <Compile Include="BusinessObjects\CPCResource.cs" />
+    <Compile Include="XMLObjects\ContentPackageResourceXML.cs" />
     <Compile Include="BusinessObjects\JSTreeNode.cs" />
     <Compile Include="BusinessObjects\Location.cs" />
     <Compile Include="BusinessObjects\LoginCredentials.cs" />
@@ -128,7 +128,7 @@
     <Compile Include="Resources\LocalVariable.cs" />
     <Compile Include="GameObjects\PlayerCharacter.cs" />
     <Compile Include="GameObjects\Script.cs" />
-    <Compile Include="ViewModels\ContentPackageCreatorViewModel.cs" />
+    <Compile Include="XMLObjects\ContentPackageXML.cs" />
     <Compile Include="ViewModels\ToolsetViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

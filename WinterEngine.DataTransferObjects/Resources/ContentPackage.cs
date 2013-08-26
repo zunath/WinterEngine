@@ -21,12 +21,6 @@ namespace WinterEngine.DataTransferObjects
         #region Properties
 
         /// <summary>
-        /// Gets or sets the path to the content package path.
-        /// </summary>
-        [NotMapped]
-        public string ContentPackagePath { get; set; }
-
-        /// <summary>
         /// Gets or sets the name of the physical file. This includes the file extension.
         /// </summary>
         [MaxLength(4000)]

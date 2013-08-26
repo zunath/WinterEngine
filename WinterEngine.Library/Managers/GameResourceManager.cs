@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Ionic.Zip;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Paths;
+using WinterEngine.DataTransferObjects.XMLObjects;
 
 
 namespace WinterEngine.Editor.Managers
@@ -14,16 +18,62 @@ namespace WinterEngine.Editor.Managers
     {
         #region Methods
 
-        private static List<ContentPackageResource> GetAllResourcesInContentPackage(ContentPackage package)
+        public static ContentPackageXML DeserializeContentPackageFile(string filePath)
         {
-            List<ContentPackageResource> resources = new List<ContentPackageResource>();
+            ContentPackageXML packageXML;
 
-            return resources;
+            try
+            {
+                using (ZipFile zipFile = new ZipFile(filePath))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(ContentPackageXML));
+                    MemoryStream stream = new MemoryStream();
+                    zipFile["Manifest.xml"].Extract(stream);
+                    stream.Position = 0;
+
+                    using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                    {
+                        packageXML = serializer.Deserialize(reader) as ContentPackageXML;
+                    }
+                }
+
+                return packageXML;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public static List<ContentPackageResource> GetAllResourcesInContentPackage(string filePath)
+        {
+            try
+            {
+                List<ContentPackageResource> resources = new List<ContentPackageResource>();
+                ContentPackageXML xmlModel = DeserializeContentPackageFile(filePath);
+
+                foreach (ContentPackageResourceXML current in xmlModel.ResourceList)
+                {
+                    ContentPackageResource resource = new ContentPackageResource
+                    {
+                        FileName = current.FileName,
+                        Name = Path.GetFileNameWithoutExtension(current.FileName),
+                        ContentPackageResourceType = current.ResourceType
+                    };
+                    resources.Add(resource);
+                }
+
+                return resources;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public static void RebuildModule(List<ContentPackage> contentPackages)
         {
-            contentPackages.ForEach(a => a.ResourceList = GameResourceManager.GetAllResourcesInContentPackage(a));
+            contentPackages.ForEach(a => a.ResourceList = GameResourceManager.GetAllResourcesInContentPackage(DirectoryPaths.ContentPackageDirectoryPath + a.FileName));
 
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
@@ -59,12 +109,7 @@ namespace WinterEngine.Editor.Managers
             List<ContentPackage> contentPackages;
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                contentPackages = repo.GetAll();
-            }
-
-            foreach (ContentPackage package in contentPackages)
-            {
-                package.ContentPackagePath = DirectoryPaths.ContentPackageDirectoryPath + package.FileName;
+                contentPackages = repo.GetAllNonSystemResource();
             }
 
             RebuildModule(contentPackages);

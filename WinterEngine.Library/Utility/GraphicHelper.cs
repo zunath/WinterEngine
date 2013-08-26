@@ -47,7 +47,7 @@ namespace WinterEngine.Library.Utility
 
             if (!Object.ReferenceEquals(package, null))
             {
-                path = package.ContentPackagePath;
+                //path = package.ContentPackagePath;
             }
             else
             {

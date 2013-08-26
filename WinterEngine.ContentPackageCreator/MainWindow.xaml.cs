@@ -1,18 +1,19 @@
-﻿using System;
-using System.Windows;
+﻿using Ionic.Zip;
+using Ionic.Zlib;
 using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Xml;
+using System.Xml.Serialization;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
-using WinterEngine.DataTransferObjects.ViewModels;
-using System.Linq;
 using WinterEngine.DataTransferObjects.Enumerations;
-using System.IO;
-using System.Collections.Generic;
-using Ionic.Zip;
-using System.Xml.Serialization;
-using System.Xml;
-using Ionic.Zlib;
-using System.Text;
+using WinterEngine.DataTransferObjects.XMLObjects;
+using WinterEngine.Editor.Managers;
 
 namespace WinterEngine.ContentPackageCreator
 {
@@ -27,7 +28,7 @@ namespace WinterEngine.ContentPackageCreator
 
         #region Properties
 
-        private ContentPackageCreatorViewModel Model { get; set; }
+        private ContentPackageXML Model { get; set; }
         private OpenFileDialog OpenFilePrompt { get; set; }
         private SaveFileDialog SaveFilePrompt { get; set; }
         private FileExtensionFactory ExtensionFactory { get; set; }
@@ -107,10 +108,10 @@ namespace WinterEngine.ContentPackageCreator
                 foreach (string path in OpenFilePrompt.FileNames)
                 {
                     string file = Path.GetFileName(path);
-                    CPCResource resource = Model.ResourceList.SingleOrDefault(x => x.FileName == file);
+                    ContentPackageResourceXML resource = Model.ResourceList.SingleOrDefault(x => x.FileName == file);
                     if (resource == null)
                     {
-                        resource = new CPCResource
+                        resource = new ContentPackageResourceXML
                         {
                             FilePath = path,
                             FileName = file,
@@ -130,11 +131,11 @@ namespace WinterEngine.ContentPackageCreator
 
         private void btnRemoveFiles_Click(object sender, RoutedEventArgs e)
         {
-            List<CPCResource> resourceList = lstAddedResources.SelectedItems.Cast<CPCResource>().ToList();
+            List<ContentPackageResourceXML> resourceList = lstAddedResources.SelectedItems.Cast<ContentPackageResourceXML>().ToList();
 
-            foreach (CPCResource resource in resourceList)
+            foreach (ContentPackageResourceXML resource in resourceList)
             {
-                CPCResource resourceToRemove = Model.ResourceList.SingleOrDefault(x => x.FileName == resource.FileName);
+                ContentPackageResourceXML resourceToRemove = Model.ResourceList.SingleOrDefault(x => x.FileName == resource.FileName);
                 Model.ResourceList.Remove(resourceToRemove);
             }
 
@@ -146,8 +147,8 @@ namespace WinterEngine.ContentPackageCreator
 
         private void resourceTypeButtons_Checked(object sender, RoutedEventArgs e)
         {
-            List<CPCResource> selectedResources = lstAddedResources.SelectedItems.Cast<CPCResource>().ToList();
-            foreach (CPCResource resource in selectedResources)
+            List<ContentPackageResourceXML> selectedResources = lstAddedResources.SelectedItems.Cast<ContentPackageResourceXML>().ToList();
+            foreach (ContentPackageResourceXML resource in selectedResources)
             {
                 if ((bool)rdoBGM.IsChecked) resource.ResourceType = ContentPackageResourceTypeEnum.BGM;
                 else if ((bool)rdoCharacter.IsChecked) resource.ResourceType = ContentPackageResourceTypeEnum.Character;
@@ -168,7 +169,7 @@ namespace WinterEngine.ContentPackageCreator
             rdoCharacter.IsEnabled = false;
             rdoPlaceable.IsEnabled = false;
             rdoTileset.IsEnabled = false;
-            CPCResource resource = lstAddedResources.SelectedItem as CPCResource;
+            ContentPackageResourceXML resource = lstAddedResources.SelectedItem as ContentPackageResourceXML;
             if (resource == null || lstAddedResources.SelectedItems.Count > 1) return;
             
             string extension = Path.GetExtension(resource.FileName).ToLower();
@@ -238,7 +239,7 @@ namespace WinterEngine.ContentPackageCreator
                     Model.Description = txtDescription.Text;
                     Model.Name = txtName.Text;
 
-                    XmlSerializer serializer = new XmlSerializer(typeof(ContentPackageCreatorViewModel));
+                    XmlSerializer serializer = new XmlSerializer(typeof(ContentPackageXML));
                     StringWriter stringWriter = new StringWriter();
                     XmlWriterSettings settings = new XmlWriterSettings { Indent = true, Encoding = Encoding.ASCII};
                     XmlWriter writer = XmlWriter.Create(stringWriter, settings);
@@ -258,7 +259,7 @@ namespace WinterEngine.ContentPackageCreator
                         }
                         zipFile.AddFile("./Manifest.xml", "");
 
-                        List<CPCResource> resourceList = lstAddedResources.Items.Cast<CPCResource>().ToList();
+                        List<ContentPackageResourceXML> resourceList = lstAddedResources.Items.Cast<ContentPackageResourceXML>().ToList();
                         
                         // Remove files which are no longer used.
                         for(int index = zipFile.Entries.Count; index > 0; index--)
@@ -274,7 +275,7 @@ namespace WinterEngine.ContentPackageCreator
                         }
                         
                         // Upsert new/modified files
-                        foreach (CPCResource resource in resourceList)
+                        foreach (ContentPackageResourceXML resource in resourceList)
                         {
                             ZipEntry entry = zipFile[resource.FileName];
 
@@ -311,27 +312,18 @@ namespace WinterEngine.ContentPackageCreator
         {
             try
             {
-                using (ZipFile zipFile = new ZipFile(filePath))
+                Model = GameResourceManager.DeserializeContentPackageFile(filePath);
+
+                foreach (ContentPackageResourceXML resource in Model.ResourceList)
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(ContentPackageCreatorViewModel));
-                    MemoryStream stream = new MemoryStream();
-                    zipFile["Manifest.xml"].Extract(stream);
-                    stream.Position = 0;
-                    
-                    using(StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-                    {
-                        Model = serializer.Deserialize(reader) as ContentPackageCreatorViewModel;
-                    }
-
-                    foreach (CPCResource resource in Model.ResourceList)
-                    {
-                        resource.IsInPackage = true;
-                    }
-
-                    lstAddedResources.DataContext = Model.ResourceList;
-                    txtDescription.Text = Model.Description;
-                    txtName.Text = Model.Name;
+                    resource.IsInPackage = true;
                 }
+
+                lstAddedResources.DataContext = Model.ResourceList;
+                txtDescription.Text = Model.Description;
+                txtName.Text = Model.Name;
+
+                Model.FilePath = filePath;
             }
             catch
             {
@@ -344,7 +336,7 @@ namespace WinterEngine.ContentPackageCreator
             bool success = false;
 
             // Check for invalid resource types
-            List<CPCResource> invalidResourceTypeList = Model.ResourceList.Where(x => x.ResourceType == ContentPackageResourceTypeEnum.None).ToList();
+            List<ContentPackageResourceXML> invalidResourceTypeList = Model.ResourceList.Where(x => x.ResourceType == ContentPackageResourceTypeEnum.None).ToList();
 
             if (invalidResourceTypeList.Count() <= 0)
             {
@@ -364,7 +356,7 @@ namespace WinterEngine.ContentPackageCreator
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-            Model = new ContentPackageCreatorViewModel();
+            Model = new ContentPackageXML();
             ExtensionFactory = new FileExtensionFactory();
             SaveFilePrompt = new SaveFileDialog();
             OpenFilePrompt = new OpenFileDialog();
