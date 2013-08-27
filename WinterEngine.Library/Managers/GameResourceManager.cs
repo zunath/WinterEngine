@@ -1,15 +1,13 @@
 ﻿using Ionic.Zip;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.XMLObjects;
+using WinterEngine.Library.Extensions;
 
 
 namespace WinterEngine.Editor.Managers
@@ -54,10 +52,12 @@ namespace WinterEngine.Editor.Managers
 
                 foreach (ContentPackageResourceXML current in xmlModel.ResourceList)
                 {
+                    string truncatedName = Path.GetFileNameWithoutExtension(current.FileName).Truncate(64);
+                    
                     ContentPackageResource resource = new ContentPackageResource
                     {
                         FileName = current.FileName,
-                        Name = Path.GetFileNameWithoutExtension(current.FileName),
+                        Name = truncatedName,
                         ContentPackageResourceType = current.ResourceType
                     };
                     resources.Add(resource);
@@ -110,13 +110,11 @@ namespace WinterEngine.Editor.Managers
         /// </summary>
         public static void RebuildModule()
         {
-            List<ContentPackage> contentPackages;
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                contentPackages = repo.GetAllNonSystemResource();
+                List<ContentPackage> contentPackages = repo.GetAllNonSystemResource();
+                RebuildModule(contentPackages);
             }
-
-            RebuildModule(contentPackages);
         }
 
         #endregion
