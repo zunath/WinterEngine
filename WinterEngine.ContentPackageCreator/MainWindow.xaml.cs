@@ -289,12 +289,15 @@ namespace WinterEngine.ContentPackageCreator
                                 if (!resource.IsInPackage && File.Exists(resource.FilePath))
                                 {
                                     zipFile.RemoveEntry(entry);
-                                    zipFile.AddFile(resource.FilePath);
+                                    zipFile.AddFile(resource.FilePath, "");
                                 }
                             }
                         }
 
                         zipFile.Save();
+
+                        // Mark all as "unmodified"
+                        resourceList.ForEach(a => a.IsInPackage = true);
 
                         // Clean up
                         File.Delete("./Manifest.xml");
