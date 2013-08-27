@@ -243,6 +243,11 @@ function ManageContentPackagesSaveChanges() {
     Entity.UpdateContentPackages(jsonUpdatedContentPackages);
 }
 
+function ManageContentPackagesSaveChanges_Callback() {
+
+    $('#divManageContentPackages').dialog('close');
+}
+
 function CloseManageContentPackagesBox() {
     $('#divManageContentPackages').dialog('close');
     $('#selAvailableContentPackages').empty();

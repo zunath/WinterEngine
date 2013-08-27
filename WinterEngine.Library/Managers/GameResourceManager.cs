@@ -103,9 +103,6 @@ namespace WinterEngine.Editor.Managers
             {
                 throw;
             }
-
-            // TO-DO: Update object resource links.
-
         }
 
         /// <summary>
