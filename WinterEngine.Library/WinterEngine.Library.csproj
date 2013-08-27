@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Managers\GameResourceManager.cs" />
     <Compile Include="Managers\ModuleManager.cs" />
     <Compile Include="Utility\EnumerationHelper.cs" />
