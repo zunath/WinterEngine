@@ -36,7 +36,7 @@ namespace WinterEngine.DataTransferObjects
         [MaxLength(4000)]
         public string Description { get; set; }
 
-        public List<ContentPackageResource> ResourceList { get; set; }
+        public virtual List<ContentPackageResource> ResourceList { get; set; }
 
         #endregion
 

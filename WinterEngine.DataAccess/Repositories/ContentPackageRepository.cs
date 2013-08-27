@@ -98,6 +98,12 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="package"></param>
         public void Delete(ContentPackage package)
         {
+            for(int index = package.ResourceList.Count - 1; index >= 0; index--)
+            {
+                ContentPackageResource resource = package.ResourceList[index];
+                Context.ContentPackageResourceRepository.Delete(resource);
+            }
+
             Context.ContentPackageRepository.Delete(package);
         }
 

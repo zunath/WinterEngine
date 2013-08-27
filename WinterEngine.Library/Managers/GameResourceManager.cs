@@ -75,26 +75,33 @@ namespace WinterEngine.Editor.Managers
         {
             contentPackages.ForEach(a => a.ResourceList = GameResourceManager.GetAllResourcesInContentPackage(DirectoryPaths.ContentPackageDirectoryPath + a.FileName));
 
-            using (ContentPackageRepository repo = new ContentPackageRepository())
+            try
             {
-                List<ContentPackage> existingContentPackages = repo.GetAllNonSystemResource();
-
-                // Update or remove existing
-                foreach (ContentPackage current in existingContentPackages)
+                using (ContentPackageRepository repo = new ContentPackageRepository())
                 {
-                    if (contentPackages.Exists(x => x.FileName == current.FileName))
-                    {
-                        repo.Update(current);
-                        contentPackages.RemoveAll(x => x.FileName == current.FileName);
-                    }
-                    else
-                    {
-                        repo.Delete(current);
-                    }
-                }
+                    List<ContentPackage> existingContentPackages = repo.GetAllNonSystemResource();
 
-                // Add the new ones
-                repo.Add(contentPackages);
+                    // Update or remove existing
+                    foreach (ContentPackage current in existingContentPackages)
+                    {
+                        if (contentPackages.Exists(x => x.FileName == current.FileName))
+                        {
+                            repo.Update(current);
+                            contentPackages.RemoveAll(x => x.FileName == current.FileName);
+                        }
+                        else
+                        {
+                            repo.Delete(current);
+                        }
+                    }
+
+                    // Add the new ones
+                    repo.Add(contentPackages);
+                }
+            }
+            catch
+            {
+                throw;
             }
 
             // TO-DO: Update object resource links.
