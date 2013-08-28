@@ -1,14 +1,6 @@
 ﻿
-var ToolsetViewModel;
-function InitializeViewModel() {
-
-    var data = Entity.GetModelJSON();
-    ToolsetViewModel = ko.mapping.fromJSON(data);
-    ko.applyBindings(ToolsetViewModel);
-}
-
 function Initialize() {
-    InitializeViewModel();
+    InitializeToolsetViewModel(); // Located in WinterEngine.ViewModels.js
     InitializeValidation();
     InitializeMainMenu();
     $('#ulObjectBar').menu({}); // Object selection menu
