@@ -14,10 +14,10 @@ namespace WinterEngine.DataTransferObjects
     {
         #region Properties
 
-        public int? TileMapID { get; set; }
+        //public int? TileMapID { get; set; }
 
-        [ForeignKey("TileMapID")]
-        public Map TileMap { get; set; }
+        //[ForeignKey("TileMapID")]
+        public virtual Map TileMap { get; set; }
 
 
         // EVENT SCRIPTS
@@ -42,6 +42,7 @@ namespace WinterEngine.DataTransferObjects
 
         public Area()
         {
+            TileMap = new Map();
         }
 
         #endregion

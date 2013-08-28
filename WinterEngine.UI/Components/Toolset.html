@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
     <link rel="stylesheet" href="../Styling/Toolset/ToolsetStyles.css" />
 
-    <script src="../Scripts/jquery-2.0.0.min.js"></script>
+    <script src="../Scripts/jquery-2.0.3.min.js"></script>
     <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src="../Scripts/jquery.validate.js"></script>
     <script src="../Scripts/jquery.jstree.js"></script>
     <script src="../Scripts/knockout-2.3.0.js"></script>
     <script src="../Scripts/knockout.mapping-latest.js"></script>
+    <script src="../Scripts/knockout.viewmodel.2.0.3.min.js"></script>
     <script src="../Scripts/Toolset.Initialization.js"></script>
     <script src="../Scripts/Toolset.TreeViews.js"></script>
     <script src="../Scripts/Toolset.MenuBar.js"></script>
@@ -198,6 +199,12 @@
 
                     <label id="lblAreaDetails-Tileset" for="selAreaDetails-Tileset">Tileset:</label>
                     <select id="selAreaDetails-Tileset" disabled="disabled" data-bind="value: ActiveArea.Tileset" class="clsAreaObjectField"></select>
+
+                    <label id="lblAreaDetails-MapWidth" for="numAreaDetails-MapWidth">Width:</label>
+                    <input id="numAreaDetails-MapWidth" type="number" min="0" max="64" data-bind="value: ActiveArea.TileMap.TilesWide" />
+
+                    <label id="lblAreaDetails-MapHeight" for="numAreaDetails-MapHeight">Height:</label>
+                    <input id="numAreaDetails-MapHeight" type="number" min="0" max="64" data-bind="value: ActiveArea.TileMap.TilesHigh" />
 
                 </div>
 

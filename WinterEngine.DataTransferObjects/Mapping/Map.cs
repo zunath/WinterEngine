@@ -10,6 +10,20 @@ namespace WinterEngine.DataTransferObjects
     [Table("Maps")]
     public class Map : GameResourceBase
     {
+        #region Constants
+
+        private const int MaxTilesWide = 32;
+        private const int MaxTilesHigh = 32;
+
+        #endregion
+
+        #region Fields
+
+        private int _tilesWide;
+        private int _tilesHigh;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -17,7 +31,7 @@ namespace WinterEngine.DataTransferObjects
         /// </summary>
         public List<Tile> Tiles { get; set; }
 
-        public int GraphicID { get; set; }
+        public int? GraphicID { get; set; }
 
         /// <summary>
         /// Gets or sets the spritesheet graphic used by this map.
@@ -26,14 +40,46 @@ namespace WinterEngine.DataTransferObjects
         public ContentPackageResource Graphic { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of tiles wide this map is.
+        /// Gets or sets the number of tiles wide this map is. Range: 1-32
         /// </summary>
-        public int TilesWide { get; set; }
+        public int TilesWide 
+        {
+            get
+            {
+                if (_tilesWide < 1) _tilesWide = 1;
+                else if (_tilesWide > MaxTilesWide) _tilesWide = MaxTilesWide;
+                
+                return _tilesWide;
+            }
+            set
+            {
+                if (value < 1) value = 1;
+                else if (value > MaxTilesWide) value = MaxTilesWide;
+
+                _tilesWide = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the number of tiles high this map is.
+        /// Gets or sets the number of tiles high this map is. Range: 1-32
         /// </summary>
-        public int TilesHigh { get; set; }
+        public int TilesHigh 
+        {
+            get
+            {
+                if (_tilesHigh < 1) _tilesHigh = 1;
+                else if (_tilesHigh > MaxTilesHigh) _tilesHigh = MaxTilesHigh;
+
+                return _tilesHigh;
+            }
+            set
+            {
+                if (value < 1) value = 1;
+                else if (value > MaxTilesHigh) value = MaxTilesHigh;
+
+                _tilesHigh = value;
+            }
+        }
 
         #endregion
 

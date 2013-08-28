@@ -18,9 +18,11 @@ function LoadObjectData_Callback(jsonObject) {
         ToolsetViewModel.ActiveArea.Description(gameObject.Description);
         ToolsetViewModel.ActiveArea.Comment(gameObject.Comment);
         ToolsetViewModel.ActiveArea.LocalVariables(gameObject.LocalVariables);
-        
 
-        //ToolsetViewModel.ActiveArea = gameObject;
+        ToolsetViewModel.ActiveArea.ResourceCategoryID(gameObject.ResourceCategoryID);
+
+        ToolsetViewModel.ActiveArea.TileMap(gameObject.TileMap);
+        
 
         $('.clsAreaObjectField').removeAttr('disabled');
         $('.clsCreatureObjectField').attr('disabled', 'disabled');

@@ -69,7 +69,8 @@ namespace WinterEngine.DataAccess
             dbArea.ResourceTypeID = newArea.ResourceTypeID;
             dbArea.Resref = newArea.Resref;
             dbArea.Tag = newArea.Tag;
-            dbArea.TileMapID = newArea.TileMapID;
+            //dbArea.TileMapID = newArea.TileMapID;
+            dbArea.TileMap = newArea.TileMap;
             
         }
 

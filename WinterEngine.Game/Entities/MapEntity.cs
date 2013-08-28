@@ -1,34 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using FlatRedBall;
 using FlatRedBall.Input;
-using FlatRedBall.Instructions;
-using FlatRedBall.AI.Pathfinding;
-using FlatRedBall.Graphics.Animation;
-using FlatRedBall.Graphics.Particle;
-
-using FlatRedBall.Math.Geometry;
-using FlatRedBall.Math.Splines;
-using BitmapFont = FlatRedBall.Graphics.BitmapFont;
-using Cursor = FlatRedBall.Gui.Cursor;
-using GuiManager = FlatRedBall.Gui.GuiManager;
-
-using Keys = Microsoft.Xna.Framework.Input.Keys;
-using Vector3 = Microsoft.Xna.Framework.Vector3;
-using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
-using WinterEngine.DataAccess.Repositories;
-using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects;
-using System.IO;
-using FlatRedBall.ManagedSpriteGroups;
 using FlatRedBall.TileGraphics;
 using Microsoft.Xna.Framework;
-using FlatRedBall.Graphics;
-using System.Windows;
-using WinterEngine.DataTransferObjects.EventArgsExtended;
-using FlatRedBall.Math;
+using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Utility;
+using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
+using Vector3 = Microsoft.Xna.Framework.Vector3;
 
 
 namespace WinterEngine.Game.Entities

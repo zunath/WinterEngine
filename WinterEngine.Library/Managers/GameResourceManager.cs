@@ -34,6 +34,8 @@ namespace WinterEngine.Editor.Managers
                         packageXML = serializer.Deserialize(reader) as ContentPackageXML;
                     }
                 }
+                packageXML.Name.Truncate(64);
+                packageXML.Description.Truncate(4000);
 
                 return packageXML;
             }
