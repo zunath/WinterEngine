@@ -426,6 +426,11 @@ namespace WinterEngine.Game.Entities
             }
 
             factory.DeleteFromDatabaseByCategory(categoryToRemove, gameObjectType);
+        
+            if (gameObjectType == GameObjectTypeEnum.Area)
+            {
+                RefreshAreaEntity(this, new ObjectSelectionEventArgs(0));
+            }
 
             AsyncJavascriptCallback("DeleteObject_Callback",
                 error == ErrorTypeEnum.None ? true : false,
@@ -438,9 +443,14 @@ namespace WinterEngine.Game.Entities
             GameObjectFactory factory = new GameObjectFactory();
             int resourceID = (int)e.Arguments[0];
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[1]);
-            
+
             factory.DeleteFromDatabase(resourceID, gameObjectType);
-            
+
+            if (gameObjectType == GameObjectTypeEnum.Area)
+            {
+                RefreshAreaEntity(this, new ObjectSelectionEventArgs(0));
+            }
+
             AsyncJavascriptCallback("DeleteObject_Callback", 
                 error == ErrorTypeEnum.None ? true : false,
                 EnumerationHelper.GetEnumerationDescription(error));
