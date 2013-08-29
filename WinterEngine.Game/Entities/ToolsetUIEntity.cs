@@ -530,13 +530,18 @@ namespace WinterEngine.Game.Entities
 
             if (gameObjectType == GameObjectTypeEnum.Area)
             {
-                if (!Object.ReferenceEquals(OnAreaLoaded, null))
-                {
-                    OnAreaLoaded(this, eventArgs);
-                }
+                RefreshAreaEntity(this, eventArgs);
             }
 
             AsyncJavascriptCallback("LoadObjectData_Callback", jsonObject);
+        }
+
+        private void RefreshAreaEntity(object sender, ObjectSelectionEventArgs e)
+        {
+            if (!Object.ReferenceEquals(OnAreaLoaded, null))
+            {
+                OnAreaLoaded(sender, e);
+            }
         }
 
         private void SaveObjectData(object sender, JavascriptMethodEventArgs e)
@@ -554,6 +559,8 @@ namespace WinterEngine.Game.Entities
                     {
                         repo.Upsert(model.ActiveArea);
                     }
+                    ObjectSelectionEventArgs areaEventArgs = new ObjectSelectionEventArgs(model.ActiveArea.ResourceID);
+                    RefreshAreaEntity(this, areaEventArgs);
                 }
                 else if (gameObjectType == GameObjectTypeEnum.Conversation)
                 {

@@ -171,12 +171,12 @@ namespace WinterEngine.Game.Entities
         {
             if (ActiveAreaBatch != null)
             {
-                ActiveAreaBatch.RemoveSelfFromListsBelongingTo();
+                SpriteManager.RemoveDrawableBatch(ActiveAreaBatch);
             }
 
             if (EmptyAreaBatch != null)
             {
-                EmptyAreaBatch.RemoveSelfFromListsBelongingTo();
+                SpriteManager.RemoveDrawableBatch(EmptyAreaBatch);
             }
 
             ActiveArea = null;
