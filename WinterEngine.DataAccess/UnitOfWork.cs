@@ -234,21 +234,6 @@ namespace WinterEngine.DataAccess
                 return tileRepository;
             }
         }
-        
-        
-        private GenericRepository<ModuleDataContext, Map> mapRepository;
-        public GenericRepository<ModuleDataContext, Map> MapRepository
-        {
-            get
-            {
-                if (this.mapRepository == null)
-                {
-                    this.mapRepository
-                        = new GenericRepository<ModuleDataContext, Map>(context);
-                }
-                return mapRepository;
-            }
-        }
 
         #endregion
 

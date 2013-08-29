@@ -36,7 +36,7 @@ namespace WinterEngine.Game.Screens
 		#endif
 		
 		private WinterEngine.Game.Entities.ToolsetUIEntity ToolsetUIEntityInstance;
-		private WinterEngine.Game.Entities.MapEntity MapEntityInstance;
+		private WinterEngine.Game.Entities.AreaEntity AreaEntityInstance;
 
 		public ToolsetScreen()
 			: base()
@@ -49,8 +49,8 @@ namespace WinterEngine.Game.Screens
 			LoadStaticContent(ContentManagerName);
 			ToolsetUIEntityInstance = new WinterEngine.Game.Entities.ToolsetUIEntity(ContentManagerName, false);
 			ToolsetUIEntityInstance.Name = "ToolsetUIEntityInstance";
-			MapEntityInstance = new WinterEngine.Game.Entities.MapEntity(ContentManagerName, false);
-			MapEntityInstance.Name = "MapEntityInstance";
+			AreaEntityInstance = new WinterEngine.Game.Entities.AreaEntity(ContentManagerName, false);
+			AreaEntityInstance.Name = "AreaEntityInstance";
 			
 			
 			base.Initialize(addToManagers);
@@ -72,7 +72,7 @@ namespace WinterEngine.Game.Screens
 			{
 				
 				ToolsetUIEntityInstance.Activity();
-				MapEntityInstance.Activity();
+				AreaEntityInstance.Activity();
 			}
 			else
 			{
@@ -98,10 +98,10 @@ namespace WinterEngine.Game.Screens
 				ToolsetUIEntityInstance.Destroy();
 				ToolsetUIEntityInstance.Detach();
 			}
-			if (MapEntityInstance != null)
+			if (AreaEntityInstance != null)
 			{
-				MapEntityInstance.Destroy();
-				MapEntityInstance.Detach();
+				AreaEntityInstance.Destroy();
+				AreaEntityInstance.Detach();
 			}
 
 			base.Destroy();
@@ -122,13 +122,13 @@ namespace WinterEngine.Game.Screens
 		{
 			base.AddToManagersBottomUp();
 			ToolsetUIEntityInstance.AddToManagers(mLayer);
-			MapEntityInstance.AddToManagers(mLayer);
+			AreaEntityInstance.AddToManagers(mLayer);
 		}
 		public override void ConvertToManuallyUpdated ()
 		{
 			base.ConvertToManuallyUpdated();
 			ToolsetUIEntityInstance.ConvertToManuallyUpdated();
-			MapEntityInstance.ConvertToManuallyUpdated();
+			AreaEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static new void LoadStaticContent (string contentManagerName)
 		{
@@ -148,7 +148,7 @@ namespace WinterEngine.Game.Screens
 			}
 			#endif
 			WinterEngine.Game.Entities.ToolsetUIEntity.LoadStaticContent(contentManagerName);
-			WinterEngine.Game.Entities.MapEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.AreaEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

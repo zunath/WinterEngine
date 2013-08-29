@@ -165,9 +165,9 @@
     <Compile Include="Entities\MainMenuUIEntity.Generated.cs">
       <DependentUpon>MainMenuUIEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\MapEntity.cs" />
-    <Compile Include="Entities\MapEntity.Generated.cs">
-      <DependentUpon>MapEntity.cs</DependentUpon>
+    <Compile Include="Entities\AreaEntity.cs" />
+    <Compile Include="Entities\AreaEntity.Generated.cs">
+      <DependentUpon>AreaEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\ServerListUIEntity.cs" />
     <Compile Include="Entities\ServerListUIEntity.Generated.cs">

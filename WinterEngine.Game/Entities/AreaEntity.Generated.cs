@@ -33,7 +33,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class MapEntity : PositionedObject, IDestroyable
+	public partial class AreaEntity : PositionedObject, IDestroyable
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static string ContentManagerName
@@ -52,13 +52,13 @@ namespace WinterEngine.Game.Entities
 		
 		protected Layer LayerProvidedByContainer = null;
 
-        public MapEntity(string contentManagerName) :
+        public AreaEntity(string contentManagerName) :
             this(contentManagerName, true)
         {
         }
 
 
-        public MapEntity(string contentManagerName, bool addToManagers) :
+        public AreaEntity(string contentManagerName, bool addToManagers) :
 			base()
 		{
 			// Don't delete this:
@@ -170,7 +170,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("MapEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AreaEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -181,7 +181,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("MapEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AreaEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -222,7 +222,7 @@ namespace WinterEngine.Game.Entities
 		{
 			FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(this);
 		}
-		public virtual void MoveToLayer (Layer layerToMoveTo)
+		public void MoveToLayer (Layer layerToMoveTo)
 		{
 			LayerProvidedByContainer = layerToMoveTo;
 		}
@@ -231,7 +231,7 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class MapEntityExtensionMethods
+	public static class AreaEntityExtensionMethods
 	{
 	}
 	

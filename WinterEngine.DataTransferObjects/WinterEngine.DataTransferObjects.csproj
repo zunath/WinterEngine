@@ -102,8 +102,7 @@
     <Compile Include="EventArgsExtended\ObjectSelectionEventArgs.cs" />
     <Compile Include="EventArgsExtended\TypeOfEventArgs.cs" />
     <Compile Include="IEntity.cs" />
-    <Compile Include="Mapping\Tile.cs" />
-    <Compile Include="Mapping\Map.cs" />
+    <Compile Include="Resources\Tile.cs" />
     <Compile Include="Paths\DirectoryPaths.cs" />
     <Compile Include="Paths\FilePaths.cs" />
     <Compile Include="Resources\Ability.cs" />

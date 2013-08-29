@@ -179,7 +179,7 @@ namespace WinterEngine.Game.Screens
                 selectedArea = repo.GetByID(e.ResourceID);
             }
 
-            MapEntityInstance.ChangeMap(selectedArea.TileMap);
+            AreaEntityInstance.ChangeArea(selectedArea);
         }
 
         #endregion

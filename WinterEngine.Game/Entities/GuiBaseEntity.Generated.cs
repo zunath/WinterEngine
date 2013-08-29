@@ -223,7 +223,7 @@ namespace WinterEngine.Game.Entities
 		{
 			FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(this);
 		}
-		public virtual void MoveToLayer (Layer layerToMoveTo)
+		public void MoveToLayer (Layer layerToMoveTo)
 		{
 			LayerProvidedByContainer = layerToMoveTo;
 		}

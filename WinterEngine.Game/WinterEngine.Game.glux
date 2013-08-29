@@ -140,8 +140,8 @@
         <NamedObjectSave>
           <SourceType>Entity</SourceType>
           <SourceFile />
-          <SourceClassType>Entities\MapEntity</SourceClassType>
-          <InstanceName>MapEntityInstance</InstanceName>
+          <SourceClassType>Entities\AreaEntity</SourceClassType>
+          <InstanceName>AreaEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
@@ -149,6 +149,14 @@
     </ScreenSave>
   </Screens>
   <Entities>
+    <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
+      <Name>Entities\AreaEntity</Name>
+      <Is2D>true</Is2D>
+    </EntitySave>
     <EntitySave>
       <Tags>
         <string>GLUE</string>
@@ -441,14 +449,6 @@
       </CustomVariables>
       <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
       <Name>Entities\MainMenuUIEntity</Name>
-      <Is2D>true</Is2D>
-    </EntitySave>
-    <EntitySave>
-      <Tags>
-        <string>GLUE</string>
-      </Tags>
-      <Source>GLUE</Source>
-      <Name>Entities\MapEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
