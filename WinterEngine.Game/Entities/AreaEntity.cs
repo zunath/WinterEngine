@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using Winforms = System.Windows.Forms;
 using FlatRedBall;
+using FlatRedBall.Gui;
 using FlatRedBall.Input;
 using FlatRedBall.TileGraphics;
 using Microsoft.Xna.Framework;
@@ -8,6 +11,7 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Library.Utility;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
+using WinterEngine.Library.Extensions;
 
 
 namespace WinterEngine.Game.Entities
@@ -18,6 +22,7 @@ namespace WinterEngine.Game.Entities
 
         private Texture2D _mapSpriteSheet;
         private GraphicHelper _graphicHelper;
+        private Dictionary<Vector2, int> _tileLookupDictionary;
 
         #endregion
 
@@ -76,6 +81,23 @@ namespace WinterEngine.Game.Entities
             }
         }
 
+        private Dictionary<Vector2, int> TileLookupDictionary 
+        {
+            get
+            {
+                if (_tileLookupDictionary == null)
+                {
+                    _tileLookupDictionary = new Dictionary<Vector2, int>();
+                }
+
+                return _tileLookupDictionary;
+            }
+            set
+            {
+                _tileLookupDictionary = value;
+            }
+        }
+
         #endregion
 
         #region FRB Events
@@ -86,7 +108,8 @@ namespace WinterEngine.Game.Entities
 
         private void CustomActivity()
 		{
-            if (InputManager.Mouse.IsInGameWindow() && !Object.ReferenceEquals(ActiveAreaBatch, null))
+            //if (InputManager.Mouse.IsInGameWindow() && !Object.ReferenceEquals(ActiveAreaBatch, null))
+            if (InputManager.Mouse.IsInGameWindow() && !Object.ReferenceEquals(EmptyAreaBatch, null))
             {
                 if (InputManager.Mouse.ButtonPushed(Mouse.MouseButtons.LeftButton))
                 {
@@ -96,7 +119,15 @@ namespace WinterEngine.Game.Entities
                     // NOTE: This version of PaintTile seems to be bugged. Look at 
                     // using the other overloaded method. Victor says that one should work.
                     //MapBatch.PaintTile((int)currentTile.X, (int)currentTile.Y, 1);
+
+                    int index = GetTileIndexByAreaCellPosition((int)currentTile.X, (int)currentTile.Y);
+
+                    //Console.WriteLine("i = " + index + ", (" + currentTile.X + ", " + currentTile.Y + ")");
                     
+                    //EmptyAreaBatch.PaintTile(index, 0);
+
+                    EmptyAreaBatch.PaintTileTextureCoordinates(index, 64, 0);
+
                 }
             }
 		}
@@ -117,28 +148,6 @@ namespace WinterEngine.Game.Entities
 
         #region Methods
 
-        /// <summary>
-        /// Returns the X coordinate of the next tile
-        /// </summary>
-        /// <param name="x">The current X position in the map.</param>
-        /// <param name="y">The current Y position in the map.</param>
-        /// <returns></returns>
-        private int GetTileXScreenCoordinate(int x, int y)
-        {
-            return ((x * (int)MappingEnum.TileWidth) - (y * (int)MappingEnum.TileWidth)) / 2;
-        }
-
-        /// <summary>
-        /// Returns the Y coordinate of the next tile.
-        /// </summary>
-        /// <param name="x">The current X position in the map.</param>
-        /// <param name="y">The current Y position in the map.</param>
-        /// <returns></returns>
-        private int GetTileYScreenCoordinate(int x, int y)
-        {
-            return ((y * (int)MappingEnum.TileHeight) + (x * (int)MappingEnum.TileHeight)) / 4;
-        }
-
         public void ChangeArea(Area activeArea)
         {
             try
@@ -157,14 +166,18 @@ namespace WinterEngine.Game.Entities
         {
             if (ActiveArea == null) return;
 
+            // DEBUG
+            AreaSpriteSheet = FlatRedBallServices.Load<Texture2D>("content/Game/(Tileset) Wilderness.png");
+            // END DEBUG
+
             EmptyAreaBatch = new MapDrawableBatch(ActiveArea.TilesHigh * ActiveArea.TilesWide,
                 (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight, EditorSpritesheet);
 
-            //ActiveMapBatch = new MapDrawableBatch(ActiveMap.TilesHigh * ActiveMap.TilesWide,
-            //    (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight, MapSpriteSheet);
+            ActiveAreaBatch = new MapDrawableBatch(ActiveArea.TilesHigh * ActiveArea.TilesWide,
+                (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight, AreaSpriteSheet);
 
-            InitializeMapTiles(true);
-            //InitializeMapTiles(false);
+            //InitializeMapTiles(true);
+            InitializeMapTiles(false);
         }
 
         private void UnloadArea()
@@ -179,6 +192,7 @@ namespace WinterEngine.Game.Entities
                 SpriteManager.RemoveDrawableBatch(EmptyAreaBatch);
             }
 
+            TileLookupDictionary.Clear();
             ActiveArea = null;
             ActiveAreaBatch = null;
             AreaSpriteSheet = null;
@@ -186,30 +200,33 @@ namespace WinterEngine.Game.Entities
 
         private void InitializeMapTiles(bool doEmptyMap)
         {
-            // Traditional Y axis behaviour. As Y increases, you move UP.
-            //for (int y = 0; y < TileMap.NumberOfTilesHigh; y++)
-            for (int x = 0; x < ActiveArea.TilesWide; x++)
+            int index = 0;
+
+            for (int y = 0; y < ActiveArea.TilesHigh; y++)
             {
-                // Tiles are drawn backwards for X coordinates to prevent overlapping issues.
-                //for (int x = 0; x < TileMap.NumberOfTilesWide; x++)
-                for (int y = 0; y < ActiveArea.TilesHigh; y++)
+                //for (int y = ActiveArea.TilesHigh - 1; y >= 0; y--)
+                for (int x = ActiveArea.TilesWide - 1; x >= 0; x--)
                 {
-                    // Each tile must step 32 pixels left and 16 pixels up. 
-                    // Tiles are in dimensions of 64x64.
-                    int xPosition = GetTileXScreenCoordinate(x, y);
-                    int yPosition = GetTileYScreenCoordinate(x, y);
+                    int xPosition = (y * (int)MappingEnum.TileWidth / 2) + (x * (int)MappingEnum.TileWidth / 2);
+                    int yPosition = (x * (int)MappingEnum.TileHeight / 4) - (y * (int)MappingEnum.TileHeight / 4);   
 
                     Vector2 dimensions = new Vector2((int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight);
                     Vector3 bottomLeftPoint = new Vector3(xPosition, yPosition, 0);
+
                     if (doEmptyMap)
                     {
                         EmptyAreaBatch.AddTile(bottomLeftPoint, dimensions, 0, 0, (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight);
+                        TileLookupDictionary.Add(new Vector2(x, y), index);
                     }
                     else
                     {
-                        ActiveAreaBatch.AddTile(bottomLeftPoint, dimensions, 0, 0, (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight);
+                        int texX = 64 * 4;
+                        int texY = 64 * 3;
+                        ActiveAreaBatch.AddTile(bottomLeftPoint, dimensions, texX, texY, (int)MappingEnum.TileWidth + texX, (int)MappingEnum.TileHeight + texY);
+                        TileLookupDictionary.Add(new Vector2(x, y), index);
                     }
-                    
+
+                    index++;
                 }
             }
 
@@ -225,39 +242,32 @@ namespace WinterEngine.Game.Entities
 
         private Vector2 GetTileCoordinatesFromMouseCoordinates()
         {
-            int mouseX = (int)InputManager.Mouse.WorldXAt(0);
-            int mouseY = (int)InputManager.Mouse.WorldYAt(0);
+            int mouseWorldX = (int)InputManager.Mouse.WorldXAt(0);
+            int mouseWorldY = (int)InputManager.Mouse.WorldYAt(0);
 
-            //int tileX = mouseX / (int)MappingEnum.TileWidth;
-            //int tileY = mouseY / (int)MappingEnum.TileHeight;
+            int tileX = (mouseWorldY * (int)MappingEnum.TileWidth / 2) + (mouseWorldX * (int)MappingEnum.TileWidth / 2);
+            int tileY = (mouseWorldX * (int)MappingEnum.TileHeight / 4) - (mouseWorldY * (int)MappingEnum.TileHeight / 4);
 
-            int tileX = mouseX / 64;
-            int tileY = mouseY / 64;
+            
+            //int tileX = (2 * mouseWorldX - 4 * mouseWorldY) / (int)MappingEnum.TileWidth / 2; 
+            //int tileY = (mouseWorldX * 2 / (int)MappingEnum.TileWidth) - tileX;
 
-            if (tileX > ActiveArea.TilesWide)
-            {
-                tileX = ActiveArea.TilesWide;
-            }
-            else if (tileX < ActiveAreaBatch.X)
-            {
-                tileX = (int)ActiveAreaBatch.X;
-            }
+            if (tileX < 0) tileX = 0;
+            else if (tileX > ActiveArea.TilesWide - 1) tileX = ActiveArea.TilesWide - 1;
 
-            if (tileY > ActiveArea.TilesHigh)
-            {
-                tileY = ActiveArea.TilesHigh;
-            }
-            else if (tileY < ActiveAreaBatch.Y)
-            {
-                tileY = (int)ActiveAreaBatch.Y;
-            }
+            if (tileY < 0) tileY = 0;
+            else if (tileY > ActiveArea.TilesHigh - 1) tileY = ActiveArea.TilesHigh - 1;
 
             return new Vector2(tileX, tileY);
             
         }
 
-        #endregion
+        private int GetTileIndexByAreaCellPosition(int x, int y)
+        {
+            return TileLookupDictionary[new Vector2(x, y)];
+        }
 
+        #endregion
 
     }
 }
