@@ -98,12 +98,18 @@ namespace WinterEngine.Game.Entities
             }
         }
 
+        private Plane MousePlane { get; set; }
+
         #endregion
 
         #region FRB Events
         private void CustomInitialize()
 		{
             EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Editor/Icons/TilesetEditor_CellSpriteSheet.png");
+
+            // DEBUGGING
+            MousePlane = new Plane(Vector3.Zero, new Vector3(0, 0, 1), new Vector3(1, 0, 0));
+            // END DEBUGGING
         }
 
         private void CustomActivity()
@@ -115,6 +121,10 @@ namespace WinterEngine.Game.Entities
                 {
 
                     Vector2 currentTile = GetTileCoordinatesFromMouseCoordinates();
+
+                    Vector3 newCoordinates = GetWorldCoordinate(MousePlane);
+                    Console.WriteLine(newCoordinates);
+                    Console.WriteLine(newCoordinates.X / (int)MappingEnum.TileWidth + ", " + newCoordinates.Y / (int)MappingEnum.TileHeight);
 
                     // NOTE: This version of PaintTile seems to be bugged. Look at 
                     // using the other overloaded method. Victor says that one should work.
@@ -266,6 +276,35 @@ namespace WinterEngine.Game.Entities
         {
             return TileLookupDictionary[new Vector2(x, y)];
         }
+
+
+        // Source: http://documentation.flatredball.com/frb/docs/?title=ScottDancer:Mouse_World_Coordinates_for_a_Rotated_Camera
+        private Vector3 GetWorldCoordinate(Plane CursorPlane)
+        {
+            //Get the distance to the intersetion point
+            float? distance = GuiManager.Cursor.GetRay().Intersects(CursorPlane);
+            Vector3 mousePosition = Vector3.Zero;
+
+            //Make sure the cursor intersects
+            if (distance.HasValue)
+            {
+                //Get the direction vector for the ray
+                Vector3 translationVector = GuiManager.Cursor.GetRay().Direction;
+                translationVector.Normalize();
+
+                //Set the distance of the vector to the distance to the intersection point
+                translationVector = Vector3.Multiply(translationVector, (float)distance);
+
+                //Get the translation matrix
+                Matrix translationMatrix = Matrix.CreateTranslation(translationVector);
+
+                //Translate the mouse cursor point to the intersection point
+                mousePosition = Vector3.Transform(GuiManager.Cursor.GetRay().Position, translationMatrix);
+            }
+
+            return mousePosition;
+        }
+
 
         #endregion
 
