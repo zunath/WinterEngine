@@ -92,8 +92,8 @@ namespace WinterEngine.Game.Screens
             }
 
             // Do we need to update things?
-            bool hasWindowChanged =
-                    SpriteManager.Cameras[0].DestinationRectangle.Height != displayRectangle.Height;
+            bool hasWindowChanged = (SpriteManager.Cameras[0].DestinationRectangle.Height != displayRectangle.Height) || 
+                (SpriteManager.Cameras[0].DestinationRectangle.Width != displayRectangle.Width);
 
             if (hasWindowChanged)
             {
