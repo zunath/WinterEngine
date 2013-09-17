@@ -62,14 +62,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Editor\Mapping\TilesetEditor_CellSpriteSheet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>TilesetEditor_CellSpriteSheet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="CharacterVault\" />
   </ItemGroup>
   <ItemGroup>
@@ -95,12 +87,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Editor\Mapping\mousemap.png">
-      <Name>mousemap</Name>
+    <Content Include="Editor\Icons\TilesetEditor_CellSpriteSheet.png">
+      <Name>TilesetEditor_CellSpriteSheet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Editor\Icons\TilesetEditor_EmptyCell.png">
+      <Name>TilesetEditor_EmptyCell</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
