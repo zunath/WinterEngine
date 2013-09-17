@@ -62,7 +62,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Editor\Icons\TilesetEditor_CellSpriteSheet.png">
+    <None Include="Editor\Mapping\TilesetEditor_CellSpriteSheet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>TilesetEditor_CellSpriteSheet</Name>
       <Importer>TextureImporter</Importer>
@@ -89,6 +89,14 @@
   <ItemGroup>
     <None Include="Game\testset.png">
       <Name>testset</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Editor\Mapping\mousemap.png">
+      <Name>mousemap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

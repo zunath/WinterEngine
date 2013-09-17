@@ -135,8 +135,11 @@ namespace WinterEngine.Game.Screens
 
         private void HandleUserInput()
         {
-            HandleScrollWheel();
-            HandleCameraDrag();
+            if (FlatRedBallServices.Game.IsActive)
+            {
+                HandleScrollWheel();
+                HandleCameraDrag();
+            }
         }
 
         private void HandleScrollWheel()

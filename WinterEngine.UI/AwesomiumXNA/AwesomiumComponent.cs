@@ -153,10 +153,6 @@ namespace AwesomiumXNA
                 WebCore.Update();
             }
 
-            //BitmapSurface asdf = ((BitmapSurface)WebView.Surface);
-            //WebView.Resized += WebView_ResizeComplete;
-            
-            //WebView.FlushAlpha = false;
             WebView.IsTransparent = true;
 
             // WebView doesn't seem to listen when I say this
@@ -170,6 +166,8 @@ namespace AwesomiumXNA
             hookHandle = User32.SetWindowsHookEx(3, processMessages, IntPtr.Zero, Kernel32.GetCurrentThreadId());
 
             WebView.FocusView();
+
+
         }
 
 
@@ -239,11 +237,16 @@ namespace AwesomiumXNA
             return User32.CallNextHookEx(IntPtr.Zero, code, wParam, ref lParam);
         }
 
+        bool isResizing = false;
+        bool surfaceHooksInitialized = false;
         public void Resize(int width, int height)
         {
             area.Width = width;
             area.Height = height;
+
             WebViewTexture = new Texture2D(Game.GraphicsDevice, area.Width, area.Height, false, SurfaceFormat.Color);
+
+            isResizing = true;
             WebView.Resize(area.Width, area.Height);
 
         }
@@ -260,59 +263,59 @@ namespace AwesomiumXNA
             imagePtr = Marshal.AllocHGlobal(imageBytes.Length);
         }
 
+        private void OnWebViewSurfaceResize(object sender, SurfaceResizedEventArgs e)
+        {
+            isResizing = false;
+        }
+
         public override void Update(GameTime gameTime)
         {
-            //if (newArea.HasValue && !resizing && gameTime.TotalGameTime.TotalSeconds > 0.10f)
-            //{
-            //    area = newArea.Value;
-            //    if (area.IsEmpty)
-            //        area = GraphicsDevice.Viewport.Bounds;
-
-            //    ((BitmapSurface)WebView.Surface).Resized += WebView_ResizeComplete;
-            //    WebView.Resize(area.Width, area.Height);
-            //    WebViewTexture = new Texture2D(Game.GraphicsDevice, area.Width, area.Height, false, SurfaceFormat.Color);
-            //    imageBytes = new Byte[area.Width * 4 * area.Height];
-            //    imagePtr = Marshal.AllocHGlobal(imageBytes.Length);
-            //    resizing = true;
-
-            //    newArea = null;
-            //}
-
             // Manually update the webcore so that we're not running 2 clocks
             WebCore.Update();
+
+            // This is a dirty hack to fix the resizing issue.
+            // If there's a better way to do this, please correct it.
+            // mac10688 and zunath (2013-09-16)
+            if (WebView.Surface != null && !surfaceHooksInitialized)
+            {
+                surfaceHooksInitialized = true;
+
+                BitmapSurface surface = (BitmapSurface)WebView.Surface;
+                surface.Resized += OnWebViewSurfaceResize;
+            }
 
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            if (WebView.Surface != null && ((BitmapSurface)WebView.Surface).IsDirty)
+            if (WebView.Surface != null && ((BitmapSurface)WebView.Surface).IsDirty && !isResizing)
             {
                 BitmapSurface renderBuffer = ((BitmapSurface)WebView.Surface);
 #if false
-				// This was the original solution
-				renderBuffer.CopyTo(imagePtr, renderBuffer.Width * 4, 4, true, false);
-				Marshal.Copy(imagePtr, imageBytes, 0, imageBytes.Length);
-				WebViewTexture.SetData(imageBytes);
+			// This was the original solution
+			renderBuffer.CopyTo(imagePtr, renderBuffer.Width * 4, 4, true, false);
+			Marshal.Copy(imagePtr, imageBytes, 0, imageBytes.Length);
+			WebViewTexture.SetData(imageBytes);
 #endif
 #if false
-				// This was MindworX's attempt to make it faster, and it's just barely faster than the above
-				unsafe
+			// This was MindworX's attempt to make it faster, and it's just barely faster than the above
+			unsafe
+			{
+				// This part saves us from double copying everything.
+				fixed (Byte* imagePtr = imageBytes)
 				{
-					// This part saves us from double copying everything.
-					fixed (Byte* imagePtr = imageBytes)
-					{
-						renderBuffer.CopyTo((IntPtr)imagePtr, renderBuffer.Width * 4, 4, false, false);
-					}
+					renderBuffer.CopyTo((IntPtr)imagePtr, renderBuffer.Width * 4, 4, false, false);
 				}
-				WebViewTexture.SetData(imageBytes);
+			}
+			WebViewTexture.SetData(imageBytes);
 #endif
 #if true
                 // Found this little trick online, and it's quite a lot faster than either method above (roughly 3x faster)
                 renderBuffer.RenderTexture2D(WebViewTexture);
 #endif
             }
-
+        
             base.Draw(gameTime);
         }
     }
