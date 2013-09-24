@@ -1,7 +1,22 @@
-﻿body
+﻿html
+{
+	
+	background-color: transparent;
+	height:100%;
+}
+
+body
 {
     margin: 0px;
     background-color: transparent;
+	height:100%;
+	
+}
+
+#divGlobalContainer
+{
+	height:100%;
+	
 }
 
 /* Navigation Menu */
@@ -107,6 +122,7 @@
 
 /* Tree View */
 
+
 .clsTreeViewContainerDiv
 {
     min-height: 80%;
@@ -116,6 +132,7 @@
     max-width: 20%;
 }
 
+
 .clsTreeViewDiv
 {
 }
@@ -123,9 +140,18 @@
 
 /* Object Tabs Container */
 
-.clsObjectTabContainer
+#divObjectTabContainer
+{    
+	height: 78%;
+	overflow: auto;		
+}
+
+.fullHeight
 {
-    
-	max-height: 450px;
-	
+	height: 100%;
+}
+
+#divObjectTabContainerButtons
+{
+	height: 10%;
 }
