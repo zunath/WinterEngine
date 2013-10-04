@@ -40,12 +40,14 @@ function NewModuleBoxCancelClick() {
 }
 
 function ShowOpenModulePopUp(element) {
-    if (IsMenuButtonDisabled($(element))) return;
+	
+	if (IsMenuButtonDisabled($(element))) return;
 
     var jsonModuleList = Entity.GetModulesList();
     ToolsetViewModel.ModuleList(JSON.parse(jsonModuleList));
 
     $('#divOpenModuleBox').dialog('open');
+	
 }
 
 function CloseOpenModulePopUp() {

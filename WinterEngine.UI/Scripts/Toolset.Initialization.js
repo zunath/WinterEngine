@@ -32,6 +32,7 @@ function InitializeMainMenu() {
     $('#ulMenu').menu({
         position: { my: 'left top', at: 'left bottom' }
     });
+	
 }
 
 function InitializeValidation() {

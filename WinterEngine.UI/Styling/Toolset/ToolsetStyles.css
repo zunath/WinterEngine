@@ -16,7 +16,32 @@ body
 #divGlobalContainer
 {
 	height:100%;
-	
+	display:-webkit-box;
+	-webkit-box-orient:vertical;
+	-webkit-box-align:stretch;
+}
+
+#menuBarContainer
+{
+	-webkit-box-flex:0.0;
+}
+
+#nonMenuBarContainer
+{
+	-webkit-box-flex:1.0;
+	display:-webkit-box;
+	-webkit-box-orient:horizontal;
+	-webkit-box-align:stretch;
+}
+
+#divTreeViewContainer
+{
+	-webkit-box-flex:1.0;
+}
+
+#divToShowGame
+{
+	-webkit-box-flex:10.0;
 }
 
 /* Navigation Menu */
@@ -85,11 +110,12 @@ body
     float: left;
     display: block;
 }
-
+/*
 .ui-accordion .ui-accordion-content
 {
     padding: initial;
 }
+*/
 
 /* Transparent Fillers */
 /* Used to prevent UI from hiding game rendering*/
@@ -120,38 +146,29 @@ body
 	text-decoration: none;
 }
 
-/* Tree View */
-
-
-.clsTreeViewContainerDiv
-{
-    min-height: 80%;
-    max-height: 80%;
-
-    min-width: 20%;
-    max-width: 20%;
-}
-
-
 .clsTreeViewDiv
 {
 }
 
+#objectTabControls
+{
+	-webkit-box-flex:1.0;
+	display:-webkit-box;
+	-webkit-box-orient:vertical;
+	-webkit-box-align:stretch;
+}
 
 /* Object Tabs Container */
 
 #divObjectTabContainer
 {    
-	height: 78%;
-	overflow: auto;		
-}
 
-.fullHeight
-{
-	height: 100%;
+	overflow: auto;		
+	-webkit-box-flex:1.0;
 }
 
 #divObjectTabContainerButtons
 {
-	height: 10%;
+	/*height: 10%;*/
+	-webkit-box-flex:5.0;
 }
