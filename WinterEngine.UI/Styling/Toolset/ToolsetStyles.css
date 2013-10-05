@@ -152,10 +152,12 @@ body
 
 #objectTabControls
 {
+	
 	-webkit-box-flex:1.0;
 	display:-webkit-box;
 	-webkit-box-orient:vertical;
-	-webkit-box-align:stretch;
+	-webkit-box-align:end;
+	-webkit-box-pack:start;
 }
 
 /* Object Tabs Container */
@@ -170,5 +172,5 @@ body
 #divObjectTabContainerButtons
 {
 	/*height: 10%;*/
-	-webkit-box-flex:5.0;
+	-webkit-box-flex:0.0;
 }
