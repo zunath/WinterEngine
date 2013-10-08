@@ -157,20 +157,19 @@ body
 	display:-webkit-box;
 	-webkit-box-orient:vertical;
 	-webkit-box-align:end;
-	-webkit-box-pack:start;
+	-webkit-box-pack:stretch;
+	overflow: auto;	
 }
 
 /* Object Tabs Container */
 
 #divObjectTabContainer
-{    
-
-	overflow: auto;		
-	-webkit-box-flex:1.0;
+{    		
+	-webkit-box-flex:0.0;
 }
 
 #divObjectTabContainerButtons
 {
-	/*height: 10%;*/
-	-webkit-box-flex:0.0;
+	margin-top:3px;
+	-webkit-box-flex:1.0;
 }
