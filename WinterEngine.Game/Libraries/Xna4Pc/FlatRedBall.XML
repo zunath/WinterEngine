@@ -4,6 +4,11 @@
         <name>FlatRedBall</name>
     </assembly>
     <members>
+        <member name="T:FlatRedBall.AI.LineOfSight.IViewer">
+            <summary>
+            A viiewer in a VisibilityGrid.  This typically is a unit which removes fog of war around it.
+            </summary>
+        </member>
         <member name="T:FlatRedBall.Math.IStaticPositionable">
             <summary>
             Provides an interface for 3D position.
@@ -25,6 +30,17 @@
         <member name="P:FlatRedBall.Math.IStaticPositionable.Z">
             <summary>
             The absolute Z position.
+            </summary>
+        </member>
+        <member name="P:FlatRedBall.AI.LineOfSight.IViewer.WorldViewRadius">
+            <summary>
+            The distance in world units that this IViewer can see.
+            </summary>
+        </member>
+        <member name="T:FlatRedBall.AI.LineOfSight.VisibilityGrid">
+            <summary>
+            Represents a 2D grid of cells which identify what can be seen given a list of IViewers. 
+            This supports line of sight.
             </summary>
         </member>
         <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.UnBlockWorld(System.Single,System.Single)">
@@ -2223,6 +2239,13 @@
             is set if an EmitterSaveList is loaded from file.
             </summary>
         </member>
+        <member name="M:FlatRedBall.Content.Particle.EmitterSaveList.GetReferencedFiles(FlatRedBall.IO.RelativeType)">
+            <summary>
+            Returns a List of files referenced by this.
+            </summary>
+            <param name="relativeType">Whether the files should be absolute or relative.</param>
+            <returns>The list of referenced files.</returns>
+        </member>
         <member name="T:FlatRedBall.Content.PolygonListReader">
             <summary>
             This class will be instantiated by the XNA Framework Content
@@ -3215,11 +3238,6 @@
             <param name="width">The new width</param>
             <param name="height">The new height</param>
         </member>
-        <member name="M:FlatRedBall.Graphics.GraphicsOptions.ResetTextureFilter">
-            <summary>
-            Resets the texture filtering mode on the graphics device
-            </summary>
-        </member>
         <member name="M:FlatRedBall.Graphics.GraphicsOptions.SuspendDeviceReset">
             <summary>
             Suspends the device reset when options are changed
@@ -3258,11 +3276,6 @@
             Gets or sets the current texture filter
             </summary>
         </member>
-        <member name="P:FlatRedBall.Graphics.GraphicsOptions.BackgroundColor">
-            <summary>
-            Gets or sets the background color of all cameras
-            </summary>
-        </member>
         <member name="P:FlatRedBall.Graphics.GraphicsOptions.ResolutionWidth">
             <summary>
             Sets the width of the backbuffer and resets the device
@@ -3273,6 +3286,11 @@
             <summary>
             Sets the height of the backbuffer and resets the device
             Use SetResolution() to set both width and height simultaneously
+            </summary>
+        </member>
+        <member name="P:FlatRedBall.Graphics.GraphicsOptions.BackgroundColor">
+            <summary>
+            Gets or sets the background color of all cameras
             </summary>
         </member>
         <member name="P:FlatRedBall.Graphics.GraphicsOptions.IsFullScreen">
@@ -4621,8 +4639,8 @@
             <param name="value">The value to search after.  For example, this method will return objects with their position values greater than
             the argument value.  In other words, if 0 is passed as the value, then objects with position values greater than (not equal to) will be returned.</param>
             <param name="axis">The axis representing the value to use (x, y, or z)</param>
-            <param name="lowBound">The lower (inclusive) bound.</param>
-            <param name="highBound">The upper (exclusive) bound.</param>
+            <param name="lowBoundIndex">The lower (inclusive) bound.</param>
+            <param name="highBoundIndex">The upper (exclusive) bound.</param>
             <returns>The index of the first object after the given value.</returns>
         </member>
         <member name="M:FlatRedBall.Math.PositionedObjectList`1.GetTopParents">
@@ -6366,11 +6384,6 @@
             is required for proper cleanup.
             </summary>
         </member>
-        <member name="T:FlatRedBall.Graphics.TextField">
-            <summary>
-            Summary description for TextField.
-            </summary>
-        </member>
         <member name="M:FlatRedBall.Graphics.TextManager.AddText(System.String,FlatRedBall.Camera)">
             <summary>
             Creates a new Text with the argument string which will only be drawn in the argument Camera's
@@ -6431,979 +6444,6 @@
             <summary>
             The relative Y position.
             </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.Button">
-            <summary>
-            A UI element which displays text and visually responds to pushes.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.Window">
-            <summary>
-            This is the base class for most Gui elements.
-            </summary>
-            <remarks>
-            The WindowClass contains common properties, events, and methods
-            used by other Gui elements.  Much like most FRB objects, Windows and
-            window sub-classes should be created through the GuiManager.
-            
-            <para>
-            Windows can be created and drawn two different ways.  One is the
-            default Gui.  The default is drawn using the guiTex.png graphic.
-            The appearance of the default Gui is similar to a regular Windows
-            Gui.  Most default-drawn Gui elements must be added through a Window
-            instance rather than the GuiManager.  It is common practice to create
-            a Window through the GuiManager, then to add the children Gui elements
-            through the newly-created Window.
-            </para>
-            
-            <para>To chnage the appearance of the Gui, most Gui elements can
-            be constructed using SpriteFrames.  SpriteFrame-created GuiElements
-            can be created either through the GuiManager or a Window instance.</para>
-            <seealso cref="M:FlatRedBall.Gui.GuiManager.AddWindow"/>
-            <seealso cref="T:FlatRedBall.ManagedSpriteGroups.SpriteFrame"/>
-            </remarks>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.MoveBarHeight">
-            <summary>
-            The height in world units of the move bar.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.KeepWindowsInScreen">
-            <summary>
-            Whether Windows should be repositioned to keep their move bar
-            accessible to the mouse.  Default true.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mScaleX">
-            <summary>
-            The X size of the Window.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mScaleY">
-            <summary>
-            The Y size of the Window.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mScaleXVelocity">
-            <summary>
-            The rate of change of mScaleX in units per second.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mScaleYVelocity">
-            <summary>
-            The rate of change of mScaleY in units per second
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mWorldUnitX">
-            <summary>
-            The x position of the Window in world units.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mWorldUnitY">
-            <summary>
-            The y position of the Window in world units.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mWorldUnitRelativeX">
-            <summary>
-            The x position of the Window in world units relative to its Parent.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mWorldUnitRelativeY">
-            <summary>
-            The y position of the Window in world units relative to its Parent.  Although UI normally considers
-            down to be positive Y, this value is just like Sprites - positive Y is up.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mMoveBar">
-            <summary>
-            Whether the Window has a move bar which the user can
-            click and drag over to reposition the Window.  This is usually
-            only true for regular Windows - objects inheriting from the
-            Window class almost always have this set to false.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mCursor">
-            <summary>
-            The cursor that this Window uses for UI interaction.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mName">
-            <summary>
-            The Window's name.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mChildren">
-            <summary>
-            Windows that belong to and are positioned relative to this Window.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mFloatingWindows">
-            <summary>
-            Windows that belong to this Window but are not positioned relative to it and do not have to 
-            be physically contained in this Window for the user to interact with them.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mColor">
-            <summary>
-            Used to adjust the alpha of the Windows.  Typically, faded Windows
-            are disabled.  Only the first 8 bytes are changed.  The RGB components
-            are not touched.  This field is not exposed to the user - it's used internally.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.StaticVertices">
-            <summary>
-            Vertices used in the Draw methods.
-            </summary>
-            <remarks>
-            Derived UI elements do not need to use this unless they are manually drawing new types of objects.
-            Derived UI elements which simply use other base elements will not need to touch this field.
-            </remarks>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mTextureLeft">
-            <summary>
-            The left coordinate of the texture to use when drawing a non-null BaseTexture
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mTextureRight">
-            <summary>
-            The right coordinate of the texture to use when drawing a non-null BaseTexture
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mTextureTop">
-            <summary>
-            The top coordinate of the texture to use when drawing a non-null BaseTexture
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Window.mTextureBottom">
-            <summary>
-            The bottom coordinate of the texture to use when drawing a non-null BaseTexture
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.OnClick">
-            <summary>
-            Raises the Click event.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.OnDragging">
-            <summary>
-            Raises the Dragging event.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.OnLosingFocus">
-            <summary>
-            Raises the LosingFocus event.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.OnPush">
-            <summary>
-            Raises the Push event.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.OnResize">
-            <summary>
-            Raises the Resizing event.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.#ctor(FlatRedBall.Gui.Cursor)">
-            <summary>
-            Creates a new Window using the default graphics.
-            </summary>
-            <remarks>
-            To have the Window drawn by the engine, it must be added
-            to the GuiManager through the AddWindow button.  It is more
-            common to create Windows using the no-argument GuiManager's
-            AddWindow method.
-            
-            <para>The following code creates a window, places it at the
-            center of the screen, scales it, and adds the move bar.
-            This method of creating a Window is more common than calling
-            the constructor.</para>
-            <code>
-            Window newWindow = GuiManager.AddWindow();
-            newWindow.SetPositionTL(SpriteManager.Camera.XEdge, SpriteManager.Camera.YEdge);
-            newWindow.ScaleX = 10;
-            newWindow.ScaleY = 10;
-            newWindow.HasMoveBar = true;
-            </code>
-            </remarks>
-            <param name="cursor">Reference to the cursor to use.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.#ctor(FlatRedBall.Gui.GuiSkin,FlatRedBall.Gui.Cursor)">
-            <summary>
-            Creates a new Window using the argument GuiSkin to set its appearance.  This will
-            create a SpriteFrame as the visible representation for the Window.
-            </summary>
-            <param name="guiSkin">The GuiSkin to use to set the Window's visibile representation properties.</param>
-            <param name="cursor">The cursor that will interact with the Window.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.AddWindow(FlatRedBall.Gui.IWindow)">
-            <summary>
-            Adds the arguemnt Window to this Window's children List.
-            </summary>
-            <param name="windowToAdd">The Window to add.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.AddFloatingWindow(FlatRedBall.Gui.Window)">
-            <summary>
-            Adds the arguent Window to this Window's floating Windows List.
-            </summary>
-            <param name="windowToAdd">The Window to add.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.ClearEvents">
-            <summary>
-            Clears all of the Window's events.
-            </summary>
-            <remarks>
-            This is usually only called by the engine when a window is being destroyed.
-            </remarks>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.CloseWindow">
-            <summary>
-            Sets the Visible to false and calls the Closing event.  This does not remove
-            the window from the GuiManager unless the Window was created by the ObjectDisplayManager
-            or any IObjectDisplayer provided as part of FlatRedBall.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.GetVisibleChildrenCount">
-            <summary>
-            Returns the number of visible children and floating Windows.  This method
-            does not recursively check children's children.
-            </summary>
-            <returns>The number of visible children and floating Windows.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.GetWindowOver(System.Single,System.Single)">
-            <summary>
-            Returns which window the argument coordinates are currently over.  Windows
-            tested are this, children, and floating Windows.
-            </summary>
-            <param name="cameraRelativeX">The Camera-relative X position at 100 units away.  This matches the UI coordinate system.</param>
-            <param name="cameraRelativeY">The Camera-relative Y position at 100 units away.  This matches the UI coordinate system.</param>
-            <returns>The window that the point is over if any, else null.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.FindByName(System.String)">
-            <summary>
-            Searches through children and floating windows for a Window with 
-            its Name matching the argument name.  Returns null if none are found.
-            </summary>
-            <param name="name">The name to search for.</param>
-            <returns>The Window with the matching Name or null if none are found.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.FindWithNameContaining(System.String)">
-            <summary>
-            Returns the child or floating Window with the matching name, or null if none are found.
-            </summary>
-            <param name="name">The name to earch for.</param>
-            <returns>The window with the matching name.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.IsPointOnWindow(System.Single,System.Single)">
-            <summary>
-            Returns whether the argument coordinate is on this instance.  Units 
-            are at 100 units away from the camera (similar to how the cursor 
-            is positioned);
-            </summary>
-            <param name="cameraRelativeX">The X coordinate relative to the center of the screen at 100 units away.</param>
-            <param name="cameraRelativeY">The Y coordinate relative to the center of the screen at 100 units away.</param>
-            <returns>Whether the point is on the Window.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.KeepInScreen">
-            <summary>
-            Repositions the Window if the Window has a move bar so that it can be accessed by the Cursor.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.RemoveWindow(FlatRedBall.Gui.IWindow)">
-            <summary>
-            Removes the argument Window from the internal WindowArray belonging to this.  Also removes the SpriteFrame from the
-            SpriteManager if the window is not drawn by the GuiManager.
-            </summary>
-            <param name="windowToRemove">Reference to the Window to remove.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.SetAnimationChain(FlatRedBall.Graphics.Animation.AnimationChain)">
-            <summary>
-            Currently not implemented.
-            </summary>
-            <param name="chainToSet"></param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.SetPositionTL(System.Single,System.Single)">
-            <summary>
-            Sets the screen relative or Parent-relative position.
-            </summary>
-            <remarks>
-            Calling this method is the same as setting the X and Y properties.
-            </remarks>
-            <param name="x">The X value.  Positive X is to the right.</param>
-            <param name="y">The Y value.  Positive Y is down.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.SetScaleTL(System.Single,System.Single)">
-            <summary>
-            Resizes the Window and keeps the top left position static.  This method keeps the top left of all
-            children Windows in the same relative position to the top left of
-            this Window after the resize.
-            </summary>
-            <param name="newScaleX">The new ScaleX value.</param>
-            <param name="newScaleY">The new ScaleY value.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.SetScaleTL(System.Single,System.Single,System.Boolean)">
-            <summary>
-            Resizes the Window and can keep the top left position static.  This method
-            keeps the top left of all children Windows in the same relative position to
-            the top left of this Window after the resize.
-            </summary>
-            <param name="newScaleX">The new ScaleX value.</param>
-            <param name="newScaleY">The new ScaleY value.</param>
-            <param name="keepTopLeftStatic">Whether the top left of this Window should be in the same position after the scale values are changed.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.SetSkin(FlatRedBall.Gui.GuiSkin)">
-            <summary>
-            Sets the GuiSkin for the window.  This refreshes the appearance of the Window as well.
-            </summary>
-            <param name="guiSkin">The GuiSkin to set.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.SetTextureCoordinates(System.Single,System.Single,System.Single,System.Single)">
-            <summary>
-            Sets the texture coordinates for the Window.  Only valid if the Window's BaseTexture is non-null.
-            </summary>
-            <param name="top">The top texture coordinate.</param>
-            <param name="bottom">The bottom texture coordinate.</param>
-            <param name="left">The left texture coordinate.</param>
-            <param name="right">The right texture coordinate.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.ToString">
-            <summary>
-            Returns a string containing basic information about the Window.
-            </summary>
-            <returns>The string with the Window's information.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.UpdateDependencies">
-            <summary>
-            Updates the Window's position according to its Parent's position. 
-            Also performs updates on all children.
-            </summary>
-            <remarks>
-            The GuiManager automatically calls this on all Windows so it's unlikely that
-            this needs to be called outside of the engine.  This method does not update the
-            Window's Parents like the UpdateDependencies method does for PositionedObjects because
-            the GuiManager only keeps reference to the top parents of Windows.  Therefore, the GuiManager
-            only loops through the top parents and it's their responsibility to update their children's positions.
-            </remarks>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.SetFromWindowSkin(FlatRedBall.Gui.WindowSkin)">
-            <summary>
-            Sets the SpriteFrame's properties according to the argument WindowSkin.
-            </summary>
-            <remarks>
-            This allows Window-inheriting UI elements to pass any WindowSkin and control
-            their visibility.  For example, a Button may pass a different WindowSkin than a
-            TextBox to this method.
-            </remarks>
-            <param name="windowSkin">The WindowSKin to use for setting the SpriteFrame's properties.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.Destroy(System.Boolean)">
-            <summary>
-            Removes self from all Parent Windows, destroys all Children windows, and 
-            clears events if keepEvents is false.
-            </summary>
-            <remarks>
-            This method is called by GuiManager's RemoveWindow method.  The GuiManager's RemoveWindow
-            method removes the window from the GuiManager if it is referenced there.  This method removes
-            the window from any parents that it belongs to.  The two methods together will clear all engine
-            references to the Window.
-            </remarks>
-            <param name="keepEvents">Whether to keep all events.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.TestCollision(FlatRedBall.Gui.Cursor)">
-            <summary>
-            Calls events for clicking, pushing, dragging, and any other window events.
-            </summary>
-            <remarks>
-            This method is called either by this instance's parent Window or the GuiManager.
-            </remarks>
-            <param name="cursor">The Cursor to use for collision.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.Window.TestCollisionBase(FlatRedBall.Gui.Cursor)">
-            <summary>
-            Provides acces to base TestCollision functionality for objects which derive from the
-            Window class.
-            </summary>
-            <remarks>
-            Sometimes a Window is separated by one or more layers of inheritance from the
-            base Window class.  In these cases the Window may want to call the base TestCollision
-            method without going through the immediate class it inherits from.
-            
-            For example, the Button class inherits from the Window class.  The ToggleButtonClass inherits
-            from the Button class.  Since the Button class needs to perform different functionality than the
-            Button class when the user interacts with it with the Cursor it needs to be able to "step over" the
-            Button's TestCollision call.
-            </remarks>
-            <param name="cursor">The Cursor to use for interaction with this element.</param>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.ScaleX">
-            <summary>
-            The X Scale of the Window.
-            </summary>
-            <remarks>
-            Changing the ScaleX raises the Resizing event.
-            <seealso cref="M:FlatRedBall.Gui.Window.SetScaleTL(System.Single,System.Single)"/>
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.ScaleY">
-            <summary>
-            Yhe Y Scale of the Window.
-            </summary>
-            <remarks>
-            Changing the ScaleY raises the Resizing event.
-            <seealso cref="M:FlatRedBall.Gui.Window.SetScaleTL(System.Single,System.Single)"/>
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.ScaleXVelocity">
-            <summary>
-            The rate of change of the ScaleX property in units per second.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.ScaleYVelocity">
-            <summary>
-            The rate of change of the ScaleY property in units per second.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.Animate">
-            <summary>
-            Whether the Window uses its AnimationChain.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.AnimationChains">
-            <summary>
-            NOT IMPLEMENTED
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.AnimationSpeed">
-            <summary>
-            NOT IMPLEMENTED
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.CurrentChainIndex">
-            <summary>
-            NOT IMPLEMENTED
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.CurrentChainName">
-            <summary>
-            NOT IMPLEMENTED:  Will be included at a future time.  Using this will throw an exception.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.CurrentChain">
-            <summary>
-            NOT IMPLEMENTED
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.CurrentFrameIndex">
-            <summary>
-            NOT IMPLEMENTED
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.JustChangedFrame">
-            <summary>
-            NOT IMPLEMENTED
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.JustCycled">
-            <summary>
-            NOT IMPLEMENTED
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.UseAnimationRelativePosition">
-            <summary>
-            NOT IMPLEMENTED
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.WorldUnitX">
-            <summary>
-            The screen-relative X position with 0 being the center of the screen.
-            </summary>
-            <remarks>
-            If this has a Parent then this property is essentially read-only.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.WorldUnitY">
-            <summary>
-            The screen-relative Y position with 0 being the center of the screen.  This proerty
-            uses up as positive Y.
-            </summary>
-            <remarks>
-            If this has a Parent then this property is essentially read-only.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.WorldUnitRelativeX">
-            <summary>
-            The X position of the Window relative to its Parent.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.WorldUnitRelativeY">
-            <summary>
-            The Y position of the Window relative to its Parent.  Positive Y is up.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.X">
-            <summary>
-            The X position of the Window.  If the Window does not have a parent this
-            is the distance between the center of the Window and the left edge of the
-            screen.  If the Window does have a parent this is the distance between the
-            center of the Window and the left edge of its Parent.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.Y">
-            <summary>
-            The Y position of the Window.  If the Window does not have a parent this
-            is the distance between the center of the Window and the top edge of the
-            screen.  If the Window does have a parent this is the distance between the
-            center of the Window and the top edge of its Parent.  Positive is down.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.AbsoluteWorldUnitZ">
-            <summary>
-            The Z plane that Windows are drawn when drawn by the GuiManager.  This 
-            depends on the position of the Camera.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.ScreenRelativeX">
-            <summary>
-            Gets the distance between the left of the screen and the Window's center.  This value
-            represents this distance regardless of whether the Window has a parent.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.ScreenRelativeY">
-            <summary>
-            Gets the distance between the top of the screen and the Window's center.  This value
-            represents this distance regardless of whether the Window has a parent.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.Enabled">
-            <summary>
-            Gets and sets whether the UI element can be interacted with by the Cursor.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.FloatingChildren">
-            <summary>
-            The list of Floating Windows which belong to this Window.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.GuiManagerDrawn">
-            <summary>
-            Whether the Window uses the default GUI drawn by the GuiManager.  If false then the Window
-            uses GuiSkins and SpriteFrames.
-            </summary>
-            <remarks>
-            GuiDrawn UI will always appear on top of other FlatRedBall graphics.  If not GUiDrawn
-            (if using SpriteFrames) then the SpriteFrames will be sorted appropriately with other
-            FlatRedBall graphical objects.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.HasCloseButton">
-            <summary>
-            Whether the Window has a close button.
-            </summary>
-            <remarks>
-            This is usually only set to true for Windows which do not have a Parent and 
-            whidh have HasMoveBar set to true.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.HasMoveBar">
-            <summary>
-            Whether thie Window has a bar which can be grabbed to move the Window.
-            </summary>
-            <remarks>
-            This is generally not set to true unless the Window does not have a Parent.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.IsWindowOrChildrenReceivingInput">
-            <summary>
-            Gets whether the Window, any of its children, or any of its floating Windows
-            are receiving input from the Keyboard.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.Parent">
-            <summary>
-            The parent of the Window.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.Visible">
-            <summary>
-            Whether the Window is visible.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.Name">
-            <summary>
-            The name of the Window.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.Children">
-            <summary>
-            The Windows which are attached to this instance.
-            </summary>
-            <remarks>
-            All children Windows must be contained within the physical bounds
-            of their Parent, otherwise the user will not be able to interact with them.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.MinimumScaleX">
-            <summary>
-            The minimum ScaleX of the Window.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.MinimumScaleY">
-            <summary>
-            The minimum ScaleY of the Window.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.MaximumScaleX">
-            <summary>
-            The maximum ScaleX of the Window.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.MaximumScaleY">
-            <summary>
-            The maximum ScaleY of the Window.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.Resizable">
-            <summary>
-            Whether the Window can be resized by grabbing its bottom-right corner with the Cursor.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.DrawBorders">
-            <summary>
-            Whether the borders are drawn on the window.
-            </summary>
-            <remarks>
-            This controls the sides, bottom, top and move bar drawing.
-            This can be set to false when setting a Window's texture
-            so that only the texture is shown.  
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.BaseTexture">
-            <summary>
-            The texture to use when drawing the Window.  Default of null will
-            result in the Window using the default texture.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Window.Alpha">
-            <summary>
-            The opacity of the Window.  Default is fully opaque (255).
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.Click">
-            <summary>
-            Raised when the user has pushed and released the primary (left) mouse button
-            on the Window.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.SecondaryClick">
-            <summary>
-            Raised when the user has pushed and released the secondary (right) mouse button
-            on the Window.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.Push">
-            <summary>
-            Raised when the user has pushed the primary (left) mouse button on the Window.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.Closing">
-            <summary>
-            Raised when the Window has been closed.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.CursorOver">
-            <summary>
-            Raised when the cursor is over the window whether it has moved or not.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.DoubleClick">
-            <summary>
-            Raised when the user has double-clicked on the Window with the primary (left) mouse button.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.LosingFocus">
-            <summary>
-            Raised after the user has clicked on this Window giving it focus, then on a different
-            Window causing this Window to lose focus.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.Dragging">
-            <summary>
-            Raised when the Cursor has grabbed and is moving a Window.  Most UI elements
-            are not by default grabbable.
-            </summary>
-            <remarks>
-            The ScrollBar has its position bar grabbable.
-            </remarks>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.Resizing">
-            <summary>
-            Continually raised while the user is resizing the Window, or when ScaleX or ScaleY are
-            changed.  This is not raised once, but once each frame during resizing with the Cursor.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.RollingOn">
-            <summary>
-            Raised when the cursor first moves over the Window.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.RollingOff">
-            <summary>
-            Raised when the cursor leaves the Window.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.VisibleChange">
-            <summary>
-            Raised when the Window's Visible property changes.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.Window.RollingOver">
-            <summary>
-            Raised when the cursor is over the window and has moved since last frame.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Button.mDrawBase">
-            <summary>
-            Whether the base (center and borders) are drawn
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Button.ButtonPushedState">
-            <summary>
-            Gets the current ButtonPushedState.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Button.DrawBase">
-            <summary>
-            Whether the Window draws its base and borders.  Setting to false will only draw the Window's texture.
-            </summary>
-            <remarks>
-            Set this to false if the Button is used to draw a texture.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Button.Enabled">
-            <summary>
-            Gets and sets whether the Button can be interacted with.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.Button.FlipHorizontal">
-            <summary>
-            Gets and sets whether to horizontally flip the overlayed texture.
-            </summary>
-            <remarks>
-            This property only affects the appearance of the Button if SetOverlayTexture is called to change the
-            overlay texture.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Button.FlipVertical">
-            <summary>
-            Gets and sets whether to horizontally flip the overlayed texture.
-            </summary>
-            <remarks>
-            This property only affects the appearance of the Button if SetOverlayTexture is called to change the
-            overlay texture.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Button.HighlightOnDown">
-            <summary>
-            Gets and sets whether the button should draw itself lighter when pressed if it
-            is referencing an overly texture.  Default value is true.
-            </summary>
-            <remarks>
-            This property has no impact if the button is not referencing an overlay texture.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Button.Text">
-            <summary>
-            The string to display and the tool tip text to display when the cursor
-            moves over the button.
-            </summary>
-            <remarks>
-            This is only on the Button if the overlay texture is null.  The tool tip will show
-            regardless of whether the button is showing a texture or not.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.Button.UpOverlayTexture">
-            <summary>
-            The overlay texture the button is displaying.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.CameraViewWindow">
-            <summary>
-            A Window that can show what a Camera is viewing.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.CollapseItem">
-            <summary>
-            Summary description for CollapseItem.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.CollapseItem.AddIcon(System.Single,System.Single,System.Single,System.Single,System.String)">
-            <summary>
-            Adds an icon to the CollapseItem
-            </summary>
-            <remarks>
-            Do not use $ in the name of the icon as the Collapse list boxes use this character for 
-            icons such as + and - boxes for expanding CollapseItems with children.
-            </remarks>
-            <param name="top"></param>
-            <param name="bottom"></param>
-            <param name="left"></param>
-            <param name="right"></param>
-            <param name="name"></param>
-        </member>
-        <member name="M:FlatRedBall.Gui.CollapseItem.Contains(System.Object)">
-            <summary>
-            Returns whether this or any children CollapseItems contain the argument object as their ReferenceObject.
-            </summary>
-            <param name="objectToSearchFor">The object to search for.</param>
-            <returns>Whether this or any children CollapseItems reference the argument.</returns>
-        </member>
-        <member name="T:FlatRedBall.Gui.CollapseListBox">
-            <summary>
-            A List Box which can hold collapsable items.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.IInputReceiver">
-            <summary>
-            Interface for objects which can receive input from the InputManager.
-            </summary>
-            <remarks>
-            
-            This interface should only be used for Gui elements specifically because the GuiManager will change the InputManager.ReceivingInput
-            reference depending on the activity of the cursor and other Gui elements.  The InputManager will only keep track of one IInputReceiver
-            at a time, and each IInputReceiver needs to assign itself as the target for input through the static InputManager.ReceivingInput field.
-            
-            <para>Since this is only used for Gui elements, this interface is rarely used in games.</para>
-            </remarks>
-        </member>
-        <member name="M:FlatRedBall.Gui.IInputReceiver.OnFocusUpdate">
-            <summary>
-            Called by the InputManager automatically every frame.
-            </summary>
-            <remarks>
-            The implementation of this method should raise the FocusUpdate event.
-            </remarks>
-        </member>
-        <member name="M:FlatRedBall.Gui.IInputReceiver.OnGainFocus">
-            <summary>
-            Called by the engine automatically when an IInputReceiver gains focus.
-            </summary>
-            <remarks>
-            The implementation of this method should raise the GainFocus event.
-            </remarks>
-        </member>
-        <member name="M:FlatRedBall.Gui.IInputReceiver.LoseFocus">
-            <summary>
-            Called by the engine automatically when an IInputReceiver loses focus.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.IInputReceiver.ReceiveInput">
-            <summary>
-            The method called every frame by the InputManager in the Update method
-            if this is the IInputReceiver referenced by the InputManager.  This does
-            not have to be called automatically.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.IInputReceiver.TakingInput">
-            <summary>
-            A method which determines whether the instance can currently receive focus as an input receiver.
-            </summary>
-            <returns>Whether the instance is taking input.</returns>
-        </member>
-        <member name="P:FlatRedBall.Gui.IInputReceiver.NextInTabSequence">
-            <summary>
-            The next IInputReceiver in the tab sequence.  In other words, if this element is currently
-            receiving input (is the InputManager's ReceivingInput), pressing tab will set the NextInTabSequence
-            to be the InputManager's ReceivingInput.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.IInputReceiver.GainFocus">
-            <summary>
-            Raised when the instance gains input focus (becomes the InputManager's ReceivingInput).
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.IInputReceiver.FocusUpdate">
-            <summary>
-            Event raised every frame if there is a non-null InputManager.ReceivingInput.  This allows
-            the IInputReceiver to perform custom every-frame logic when it has focus, such as a ListBox
-            listening for the Delete key to delete highlighted elements.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.ListBoxBase.mInsertLocation">
-            <summary>
-            Marks where to insert CollapseItems if reordering with the mouse.
-            Default is -1, which specifies that it shouldn't be drawn.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.ListBoxBase.mYPositionPushed">
-            <summary>
-            When the user pushes the mouse over the list box
-            this value will be set.  Then this value can be compared
-            against to see if reordering should occur.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.ListBoxBase.GetItem(System.Int32)">
-            <summary>
-            Returns the CollapseItem at index itemNumber traversing from the top of the list down.
-            </summary>
-            <remarks>
-            This method will skip over items that are children of collapsed items.  
-            The list is traversed
-            down ignoring hierarchy, but only counting "visible" items.
-            </remarks>
-            <param name="itemNumber">The index to return</param>
-            <returns>The item at index itemNumber.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.ListBoxBase.RemoveItemByName(System.String)">
-            <summary>
-            Removes the item from the CollapseListBox.
-            </summary>
-            <remarks>
-            This method removes the item from the CollapseListBox and detaches the item's children and
-            reattaches them to the box.  The assumption here is that the item will not be reattached.
-            </remarks>
-            <param name="itemToRemove"></param>
-            <returns></returns>
-        </member>
-        <member name="P:FlatRedBall.Gui.ListBoxBase.NumberOfVisibleElements">
-            <summary>
-            Returns the number of elements that can be shown in the list box.  Increasing the ScaleY or decreasing
-            the DistanceBetweenLines increases this value.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.ListBoxBase.OnNewHighlight">
-            <summary>
-            This event is fired when highlighting an item that was not 
-            previously highlighted.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.CollapseListBox.DetachItem(System.String)">
-            <summary>
-            Detaches the item from the CollapseListBox.
-            </summary>
-            <remarks>
-            This method will keep all children of the detached item in tact so that the item can simply
-            be reattached again.
-            </remarks>
-            <param name="itemToRemove"></param>
-            <returns></returns>
-        </member>
-        <member name="T:FlatRedBall.Gui.CollapseWindow">
-            <summary>
-            Summary description for CollapseWindow.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.ComboBox">
-            <summary>
-            Summary description for ComboBox.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.ComboBox.OnDropDownButtonClick(FlatRedBall.Gui.Window)">
-            <summary>
-            Event clicked when the dropDownButton is clicked.  If the ListBox is not visible
-            it will appear.
-            </summary>
-            <param name="callingWindow"></param>
         </member>
         <member name="T:FlatRedBall.Gui.Cursor">
             <summary>
@@ -7957,76 +6997,6 @@
             every frame to position the grabbed object.
             </summary>
         </member>
-        <member name="T:FlatRedBall.Gui.EditAndSetButtons">
-            <summary>
-            UI element used to give the user an option whether to edit an existing 
-            instance of an object or to reassign it.
-            </summary>
-            <remarks>
-            This object is usually used in PropertyGrids.
-            </remarks>
-        </member>
-        <member name="T:FlatRedBall.Gui.FileTextBox">
-            <summary>
-            A TextBox-like window which allows the user to browse the folder structure and select a 
-            file.  The selected file will appear in the TextBox.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.FileTextBox.SetFileType(System.String)">
-            <summary>
-            Sets the filetype that the FileWindow can view. 
-            </summary>
-            <remarks>
-            This method also clears all types.  Setting a filter then calling SetFileType clears the filter.
-            
-            Setting the filetype as "graphic" sets all of the file types that FRB can load.
-            <seealso cref="P:FlatRedBall.Gui.FileWindow.Filter"/>
-            </remarks>
-            <param name="FileType">The file types specified by extension.  </param>
-        </member>
-        <member name="M:FlatRedBall.Gui.FileWindow.OnFileTypeChange(FlatRedBall.Gui.Window)">
-            <summary>
-            If the user selects an item in the mFileTypesBox 
-            </summary>
-            <param name="callingWindow"></param>
-        </member>
-        <member name="M:FlatRedBall.Gui.FileWindow.#ctor(FlatRedBall.Gui.Cursor)">
-            <summary>
-            Creates a new FileWindow.
-            </summary>
-            <remarks>
-            By default, the save name TextBox is invisible making this a text box for loading.  Call
-            SetToSave to make the box appear.
-            </remarks>
-            <param name="InpMan"></param>
-            <param name="SprMan"></param>
-        </member>
-        <member name="M:FlatRedBall.Gui.FileWindow.SetFileType(System.String)">
-            <summary>
-            Sets the filetype that the FileWindow can view. 
-            </summary>
-            <remarks>
-            This method also clears all types.  Setting a filter then calling SetFileType clears the filter.
-            
-            Setting the filetype as "graphic" sets all of the file types that FRB can load.
-            <seealso cref="P:FlatRedBall.Gui.FileWindow.Filter"/>
-            </remarks>
-            <param name="FileType">The file types specified by extension.  </param>
-        </member>
-        <member name="P:FlatRedBall.Gui.FileWindow.Filter">
-            <summary>
-            Specifies the possible filetypes that the FileWindow can save or load.
-            </summary>
-            <remarks>
-            <code>
-            // assuming someFileWindow is a valid
-            // This sets a single filter for EXE
-            someFileWindow.Filter = "Executable File (*.exe)|*.exe";
-            // Or you can set multiple ones
-            someFileWindow.Filter = "SpriteEditor Binary Scene (*.scn)|*.scn|SpriteEditor XML Scene (*.scnx)|*.scnx";
-            </code>
-            </remarks>
-        </member>
         <member name="F:FlatRedBall.Gui.GuiManager.mDominantWindows">
             <summary>
             A stack of Windows which demand input from the cursor.
@@ -8066,563 +7036,72 @@
             are drawn, which is what the user will usually expect
             </summary>
         </member>
-        <member name="M:FlatRedBall.Gui.GuiManager.AddPerishableWindow(FlatRedBall.Gui.Window)">
-            <summary>
-            Adds a Window to the GuiManager which will disappear the next time
-            the user clicks.
-            </summary>
-            <param name="windowToAdd">The Window to add.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.GuiManager.AddTextureSwitch(Microsoft.Xna.Framework.Graphics.Texture2D)">
-             <summary>
-             Inserts a texture switch in the rendering of the GUI.  The argument textureToSwitch will be 
-             used to draw just the next quad passed as 6 vertices.
-             </summary>
-             <remarks>
-             This method is called from the Draw method of an object that is a Window or inherits from
-             Window.  This notifies the GuiManager that the next 6 vertices passed through the
-             GuiManager.verts.Write(v); call will be using a different texture.  After those 6
-             are drawn, the GuiManager continues to draw the rest of the quads using the regular
-             GUI texture.
-             
-             The important thing to remember is that this method does NOT need to be called in pairs.
-            
-             </remarks>
-             <param name="textureToSwitch">The texture to use for the following quad.</param>
-        </member>
         <member name="T:FlatRedBall.Gui.FocusUpdateDelegate">
             <summary>
             Event raised by the Keyboard every frame on the InputManager's ReceivingInput reference.
             </summary>
             <param name="inputReceiver">The current IInputReceiver.</param>
         </member>
-        <member name="T:FlatRedBall.Gui.InfoBar">
+        <member name="T:FlatRedBall.Gui.IInputReceiver">
             <summary>
-            UI element which stretches across the bottom of the screen.  This element
-            automatically resizes horiontally to fill the entire bottom of the screen.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.ListBox">
-            <summary>
-            Summary description for ListBox.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.ListBox.Clear">
-            <summary>
-            Removes all items from the list box.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.ListBoxFunction">
-            <summary>
-            Delegate for actions to be taken when the user clicks on an icon.
-            </summary>
-            <param name="collapseItem">The CollapseItem containing the icon that was clicked.</param>
-            <param name="listBoxBase">The ListBoxBase containing the CollapseItem that contains the ListBoxIcon.</param>
-            <param name="listBoxIcon">The ListboxIcon that was clicked.</param>
-        </member>
-        <member name="F:FlatRedBall.Gui.ListDisplayWindow.mExtraChildrenWindows">
-            <summary>
-            List of windows which are always shown.  This can be used to modify the ListDisplayWindow
-            to support more windows and behavior.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.ListDisplayWindow.mTypeList">
-            <summary>
-            This must be set prior to calling ShowCreationWindow if element creation
-            is to be handled by FlatRedBall.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.ListDisplayWindow.mUndoInstructions">
-            <summary>
-            The list that the Grid's UndoInstructions are set to.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.ListDisplayWindow.AddWindow(FlatRedBall.Gui.IWindow)">
-            <summary>
-            Adds an always-displayed Window to the PropertyGrid.  This window will appear
-            after all member-displaying Windows and will automatically be positioned appropriately.
-            </summary>
-            <param name="windowToAdd">The window to add.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.ListDisplayWindow.GetStringForObject(System.Object)">
-            <summary>
-            Returns the String representation for an object.  The string returns
-            depends on whether a string representation has been set for this object and
-            whether the object is a FlatRedBall.Utilities.INameable.
-            </summary>
-            <param name="objectToGetStringFor">The object to get the string representation of.</param>
-            <returns>The string representation of the argument.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.ListDisplayWindow.HighlightObjectNoCall(System.Object,System.Boolean)">
-            <summary>
-            Highlights the argument objectToHighlight, but does not raise the Highlighted event.
-            </summary>
-            <param name="objectToHighlight">The object to highlight.</param>
-            <param name="addToHighlighted">Whether to add the argument to the highlighted items.  If 
-            true is passed then mulitple objects can be highlighted.  If false is passed then only the 
-            argument will be highlighted.</param>
-        </member>
-        <member name="P:FlatRedBall.Gui.ListDisplayWindow.AllowCut">
-            <summary>
-            Whether the ListDisplayWindow has CTRL+X cut and CTRL+V paste functionality.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.ListDisplayWindow.ConsiderAttachments">
-            <summary>
-            Whether the ListDisplayWindow attempts to display attachments.  If the list
-            being displays contains IAttachables and this is true then the tree structure
-            will be rerpesented in the CollapseListBox.  Default is false.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.ListDisplayWindow.MemberDisplaying">
-            <summary>
-            If this ListDisplayWindow was created by a PropertyGrid then
-            it is displaying a member that is a List.  MemberDisplaying is
-            the string name of the member being displayed.  This defaults
-            to null if this Window was not created by a PropertyGrid.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.Marker">
-            <summary>
-            Summary description for Marker.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Marker.ScaleX">
-            <summary>
-            The distance from the center to the edge on the X axis.  Increasing
-            this makes the Marker wider.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Marker.ScaleY">
-            <summary>
-            The distance from the center to the edge on the Y axis.  Increasing
-            this makes the Marker taller.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.Marker.ReferenceObject">
-            <summary>
-            The object that the Marker represents.
+            Interface for objects which can receive input from the InputManager.
             </summary>
             <remarks>
-            This can be used if an object is to be selected on a MarkerTimeLine, like an animation frame.
-            </remarks>
-        </member>
-        <member name="F:FlatRedBall.Gui.Marker.Value">
-            <summary>
-            The value in the MarkerTimeLine that the Marker is located.
-            </summary>
-            <remarks>
-            Usually the value represents time.  Therefore, if a Marker is being used to show
-            when an animation frame executes, this value should be the animation frame's time.
-            </remarks>
-        </member>
-        <member name="F:FlatRedBall.Gui.Marker.Texture">
-            <summary>
-            UNUSED
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.MarkerTimeLine">
-            <summary>
-            Summary description for MarkerTimeLine.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.TimeLine">
-            <summary>
-            Summary description for TimeLine.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.TimeLine.ClickEvent(FlatRedBall.Gui.Window)">
-            <summary>
-            Method raised when the user clicks on the Window.  This moves
-            the position bar to the appropriate location.
-            </summary>
-            <param name="callingWindow">The window raising this event.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.TimeLine.#ctor(FlatRedBall.Gui.Cursor)">
-            <summary>
-            Creates a new TimeLine;
-            </summary>
-            <param name="cursor">The Cursor that will interact with the TimeLine.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.TimeLine.#ctor(FlatRedBall.Gui.GuiSkin,FlatRedBall.Gui.Cursor)">
-            <summary>
-            Creates a new TimeLine using the argument GuiSkin to control the visible representation.
-            </summary>
-            <param name="guiSkin">The GuiSkin to use.</param>
-            <param name="cursor">The Cursor that will interact with the TimeLine.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.TimeLine.AutoCalculateVerticalLineSpacing">
-            <summary>
-            Automatically sets the VerticalBarIncrement and SmallVerticalBarIncrement
-            based off of the ValueWidth property.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.TimeLine.CallOnGUIChange">
-            <summary>
-            Raises the events which raise when the GUI changes.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.TimeLine.ClearEvents">
-            <summary>
-            Clears all events.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.TimeLine.FixBar">
-            <summary>
-            Keeps the position bar within the visible range of the TimeLine.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.TimeLine.GetPosOnBar(System.Double)">
-            <summary>
-            Converts an absolute value to visible position on the bar
-            </summary>
-            <param name="valueToGet">The absolute value to convert to position.</param>
-            <returns>The position on the bar.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.TimeLine.PositionToValueAbsolute(System.Single)">
-            <summary>
-            Returns the precision-adjusted value of the time line given an absolute position.
-            </summary>
-            <param name="pos">The absolute X position.</param>
-            <returns>The precision-adjusted value.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.TimeLine.PositionToValueRelative(System.Single)">
-            <summary>
-            Converts the argument relative-to-TimeLine argument to a value that it represents.
-            </summary>
-            <remarks>
-            This mehod is used to convert the position bar's relative X to an actual value.
-            </remarks>
-            <param name="worldUnitRelativeX">The relative-to-Timeline position.</param>
-            <returns>The value that corresponds to the argument position.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.TimeLine.ValueToPositionRelative(System.Double)">
-            <summary>
-            Converts the value to the corresponding relative X position on the timeline.
-            </summary>
-            <param name="value">The value to convert to a relative position.</param>
-            <returns>The corresponding relative position.</returns>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.BeforeChangeValue">
-            <summary>
-            The TimeLine's value before the last change was initiated.  Can be used for undos.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.CurrentValue">
-            <summary>
-            The precision-adjusted current value on the TimeLine.
-            </summary>
-            <remarks>
-            This value will always fall between the MinimumValue and MaximumValue properties.
-            Setting this value will also change the position of the bar and potentially change the
-            Start property so that the bar is in view.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.MinimumValue">
-            <summary>
-            The minimum value on the TimeLine.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.MaximumValue">
-            <summary>
-            The maximum value on the TimeLine
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.Precision">
-            <summary>
-            The number of decimal points that the TimeLine rounds its CurrentValue to.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.ScaleY">
-            <summary>
-            The Y scale of the TimeLine.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.ScaleX">
-            <summary>
-            The X scale of the TimeLine.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.Start">
-            <summary>
-            The first visible value in the TimeLine.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.TimeUnitDisplayed">
-            <summary>
-            The TimeUnit that the PropertyGrid displays.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.ValueWidth">
-            <summary>
-            The displayed range.  The last visible value equals Start + ValueWidth.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.VerticalBarIncrement">
-            <summary>
-            The distance between the larger markings on the TimeLine.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.SmallVerticalBarIncrement">
-            <summary>
-            The distance between the smaller markings on the TimeLine.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TimeLine.ShowValues">
-            <summary>
-            Whether values (as text) are drawn above the TimeLine.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.TimeLine.GuiChange">
-            <summary>
-            Raised when the user changes the CurrentValue with the Cursor - by dragging
-            the position bar or clicking to reposition the position bar.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.TimeLine.TimeUnit">
-            <summary>
-            The time units that the TimeLine can show.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.TimeLine.TimeUnit.Millisecond">
-            <summary>
-            The time unit of 1/1000 fo a second.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.TimeLine.TimeUnit.Second">
-            <summary>
-            The time unit of one second.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.MarkerTimeLine.MarkerClicked">
-            <summary>
-            Tells which marker was clicked on.
-            </summary>
-            <remarks>
-            This variable is only to be used in the MarkerClick event.  
-            </remarks>
-        </member>
-        <member name="M:FlatRedBall.Gui.MarkerTimeLine.#ctor(FlatRedBall.Gui.Cursor)">
-            <summary>
-            Instantiates a new MarkerTimeLine which will interact with the argument Cursor.
-            </summary>
-            <param name="cursor">The Cursor that the MarkerTimeLine will interact with.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.MarkerTimeLine.AddMarker(System.Double,System.Object)">
-            <summary>
-            Adds a Marker which will be positioned at the time specified
-            by the "value" argument referencing the referenceObject argument.
-            </summary>
-            <param name="value">The time at which to place the new Marker.</param>
-            <param name="referenceObject">The object that the Marker will reference - can be null.</param>
-            <returns>The newly-created Marker.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.MarkerTimeLine.AddMarker(System.Double,System.Object,Microsoft.Xna.Framework.Graphics.Texture2D)">
-            <summary>
-            Adds a custom-textured Marker which will be positioned at the time specified
-            by the "value" argument referencing the referenceObject argument.
-            </summary>
-            <param name="value">The time at which to place the new Marker.</param>
-            <param name="referenceObject">The object that the Marker will reference - can be null.</param>
-            <param name="textureToUse">The new Marker's texture - will use the default texture if null.</param>
-            <returns>The newly-created Marker.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.MarkerTimeLine.AddMarkers``1(System.Collections.Generic.List{``0})">
-            <summary>
-            Adds markers according to the argument List of ITimed objects.
-            </summary>
-            <typeparam name="T">The type of object being added.</typeparam>
-            <param name="timedList">The list of ITimed objects.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.MarkerTimeLine.ClearMarkers">
-            <summary>
-            Clears all Markers.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.MarkerTimeLine.FindMarkerByReferenceObject(System.Object)">
-            <summary>
-            Returns the first Marker found with its ReferenceObject property
-            matching the argument referenceObject or null if no matchers are found.
-            </summary>
-            <param name="referenceObject">The referenceObject to search for.</param>
-            <returns>The Marker found or null if none are found.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.MarkerTimeLine.MoveMarker(System.Object,System.Double)">
-            <summary>
-            Finds the Marker that references the argument referenceObject
-            and changes its Value property (usually it's time) to the argument
-            newValue.
-            </summary>
-            <param name="referenceObject">The object to search for.</param>
-            <param name="newValue">The new value to set.</param>
-            <returns>The index of the new Marker after the value change.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.MarkerTimeLine.RemoveMarker(System.Object)">
-            <summary>
-            Removes the Marker which references the argument referenceObject.
-            </summary>
-            <param name="referenceObject">The object to search for.</param>
-        </member>
-        <member name="E:FlatRedBall.Gui.MarkerTimeLine.MarkerClick">
-            <summary>
-            Event raised when the user clicks on a Marker.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.MenuItem">
-            <summary>
-            A clickable item in a MenuStrip or item in a sub-menu.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.TextDisplay">
-            <summary>
-            Summary description for TextDisplay.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.MenuStrip">
-            <summary>
-            UI Element used to provide compact access to functionality.  Appears in
-            most applications as the collection of menus beginning with File, Edit, etc.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.MessageBox">
-            <summary>
-            Summary description for TextInputWindow.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.MultiButtonMessageBox">
-            <summary>
-            Summary description for MultiButtonMessageBox.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.NewWindowLimitation">
-            <summary>
-            Enum used by the ObjectDisplayManager to indicate how
-            old IObjectDisplayers are treated when new IObjectDisplayers are created.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.ObjectDisplayManager.sStringRepresentations">
-            <summary>
-            The methods to call for each type to get the string representation for referenced objects.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.OkCancelWindow">
-            <summary>
-            Summary description for OkCancelWindow.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.OkCancelWindow.GainFocus">
-            <summary>
-            Event raised when the OkCancelWindow gets keyboard input.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.PropertyGrid.mUndoInstructions">
-            <summary>
-            The PropertyGrid can be tied to a list of InstructionLists.
-            These hold the instructions necessary to undo the changes made
-            by the PropertyGrid.
             
-            It is common to store a list of lists so that multiple changes
-            can be perfomred during one undo.  In other words, if X and Y
-            were changed in one action then the instructions for changing the
-            X and Y back will be in one InstructionList.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.PropertyGrid.sPropertyGridMemberSettings">
-            <summary>
-            Associated type with list of strings of members to exclude for a given type.  This is used
-            when children PropertyGrids are created.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.PropertyGrid.AddWindow(FlatRedBall.Gui.IWindow)">
-            <summary>
-            Adds an always-displayed Window to the PropertyGrid.  This window will appear
-            after all member-displaying Windows and will automatically be positioned appropriately.
-            </summary>
-            <param name="windowToAdd">The window to add.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.PropertyGrid.SetMemberChangeEvent(System.String,FlatRedBall.Gui.GuiMessage)">
-            <summary>
-            Sets the event to raise when a particular property is changed through the PropertyGrid.
-            </summary>
-            <remarks>
-            A property cannot have multiple ChangeEvents.  The reason for this is so that the user
-            can reassign the same ChangeEvent without fear of duplicating calls.  It is common when
-            selecting an object to exclude some properties, include others, and set the callbacks.
-            </remarks>
-            <param name="property">The name of the property</param>
-            <param name="changeEvent">The event to raise when the property changes.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.PropertyGrid.SetNewWindowEvent``1(FlatRedBall.Gui.GuiMessage)">
-            <summary>
-            Sets an event to be raised when a new PropertyGrid or ListDisplayWindow is created.
-            </summary>
-            <param name="type">The type of the object to associate the new callback with.  In other words, 
-            when an object of this type is being viewed through the creation of a new window the message argument
-            will be reaised.</param>
-            <param name="message">The GuiMessage to raise on creation.  The argument passed to this message is the newly-created
-            window.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.PropertyGrid.SetNewWindowEvent(System.Type,FlatRedBall.Gui.GuiMessage)">
-            <summary>
-            Sets an event to be raised when a new PropertyGrid or ListDisplayWindow is created.
-            </summary>
-            <param name="type">The type of the object to associate the new callback with.  In other words, 
-            when an object of this type is being viewed through the creation of a new window the message argument
-            will be reaised.</param>
-            <param name="message">The GuiMessage to raise on creation.  The argument passed to this message is the newly-created
-            window.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.PropertyGrid.SetSelectedObject(System.Object)">
-            <summary>
-            Sets the SelectedObject property of the PropertyGrid.  This allows
-            code that has reference to a base PropertyGrid to still set the SelectedObject.
+            This interface should only be used for Gui elements specifically because the GuiManager will change the InputManager.ReceivingInput
+            reference depending on the activity of the cursor and other Gui elements.  The InputManager will only keep track of one IInputReceiver
+            at a time, and each IInputReceiver needs to assign itself as the target for input through the static InputManager.ReceivingInput field.
             
-            This should never be used outside of the engine!
-            </summary>
-            <param name="objectToSet">The object to show.</param>
+            <para>Since this is only used for Gui elements, this interface is rarely used in games.</para>
+            </remarks>
         </member>
-        <member name="P:FlatRedBall.Gui.PropertyGrid.ContentManagerName">
+        <member name="M:FlatRedBall.Gui.IInputReceiver.OnFocusUpdate">
             <summary>
-            Gets and sets the content mananager name that is used when loading assets like Textures.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.PropertyGrid`1.GetUIElementForMember(System.String)">
-            <summary>
-            Gets the window that is used for editing the argument memberName.
+            Called by the InputManager automatically every frame.
             </summary>
             <remarks>
-            For example, if the member is a bool then this method will return a 
-            ComboBox.  If the member is of a type that does not have a specific UI
-            representation then a button that says "Edit Property" will be returned.
+            The implementation of this method should raise the FocusUpdate event.
             </remarks>
-            <param name="propertyName">The name of the member.</param>
-            <returns>The UI element that is used to edit this property, or null if the property is not found.</returns>
         </member>
-        <member name="M:FlatRedBall.Gui.PropertyGrid`1.ReplaceMemberUIElement(System.String,FlatRedBall.Gui.IWindow)">
+        <member name="M:FlatRedBall.Gui.IInputReceiver.OnGainFocus">
             <summary>
-            Replaces the UI element representing the argument propertyName with the argument newUIElement.
+            Called by the engine automatically when an IInputReceiver gains focus.
             </summary>
             <remarks>
-            The newUIElement argument should not already be added to the GuiManager or to the PropertyGrid.  This method
-            should be called BEFORE any UI events are added to the newUIElement argument.  This guarantees that
-            the PropertyGrid events are fired first, then the custom events can be used to modify the object shown
-            by the PropertyGrid.
+            The implementation of this method should raise the GainFocus event.
             </remarks>
-            <param name="propertyName">The name of the property to replace the UI element for.</param>
-            <param name="newUIElement">The new UI element for the property.  This should be created with a new call, 
-            not added to this instance or the GuiManager.</param>
         </member>
-        <member name="M:FlatRedBall.Gui.PropertyGrid`1.CreateWindowsForSelectedType">
+        <member name="M:FlatRedBall.Gui.IInputReceiver.LoseFocus">
             <summary>
-            Creates all of the windows (Buttons, TextBoxes, etc) for the selected type.  This is only
-            called once when the PropertyGrid is first created.
+            Called by the engine automatically when an IInputReceiver loses focus.
             </summary>
         </member>
-        <member name="M:FlatRedBall.Gui.PropertyGrid`1.ApplyDefaultBehavior(FlatRedBall.Gui.PropertyWindowAssociation)">
+        <member name="M:FlatRedBall.Gui.IInputReceiver.ReceiveInput">
             <summary>
-            Sets the event that occurs when the user changes the UI element.
+            The method called every frame by the InputManager in the Update method
+            if this is the IInputReceiver referenced by the InputManager.  This does
+            not have to be called automatically.
             </summary>
-            <param name="pwa"></param>
+        </member>
+        <member name="P:FlatRedBall.Gui.IInputReceiver.TakingInput">
+            <summary>
+            A method which determines whether the instance can currently receive focus as an input receiver.
+            </summary>
+            <returns>Whether the instance is taking input.</returns>
+        </member>
+        <member name="P:FlatRedBall.Gui.IInputReceiver.NextInTabSequence">
+            <summary>
+            The next IInputReceiver in the tab sequence.  In other words, if this element is currently
+            receiving input (is the InputManager's ReceivingInput), pressing tab will set the NextInTabSequence
+            to be the InputManager's ReceivingInput.
+            </summary>
+        </member>
+        <member name="E:FlatRedBall.Gui.IInputReceiver.FocusUpdate">
+            <summary>
+            Event raised every frame if there is a non-null InputManager.ReceivingInput.  This allows
+            the IInputReceiver to perform custom every-frame logic when it has focus, such as a ListBox
+            listening for the Delete key to delete highlighted elements.
+            </summary>
         </member>
         <member name="T:FlatRedBall.Gui.PropertyGridMemberSettings">
             <summary>
@@ -8631,295 +7110,9 @@
             creating a new PropertyGrid of a specific type.
             </summary>
         </member>
-        <member name="T:FlatRedBall.Gui.PropertyGrids.BoolPropertyGrid">
-            <summary>
-            A StructReferencePropertyGrid used by the FlatRedBall Engine when editing bools in a ListDisplayWindow.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.StructReferencePropertyGrid`1">
-            <summary>
-            A class that can be used to apply changes to fields and properties of an object.
-            </summary>
-            <remarks>
-            If an object has a Vector3 field, creating a regular PropertyGrid for that Vector3
-            and changing that Vector3 will not actually change the field's value.  Since C# doesn't
-            have pointers, then the only way to change the source's field is to keep a reference to
-            the object that has the field, then push changes through that instance.
-            
-            The StructReferencePropertyGrid simulates a pointer by storing reference to the object that
-            contains the field.
-            </remarks>
-            <typeparam name="T">The type of object that the PropertyGrid stores.</typeparam>
-        </member>
-        <member name="T:FlatRedBall.Gui.PropertyGrids.DoublePropertyGrid">
-            <summary>
-            A StructReferencePropertyGrid used by the FlatRedBall Engine when editing doubles in a ListDisplayWindow.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.PropertyGrids.EnumPropertyGrid`1">
-            <summary>
-            A StructReferencePropertyGrid used by the FlatRedBall Engine when editing enums in a ListDisplayWindow.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.PropertyGrids.FloatPropertyGrid">
-            <summary>
-            A StructReferencePropertyGrid used by the FlatRedBall Engine when editing floats in a ListDisplayWindow.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.PropertyGrids.IntPropertyGrid">
-            <summary>
-            A StructReferencePropertyGrid used by the FlatRedBall Engine when editing ints in a ListDisplayWindow.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.PropertyGrids.LongPropertyGrid">
-            <summary>
-            A StructReferencePropertyGrid used by the FlatRedBall Engine when editing longs in a ListDisplayWindow.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.PropertyGrids.StringPropertyGrid">
-            <summary>
-            A StructReferencePropertyGrid used by the FlatRedBall Engine when editing strings in a ListDisplayWindow.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.VisibilitySetting">
-            <summary>
-            Settings which can be used to set the visibility of member elements
-            depending on the value of another member.
-            </summary>
-            <remarks>
-            This enum is used by MemberVisibleCondition which is used in the 
-            PropertyGrid's SetConditionalMemberVisibility method to set how the
-            state of one property can impact the visibility of another property.
-            </remarks>
-        </member>
-        <member name="T:FlatRedBall.Gui.PropertyWindowAssociation">
-            <summary>
-            Base non-generic class for the generic PropertyWindowAssociation class.
-            </summary>
-            <remarks>
-            Contains information about an element in the PropertyGrid.  Information includes the
-            UI element displaying the property, its associated Label, the member name, read/write
-            permissions, and category.
-            </remarks>
-        </member>
-        <member name="F:FlatRedBall.Gui.PropertyWindowAssociation.Window">
-            <summary>
-            The window that allows for editing of the property.
-            </summary>
-            <remarks>
-            Fore example, a bool property would have a ComboBox.
-            </remarks>
-        </member>
-        <member name="F:FlatRedBall.Gui.PropertyWindowAssociation.IsViewable">
-            <summary>
-            When a property is not a base type understood by
-            the PropertyGrid it is represented by a button.  These
-            properties can then be viewed in their own PropertyGrid.
-            Even if CanWrite is false on these properties the user should
-            still be able to view them.  If CanWrite is false but this is 
-            true then the UI (button) representing this property will be enabled.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Gui.PropertyWindowAssociation.ChildFloatingWindow">
-            <summary>
-            The window that allows for more detailed editing of an object.
-            This window will appear if the user clicks on an "Edit Property" button.
-            </summary>
-            <remarks>
-            Some types like ints and floats have natural representations, but other custom
-            types do not.  Therefore if a member that the PropertyGrid does not how to display
-            is included, then the PropertyGrid will show a button that says "Edit Property".  Pressing
-            this button will bring up a new window which will show the details of an object in a new PropertyGrid
-            or ListBox.  This will hold the reference to the window.
-            
-            Holding the reference not only eliminates some garbage collection and memory allocation, but it also allows
-            the user to get a reference to it to add events for custom behavior.
-            </remarks>
-        </member>
-        <member name="E:FlatRedBall.Gui.PropertyWindowAssociation.ChangeEvent">
-            <summary>
-            Raised whenever a property is changed through the PropertyGrid.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.PropertyWindowAssociation`1">
-            <summary>
-            Generic class storing associations between UI elements and settings for the member
-            in the PropertyGrid.
-            </summary>
-            <remarks>
-            <seealso cref="T:FlatRedBall.Gui.PropertyWindowAssociation"/>
-            </remarks>
-            <typeparam name="T">The type of the member being shown.</typeparam>
-        </member>
-        <member name="T:FlatRedBall.Gui.ScrollBar">
-            <summary>
-            Summary description for ScrollBar.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.ScrollBar.#ctor(FlatRedBall.Gui.Cursor)">
-            <summary>
-            Instantiates a new ScrollBar instance.  The new instance will not automatically be
-            added to the GuiManager.
-            </summary>
-            <param name="cursor">The Cursor that the ScrollBar will interact with.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.ScrollBar.#ctor(FlatRedBall.Gui.GuiSkin,FlatRedBall.Gui.Cursor)">
-            <summary>
-            Instantiates a new ScrollBar using a GuiSkin.  The new instance will not automatically be
-            added to the GuiManager.
-            </summary>
-            <param name="guiSkin">The GuiSkin to customize the appearance of the ScrollBar.</param>
-            <param name="cursor">The Cursor that the ScrollBar will interact with.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.ScrollBar.GetNumDown">
-            <summary>
-            Gets the index of the first element shown in a list given the position of the position bar.
-            </summary>
-            <remarks>
-            Prior to this method being called, the SetView function must be called and the Sensitivity 
-            property must be set.
-            </remarks>
-            <returns>The number of elements down.</returns>
-        </member>
-        <member name="M:FlatRedBall.Gui.ScrollBar.SetScrollPosition(System.Int32)">
-            <summary>
-            Sets the position bar so that it reflects the number down passed as the argument.
-            </summary>
-            <param name="numDown">The number down to match with the PositionBar's position.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.ScrollBar.SetSkin(FlatRedBall.Gui.GuiSkin)">
-            <summary>
-            Sets the ScrollBar's skin and refreshes its appearance.
-            </summary>
-            <param name="guiSkin">The GuiSkin to set.</param>
-        </member>
-        <member name="M:FlatRedBall.Gui.ScrollBar.FixBar">
-            <summary>
-            Keeps the ScrollBar's position bar from overlapping the up and down buttons and 
-            keeps its horizontal position inside the ScrollBar.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.ScrollBar.ScaleY">
-            <summary>
-            The distance from the center to the edge of the ScrollBar on the Y axis.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.ScrollBar.ScaleX">
-            <summary>
-            The distance from the center to the edge of the ScrollBar on the X axis.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.ScrollBar.Sensitivity">
-            <summary>
-            The ratio of the ScrollBar (excluding the up and down buttons) that the
-            position bar should travel when pusing the up or down buttons.
-            </summary>
-            <remarks>
-            This value is generally set to 1 divided by the number of elements.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Gui.ScrollBar.View">
-            <summary>
-            Sets the size of the position bar - this value should be the number
-            of elements in view divided by the total number of elements in a list.
-            </summary>
-            <remarks>
-            This value should be between 0 and 1.  For example, if a ListBox has
-            10 items, but 5 are visible, then the SetView method should be called with
-            .5 as the argument (5/10).
-            </remarks>
-        </member>
-        <member name="T:FlatRedBall.Gui.TextBox">
-            <summary>
-            Summary description for TextBox.
-            </summary>
-            
-        </member>
-        <member name="M:FlatRedBall.Gui.TextBox.FixNumericalInput">
-            <summary>
-            Makes sure the current text can be successfully parsed, and if not, changes it to 0.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TextBox.CursorXPosition">
-            <summary>
-            Gets the position of the visible text cursor given the mAbsoluteCursorPosition.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TextBox.AbsoluteCursorPosition">
-            <summary>
-            The position of the cursor on the text in the TextBox.  This is always greater than 0 and less than
-            the length of the text.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.TextBox.TextChange">
-            <summary>
-            Raised when the displayed text changes.  This will be called for every
-            letter typed when the user is typing - it does not wait for an Enter or
-            loss of focus.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.TextBox.TakingInput">
-            <summary>
-            Whether the user can type in this Text Box.  Setting this to false makes the TextBox "read only".
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.TextInputWindow">
-            <summary>
-            Summary description for TextInputWindow.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.ToggleButton">
-            <summary>
-            Summary description for ToggleButton.
-            </summary>
-            
-        </member>
-        <member name="M:FlatRedBall.Gui.ToggleButton.Press">
-            <summary>
-            Presses the ToggleButton down and calls the onClick event.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Gui.ToggleButton.PressNoCall">
-            <summary>
-            Presses the ToggleButton down but does not call the onClick event.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.UpDown">
-            <summary>
-            Summary description for UpDown.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.UpDown.change">
-            <summary>
-            Gets the value change for this frame.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Gui.UpDown.Sensitivity">
-            <summary>
-            The speed at which dragging over the button changes the value.  Default is .1f.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Gui.UpDown.AfterValueChanged">
-            <summary>
-            This event is raised whenever the user types in a
-            new value in the TextBox or when the user has finished
-            changing the value by clicking and dragging on the button.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.UserNamePasswordWindow">
-            <summary>
-            Window which can be used to read a user name and password.  The password text box
-            displays ****** instead of the actual passwords.
-            </summary>
-        </member>
         <member name="T:FlatRedBall.Gui.WindowArray">
             <summary>
             Summary description for WindowArray.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Gui.WindowArrayVisibilityListBox">
-            <summary>
-            Summary description for WindowArrayVisibilityListBox.
             </summary>
         </member>
         <member name="T:FlatRedBall.Input.AnalogButton">
@@ -13865,6 +12058,13 @@
             <returns>The distance from the circle to the argument line.  Will be 0 or
             negative if the two are colliding.</returns>
         </member>
+        <member name="M:FlatRedBall.Math.Geometry.Circle.KeepThisInsideOf(FlatRedBall.Math.Geometry.AxisAlignedRectangle)">
+            <summary>
+            Adjusts the calling Circle's position (or its parent if attached) so that the circle is fully-contained
+            in the argument AxisAlignedRectangle.
+            </summary>
+            <param name="otherAxisAlignedRectangle">The rectangle to keep the circle inside of.</param>
+        </member>
         <member name="P:FlatRedBall.Math.Geometry.Circle.LastCollisionTangent">
             <summary>
             Returns the tangent (in other words the vector parallel with the surface) where the last collision occurred.
@@ -15090,6 +13290,12 @@
             </summary>
             <param name="game"></param>
         </member>
+        <member name="M:FlatRedBall.SpriteManager.GetDuplicateMembership">
+            <summary>
+            Returns the first object which is added twice to the SpriteManager, or null if none are found.
+            </summary>
+            <returns>The first duplicate object or null.</returns>
+        </member>
         <member name="M:FlatRedBall.SpriteManager.IsManaging(FlatRedBall.Sprite)">
             <summary>
             Returns whether the SpriteManager is holding a reference to the argment sprite.
@@ -15198,6 +13404,11 @@
             in the world (not on layers).
             </summary>
         </member>
+        <member name="T:FlatRedBall.TimeMeasurementUnit">
+            <summary>
+            Represents the unit of time measurement.  This can be used in files that store timing information.
+            </summary>
+        </member>
         <member name="M:FlatRedBall.TimeManager.Initialize">
             <summary>
             Allows the game component to perform any initialization it needs to before starting
@@ -15257,6 +13468,18 @@
             Performs every-frame logic to update timing values such as CurrentTime and SecondDifference.  If this method is not called, CurrentTime will not advance.
             </summary>
             <param name="time">The GameTime value provided by the XNA Game class.</param>
+        </member>
+        <member name="P:FlatRedBall.TimeManager.SecondDifference">
+            <summary>
+            The number of seconds (usually a fraction of a second) since
+            the last frame.  This value can be used for time-based movement.
+            </summary>
+        </member>
+        <member name="P:FlatRedBall.TimeManager.TimeFactor">
+            <summary>
+            A multiplier for how fast time runs.  This is 1 by default.  Setting
+            this value to 2 will make everything run twice as fast.
+            </summary>
         </member>
         <member name="F:FlatRedBall.Utilities.BackStackBehavior.Move">
             <summary>Places the current screen onto the back stack, and moves to the next one.</summary>
@@ -15328,6 +13551,11 @@
         <member name="T:FlatRedBall.Utilities.DebuggingFunctions">
             <summary>
             Class providing methods which can help during debugging.
+            </summary>
+        </member>
+        <member name="T:FlatRedBall.Utilities.ExportOrderAttribute">
+            <summary>
+            Represents the order that variables appear in Glue.
             </summary>
         </member>
         <member name="T:FlatRedBall.Utilities.SpriteSelectionOptions">
@@ -15505,6 +13733,14 @@
             A class containing common string maniuplation methods.
             </summary>
         </member>
+        <member name="M:FlatRedBall.Utilities.StringFunctions.CountOf(System.String,System.String)">
+            <summary>
+            Returns the number of times that the argument whatToFind is found in the calling string.
+            </summary>
+            <param name="instanceToSearchIn">The string to search within.</param>
+            <param name="whatToFind">The string to search for.</param>
+            <returns>The number of instances found</returns>
+        </member>
         <member name="M:FlatRedBall.Utilities.StringFunctions.CharacterCountWithoutWhitespace(System.String)">
             <summary>
             Returns the number of non-whitespace characters in the argument stringInQuestion.
@@ -15626,6 +13862,15 @@
             <typeparam name="T">The type of INameable contained int he list.</typeparam>
             <param name="nameable">The INameable to rename if necessary.</param>
             <param name="list">The list containing the INameables to compare against.</param>
+        </member>
+        <member name="M:FlatRedBall.Utilities.StringFunctions.MakeNameUnique``2(``0,System.Collections.Generic.IList{``1})">
+            <summary>
+            Makes an INameable's name unique given a list of existing INameables.
+            </summary>
+            <typeparam name="T">The type of nameable.</typeparam>
+            <typeparam name="U">The type of IList, where the type is an INameable</typeparam>
+            <param name="nameable">The instance to modify if necessary.</param>
+            <param name="list">The list of INameables</param>
         </member>
         <member name="M:FlatRedBall.Utilities.StringFunctions.RemoveNumberAtEnd(System.String)">
             <summary>

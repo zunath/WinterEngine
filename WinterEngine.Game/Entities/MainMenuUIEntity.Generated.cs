@@ -232,8 +232,9 @@ namespace WinterEngine.Game.Entities
 		{
 			base.SetToIgnorePausing();
 		}
-		public void MoveToLayer (Layer layerToMoveTo)
+		public override void MoveToLayer (Layer layerToMoveTo)
 		{
+			base.MoveToLayer(layerToMoveTo);
 			LayerProvidedByContainer = layerToMoveTo;
 		}
 

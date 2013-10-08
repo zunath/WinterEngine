@@ -12,7 +12,7 @@ using FlatRedBall.Localization;
 
 namespace WinterEngine.Game
 {
-	public static class GlobalContent
+	public static partial class GlobalContent
 	{
 		
 		[System.Obsolete("Use GetFile instead")]
@@ -31,6 +31,9 @@ namespace WinterEngine.Game
 		{
 			
 						IsInitialized = true;
+		}
+		public static void Reload (object whatToReload)
+		{
 		}
 		
 		
