@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.GameObjects;
@@ -25,8 +26,17 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<Script> Scripts { get; set; }
         public DbSet<LocalVariable> LocalVariables { get; set; }
 
+        public ModuleDataContext()
+        {
+        }
+
         public ModuleDataContext(string connString) : base(connString)
         {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ModuleDataContext, ModuleDataContextConfiguration>());
         }
     }
 }

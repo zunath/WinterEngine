@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexts\ModuleDataContext.cs" />
+    <Compile Include="Contexts\ModuleDataContextConfiguration.cs" />
     <Compile Include="Factories\FileExtensionFactory.cs" />
     <Compile Include="Factories\GameObjectFactory.cs" />
     <Compile Include="Factories\GameResourceFactory.cs" />

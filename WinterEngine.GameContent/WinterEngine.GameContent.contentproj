@@ -63,42 +63,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CharacterVault\" />
+    <Folder Include="Editor\Icons\" />
+    <Folder Include="Game\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Modules\deleteme.txt">
       <Name>deleteme</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Game\%28Tileset%29 Wilderness.png">
-      <Name>%28Tileset%29 Wilderness</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Game\testset.png">
-      <Name>testset</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Editor\Icons\TilesetEditor_CellSpriteSheet.png">
-      <Name>TilesetEditor_CellSpriteSheet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Editor\Icons\TilesetEditor_EmptyCell.png">
-      <Name>TilesetEditor_EmptyCell</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -128,6 +128,9 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("LoadObjectData", false, LoadObjectData);
             EntityJavascriptObject.Bind("GetModulesList", true, GetModulesList);
 
+            // Canvas Bindings
+            EntityJavascriptObject.Bind("GetAreaCanvasImage", true, GetAreaCanvasImage);
+
             RunJavaScriptMethod("Initialize();");
         }
 
@@ -574,7 +577,6 @@ namespace WinterEngine.Game.Entities
                 }
                 else if (gameObjectType == GameObjectTypeEnum.Conversation)
                 {
-
                 }
                 else if (gameObjectType == GameObjectTypeEnum.Creature)
                 {
@@ -610,6 +612,22 @@ namespace WinterEngine.Game.Entities
             }
 
             e.Result = JsonConvert.SerializeObject(moduleList);
+        }
+
+        #endregion
+
+        #region UI Methods - Canvases
+
+        private void GetAreaCanvasImage(object sender, JavascriptMethodEventArgs e)
+        {
+            int areaID = (int)e.Arguments[0];
+            Area activeArea;
+
+            using (AreaRepository repo = new AreaRepository())
+            {
+                activeArea = repo.GetByID(areaID);
+            }
+
         }
 
         #endregion

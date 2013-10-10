@@ -16,6 +16,7 @@ namespace WinterEngine.DataTransferObjects
 
         private const int MaxTilesWide = 32;
         private const int MaxTilesHigh = 32;
+        private const int MaxNumberOfLayers = 3;
 
         #endregion
 
@@ -103,18 +104,22 @@ namespace WinterEngine.DataTransferObjects
         {
             this.TilesWide = tilesWide;
             this.TilesHigh = tilesHigh;
-
-            int totalNumberOfTiles = tilesWide * tilesHigh;
             Tiles = new List<Tile>();
 
-            Tile emptyTile = new Tile
-            {
+            Tile emptyTile = new Tile { };
 
-            };
-
-            for (int index = 1; index <= totalNumberOfTiles; index++)
+            for (int layer = 1; layer <= MaxNumberOfLayers; layer++)
             {
-                Tiles.Add(emptyTile);
+                for (int row = 0; row < tilesWide; row++)
+                {
+                    for (int column = 0; column < tilesHigh; column++)
+                    {
+                        emptyTile.MapCellX = row + 1;
+                        emptyTile.MapCellY = column + 1;
+                        emptyTile.MapLayer = layer;
+                        Tiles.Add(emptyTile);
+                    }
+                }
             }
         }
 

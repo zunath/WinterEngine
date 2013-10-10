@@ -66,7 +66,7 @@ namespace WinterEngine.DataAccess
             // Also creates tables based on the code-first model.
             using (ModuleDataContext context = new ModuleDataContext(connectionString))
             {
-                context.Database.Initialize(true);
+                context.Database.Create();
             }
 
             return fullPath;
