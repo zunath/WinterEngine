@@ -4,7 +4,6 @@ using FlatRedBall.Input;
 using System.Collections.Generic;
 
 
-#if FRB_XNA || SILVERLIGHT
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using Awesomium.Core;
 using System.Drawing;
@@ -20,9 +19,6 @@ using FlatRedBall.Graphics;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-
-
-#endif
 
 namespace WinterEngine.Game.Entities
 {
