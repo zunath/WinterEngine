@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace WinterEngine.DataTransferObjects.Resources
+namespace WinterEngine.DataTransferObjects
 {
     [Serializable]
     [Table("Tilesets")]

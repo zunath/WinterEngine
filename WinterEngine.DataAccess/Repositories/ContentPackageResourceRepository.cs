@@ -75,12 +75,12 @@ namespace WinterEngine.DataAccess.Repositories
 
         public List<ContentPackageResource> GetAll()
         {
-            return Context.ContentPackageResourceRepository.Get(null, null, "Package").ToList();
+            return Context.ContentPackageResourceRepository.Get(null, null, "ContentPackage").ToList();
         }
 
         public List<ContentPackageResource> GetAllByResourceType(ContentPackageResourceTypeEnum resourceType)
         {
-            return Context.ContentPackageResourceRepository.Get(x => x.ContentPackageResourceTypeID == (int)resourceType, null, "Package").ToList();
+            return Context.ContentPackageResourceRepository.Get(x => x.ContentPackageResourceTypeID == (int)resourceType).ToList();
         }
 
         public bool Exists(ContentPackageResource resource)
@@ -98,7 +98,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public ContentPackageResource GetByID(int resourceID)
         {
-            return Context.ContentPackageResourceRepository.Get(x => x.ResourceID == resourceID, null, "Package").SingleOrDefault();
+            return Context.ContentPackageResourceRepository.Get(x => x.ResourceID == resourceID, null, "ContentPackage").SingleOrDefault();
         }
 
         #endregion

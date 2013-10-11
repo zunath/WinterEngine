@@ -69,6 +69,7 @@ function OpenModuleButtonClick_Callback(success) {
         ChangeObjectMode("Area");
         $('#divObjectBar').removeClass('clsHidden');
         CloseOpenModulePopUp();
+        PopulateToolsetViewModel();
     }
     else {
         ToggleModuleActionButtons(false);

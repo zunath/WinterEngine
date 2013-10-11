@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.DataTransferObjects.Resources;
+using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.DataTransferObjects.ViewModels
 {
@@ -19,10 +19,13 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public Conversation ActiveConversation { get; set; }
         public Script ActiveScript { get; set; }
         public Tileset ActiveTileset { get; set; }
+        public Tile ActiveTile { get; set; }
 
         public List<GameModule> ModuleList { get; set; }
         public List<ContentPackage> AvailableContentPackages { get; set; }
         public List<ContentPackage> AttachedContentPackages { get; set; }
+
+        public List<ContentPackageResource> TilesetSpriteSheetsList { get; set; }
 
         public ToolsetViewModel()
         {
@@ -36,9 +39,11 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             ActivePlaceable = new Placeable();
             ActiveScript = new Script();
             ActiveTileset = new Tileset();
+            ActiveTile = new Tile();
             ModuleList = new List<GameModule>();
             AvailableContentPackages = new List<ContentPackage>();
             AttachedContentPackages = new List<ContentPackage>();
+            TilesetSpriteSheetsList = new List<ContentPackageResource>();
         }
     }
 }

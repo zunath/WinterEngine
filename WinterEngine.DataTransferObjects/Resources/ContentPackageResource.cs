@@ -48,6 +48,7 @@ namespace WinterEngine.DataTransferObjects
             set { _contentPackageResourceType = value; }
         }
 
+        public virtual ContentPackage ContentPackage { get; set; }
 
         #endregion
 

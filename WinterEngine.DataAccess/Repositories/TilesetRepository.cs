@@ -5,7 +5,6 @@ using System.Text;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess.Repositories
 {

@@ -206,7 +206,15 @@
         </div>
 
         <!--END TREE VIEW CONTROLS-->
-        <div id="divToShowGame"></div>
+
+        <!-- MAIN EDITOR AREA -->
+        <div id="divToShowGame">
+
+            <canvas id="cnvGameCanvas" class="clsHidden"></canvas>
+
+        </div>
+        <!-- END MAIN EDITOR AREA -->
+          
         <!--OBJECT TAB CONTROLS-->
         <div id="objectTabControls" class="clsHidden" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
           <div id="divObjectTabContainer">
@@ -572,7 +580,16 @@
 
                     <label id="lblTilesetDetails-Resref" for="txtTilesetDetails-Resref">Resref:</label>
                     <input id="txtTilesetDetails-Resref" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Resref" class="clsTilesetObjectField" />
+                
+                    <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
+                    <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" data-bind="options: TilesetSpriteSheetsList,
+                                                                                                      optionsText: function (item) { return item.Name}"></select>
+                </div>
 
+                <h3>Tile Details</h3>
+                <div id="divTilesetsTab-TileDetails">
+                    <label id="lblTilesetDetails-TileIsPassable" for="chkTilesetDetails">Is Passable:</label>
+                    <input id="chkTilesetDetails-TileIsPassable" type="checkbox" data-bind="value: ActiveTile().IsPassable" class="clsTileObjectField" />
 
                 </div>
             </div>
