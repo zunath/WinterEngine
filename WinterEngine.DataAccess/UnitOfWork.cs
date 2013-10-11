@@ -8,6 +8,7 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.Resources;
 
 
 namespace WinterEngine.DataAccess
@@ -232,6 +233,20 @@ namespace WinterEngine.DataAccess
                         = new GenericRepository<ModuleDataContext, Tile>(context);
                 }
                 return tileRepository;
+            }
+        }
+
+        private GenericRepository<ModuleDataContext, Tileset> tilesetRepository;
+        public GenericRepository<ModuleDataContext, Tileset> TilesetRepository
+        {
+            get
+            {
+                if (this.tilesetRepository == null)
+                {
+                    this.tilesetRepository
+                        = new GenericRepository<ModuleDataContext, Tileset>(context);
+                }
+                return tilesetRepository;
             }
         }
 

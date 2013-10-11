@@ -89,60 +89,10 @@ namespace WinterEngine.Library.Managers
             ModuleTag = moduleTag;
         }
 
-        /// <summary>
-        /// Constructor which builds a WinterModule object.
-        /// </summary>
-        /// <param name="OnModuleOpened">The method to fire when the module is opened/</param>
-        /// <param name="OnModuleSaved">The method to fire when the module is saved.</param>
-        /// <param name="OnModuleClosed">The method to fire when the module is closed.</param>
-        public ModuleManager(string moduleName, string moduleTag, ModuleOpened OnModuleOpened, ModuleSaved OnModuleSaved, ModuleClosed OnModuleClosed)
-        {
-            ModuleName = moduleName;
-            ModuleTag = moduleTag;
-            _moduleClosedMethod = OnModuleClosed;
-            _moduleOpenedMethod = OnModuleOpened;
-            _moduleSavedMethod = OnModuleSaved;
-        }
-
         #endregion
 
         #region Events / Delegates
         
-        public delegate void ModuleOpened();
-        public delegate void ModuleSaved();
-        public delegate void ModuleClosed();
-
-        private ModuleOpened _moduleOpenedMethod;
-        private ModuleSaved _moduleSavedMethod;
-        private ModuleClosed _moduleClosedMethod;
-
-        /// <summary>
-        /// Gets or sets the method fired when the module has finished opening.
-        /// </summary>
-        public ModuleOpened ModuleOpenedMethod
-        {
-            get { return _moduleOpenedMethod; }
-            set { _moduleOpenedMethod = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the method fired when the module has finished saving.
-        /// </summary>
-        public ModuleSaved ModuleSavedMethod
-        {
-            get { return _moduleSavedMethod; }
-            set { _moduleSavedMethod = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the method fired when the module has finished closing.
-        /// </summary>
-        public ModuleClosed ModuleClosedMethod
-        {
-            get { return _moduleClosedMethod; }
-            set { _moduleClosedMethod = value; }
-        }
-
         #endregion
 
         #region Methods
@@ -214,11 +164,6 @@ namespace WinterEngine.Library.Managers
 
                 // Delete the backup since the new save was successful.
                 File.Delete(backupPath);
-
-                if (!Object.ReferenceEquals(_moduleSavedMethod, null))
-                {
-                    _moduleSavedMethod();
-                }
             }
         }
 
@@ -255,13 +200,7 @@ namespace WinterEngine.Library.Managers
                 repo.ChangeDatabaseConnection(databaseFilePath);
             }
 
-            if(CheckForMissingContentPackages())
-            {
-                if (!Object.ReferenceEquals(_moduleOpenedMethod, null))
-                {
-                    _moduleOpenedMethod();
-                }
-            }
+            CheckForMissingContentPackages();
         }
 
         /// <summary>
@@ -278,11 +217,6 @@ namespace WinterEngine.Library.Managers
             // Reset object properties for next use.
             this.ModulePath = "";
             this.TemporaryDirectoryPath = "";
-
-            if (!Object.ReferenceEquals(_moduleClosedMethod, null))
-            {
-                _moduleClosedMethod();
-            }
         }
 
         /// <summary>
@@ -373,23 +307,21 @@ namespace WinterEngine.Library.Managers
                 repo.Add(category);
                 repo.SaveChanges();
                 category.GameObjectType = GameObjectTypeEnum.Conversation;
-                category.ResourceType = ResourceTypeEnum.GameObject;
                 repo.Add(category);
                 repo.SaveChanges();
                 category.GameObjectType = GameObjectTypeEnum.Creature;
-                category.ResourceType = ResourceTypeEnum.GameObject;
                 repo.Add(category);
                 repo.SaveChanges();
                 category.GameObjectType = GameObjectTypeEnum.Item;
-                category.ResourceType = ResourceTypeEnum.GameObject;
                 repo.Add(category);
                 repo.SaveChanges();
                 category.GameObjectType = GameObjectTypeEnum.Placeable;
-                category.ResourceType = ResourceTypeEnum.GameObject;
                 repo.Add(category);
                 repo.SaveChanges();
                 category.GameObjectType = GameObjectTypeEnum.Script;
-                category.ResourceType = ResourceTypeEnum.GameObject;
+                repo.Add(category);
+                repo.SaveChanges();
+                category.GameObjectType = GameObjectTypeEnum.Tileset;
                 repo.Add(category);
                 repo.SaveChanges();
             }

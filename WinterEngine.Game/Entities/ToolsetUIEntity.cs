@@ -308,6 +308,7 @@ namespace WinterEngine.Game.Entities
                 JSTreeNode placeableRootNode;
                 JSTreeNode conversationRootNode;
                 JSTreeNode scriptRootNode;
+                JSTreeNode tilesetRootNode;
 
                 // Get each category's children for each object type
                 using (AreaRepository repo = new AreaRepository())
@@ -334,7 +335,10 @@ namespace WinterEngine.Game.Entities
                 {
                     scriptRootNode = repo.GenerateJSTreeHierarchy();
                 }
-
+                using (TilesetRepository repo = new TilesetRepository())
+                {
+                    tilesetRootNode = repo.GenerateJSTreeHierarchy();
+                }
                 
                 AsyncJavascriptCallback("LoadTreeViews_Callback",
                     JsonConvert.SerializeObject(areaRootNode),
@@ -342,7 +346,8 @@ namespace WinterEngine.Game.Entities
                     JsonConvert.SerializeObject(itemRootNode),
                     JsonConvert.SerializeObject(placeableRootNode),
                     JsonConvert.SerializeObject(conversationRootNode),
-                    JsonConvert.SerializeObject(scriptRootNode));
+                    JsonConvert.SerializeObject(scriptRootNode),
+                    JsonConvert.SerializeObject(tilesetRootNode));
             }
             catch
             {

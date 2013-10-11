@@ -1,8 +1,6 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.BusinessObjects;
-using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.Resources;
 
 namespace WinterEngine.DataAccess.Contexts
 {
@@ -19,6 +17,7 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<CharacterClass> CharacterClasses { get; set; }
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
+        public DbSet<Tileset> Tilesets { get; set; }
         public DbSet<Tile> Tiles { get; set; }
         public DbSet<ContentPackage> ContentPackages { get; set; }
         public DbSet<ContentPackageResource> ContentPackageResources { get; set; }

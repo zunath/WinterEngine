@@ -155,38 +155,38 @@
         <div id="divObjectBar" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();" class="clsObjectBarDiv row-fluid clsHidden">
           <ul id="ulObjectBar">
             <li id="liAreas" class="clsActiveObjectType">
-              <a href="#" onclick="AreasButtonClick();">
+              <a href="#" onclick="ChangeObjectMode('Area');">
                 Areas
               </a>
             </li>
             <li id="liCreatures">
-              <a href="#" onclick="CreaturesButtonClick();">
+              <a href="#" onclick="ChangeObjectMode('Creature');">
                 Creatures
               </a>
             </li>
             <li id="liItems">
-              <a href="#" onclick="ItemsButtonClick();">
+              <a href="#" onclick="ChangeObjectMode('Item');">
                 Items
               </a>
             </li>
             <li id="liPlaceables">
-              <a href="#" onclick="PlaceablesButtonClick();">
+              <a href="#" onclick="ChangeObjectMode('Placeable');">
                 Placeables
               </a>
             </li>
             <li id="liConversations">
-              <a href="#" onclick="ConversationsButtonClick();">
+              <a href="#" onclick="ChangeObjectMode('Conversation');">
                 Conversations
               </a>
             </li>
             <li id="liScripts">
-              <a href="#" onclick="ScriptsButtonClick();">
+              <a href="#" onclick="ChangeObjectMode('Script');">
                 Scripts
               </a>
             </li>
-            <li id="liGraphics">
-              <a href="#" onclick="GraphicsButtonClick();">
-                Graphics
+            <li id="liTilesets">
+              <a href="#" onclick="ChangeObjectMode('Tileset');">
+                Tilesets
               </a>
             </li>
           </ul>
@@ -202,7 +202,7 @@
           <div id="divPlaceableTreeView" class="clsTreeViewDiv clsHidden"></div>
           <div id="divConversationTreeView" class="clsTreeViewDiv clsHidden"></div>
           <div id="divScriptTreeView" class="clsTreeViewDiv clsHidden"></div>
-          <div id="divGraphicTreeView" class="clsTreeViewDiv clsHidden"></div>
+          <div id="divTilesetTreeView" class="clsTreeViewDiv clsHidden"></div>
         </div>
 
         <!--END TREE VIEW CONTROLS-->
@@ -559,7 +559,24 @@
 
               </div>
             </div>
-          
+            
+              
+            <div id="divTilesetsTab" class="clsObjectTabDiv">
+                <h3>Tileset Details</h3>
+                <div id="divTilesetsTab-Details">
+                    <label id="lblTilesetDetails-Name" for="txtTilesetDetails-Name">Name:</label>
+                    <input id="txtTilesetDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Name" class="clsTilesetObjectField" />
+                    
+                    <label id="lblTilesetDetails-Tag" for="txtTilesetDetails-Tag">Tag:</label>
+                    <input id="txtTilesetDetails-Tag" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Tag" class="clsTilesetObjectField" />
+
+                    <label id="lblTilesetDetails-Resref" for="txtTilesetDetails-Resref">Resref:</label>
+                    <input id="txtTilesetDetails-Resref" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Resref" class="clsTilesetObjectField" />
+
+
+                </div>
+            </div>
+              
           </div>
           
           <div id="divObjectTabContainerButtons" class="btn-group clsHidden">

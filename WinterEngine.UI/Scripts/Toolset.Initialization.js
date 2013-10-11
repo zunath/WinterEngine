@@ -74,6 +74,7 @@ function InitializeTabbedContainers() {
     $('#divPlaceablesTab').accordion({ collapsible: true, heightStyle: "content" });
     $('#divConversationsTab').accordion({ collapsible: true, heightStyle: "content" });
     $('#divScriptsTab').accordion({ collapsible: true, heightStyle: "content" });
+    $('#divTilesetsTab').accordion({ collapsible: true, heightStyle: "content" });
 
     // Seems to be a bug with making a div an accordion that is hidden.
     // This is to correct that issue.

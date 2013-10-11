@@ -34,6 +34,11 @@ function InitializeToolsetViewModel() {
                 return ko.observable(options.data);
             }
         },
+        'ActiveTileset': {
+            create: function(options) {
+                return ko.observable(options.data);
+            }
+        },
         'TileMap': {
             create: function (options) {
                 return ko.observable(options.data);

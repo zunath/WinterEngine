@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\ConnectionAddress.cs" />
+    <Compile Include="Resources\Tileset.cs" />
     <Compile Include="XMLObjects\ContentPackageResourceXML.cs" />
     <Compile Include="BusinessObjects\JSTreeNode.cs" />
     <Compile Include="BusinessObjects\Location.cs" />

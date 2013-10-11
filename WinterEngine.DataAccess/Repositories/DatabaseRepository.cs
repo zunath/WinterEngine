@@ -4,6 +4,7 @@ using System.Linq;
 using System.Data.Entity.Infrastructure;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataTransferObjects;
+using System.Data.Entity.Migrations;
 
 namespace WinterEngine.DataAccess
 {
@@ -66,6 +67,7 @@ namespace WinterEngine.DataAccess
             // Also creates tables based on the code-first model.
             using (ModuleDataContext context = new ModuleDataContext(connectionString))
             {
+                //context.Database.Initialize(true);
                 context.Database.Create();
             }
 
