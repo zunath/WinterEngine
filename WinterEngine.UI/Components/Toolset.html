@@ -582,8 +582,9 @@
                     <input id="txtTilesetDetails-Resref" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Resref" class="clsTilesetObjectField" />
                 
                     <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
-                    <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" data-bind="options: TilesetSpriteSheetsList,
-                                                                                                      optionsText: function (item) { return item.Name}"></select>
+                    <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField" data-bind="options: TilesetSpriteSheetsList,
+                                                                                                                                    optionsText: function (item) { return item.Name },
+                                                                                                                                    value: ToolsetViewModel.ActiveTileset().GraphicResource"></select>
                 </div>
 
                 <h3>Tile Details</h3>

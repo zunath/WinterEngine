@@ -29,10 +29,27 @@ namespace WinterEngine.Game.Entities
 
         private FileExtensionFactory _extensionFactory;
         private ModuleManager _moduleManager;
+        private JsonSerializerSettings _serializerSettings;
 
         #endregion
 
         #region Properties
+
+        private JsonSerializerSettings JSONSerializerSettings
+        {
+            get
+            {
+                if (_serializerSettings == null)
+                {
+                    _serializerSettings = new JsonSerializerSettings 
+                    { 
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                        NullValueHandling = NullValueHandling.Ignore
+                    };
+                }
+                return _serializerSettings;
+            }
+        }
 
         private FileExtensionFactory ExtensionFactory 
         {
@@ -273,9 +290,8 @@ namespace WinterEngine.Game.Entities
                 availableContentPackages.Add(package);
             }
 
-            JsonSerializerSettings settings = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
-            string jsonAttachedContentPackages = JsonConvert.SerializeObject(attachedContentPackages, settings);
-            string jsonAvailableContentPackages = JsonConvert.SerializeObject(availableContentPackages, settings);
+            string jsonAttachedContentPackages = JsonConvert.SerializeObject(attachedContentPackages, JSONSerializerSettings);
+            string jsonAvailableContentPackages = JsonConvert.SerializeObject(availableContentPackages, JSONSerializerSettings);
 
             AsyncJavascriptCallback("ManageContentPackagesButton_Callback", jsonAttachedContentPackages, jsonAvailableContentPackages);
         }
@@ -548,7 +564,7 @@ namespace WinterEngine.Game.Entities
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
             int resourceID = (int)e.Arguments[1];
             GameObjectBase gameObject = factory.GetFromDatabaseByID(resourceID, gameObjectType);
-            string jsonObject = JsonConvert.SerializeObject(gameObject);
+            string jsonObject = JsonConvert.SerializeObject(gameObject, JSONSerializerSettings);
             ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
 
             if (gameObjectType == GameObjectTypeEnum.Area)
@@ -572,7 +588,7 @@ namespace WinterEngine.Game.Entities
             }
             else if (gameObjectType == GameObjectTypeEnum.Tileset)
             {
-
+                
             }
 
             AsyncJavascriptCallback("LoadObjectData_Callback", jsonObject);
@@ -593,7 +609,7 @@ namespace WinterEngine.Game.Entities
                 GameObjectFactory factory = new GameObjectFactory();
                 GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
                 string jsonModel = e.Arguments[1];
-                ToolsetViewModel model = JsonConvert.DeserializeObject<ToolsetViewModel>(jsonModel, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                ToolsetViewModel model = JsonConvert.DeserializeObject<ToolsetViewModel>(jsonModel, JSONSerializerSettings);
                 
                 if (gameObjectType == GameObjectTypeEnum.Area)
                 {
@@ -655,11 +671,7 @@ namespace WinterEngine.Game.Entities
 
             using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
             {
-                JsonSerializerSettings settings = new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                };
-                jsonTilesetSpriteSheets = JsonConvert.SerializeObject(repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset), settings);
+                jsonTilesetSpriteSheets = JsonConvert.SerializeObject(repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset), JSONSerializerSettings);
             }
 
             AsyncJavascriptCallback("PopulateToolsetViewModel_Callback", jsonTilesetSpriteSheets);

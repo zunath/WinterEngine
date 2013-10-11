@@ -53,11 +53,6 @@ function InitializeToolsetViewModel() {
             create: function (options) {
                 return ko.observable(options.data);
             }
-        },
-        'TilesetSpriteSheetsList': {
-            create: function (options) {
-                return ko.observable(options.data);
-            }
         }
     }
 
@@ -71,5 +66,4 @@ function PopulateToolsetViewModel() {
 
 function PopulateToolsetViewModel_Callback(jsonTilesetSpriteSheets) {
     ToolsetViewModel.TilesetSpriteSheetsList(JSON.parse(jsonTilesetSpriteSheets));
-    alert(ToolsetViewModel.TilesetSpriteSheetsList()[0].FileName);
 }

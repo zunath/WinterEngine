@@ -270,6 +270,7 @@ function BuildModuleButtonClick_Callback(success, exception) {
 
     if (success) {
         $('#lblAlertBox').text('Rebuild completed successfully');
+        PopulateToolsetViewModel();
     }
     else {
         $('#lblAlertBox').text('Error occurred during rebuild.<br /><br />' +

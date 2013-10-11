@@ -24,7 +24,6 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public List<GameModule> ModuleList { get; set; }
         public List<ContentPackage> AvailableContentPackages { get; set; }
         public List<ContentPackage> AttachedContentPackages { get; set; }
-
         public List<ContentPackageResource> TilesetSpriteSheetsList { get; set; }
 
         public ToolsetViewModel()
