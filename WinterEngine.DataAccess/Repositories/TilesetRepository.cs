@@ -36,10 +36,7 @@ namespace WinterEngine.DataAccess.Repositories
             Tileset dbTileset = Context.TilesetRepository.Get(x => x.ResourceID == newTileset.ResourceID).SingleOrDefault();
             if (dbTileset == null) return;
 
-            dbTileset.Comment = newTileset.Comment;
-            dbTileset.IsSystemResource = newTileset.IsSystemResource;
-            dbTileset.Name = newTileset.Name;
-            dbTileset.ResourceTypeID = newTileset.ResourceTypeID;
+            Context.Context.Entry(dbTileset).CurrentValues.SetValues(newTileset);
         }
 
         public void Upsert(Tileset tileset)

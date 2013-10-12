@@ -14,6 +14,7 @@ using WinterEngine.Library.Utility;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.Paths;
+using WinterEngine.Editor.Managers;
 
 namespace WinterEngine.Library.Managers
 {
@@ -128,7 +129,7 @@ namespace WinterEngine.Library.Managers
                 }
 
                 InitializeData();
-                LoadResourcePacks();
+                LoadSystemContentPacks();
 
                 return true;
             }
@@ -284,7 +285,7 @@ namespace WinterEngine.Library.Managers
         /// Handles loading the standardized resource pack files into the database for the module.
         /// These are graphic files for each resource type.
         /// </summary>
-        private void LoadResourcePacks()
+        private void LoadSystemContentPacks()
         {
         }
 
@@ -297,33 +298,59 @@ namespace WinterEngine.Library.Managers
             // Add the "Uncategorized" category for each resource type.
             using (CategoryRepository repo = new CategoryRepository())
             {
-                Category category = new Category 
-                { 
-                    Name = "*Uncategorized", 
-                    GameObjectType = GameObjectTypeEnum.Area, 
-                    ResourceType = ResourceTypeEnum.GameObject, 
-                    IsSystemResource = true 
-                };
-                repo.Add(category);
-                repo.SaveChanges();
-                category.GameObjectType = GameObjectTypeEnum.Conversation;
-                repo.Add(category);
-                repo.SaveChanges();
-                category.GameObjectType = GameObjectTypeEnum.Creature;
-                repo.Add(category);
-                repo.SaveChanges();
-                category.GameObjectType = GameObjectTypeEnum.Item;
-                repo.Add(category);
-                repo.SaveChanges();
-                category.GameObjectType = GameObjectTypeEnum.Placeable;
-                repo.Add(category);
-                repo.SaveChanges();
-                category.GameObjectType = GameObjectTypeEnum.Script;
-                repo.Add(category);
-                repo.SaveChanges();
-                category.GameObjectType = GameObjectTypeEnum.Tileset;
-                repo.Add(category);
-                repo.SaveChanges();
+                List<Category> categoryList = new List<Category>();
+
+                categoryList.Add(new Category
+                {
+                    Name = "*Uncategorized",
+                    GameObjectType = GameObjectTypeEnum.Area,
+                    ResourceType = ResourceTypeEnum.GameObject,
+                    IsSystemResource = true
+                });
+                categoryList.Add(new Category
+                {
+                    Name = "*Uncategorized",
+                    GameObjectType = GameObjectTypeEnum.Conversation,
+                    ResourceType = ResourceTypeEnum.GameObject,
+                    IsSystemResource = true
+                });
+                categoryList.Add(new Category
+                {
+                    Name = "*Uncategorized",
+                    GameObjectType = GameObjectTypeEnum.Creature,
+                    ResourceType = ResourceTypeEnum.GameObject,
+                    IsSystemResource = true
+                });
+                categoryList.Add(new Category
+                {
+                    Name = "*Uncategorized",
+                    GameObjectType = GameObjectTypeEnum.Item,
+                    ResourceType = ResourceTypeEnum.GameObject,
+                    IsSystemResource = true
+                });
+                categoryList.Add(new Category
+                {
+                    Name = "*Uncategorized",
+                    GameObjectType = GameObjectTypeEnum.Placeable,
+                    ResourceType = ResourceTypeEnum.GameObject,
+                    IsSystemResource = true
+                });
+                categoryList.Add(new Category
+                {
+                    Name = "*Uncategorized",
+                    GameObjectType = GameObjectTypeEnum.Script,
+                    ResourceType = ResourceTypeEnum.GameObject,
+                    IsSystemResource = true
+                });
+                categoryList.Add(new Category
+                {
+                    Name = "*Uncategorized",
+                    GameObjectType = GameObjectTypeEnum.Tileset,
+                    ResourceType = ResourceTypeEnum.GameObject,
+                    IsSystemResource = true
+                });
+
+                repo.Add(categoryList);
             }
         }
 

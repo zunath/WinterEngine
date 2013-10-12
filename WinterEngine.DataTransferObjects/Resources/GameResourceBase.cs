@@ -87,6 +87,18 @@ namespace WinterEngine.DataTransferObjects
             set { _isSystemResource = value; }
         }
 
+        public DateTime CreateDate { get; set; }
+        
+
+        #endregion
+
+        #region Constructors
+
+        public GameResourceBase()
+        {
+            CreateDate = DateTime.UtcNow;
+        }
+
         #endregion
 
         #region Methods

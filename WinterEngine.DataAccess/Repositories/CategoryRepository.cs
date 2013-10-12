@@ -70,11 +70,7 @@ namespace WinterEngine.DataAccess
             Category dbCategory = Context.CategoryRepository.Get(x => x.ResourceID == resourceCategory.ResourceID).SingleOrDefault();
             if (dbCategory == null) return;
 
-            dbCategory.Comment = resourceCategory.Comment;
-            dbCategory.GameObjectTypeID = resourceCategory.GameObjectTypeID;
-            dbCategory.IsSystemResource = resourceCategory.IsSystemResource;
-            dbCategory.Name = resourceCategory.Name;
-            dbCategory.ResourceTypeID = resourceCategory.ResourceTypeID;
+            Context.Context.Entry(dbCategory).CurrentValues.SetValues(resourceCategory);
         }
 
         public void Upsert(Category category)

@@ -8,6 +8,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.XMLObjects;
 using WinterEngine.Library.Extensions;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 
 namespace WinterEngine.Editor.Managers
@@ -73,7 +74,7 @@ namespace WinterEngine.Editor.Managers
             }
         }
 
-        public static void RebuildModule(List<ContentPackage> contentPackages)
+        public static void RebuildModule(List<ContentPackage> contentPackages, ModuleRebuildModeEnum rebuildMode)
         {
             contentPackages.ForEach(a => a.ResourceList = GameResourceManager.GetAllResourcesInContentPackage(DirectoryPaths.ContentPackageDirectoryPath + a.FileName));
 
@@ -81,7 +82,19 @@ namespace WinterEngine.Editor.Managers
             {
                 using (ContentPackageRepository repo = new ContentPackageRepository())
                 {
-                    List<ContentPackage> existingContentPackages = repo.GetAllNonSystemResource();
+                    List<ContentPackage> existingContentPackages; 
+                    if(rebuildMode == ModuleRebuildModeEnum.SystemResourcesOnly)
+                    {
+                        existingContentPackages = repo.GetAllSystemResources();
+                    }
+                    else if(rebuildMode == ModuleRebuildModeEnum.UserResourcesOnly)
+                    {
+                        existingContentPackages = repo.GetAllUserResources();
+                    }
+                    else
+                    {
+                        existingContentPackages = repo.GetAll();
+                    }
 
                     // Update or remove existing
                     foreach (ContentPackage current in existingContentPackages)
@@ -110,12 +123,12 @@ namespace WinterEngine.Editor.Managers
         /// <summary>
         /// Handles refreshing content package resource links in the database and updating existing references. Uses the currently active set of content packages in the database.
         /// </summary>
-        public static void RebuildModule()
+        public static void RebuildModule(ModuleRebuildModeEnum rebuildMode)
         {
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                List<ContentPackage> contentPackages = repo.GetAllNonSystemResource();
-                RebuildModule(contentPackages);
+                List<ContentPackage> contentPackages = repo.GetAllUserResources();
+                RebuildModule(contentPackages, rebuildMode);
             }
         }
 

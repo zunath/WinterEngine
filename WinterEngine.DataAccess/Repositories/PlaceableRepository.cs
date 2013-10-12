@@ -56,20 +56,7 @@ namespace WinterEngine.DataAccess
             }
             if (dbPlaceable == null) return;
 
-            dbPlaceable.Comment = newPlaceable.Comment;
-            dbPlaceable.Description = newPlaceable.Description;
-            dbPlaceable.GameObjectTypeID = newPlaceable.GameObjectTypeID;
-            dbPlaceable.GraphicResourceID = newPlaceable.GraphicResourceID;
-            dbPlaceable.HasInventory = newPlaceable.HasInventory;
-            dbPlaceable.InventoryItems = newPlaceable.InventoryItems;
-            dbPlaceable.IsSystemResource = newPlaceable.IsSystemResource;
-            dbPlaceable.IsUseable = newPlaceable.IsUseable;
-            dbPlaceable.Name = newPlaceable.Name;
-            dbPlaceable.ResourceCategoryID = newPlaceable.ResourceCategoryID;
-            dbPlaceable.ResourceTypeID = newPlaceable.ResourceTypeID;
-            dbPlaceable.Resref = newPlaceable.Resref;
-            dbPlaceable.Tag = newPlaceable.Tag;
-            dbPlaceable.TemporaryDisplayName = newPlaceable.TemporaryDisplayName;
+            Context.Context.Entry(dbPlaceable).CurrentValues.SetValues(newPlaceable);
         }
 
         /// <summary>

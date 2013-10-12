@@ -252,7 +252,7 @@ namespace WinterEngine.Game.Entities
 
             try
             {
-                GameResourceManager.RebuildModule();
+                GameResourceManager.RebuildModule(ModuleRebuildModeEnum.UserResourcesOnly);
                 success = true;
             }
             catch(Exception ex)
@@ -271,7 +271,7 @@ namespace WinterEngine.Game.Entities
 
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                attachedContentPackages = repo.GetAllNonSystemResource();
+                attachedContentPackages = repo.GetAllUserResources();
                 // We don't need to send the resource list to the GUI because it could contain a lot of data.
                 // We'll pick up the resource list when we go to do a save/rebuild of the module.
                 attachedContentPackages.ForEach(a => a.ResourceList = null);
@@ -300,7 +300,7 @@ namespace WinterEngine.Game.Entities
         {
             string jsonUpdatedContentPackages = e.Arguments[0];
             List<ContentPackage> contentPackageList = JsonConvert.DeserializeObject<List<ContentPackage>>(jsonUpdatedContentPackages);
-            GameResourceManager.RebuildModule(contentPackageList);
+            GameResourceManager.RebuildModule(contentPackageList, ModuleRebuildModeEnum.UserResourcesOnly);
             
             AsyncJavascriptCallback("ManageContentPackagesSaveChanges_Callback");
         }
@@ -671,7 +671,8 @@ namespace WinterEngine.Game.Entities
 
             using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
             {
-                jsonTilesetSpriteSheets = JsonConvert.SerializeObject(repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset), JSONSerializerSettings);
+                List<ContentPackageResource> resourceList = repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset);
+                jsonTilesetSpriteSheets = JsonConvert.SerializeObject(resourceList, JSONSerializerSettings);
             }
 
             AsyncJavascriptCallback("PopulateToolsetViewModel_Callback", jsonTilesetSpriteSheets);

@@ -59,17 +59,7 @@ namespace WinterEngine.DataAccess.Repositories
             }
             if (dbConversation == null) return;
 
-            dbConversation.Comment = newConversation.Comment;
-            dbConversation.GameObjectTypeID = newConversation.GameObjectTypeID;
-            dbConversation.GraphicResourceID = newConversation.GraphicResourceID;
-            dbConversation.IsSystemResource = newConversation.IsSystemResource;
-            dbConversation.Name = newConversation.Name;
-            dbConversation.ResourceCategoryID = newConversation.ResourceCategoryID;
-            dbConversation.ResourceTypeID = newConversation.ResourceTypeID;
-            dbConversation.Resref = newConversation.Resref;
-            dbConversation.Tag = newConversation.Tag;
-            dbConversation.TemporaryDisplayName = newConversation.TemporaryDisplayName;
-
+            Context.Context.Entry(dbConversation).CurrentValues.SetValues(newConversation);
         }
 
         /// <summary>

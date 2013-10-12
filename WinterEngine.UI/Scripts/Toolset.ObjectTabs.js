@@ -80,6 +80,7 @@ function LoadObjectData_Callback(jsonObject) {
     }
     else if (mode == 'Tileset') {
         ToolsetViewModel.ActiveTileset(gameObject);
+        ToolsetViewModel.SelectedTilesetSpriteSheetID(gameObject.GraphicResourceID);
 
         $('.clsAreaObjectField').attr('disabled', 'disabled');
         $('.clsCreatureObjectField').attr('disabled', 'disabled');

@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
@@ -12,817 +12,803 @@
     <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
     <link rel="stylesheet" href="../Styling/Toolset/ToolsetStyles.css" />
 
-      <script src="../Scripts/jquery-2.0.3.min.js"></script>
-      <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
-      <script src="../Scripts/jquery.validate.js"></script>
-      <script src="../Scripts/jquery.jstree.js"></script>
-      <script src="../Scripts/knockout-2.3.0.js"></script>
-      <script src="../Scripts/knockout.mapping-latest.js"></script>
-      <script src="../Scripts/WinterEngine.ViewModels.js"></script>
-      <script src="../Scripts/Toolset.Initialization.js"></script>
-      <script src="../Scripts/Toolset.TreeViews.js"></script>
-      <script src="../Scripts/Toolset.MenuBar.js"></script>
-      <script src="../Scripts/Toolset.ObjectBar.js"></script>
-      <script src="../Scripts/Toolset.ObjectTabs.js"></script>
-      <script src="../Scripts/Toolset.Canvas.js"></script>
-      <script src="../Scripts/jcanvas.js"></script>
-
-  </head>
-  <body>
+    <script src="../Scripts/jquery-2.0.3.min.js"></script>
+    <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
+    <script src="../Scripts/jquery.validate.js"></script>
+    <script src="../Scripts/jquery.jstree.js"></script>
+    <script src="../Scripts/knockout-2.3.0.js"></script>
+    <script src="../Scripts/knockout.mapping-latest.js"></script>
+    <script src="../Scripts/jcanvas.js"></script>
+    <script src="../Scripts/jquery.blockUI.js"></script>
+    <script src="../Scripts/WinterEngine.ViewModels.js"></script>
+    <script src="../Scripts/Toolset.Initialization.js"></script>
+    <script src="../Scripts/Toolset.TreeViews.js"></script>
+    <script src="../Scripts/Toolset.MenuBar.js"></script>
+    <script src="../Scripts/Toolset.ObjectBar.js"></script>
+    <script src="../Scripts/Toolset.ObjectTabs.js"></script>
+    <script src="../Scripts/Toolset.Canvas.js"></script>
+    <script src="../Scripts/Toolset.Tileset.Editor.js"></script>
+</head>
+<body>
 
     <!-- Global container: Prevent mouse interaction from affecting FRB -->
-    <div id="divGlobalContainer">
+    <div id="divGlobalContainer" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
 
-      <div id="menuBarContainer">
-        <!-- MENU BAR CONTROL -->
-        <div id="divMenuBar" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();" class="row-fluid">
-          <ul id="ulMenu">
-            <li>
-              <a href="#">File</a>
-              <ul>
-                <li id="liNewModuleButton">
-                  <a id="aNewModuleButton" href="#" onclick="NewModuleButtonClick(this);">
-                    New Module
-                  </a>
-                </li>
-                <li id="liOpenModuleButton">
-                  <a id="aOpenModuleButton" href="#" onclick="ShowOpenModulePopUp(this);">
-                    Open Module
-                  </a>
-                </li>
-                <li id="liCloseModuleButton" class="ui-state-disabled">
-                  <a id="aCloseModuleButton" href="#" onclick="CloseModuleButtonClick(this);">
-                    Close Module
-                  </a>
-                </li>
-                <li id="liSaveModuleButton" class="ui-state-disabled">
-                  <a id="aSaveModuleButton" href="#" onclick="SaveModuleButtonClick(this);">
-                    Save
-                  </a>
-                </li>
-                <li id="liSaveAsButton" class="ui-state-disabled">
-                  <a id="aSaveAsButton" href="#" onclick="ShowSaveAsModulePopUp(this);">
-                    Save As...
-                  </a>
-                </li>
-                <li id="liImportButton" class="ui-state-disabled">
-                  <a id="aImportButton" href="#" onclick="ImportButtonClick(this);">
-                    Import
-                  </a>
-                </li>
-                <li id="liExportButton" class="ui-state-disabled">
-                  <a id="aExportButton" href="#" onclick="ExportButtonClick(this);">
-                    Export
-                  </a>
-                </li>
-                <li id="liExitButton">
-                  <a id="aExitButton" href="#" onclick="ExitButtonClick(this);">
-                    Exit
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Edit</a>
-              <ul>
-                <li id="liUndoButton" class="ui-state-disabled">
-                  <a id="aUndoButton" href="#" onclick="UndoButtonClick(this);">
-                    Undo
-                  </a>
-                </li>
-                <li id="liRedoButton" class="ui-state-disabled">
-                  <a id="aRedoButton" href="#" onclick="RedoButtonClick(this);">
-                    Redo
-                  </a>
-                </li>
-                <li id="liCopyButton" class="ui-state-disabled">
-                  <a id="aCopyButton" href="#" onclick="CopyButtonClick(this);">
-                    Copy
-                  </a>
-                </li>
-                <li id="liCutButton" class="ui-state-disabled">
-                  <a id="aCutButton" href="#" onclick="CutButtonClick(this);">
-                    Cut
-                  </a>
-                </li>
-                <li id="liPasteButton" class="ui-state-disabled">
-                  <a id="aPasteButton" href="#" onclick="PasteButtonClick(this);">
-                    Paste
-                  </a>
-                </li>
-                <li id="liModulePropertiesButton" class="ui-state-disabled">
-                  <a id="aModulePropertiesButton" href="#" onclick="ModulePropertiesButtonClick(this);">
-                    Module Properties
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Content</a>
-              <ul>
-                <li id="liManageContentPackagesButton" class="ui-state-disabled">
-                  <a id="aManageContentPackagesButton" href="#" onclick="ManageContentPackagesButtonClick(this);">
-                    Manage Content Packages
-                  </a>
-                </li>
-                <li id="liBuildModuleButton" class="ui-state-disabled">
-                  <a id="aBuildModuleButton" href="#" onclick="BuildModuleButtonClick(this);">
-                    Build Module
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">Help</a>
-              <ul>
-                <li id="liWinterEngineWebsiteButton">
-                  <a id="aWinterEngineWebsiteButton" href="#" onclick="WinterEngineWebsiteButtonClick(this);">
-                    Winter Engine Website
-                  </a>
-                </li>
-                <li id="liAboutButton">
-                  <a id="aAboutButton" href="#" onclick="AboutButtonClick(this);">
-                    About
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+        <div id="menuBarContainer">
+            <!-- MENU BAR CONTROL -->
+            <div id="divMenuBar" class="row-fluid">
+                <ul id="ulMenu">
+                    <li>
+                        <a href="#">File</a>
+                        <ul>
+                            <li id="liNewModuleButton">
+                                <a id="aNewModuleButton" href="#" onclick="NewModuleButtonClick(this);">New Module
+                                </a>
+                            </li>
+                            <li id="liOpenModuleButton">
+                                <a id="aOpenModuleButton" href="#" onclick="ShowOpenModulePopUp(this);">Open Module
+                                </a>
+                            </li>
+                            <li id="liCloseModuleButton" class="ui-state-disabled">
+                                <a id="aCloseModuleButton" href="#" onclick="CloseModuleButtonClick(this);">Close Module
+                                </a>
+                            </li>
+                            <li id="liSaveModuleButton" class="ui-state-disabled">
+                                <a id="aSaveModuleButton" href="#" onclick="SaveModuleButtonClick(this);">Save
+                                </a>
+                            </li>
+                            <li id="liSaveAsButton" class="ui-state-disabled">
+                                <a id="aSaveAsButton" href="#" onclick="ShowSaveAsModulePopUp(this);">Save As...
+                                </a>
+                            </li>
+                            <li id="liImportButton" class="ui-state-disabled">
+                                <a id="aImportButton" href="#" onclick="ImportButtonClick(this);">Import
+                                </a>
+                            </li>
+                            <li id="liExportButton" class="ui-state-disabled">
+                                <a id="aExportButton" href="#" onclick="ExportButtonClick(this);">Export
+                                </a>
+                            </li>
+                            <li id="liExitButton">
+                                <a id="aExitButton" href="#" onclick="ExitButtonClick(this);">Exit
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Edit</a>
+                        <ul>
+                            <li id="liUndoButton" class="ui-state-disabled">
+                                <a id="aUndoButton" href="#" onclick="UndoButtonClick(this);">Undo
+                                </a>
+                            </li>
+                            <li id="liRedoButton" class="ui-state-disabled">
+                                <a id="aRedoButton" href="#" onclick="RedoButtonClick(this);">Redo
+                                </a>
+                            </li>
+                            <li id="liCopyButton" class="ui-state-disabled">
+                                <a id="aCopyButton" href="#" onclick="CopyButtonClick(this);">Copy
+                                </a>
+                            </li>
+                            <li id="liCutButton" class="ui-state-disabled">
+                                <a id="aCutButton" href="#" onclick="CutButtonClick(this);">Cut
+                                </a>
+                            </li>
+                            <li id="liPasteButton" class="ui-state-disabled">
+                                <a id="aPasteButton" href="#" onclick="PasteButtonClick(this);">Paste
+                                </a>
+                            </li>
+                            <li id="liModulePropertiesButton" class="ui-state-disabled">
+                                <a id="aModulePropertiesButton" href="#" onclick="ModulePropertiesButtonClick(this);">Module Properties
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Content</a>
+                        <ul>
+                            <li id="liManageContentPackagesButton" class="ui-state-disabled">
+                                <a id="aManageContentPackagesButton" href="#" onclick="ManageContentPackagesButtonClick(this);">Manage Content Packages
+                                </a>
+                            </li>
+                            <li id="liBuildModuleButton" class="ui-state-disabled">
+                                <a id="aBuildModuleButton" href="#" onclick="BuildModuleButtonClick(this);">Build Module
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Help</a>
+                        <ul>
+                            <li id="liWinterEngineWebsiteButton">
+                                <a id="aWinterEngineWebsiteButton" href="#" onclick="WinterEngineWebsiteButtonClick(this);">Winter Engine Website
+                                </a>
+                            </li>
+                            <li id="liAboutButton">
+                                <a id="aAboutButton" href="#" onclick="AboutButtonClick(this);">About
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--END MENU BAR CONTROL-->
+
+            <!--SECONDARY BAR CONTROL-->
+            <div id="divObjectBar" class="clsObjectBarDiv row-fluid clsHidden">
+                <ul id="ulObjectBar">
+                    <li id="liAreas" class="clsActiveObjectType">
+                        <a href="#" onclick="ChangeObjectMode('Area');">Areas
+                        </a>
+                    </li>
+                    <li id="liCreatures">
+                        <a href="#" onclick="ChangeObjectMode('Creature');">Creatures
+                        </a>
+                    </li>
+                    <li id="liItems">
+                        <a href="#" onclick="ChangeObjectMode('Item');">Items
+                        </a>
+                    </li>
+                    <li id="liPlaceables">
+                        <a href="#" onclick="ChangeObjectMode('Placeable');">Placeables
+                        </a>
+                    </li>
+                    <li id="liConversations">
+                        <a href="#" onclick="ChangeObjectMode('Conversation');">Conversations
+                        </a>
+                    </li>
+                    <li id="liScripts">
+                        <a href="#" onclick="ChangeObjectMode('Script');">Scripts
+                        </a>
+                    </li>
+                    <li id="liTilesets">
+                        <a href="#" onclick="ChangeObjectMode('Tileset');">Tilesets
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <!--END MENU BAR CONTROL-->
+        <div id="nonMenuBarContainer">
 
-        <!--SECONDARY BAR CONTROL-->
-        <div id="divObjectBar" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();" class="clsObjectBarDiv row-fluid clsHidden">
-          <ul id="ulObjectBar">
-            <li id="liAreas" class="clsActiveObjectType">
-              <a href="#" onclick="ChangeObjectMode('Area');">
-                Areas
-              </a>
-            </li>
-            <li id="liCreatures">
-              <a href="#" onclick="ChangeObjectMode('Creature');">
-                Creatures
-              </a>
-            </li>
-            <li id="liItems">
-              <a href="#" onclick="ChangeObjectMode('Item');">
-                Items
-              </a>
-            </li>
-            <li id="liPlaceables">
-              <a href="#" onclick="ChangeObjectMode('Placeable');">
-                Placeables
-              </a>
-            </li>
-            <li id="liConversations">
-              <a href="#" onclick="ChangeObjectMode('Conversation');">
-                Conversations
-              </a>
-            </li>
-            <li id="liScripts">
-              <a href="#" onclick="ChangeObjectMode('Script');">
-                Scripts
-              </a>
-            </li>
-            <li id="liTilesets">
-              <a href="#" onclick="ChangeObjectMode('Tileset');">
-                Tilesets
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div id="nonMenuBarContainer">
-
-        <!--TREE VIEW CONTROLS-->
-        <div id="divTreeViewContainer" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();" class="clsTreeViewContainerDiv">
-          <div id="divAreaTreeView" class="clsTreeViewDiv pre-scrollable"></div>
-          <div id="divCreatureTreeView" class="clsTreeViewDiv clsHidden"></div>
-          <div id="divItemTreeView" class="clsTreeViewDiv clsHidden"></div>
-          <div id="divPlaceableTreeView" class="clsTreeViewDiv clsHidden"></div>
-          <div id="divConversationTreeView" class="clsTreeViewDiv clsHidden"></div>
-          <div id="divScriptTreeView" class="clsTreeViewDiv clsHidden"></div>
-          <div id="divTilesetTreeView" class="clsTreeViewDiv clsHidden"></div>
-        </div>
-
-        <!--END TREE VIEW CONTROLS-->
-
-        <!-- MAIN EDITOR AREA -->
-        <div id="divToShowGame">
-
-            <canvas id="cnvGameCanvas" class="clsHidden"></canvas>
-
-        </div>
-        <!-- END MAIN EDITOR AREA -->
-          
-        <!--OBJECT TAB CONTROLS-->
-        <div id="objectTabControls" class="clsHidden" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-          <div id="divObjectTabContainer">
-            
-            <div id="divAreasTab" class="clsObjectTabDiv">
-              <h3>Area Details</h3>
-              <div id="divAreasTab-Details">
-                <label id="lblAreaDetails-Name" for="txtAreaDetails-Name">Name:</label>
-                <input id="txtAreaDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveArea().Name" class="clsAreaObjectField" />
-
-                <label id="lblAreaDetails-Tag" for="txtAreaDetails-Tag">Tag:</label>
-                <input id="txtAreaDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveArea().Tag" class="clsAreaObjectField" />
-
-                <label id="lblAreaDetails-Resref" for="txtAreaDetails-Resref">Resref:</label>
-                <input id="txtAreaDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveArea().Resref" class="clsAreaObjectField" />
-
-                <label id="lblAreaDetails-Tileset" for="selAreaDetails-Tileset">Tileset:</label>
-                <select id="selAreaDetails-Tileset" disabled="disabled" data-bind="value: ActiveArea().Tileset" class="clsAreaObjectField"></select>
-
-                <label id="lblAreaDetails-MapWidth" for="numAreaDetails-MapWidth">Width:</label>
-                <input id="numAreaDetails-MapWidth" type="number" min="1" max="32" data-bind="value: ActiveArea().TilesWide" disabled="disabled" class="clsAreaObjectField" />
-
-                <label id="lblAreaDetails-MapHeight" for="numAreaDetails-MapHeight">Height:</label>
-                <input id="numAreaDetails-MapHeight" type="number" min="1" max="32" data-bind="value: ActiveArea().TilesHigh" disabled="disabled" class="clsAreaObjectField" />
-
-              </div>
-
-              <h3>Paint Tiles</h3>
-              <div id="divAreasTab-PaintTiles">
-                <canvas id="cnvAreaTilesetImage"></canvas>
-              </div>
-
-              <h3>Paint Creatures</h3>
-              <div id="divAreasTab-PaintCreatures">
-              </div>
-
-              <h3>Paint Items</h3>
-              <div id="divAreasTab-PaintItems">
-              </div>
-
-              <h3>Paint Placeables</h3>
-              <div id="divAreasTab-PaintPlaceables">
-              </div>
-
-              <h3>Music</h3>
-              <div id="divAreasTab-Music">
-                <label>Background:</label>
-                <select id="selAreasMusic-Background" disabled="disabled" data-bind="value: ActiveArea().BackgroundMusic" class="clsAreaObjectField"></select>
-
-                <label>Battle:</label>
-                <select id="selAreasMusic-Battle" disabled="disabled" data-bind="value: ActiveArea().BattleMusic" class="clsAreaObjectField">
-                </select>
-              </div>
-
-              <h3>Description</h3>
-              <div id="divAreasTab-Description">
-                <textarea id="txtAreasTab-Description" disabled="disabled" data-bind="value: ActiveArea().Description" class="clsAreaObjectField"></textarea>
-              </div>
-
-              <h3>Comments</h3>
-              <div id="divAreasTab-Comments">
-                <textarea id="txtAreasTab-Comments" disabled="disabled" data-bind="value: ActiveArea().Comments" class="clsAreaObjectField"></textarea>
-              </div>
-
-              <h3>Local Variables</h3>
-              <div id="divAreasTab-LocalVariables" data-bind="foreach: ActiveArea().LocalVariables">
-              </div>
-
-              <h3>Events</h3>
-              <div id="divAreasTab-Events">
-
-                <label id="lblAreaEvents-OnAreaEnter">On Area Enter:</label>
-                <select id="selAreaEvents-OnAreaEnter" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaEnter" class="clsAreaObjectField"></select>
-
-                <label id="lblAreaEvents-OnAreaExit">On Area Exit:</label>
-                <select id="selAreaEvents-OnAreaExit" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaExit" class="clsAreaObjectField"></select>
-
-                <label id="lblAreaEvents-OnAreaHeartbeat">On Area Heartbeat:</label>
-                <select id="selAreaEvents-OnAreaHeartbeat" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaHeartbeat" class="clsAreaObjectField"></select>
-
-                <label id="lblAreaEvents-OnUserDefinedEvent">On User Defined Event:</label>
-                <select id="selAreaEvents-OnUserDefinedEvent" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaUserDefinedEvent" class="clsAreaObjectField"></select>
-
-              </div>
+            <!--TREE VIEW CONTROLS-->
+            <div id="divTreeViewContainer" class="clsTreeViewContainerDiv">
+                <div id="divAreaTreeView" class="clsTreeViewDiv pre-scrollable"></div>
+                <div id="divCreatureTreeView" class="clsTreeViewDiv clsHidden"></div>
+                <div id="divItemTreeView" class="clsTreeViewDiv clsHidden"></div>
+                <div id="divPlaceableTreeView" class="clsTreeViewDiv clsHidden"></div>
+                <div id="divConversationTreeView" class="clsTreeViewDiv clsHidden"></div>
+                <div id="divScriptTreeView" class="clsTreeViewDiv clsHidden"></div>
+                <div id="divTilesetTreeView" class="clsTreeViewDiv clsHidden"></div>
             </div>
 
-            <div id="divCreaturesTab" class="clsObjectTabDiv">
-              <h3>Creature Details</h3>
-              <div id="divCreaturesTab-Details">
-                <label id="lblCreatureDetails-Name" for="txtCreatureDetails-Name">Name:</label>
-                <input id="txtCreatureDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveCreature().Name" class="clsCreatureObjectField" />
+            <!--END TREE VIEW CONTROLS-->
 
-                <label id="lblCreatureDetails-Tag" for="txtCreatureDetails-Tag">Tag:</label>
-                <input id="txtCreatureDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveCreature().Tag" class="clsCreatureObjectField" />
+            <!-- MAIN EDITOR AREA -->
+            <div id="divToShowGame">
 
-                <label id="lblCreatureDetails-Resref" for="txtCreatureDetails-Resref">Resref:</label>
-                <input id="txtCreatureDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveCreature().Resref" class="clsCreatureObjectField" />
+                <canvas id="cnvGameCanvas" class="clsHidden"></canvas>
 
-                <label id="lblCreatureDetails-Appearance" for="txtCreatureDetails-Appearance">Appearance:</label>
-                <select id="selCreatureDetails-Appearance" disabled="disabled" data-bind="value: ActiveCreature().Appearance" class="clsCreatureObjectField"></select>
+            </div>
+            <!-- END MAIN EDITOR AREA -->
 
-                <label>Race:</label>
-                <select id="selCreatureDetails-Race" disabled="disabled" data-bind="value: ActiveCreature().Race" class="clsCreatureObjectField"></select>
+            <!--OBJECT TAB CONTROLS-->
+            <div id="objectTabControls" class="clsHidden">
+                <div id="divObjectTabContainer">
 
-                <label>Gender:</label>
-                <select id="selCreatureDetails-Gender" disabled="disabled" data-bind="value: ActiveCreature().Gender" class="clsCreatureObjectField"></select>
+                    <div id="divAreasTab" class="clsObjectTabDiv">
+                        <h3>Area Details</h3>
+                        <div id="divAreasTab-Details">
+                            <label id="lblAreaDetails-Name" for="txtAreaDetails-Name">Name:</label>
+                            <input id="txtAreaDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveArea().Name" class="clsAreaObjectField" />
 
-                <label>Faction:</label>
-                <select id="selCreatureDetails-Faction" disabled="disabled" data-bind="value: ActiveCreature().Faction" class="clsCreatureObjectField"></select>
+                            <label id="lblAreaDetails-Tag" for="txtAreaDetails-Tag">Tag:</label>
+                            <input id="txtAreaDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveArea().Tag" class="clsAreaObjectField" />
 
-                <label>Conversation:</label>
-                <select id="selCreatureDetails-Conversation" disabled="disabled" data-bind="value: ActiveCreature().Conversation" class="clsCreatureObjectField"></select>
+                            <label id="lblAreaDetails-Resref" for="txtAreaDetails-Resref">Resref:</label>
+                            <input id="txtAreaDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveArea().Resref" class="clsAreaObjectField" />
 
-                <label>
-                  Is Invulnerable:
+                            <label id="lblAreaDetails-Tileset" for="selAreaDetails-Tileset">Tileset:</label>
+                            <select id="selAreaDetails-Tileset" disabled="disabled" data-bind="value: ActiveArea().Tileset" class="clsAreaObjectField"></select>
+
+                            <label id="lblAreaDetails-MapWidth" for="numAreaDetails-MapWidth">Width:</label>
+                            <input id="numAreaDetails-MapWidth" type="number" min="1" max="32" data-bind="value: ActiveArea().TilesWide" disabled="disabled" class="clsAreaObjectField" />
+
+                            <label id="lblAreaDetails-MapHeight" for="numAreaDetails-MapHeight">Height:</label>
+                            <input id="numAreaDetails-MapHeight" type="number" min="1" max="32" data-bind="value: ActiveArea().TilesHigh" disabled="disabled" class="clsAreaObjectField" />
+
+                        </div>
+
+                        <h3>Paint Tiles</h3>
+                        <div id="divAreasTab-PaintTiles">
+                            <canvas id="cnvAreaTilesetImage"></canvas>
+                        </div>
+
+                        <h3>Paint Creatures</h3>
+                        <div id="divAreasTab-PaintCreatures">
+                        </div>
+
+                        <h3>Paint Items</h3>
+                        <div id="divAreasTab-PaintItems">
+                        </div>
+
+                        <h3>Paint Placeables</h3>
+                        <div id="divAreasTab-PaintPlaceables">
+                        </div>
+
+                        <h3>Music</h3>
+                        <div id="divAreasTab-Music">
+                            <label>Background:</label>
+                            <select id="selAreasMusic-Background" disabled="disabled" data-bind="value: ActiveArea().BackgroundMusic" class="clsAreaObjectField"></select>
+
+                            <label>Battle:</label>
+                            <select id="selAreasMusic-Battle" disabled="disabled" data-bind="value: ActiveArea().BattleMusic" class="clsAreaObjectField">
+                            </select>
+                        </div>
+
+                        <h3>Description</h3>
+                        <div id="divAreasTab-Description">
+                            <textarea id="txtAreasTab-Description" disabled="disabled" data-bind="value: ActiveArea().Description" class="clsAreaObjectField"></textarea>
+                        </div>
+
+                        <h3>Comments</h3>
+                        <div id="divAreasTab-Comments">
+                            <textarea id="txtAreasTab-Comments" disabled="disabled" data-bind="value: ActiveArea().Comments" class="clsAreaObjectField"></textarea>
+                        </div>
+
+                        <h3>Local Variables</h3>
+                        <div id="divAreasTab-LocalVariables" data-bind="foreach: ActiveArea().LocalVariables">
+                        </div>
+
+                        <h3>Events</h3>
+                        <div id="divAreasTab-Events">
+
+                            <label id="lblAreaEvents-OnAreaEnter">On Area Enter:</label>
+                            <select id="selAreaEvents-OnAreaEnter" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaEnter" class="clsAreaObjectField"></select>
+
+                            <label id="lblAreaEvents-OnAreaExit">On Area Exit:</label>
+                            <select id="selAreaEvents-OnAreaExit" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaExit" class="clsAreaObjectField"></select>
+
+                            <label id="lblAreaEvents-OnAreaHeartbeat">On Area Heartbeat:</label>
+                            <select id="selAreaEvents-OnAreaHeartbeat" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaHeartbeat" class="clsAreaObjectField"></select>
+
+                            <label id="lblAreaEvents-OnUserDefinedEvent">On User Defined Event:</label>
+                            <select id="selAreaEvents-OnUserDefinedEvent" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaUserDefinedEvent" class="clsAreaObjectField"></select>
+
+                        </div>
+                    </div>
+
+                    <div id="divCreaturesTab" class="clsObjectTabDiv">
+                        <h3>Creature Details</h3>
+                        <div id="divCreaturesTab-Details">
+                            <label id="lblCreatureDetails-Name" for="txtCreatureDetails-Name">Name:</label>
+                            <input id="txtCreatureDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveCreature().Name" class="clsCreatureObjectField" />
+
+                            <label id="lblCreatureDetails-Tag" for="txtCreatureDetails-Tag">Tag:</label>
+                            <input id="txtCreatureDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveCreature().Tag" class="clsCreatureObjectField" />
+
+                            <label id="lblCreatureDetails-Resref" for="txtCreatureDetails-Resref">Resref:</label>
+                            <input id="txtCreatureDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveCreature().Resref" class="clsCreatureObjectField" />
+
+                            <label id="lblCreatureDetails-Appearance" for="txtCreatureDetails-Appearance">Appearance:</label>
+                            <select id="selCreatureDetails-Appearance" disabled="disabled" data-bind="value: ActiveCreature().Appearance" class="clsCreatureObjectField"></select>
+
+                            <label>Race:</label>
+                            <select id="selCreatureDetails-Race" disabled="disabled" data-bind="value: ActiveCreature().Race" class="clsCreatureObjectField"></select>
+
+                            <label>Gender:</label>
+                            <select id="selCreatureDetails-Gender" disabled="disabled" data-bind="value: ActiveCreature().Gender" class="clsCreatureObjectField"></select>
+
+                            <label>Faction:</label>
+                            <select id="selCreatureDetails-Faction" disabled="disabled" data-bind="value: ActiveCreature().Faction" class="clsCreatureObjectField"></select>
+
+                            <label>Conversation:</label>
+                            <select id="selCreatureDetails-Conversation" disabled="disabled" data-bind="value: ActiveCreature().Conversation" class="clsCreatureObjectField"></select>
+
+                            <label>
+                                Is Invulnerable:
                   <input id="chkCreatureDetails-IsInvulnerable" disabled="disabled" type="checkbox" data-bind="value: ActiveCreature().Name" class="clsCreatureObjectField" />
-                </label>
+                            </label>
 
-              </div>
+                        </div>
 
-              <h3>Attributes</h3>
-              <div id="divCreaturesTab-Attributes">
-                <label>Hit Points:</label>
-                <input id="numCreaturesTab-HitPoints" type="number" max="65535" disabled="disabled" data-bind="value: ActiveCreature().HitPoints" class="clsCreatureObjectField" />
+                        <h3>Attributes</h3>
+                        <div id="divCreaturesTab-Attributes">
+                            <label>Hit Points:</label>
+                            <input id="numCreaturesTab-HitPoints" type="number" max="65535" disabled="disabled" data-bind="value: ActiveCreature().HitPoints" class="clsCreatureObjectField" />
 
-                <label>Mana:</label>
-                <input id="numCreaturesTab-Mana" type="number" max="65535" disabled="disabled" data-bind="value: ActiveCreature().Mana" class="clsCreatureObjectField" />
+                            <label>Mana:</label>
+                            <input id="numCreaturesTab-Mana" type="number" max="65535" disabled="disabled" data-bind="value: ActiveCreature().Mana" class="clsCreatureObjectField" />
 
-                <label>Strength:</label>
-                <input id="numCreaturesTab-Strength" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature().Strength" class="clsCreatureObjectField" />
+                            <label>Strength:</label>
+                            <input id="numCreaturesTab-Strength" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature().Strength" class="clsCreatureObjectField" />
 
-                <label>Dexterity:</label>
-                <input id="numCreaturesTab-Dexterity" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature().Dexterity" class="clsCreatureObjectField" />
+                            <label>Dexterity:</label>
+                            <input id="numCreaturesTab-Dexterity" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature().Dexterity" class="clsCreatureObjectField" />
 
-                <label>Constitution:</label>
-                <input id="numCreaturesTab-Constitution" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature().Constitution" class="clsCreatureObjectField" />
+                            <label>Constitution:</label>
+                            <input id="numCreaturesTab-Constitution" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature().Constitution" class="clsCreatureObjectField" />
 
-                <label>Intelligence:</label>
-                <input id="numCreaturesTab-Intelligence" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature().Intelligence" class="clsCreatureObjectField" />
+                            <label>Intelligence:</label>
+                            <input id="numCreaturesTab-Intelligence" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature().Intelligence" class="clsCreatureObjectField" />
 
-                <label>Wisdom:</label>
-                <input id="numCreaturesTab-Wisdom" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature().Wisdom" class="clsCreatureObjectField" />
+                            <label>Wisdom:</label>
+                            <input id="numCreaturesTab-Wisdom" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature().Wisdom" class="clsCreatureObjectField" />
 
-              </div>
+                        </div>
 
-              <h3>Abilities</h3>
-              <div id="divCreaturesTab-Abilities" data-bind="foreach: ActiveCreature().Abilities">
-              </div>
+                        <h3>Abilities</h3>
+                        <div id="divCreaturesTab-Abilities" data-bind="foreach: ActiveCreature().Abilities">
+                        </div>
 
-              <h3>Equipment</h3>
-              <div id="divCreaturesTab-Equipment">
-                <label>Main Hand:</label>
-                <select id="selCreaturesTab-MainHand" disabled="disabled" data-bind="value: ActiveCreature().EquipmentMainHand" class="clsCreatureObjectField"></select>
+                        <h3>Equipment</h3>
+                        <div id="divCreaturesTab-Equipment">
+                            <label>Main Hand:</label>
+                            <select id="selCreaturesTab-MainHand" disabled="disabled" data-bind="value: ActiveCreature().EquipmentMainHand" class="clsCreatureObjectField"></select>
 
-                <label>Off Hand:</label>
-                <select id="selCreaturesTab-OffHand" disabled="disabled" data-bind="value: ActiveCreature().EquipmentOffHand" class="clsCreatureObjectField"></select>
+                            <label>Off Hand:</label>
+                            <select id="selCreaturesTab-OffHand" disabled="disabled" data-bind="value: ActiveCreature().EquipmentOffHand" class="clsCreatureObjectField"></select>
 
-                <label>Head:</label>
-                <select id="selCreaturesTab-Head" disabled="disabled" data-bind="value: ActiveCreature().EquipmentHead" class="clsCreatureObjectField"></select>
+                            <label>Head:</label>
+                            <select id="selCreaturesTab-Head" disabled="disabled" data-bind="value: ActiveCreature().EquipmentHead" class="clsCreatureObjectField"></select>
 
-                <label>Body:</label>
-                <select id="selCreaturesTab-Body" disabled="disabled" data-bind="value: ActiveCreature().EquipmentBody" class="clsCreatureObjectField"></select>
+                            <label>Body:</label>
+                            <select id="selCreaturesTab-Body" disabled="disabled" data-bind="value: ActiveCreature().EquipmentBody" class="clsCreatureObjectField"></select>
 
-                <label>Back:</label>
-                <select id="selCreaturesTab-Back" disabled="disabled" data-bind="value: ActiveCreature().EquipmentBack" class="clsCreatureObjectField"></select>
+                            <label>Back:</label>
+                            <select id="selCreaturesTab-Back" disabled="disabled" data-bind="value: ActiveCreature().EquipmentBack" class="clsCreatureObjectField"></select>
 
-                <label>Hands:</label>
-                <select id="selCreaturesTab-Hands" disabled="disabled" data-bind="value: ActiveCreature().EquipmentHands" class="clsCreatureObjectField"></select>
+                            <label>Hands:</label>
+                            <select id="selCreaturesTab-Hands" disabled="disabled" data-bind="value: ActiveCreature().EquipmentHands" class="clsCreatureObjectField"></select>
 
-                <label>Waist:</label>
-                <select id="selCreaturesTab-Waist" disabled="disabled" data-bind="value: ActiveCreature().EquipmentWaist" class="clsCreatureObjectField"></select>
+                            <label>Waist:</label>
+                            <select id="selCreaturesTab-Waist" disabled="disabled" data-bind="value: ActiveCreature().EquipmentWaist" class="clsCreatureObjectField"></select>
 
-                <label>Legs:</label>
-                <select id="selCreaturesTab-Legs" disabled="disabled" data-bind="value: ActiveCreature().EquipmentLegs" class="clsCreatureObjectField"></select>
+                            <label>Legs:</label>
+                            <select id="selCreaturesTab-Legs" disabled="disabled" data-bind="value: ActiveCreature().EquipmentLegs" class="clsCreatureObjectField"></select>
 
-                <label>Feet:</label>
-                <select id="selCreaturesTab-Feet" disabled="disabled" data-bind="value: ActiveCreature().EquipmentFeet" class="clsCreatureObjectField"></select>
+                            <label>Feet:</label>
+                            <select id="selCreaturesTab-Feet" disabled="disabled" data-bind="value: ActiveCreature().EquipmentFeet" class="clsCreatureObjectField"></select>
 
-                <label>Ear (L):</label>
-                <select id="selCreaturesTab-EarL" disabled="disabled" data-bind="value: ActiveCreature().EquipmentEarL" class="clsCreatureObjectField"></select>
+                            <label>Ear (L):</label>
+                            <select id="selCreaturesTab-EarL" disabled="disabled" data-bind="value: ActiveCreature().EquipmentEarL" class="clsCreatureObjectField"></select>
 
-                <label>Ear (R):</label>
-                <select id="selCreaturesTab-EarR" disabled="disabled" data-bind="value: ActiveCreature().EquipmentEarR" class="clsCreatureObjectField"></select>
+                            <label>Ear (R):</label>
+                            <select id="selCreaturesTab-EarR" disabled="disabled" data-bind="value: ActiveCreature().EquipmentEarR" class="clsCreatureObjectField"></select>
 
-                <label>Ring (L):</label>
-                <select id="selCreaturesTab-RingL" disabled="disabled" data-bind="value: ActiveCreature().EquipmentRingL" class="clsCreatureObjectField"></select>
+                            <label>Ring (L):</label>
+                            <select id="selCreaturesTab-RingL" disabled="disabled" data-bind="value: ActiveCreature().EquipmentRingL" class="clsCreatureObjectField"></select>
 
-                <label>Ring (R):</label>
-                <select id="selCreaturesTab-RingR" disabled="disabled" data-bind="value: ActiveCreature().EquipmentRingR" class="clsCreatureObjectField"></select>
+                            <label>Ring (R):</label>
+                            <select id="selCreaturesTab-RingR" disabled="disabled" data-bind="value: ActiveCreature().EquipmentRingR" class="clsCreatureObjectField"></select>
 
-                <label>Neck:</label>
-                <select id="selCreaturesTab-Neck" disabled="disabled" data-bind="value: ActiveCreature().EquipmentNeck" class="clsCreatureObjectField"></select>
+                            <label>Neck:</label>
+                            <select id="selCreaturesTab-Neck" disabled="disabled" data-bind="value: ActiveCreature().EquipmentNeck" class="clsCreatureObjectField"></select>
 
-              </div>
+                        </div>
 
-              <h3>Inventory</h3>
-              <div id="divCreaturesTab-Inventory" data-bind="foreach: ActiveCreature().Inventory">
-              </div>
+                        <h3>Inventory</h3>
+                        <div id="divCreaturesTab-Inventory" data-bind="foreach: ActiveCreature().Inventory">
+                        </div>
 
-              <h3>Description</h3>
-              <div id="divCreaturesTab-Description" data-bind="value: ActiveCreature().Description">
-                <textarea id="txtCreaturesTab-Description" disabled="disabled" data-bind="value: ActiveCreature.Description" class="clsCreatureObjectField"></textarea>
-              </div>
+                        <h3>Description</h3>
+                        <div id="divCreaturesTab-Description" data-bind="value: ActiveCreature().Description">
+                            <textarea id="txtCreaturesTab-Description" disabled="disabled" data-bind="value: ActiveCreature.Description" class="clsCreatureObjectField"></textarea>
+                        </div>
 
-              <h3>Comments</h3>
-              <div id="divCreaturesTab-Comments">
-                <textarea id="txtCreaturesTab-Comments" disabled="disabled" data-bind="value: ActiveCreature().Comments" class="clsCreatureObjectField"></textarea>
-              </div>
+                        <h3>Comments</h3>
+                        <div id="divCreaturesTab-Comments">
+                            <textarea id="txtCreaturesTab-Comments" disabled="disabled" data-bind="value: ActiveCreature().Comments" class="clsCreatureObjectField"></textarea>
+                        </div>
 
-              <h3>Local Variables</h3>
-              <div id="divCreaturesTab-LocalVariables" data-bind="foreach: ActiveCreature().LocalVariables">
-              </div>
+                        <h3>Local Variables</h3>
+                        <div id="divCreaturesTab-LocalVariables" data-bind="foreach: ActiveCreature().LocalVariables">
+                        </div>
 
-              <h3>Events</h3>
-              <div id="divCreaturesTab-Events">
-                <label id="lblCreaturesEvents-OnSpawn">On Spawn:</label>
-                <select id="selCreaturesEvents-OnSpawn" disabled="disabled" data-bind="value: ActiveCreature().EventOnSpawn" class="clsCreatureObjectField"></select>
+                        <h3>Events</h3>
+                        <div id="divCreaturesTab-Events">
+                            <label id="lblCreaturesEvents-OnSpawn">On Spawn:</label>
+                            <select id="selCreaturesEvents-OnSpawn" disabled="disabled" data-bind="value: ActiveCreature().EventOnSpawn" class="clsCreatureObjectField"></select>
 
-                <label id="lblCreaturesEvents-OnDamaged">On Damaged:</label>
-                <select id="selCreaturesEvents-OnDamaged" disabled="disabled" data-bind="value: ActiveCreature().EventOnDamaged" class="clsCreatureObjectField"></select>
+                            <label id="lblCreaturesEvents-OnDamaged">On Damaged:</label>
+                            <select id="selCreaturesEvents-OnDamaged" disabled="disabled" data-bind="value: ActiveCreature().EventOnDamaged" class="clsCreatureObjectField"></select>
 
-                <label id="lblCreaturesEvents-OnDeath">On Death:</label>
-                <select id="selCreaturesEvents-OnDeath" disabled="disabled" data-bind="value: ActiveCreature().EventOnDeath" class="clsCreatureObjectField"></select>
+                            <label id="lblCreaturesEvents-OnDeath">On Death:</label>
+                            <select id="selCreaturesEvents-OnDeath" disabled="disabled" data-bind="value: ActiveCreature().EventOnDeath" class="clsCreatureObjectField"></select>
 
-                <label id="lblCreaturesEvents-OnConversation">On Conversation:</label>
-                <select id="selCreaturesEvents-OnConversation" disabled="disabled" data-bind="value: ActiveCreature().EventOnConversation" class="clsCreatureObjectField"></select>
+                            <label id="lblCreaturesEvents-OnConversation">On Conversation:</label>
+                            <select id="selCreaturesEvents-OnConversation" disabled="disabled" data-bind="value: ActiveCreature().EventOnConversation" class="clsCreatureObjectField"></select>
 
-                <label id="lblCreaturesEvents-OnHeartbeat">On Heartbeat:</label>
-                <select id="selCreaturesEvents-OnHeartbeat" disabled="disabled" data-bind="value: ActiveCreature().EventOnHeartbeat" class="clsCreatureObjectField"></select>
+                            <label id="lblCreaturesEvents-OnHeartbeat">On Heartbeat:</label>
+                            <select id="selCreaturesEvents-OnHeartbeat" disabled="disabled" data-bind="value: ActiveCreature().EventOnHeartbeat" class="clsCreatureObjectField"></select>
 
-              </div>
-            </div>
+                        </div>
+                    </div>
 
-            <div id="divItemsTab" class="clsObjectTabDiv">
-              <h3>Item Details</h3>
-              <div id="divItemsTab-Details">
-                <label id="lblItemDetails-Name" for="txtItemDetails-Name">Name:</label>
-                <input id="txtItemDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveItem().Name" class="clsItemObjectField" />
+                    <div id="divItemsTab" class="clsObjectTabDiv">
+                        <h3>Item Details</h3>
+                        <div id="divItemsTab-Details">
+                            <label id="lblItemDetails-Name" for="txtItemDetails-Name">Name:</label>
+                            <input id="txtItemDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveItem().Name" class="clsItemObjectField" />
 
-                <label id="lblItemDetails-Tag" for="txtItemDetails-Tag">Tag:</label>
-                <input id="txtItemDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveItem().Tag" class="clsItemObjectField" />
+                            <label id="lblItemDetails-Tag" for="txtItemDetails-Tag">Tag:</label>
+                            <input id="txtItemDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveItem().Tag" class="clsItemObjectField" />
 
-                <label id="lblItemDetails-Resref" for="txtItemDetails-Resref">Resref:</label>
-                <input id="txtItemDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveItem().Resref" class="clsItemObjectField" />
+                            <label id="lblItemDetails-Resref" for="txtItemDetails-Resref">Resref:</label>
+                            <input id="txtItemDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveItem().Resref" class="clsItemObjectField" />
 
-              </div>
+                        </div>
 
-              <h3>Description</h3>
-              <div id="divItemsTab-Description">
-                <textarea id="txtItemDetails-Description" disabled="disabled" data-bind="value: ActiveItem().Description" class="clsItemObjectField"></textarea>
-              </div>
+                        <h3>Description</h3>
+                        <div id="divItemsTab-Description">
+                            <textarea id="txtItemDetails-Description" disabled="disabled" data-bind="value: ActiveItem().Description" class="clsItemObjectField"></textarea>
+                        </div>
 
-              <h3>Comments</h3>
-              <div id="divItemsTab-Comments">
-                <textarea id="txtItemDetails-Comments" disabled="disabled" data-bind="value: ActiveItem().Comments" class="clsItemObjectField"></textarea>
-              </div>
+                        <h3>Comments</h3>
+                        <div id="divItemsTab-Comments">
+                            <textarea id="txtItemDetails-Comments" disabled="disabled" data-bind="value: ActiveItem().Comments" class="clsItemObjectField"></textarea>
+                        </div>
 
-              <h3>Local Variables</h3>
-              <div id="divItemsTab-LocalVariables" data-bind="foreach: ActiveItem().LocalVariables">
-              </div>
+                        <h3>Local Variables</h3>
+                        <div id="divItemsTab-LocalVariables" data-bind="foreach: ActiveItem().LocalVariables">
+                        </div>
 
-              <h3>Events</h3>
-              <div id="divItemsTab-Events">
+                        <h3>Events</h3>
+                        <div id="divItemsTab-Events">
 
-                <label id="lblItemsEvents-OnSpawn">On Spawn:</label>
-                <select id="selItemsEvents-OnSpawn" disabled="disabled" data-bind="value: ActiveItem().EventOnSpawn" class="clsItemObjectField"></select>
+                            <label id="lblItemsEvents-OnSpawn">On Spawn:</label>
+                            <select id="selItemsEvents-OnSpawn" disabled="disabled" data-bind="value: ActiveItem().EventOnSpawn" class="clsItemObjectField"></select>
 
-              </div>
-            </div>
-            <div id="divPlaceablesTab" class="clsObjectTabDiv">
-              <h3>Placeable Details</h3>
-              <div id="divPlaceablesTab-Details">
-                <label id="lblPlaceableDetails-Name" for="txtPlaceableDetails-Name">Name:</label>
-                <input id="txtPlaceableDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActivePlaceable().Name" class="clsPlaceableObjectField" />
-
-                <label id="lblPlaceableDetails-Tag" for="txtPlaceableDetails-Tag">Tag:</label>
-                <input id="txtPlaceableDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActivePlaceable().Tag" class="clsPlaceableObjectField" />
-
-                <label id="lblPlaceableDetails-Resref" for="txtPlaceableDetails-Resref">Resref:</label>
-                <input id="txtPlaceableDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActivePlaceable().Resref" class="clsPlaceableObjectField" />
-
-              </div>
-
-              <h3>Description</h3>
-              <div id="divPlaceableDetails-Description">
-                <textarea id="txtPlaceableDetails-Description" disabled="disabled" data-bind="value: ActivePlaceable().Description" class="clsPlaceableObjectField"></textarea>
-              </div>
-
-              <h3>Comments</h3>
-              <div id="divPlaceableDetails-Comments">
-                <textarea id="txtPlaceableDetails-Comments" disabled="disabled" data-bind="value: ActivePlaceable().Comments" class="clsPlaceableObjectField"></textarea>
-              </div>
-
-              <h3>Local Variables</h3>
-              <div id="divPlaceablesTab-LocalVariables" data-bind="foreach: ActivePlaceable().LocalVariables">
-              </div>
-
-              <h3>Events</h3>
-              <div id="divPlaceablesTab-Events">
-
-                <label id="lblPlaceablesEvents-OnSpawn">On Spawn:</label>
-                <select id="selPlaceablesEvents-OnSpawn" disabled="disabled" data-bind="value: ActivePlaceable().EventOnSpawn" class="clsPlaceableObjectField"></select>
-
-                <label id="lblPlaceablesEvents-OnDamaged">On Damaged:</label>
-                <select id="selPlaceablesEvents-OnDamaged" disabled="disabled" data-bind="value: ActivePlaceable().EventOnDamaged" class="clsPlaceableObjectField"></select>
-
-                <label id="lblPlaceablesEvents-OnDeath">On Death:</label>
-                <select id="selPlaceablesEvents-OnDeath" disabled="disabled" data-bind="value: ActivePlaceable().EventOnDeath" class="clsPlaceableObjectField"></select>
-
-                <label id="lblPlaceablesEvents-OnHeartbeat">On Heartbeat:</label>
-                <select id="selPlaceablesEvents-OnHeartbeat" disabled="disabled" data-bind="value: ActivePlaceable().EventOnHeartbeat" class="clsPlaceableObjectField"></select>
-
-                <label id="lblPlaceablesEvents-OnOpen">On Open:</label>
-                <select id="selPlaceablesEvents-OnOpen" disabled="disabled" data-bind="value: ActivePlaceable().EventOnOpen" class="clsPlaceableObjectField"></select>
-
-                <label id="lblPlaceablesEvents-OnClose">On Close:</label>
-                <select id="selPlaceablesEvents-OnClose" disabled="disabled" data-bind="value: ActivePlaceable().EventOnClose" class="clsPlaceableObjectField"></select>
-
-                <label id="lblPlaceablesEvents-OnUsed">On Used:</label>
-                <select id="selPlaceablesEvents-OnUsed" disabled="disabled" data-bind="value: ActivePlaceable().EventOnUsed" class="clsPlaceableObjectField"></select>
-
-              </div>
-            </div>
-            <div id="divConversationsTab" class="clsObjectTabDiv">
-              <h3>Conversation Details</h3>
-              <div id="divConversationsTab-Details">
-
-                <label id="lblConversationDetails-Name" for="txtConversationDetails-Name">Name:</label>
-                <input id="txtConversationDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveConversation().Name" class="clsConversationObjectField" />
-
-                <label id="lblConversationDetails-Tag" for="txtConversationDetails-Tag">Tag:</label>
-                <input id="txtConversationDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveConversation().Tag" class="clsConversationObjectField" />
-
-                <label id="lblConversationDetails-Resref" for="txtConversationDetails-Resref">Resref:</label>
-                <input id="txtConversationDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveConversation().Resref" class="clsConversationObjectField" />
-
-              </div>
-            </div>
-            <div id="divScriptsTab" class="clsObjectTabDiv">
-              <h3>Script Details</h3>
-              <div id="divScriptsTab-Details">
-                <label id="lblScriptDetails-Name" for="txtScriptDetails-Name">Name:</label>
-                <input id="txtScriptDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveScript().Name" class="clsScriptObjectField" />
-
-                <label id="lblScriptDetails-Tag" for="txtScriptDetails-Tag">Tag:</label>
-                <input id="txtScriptDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveScript().Tag" class="clsScriptObjectField" />
-
-                <label id="lblScriptDetails-Resref" for="txtScriptDetails-Resref">Resref:</label>
-                <input id="txtScriptDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveScript().Resref" class="clsScriptObjectField" />
-
-              </div>
-            </div>
-            
-              
-            <div id="divTilesetsTab" class="clsObjectTabDiv">
-                <h3>Tileset Details</h3>
-                <div id="divTilesetsTab-Details">
-                    <label id="lblTilesetDetails-Name" for="txtTilesetDetails-Name">Name:</label>
-                    <input id="txtTilesetDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Name" class="clsTilesetObjectField" />
-                    
-                    <label id="lblTilesetDetails-Tag" for="txtTilesetDetails-Tag">Tag:</label>
-                    <input id="txtTilesetDetails-Tag" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Tag" class="clsTilesetObjectField" />
-
-                    <label id="lblTilesetDetails-Resref" for="txtTilesetDetails-Resref">Resref:</label>
-                    <input id="txtTilesetDetails-Resref" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Resref" class="clsTilesetObjectField" />
-                
-                    <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
-                    <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField" data-bind="options: TilesetSpriteSheetsList,
-                                                                                                                                    optionsText: function (item) { return item.Name },
-                                                                                                                                    value: ToolsetViewModel.ActiveTileset().GraphicResource"></select>
+                        </div>
+                    </div>
+                    <div id="divPlaceablesTab" class="clsObjectTabDiv">
+                        <h3>Placeable Details</h3>
+                        <div id="divPlaceablesTab-Details">
+                            <label id="lblPlaceableDetails-Name" for="txtPlaceableDetails-Name">Name:</label>
+                            <input id="txtPlaceableDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActivePlaceable().Name" class="clsPlaceableObjectField" />
+
+                            <label id="lblPlaceableDetails-Tag" for="txtPlaceableDetails-Tag">Tag:</label>
+                            <input id="txtPlaceableDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActivePlaceable().Tag" class="clsPlaceableObjectField" />
+
+                            <label id="lblPlaceableDetails-Resref" for="txtPlaceableDetails-Resref">Resref:</label>
+                            <input id="txtPlaceableDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActivePlaceable().Resref" class="clsPlaceableObjectField" />
+
+                        </div>
+
+                        <h3>Description</h3>
+                        <div id="divPlaceableDetails-Description">
+                            <textarea id="txtPlaceableDetails-Description" disabled="disabled" data-bind="value: ActivePlaceable().Description" class="clsPlaceableObjectField"></textarea>
+                        </div>
+
+                        <h3>Comments</h3>
+                        <div id="divPlaceableDetails-Comments">
+                            <textarea id="txtPlaceableDetails-Comments" disabled="disabled" data-bind="value: ActivePlaceable().Comments" class="clsPlaceableObjectField"></textarea>
+                        </div>
+
+                        <h3>Local Variables</h3>
+                        <div id="divPlaceablesTab-LocalVariables" data-bind="foreach: ActivePlaceable().LocalVariables">
+                        </div>
+
+                        <h3>Events</h3>
+                        <div id="divPlaceablesTab-Events">
+
+                            <label id="lblPlaceablesEvents-OnSpawn">On Spawn:</label>
+                            <select id="selPlaceablesEvents-OnSpawn" disabled="disabled" data-bind="value: ActivePlaceable().EventOnSpawn" class="clsPlaceableObjectField"></select>
+
+                            <label id="lblPlaceablesEvents-OnDamaged">On Damaged:</label>
+                            <select id="selPlaceablesEvents-OnDamaged" disabled="disabled" data-bind="value: ActivePlaceable().EventOnDamaged" class="clsPlaceableObjectField"></select>
+
+                            <label id="lblPlaceablesEvents-OnDeath">On Death:</label>
+                            <select id="selPlaceablesEvents-OnDeath" disabled="disabled" data-bind="value: ActivePlaceable().EventOnDeath" class="clsPlaceableObjectField"></select>
+
+                            <label id="lblPlaceablesEvents-OnHeartbeat">On Heartbeat:</label>
+                            <select id="selPlaceablesEvents-OnHeartbeat" disabled="disabled" data-bind="value: ActivePlaceable().EventOnHeartbeat" class="clsPlaceableObjectField"></select>
+
+                            <label id="lblPlaceablesEvents-OnOpen">On Open:</label>
+                            <select id="selPlaceablesEvents-OnOpen" disabled="disabled" data-bind="value: ActivePlaceable().EventOnOpen" class="clsPlaceableObjectField"></select>
+
+                            <label id="lblPlaceablesEvents-OnClose">On Close:</label>
+                            <select id="selPlaceablesEvents-OnClose" disabled="disabled" data-bind="value: ActivePlaceable().EventOnClose" class="clsPlaceableObjectField"></select>
+
+                            <label id="lblPlaceablesEvents-OnUsed">On Used:</label>
+                            <select id="selPlaceablesEvents-OnUsed" disabled="disabled" data-bind="value: ActivePlaceable().EventOnUsed" class="clsPlaceableObjectField"></select>
+
+                        </div>
+                    </div>
+                    <div id="divConversationsTab" class="clsObjectTabDiv">
+                        <h3>Conversation Details</h3>
+                        <div id="divConversationsTab-Details">
+
+                            <label id="lblConversationDetails-Name" for="txtConversationDetails-Name">Name:</label>
+                            <input id="txtConversationDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveConversation().Name" class="clsConversationObjectField" />
+
+                            <label id="lblConversationDetails-Tag" for="txtConversationDetails-Tag">Tag:</label>
+                            <input id="txtConversationDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveConversation().Tag" class="clsConversationObjectField" />
+
+                            <label id="lblConversationDetails-Resref" for="txtConversationDetails-Resref">Resref:</label>
+                            <input id="txtConversationDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveConversation().Resref" class="clsConversationObjectField" />
+
+                        </div>
+                    </div>
+                    <div id="divScriptsTab" class="clsObjectTabDiv">
+                        <h3>Script Details</h3>
+                        <div id="divScriptsTab-Details">
+                            <label id="lblScriptDetails-Name" for="txtScriptDetails-Name">Name:</label>
+                            <input id="txtScriptDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveScript().Name" class="clsScriptObjectField" />
+
+                            <label id="lblScriptDetails-Tag" for="txtScriptDetails-Tag">Tag:</label>
+                            <input id="txtScriptDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveScript().Tag" class="clsScriptObjectField" />
+
+                            <label id="lblScriptDetails-Resref" for="txtScriptDetails-Resref">Resref:</label>
+                            <input id="txtScriptDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveScript().Resref" class="clsScriptObjectField" />
+
+                        </div>
+                    </div>
+
+
+                    <div id="divTilesetsTab" class="clsObjectTabDiv">
+                        <h3>Tileset Details</h3>
+                        <div id="divTilesetsTab-Details">
+                            <label id="lblTilesetDetails-Name" for="txtTilesetDetails-Name">Name:</label>
+                            <input id="txtTilesetDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Name" class="clsTilesetObjectField" />
+
+                            <label id="lblTilesetDetails-Tag" for="txtTilesetDetails-Tag">Tag:</label>
+                            <input id="txtTilesetDetails-Tag" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Tag" class="clsTilesetObjectField" />
+
+                            <label id="lblTilesetDetails-Resref" for="txtTilesetDetails-Resref">Resref:</label>
+                            <input id="txtTilesetDetails-Resref" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Resref" class="clsTilesetObjectField" />
+
+                            <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
+                            <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField" onclick="OnTilesetSpritesheetSelected();"
+                                data-bind="options: TilesetSpriteSheetsList,
+                                           optionsText: function (item) { return item.Name },
+                                           optionsValue: function (item) { return item.ResourceID },
+                                           value: SelectedTilesetSpriteSheetID
+                            ">
+                            </select>
+                        </div>
+
+                        <h3>Tile Details</h3>
+                        <div id="divTilesetsTab-TileDetails">
+                            <label id="lblTilesetDetails-TileIsPassable" for="chkTilesetDetails">Is Passable:</label>
+                            <input id="chkTilesetDetails-TileIsPassable" type="checkbox" data-bind="value: ActiveTile().IsPassable" class="clsTileObjectField" />
+
+                        </div>
+                    </div>
+
                 </div>
 
-                <h3>Tile Details</h3>
-                <div id="divTilesetsTab-TileDetails">
-                    <label id="lblTilesetDetails-TileIsPassable" for="chkTilesetDetails">Is Passable:</label>
-                    <input id="chkTilesetDetails-TileIsPassable" type="checkbox" data-bind="value: ActiveTile().IsPassable" class="clsTileObjectField" />
-
+                <div id="divObjectTabContainerButtons" class="btn-group clsHidden">
+                    <input id="btnObjectTabApplyChanges" type="button" class="btn btn-inverse" value="Apply Changes" onclick="ObjectTabApplyChanges();" />
+                    <input id="btnObjectTabDiscardChanges" type="button" class="btn btn-inverse" value="Discard Changes" onclick="ObjectTabDiscardChanges();" />
                 </div>
-            </div>
-              
-          </div>
-          
-          <div id="divObjectTabContainerButtons" class="btn-group clsHidden">
-            <input id="btnObjectTabApplyChanges" type="button" class="btn btn-inverse" value="Apply Changes" onclick="ObjectTabApplyChanges();" />
-            <input id="btnObjectTabDiscardChanges" type="button" class="btn btn-inverse" value="Discard Changes" onclick="ObjectTabDiscardChanges();" />
-          </div>
-        </div>
 
-
-        <!-- END OBJECT TAB CONTROLS -->
-
-
-        <!-- NEW MODULE POP-UP BOX -->
-        <div id="divNewModuleBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-
-          <form id="formNewModule">
-            <label id="lblNewModuleError" class="clsErrorMessage"></label>
-
-            <div class="row-fluid">
-              <label for="txtModuleName">Name:</label>
-              <input id="txtModuleName" class="required" type="text" maxlength="64" />
-            </div>
-            <div class="row-fluid">
-              <label for="txtModuleTag">Tag:</label>
-              <input id="txtModuleTag" class="required" type="text" maxlength="32" />
             </div>
 
-            <div class="span1">
-              <input id="btnNewModuleOK" type="button" class="clsFullButton" value="OK" onclick="NewModuleBoxOKClick();" />
+            <!-- END OBJECT TAB CONTROLS -->
+
+            <!-- NEW MODULE POP-UP BOX -->
+            <div id="divNewModuleBox">
+
+                <form id="formNewModule">
+                    <label id="lblNewModuleError" class="clsErrorMessage"></label>
+
+                    <div class="row-fluid">
+                        <label for="txtModuleName">Name:</label>
+                        <input id="txtModuleName" class="required" type="text" maxlength="64" />
+                    </div>
+                    <div class="row-fluid">
+                        <label for="txtModuleTag">Tag:</label>
+                        <input id="txtModuleTag" class="required" type="text" maxlength="32" />
+                    </div>
+
+                    <div class="span1">
+                        <input id="btnNewModuleOK" type="button" class="clsFullButton" value="OK" onclick="NewModuleBoxOKClick();" />
+                    </div>
+                    <div class="span1">
+                        <input id="btnNewModuleCancel" type="button" class="clsFullButton" value="Cancel" onclick="NewModuleBoxCancelClick();" />
+                    </div>
+                </form>
             </div>
-            <div class="span1">
-              <input id="btnNewModuleCancel" type="button" class="clsFullButton" value="Cancel" onclick="NewModuleBoxCancelClick();" />
-            </div>
-          </form>
-        </div>
 
-        <!-- END NEW MODULE POP-UP BOX -->
+            <!-- END NEW MODULE POP-UP BOX -->
 
-        <!-- OPEN MODULE POP-UP BOX -->
+            <!-- OPEN MODULE POP-UP BOX -->
 
-        <div id="divOpenModuleBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-          Please select a module to open.
+            <div id="divOpenModuleBox">
+                Please select a module to open.
 
           <select id="selModulesList" size="5" data-bind="foreach: ModuleList">
-            <option data-bind="text: FileName" ondblclick="OpenModuleButtonClick();"></option>
+              <option data-bind="text: FileName" ondblclick="OpenModuleButtonClick();"></option>
           </select>
 
-          <input id="btnOpenModuleOpenButton" type="button" value="Open" onclick="OpenModuleButtonClick();" />
-          <input id="btnOpenModuleCancelButton" type="button" value="Cancel" onclick="CloseOpenModulePopUp();" />
-        </div>
+                <input id="btnOpenModuleOpenButton" type="button" value="Open" onclick="OpenModuleButtonClick();" />
+                <input id="btnOpenModuleCancelButton" type="button" value="Cancel" onclick="CloseOpenModulePopUp();" />
+            </div>
 
-        <!-- END OPEN MODULE POP-UP BOX -->
+            <!-- END OPEN MODULE POP-UP BOX -->
 
-        <!-- SAVE AS MODULE POP-UP BOX -->
+            <!-- SAVE AS MODULE POP-UP BOX -->
 
-        <div id="divSaveAsModuleBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-          Please select a file name for this module.
+            <div id="divSaveAsModuleBox">
+                Please select a file name for this module.
 
           <label id="lblSaveAsErrors" class="clsErrorMessage"></label>
 
-          <select id="selModulesListSaveAs" size="5" data-bind="foreach: ModuleList">
-            <option data-bind="text: FileName" onclick="SelectExistingSaveAsModule();" ondblclick="SaveAsModuleButtonClick();"></option>
-          </select>
+                <select id="selModulesListSaveAs" size="5" data-bind="foreach: ModuleList">
+                    <option data-bind="text: FileName" onclick="SelectExistingSaveAsModule();" ondblclick="SaveAsModuleButtonClick();"></option>
+                </select>
 
-          <input id="txtSaveAsModuleFileName" type="text" />
+                <input id="txtSaveAsModuleFileName" type="text" />
 
-          <input id="btnSaveAsModuleSaveButton" type="button" value="Save" onclick="SaveAsModuleButtonClick();" />
-          <input id="btnSaveAsModuleCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModulePopUp();" />
-        </div>
+                <input id="btnSaveAsModuleSaveButton" type="button" value="Save" onclick="SaveAsModuleButtonClick();" />
+                <input id="btnSaveAsModuleCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModulePopUp();" />
+            </div>
 
-        <div id="divSaveAsOverwriteConfirmation" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-          The file name <span id="spnSaveAsModuleOverwriteName"></span>already exists.
+            <div id="divSaveAsOverwriteConfirmation">
+                The file name <span id="spnSaveAsModuleOverwriteName"></span>already exists.
           <br />
-          Do you want to overwrite the file?
+                Do you want to overwrite the file?
 
           <input id="btnSaveAsModuleOverwriteButton" type="button" value="Overwrite" onclick="SaveAsModuleOverwriteButtonClick();" />
-          <input id="btnSaveAsModuleOverwriteCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModuleConfirmationPopUp(true);" />
-        </div>
+                <input id="btnSaveAsModuleOverwriteCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModuleConfirmationPopUp(true);" />
+            </div>
 
-        <!-- END SAVE AS MODULE POP-UP BOX -->
+            <!-- END SAVE AS MODULE POP-UP BOX -->
 
-        <!-- ERF IMPORT / EXPORT POP-UP BOXES -->
+            <!-- ERF IMPORT / EXPORT POP-UP BOXES -->
 
-        <div id="divImportBox">
-        </div>
+            <div id="divImportBox">
+            </div>
 
-        <div id="divExportBox">
-        </div>
+            <div id="divExportBox">
+            </div>
 
-        <!-- END ERF IMPORT / EXPORT POP-UP BOXES -->
+            <!-- END ERF IMPORT / EXPORT POP-UP BOXES -->
 
 
 
-        <div id="divModulePropertiesBox">
-        </div>
+            <div id="divModulePropertiesBox">
+            </div>
 
-        <div id="divManageContentPackagesBox">
-        </div>
+            <div id="divManageContentPackagesBox">
+            </div>
 
-        <div id="divContentPackageCreatorBox">
-        </div>
+            <div id="divContentPackageCreatorBox">
+            </div>
 
-        <div id="divAboutBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-          <div class="row-fluid">
-            <label id="lblAboutBox">
-              Winter Engine Toolset developed by Zunath.
+            <div id="divAboutBox">
+                <div class="row-fluid">
+                    <label id="lblAboutBox">
+                        Winter Engine Toolset developed by Zunath.
               https://www.winterengine.com/
-            </label>
-          </div>
-          <div class="offset1 span1">
-            <input id="btnAboutBoxOK" type="button" class="clsFullButton" value="OK" onclick="AboutBoxClose();" />
-          </div>
-        </div>
+                    </label>
+                </div>
+                <div class="offset1 span1">
+                    <input id="btnAboutBoxOK" type="button" class="clsFullButton" value="OK" onclick="AboutBoxClose();" />
+                </div>
+            </div>
 
-        <div id="divAlertBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-          <div class="row-fluid">
-            <label id="lblAlertBox">
-            </label>
-          </div>
-          <div class="offset1 span1">
-            <input id="btnAlertBoxOK" type="button" class="clsFullButton" value="OK" onclick="CloseAlertBox();" />
-          </div>
-        </div>
+            <div id="divAlertBox">
+                <div class="row-fluid">
+                    <label id="lblAlertBox">
+                    </label>
+                </div>
+                <div class="offset1 span1">
+                    <input id="btnAlertBoxOK" type="button" class="clsFullButton" value="OK" onclick="CloseAlertBox();" />
+                </div>
+            </div>
 
-        <div id="divNewObject" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-          <form id="formNewObject">
-            <label id="lblNewObjectErrors" class="clsErrorMessage"></label>
+            <div id="divNewObject">
+                <form id="formNewObject">
+                    <label id="lblNewObjectErrors" class="clsErrorMessage"></label>
 
-            <label id="lblObjectName" for="txtObjectName">Name:</label>
-            <input id="txtObjectName" name="txtObjectName" type="text" class="required" maxlength="64" />
+                    <label id="lblObjectName" for="txtObjectName">Name:</label>
+                    <input id="txtObjectName" name="txtObjectName" type="text" class="required" maxlength="64" />
 
-            <label id="lblObjectTag" for="txtObjectTag">Tag:</label>
-            <input id="txtObjectTag" name="txtObjectTag" type="text" class="required" maxlength="32" />
+                    <label id="lblObjectTag" for="txtObjectTag">Tag:</label>
+                    <input id="txtObjectTag" name="txtObjectTag" type="text" class="required" maxlength="32" />
 
-            <label id="lblObjectResref" for="txtObjectResref">Resref:</label>
-            <input id="txtObjectResref" name="txtObjectResref" type="text" class="required" maxlength="32" />
+                    <label id="lblObjectResref" for="txtObjectResref">Resref:</label>
+                    <input id="txtObjectResref" name="txtObjectResref" type="text" class="required" maxlength="32" />
 
-            <input id="btnCreateObject" type="button" value="Create" class="clsHalfButton" onclick="CreateNewObject();" />
-            <input id="btnCancelObject" type="button" value="Cancel" class="clsHalfButton" onclick="CloseNewObjectBox();" />
+                    <input id="btnCreateObject" type="button" value="Create" class="clsHalfButton" onclick="CreateNewObject();" />
+                    <input id="btnCancelObject" type="button" value="Cancel" class="clsHalfButton" onclick="CloseNewObjectBox();" />
 
-          </form>
-        </div>
+                </form>
+            </div>
 
-        <div id="divConfirmDelete" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-          <label id="lblConfirmDelete">
-          </label>
+            <div id="divConfirmDelete">
+                <label id="lblConfirmDelete">
+                </label>
 
-          <label id="lblConfirmDeleteErrors" class="clsErrorMessage">
-          </label>
+                <label id="lblConfirmDeleteErrors" class="clsErrorMessage">
+                </label>
 
-          <input id="btnDeleteObjectConfirm" type="button" value="Delete" class="clsHalfButton" onclick="DeleteObject();" />
-          <input id="btnDeleteObjectCancel" type="button" value="Cancel" class="clsHalfButton" onclick="CloseDeleteObjectBox();" />
-        </div>
+                <input id="btnDeleteObjectConfirm" type="button" value="Delete" class="clsHalfButton" onclick="DeleteObject();" />
+                <input id="btnDeleteObjectCancel" type="button" value="Cancel" class="clsHalfButton" onclick="CloseDeleteObjectBox();" />
+            </div>
 
-        <div id="divCreateCategory" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-          <form id="formNewCategory">
-            <label id="lblNewCategoryErrors" class="clsErrorMessage">
-            </label>
+            <div id="divCreateCategory">
+                <form id="formNewCategory">
+                    <label id="lblNewCategoryErrors" class="clsErrorMessage">
+                    </label>
 
-            <label id="lblCategoryName" for="txtCategoryName">Name:</label>
-            <input id="txtCategoryName" name="txtCategoryName" type="text" class="required" maxlength="64" />
+                    <label id="lblCategoryName" for="txtCategoryName">Name:</label>
+                    <input id="txtCategoryName" name="txtCategoryName" type="text" class="required" maxlength="64" />
 
-            <input id="btnCreateCategory" type="button" value="Create" class="clsHalfButton" onclick="CreateNewCategory();" />
-            <input id="btnCancelCreateCategory" type="button" value="Cancel" class="clsHalfButton" onclick="CloseNewCategoryBox();" />
-          </form>
-        </div>
+                    <input id="btnCreateCategory" type="button" value="Create" class="clsHalfButton" onclick="CreateNewCategory();" />
+                    <input id="btnCancelCreateCategory" type="button" value="Cancel" class="clsHalfButton" onclick="CloseNewCategoryBox();" />
+                </form>
+            </div>
 
-        <div id="divRenameTreeNode" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-          <form id="formRenameTreeNode">
-            <label id="lblRenameTreeNodeErrors" class="clsErrorMessage"></label>
+            <div id="divRenameTreeNode">
+                <form id="formRenameTreeNode">
+                    <label id="lblRenameTreeNodeErrors" class="clsErrorMessage"></label>
 
-            <label id="lblRenameTreeNode" for="txtRenameTreeNode">New Name:</label>
-            <input id="txtRenameTreeNode" name="txtRenameTreeNode" type="text" class="required" maxlength="64" />
+                    <label id="lblRenameTreeNode" for="txtRenameTreeNode">New Name:</label>
+                    <input id="txtRenameTreeNode" name="txtRenameTreeNode" type="text" class="required" maxlength="64" />
 
-            <input id="btnRenameTreeNode" type="button" value="Rename" class="clsHalfButton" onclick="RenameObject();" />
-            <input id="btnCancelRenameTreeNode" type="button" value="Cancel" class="clsHalfButton" onclick="CloseRenameObjectBox();" />
-          </form>
-        </div>
+                    <input id="btnRenameTreeNode" type="button" value="Rename" class="clsHalfButton" onclick="RenameObject();" />
+                    <input id="btnCancelRenameTreeNode" type="button" value="Cancel" class="clsHalfButton" onclick="CloseRenameObjectBox();" />
+                </form>
+            </div>
 
-        <!-- END POP-UP BOXES -->
+            <!-- END POP-UP BOXES -->
 
 
-        <!-- BEGIN CONTENT PACKAGE MANAGEMENT -->
+            <!-- BEGIN CONTENT PACKAGE MANAGEMENT -->
 
-        <div id="divManageContentPackages" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+            <div id="divManageContentPackages">
 
-          <label class="clsErrorMessage">WARNING: </label>
-          Adjusting the content package list can take a very long time.
+                <label class="clsErrorMessage">WARNING: </label>
+                Adjusting the content package list can take a very long time.
           <br />
+                <br />
+                Please do not interrupt the process once it has started.
           <br />
-          Please do not interrupt the process once it has started.
-          <br />
-          <br />
-          <div id="divAvailableContentPackagesList">
-            <label>Available Content Packages:</label>
-            <select id="selAvailableContentPackages" size="6" data-bind="foreach: AvailableContentPackages">
-              <option data-bind="text: Name, value: FileName" ondblclick="ManageContentPackagesAddButton();"></option>
-            </select>
+                <br />
+                <div id="divAvailableContentPackagesList">
+                    <label>Available Content Packages:</label>
+                    <select id="selAvailableContentPackages" size="6" data-bind="foreach: AvailableContentPackages">
+                        <option data-bind="text: Name, value: FileName" ondblclick="ManageContentPackagesAddButton();"></option>
+                    </select>
 
-          </div>
+                </div>
 
-          <input id="btnAddContentPackage" type="button" value="Add" onclick="ManageContentPackagesAddButton();" />
-          <input id="btnRemoveContentPackage" type="button" value="Remove" onclick="ManageContentPackagesRemoveButton();" />
+                <input id="btnAddContentPackage" type="button" value="Add" onclick="ManageContentPackagesAddButton();" />
+                <input id="btnRemoveContentPackage" type="button" value="Remove" onclick="ManageContentPackagesRemoveButton();" />
 
-          <div id="divAttachedContentPackagesList">
-            <br />
-            <label>Attached Content Packages:</label>
-            <select id="selAttachedContentPackages" size="6" data-bind="foreach: AttachedContentPackages">
-              <option data-bind="text: Name, value: FileName" ondblclick="ManageContentPackagesRemoveButton();"></option>
-            </select>
+                <div id="divAttachedContentPackagesList">
+                    <br />
+                    <label>Attached Content Packages:</label>
+                    <select id="selAttachedContentPackages" size="6" data-bind="foreach: AttachedContentPackages">
+                        <option data-bind="text: Name, value: FileName" ondblclick="ManageContentPackagesRemoveButton();"></option>
+                    </select>
 
-          </div>
+                </div>
 
-          <input id="btnManageContentPackagesSaveChanges" type="button" value="Save Changes" onclick="ManageContentPackagesSaveChanges();" />
-          <input id="btnManageContentPackagesCancel" type="button" value="Cancel" onclick="CloseManageContentPackagesBox();" />
+                <input id="btnManageContentPackagesSaveChanges" type="button" value="Save Changes" onclick="ManageContentPackagesSaveChanges();" />
+                <input id="btnManageContentPackagesCancel" type="button" value="Cancel" onclick="CloseManageContentPackagesBox();" />
+            </div>
+
+            <!-- END CONTENT PACKAGE MANAGEMENT -->
+
+            <!-- BEGIN FOOTERS -->
+
+            <div id="divAreaFooter" class="navbar navbar-fixed-bottom">
+            </div>
+
+            <!-- END FOOTERS -->
         </div>
-
-        <!-- END CONTENT PACKAGE MANAGEMENT -->
-
-        <!-- BEGIN FOOTERS -->
-
-        <div id="divAreaFooter" class="navbar navbar-fixed-bottom" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-        </div>
-
-        <!-- END FOOTERS -->
-      </div>
 
     </div>
-
-  </body>
+</body>
 </html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.blockUI({
+            message: 'Loading, please wait...' 
+        });
+    });
+</script>

@@ -59,16 +59,7 @@ namespace WinterEngine.DataAccess.Repositories
             }
             if (dbScript == null) return;
 
-            dbScript.Comment = newScript.Comment;
-            dbScript.GameObjectTypeID = newScript.GameObjectTypeID;
-            dbScript.GraphicResourceID = newScript.GraphicResourceID;
-            dbScript.IsSystemResource = newScript.IsSystemResource;
-            dbScript.Name = newScript.Name;
-            dbScript.ResourceCategoryID = newScript.ResourceCategoryID;
-            dbScript.ResourceTypeID = newScript.ResourceTypeID;
-            dbScript.Resref = newScript.Resref;
-            dbScript.Tag = newScript.Tag;
-            dbScript.TemporaryDisplayName = newScript.TemporaryDisplayName;
+            Context.Context.Entry(dbScript).CurrentValues.SetValues(newScript);
         }
 
         /// <summary>

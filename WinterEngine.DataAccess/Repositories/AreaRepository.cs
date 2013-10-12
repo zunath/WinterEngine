@@ -60,17 +60,7 @@ namespace WinterEngine.DataAccess
             }
             if (dbArea == null) return;
 
-            dbArea.Comment = newArea.Comment;
-            dbArea.GameObjectTypeID = newArea.GameObjectTypeID;
-            dbArea.GraphicResourceID = newArea.GraphicResourceID;
-            dbArea.IsSystemResource = newArea.IsSystemResource;
-            dbArea.Name = newArea.Name;
-            dbArea.ResourceCategoryID = newArea.ResourceCategoryID;
-            dbArea.ResourceTypeID = newArea.ResourceTypeID;
-            dbArea.Resref = newArea.Resref;
-            dbArea.Tag = newArea.Tag;
-            dbArea.TilesHigh = newArea.TilesHigh;
-            dbArea.TilesWide = newArea.TilesWide;
+            Context.Context.Entry(dbArea).CurrentValues.SetValues(newArea);
         }
 
         /// <summary>

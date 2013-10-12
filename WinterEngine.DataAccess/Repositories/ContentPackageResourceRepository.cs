@@ -39,13 +39,7 @@ namespace WinterEngine.DataAccess.Repositories
             ContentPackageResource dbResource = Context.ContentPackageResourceRepository.Get(x => x.ResourceID == resource.ResourceID).SingleOrDefault();
             if (dbResource == null) return;
 
-            dbResource.Comment = resource.Comment;
-            dbResource.ContentPackageResourceTypeID = resource.ContentPackageResourceTypeID;
-            dbResource.FileName = resource.FileName;
-            dbResource.IsSystemResource = resource.IsSystemResource;
-            dbResource.Name = resource.Name;
-            dbResource.ResourceTypeID = resource.ResourceTypeID;
-            
+            Context.Context.Entry(dbResource).CurrentValues.SetValues(resource);
         }
 
         public void Upsert(ContentPackageResource resource)

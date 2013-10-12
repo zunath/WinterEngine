@@ -83,13 +83,7 @@ namespace WinterEngine.DataAccess.Repositories
 
             if (dbPackage == null) return;
 
-            dbPackage.Comment = package.Comment;
-            dbPackage.Description = package.Description;
-            dbPackage.FileName = package.FileName;
-            dbPackage.IsSystemResource = package.IsSystemResource;
-            dbPackage.Name = package.Name;
-            dbPackage.ResourceTypeID = package.ResourceTypeID;
-            dbPackage.ResourceList = package.ResourceList;   
+            Context.Context.Entry(dbPackage).CurrentValues.SetValues(package);
         }
 
         /// <summary>
@@ -128,12 +122,21 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         /// <summary>
-        /// Returns all content packages which are not system resources from the database.
+        /// Returns all content packages which are not system resources (aka: user resources) from the database.
         /// </summary>
         /// <returns></returns>
-        public List<ContentPackage> GetAllNonSystemResource()
+        public List<ContentPackage> GetAllUserResources()
         {
             return Context.ContentPackageRepository.Get(x => x.IsSystemResource == false).ToList();
+        }
+
+        /// <summary>
+        /// Returns all content packages which are system resources from the database.
+        /// </summary>
+        /// <returns></returns>
+        public List<ContentPackage> GetAllSystemResources()
+        {
+            return Context.ContentPackageRepository.Get(x => x.IsSystemResource == true).ToList();
         }
 
         /// <summary>

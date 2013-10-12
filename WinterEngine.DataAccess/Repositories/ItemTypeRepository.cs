@@ -62,13 +62,7 @@ namespace WinterEngine.DataAccess
             ItemType dbItemType = Context.ItemTypeRepository.Get(x => x.ResourceID == itemType.ResourceID).SingleOrDefault();
             if (dbItemType == null) return;
 
-            dbItemType.Comment = itemType.Comment;
-            dbItemType.HasIcon = itemType.HasIcon;
-            dbItemType.IconHeight = itemType.IconHeight;
-            dbItemType.IconWidth = itemType.IconWidth;
-            dbItemType.IsSystemResource = itemType.IsSystemResource;
-            dbItemType.Name = itemType.Name;
-            dbItemType.ResourceTypeID = itemType.ResourceTypeID;
+            Context.Context.Entry(dbItemType).CurrentValues.SetValues(itemType);
         }
 
         public void Upsert(ItemType itemType)

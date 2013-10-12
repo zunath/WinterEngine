@@ -1,4 +1,5 @@
 ﻿
+
 function Initialize() {
     InitializeToolsetViewModel(); // Located in WinterEngine.ViewModels.js
     InitializeValidation();
@@ -25,6 +26,9 @@ function Initialize() {
     InitializeManageContentPackagesBox();
 
     $("input[type=button]").button();
+
+    // Unblock the UI - the UI blocking is done to prevent the user from making javascript calls before Awesomium has loaded.
+    $.unblockUI();
 }
 
 function InitializeMainMenu() {
@@ -36,16 +40,9 @@ function InitializeMainMenu() {
 }
 
 function InitializeValidation() {
-    $('#formNewModule').validate({
+    $('#formNewModule, #formNewObject, #formNewCategory').validate({
         errorPlacement: $.noop
     });
-    $('#formNewObject').validate({
-        errorPlacement: $.noop
-    });
-    $('#formNewCategory').validate({
-        errorPlacement: $.noop
-    });
-
 }
 
 function InitializeManageContentPackagesBox() {

@@ -16,5 +16,13 @@ namespace WinterEngine.DataTransferObjects
         #region Properties
 
         #endregion
+
+        #region Constructors
+
+        public Tileset()
+        {
+        }
+
+        #endregion
     }
 }
