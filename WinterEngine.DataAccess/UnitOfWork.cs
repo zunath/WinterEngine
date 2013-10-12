@@ -235,6 +235,20 @@ namespace WinterEngine.DataAccess
             }
         }
 
+        private GenericRepository<ModuleDataContext, Tileset> tilesetRepository;
+        public GenericRepository<ModuleDataContext, Tileset> TilesetRepository
+        {
+            get
+            {
+                if (this.tilesetRepository == null)
+                {
+                    this.tilesetRepository
+                        = new GenericRepository<ModuleDataContext, Tileset>(context);
+                }
+                return tilesetRepository;
+            }
+        }
+
         #endregion
 
         private Object getTargetRepository(Object item)

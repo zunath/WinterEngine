@@ -71,6 +71,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexts\ModuleDataContext.cs" />
+    <Compile Include="Contexts\ModuleDataContextConfiguration.cs" />
     <Compile Include="Factories\FileExtensionFactory.cs" />
     <Compile Include="Factories\GameObjectFactory.cs" />
     <Compile Include="Factories\GameResourceFactory.cs" />
@@ -103,6 +106,7 @@
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ScriptRepository.cs" />
+    <Compile Include="Repositories\TilesetRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="WinterConnectionInformation.cs" />
   </ItemGroup>
@@ -116,7 +120,12 @@
       <Name>WinterEngine.DataTransferObjects</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

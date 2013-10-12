@@ -1,24 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FlatRedBall;
+﻿using FlatRedBall;
+using Ionic.Zip;
 using Microsoft.Xna.Framework.Graphics;
-using WinterEngine.DataTransferObjects;
-using WinterEngine.DataAccess.Repositories;
-using System.IO;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
-using Ionic.Zip;
+using System.Text;
+using WinterEngine.DataAccess.Repositories;
+using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Paths;
 
-namespace WinterEngine.Library.Utility
+namespace WinterEngine.Library.Extensions
 {
-    public class GraphicHelper
+    public static class ContentPackageResourceExtensions
     {
-        public Texture2D ContentPackageResourceToTexture2D(ContentPackageResource resource)
+        public static Texture2D ToTexture2D(this ContentPackageResource resource)
         {
-            MemoryStream stream = ContentPackageResourceToMemoryStream(resource);
+            MemoryStream stream = ToMemoryStream(resource);
 
             // Reference: http://stackoverflow.com/questions/2869801/is-there-a-fast-alternative-to-creating-a-texture2d-from-a-bitmap-object-in-xna
             Bitmap bitmap = new Bitmap(stream);
@@ -34,26 +35,9 @@ namespace WinterEngine.Library.Utility
             return texture;
         }
 
-
-        /// <summary>
-        /// Extracts a content builder resource from a content package to memory and returns the MemoryStream object.
-        /// </summary>
-        /// <param name="package"></param>
-        /// <param name="resource"></param>
-        /// <returns></returns>
-        public MemoryStream ContentPackageResourceToMemoryStream(ContentPackageResource resource, ContentPackage package = null)
+        public static MemoryStream ToMemoryStream(this ContentPackageResource resource)
         {
-            string path = "";
-
-            if (!Object.ReferenceEquals(package, null))
-            {
-                //path = package.ContentPackagePath;
-            }
-            else
-            {
-                //path = resource.Package.ContentPackagePath;
-            }
-
+            string path = DirectoryPaths.ContentPackageDirectoryPath + resource.ContentPackage.FileName;
             MemoryStream stream = new MemoryStream();
             using (ZipFile zipFile = new ZipFile(path))
             {
@@ -62,5 +46,16 @@ namespace WinterEngine.Library.Utility
 
             return stream;
         }
+
+        public static string ToBase64String(this ContentPackageResource resource)
+        {
+            MemoryStream stream = new MemoryStream();
+            Texture2D texture = ToTexture2D(resource);
+            texture.SaveAsPng(stream, texture.Width, texture.Height);
+            stream.Position = 0;
+            byte[] imageBytes = stream.ToArray();
+            return Convert.ToBase64String(imageBytes);
+        }
+
     }
 }

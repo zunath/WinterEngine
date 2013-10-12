@@ -21,8 +21,6 @@ namespace WinterEngine.Game.Entities
         #region Fields
 
         private Texture2D _mapSpriteSheet;
-        private GraphicHelper _graphicHelper;
-        private Dictionary<Vector2, int> _tileLookupDictionary;
 
         #endregion
 
@@ -34,34 +32,6 @@ namespace WinterEngine.Game.Entities
         private Area ActiveArea { get; set; }
 
         /// <summary>
-        /// Map batch used for empty cells.
-        /// </summary>
-        private MapDrawableBatch EmptyAreaBatch { get; set; }
-
-        /// <summary>
-        /// Map batch used for the active area.
-        /// </summary>
-        private MapDrawableBatch ActiveAreaBatch { get; set; }
-
-        /// <summary>
-        /// Spritesheet texture for empty/active cell sprites.
-        /// </summary>
-        private Texture2D EditorSpritesheet { get; set; }
-
-        private GraphicHelper GraphicHelper
-        {
-            get
-            {
-                if (_graphicHelper == null)
-                {
-                    _graphicHelper = new GraphicHelper();
-                }
-
-                return _graphicHelper;
-            }
-        }
-
-        /// <summary>
         /// Spritesheet texture for the active area.
         /// </summary>
         private Texture2D AreaSpriteSheet 
@@ -70,7 +40,7 @@ namespace WinterEngine.Game.Entities
             {
                 if (_mapSpriteSheet == null)
                 {
-                    _mapSpriteSheet = GraphicHelper.ContentPackageResourceToTexture2D(ActiveArea.GraphicResource);
+                    _mapSpriteSheet = ActiveArea.GraphicResource.ToTexture2D();
                 }
 
                 return _mapSpriteSheet;
@@ -81,65 +51,15 @@ namespace WinterEngine.Game.Entities
             }
         }
 
-        private Dictionary<Vector2, int> TileLookupDictionary 
-        {
-            get
-            {
-                if (_tileLookupDictionary == null)
-                {
-                    _tileLookupDictionary = new Dictionary<Vector2, int>();
-                }
-
-                return _tileLookupDictionary;
-            }
-            set
-            {
-                _tileLookupDictionary = value;
-            }
-        }
-
-        private Plane MousePlane { get; set; }
-
         #endregion
 
         #region FRB Events
         private void CustomInitialize()
 		{
-            EditorSpritesheet = FlatRedBallServices.Load<Texture2D>("content/Editor/Icons/TilesetEditor_CellSpriteSheet.png");
-
-            // DEBUGGING
-            MousePlane = new Plane(Vector3.Zero, new Vector3(0, 0, 1), new Vector3(1, 0, 0));
-            // END DEBUGGING
         }
 
         private void CustomActivity()
 		{
-            //if (InputManager.Mouse.IsInGameWindow() && !Object.ReferenceEquals(ActiveAreaBatch, null))
-            if (InputManager.Mouse.IsInGameWindow() && !Object.ReferenceEquals(EmptyAreaBatch, null))
-            {
-                if (InputManager.Mouse.ButtonPushed(Mouse.MouseButtons.LeftButton))
-                {
-
-                    Vector2 currentTile = GetTileCoordinatesFromMouseCoordinates();
-
-                    Vector3 newCoordinates = GetWorldCoordinate(MousePlane);
-                    Console.WriteLine(newCoordinates);
-                    Console.WriteLine(newCoordinates.X / (int)MappingEnum.TileWidth + ", " + newCoordinates.Y / (int)MappingEnum.TileHeight);
-
-                    // NOTE: This version of PaintTile seems to be bugged. Look at 
-                    // using the other overloaded method. Victor says that one should work.
-                    //MapBatch.PaintTile((int)currentTile.X, (int)currentTile.Y, 1);
-
-                    int index = GetTileIndexByAreaCellPosition((int)currentTile.X, (int)currentTile.Y);
-
-                    //Console.WriteLine("i = " + index + ", (" + currentTile.X + ", " + currentTile.Y + ")");
-                    
-                    //EmptyAreaBatch.PaintTile(index, 0);
-
-                    EmptyAreaBatch.PaintTileTextureCoordinates(index, 64, 0);
-
-                }
-            }
 		}
 
 		private void CustomDestroy()
@@ -158,155 +78,10 @@ namespace WinterEngine.Game.Entities
 
         #region Methods
 
-        public void ChangeArea(Area activeArea)
+        public void ChangeArea(Area newArea)
         {
-            try
-            {
-                UnloadArea();
-                ActiveArea = activeArea;
-                LoadArea();
-            }
-            catch
-            {
-                throw;
-            }
         }
-
-        private void LoadArea()
-        {
-            if (ActiveArea == null) return;
-
-            // DEBUG
-            AreaSpriteSheet = FlatRedBallServices.Load<Texture2D>("content/Game/(Tileset) Wilderness.png");
-            // END DEBUG
-
-            EmptyAreaBatch = new MapDrawableBatch(ActiveArea.TilesHigh * ActiveArea.TilesWide,
-                (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight, EditorSpritesheet);
-
-            ActiveAreaBatch = new MapDrawableBatch(ActiveArea.TilesHigh * ActiveArea.TilesWide,
-                (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight, AreaSpriteSheet);
-
-            //InitializeMapTiles(true);
-            InitializeMapTiles(false);
-        }
-
-        private void UnloadArea()
-        {
-            if (ActiveAreaBatch != null)
-            {
-                SpriteManager.RemoveDrawableBatch(ActiveAreaBatch);
-            }
-
-            if (EmptyAreaBatch != null)
-            {
-                SpriteManager.RemoveDrawableBatch(EmptyAreaBatch);
-            }
-
-            TileLookupDictionary.Clear();
-            ActiveArea = null;
-            ActiveAreaBatch = null;
-            AreaSpriteSheet = null;
-        }
-
-        private void InitializeMapTiles(bool doEmptyMap)
-        {
-            int index = 0;
-
-            for (int y = 0; y < ActiveArea.TilesHigh; y++)
-            {
-                //for (int y = ActiveArea.TilesHigh - 1; y >= 0; y--)
-                for (int x = ActiveArea.TilesWide - 1; x >= 0; x--)
-                {
-                    int xPosition = (y * (int)MappingEnum.TileWidth / 2) + (x * (int)MappingEnum.TileWidth / 2);
-                    int yPosition = (x * (int)MappingEnum.TileHeight / 4) - (y * (int)MappingEnum.TileHeight / 4);   
-
-                    Vector2 dimensions = new Vector2((int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight);
-                    Vector3 bottomLeftPoint = new Vector3(xPosition, yPosition, 0);
-
-                    if (doEmptyMap)
-                    {
-                        EmptyAreaBatch.AddTile(bottomLeftPoint, dimensions, 0, 0, (int)MappingEnum.TileWidth, (int)MappingEnum.TileHeight);
-                        TileLookupDictionary.Add(new Vector2(x, y), index);
-                    }
-                    else
-                    {
-                        int texX = 64 * 4;
-                        int texY = 64 * 3;
-                        ActiveAreaBatch.AddTile(bottomLeftPoint, dimensions, texX, texY, (int)MappingEnum.TileWidth + texX, (int)MappingEnum.TileHeight + texY);
-                        TileLookupDictionary.Add(new Vector2(x, y), index);
-                    }
-
-                    index++;
-                }
-            }
-
-            if (doEmptyMap)
-            {
-                EmptyAreaBatch.AddToManagers();
-            }
-            else
-            {
-                ActiveAreaBatch.AddToManagers();
-            }
-        }
-
-        private Vector2 GetTileCoordinatesFromMouseCoordinates()
-        {
-            int mouseWorldX = (int)InputManager.Mouse.WorldXAt(0);
-            int mouseWorldY = (int)InputManager.Mouse.WorldYAt(0);
-
-            int tileX = (mouseWorldY * (int)MappingEnum.TileWidth / 2) + (mouseWorldX * (int)MappingEnum.TileWidth / 2);
-            int tileY = (mouseWorldX * (int)MappingEnum.TileHeight / 4) - (mouseWorldY * (int)MappingEnum.TileHeight / 4);
-
-            
-            //int tileX = (2 * mouseWorldX - 4 * mouseWorldY) / (int)MappingEnum.TileWidth / 2; 
-            //int tileY = (mouseWorldX * 2 / (int)MappingEnum.TileWidth) - tileX;
-
-            if (tileX < 0) tileX = 0;
-            else if (tileX > ActiveArea.TilesWide - 1) tileX = ActiveArea.TilesWide - 1;
-
-            if (tileY < 0) tileY = 0;
-            else if (tileY > ActiveArea.TilesHigh - 1) tileY = ActiveArea.TilesHigh - 1;
-
-            return new Vector2(tileX, tileY);
-            
-        }
-
-        private int GetTileIndexByAreaCellPosition(int x, int y)
-        {
-            return TileLookupDictionary[new Vector2(x, y)];
-        }
-
-
-        // Source: http://documentation.flatredball.com/frb/docs/?title=ScottDancer:Mouse_World_Coordinates_for_a_Rotated_Camera
-        private Vector3 GetWorldCoordinate(Plane CursorPlane)
-        {
-            //Get the distance to the intersetion point
-            float? distance = GuiManager.Cursor.GetRay().Intersects(CursorPlane);
-            Vector3 mousePosition = Vector3.Zero;
-
-            //Make sure the cursor intersects
-            if (distance.HasValue)
-            {
-                //Get the direction vector for the ray
-                Vector3 translationVector = GuiManager.Cursor.GetRay().Direction;
-                translationVector.Normalize();
-
-                //Set the distance of the vector to the distance to the intersection point
-                translationVector = Vector3.Multiply(translationVector, (float)distance);
-
-                //Get the translation matrix
-                Matrix translationMatrix = Matrix.CreateTranslation(translationVector);
-
-                //Translate the mouse cursor point to the intersection point
-                mousePosition = Vector3.Transform(GuiManager.Cursor.GetRay().Position, translationMatrix);
-            }
-
-            return mousePosition;
-        }
-
 
         #endregion
-
     }
 }

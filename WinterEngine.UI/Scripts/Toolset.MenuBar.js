@@ -69,6 +69,7 @@ function OpenModuleButtonClick_Callback(success) {
         ChangeObjectMode("Area");
         $('#divObjectBar').removeClass('clsHidden');
         CloseOpenModulePopUp();
+        PopulateToolsetViewModel();
     }
     else {
         ToggleModuleActionButtons(false);
@@ -247,6 +248,7 @@ function ManageContentPackagesSaveChanges() {
 
 function ManageContentPackagesSaveChanges_Callback() {
 
+    Entity.PopulateToolsetViewModel();
     $('#divManageContentPackages').dialog('close');
 }
 
@@ -269,6 +271,7 @@ function BuildModuleButtonClick_Callback(success, exception) {
 
     if (success) {
         $('#lblAlertBox').text('Rebuild completed successfully');
+        PopulateToolsetViewModel();
     }
     else {
         $('#lblAlertBox').text('Error occurred during rebuild.<br /><br />' +

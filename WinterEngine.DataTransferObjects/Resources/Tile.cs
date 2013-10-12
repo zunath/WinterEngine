@@ -41,6 +41,14 @@ namespace WinterEngine.DataTransferObjects
         /// Gets or sets the map Y cell position of the tile.
         /// </summary>
         public int MapCellY { get; set; }
+        /// <summary>
+        /// Gets or sets the layer on which this tile exists.
+        /// </summary>
+        public int MapLayer { get; set; }
+        /// <summary>
+        /// Gets or sets whether the player can pass over the tile.
+        /// </summary>
+        public bool IsPassable { get; set; }
 
         #endregion
 
@@ -59,12 +67,13 @@ namespace WinterEngine.DataTransferObjects
             this.TextureCellY = textureCellY;
         }
 
-        public Tile(int textureCellX, int textureCellY, int mapCellX, int mapCellY)
+        public Tile(int textureCellX, int textureCellY, int mapCellX, int mapCellY, int mapLayer)
         {
             this.TextureCellX = textureCellX;
             this.TextureCellY = textureCellY;
             this.MapCellX = mapCellX;
             this.MapCellY = mapCellY;
+            this.MapLayer = mapLayer;
         }
 
         #endregion

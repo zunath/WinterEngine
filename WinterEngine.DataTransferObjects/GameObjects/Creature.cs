@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Serialization;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
+using System.ComponentModel.DataAnnotations;
 
 namespace WinterEngine.DataTransferObjects
 {
@@ -16,8 +17,10 @@ namespace WinterEngine.DataTransferObjects
         #region Properties
 
         [ProtoMember(1)]
+        [MaxLength(32)]
         public string FirstName { get; set; }
         [ProtoMember(2)]
+        [MaxLength(32)]
         public string LastName { get; set; }
         [ProtoMember(3)]
         public Race Race { get; set; }

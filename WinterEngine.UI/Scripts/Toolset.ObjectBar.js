@@ -7,7 +7,6 @@ function ChangeObjectMode(objectMode) {
     $('.clsTreeViewDiv').addClass('clsHidden');
     $('.clsActiveObjectType').removeClass('clsActiveObjectType');
 
-
     if (objectMode == "Area") {
         $('#liAreas').addClass('clsActiveObjectType');
         $('#divAreasTab').removeClass('clsHidden');
@@ -57,12 +56,13 @@ function ChangeObjectMode(objectMode) {
         ToolsetViewModel.CurrentObjectTreeSelector('#divScriptTreeView');
         ToolsetViewModel.CurrentObjectTabSelector('#divScriptsTab');
     }
-    else if (objectMode == "Graphic") {
-        $('#liGraphics').addClass('clsActiveObjectType');
-        $('#divGraphicTreeView').removeClass('clsHidden');
-        ToolsetViewModel.CurrentObjectMode('Graphic');
-        ToolsetViewModel.CurrentObjectTreeSelector('#divGraphicTreeView');
-        ToolsetViewModel.CurrentObjectTabSelector('#divGraphicsTab');
+    else if (objectMode == "Tileset") {
+        $('#liTilesets').addClass('clsActiveObjectType');
+        $('#divTilesetsTab').removeClass('clsHidden');
+        $('#divTilesetTreeView').removeClass('clsHidden');
+        ToolsetViewModel.CurrentObjectMode('Tileset');
+        ToolsetViewModel.CurrentObjectTreeSelector('#divTilesetTreeView');
+        ToolsetViewModel.CurrentObjectTabSelector('#divTilesetsTab');
     }
     // Otherwise, hide all.
     else {
@@ -71,35 +71,4 @@ function ChangeObjectMode(objectMode) {
         $('#divObjectTabContainerButtons').addClass('clsHidden');
     }
 
-}
-
-
-/* Button Functionality - Object Selection Menu */
-
-function AreasButtonClick() {
-    ChangeObjectMode("Area");
-}
-
-function CreaturesButtonClick() {
-    ChangeObjectMode("Creature");
-}
-
-function ItemsButtonClick() {
-    ChangeObjectMode("Item");
-}
-
-function PlaceablesButtonClick() {
-    ChangeObjectMode("Placeable");
-}
-
-function ConversationsButtonClick() {
-    ChangeObjectMode("Conversation");
-}
-
-function ScriptsButtonClick() {
-    ChangeObjectMode("Script");
-}
-
-function GraphicsButtonClick() {
-    ChangeObjectMode("Graphic");
 }

@@ -37,6 +37,11 @@ body
 #divTreeViewContainer
 {
 	-webkit-box-flex:1.0;
+    /*
+	display:-webkit-box;
+    -webkit-box-align:stretch;
+    -webkit-box-pack:justify;
+    */
 }
 
 #divToShowGame
@@ -156,7 +161,7 @@ body
 	-webkit-box-flex:1.0;
 	display:-webkit-box;
 	-webkit-box-orient:vertical;
-	-webkit-box-align:end;
+	-webkit-box-align:stretch;
 	-webkit-box-pack:stretch;
 	overflow: auto;	
 }

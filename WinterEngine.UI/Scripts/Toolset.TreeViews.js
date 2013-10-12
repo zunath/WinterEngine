@@ -157,13 +157,15 @@ function LoadTreeViews_Callback(jsonAreas,
                                 jsonItems,
                                 jsonPlaceables,
                                 jsonConversations,
-                                jsonScripts) {
+                                jsonScripts,
+                                jsonTilesets) {
     InitializeTreeView("#divAreaTreeView", $.parseJSON(jsonAreas));
     InitializeTreeView("#divCreatureTreeView", $.parseJSON(jsonCreatures));
     InitializeTreeView("#divItemTreeView", $.parseJSON(jsonItems));
     InitializeTreeView("#divPlaceableTreeView", $.parseJSON(jsonPlaceables));
     InitializeTreeView("#divConversationTreeView", $.parseJSON(jsonConversations));
     InitializeTreeView("#divScriptTreeView", $.parseJSON(jsonScripts));
+    InitializeTreeView("#divTilesetTreeView", $.parseJSON(jsonTilesets));
 
     $(ToolsetViewModel.CurrentObjectTreeSelector()).removeClass('clsHidden');
 }
@@ -280,6 +282,7 @@ function DeleteObject_Callback(success, errorMessage) {
         $('.clsPlaceableObjectField').attr('disabled', 'disabled').val('');
         $('.clsConversationObjectField').attr('disabled', 'disabled').val('');
         $('.clsScriptObjectField').attr('disabled', 'disabled').val('');
+        $('.clsTilesetObjectField').attr('disabled', 'disabled').val('');
     }
     else {
         $('#lblConfirmDeleteErrors').text(errorMessage);

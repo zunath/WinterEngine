@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-
-
-#if FRB_XNA || SILVERLIGHT
 using WinterEngine.Network;
-using Awesomium.Core;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.Game.Screens;
 using WinterEngine.Network.Clients;
@@ -14,14 +10,13 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Game.Services;
 using WinterEngine.Network.BusinessObjects;
 using WinterEngine.Network.Packets;
+
+using Awesomium.Core;
 using System.IO;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.Network.Enums;
 using Lidgren.Network;
-
-
-#endif
 
 namespace WinterEngine.Game.Entities
 {

@@ -20,6 +20,7 @@ namespace WinterEngine.DataTransferObjects
 
         #region Properties
 
+        
         /// <summary>
         /// Gets or sets the name of the physical file. This includes the file extension.
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -47,6 +48,7 @@ namespace WinterEngine.DataTransferObjects
             set { _contentPackageResourceType = value; }
         }
 
+        public virtual ContentPackage ContentPackage { get; set; }
 
         #endregion
 

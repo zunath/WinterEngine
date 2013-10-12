@@ -34,6 +34,16 @@ function InitializeToolsetViewModel() {
                 return ko.observable(options.data);
             }
         },
+        'ActiveTileset': {
+            create: function(options) {
+                return ko.observable(options.data);
+            }
+        },
+        'ActiveTile': {
+            create: function (options) {
+                return ko.observable(options.data);
+            }
+        },
         'TileMap': {
             create: function (options) {
                 return ko.observable(options.data);
@@ -48,4 +58,14 @@ function InitializeToolsetViewModel() {
 
     ToolsetViewModel = ko.mapping.fromJSON(data, mapping);
     ko.applyBindings(ToolsetViewModel);
+}
+
+function PopulateToolsetViewModel() {
+    Entity.PopulateToolsetViewModel();
+}
+
+function PopulateToolsetViewModel_Callback(jsonTilesetSpriteSheets) {
+    ToolsetViewModel.TilesetSpriteSheetsList.removeAll();
+    ToolsetViewModel.TilesetSpriteSheetsList(JSON.parse(jsonTilesetSpriteSheets));
+
 }

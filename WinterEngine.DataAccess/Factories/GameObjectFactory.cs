@@ -37,6 +37,8 @@ namespace WinterEngine.DataAccess.Factories
                     return new Placeable { GameObjectType = resourceType };
                 case GameObjectTypeEnum.Script:
                     return new Script { GameObjectType = resourceType };
+                case GameObjectTypeEnum.Tileset:
+                    return new Tileset { GameObjectType = resourceType };
                 default:
                     throw new Exception("Game object type not supported.");
             }
@@ -49,53 +51,60 @@ namespace WinterEngine.DataAccess.Factories
         /// <summary>
         /// Adds a game object to the database.
         /// </summary>
-        /// <param name="winterObject">The game object to add to the database. This will be type-converted and added to the correct table when run.</param>
+        /// <param name="gameObject">The game object to add to the database. This will be type-converted and added to the correct table when run.</param>
         /// <param name="connectionString">If you need to connect to a specific database, use this to pass the connection string. Otherwise, the default connection string will be used (WinterConnectionInformation.ActiveConnectionString)</param>
-        public GameObjectBase AddToDatabase(GameObjectBase winterObject, string connectionString = "")
+        public GameObjectBase AddToDatabase(GameObjectBase gameObject, string connectionString = "")
         {
             GameObjectBase resultGameObject;
             try
             {
-                if (winterObject.GameObjectType == GameObjectTypeEnum.Area)
+                if (gameObject.GameObjectType == GameObjectTypeEnum.Area)
                 {
                     using (AreaRepository repo = new AreaRepository(connectionString))
                     {
-                        resultGameObject = repo.Add(winterObject as Area);
+                        resultGameObject = repo.Add(gameObject as Area);
                     }
                 }
-                else if (winterObject.GameObjectType == GameObjectTypeEnum.Conversation)
+                else if (gameObject.GameObjectType == GameObjectTypeEnum.Conversation)
                 {
                     using (ConversationRepository repo = new ConversationRepository())
                     {
-                        resultGameObject = repo.Add(winterObject as Conversation);
+                        resultGameObject = repo.Add(gameObject as Conversation);
                     }
                 }
-                else if (winterObject.GameObjectType == GameObjectTypeEnum.Creature)
+                else if (gameObject.GameObjectType == GameObjectTypeEnum.Creature)
                 {
                     using (CreatureRepository repo = new CreatureRepository(connectionString))
                     {
-                        resultGameObject = repo.Add(winterObject as Creature);
+                        resultGameObject = repo.Add(gameObject as Creature);
                     }
                 }
-                else if (winterObject.GameObjectType == GameObjectTypeEnum.Item)
+                else if (gameObject.GameObjectType == GameObjectTypeEnum.Item)
                 {
                     using (ItemRepository repo = new ItemRepository(connectionString))
                     {
-                        resultGameObject = repo.Add(winterObject as Item);
+                        resultGameObject = repo.Add(gameObject as Item);
                     }
                 }
-                else if (winterObject.GameObjectType == GameObjectTypeEnum.Placeable)
+                else if (gameObject.GameObjectType == GameObjectTypeEnum.Placeable)
                 {
                     using (PlaceableRepository repo = new PlaceableRepository(connectionString))
                     {
-                        resultGameObject = repo.Add(winterObject as Placeable);
+                        resultGameObject = repo.Add(gameObject as Placeable);
                     }
                 }
-                else if (winterObject.GameObjectType == GameObjectTypeEnum.Script)
+                else if (gameObject.GameObjectType == GameObjectTypeEnum.Script)
                 {
-                    using (ScriptRepository repo = new ScriptRepository())
+                    using (ScriptRepository repo = new ScriptRepository(connectionString))
                     {
-                        resultGameObject = repo.Add(winterObject as Script);
+                        resultGameObject = repo.Add(gameObject as Script);
+                    }
+                }
+                else if (gameObject.GameObjectType == GameObjectTypeEnum.Tileset)
+                {
+                    using (TilesetRepository repo = new TilesetRepository(connectionString))
+                    {
+                        resultGameObject = repo.Add(gameObject as Tileset);
                     }
                 }
                 else
@@ -177,6 +186,70 @@ namespace WinterEngine.DataAccess.Factories
                     repo.Update(gameObject as Script);
                 }
             }
+            else if (gameObject.GameObjectType == GameObjectTypeEnum.Tileset)
+            {
+                using (TilesetRepository repo = new TilesetRepository(connectionString))
+                {
+                    repo.Update(gameObject as Tileset);
+                }
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
+        }
+
+        public void UpsertInDatabase(GameObjectBase gameObject, string connectionString = "")
+        {
+            if (gameObject.GameObjectType == GameObjectTypeEnum.Area)
+            {
+                using (AreaRepository repo = new AreaRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Area);
+                }
+            }
+            else if (gameObject.GameObjectType == GameObjectTypeEnum.Conversation)
+            {
+                using (ConversationRepository repo = new ConversationRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Conversation);
+                }
+            }
+            else if (gameObject.GameObjectType == GameObjectTypeEnum.Creature)
+            {
+                using (CreatureRepository repo = new CreatureRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Creature);
+                }
+            }
+            else if (gameObject.GameObjectType == GameObjectTypeEnum.Item)
+            {
+                using (ItemRepository repo = new ItemRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Item);
+                }
+            }
+            else if (gameObject.GameObjectType == GameObjectTypeEnum.Placeable)
+            {
+                using (PlaceableRepository repo = new PlaceableRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Placeable);
+                }
+            }
+            else if (gameObject.GameObjectType == GameObjectTypeEnum.Script)
+            {
+                using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Script);
+                }
+            }
+            else if (gameObject.GameObjectType == GameObjectTypeEnum.Tileset)
+            {
+                using (TilesetRepository repo = new TilesetRepository(connectionString))
+                {
+                    repo.Upsert(gameObject as Tileset);
+                }
+            }
             else
             {
                 throw new NotSupportedException();
@@ -229,6 +302,13 @@ namespace WinterEngine.DataAccess.Factories
             else if (resourceType == GameObjectTypeEnum.Script)
             {
                 using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    repo.Delete(resourceID);
+                }
+            }
+            else if (resourceType == GameObjectTypeEnum.Tileset)
+            {
+                using (TilesetRepository repo = new TilesetRepository(connectionString))
                 {
                     repo.Delete(resourceID);
                 }
@@ -286,6 +366,13 @@ namespace WinterEngine.DataAccess.Factories
             else if (resourceType == GameObjectTypeEnum.Script)
             {
                 using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    return repo.GetAll().ConvertAll<GameObjectBase>(x => (GameObjectBase)x);
+                }
+            }
+            else if (resourceType == GameObjectTypeEnum.Tileset)
+            {
+                using (TilesetRepository repo = new TilesetRepository(connectionString))
                 {
                     return repo.GetAll().ConvertAll<GameObjectBase>(x => (GameObjectBase)x);
                 }
@@ -349,6 +436,13 @@ namespace WinterEngine.DataAccess.Factories
                     return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObjectBase)x);
                 }
             }
+            else if (resourceType == GameObjectTypeEnum.Tileset)
+            {
+                using (TilesetRepository repo = new TilesetRepository(connectionString))
+                {
+                    return repo.GetAllByResourceCategory(resourceCategory).ConvertAll(x => (GameObjectBase)x);
+                }
+            }
             else
             {
                 throw new NotSupportedException();
@@ -395,6 +489,13 @@ namespace WinterEngine.DataAccess.Factories
             else if (gameResourceType == GameObjectTypeEnum.Script)
             {
                 using (ScriptRepository repo = new ScriptRepository())
+                {
+                    return repo.GetByID(resourceID);
+                }
+            }
+            else if (gameResourceType == GameObjectTypeEnum.Tileset)
+            {
+                using (TilesetRepository repo = new TilesetRepository())
                 {
                     return repo.GetByID(resourceID);
                 }
@@ -451,6 +552,13 @@ namespace WinterEngine.DataAccess.Factories
             else if (resourceType == GameObjectTypeEnum.Script)
             {
                 using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    repo.DeleteAllByCategory(resourceCategory);
+                }
+            }
+            else if (resourceType == GameObjectTypeEnum.Tileset)
+            {
+                using (TilesetRepository repo = new TilesetRepository(connectionString))
                 {
                     repo.DeleteAllByCategory(resourceCategory);
                 }
@@ -516,6 +624,13 @@ namespace WinterEngine.DataAccess.Factories
             else if (resourceType == GameObjectTypeEnum.Script)
             {
                 using (ScriptRepository repo = new ScriptRepository(connectionString))
+                {
+                    return repo.Exists(resref);
+                }
+            }
+            else if (resourceType == GameObjectTypeEnum.Tileset)
+            {
+                using (TilesetRepository repo = new TilesetRepository(connectionString))
                 {
                     return repo.Exists(resref);
                 }

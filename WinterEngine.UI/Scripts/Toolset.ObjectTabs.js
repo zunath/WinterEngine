@@ -17,7 +17,9 @@ function LoadObjectData_Callback(jsonObject) {
         $('.clsPlaceableObjectField').attr('disabled', 'disabled');
         $('.clsConversationObjectField').attr('disabled', 'disabled');
         $('.clsScriptObjectField').attr('disabled', 'disabled');
+        $('.clsTilesetObjectField').attr('disabled', 'disabled');
 
+        LoadAreaCanvasImage(gameObject.ResourceID);
     }
     else if (mode == 'Creature') {
         ToolsetViewModel.ActiveCreature(gameObject);
@@ -28,6 +30,7 @@ function LoadObjectData_Callback(jsonObject) {
         $('.clsPlaceableObjectField').attr('disabled', 'disabled');
         $('.clsConversationObjectField').attr('disabled', 'disabled');
         $('.clsScriptObjectField').attr('disabled', 'disabled');
+        $('.clsTilesetObjectField').attr('disabled', 'disabled');
     }
     else if (mode == 'Item') {
         ToolsetViewModel.ActiveItem(gameObject);
@@ -38,6 +41,7 @@ function LoadObjectData_Callback(jsonObject) {
         $('.clsPlaceableObjectField').attr('disabled', 'disabled');
         $('.clsConversationObjectField').attr('disabled', 'disabled');
         $('.clsScriptObjectField').attr('disabled', 'disabled');
+        $('.clsTilesetObjectField').attr('disabled', 'disabled');
     }
     else if (mode == 'Placeable') {
         ToolsetViewModel.ActivePlaceable(gameObject);
@@ -49,6 +53,7 @@ function LoadObjectData_Callback(jsonObject) {
         $('.clsPlaceableObjectField').removeAttr('disabled');
         $('.clsConversationObjectField').attr('disabled', 'disabled');
         $('.clsScriptObjectField').attr('disabled', 'disabled');
+        $('.clsTilesetObjectField').attr('disabled', 'disabled');
     }
     else if (mode == 'Conversation') {
         ToolsetViewModel.ActiveConversation(gameObject);
@@ -60,6 +65,7 @@ function LoadObjectData_Callback(jsonObject) {
         $('.clsPlaceableObjectField').attr('disabled', 'disabled');
         $('.clsConversationObjectField').removeAttr('disabled');
         $('.clsScriptObjectField').attr('disabled', 'disabled');
+        $('.clsTilesetObjectField').attr('disabled', 'disabled');
     }
     else if (mode == 'Script') {
         ToolsetViewModel.ActiveScript(gameObject);
@@ -70,6 +76,18 @@ function LoadObjectData_Callback(jsonObject) {
         $('.clsPlaceableObjectField').attr('disabled', 'disabled');
         $('.clsConversationObjectField').attr('disabled', 'disabled');
         $('.clsScriptObjectField').removeAttr('disabled');
+        $('.clsTilesetObjectField').attr('disabled', 'disabled');
+    }
+    else if (mode == 'Tileset') {
+        ToolsetViewModel.ActiveTileset(gameObject);
+
+        $('.clsAreaObjectField').attr('disabled', 'disabled');
+        $('.clsCreatureObjectField').attr('disabled', 'disabled');
+        $('.clsItemObjectField').attr('disabled', 'disabled');
+        $('.clsPlaceableObjectField').attr('disabled', 'disabled');
+        $('.clsConversationObjectField').attr('disabled', 'disabled');
+        $('.clsScriptObjectField').attr('disabled', 'disabled');
+        $('.clsTilesetObjectField').removeAttr('disabled');
     }
 }
 
