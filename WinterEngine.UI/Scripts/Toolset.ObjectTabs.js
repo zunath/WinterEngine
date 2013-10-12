@@ -8,6 +8,10 @@ function LoadObjectData_Callback(jsonObject) {
     var mode = ToolsetViewModel.CurrentObjectMode();
     var gameObject = JSON.parse(jsonObject);
 
+    if (gameObject.GraphicResourceID == null || gameObject.GraphicResourceID == undefined) {
+        gameObject.GraphicResourceID = 0;
+    }
+
     if (mode == 'Area') {
         ToolsetViewModel.ActiveArea(gameObject);
 

@@ -28,6 +28,7 @@ function NewModuleBoxOKClick_Callback(success) {
         ToggleModuleActionButtons(true);
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
+        Entity.PopulateToolsetViewModel();
         $('#divObjectBar').removeClass('clsHidden');
     }
     else {

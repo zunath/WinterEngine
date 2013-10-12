@@ -672,6 +672,14 @@ namespace WinterEngine.Game.Entities
             using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
             {
                 List<ContentPackageResource> resourceList = repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset);
+                resourceList.Insert(0, new ContentPackageResource
+                {
+                    ContentPackageResourceType = ContentPackageResourceTypeEnum.Tileset,
+                    Name = "(None)",
+                    ResourceID = 0,
+                    ResourceType = ResourceTypeEnum.GameObject
+                });
+
                 jsonTilesetSpriteSheets = JsonConvert.SerializeObject(resourceList, JSONSerializerSettings);
             }
 
