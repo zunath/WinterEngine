@@ -248,6 +248,7 @@ function ManageContentPackagesSaveChanges() {
 
 function ManageContentPackagesSaveChanges_Callback() {
 
+    Entity.PopulateToolsetViewModel();
     $('#divManageContentPackages').dialog('close');
 }
 

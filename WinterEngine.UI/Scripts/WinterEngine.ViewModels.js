@@ -65,5 +65,7 @@ function PopulateToolsetViewModel() {
 }
 
 function PopulateToolsetViewModel_Callback(jsonTilesetSpriteSheets) {
+    ToolsetViewModel.TilesetSpriteSheetsList.removeAll();
     ToolsetViewModel.TilesetSpriteSheetsList(JSON.parse(jsonTilesetSpriteSheets));
+
 }
