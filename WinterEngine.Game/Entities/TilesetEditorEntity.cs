@@ -25,6 +25,7 @@ using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.Enumerations;
 using FlatRedBall.ManagedSpriteGroups;
 using FlatRedBall.TileGraphics;
+using WinterEngine.Game.Factories;
 
 namespace WinterEngine.Game.Entities
 {
@@ -33,8 +34,6 @@ namespace WinterEngine.Game.Entities
         #region Fields
 
         private Texture2D _tilesetSpriteSheet;
-        private List<Sprite> _tileSprites;
-
         #endregion
 
         #region Properties
@@ -43,21 +42,6 @@ namespace WinterEngine.Game.Entities
         {
             get { return _tilesetSpriteSheet; }
             set { _tilesetSpriteSheet = value; }
-        }
-        private List<Sprite> TileSprites
-        {
-            get
-            {
-                if (_tileSprites == null)
-                {
-                    _tileSprites = new List<Sprite>();
-                }
-                return _tileSprites;
-            }
-            set
-            {
-                _tileSprites = value;
-            }
         }
         
         #endregion
@@ -101,6 +85,8 @@ namespace WinterEngine.Game.Entities
         {
             try
             {
+                
+
                 if (e.ResourceID > 0)
                 {
                     ContentPackageResource resource;
@@ -112,10 +98,7 @@ namespace WinterEngine.Game.Entities
 
                     EntitySpriteSheet = resource.ToTexture2D();
                     GenerateTileSpriteList();
-                }
-                else
-                {
-                    EntitySpriteSheet = FlatRedBallServices.Load<Texture2D>(@"Content/Editor/Icons/NoGraphic_64x64.png");
+                    
                 }
             }
             catch
@@ -135,14 +118,16 @@ namespace WinterEngine.Game.Entities
 
         #region Methods
 
+        private void DestroyTileEntityList()
+        {
+            for (int index = TileEntityList.Count - 1; index >= 0; index--)
+            {
+                SpriteManager.RemovePositionedObject(TileEntityList[index]);
+            }
+        }
+
         private void GenerateTileSpriteList()
         {
-            // DEBUGGING
-            SpriteManager.Camera.Z = 300;
-            // END DEBUGGING
-
-            SpriteManager.RemoveSpriteList(TileSprites);
-            TileSprites.Clear();
 
             int numberOfColumns = EntitySpriteSheet.Width / (int)MappingEnum.TileWidth;
             int numberOfRows = EntitySpriteSheet.Height / (int)MappingEnum.TileHeight;
@@ -163,16 +148,15 @@ namespace WinterEngine.Game.Entities
                         RightTexturePixel = (currentColumn + 1) * (int)MappingEnum.TileWidth,
                         X = currentColumn * (int)MappingEnum.TileWidth,
                         Y = -(currentRow * (int)MappingEnum.TileHeight)
-                        //X = currentColumn,
-                        //Y = currentRow
                     };
-                    
 
-                    TileSprites.Add(sprite);
-                    SpriteManager.AddSprite(sprite);
-                    
+                    TileEntity entity = new TileEntity(ContentManagerName);
+                    entity.SpriteInstance.Texture = sprite.Texture;
+
+                    TileEntityList.Add(entity);
                 }
             }
+
         }
         
 

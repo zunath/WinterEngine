@@ -22,8 +22,6 @@ function LoadObjectData_Callback(jsonObject) {
         $('.clsConversationObjectField').attr('disabled', 'disabled');
         $('.clsScriptObjectField').attr('disabled', 'disabled');
         $('.clsTilesetObjectField').attr('disabled', 'disabled');
-
-        LoadAreaCanvasImage(gameObject.ResourceID);
     }
     else if (mode == 'Creature') {
         ToolsetViewModel.ActiveCreature(gameObject);

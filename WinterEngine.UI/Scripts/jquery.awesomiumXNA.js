@@ -9,7 +9,7 @@
         var partialPath = $(this).data('partial');
         if (partialPath != null && partialPath != undefined && partialPath != "") {
             var html = Entity.GetPartialViewHTML(partialPath);
-            $(this).append(html);
+            $(this).replaceWith(html);
         }
     });
 
