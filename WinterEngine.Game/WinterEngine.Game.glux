@@ -145,6 +145,14 @@
           <AttachToContainer>true</AttachToContainer>
           <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>Entity</SourceType>
+          <SourceFile />
+          <SourceClassType>Entities\TilesetEditorEntity</SourceClassType>
+          <InstanceName>TilesetEditorEntityInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <IndependentOfCamera>true</IndependentOfCamera>
+        </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>
   </Screens>
@@ -501,6 +509,14 @@
       <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
       <ImplementsIVisible>true</ImplementsIVisible>
       <Name>Entities\ServerListUIEntity</Name>
+      <Is2D>true</Is2D>
+    </EntitySave>
+    <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
+      <Name>Entities\TilesetEditorEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>

@@ -92,7 +92,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public ContentPackageResource GetByID(int resourceID)
         {
-            return Context.ContentPackageResourceRepository.Get(x => x.ResourceID == resourceID, null, "ContentPackage").SingleOrDefault();
+            return Context.ContentPackageResourceRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
         }
 
         #endregion

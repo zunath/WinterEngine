@@ -37,6 +37,7 @@ namespace WinterEngine.Game.Screens
 		
 		private WinterEngine.Game.Entities.ToolsetUIEntity ToolsetUIEntityInstance;
 		private WinterEngine.Game.Entities.AreaEntity AreaEntityInstance;
+		private WinterEngine.Game.Entities.TilesetEditorEntity TilesetEditorEntityInstance;
 
 		public ToolsetScreen()
 			: base()
@@ -51,6 +52,8 @@ namespace WinterEngine.Game.Screens
 			ToolsetUIEntityInstance.Name = "ToolsetUIEntityInstance";
 			AreaEntityInstance = new WinterEngine.Game.Entities.AreaEntity(ContentManagerName, false);
 			AreaEntityInstance.Name = "AreaEntityInstance";
+			TilesetEditorEntityInstance = new WinterEngine.Game.Entities.TilesetEditorEntity(ContentManagerName, false);
+			TilesetEditorEntityInstance.Name = "TilesetEditorEntityInstance";
 			
 			
 			base.Initialize(addToManagers);
@@ -73,6 +76,7 @@ namespace WinterEngine.Game.Screens
 				
 				ToolsetUIEntityInstance.Activity();
 				AreaEntityInstance.Activity();
+				TilesetEditorEntityInstance.Activity();
 			}
 			else
 			{
@@ -103,6 +107,11 @@ namespace WinterEngine.Game.Screens
 				AreaEntityInstance.Destroy();
 				AreaEntityInstance.Detach();
 			}
+			if (TilesetEditorEntityInstance != null)
+			{
+				TilesetEditorEntityInstance.Destroy();
+				TilesetEditorEntityInstance.Detach();
+			}
 
 			base.Destroy();
 
@@ -123,12 +132,14 @@ namespace WinterEngine.Game.Screens
 			base.AddToManagersBottomUp();
 			ToolsetUIEntityInstance.AddToManagers(mLayer);
 			AreaEntityInstance.AddToManagers(mLayer);
+			TilesetEditorEntityInstance.AddToManagers(mLayer);
 		}
 		public override void ConvertToManuallyUpdated ()
 		{
 			base.ConvertToManuallyUpdated();
 			ToolsetUIEntityInstance.ConvertToManuallyUpdated();
 			AreaEntityInstance.ConvertToManuallyUpdated();
+			TilesetEditorEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static new void LoadStaticContent (string contentManagerName)
 		{
@@ -149,6 +160,7 @@ namespace WinterEngine.Game.Screens
 			#endif
 			WinterEngine.Game.Entities.ToolsetUIEntity.LoadStaticContent(contentManagerName);
 			WinterEngine.Game.Entities.AreaEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.TilesetEditorEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

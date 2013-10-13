@@ -60,6 +60,12 @@ td
 
 /* GENERAL STYLES */
 
+.clsFullSize
+{
+    width: 100%;
+    height: 100%;
+}
+
 .clsBold 
 {
     font-weight: bold;
@@ -136,6 +142,11 @@ ul.clsNoBullets
 .clsFloatRight
 {
     float: right;
+}
+
+.clsOverflowAuto
+{
+    overflow: auto;
 }
 
 /* JQUERY UI */

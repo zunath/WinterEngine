@@ -6,7 +6,7 @@ function ChangeObjectMode(objectMode) {
     $('#divObjectTabContainerButtons').removeClass('clsHidden');
     $('.clsTreeViewDiv').addClass('clsHidden');
     $('.clsActiveObjectType').removeClass('clsActiveObjectType');
-
+    
     if (objectMode == "Area") {
         $('#liAreas').addClass('clsActiveObjectType');
         $('#divAreasTab').removeClass('clsHidden');

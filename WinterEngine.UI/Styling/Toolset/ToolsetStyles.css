@@ -47,6 +47,8 @@ body
 #divToShowGame
 {
 	-webkit-box-flex:10.0;
+    -webkit-box-align:stretch; 
+    -webkit-box-pack:justify;
 }
 
 /* Navigation Menu */
@@ -131,18 +133,6 @@ body
     background-image:url('../../Images/Filler.png');
     width: 59%;
     height: 95%;
-}
-
-.clsLoadingDiv
-{
-    background:#000 url('../../Images/ajax-loader.gif') no-repeat center center;
-    height: 50px;
-    width: 50px;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    margin: -25px 0 0 -25px;
-    z-index: 1000;
 }
 
 /* Object Bar */

@@ -18,7 +18,6 @@
     <script src="../Scripts/jquery.jstree.js"></script>
     <script src="../Scripts/knockout-2.3.0.js"></script>
     <script src="../Scripts/knockout.mapping-latest.js"></script>
-    <script src="../Scripts/jcanvas.js"></script>
     <script src="../Scripts/jquery.blockUI.js"></script>
     <script src="../Scripts/WinterEngine.ViewModels.js"></script>
     <script src="../Scripts/Toolset.Initialization.js"></script>
@@ -26,8 +25,6 @@
     <script src="../Scripts/Toolset.MenuBar.js"></script>
     <script src="../Scripts/Toolset.ObjectBar.js"></script>
     <script src="../Scripts/Toolset.ObjectTabs.js"></script>
-    <script src="../Scripts/Toolset.Canvas.js"></script>
-    <script src="../Scripts/Toolset.Tileset.Editor.js"></script>
 </head>
 <body>
 
@@ -186,7 +183,6 @@
             <!-- MAIN EDITOR AREA -->
             <div id="divToShowGame">
 
-                <canvas id="cnvGameCanvas" class="clsHidden"></canvas>
 
             </div>
             <!-- END MAIN EDITOR AREA -->
@@ -220,7 +216,7 @@
 
                         <h3>Paint Tiles</h3>
                         <div id="divAreasTab-PaintTiles">
-                            <canvas id="cnvAreaTilesetImage"></canvas>
+                            <canvas id="cnvAreaTilesetImage" class="clsHidden clsFullSize clsCanvas"></canvas>
                         </div>
 
                         <h3>Paint Creatures</h3>
@@ -558,13 +554,14 @@
                             <input id="txtTilesetDetails-Resref" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Resref" class="clsTilesetObjectField" />
 
                             <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
-                            <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField" onclick="OnTilesetSpritesheetSelected();"
+                            <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField" onchange="" onclick=""
                                 data-bind="options: TilesetSpriteSheetsList,
                                            optionsText: function (item) { return item.Name },
                                            optionsValue: function (item) { return item.ResourceID },
                                            value: SelectedTilesetSpriteSheetID
                             ">
                             </select>
+
                         </div>
 
                         <h3>Tile Details</h3>

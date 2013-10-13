@@ -148,10 +148,6 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("GetModulesList", true, GetModulesList);
             EntityJavascriptObject.Bind("PopulateToolsetViewModel", false, PopulateToolsetViewModel);
 
-            // Canvas Bindings
-            EntityJavascriptObject.Bind("GetAreaCanvasImage", true, GetAreaCanvasImage);
-            EntityJavascriptObject.Bind("GetTilesetCanvasImage", true, GetTilesetCanvasImage);
-
             RunJavaScriptMethod("Initialize();");
         }
 
@@ -688,27 +684,6 @@ namespace WinterEngine.Game.Entities
 
         #endregion
 
-        #region UI Methods - Canvases
-
-        private void GetAreaCanvasImage(object sender, JavascriptMethodEventArgs e)
-        {
-            using (AreaRepository repo = new AreaRepository())
-            {
-                int areaID = (int)e.Arguments[0];
-                e.Result = repo.GetByID(areaID).GraphicResource.ToBase64String();
-            }
-        }
-
-        private void GetTilesetCanvasImage(object sender, JavascriptMethodEventArgs e)
-        {
-            using (TilesetRepository repo = new TilesetRepository())
-            {
-                int tilesetID = (int)e.Arguments[0];
-                e.Result = repo.GetByID(tilesetID).GraphicResource.ToBase64String();
-            }
-        }
-
-        #endregion
 
     }
 }
