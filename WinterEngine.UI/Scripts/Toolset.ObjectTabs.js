@@ -110,6 +110,8 @@ function ObjectTabDiscardChanges() {
 }
 
 
-function SelectTile() {
+function SelectTilesetSpriteSheet() {
+    var selectedSpritesheetID = parseInt($('#selTilesetDetails-Spritesheet option:selected').val());
 
+    Entity.LoadTilesetSpritesheet(selectedSpritesheetID);
 }

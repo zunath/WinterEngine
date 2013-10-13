@@ -146,9 +146,6 @@
     <Content Include="Images\Filler.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\NoGraphic_64x64.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\WinterEngineLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

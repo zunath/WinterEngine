@@ -81,7 +81,12 @@ namespace WinterEngine.Game.Entities
 
         #region Events / Delegates
 
+        // Area Editor Events
         public event EventHandler<ObjectSelectionEventArgs> OnAreaLoaded;
+
+        // Tileset Editor Events
+        public event EventHandler<ObjectSelectionEventArgs> OnTilesetSpritesheetLoaded;
+        public event EventHandler<EventArgs> OnTilesetEditorOpened;
 
         #endregion
 
@@ -124,6 +129,9 @@ namespace WinterEngine.Game.Entities
 
             // Edit Menu Bindings
 
+            // Object Mode Bindings
+            EntityJavascriptObject.Bind("ChangeObjectMode", false, ChangeObjectMode);
+
             // Content Menu Bindings
             EntityJavascriptObject.Bind("BuildModuleButtonClick", false, BuildModuleButton);
             EntityJavascriptObject.Bind("ManageContentPackagesButtonClick", false, ManageContentPackagesButton);
@@ -147,6 +155,9 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("LoadObjectData", false, LoadObjectData);
             EntityJavascriptObject.Bind("GetModulesList", true, GetModulesList);
             EntityJavascriptObject.Bind("PopulateToolsetViewModel", false, PopulateToolsetViewModel);
+
+            // Tileset Editor Bindings
+            EntityJavascriptObject.Bind("LoadTilesetSpritesheet", false, LoadTilesetSpritesheet);
 
             RunJavaScriptMethod("Initialize();");
         }
@@ -236,6 +247,24 @@ namespace WinterEngine.Game.Entities
         #endregion
 
         #region UI Methods - Edit Menu Bindings
+
+        #endregion
+
+        #region UI Methods - Object Mode Bindings
+
+        private void ChangeObjectMode(object sender, JavascriptMethodEventArgs e)
+        {
+            GameObjectTypeEnum mode = (GameObjectTypeEnum)(int)e.Arguments[0];
+
+            if (mode == GameObjectTypeEnum.Tileset)
+            {
+                if (OnTilesetEditorOpened != null)
+                {
+                    OnTilesetEditorOpened(this, new EventArgs());
+                }
+            }
+
+        }
 
         #endregion
 
@@ -684,6 +713,23 @@ namespace WinterEngine.Game.Entities
 
         #endregion
 
+        #region UI Methods - Tileset Editor
+
+        public void LoadTilesetSpritesheet(object sender, JavascriptMethodEventArgs e)
+        {
+            int resourceID = (int)e.Arguments[0];
+
+            if (OnTilesetSpritesheetLoaded != null)
+            {
+                OnTilesetSpritesheetLoaded(this, new ObjectSelectionEventArgs(resourceID));
+            }
+        }
+
+        public void LoadTile(object sender, EventArgs e)
+        {
+        }
+
+        #endregion
 
     }
 }

@@ -14,6 +14,8 @@ function ChangeObjectMode(objectMode) {
         ToolsetViewModel.CurrentObjectMode('Area');
         ToolsetViewModel.CurrentObjectTreeSelector('#divAreaTreeView');
         ToolsetViewModel.CurrentObjectTabSelector('#divAreasTab');
+
+        Entity.ChangeObjectMode(1); // Refer to GameObjectTypeEnum for values
     }
     else if (objectMode == "Creature") {
         $('#liCreatures').addClass('clsActiveObjectType');
@@ -23,6 +25,8 @@ function ChangeObjectMode(objectMode) {
         ToolsetViewModel.CurrentObjectMode('Creature');
         ToolsetViewModel.CurrentObjectTreeSelector('#divCreatureTreeView');
         ToolsetViewModel.CurrentObjectTabSelector('#divCreaturesTab');
+
+        Entity.ChangeObjectMode(2);
     }
     else if (objectMode == "Item") {
         $('#liItems').addClass('clsActiveObjectType');
@@ -31,6 +35,8 @@ function ChangeObjectMode(objectMode) {
         ToolsetViewModel.CurrentObjectMode('Item');
         ToolsetViewModel.CurrentObjectTreeSelector('#divItemTreeView');
         ToolsetViewModel.CurrentObjectTabSelector('#divItemsTab');
+
+        Entity.ChangeObjectMode(6);
     }
     else if (objectMode == "Placeable") {
         $('#liPlaceables').addClass('clsActiveObjectType');
@@ -39,6 +45,8 @@ function ChangeObjectMode(objectMode) {
         ToolsetViewModel.CurrentObjectMode('Placeable');
         ToolsetViewModel.CurrentObjectTreeSelector('#divPlaceableTreeView');
         ToolsetViewModel.CurrentObjectTabSelector('#divPlaceablesTab');
+
+        Entity.ChangeObjectMode(3);
     }
     else if (objectMode == "Conversation") {
         $('#liConversations').addClass('clsActiveObjectType');
@@ -47,6 +55,8 @@ function ChangeObjectMode(objectMode) {
         ToolsetViewModel.CurrentObjectMode('Conversation');
         ToolsetViewModel.CurrentObjectTreeSelector('#divConversationTreeView');
         ToolsetViewModel.CurrentObjectTabSelector('#divConversationsTab');
+
+        Entity.ChangeObjectMode(4);
     }
     else if (objectMode == "Script") {
         $('#liScripts').addClass('clsActiveObjectType');
@@ -55,6 +65,8 @@ function ChangeObjectMode(objectMode) {
         ToolsetViewModel.CurrentObjectMode('Script');
         ToolsetViewModel.CurrentObjectTreeSelector('#divScriptTreeView');
         ToolsetViewModel.CurrentObjectTabSelector('#divScriptsTab');
+
+        Entity.ChangeObjectMode(5);
     }
     else if (objectMode == "Tileset") {
         $('#liTilesets').addClass('clsActiveObjectType');
@@ -63,6 +75,8 @@ function ChangeObjectMode(objectMode) {
         ToolsetViewModel.CurrentObjectMode('Tileset');
         ToolsetViewModel.CurrentObjectTreeSelector('#divTilesetTreeView');
         ToolsetViewModel.CurrentObjectTabSelector('#divTilesetsTab');
+
+        Entity.ChangeObjectMode(7);
     }
     // Otherwise, hide all.
     else {

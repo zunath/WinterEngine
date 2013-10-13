@@ -69,7 +69,14 @@ namespace WinterEngine.Game.Screens
         {
             ToolsetUIEntityInstance.OnChangeScreen += base.ChangeScreen;
             FlatRedBallServices.CornerGrabbingResize += ReactToResizing;
+            
+            // Area Editor
             ToolsetUIEntityInstance.OnAreaLoaded += OpenArea;
+        
+            // Tileset Editor
+            ToolsetUIEntityInstance.OnTilesetSpritesheetLoaded += TilesetEditorEntityInstance.LoadTilesetSpritesheet;
+            TilesetEditorEntityInstance.OnTileSelected += ToolsetUIEntityInstance.LoadTile;
+            ToolsetUIEntityInstance.OnTilesetEditorOpened += TilesetEditorEntityInstance.LoadTilesetEditor;
         }
 
         #endregion

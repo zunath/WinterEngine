@@ -554,7 +554,7 @@
                             <input id="txtTilesetDetails-Resref" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Resref" class="clsTilesetObjectField" />
 
                             <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
-                            <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField" onchange="" onclick=""
+                            <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField" onchange="SelectTilesetSpriteSheet();" onclick="SelectTilesetSpriteSheet();"
                                 data-bind="options: TilesetSpriteSheetsList,
                                            optionsText: function (item) { return item.Name },
                                            optionsValue: function (item) { return item.ResourceID },
