@@ -29,9 +29,9 @@
 <body>
 
     <!-- Global container: Prevent mouse interaction from affecting FRB -->
-    <div id="divGlobalContainer" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    <div id="divGlobalContainer">
 
-        <div id="menuBarContainer">
+        <div id="menuBarContainer" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
             <!-- MENU BAR CONTROL -->
             <div id="divMenuBar" class="row-fluid">
                 <ul id="ulMenu">
@@ -168,7 +168,7 @@
         <div id="nonMenuBarContainer">
 
             <!--TREE VIEW CONTROLS-->
-            <div id="divTreeViewContainer" class="clsTreeViewContainerDiv">
+            <div id="divTreeViewContainer" class="clsTreeViewContainerDiv" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 <div id="divAreaTreeView" class="clsTreeViewDiv pre-scrollable"></div>
                 <div id="divCreatureTreeView" class="clsTreeViewDiv clsHidden"></div>
                 <div id="divItemTreeView" class="clsTreeViewDiv clsHidden"></div>
@@ -188,7 +188,7 @@
             <!-- END MAIN EDITOR AREA -->
 
             <!--OBJECT TAB CONTROLS-->
-            <div id="objectTabControls" class="clsHidden">
+            <div id="objectTabControls" class="clsHidden" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 <div id="divObjectTabContainer">
 
                     <div id="divAreasTab" class="clsObjectTabDiv">
@@ -554,7 +554,7 @@
                             <input id="txtTilesetDetails-Resref" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset().Resref" class="clsTilesetObjectField" />
 
                             <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
-                            <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField" onchange="SelectTilesetSpriteSheet();" onclick="SelectTilesetSpriteSheet();"
+                            <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField" onchange="SelectTilesetSpriteSheet();"
                                 data-bind="options: TilesetSpriteSheetsList,
                                            optionsText: function (item) { return item.Name },
                                            optionsValue: function (item) { return item.ResourceID },
@@ -584,7 +584,7 @@
             <!-- END OBJECT TAB CONTROLS -->
 
             <!-- NEW MODULE POP-UP BOX -->
-            <div id="divNewModuleBox">
+            <div id="divNewModuleBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
 
                 <form id="formNewModule">
                     <label id="lblNewModuleError" class="clsErrorMessage"></label>
@@ -611,12 +611,12 @@
 
             <!-- OPEN MODULE POP-UP BOX -->
 
-            <div id="divOpenModuleBox">
+            <div id="divOpenModuleBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 Please select a module to open.
 
-          <select id="selModulesList" size="5" data-bind="foreach: ModuleList">
-              <option data-bind="text: FileName" ondblclick="OpenModuleButtonClick();"></option>
-          </select>
+                <select id="selModulesList" size="5" data-bind="foreach: ModuleList">
+                    <option data-bind="text: FileName" ondblclick="OpenModuleButtonClick();"></option>
+                </select>
 
                 <input id="btnOpenModuleOpenButton" type="button" value="Open" onclick="OpenModuleButtonClick();" />
                 <input id="btnOpenModuleCancelButton" type="button" value="Cancel" onclick="CloseOpenModulePopUp();" />
@@ -626,10 +626,10 @@
 
             <!-- SAVE AS MODULE POP-UP BOX -->
 
-            <div id="divSaveAsModuleBox">
+            <div id="divSaveAsModuleBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 Please select a file name for this module.
 
-          <label id="lblSaveAsErrors" class="clsErrorMessage"></label>
+                <label id="lblSaveAsErrors" class="clsErrorMessage"></label>
 
                 <select id="selModulesListSaveAs" size="5" data-bind="foreach: ModuleList">
                     <option data-bind="text: FileName" onclick="SelectExistingSaveAsModule();" ondblclick="SaveAsModuleButtonClick();"></option>
@@ -641,12 +641,12 @@
                 <input id="btnSaveAsModuleCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModulePopUp();" />
             </div>
 
-            <div id="divSaveAsOverwriteConfirmation">
+            <div id="divSaveAsOverwriteConfirmation" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 The file name <span id="spnSaveAsModuleOverwriteName"></span>already exists.
-          <br />
+                <br />
                 Do you want to overwrite the file?
 
-          <input id="btnSaveAsModuleOverwriteButton" type="button" value="Overwrite" onclick="SaveAsModuleOverwriteButtonClick();" />
+                <input id="btnSaveAsModuleOverwriteButton" type="button" value="Overwrite" onclick="SaveAsModuleOverwriteButtonClick();" />
                 <input id="btnSaveAsModuleOverwriteCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModuleConfirmationPopUp(true);" />
             </div>
 
@@ -654,26 +654,26 @@
 
             <!-- ERF IMPORT / EXPORT POP-UP BOXES -->
 
-            <div id="divImportBox">
+            <div id="divImportBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
             </div>
 
-            <div id="divExportBox">
+            <div id="divExportBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
             </div>
 
             <!-- END ERF IMPORT / EXPORT POP-UP BOXES -->
 
 
 
-            <div id="divModulePropertiesBox">
+            <div id="divModulePropertiesBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
             </div>
 
-            <div id="divManageContentPackagesBox">
+            <div id="divManageContentPackagesBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
             </div>
 
-            <div id="divContentPackageCreatorBox">
+            <div id="divContentPackageCreatorBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
             </div>
 
-            <div id="divAboutBox">
+            <div id="divAboutBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 <div class="row-fluid">
                     <label id="lblAboutBox">
                         Winter Engine Toolset developed by Zunath.
@@ -685,7 +685,7 @@
                 </div>
             </div>
 
-            <div id="divAlertBox">
+            <div id="divAlertBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 <div class="row-fluid">
                     <label id="lblAlertBox">
                     </label>
@@ -695,7 +695,7 @@
                 </div>
             </div>
 
-            <div id="divNewObject">
+            <div id="divNewObject" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 <form id="formNewObject">
                     <label id="lblNewObjectErrors" class="clsErrorMessage"></label>
 
@@ -714,7 +714,7 @@
                 </form>
             </div>
 
-            <div id="divConfirmDelete">
+            <div id="divConfirmDelete" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 <label id="lblConfirmDelete">
                 </label>
 
@@ -725,7 +725,7 @@
                 <input id="btnDeleteObjectCancel" type="button" value="Cancel" class="clsHalfButton" onclick="CloseDeleteObjectBox();" />
             </div>
 
-            <div id="divCreateCategory">
+            <div id="divCreateCategory" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 <form id="formNewCategory">
                     <label id="lblNewCategoryErrors" class="clsErrorMessage">
                     </label>
@@ -738,7 +738,7 @@
                 </form>
             </div>
 
-            <div id="divRenameTreeNode">
+            <div id="divRenameTreeNode" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 <form id="formRenameTreeNode">
                     <label id="lblRenameTreeNodeErrors" class="clsErrorMessage"></label>
 
@@ -755,7 +755,7 @@
 
             <!-- BEGIN CONTENT PACKAGE MANAGEMENT -->
 
-            <div id="divManageContentPackages">
+            <div id="divManageContentPackages" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
 
                 <label class="clsErrorMessage">WARNING: </label>
                 Adjusting the content package list can take a very long time.
@@ -792,7 +792,7 @@
 
             <!-- BEGIN FOOTERS -->
 
-            <div id="divAreaFooter" class="navbar navbar-fixed-bottom">
+            <div id="divAreaFooter" class="navbar navbar-fixed-bottom" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
             </div>
 
             <!-- END FOOTERS -->
