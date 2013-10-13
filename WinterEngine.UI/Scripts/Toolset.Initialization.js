@@ -14,8 +14,6 @@ function Initialize() {
     InitializeDialogBox('#divImportBox', 'Import ERF');
     InitializeDialogBox('#divExportBox', 'Export ERF');
     InitializeDialogBox('#divModulePropertiesBox', 'Module Properties');
-    InitializeDialogBox('#divManageContentPackagesBox', 'Manage Content Packages');
-    InitializeDialogBox('#divContentPackageCreatorBox', 'Content Package Creator');
     InitializeDialogBox('#divAlertBox', 'Alert');
     InitializeDialogBox('#divNewObject', 'New Object');
     InitializeDialogBox('#divConfirmDelete', 'Delete Object');

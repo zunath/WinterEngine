@@ -19,6 +19,8 @@ using FlatRedBall.Graphics;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.IO;
+using WinterEngine.DataTransferObjects.Paths;
 
 namespace WinterEngine.Game.Entities
 {
@@ -99,6 +101,21 @@ namespace WinterEngine.Game.Entities
 
         #region Methods
 
+        private void GetPartialViewHTML(object sender, JavascriptMethodEventArgs e)
+        {
+            try
+            {
+                string partialViewPath = DirectoryPaths.PartialViewsDirectoryPath + e.Arguments[0];
+                string html = File.ReadAllText(partialViewPath);
+
+                e.Result = html;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Unable to load partial view.", ex);
+            }
+
+        }
 
         public void RaiseChangeScreenEvent(TypeOfEventArgs screenType)
         {
@@ -107,7 +124,6 @@ namespace WinterEngine.Game.Entities
                 OnChangeScreen(this, screenType);
             }
         }
-
 
         #endregion
 
@@ -160,6 +176,9 @@ namespace WinterEngine.Game.Entities
 
             EntityJavascriptObject.Bind("MouseEnterUI", false, SetMouseIsInUITrue);
             EntityJavascriptObject.Bind("MouseExitUI", false, SetMouseIsInUIFalse);
+            EntityJavascriptObject.Bind("GetPartialViewHTML", true, GetPartialViewHTML);
+
+            AsyncJavascriptCallback("Awesomium_LoadPartialViews");
         }
 
         private void SetMouseIsInUITrue(object sender, JavascriptMethodEventArgs e)

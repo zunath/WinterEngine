@@ -1,0 +1,32 @@
+﻿<div id="divManageContentPackages" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+
+    <label class="clsErrorMessage">WARNING: </label>
+    Adjusting the content package list can take a very long time.
+    <br />
+    <br />
+    Please do not interrupt the process once it has started.
+    <br />
+    <br />
+    <div id="divAvailableContentPackagesList">
+        <label>Available Content Packages:</label>
+        <select id="selAvailableContentPackages" size="6" data-bind="foreach: AvailableContentPackages">
+            <option data-bind="text: Name, value: FileName" ondblclick="ManageContentPackagesAddButton();"></option>
+        </select>
+
+    </div>
+
+    <input id="btnAddContentPackage" type="button" value="Add" onclick="ManageContentPackagesAddButton();" />
+    <input id="btnRemoveContentPackage" type="button" value="Remove" onclick="ManageContentPackagesRemoveButton();" />
+
+    <div id="divAttachedContentPackagesList">
+        <br />
+        <label>Attached Content Packages:</label>
+        <select id="selAttachedContentPackages" size="6" data-bind="foreach: AttachedContentPackages">
+            <option data-bind="text: Name, value: FileName" ondblclick="ManageContentPackagesRemoveButton();"></option>
+        </select>
+
+    </div>
+
+    <input id="btnManageContentPackagesSaveChanges" type="button" value="Save Changes" onclick="ManageContentPackagesSaveChanges();" />
+    <input id="btnManageContentPackagesCancel" type="button" value="Cancel" onclick="CloseManageContentPackagesBox();" />
+</div>

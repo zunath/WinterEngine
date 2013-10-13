@@ -8,11 +8,12 @@ namespace WinterEngine.DataTransferObjects.Paths
 {
     public static class DirectoryPaths
     {
-        #region Fields
+        #region Constants
 
         private const string _contentPackagePath = "ContentPacks";
         private const string _characterVaultPath = "CharacterVault";
         private const string _modulePath = "Modules";
+        private const string _partialViewsPath = "Views/Partial";
 
         #endregion
 
@@ -49,6 +50,14 @@ namespace WinterEngine.DataTransferObjects.Paths
             get
             {
                 return FileManager.RelativeDirectory + @"Content/" + _modulePath + "/";
+            }
+        }
+
+        public static string PartialViewsDirectoryPath
+        {
+            get
+            {
+                return FileManager.RelativeDirectory + _partialViewsPath + "/";
             }
         }
 

@@ -1,0 +1,24 @@
+﻿
+<div id="divSaveAsModuleBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    Please select a file name for this module.
+
+    <label id="lblSaveAsErrors" class="clsErrorMessage"></label>
+
+    <select id="selModulesListSaveAs" size="5" data-bind="foreach: ModuleList">
+        <option data-bind="text: FileName" onclick="SelectExistingSaveAsModule();" ondblclick="SaveAsModuleButtonClick();"></option>
+    </select>
+
+    <input id="txtSaveAsModuleFileName" type="text" />
+
+    <input id="btnSaveAsModuleSaveButton" type="button" value="Save" onclick="SaveAsModuleButtonClick();" />
+    <input id="btnSaveAsModuleCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModulePopUp();" />
+</div>
+
+<div id="divSaveAsOverwriteConfirmation" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    The file name <span id="spnSaveAsModuleOverwriteName"></span>already exists.
+    <br />
+    Do you want to overwrite the file?
+
+    <input id="btnSaveAsModuleOverwriteButton" type="button" value="Overwrite" onclick="SaveAsModuleOverwriteButtonClick();" />
+    <input id="btnSaveAsModuleOverwriteCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModuleConfirmationPopUp(true);" />
+</div>
