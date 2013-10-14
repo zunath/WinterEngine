@@ -25,7 +25,6 @@ using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.Enumerations;
 using FlatRedBall.ManagedSpriteGroups;
 using FlatRedBall.TileGraphics;
-using WinterEngine.Game.Factories;
 
 namespace WinterEngine.Game.Entities
 {
@@ -118,14 +117,6 @@ namespace WinterEngine.Game.Entities
 
         #region Methods
 
-        private void DestroyTileEntityList()
-        {
-            for (int index = TileEntityList.Count - 1; index >= 0; index--)
-            {
-                SpriteManager.RemovePositionedObject(TileEntityList[index]);
-            }
-        }
-
         private void GenerateTileSpriteList()
         {
 
@@ -150,10 +141,6 @@ namespace WinterEngine.Game.Entities
                         Y = -(currentRow * (int)MappingEnum.TileHeight)
                     };
 
-                    TileEntity entity = new TileEntity(ContentManagerName);
-                    entity.SpriteInstance.Texture = sprite.Texture;
-
-                    TileEntityList.Add(entity);
                 }
             }
 
