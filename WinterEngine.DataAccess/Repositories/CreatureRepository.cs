@@ -61,6 +61,11 @@ namespace WinterEngine.DataAccess
             }
             if (dbCreature == null) return;
 
+            if (newCreature.GraphicResourceID <= 0)
+            {
+                newCreature.GraphicResourceID = null;
+            }
+
             Context.Context.Entry(dbCreature).CurrentValues.SetValues(newCreature);
         }
 

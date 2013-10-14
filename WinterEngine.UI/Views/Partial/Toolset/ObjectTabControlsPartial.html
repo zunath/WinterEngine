@@ -61,7 +61,16 @@
             </div>
 
             <h3>Local Variables</h3>
-            <div id="divAreasTab-LocalVariables" data-bind="foreach: ActiveArea().LocalVariables">
+            <div id="divAreasTab-LocalVariables">
+                <input id="btnAreasTab-AddLocalVariable" type="button" value="Add New Variable" />
+
+                <div data-bind="foreach: ActiveArea().LocalVariables">
+                    <div class="btn-group">
+                        <input type="text" value="Name" />
+                        <input type="text" value="Value" />
+                        <input type="button" value="Remove" />
+                    </div>
+                </div>
             </div>
 
             <h3>Events</h3>
@@ -254,6 +263,7 @@
             </div>
 
             <h3>Local Variables</h3>
+
             <div id="divItemsTab-LocalVariables" data-bind="foreach: ActiveItem().LocalVariables">
             </div>
 
@@ -367,8 +377,7 @@
                     data-bind="options: TilesetSpriteSheetsList,
                                optionsText: function (item) { return item.Name },
                                optionsValue: function (item) { return item.ResourceID },
-                               value: SelectedTilesetSpriteSheetID
-                                            ">
+                               value: SelectedTilesetSpriteSheetID">
                 </select>
 
             </div>

@@ -59,6 +59,11 @@ namespace WinterEngine.DataAccess.Repositories
             }
             if (dbScript == null) return;
 
+            if (newScript.GraphicResourceID <= 0)
+            {
+                newScript.GraphicResourceID = null;
+            }
+
             Context.Context.Entry(dbScript).CurrentValues.SetValues(newScript);
         }
 
