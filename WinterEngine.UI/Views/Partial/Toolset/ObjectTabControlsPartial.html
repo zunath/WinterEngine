@@ -14,7 +14,7 @@
                 <input id="txtAreaDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveArea().Resref" class="clsAreaObjectField" />
 
                 <label id="lblAreaDetails-Tileset" for="selAreaDetails-Tileset">Tileset:</label>
-                <select id="selAreaDetails-Tileset" disabled="disabled" data-bind="value: ActiveArea().Tileset" class="clsAreaObjectField"></select>
+                <select id="selAreaDetails-Tileset" disabled="disabled" data-bind="value: ActiveArea().Tileset" class="clsAreaObjectField" size="3"></select>
 
                 <label id="lblAreaDetails-MapWidth" for="numAreaDetails-MapWidth">Width:</label>
                 <input id="numAreaDetails-MapWidth" type="number" min="1" max="32" data-bind="value: ActiveArea().TilesWide" disabled="disabled" class="clsAreaObjectField" />
@@ -44,11 +44,10 @@
             <h3>Music</h3>
             <div id="divAreasTab-Music">
                 <label>Background:</label>
-                <select id="selAreasMusic-Background" disabled="disabled" data-bind="value: ActiveArea().BackgroundMusic" class="clsAreaObjectField"></select>
+                <select id="selAreasMusic-Background" disabled="disabled" data-bind="value: ActiveArea().BackgroundMusic" class="clsAreaObjectField" size="3"></select>
 
                 <label>Battle:</label>
-                <select id="selAreasMusic-Battle" disabled="disabled" data-bind="value: ActiveArea().BattleMusic" class="clsAreaObjectField">
-                </select>
+                <select id="selAreasMusic-Battle" disabled="disabled" data-bind="value: ActiveArea().BattleMusic" class="clsAreaObjectField" size="3"></select>
             </div>
 
             <h3>Description</h3>
@@ -69,16 +68,16 @@
             <div id="divAreasTab-Events">
 
                 <label id="lblAreaEvents-OnAreaEnter">On Area Enter:</label>
-                <select id="selAreaEvents-OnAreaEnter" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaEnter" class="clsAreaObjectField"></select>
+                <select id="selAreaEvents-OnAreaEnter" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaEnter" class="clsAreaObjectField" size="3"></select>
 
                 <label id="lblAreaEvents-OnAreaExit">On Area Exit:</label>
-                <select id="selAreaEvents-OnAreaExit" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaExit" class="clsAreaObjectField"></select>
+                <select id="selAreaEvents-OnAreaExit" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaExit" class="clsAreaObjectField" size="3"></select>
 
                 <label id="lblAreaEvents-OnAreaHeartbeat">On Area Heartbeat:</label>
-                <select id="selAreaEvents-OnAreaHeartbeat" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaHeartbeat" class="clsAreaObjectField"></select>
+                <select id="selAreaEvents-OnAreaHeartbeat" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaHeartbeat" class="clsAreaObjectField" size="3"></select>
 
                 <label id="lblAreaEvents-OnUserDefinedEvent">On User Defined Event:</label>
-                <select id="selAreaEvents-OnUserDefinedEvent" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaUserDefinedEvent" class="clsAreaObjectField"></select>
+                <select id="selAreaEvents-OnUserDefinedEvent" disabled="disabled" data-bind="value: ActiveArea().EventOnAreaUserDefinedEvent" class="clsAreaObjectField" size="3"></select>
 
             </div>
         </div>
@@ -96,19 +95,19 @@
                 <input id="txtCreatureDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveCreature().Resref" class="clsCreatureObjectField" />
 
                 <label id="lblCreatureDetails-Appearance" for="txtCreatureDetails-Appearance">Appearance:</label>
-                <select id="selCreatureDetails-Appearance" disabled="disabled" data-bind="value: ActiveCreature().Appearance" class="clsCreatureObjectField"></select>
+                <select id="selCreatureDetails-Appearance" disabled="disabled" data-bind="value: ActiveCreature().Appearance" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Race:</label>
-                <select id="selCreatureDetails-Race" disabled="disabled" data-bind="value: ActiveCreature().Race" class="clsCreatureObjectField"></select>
+                <select id="selCreatureDetails-Race" disabled="disabled" data-bind="value: ActiveCreature().Race" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Gender:</label>
-                <select id="selCreatureDetails-Gender" disabled="disabled" data-bind="value: ActiveCreature().Gender" class="clsCreatureObjectField"></select>
+                <select id="selCreatureDetails-Gender" disabled="disabled" data-bind="value: ActiveCreature().Gender" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Faction:</label>
-                <select id="selCreatureDetails-Faction" disabled="disabled" data-bind="value: ActiveCreature().Faction" class="clsCreatureObjectField"></select>
+                <select id="selCreatureDetails-Faction" disabled="disabled" data-bind="value: ActiveCreature().Faction" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Conversation:</label>
-                <select id="selCreatureDetails-Conversation" disabled="disabled" data-bind="value: ActiveCreature().Conversation" class="clsCreatureObjectField"></select>
+                <select id="selCreatureDetails-Conversation" disabled="disabled" data-bind="value: ActiveCreature().Conversation" class="clsCreatureObjectField" size="3"></select>
 
                 <label>
                     Is Invulnerable:
@@ -149,46 +148,46 @@
             <h3>Equipment</h3>
             <div id="divCreaturesTab-Equipment">
                 <label>Main Hand:</label>
-                <select id="selCreaturesTab-MainHand" disabled="disabled" data-bind="value: ActiveCreature().EquipmentMainHand" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-MainHand" disabled="disabled" data-bind="value: ActiveCreature().EquipmentMainHand" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Off Hand:</label>
-                <select id="selCreaturesTab-OffHand" disabled="disabled" data-bind="value: ActiveCreature().EquipmentOffHand" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-OffHand" disabled="disabled" data-bind="value: ActiveCreature().EquipmentOffHand" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Head:</label>
-                <select id="selCreaturesTab-Head" disabled="disabled" data-bind="value: ActiveCreature().EquipmentHead" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-Head" disabled="disabled" data-bind="value: ActiveCreature().EquipmentHead" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Body:</label>
-                <select id="selCreaturesTab-Body" disabled="disabled" data-bind="value: ActiveCreature().EquipmentBody" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-Body" disabled="disabled" data-bind="value: ActiveCreature().EquipmentBody" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Back:</label>
-                <select id="selCreaturesTab-Back" disabled="disabled" data-bind="value: ActiveCreature().EquipmentBack" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-Back" disabled="disabled" data-bind="value: ActiveCreature().EquipmentBack" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Hands:</label>
-                <select id="selCreaturesTab-Hands" disabled="disabled" data-bind="value: ActiveCreature().EquipmentHands" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-Hands" disabled="disabled" data-bind="value: ActiveCreature().EquipmentHands" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Waist:</label>
-                <select id="selCreaturesTab-Waist" disabled="disabled" data-bind="value: ActiveCreature().EquipmentWaist" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-Waist" disabled="disabled" data-bind="value: ActiveCreature().EquipmentWaist" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Legs:</label>
-                <select id="selCreaturesTab-Legs" disabled="disabled" data-bind="value: ActiveCreature().EquipmentLegs" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-Legs" disabled="disabled" data-bind="value: ActiveCreature().EquipmentLegs" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Feet:</label>
-                <select id="selCreaturesTab-Feet" disabled="disabled" data-bind="value: ActiveCreature().EquipmentFeet" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-Feet" disabled="disabled" data-bind="value: ActiveCreature().EquipmentFeet" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Ear (L):</label>
-                <select id="selCreaturesTab-EarL" disabled="disabled" data-bind="value: ActiveCreature().EquipmentEarL" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-EarL" disabled="disabled" data-bind="value: ActiveCreature().EquipmentEarL" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Ear (R):</label>
-                <select id="selCreaturesTab-EarR" disabled="disabled" data-bind="value: ActiveCreature().EquipmentEarR" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-EarR" disabled="disabled" data-bind="value: ActiveCreature().EquipmentEarR" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Ring (L):</label>
-                <select id="selCreaturesTab-RingL" disabled="disabled" data-bind="value: ActiveCreature().EquipmentRingL" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-RingL" disabled="disabled" data-bind="value: ActiveCreature().EquipmentRingL" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Ring (R):</label>
-                <select id="selCreaturesTab-RingR" disabled="disabled" data-bind="value: ActiveCreature().EquipmentRingR" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-RingR" disabled="disabled" data-bind="value: ActiveCreature().EquipmentRingR" class="clsCreatureObjectField" size="3"></select>
 
                 <label>Neck:</label>
-                <select id="selCreaturesTab-Neck" disabled="disabled" data-bind="value: ActiveCreature().EquipmentNeck" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesTab-Neck" disabled="disabled" data-bind="value: ActiveCreature().EquipmentNeck" class="clsCreatureObjectField" size="3"></select>
 
             </div>
 
@@ -213,19 +212,19 @@
             <h3>Events</h3>
             <div id="divCreaturesTab-Events">
                 <label id="lblCreaturesEvents-OnSpawn">On Spawn:</label>
-                <select id="selCreaturesEvents-OnSpawn" disabled="disabled" data-bind="value: ActiveCreature().EventOnSpawn" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesEvents-OnSpawn" disabled="disabled" data-bind="value: ActiveCreature().EventOnSpawn" class="clsCreatureObjectField" size="3"></select>
 
                 <label id="lblCreaturesEvents-OnDamaged">On Damaged:</label>
-                <select id="selCreaturesEvents-OnDamaged" disabled="disabled" data-bind="value: ActiveCreature().EventOnDamaged" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesEvents-OnDamaged" disabled="disabled" data-bind="value: ActiveCreature().EventOnDamaged" class="clsCreatureObjectField" size="3"></select>
 
                 <label id="lblCreaturesEvents-OnDeath">On Death:</label>
-                <select id="selCreaturesEvents-OnDeath" disabled="disabled" data-bind="value: ActiveCreature().EventOnDeath" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesEvents-OnDeath" disabled="disabled" data-bind="value: ActiveCreature().EventOnDeath" class="clsCreatureObjectField" size="3"></select>
 
                 <label id="lblCreaturesEvents-OnConversation">On Conversation:</label>
-                <select id="selCreaturesEvents-OnConversation" disabled="disabled" data-bind="value: ActiveCreature().EventOnConversation" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesEvents-OnConversation" disabled="disabled" data-bind="value: ActiveCreature().EventOnConversation" class="clsCreatureObjectField" size="3"></select>
 
                 <label id="lblCreaturesEvents-OnHeartbeat">On Heartbeat:</label>
-                <select id="selCreaturesEvents-OnHeartbeat" disabled="disabled" data-bind="value: ActiveCreature().EventOnHeartbeat" class="clsCreatureObjectField"></select>
+                <select id="selCreaturesEvents-OnHeartbeat" disabled="disabled" data-bind="value: ActiveCreature().EventOnHeartbeat" class="clsCreatureObjectField" size="3"></select>
 
             </div>
         </div>
@@ -262,7 +261,7 @@
             <div id="divItemsTab-Events">
 
                 <label id="lblItemsEvents-OnSpawn">On Spawn:</label>
-                <select id="selItemsEvents-OnSpawn" disabled="disabled" data-bind="value: ActiveItem().EventOnSpawn" class="clsItemObjectField"></select>
+                <select id="selItemsEvents-OnSpawn" disabled="disabled" data-bind="value: ActiveItem().EventOnSpawn" class="clsItemObjectField" size="3"></select>
 
             </div>
         </div>
@@ -298,25 +297,25 @@
             <div id="divPlaceablesTab-Events">
 
                 <label id="lblPlaceablesEvents-OnSpawn">On Spawn:</label>
-                <select id="selPlaceablesEvents-OnSpawn" disabled="disabled" data-bind="value: ActivePlaceable().EventOnSpawn" class="clsPlaceableObjectField"></select>
+                <select id="selPlaceablesEvents-OnSpawn" disabled="disabled" data-bind="value: ActivePlaceable().EventOnSpawn" class="clsPlaceableObjectField" size="3"></select>
 
                 <label id="lblPlaceablesEvents-OnDamaged">On Damaged:</label>
-                <select id="selPlaceablesEvents-OnDamaged" disabled="disabled" data-bind="value: ActivePlaceable().EventOnDamaged" class="clsPlaceableObjectField"></select>
+                <select id="selPlaceablesEvents-OnDamaged" disabled="disabled" data-bind="value: ActivePlaceable().EventOnDamaged" class="clsPlaceableObjectField" size="3"></select>
 
                 <label id="lblPlaceablesEvents-OnDeath">On Death:</label>
-                <select id="selPlaceablesEvents-OnDeath" disabled="disabled" data-bind="value: ActivePlaceable().EventOnDeath" class="clsPlaceableObjectField"></select>
+                <select id="selPlaceablesEvents-OnDeath" disabled="disabled" data-bind="value: ActivePlaceable().EventOnDeath" class="clsPlaceableObjectField" size="3"></select>
 
                 <label id="lblPlaceablesEvents-OnHeartbeat">On Heartbeat:</label>
-                <select id="selPlaceablesEvents-OnHeartbeat" disabled="disabled" data-bind="value: ActivePlaceable().EventOnHeartbeat" class="clsPlaceableObjectField"></select>
+                <select id="selPlaceablesEvents-OnHeartbeat" disabled="disabled" data-bind="value: ActivePlaceable().EventOnHeartbeat" class="clsPlaceableObjectField" size="3"></select>
 
                 <label id="lblPlaceablesEvents-OnOpen">On Open:</label>
-                <select id="selPlaceablesEvents-OnOpen" disabled="disabled" data-bind="value: ActivePlaceable().EventOnOpen" class="clsPlaceableObjectField"></select>
+                <select id="selPlaceablesEvents-OnOpen" disabled="disabled" data-bind="value: ActivePlaceable().EventOnOpen" class="clsPlaceableObjectField" size="3"></select>
 
                 <label id="lblPlaceablesEvents-OnClose">On Close:</label>
-                <select id="selPlaceablesEvents-OnClose" disabled="disabled" data-bind="value: ActivePlaceable().EventOnClose" class="clsPlaceableObjectField"></select>
+                <select id="selPlaceablesEvents-OnClose" disabled="disabled" data-bind="value: ActivePlaceable().EventOnClose" class="clsPlaceableObjectField" size="3"></select>
 
                 <label id="lblPlaceablesEvents-OnUsed">On Used:</label>
-                <select id="selPlaceablesEvents-OnUsed" disabled="disabled" data-bind="value: ActivePlaceable().EventOnUsed" class="clsPlaceableObjectField"></select>
+                <select id="selPlaceablesEvents-OnUsed" disabled="disabled" data-bind="value: ActivePlaceable().EventOnUsed" class="clsPlaceableObjectField" size="3"></select>
 
             </div>
         </div>

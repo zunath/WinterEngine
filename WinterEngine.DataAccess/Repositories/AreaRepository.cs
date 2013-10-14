@@ -60,6 +60,11 @@ namespace WinterEngine.DataAccess
             }
             if (dbArea == null) return;
 
+            if (newArea.GraphicResourceID <= 0)
+            {
+                newArea.GraphicResourceID = null;
+            }
+
             Context.Context.Entry(dbArea).CurrentValues.SetValues(newArea);
         }
 
