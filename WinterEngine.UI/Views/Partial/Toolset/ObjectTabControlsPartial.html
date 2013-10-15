@@ -66,8 +66,8 @@
 
                 <div data-bind="foreach: ActiveArea().LocalVariables">
                     <div class="btn-group">
-                        <input type="text" value="Name" />
-                        <input type="text" value="Value" />
+                        <input type="text" data-bind="value: Name" />
+                        <input type="text" data-bind="value: Value" />
                         <input type="button" value="Remove" />
                     </div>
                 </div>
