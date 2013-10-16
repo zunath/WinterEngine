@@ -180,7 +180,7 @@ namespace WinterEngine.Game.Entities
 			RotationX = oldRotationX;
 			RotationY = oldRotationY;
 			RotationZ = oldRotationZ;
-			ResourcePath = "file:///./Components/CharacterSelection.html";
+			ResourcePath = "file:///./Views/CharacterSelection.html";
 			if (Parent == null)
 			{
 				X = 0f;

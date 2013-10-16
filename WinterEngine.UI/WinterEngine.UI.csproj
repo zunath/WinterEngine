@@ -95,16 +95,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Components\CharacterSelection.html">
+    <Content Include="Views\CharacterSelection.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Components\GameUI.html">
+    <Content Include="Views\GameUI.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Components\MainMenu.html">
+    <Content Include="Views\MainMenu.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Components\Toolset.html">
+    <Content Include="Views\Toolset.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\DataTables\back_disabled.png">
@@ -353,7 +353,7 @@
     <Content Include="Styling\Game\ServerListStyles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Components\ServerList.html">
+    <Content Include="Views\ServerList.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\Toolset\AreaFooterPartial.html">

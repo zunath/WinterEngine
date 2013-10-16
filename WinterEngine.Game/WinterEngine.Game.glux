@@ -242,7 +242,7 @@
           </Properties>
           <Name>ResourcePath</Name>
           <Type>string</Type>
-          <DefaultValue xsi:type="xsd:string">file:///./Components/CharacterSelection.html</DefaultValue>
+          <DefaultValue xsi:type="xsd:string">file:///./Views/CharacterSelection.html</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
         <CustomVariable>
@@ -302,7 +302,7 @@
           </Properties>
           <Name>ResourcePath</Name>
           <Type>string</Type>
-          <DefaultValue xsi:type="xsd:string">file:///./Components/GameUI.html</DefaultValue>
+          <DefaultValue xsi:type="xsd:string">file:///./Views/GameUI.html</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
         <CustomVariable>
@@ -419,7 +419,7 @@
           </Properties>
           <Name>ResourcePath</Name>
           <Type>string</Type>
-          <DefaultValue xsi:type="xsd:string">file:///./Components/MainMenu.html</DefaultValue>
+          <DefaultValue xsi:type="xsd:string">file:///./Views/MainMenu.html</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
         <CustomVariable>
@@ -478,7 +478,7 @@
           </Properties>
           <Name>ResourcePath</Name>
           <Type>string</Type>
-          <DefaultValue xsi:type="xsd:string">file:///./Components/ServerList.html</DefaultValue>
+          <DefaultValue xsi:type="xsd:string">file:///./Views/ServerList.html</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
         <CustomVariable>
@@ -538,7 +538,7 @@
           </Properties>
           <Name>ResourcePath</Name>
           <Type>string</Type>
-          <DefaultValue xsi:type="xsd:string">file:///./Components/Toolset.html</DefaultValue>
+          <DefaultValue xsi:type="xsd:string">file:///./Views/Toolset.html</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
         <CustomVariable>
