@@ -1,0 +1,40 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="js" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ include file="ViewModel.tt" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="WinterEngine.DataTransferObjects" #>
+<#@ assembly name="$(TargetPath)" #>
+<#@ assembly name="$(ProjectDir)$(OutDir)WinterEngine.DataTransferObjects.dll" #>
+
+
+<#
+// <copyright file="ViewModels.tt" company="TRI-S">
+//  Copyright ©2013 . All Rights Reserved.
+// </copyright>
+
+//	To use this generator: download the T4 Toolbox from http://www.olegsych.com/ (extension in VS)
+//	and use the T4 Tangible Editor for code editing http://t4-editor.tangible-engineering.com/T4-Editor-Visual-T4-Editing.html (free version)
+#>
+
+
+<#
+	var list = new List<Type>();
+	
+	foreach (Type type in System.Reflection.Assembly.GetAssembly(typeof(WinterEngine.DataTransferObjects.IEntity)).GetTypes())
+    {
+	    if (type.IsAbstract) continue;	// only generate JS viewmodels for non-abstract classes
+
+		list.Add(type);
+    }
+
+	foreach (var type in list)
+    {
+		var vmtemplate = new ViewModelTemplate(type, list);
+		vmtemplate.Output.Project = @"..\..\WinterEngine.UI\WinterEngine.UI.csproj";
+		vmtemplate.Output.File = @"Scripts\ViewModels\" + type.Name + ".js";
+		vmtemplate.Render();
+    }
+#>

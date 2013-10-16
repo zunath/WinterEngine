@@ -1,0 +1,108 @@
+﻿<#+
+// <copyright file="ViewModel.tt" company="TRI-S">
+//  Copyright ©2013 . All Rights Reserved.
+// </copyright>
+
+public class ViewModelTemplate : CSharpTemplate
+{
+	private Type _type;
+	private List<Type> _list;
+
+    public ViewModelTemplate (Type type, List<Type> list)
+    {
+		_type = type;
+		_list = list;
+    }
+
+	public override string TransformText()
+	{
+		base.TransformText();
+
+		
+#>
+
+var <#= _type.Name #> = function()
+{
+	var self = this;
+
+	//	Type of the original .NET model. Must stay first ! (required for JSON.NET)
+	self.$type = '<#= string.Format("{0}, {1}", _type.FullName, _type.Assembly.GetName().Name) #>';
+
+<#+ foreach(var prop in _type.GetProperties()) { 
+	  //	string is also an IEnumerable (of chars). Strings must not be implemented as ko.observableArray()
+	  if (prop.PropertyType != typeof(string)
+		  && prop.PropertyType != typeof(byte[])
+		  && prop.PropertyType.GetInterface("IEnumerable") != null) {#>
+	self.<#= prop.Name #> = ko.observableArray();
+<#+   } else { #>
+	self.<#= prop.Name #> = ko.observable();
+<#+   }	// end if #>
+<#+ }	// end foreach #>
+
+	//	invoke the extendable's init() function. Must happen when all observables are created (in case a
+    //	computable wants to make use of it)
+    this.init();
+
+    self.setModel = function(objFromServer) {
+	  if (!objFromServer) return;
+
+<#+ foreach(var prop in _type.GetProperties()) { #>
+<#+		// if it's a datetime property
+		if (prop.PropertyType == typeof(DateTime)
+			|| prop.PropertyType == typeof(DateTime?)) { 
+#>
+	  if (objFromServer.<#= prop.Name #>)
+		self.<#= prop.Name #>(moment(objFromServer.<#= prop.Name #>).toDate());
+	  else
+	    self.<#= prop.Name #>(null);
+<#+	    // if it's a collection property
+	    } else if (prop.PropertyType != typeof(string)
+			&& prop.PropertyType != typeof(byte[])
+			&& prop.PropertyType.GetInterface("IEnumerable") != null) {
+#>
+	  self.<#= prop.Name #>.removeAll();	// clear array first
+	  if (objFromServer.<#= prop.Name #> && objFromServer.<#= prop.Name #>.length > 0)
+	  {
+		  for (var i=0; i < objFromServer.<#= prop.Name #>.length; i++) {
+			  var _iter_item = objFromServer.<#= prop.Name #>[i];
+			  <#+ // if it's a list of viewmodels, create a new viewmodel for each iteration
+				  if (_list.Contains(prop.PropertyType.GetGenericArguments()[0])) { #>
+				  var _new_item = new <#= prop.PropertyType.GetGenericArguments()[0].Name #>();
+				  _new_item.setModel(_iter_item);
+				  self.<#= prop.Name #>.push(_new_item);
+			  <#+ // otherwise, add each object to the list
+				  } else { #>
+				  self.<#= prop.Name #>.push(_iter_item);
+			  <#+ } #>
+		  }
+	  }
+<#+		//	property representing another viewmodel
+		} else if (_list.Contains(prop.PropertyType)) { #>
+	  if (objFromServer.<#= prop.Name #>) {
+        var __<#= prop.Name #> = new <#= prop.PropertyType.Name #>();
+	    __<#= prop.Name #>.setModel(objFromServer.<#= prop.Name #>);
+	    self.<#= prop.Name #>(__<#= prop.Name #>);
+	  }
+	  else
+		self.<#= prop.Name #>(null);
+<#+		//	regular property
+		} else { #>
+	  self.<#= prop.Name #>(objFromServer.<#= prop.Name #>);
+<#+		}
+	} 
+#>
+	  
+	  //	check if change tracking is active for this viewmodel. If it is: reset isDirty flag
+	  if (self.isDirty)
+		  self.isDirty(false);
+    }
+}
+
+//	inherit from extendable (will allow adding observables/computables on client-side)
+<#= _type.Name #>.prototype = new extendable();
+
+<#+
+        return this.GenerationEnvironment.ToString();
+	}
+}
+#>
