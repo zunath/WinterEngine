@@ -29,19 +29,9 @@ namespace WinterEngine.DataTransferObjects
         [MaxLength(4000)]
         public string FileName { get; set; }
 
-        public int ContentPackageResourceTypeID
-        {
-            get { return (int)_contentPackageResourceType; }
-            set
-            {
-                _contentPackageResourceType = (ContentPackageResourceTypeEnum)Enum.Parse(typeof(ContentPackageResourceTypeEnum), Convert.ToString(value));
-            }
-        }
-
         /// <summary>
         /// Gets or sets the resource type of the content package resource.
         /// </summary>
-        [NotMapped]
         public ContentPackageResourceTypeEnum ContentPackageResourceType
         {
             get { return _contentPackageResourceType; }

@@ -153,7 +153,7 @@ namespace WinterEngine.DataAccess.Repositories
             JSTreeNode rootNode = new JSTreeNode("Conversations");
             rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Conversation).ToList();
+            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Conversation).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);

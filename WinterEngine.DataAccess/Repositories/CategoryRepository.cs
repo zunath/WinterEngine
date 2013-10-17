@@ -42,7 +42,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Category> GetAllResourceCategoriesByResourceType(GameObjectTypeEnum resourceType)
         {
-            return Context.CategoryRepository.Get(x => x.GameObjectTypeID.Equals((int)resourceType)).ToList();
+            return Context.CategoryRepository.Get(x => x.GameObjectType.Equals(resourceType)).ToList();
         }
 
         /// <summary>

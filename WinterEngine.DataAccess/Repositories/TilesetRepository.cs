@@ -103,7 +103,7 @@ namespace WinterEngine.DataAccess.Repositories
             JSTreeNode rootNode = new JSTreeNode("Tilesets");
             rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectTypeID == (int)GameObjectTypeEnum.Tileset).ToList();
+            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Tileset).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);
