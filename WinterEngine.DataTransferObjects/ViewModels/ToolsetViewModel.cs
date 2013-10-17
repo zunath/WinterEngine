@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects.ViewModels
 {
@@ -11,6 +13,16 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public string CurrentObjectMode { get; set; }
         public string CurrentObjectTreeSelector { get; set; }
         public string CurrentObjectTabSelector { get; set; }
+
+        [JsonIgnore]
+        public GameObjectTypeEnum GameObjectType
+        {
+            get
+            {
+                return (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), CurrentObjectMode);
+            }
+        }
+
 
         public Area ActiveArea { get; set; }
         public Creature ActiveCreature { get; set; }
@@ -25,18 +37,17 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public List<ContentPackage> AvailableContentPackages { get; set; }
         public List<ContentPackage> AttachedContentPackages { get; set; }
         public List<ContentPackageResource> TilesetSpriteSheetsList { get; set; }
-        public int SelectedTilesetSpriteSheetID { get; set; }
-
+        
         public ToolsetViewModel()
         {
             CurrentObjectMode = "";
             CurrentObjectTabSelector = "";
             CurrentObjectTreeSelector = "";
-            ActiveArea = new Area();
-            ActiveConversation = new Conversation();
-            ActiveCreature = new Creature();
-            ActiveItem = new Item();
-            ActivePlaceable = new Placeable();
+            ActiveArea = new Area(true);
+            ActiveConversation = new Conversation(true);
+            ActiveCreature = new Creature(true);
+            ActiveItem = new Item(true);
+            ActivePlaceable = new Placeable(true);
             ActiveScript = new Script();
             ActiveTileset = new Tileset();
             ActiveTile = new Tile();

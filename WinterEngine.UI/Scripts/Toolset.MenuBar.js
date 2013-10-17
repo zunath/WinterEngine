@@ -28,7 +28,6 @@ function NewModuleBoxOKClick_Callback(success) {
         ToggleModuleActionButtons(true);
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
-        Entity.PopulateToolsetViewModel();
         $('#divObjectBar').removeClass('clsHidden');
     }
     else {
@@ -44,9 +43,9 @@ function ShowOpenModulePopUp(element) {
 	
 	if (IsMenuButtonDisabled($(element))) return;
 
-    var jsonModuleList = Entity.GetModulesList();
-    ToolsetViewModel.ModuleList(JSON.parse(jsonModuleList));
-
+	Entity.GetModulesList();
+	ToolsetViewModel.Refresh();
+    
     $('#divOpenModuleBox').dialog('open');
 	
 }
@@ -70,7 +69,7 @@ function OpenModuleButtonClick_Callback(success) {
         ChangeObjectMode("Area");
         $('#divObjectBar').removeClass('clsHidden');
         CloseOpenModulePopUp();
-        PopulateToolsetViewModel();
+        ToolsetViewModel.Refresh();
     }
     else {
         ToggleModuleActionButtons(false);
@@ -93,13 +92,15 @@ function SaveModuleButtonClick(element) {
     if (IsMenuButtonDisabled($(element))) return;
 
     Entity.SaveModuleButtonClick();
+    ToolsetViewModel.Refresh();
 }
 
 function ShowSaveAsModulePopUp(element) {
     if (IsMenuButtonDisabled($(element))) return;
 
-    var jsonModuleList = Entity.GetModulesList();
-    ToolsetViewModel.ModuleList(JSON.parse(jsonModuleList));
+    Entity.GetModulesList();
+    ToolsetViewModel.Refresh();
+
     $('#divSaveAsModuleBox').dialog('open');
 }
 
@@ -210,10 +211,7 @@ function ManageContentPackagesButtonClick(element) {
 }
 
 function ManageContentPackagesButton_Callback(jsonAttachedContentPackages, jsonAvailableContentPackages) {
-
-    ToolsetViewModel.AvailableContentPackages(JSON.parse(jsonAvailableContentPackages));
-    ToolsetViewModel.AttachedContentPackages(JSON.parse(jsonAttachedContentPackages));
-
+    ToolsetViewModel.Refresh();
     $('#divManageContentPackages').dialog('open');
 }
 
@@ -249,7 +247,7 @@ function ManageContentPackagesSaveChanges() {
 
 function ManageContentPackagesSaveChanges_Callback() {
 
-    Entity.PopulateToolsetViewModel();
+    ToolsetViewModel.Refresh();
     $('#divManageContentPackages').dialog('close');
 }
 
@@ -272,7 +270,7 @@ function BuildModuleButtonClick_Callback(success, exception) {
 
     if (success) {
         $('#lblAlertBox').text('Rebuild completed successfully');
-        PopulateToolsetViewModel();
+        ToolsetViewModel.Refresh();
     }
     else {
         $('#lblAlertBox').text('Error occurred during rebuild.<br /><br />' +

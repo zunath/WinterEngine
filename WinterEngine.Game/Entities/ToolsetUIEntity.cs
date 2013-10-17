@@ -27,13 +27,31 @@ namespace WinterEngine.Game.Entities
     {
         #region Fields
 
+        private ToolsetViewModel _viewModel;
         private FileExtensionFactory _extensionFactory;
         private ModuleManager _moduleManager;
         private JsonSerializerSettings _serializerSettings;
-
+        
         #endregion
 
         #region Properties
+
+        private ToolsetViewModel ViewModel 
+        {
+            get
+            {
+                if (_viewModel == null)
+                {
+                    _viewModel = new ToolsetViewModel();
+                }
+                return _viewModel;
+            }
+            set
+            {
+                _viewModel = new ToolsetViewModel();
+
+            }
+        }
 
         private JsonSerializerSettings JSONSerializerSettings
         {
@@ -154,8 +172,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("SaveObjectData", false, SaveObjectData);
             EntityJavascriptObject.Bind("LoadObjectData", false, LoadObjectData);
             EntityJavascriptObject.Bind("GetModulesList", true, GetModulesList);
-            EntityJavascriptObject.Bind("PopulateToolsetViewModel", false, PopulateToolsetViewModel);
-
+            
             // Tileset Editor Bindings
             EntityJavascriptObject.Bind("LoadTilesetSpritesheet", false, LoadTilesetSpritesheet);
 
@@ -250,24 +267,6 @@ namespace WinterEngine.Game.Entities
 
         #endregion
 
-        #region UI Methods - Object Mode Bindings
-
-        private void ChangeObjectMode(object sender, JavascriptMethodEventArgs e)
-        {
-            GameObjectTypeEnum mode = (GameObjectTypeEnum)(int)e.Arguments[0];
-
-            if (mode == GameObjectTypeEnum.Tileset)
-            {
-                if (OnTilesetEditorOpened != null)
-                {
-                    OnTilesetEditorOpened(this, new EventArgs());
-                }
-            }
-
-        }
-
-        #endregion
-
         #region UI Methods - Content Menu Bindings
 
         private void BuildModuleButton(object sender, JavascriptMethodEventArgs e)
@@ -315,10 +314,10 @@ namespace WinterEngine.Game.Entities
                 availableContentPackages.Add(package);
             }
 
-            string jsonAttachedContentPackages = JsonConvert.SerializeObject(attachedContentPackages, JSONSerializerSettings);
-            string jsonAvailableContentPackages = JsonConvert.SerializeObject(availableContentPackages, JSONSerializerSettings);
+            ViewModel.AvailableContentPackages = availableContentPackages;
+            ViewModel.AttachedContentPackages = attachedContentPackages;
 
-            AsyncJavascriptCallback("ManageContentPackagesButton_Callback", jsonAttachedContentPackages, jsonAvailableContentPackages);
+            AsyncJavascriptCallback("ManageContentPackagesButton_Callback");
         }
 
         private void UpdateContentPackages(object sender, JavascriptMethodEventArgs e)
@@ -580,43 +579,47 @@ namespace WinterEngine.Game.Entities
         /// <param name="e"></param>
         private void GetModelJSON(object sender, JavascriptMethodEventArgs e)
         {
-            e.Result = JsonConvert.SerializeObject(new ToolsetViewModel());
+            e.Result = JsonConvert.SerializeObject(ViewModel);
         }
 
         private void LoadObjectData(object sender, JavascriptMethodEventArgs e)
         {
             GameObjectFactory factory = new GameObjectFactory();
-            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
-            int resourceID = (int)e.Arguments[1];
-            GameObjectBase gameObject = factory.GetFromDatabaseByID(resourceID, gameObjectType);
-            string jsonObject = JsonConvert.SerializeObject(gameObject, JSONSerializerSettings);
+            int resourceID = (int)e.Arguments[0];
+            GameObjectBase gameObject = factory.GetFromDatabaseByID(resourceID, ViewModel.GameObjectType);
             ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
 
-            if (gameObjectType == GameObjectTypeEnum.Area)
+            if (ViewModel.GameObjectType == GameObjectTypeEnum.Area)
             {
+                ViewModel.ActiveArea = gameObject as Area;
                 RefreshAreaEntity(this, eventArgs);
             }
-            else if (gameObjectType == GameObjectTypeEnum.Conversation)
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Conversation)
             {
+                ViewModel.ActiveConversation = gameObject as Conversation;
             }
-            else if (gameObjectType == GameObjectTypeEnum.Creature)
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Creature)
             {
+                ViewModel.ActiveCreature = gameObject as Creature;
             }
-            else if (gameObjectType == GameObjectTypeEnum.Item)
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Item)
             {
+                ViewModel.ActiveItem = gameObject as Item;
             }
-            else if (gameObjectType == GameObjectTypeEnum.Placeable)
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Placeable)
             {
+                ViewModel.ActivePlaceable = gameObject as Placeable;
             }
-            else if (gameObjectType == GameObjectTypeEnum.Script)
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Script)
             {
+                ViewModel.ActiveScript = gameObject as Script;
             }
-            else if (gameObjectType == GameObjectTypeEnum.Tileset)
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Tileset)
             {
-                
+                ViewModel.ActiveTileset = gameObject as Tileset;
             }
 
-            AsyncJavascriptCallback("LoadObjectData_Callback", jsonObject);
+            AsyncJavascriptCallback("LoadObjectData_Callback");
         }
 
         private void RefreshAreaEntity(object sender, ObjectSelectionEventArgs e)
@@ -687,7 +690,7 @@ namespace WinterEngine.Game.Entities
                 moduleList.Add(module);
             }
 
-            e.Result = JsonConvert.SerializeObject(moduleList);
+            ViewModel.ModuleList = moduleList;
         }
 
         private void PopulateToolsetViewModel(object sender, JavascriptMethodEventArgs e)
@@ -709,6 +712,24 @@ namespace WinterEngine.Game.Entities
             }
 
             AsyncJavascriptCallback("PopulateToolsetViewModel_Callback", jsonTilesetSpriteSheets);
+        }
+
+        private void ChangeObjectMode(object sender, JavascriptMethodEventArgs e)
+        {
+            ViewModel.CurrentObjectMode = e.Arguments[0];
+            ViewModel.CurrentObjectTreeSelector = e.Arguments[1];
+            ViewModel.CurrentObjectTabSelector = e.Arguments[2];
+            string mode = e.Arguments[0];
+
+            if (mode == "Tileset")
+            {
+                if (OnTilesetEditorOpened != null)
+                {
+                    OnTilesetEditorOpened(this, new EventArgs());
+                }
+            }
+
+            AsyncJavascriptCallback("ChangeObjectMode_Callback");
         }
 
         #endregion

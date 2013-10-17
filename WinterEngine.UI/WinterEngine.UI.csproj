@@ -95,6 +95,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\knockout.viewmodel.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\CharacterSelection.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -152,11 +155,6 @@
     <Content Include="Images\xnalogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="KnockoutModelGenerator\ViewModelGenerator.js">
-      <DependentUpon>ViewModelGenerator.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Content>
     <Content Include="Scripts\jquery.awesomiumXNA.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -205,49 +203,6 @@
     <Content Include="Scripts\MainMenu.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\ViewModels\Ability.js" />
-    <Content Include="Scripts\ViewModels\Area.js" />
-    <Content Include="Scripts\ViewModels\Category.js" />
-    <Content Include="Scripts\ViewModels\CharacterClass.js" />
-    <Content Include="Scripts\ViewModels\ConnectionAddress.js" />
-    <Content Include="Scripts\ViewModels\ContentPackage.js" />
-    <Content Include="Scripts\ViewModels\ContentPackageResource.js" />
-    <Content Include="Scripts\ViewModels\ContentPackageResourceTypeEnum.js" />
-    <Content Include="Scripts\ViewModels\ContentPackageResourceXML.js" />
-    <Content Include="Scripts\ViewModels\ContentPackageXML.js" />
-    <Content Include="Scripts\ViewModels\Conversation.js" />
-    <Content Include="Scripts\ViewModels\Creature.js" />
-    <Content Include="Scripts\ViewModels\DeleteCharacterTypeEnum.js" />
-    <Content Include="Scripts\ViewModels\ErrorTypeEnum.js" />
-    <Content Include="Scripts\ViewModels\FileStreamerStatusEnum.js" />
-    <Content Include="Scripts\ViewModels\FileTypeEnum.js" />
-    <Content Include="Scripts\ViewModels\GameModule.js" />
-    <Content Include="Scripts\ViewModels\GameObjectTypeEnum.js" />
-    <Content Include="Scripts\ViewModels\GameTypeEnum.js" />
-    <Content Include="Scripts\ViewModels\Item.js" />
-    <Content Include="Scripts\ViewModels\ItemProperty.js" />
-    <Content Include="Scripts\ViewModels\ItemType.js" />
-    <Content Include="Scripts\ViewModels\JSTreeNode.js" />
-    <Content Include="Scripts\ViewModels\LocalVariable.js" />
-    <Content Include="Scripts\ViewModels\Location.js" />
-    <Content Include="Scripts\ViewModels\LoginCredentials.js" />
-    <Content Include="Scripts\ViewModels\MappingEnum.js" />
-    <Content Include="Scripts\ViewModels\ModuleRebuildModeEnum.js" />
-    <Content Include="Scripts\ViewModels\NetworkLogMessageEventArgs.js" />
-    <Content Include="Scripts\ViewModels\ObjectSelectionEventArgs.js" />
-    <Content Include="Scripts\ViewModels\Placeable.js" />
-    <Content Include="Scripts\ViewModels\PlayerCharacter.js" />
-    <Content Include="Scripts\ViewModels\PVPTypeEnum.js" />
-    <Content Include="Scripts\ViewModels\Race.js" />
-    <Content Include="Scripts\ViewModels\ResourceTypeEnum.js" />
-    <Content Include="Scripts\ViewModels\SaveAsResponseTypeEnum.js" />
-    <Content Include="Scripts\ViewModels\Script.js" />
-    <Content Include="Scripts\ViewModels\Tile.js" />
-    <Content Include="Scripts\ViewModels\Tileset.js" />
-    <Content Include="Scripts\ViewModels\ToolsetViewModel.js" />
-    <Content Include="Scripts\ViewModels\TypeOfEventArgs.js" />
-    <Content Include="Scripts\ViewModels\UserProfile.js" />
-    <Content Include="Scripts\ViewModels\WinterServer.js" />
     <Content Include="Scripts\WinterEngine.ViewModels.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -409,60 +364,6 @@
     </Content>
     <None Include="Images\DataTables\Sorting icons.psd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="KnockoutModelGenerator\ViewModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewModel.cs</LastGenOutput>
-    </None>
-    <None Include="KnockoutModelGenerator\ViewModelGenerator.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ViewModelGenerator.js</LastGenOutput>
-      <LastOutputs>
-..\Scripts\ViewModels\Ability.js
-..\Scripts\ViewModels\Area.js
-..\Scripts\ViewModels\Category.js
-..\Scripts\ViewModels\CharacterClass.js
-..\Scripts\ViewModels\ConnectionAddress.js
-..\Scripts\ViewModels\ContentPackage.js
-..\Scripts\ViewModels\ContentPackageResource.js
-..\Scripts\ViewModels\ContentPackageResourceTypeEnum.js
-..\Scripts\ViewModels\ContentPackageResourceXML.js
-..\Scripts\ViewModels\ContentPackageXML.js
-..\Scripts\ViewModels\Conversation.js
-..\Scripts\ViewModels\Creature.js
-..\Scripts\ViewModels\DeleteCharacterTypeEnum.js
-..\Scripts\ViewModels\ErrorTypeEnum.js
-..\Scripts\ViewModels\FileStreamerStatusEnum.js
-..\Scripts\ViewModels\FileTypeEnum.js
-..\Scripts\ViewModels\GameModule.js
-..\Scripts\ViewModels\GameObjectTypeEnum.js
-..\Scripts\ViewModels\GameTypeEnum.js
-..\Scripts\ViewModels\Item.js
-..\Scripts\ViewModels\ItemProperty.js
-..\Scripts\ViewModels\ItemType.js
-..\Scripts\ViewModels\JSTreeNode.js
-..\Scripts\ViewModels\LocalVariable.js
-..\Scripts\ViewModels\Location.js
-..\Scripts\ViewModels\LoginCredentials.js
-..\Scripts\ViewModels\MappingEnum.js
-..\Scripts\ViewModels\ModuleRebuildModeEnum.js
-..\Scripts\ViewModels\NetworkLogMessageEventArgs.js
-..\Scripts\ViewModels\ObjectSelectionEventArgs.js
-..\Scripts\ViewModels\Placeable.js
-..\Scripts\ViewModels\PlayerCharacter.js
-..\Scripts\ViewModels\PVPTypeEnum.js
-..\Scripts\ViewModels\Race.js
-..\Scripts\ViewModels\ResourceTypeEnum.js
-..\Scripts\ViewModels\SaveAsResponseTypeEnum.js
-..\Scripts\ViewModels\Script.js
-..\Scripts\ViewModels\Tile.js
-..\Scripts\ViewModels\Tileset.js
-..\Scripts\ViewModels\ToolsetViewModel.js
-..\Scripts\ViewModels\TypeOfEventArgs.js
-..\Scripts\ViewModels\UserProfile.js
-..\Scripts\ViewModels\WinterServer.js
-.\ViewModelGenerator.js
-</LastOutputs>
     </None>
     <None Include="packages.config" />
     <None Include="Scripts\jquery-2.0.3.min.map">

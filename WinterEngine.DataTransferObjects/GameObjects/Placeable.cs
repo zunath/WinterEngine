@@ -8,38 +8,64 @@ namespace WinterEngine.DataTransferObjects
 {
     [Serializable]
     [Table("Placeables")]
-    public sealed class Placeable : GameObjectBase
+    public class Placeable : GameObjectBase
     {
         #region Fields
-
-        private List<Item> _inventoryItems;
 
         #endregion
 
         #region Properties
 
-        /// <summary>
-        /// Gets or sets whether or not a placeable is useable in-game.
-        /// </summary>
         public bool IsUseable { get; set; }
-
-        /// <summary>
-        /// Gets or sets whether or not a placeable can contain items in its inventory.
-        /// </summary>
         public bool HasInventory { get; set; }
+        public List<Item> InventoryItems { get; set; }
 
-        /// <summary>
-        /// Gets or sets the list of items contained in a placeable's inventory.
-        /// </summary>
-        public List<Item> InventoryItems
-        {
-            get { return _inventoryItems; }
-            set { _inventoryItems = value; }
-        }
+
+        // EVENT SCRIPTS
+        public int? OnSpawnEventScriptID { get; set; }
+        public int? OnDamagedEventScriptID { get; set; }
+        public int? OnDeathEventScriptID { get; set; }
+        public int? OnHeartbeatEventScriptID { get; set; }
+        public int? OnOpenEventScriptID { get; set; }
+        public int? OnCloseEventScriptID { get; set; }
+        public int? OnUsedEventScriptID { get; set; }
+
+        [ForeignKey("OnSpawnEventScriptID")]
+        public virtual Script OnSpawnEventScript { get; set; }
+        [ForeignKey("OnDamagedEventScriptID")]
+        public virtual Script OnDamagedEventScript { get; set; }
+        [ForeignKey("OnDeathEventScriptID")]
+        public virtual Script OnDeathEventScript { get; set; }
+        [ForeignKey("OnHeartbeatEventScriptID")]
+        public virtual Script OnHeartbeatEventScript { get; set; }
+        [ForeignKey("OnOpenEventScriptID")]
+        public virtual Script OnOpenEventScript { get; set; }
+        [ForeignKey("OnCloseEventScriptID")]
+        public virtual Script OnCloseEventScript { get; set; }
+        [ForeignKey("OnUsedEventScriptID")]
+        public virtual Script OnUsedEventScript { get; set; }
+
 
         #endregion
 
-        #region Methods
+        #region Constructors
+
+        public Placeable()
+        {
+        }
+
+        public Placeable(bool instantiateLists)
+        {
+            if (instantiateLists)
+            {
+                LocalVariables = new List<LocalVariable>();
+                InventoryItems = new List<Item>();
+            }
+            else
+            {
+            }
+        }
+
         #endregion
     }
 }

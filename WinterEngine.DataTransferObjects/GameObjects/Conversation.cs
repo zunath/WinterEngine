@@ -24,6 +24,17 @@ namespace WinterEngine.DataTransferObjects
         {
         }
 
+        public Conversation(bool instantiateLists)
+        {
+            if (instantiateLists)
+            {
+                LocalVariables = new List<LocalVariable>();
+            }
+            else
+            {
+            }
+        }
+
         #endregion
     }
 }

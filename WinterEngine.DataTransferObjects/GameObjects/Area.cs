@@ -100,26 +100,15 @@ namespace WinterEngine.DataTransferObjects
         {
         }
 
-        public Area(int tilesWide, int tilesHigh)
+        public Area(bool instantiateLists)
         {
-            this.TilesWide = tilesWide;
-            this.TilesHigh = tilesHigh;
-            Tiles = new List<Tile>();
-
-            Tile emptyTile = new Tile { };
-
-            for (int layer = 1; layer <= MaxNumberOfLayers; layer++)
+            if (instantiateLists)
             {
-                for (int row = 0; row < tilesWide; row++)
-                {
-                    for (int column = 0; column < tilesHigh; column++)
-                    {
-                        emptyTile.MapCellX = row + 1;
-                        emptyTile.MapCellY = column + 1;
-                        emptyTile.MapLayer = layer;
-                        Tiles.Add(emptyTile);
-                    }
-                }
+                Tiles = new List<Tile>();
+                LocalVariables = new List<LocalVariable>();
+            }
+            else
+            {
             }
         }
 

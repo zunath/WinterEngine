@@ -58,20 +58,49 @@ namespace WinterEngine.DataTransferObjects
 
         // EQUIPPED ITEMS
 
-        public Item MainHandItem { get; set; }
-        public Item OffHandItem { get; set; }
-        public Item HeadItem { get; set; }
-        public Item BodyItem { get; set; }
-        public Item BackItem { get; set; }
-        public Item HandsItem { get; set; }
-        public Item WaistItem { get; set; }
-        public Item LegsItem { get; set; }
-        public Item FeetItem { get; set; }
-        public Item EarLeftItem { get; set; }
-        public Item EarRightItem { get; set; }
-        public Item RingLeftItem { get; set; }
-        public Item RingRightItem { get; set; }
-        public Item NeckItem { get; set; }
+        public int? MainHandItemID { get; set; }
+        public int? OffHandItemID { get; set; }
+        public int? HeadItemID { get; set; }
+        public int? BodyItemID { get; set; }
+        public int? BackItemID { get; set; }
+        public int? HandsItemID { get; set; }
+        public int? WaistItemID { get; set; }
+        public int? LegsItemID { get; set; }
+        public int? FeetItemID { get; set; }
+        public int? EarLeftItemID { get; set; }
+        public int? EarRightItemID { get; set; }
+        public int? RingLeftItemID { get; set; }
+        public int? RingRightItemID { get; set; }
+        public int? NeckItemID { get; set; }
+
+        [ForeignKey("MainHandItemID")]
+        public virtual Item MainHandItem { get; set; }
+        [ForeignKey("OffHandItemID")]
+        public virtual Item OffHandItem { get; set; }
+        [ForeignKey("HeadItemID")]
+        public virtual Item HeadItem { get; set; }
+        [ForeignKey("BodyItemID")]
+        public virtual Item BodyItem { get; set; }
+        [ForeignKey("BackItemID")]
+        public virtual Item BackItem { get; set; }
+        [ForeignKey("HandsItemID")]
+        public virtual Item HandsItem { get; set; }
+        [ForeignKey("WaistItemID")]
+        public virtual Item WaistItem { get; set; }
+        [ForeignKey("LegsItemID")]
+        public virtual Item LegsItem { get; set; }
+        [ForeignKey("FeetItemID")]
+        public virtual Item FeetItem { get; set; }
+        [ForeignKey("EarLeftItemID")]
+        public virtual Item EarLeftItem { get; set; }
+        [ForeignKey("EarRightItemID")]
+        public virtual Item EarRightItem { get; set; }
+        [ForeignKey("RingLeftItemID")]
+        public virtual Item RingLeftItem { get; set; }
+        [ForeignKey("RingRightItemID")]
+        public virtual Item RingRightItem { get; set; }
+        [ForeignKey("NeckItemID")]
+        public virtual Item NeckItem { get; set; }
 
         // EVENT SCRIPTS
         public int? OnSpawnEventScriptID { get; set; }
@@ -97,6 +126,17 @@ namespace WinterEngine.DataTransferObjects
 
         public Creature()
         {
+        }
+
+        public Creature(bool instantiateLists)
+        {
+            if (instantiateLists)
+            {
+                LocalVariables = new List<LocalVariable>();
+            }
+            else
+            {
+            }
         }
 
         #endregion

@@ -11,78 +11,51 @@ function ChangeObjectMode(objectMode) {
         $('#liAreas').addClass('clsActiveObjectType');
         $('#divAreasTab').removeClass('clsHidden');
         $('#divAreaTreeView').removeClass('clsHidden');
-        ToolsetViewModel.CurrentObjectMode('Area');
-        ToolsetViewModel.CurrentObjectTreeSelector('#divAreaTreeView');
-        ToolsetViewModel.CurrentObjectTabSelector('#divAreasTab');
-
-        Entity.ChangeObjectMode(1); // Refer to GameObjectTypeEnum for values
+        Entity.ChangeObjectMode('Area', '#divAreaTreeView', '#divAreasTab');
     }
     else if (objectMode == "Creature") {
         $('#liCreatures').addClass('clsActiveObjectType');
         $('#divCreaturesTab').removeClass('clsHidden');
         $('#divCreatureTreeView').removeClass('clsHidden');
-
-        ToolsetViewModel.CurrentObjectMode('Creature');
-        ToolsetViewModel.CurrentObjectTreeSelector('#divCreatureTreeView');
-        ToolsetViewModel.CurrentObjectTabSelector('#divCreaturesTab');
-
-        Entity.ChangeObjectMode(2);
+        Entity.ChangeObjectMode('Creature', '#divCreatureTreeView', '#divCreaturesTab');
     }
     else if (objectMode == "Item") {
         $('#liItems').addClass('clsActiveObjectType');
         $('#divItemsTab').removeClass('clsHidden');
         $('#divItemTreeView').removeClass('clsHidden');
-        ToolsetViewModel.CurrentObjectMode('Item');
-        ToolsetViewModel.CurrentObjectTreeSelector('#divItemTreeView');
-        ToolsetViewModel.CurrentObjectTabSelector('#divItemsTab');
-
-        Entity.ChangeObjectMode(6);
+        Entity.ChangeObjectMode('Item', '#divItemTreeView', '#divItemsTab');
     }
     else if (objectMode == "Placeable") {
         $('#liPlaceables').addClass('clsActiveObjectType');
         $('#divPlaceablesTab').removeClass('clsHidden');
         $('#divPlaceableTreeView').removeClass('clsHidden');
-        ToolsetViewModel.CurrentObjectMode('Placeable');
-        ToolsetViewModel.CurrentObjectTreeSelector('#divPlaceableTreeView');
-        ToolsetViewModel.CurrentObjectTabSelector('#divPlaceablesTab');
-
-        Entity.ChangeObjectMode(3);
+        Entity.ChangeObjectMode('Placeable', '#divPlaceableTreeView', '#divPlaceablesTab');
     }
     else if (objectMode == "Conversation") {
         $('#liConversations').addClass('clsActiveObjectType');
         $('#divConversationsTab').removeClass('clsHidden');
         $('#divConversationTreeView').removeClass('clsHidden');
-        ToolsetViewModel.CurrentObjectMode('Conversation');
-        ToolsetViewModel.CurrentObjectTreeSelector('#divConversationTreeView');
-        ToolsetViewModel.CurrentObjectTabSelector('#divConversationsTab');
-
-        Entity.ChangeObjectMode(4);
+        Entity.ChangeObjectMode('Conversation', '#divConversationTreeView', '#divConversationsTab');
     }
     else if (objectMode == "Script") {
         $('#liScripts').addClass('clsActiveObjectType');
         $('#divScriptsTab').removeClass('clsHidden');
         $('#divScriptTreeView').removeClass('clsHidden');
-        ToolsetViewModel.CurrentObjectMode('Script');
-        ToolsetViewModel.CurrentObjectTreeSelector('#divScriptTreeView');
-        ToolsetViewModel.CurrentObjectTabSelector('#divScriptsTab');
-
-        Entity.ChangeObjectMode(5);
+        Entity.ChangeObjectMode('Script', '#divScriptTreeView', '#divScriptsTab');
     }
     else if (objectMode == "Tileset") {
         $('#liTilesets').addClass('clsActiveObjectType');
         $('#divTilesetsTab').removeClass('clsHidden');
         $('#divTilesetTreeView').removeClass('clsHidden');
-        ToolsetViewModel.CurrentObjectMode('Tileset');
-        ToolsetViewModel.CurrentObjectTreeSelector('#divTilesetTreeView');
-        ToolsetViewModel.CurrentObjectTabSelector('#divTilesetsTab');
-
-        Entity.ChangeObjectMode(7);
+        Entity.ChangeObjectMode('Tileset', '#divTilesetTreeView', '#divTilesetsTab');
     }
     // Otherwise, hide all.
     else {
-        ToolsetViewModel.CurrentObjectTreeSelector('');
-        ToolsetViewModel.CurrentObjectTabSelector('');
+        Entity.ChangeObjectMode('', '', '');
         $('#divObjectTabContainerButtons').addClass('clsHidden');
     }
+}
 
+function ChangeObjectMode_Callback() {
+    ToolsetViewModel.Refresh();
 }
