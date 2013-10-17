@@ -44,7 +44,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public virtual void Update(TEntity entity)
         {
-            _entities.Entry(entity).State = System.Data.EntityState.Modified;
+            _entities.Entry(entity).State = EntityState.Modified;
         }
 
         public virtual IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,

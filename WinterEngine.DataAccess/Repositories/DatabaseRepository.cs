@@ -67,7 +67,7 @@ namespace WinterEngine.DataAccess
             // Also creates tables based on the code-first model.
             using (ModuleDataContext context = new ModuleDataContext(connectionString))
             {
-                DbMigrator migrator = new DbMigrator(new ModuleDataContextConfiguration());
+                DbMigrator migrator = new DbMigrator(new ModuleDataContextMigrationConfiguration());
                 migrator.Update();
             }
 
