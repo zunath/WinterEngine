@@ -330,7 +330,8 @@ namespace WinterEngine.Game.Entities
             string jsonUpdatedContentPackages = e.Arguments[0];
             List<ContentPackage> contentPackageList = JsonConvert.DeserializeObject<List<ContentPackage>>(jsonUpdatedContentPackages);
             GameResourceManager.RebuildModule(contentPackageList, ModuleRebuildModeEnum.UserResourcesOnly);
-            
+            PopulateToolsetViewModel();
+
             AsyncJavascriptCallback("ManageContentPackagesSaveChanges_Callback");
         }
 

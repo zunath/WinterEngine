@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -38,6 +39,7 @@ namespace WinterEngine.DataTransferObjects
             set { _contentPackageResourceType = value; }
         }
 
+        [JsonIgnore] // Note: Ignore this property because it will create a circular reference loop when serializing via JSON.NET
         public virtual ContentPackage ContentPackage { get; set; }
 
         #endregion
