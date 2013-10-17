@@ -23,6 +23,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             }
         }
 
+        #region Selectable Object Data
 
         public Area ActiveArea { get; set; }
         public Creature ActiveCreature { get; set; }
@@ -32,12 +33,19 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public Script ActiveScript { get; set; }
         public Tileset ActiveTileset { get; set; }
         public Tile ActiveTile { get; set; }
+        #endregion
+
+        #region Drop Down Menu List Data
 
         public List<GameModule> ModuleList { get; set; }
         public List<ContentPackage> AvailableContentPackages { get; set; }
         public List<ContentPackage> AttachedContentPackages { get; set; }
         public List<ContentPackageResource> TilesetSpriteSheetsList { get; set; }
-        
+        public List<Item> ItemList { get; set; }
+        public List<Script> ScriptList { get; set; }
+
+        #endregion
+
         public ToolsetViewModel()
         {
             CurrentObjectMode = "";
@@ -55,6 +63,8 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             AvailableContentPackages = new List<ContentPackage>();
             AttachedContentPackages = new List<ContentPackage>();
             TilesetSpriteSheetsList = new List<ContentPackageResource>();
+            ItemList = new List<Item>();
+            ScriptList = new List<Script>();
         }
     }
 }

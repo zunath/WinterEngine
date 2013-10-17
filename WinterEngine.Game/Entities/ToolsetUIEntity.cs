@@ -197,6 +197,7 @@ namespace WinterEngine.Game.Entities
             ModuleManager.ModuleName = e.Arguments[0];
             ModuleManager.ModuleTag = e.Arguments[1];
             bool success = ModuleManager.CreateModule();
+            PopulateToolsetViewModel();
 
             AsyncJavascriptCallback("NewModuleBoxOKClick_Callback", success);
         }
@@ -207,6 +208,8 @@ namespace WinterEngine.Game.Entities
             {
                 string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] + ExtensionFactory.GetFileExtension(FileTypeEnum.Module);
                 ModuleManager.OpenModule(filePath);
+                PopulateToolsetViewModel();
+
                 AsyncJavascriptCallback("OpenModuleButtonClick_Callback", true);
 
             }
@@ -253,6 +256,8 @@ namespace WinterEngine.Game.Entities
         private void CloseModuleButton(object sender, JavascriptMethodEventArgs e)
         {
             ModuleManager.CloseModule();
+            ClearViewModelPopulation();
+
             AsyncJavascriptCallback("CloseModuleButtonClick_Callback");
         }
 
@@ -693,9 +698,9 @@ namespace WinterEngine.Game.Entities
             ViewModel.ModuleList = moduleList;
         }
 
-        private void PopulateToolsetViewModel(object sender, JavascriptMethodEventArgs e)
+        private void PopulateToolsetViewModel()
         {
-            string jsonTilesetSpriteSheets;
+            ClearViewModelPopulation();
 
             using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
             {
@@ -707,11 +712,28 @@ namespace WinterEngine.Game.Entities
                     ResourceID = 0,
                     ResourceType = ResourceTypeEnum.GameObject
                 });
-
-                jsonTilesetSpriteSheets = JsonConvert.SerializeObject(resourceList, JSONSerializerSettings);
+                ViewModel.TilesetSpriteSheetsList = resourceList;
             }
 
-            AsyncJavascriptCallback("PopulateToolsetViewModel_Callback", jsonTilesetSpriteSheets);
+            using (ItemRepository repo = new ItemRepository())
+            {
+                ViewModel.ItemList = repo.GetAll();
+            }
+
+            using (ScriptRepository repo = new ScriptRepository())
+            {
+                ViewModel.ScriptList = repo.GetAll();
+            }
+        }
+
+        private void ClearViewModelPopulation()
+        {
+            ViewModel.TilesetSpriteSheetsList.Clear();
+            ViewModel.ItemList.Clear();
+            ViewModel.ScriptList.Clear();
+            ViewModel.AvailableContentPackages.Clear();
+            ViewModel.AttachedContentPackages.Clear();
+            ViewModel.ModuleList.Clear();
         }
 
         private void ChangeObjectMode(object sender, JavascriptMethodEventArgs e)

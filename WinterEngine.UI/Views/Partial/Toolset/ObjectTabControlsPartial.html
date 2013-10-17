@@ -377,7 +377,7 @@
                     data-bind="options: TilesetSpriteSheetsList,
                                optionsText: function (item) { return item.Name },
                                optionsValue: function (item) { return item.ResourceID },
-                               value: ActiveArea.GraphicResourceID">
+                               value: ActiveTileset.GraphicResourceID() == null ? 0 : ActiveTileset.GraphicResourceID()">
                 </select>
 
             </div>
