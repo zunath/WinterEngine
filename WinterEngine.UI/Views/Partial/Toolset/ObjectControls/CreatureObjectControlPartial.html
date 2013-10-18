@@ -1,0 +1,157 @@
+﻿
+<div id="divCreaturesTab" class="clsObjectTabDiv">
+    <h3>Creature Details</h3>
+    <div id="divCreaturesTab-Details">
+        <label id="lblCreatureDetails-Name" for="txtCreatureDetails-Name">Name:</label>
+        <input id="txtCreatureDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveCreature.Name" class="clsCreatureObjectField" />
+
+        <label id="lblCreatureDetails-Tag" for="txtCreatureDetails-Tag">Tag:</label>
+        <input id="txtCreatureDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveCreature.Tag" class="clsCreatureObjectField" />
+
+        <label id="lblCreatureDetails-Resref" for="txtCreatureDetails-Resref">Resref:</label>
+        <input id="txtCreatureDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveCreature.Resref" class="clsCreatureObjectField" />
+
+        <label id="lblCreatureDetails-Appearance" for="txtCreatureDetails-Appearance">Appearance:</label>
+        <select id="selCreatureDetails-Appearance" disabled="disabled" data-bind="" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Race:</label>
+        <select id="selCreatureDetails-Race" disabled="disabled" data-bind="value: ActiveCreature.Race" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Gender:</label>
+        <select id="selCreatureDetails-Gender" disabled="disabled" data-bind="" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Faction:</label>
+        <select id="selCreatureDetails-Faction" disabled="disabled" data-bind="" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Conversation:</label>
+        <select id="selCreatureDetails-Conversation" disabled="disabled" data-bind="" class="clsCreatureObjectField" size="3"></select>
+
+        <label>
+            Is Invulnerable:
+            <input id="chkCreatureDetails-IsInvulnerable" disabled="disabled" type="checkbox" data-bind="value: ActiveCreature.Name" class="clsCreatureObjectField" />
+        </label>
+
+    </div>
+
+    <h3>Attributes</h3>
+    <div id="divCreaturesTab-Attributes">
+        <label>Hit Points:</label>
+        <input id="numCreaturesTab-HitPoints" type="number" max="65535" disabled="disabled" data-bind="value: ActiveCreature.HitPoints" class="clsCreatureObjectField" />
+
+        <label>Mana:</label>
+        <input id="numCreaturesTab-Mana" type="number" max="65535" disabled="disabled" data-bind="value: ActiveCreature.Mana" class="clsCreatureObjectField" />
+
+        <label>Strength:</label>
+        <input id="numCreaturesTab-Strength" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature.Strength" class="clsCreatureObjectField" />
+
+        <label>Dexterity:</label>
+        <input id="numCreaturesTab-Dexterity" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature.Dexterity" class="clsCreatureObjectField" />
+
+        <label>Constitution:</label>
+        <input id="numCreaturesTab-Constitution" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature.Constitution" class="clsCreatureObjectField" />
+
+        <label>Intelligence:</label>
+        <input id="numCreaturesTab-Intelligence" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature.Intelligence" class="clsCreatureObjectField" />
+
+        <label>Wisdom:</label>
+        <input id="numCreaturesTab-Wisdom" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature.Wisdom" class="clsCreatureObjectField" />
+
+    </div>
+
+    <h3>Abilities</h3>
+    <div id="divCreaturesTab-Abilities" data-bind="foreach: ActiveCreature.Abilities">
+    </div>
+
+    <h3>Equipment</h3>
+    <div id="divCreaturesTab-Equipment">
+        <label>Main Hand:</label>
+        <select id="selCreaturesTab-MainHand" disabled="disabled" data-bind="value: ActiveCreature.MainHandItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Off Hand:</label>
+        <select id="selCreaturesTab-OffHand" disabled="disabled" data-bind="value: ActiveCreature.OffHandItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Head:</label>
+        <select id="selCreaturesTab-Head" disabled="disabled" data-bind="value: ActiveCreature.HeadItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Body:</label>
+        <select id="selCreaturesTab-Body" disabled="disabled" data-bind="value: ActiveCreature.BodyItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Back:</label>
+        <select id="selCreaturesTab-Back" disabled="disabled" data-bind="value: ActiveCreature.BackItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Hands:</label>
+        <select id="selCreaturesTab-Hands" disabled="disabled" data-bind="value: ActiveCreature.HandsItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Waist:</label>
+        <select id="selCreaturesTab-Waist" disabled="disabled" data-bind="value: ActiveCreature.WaistItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Legs:</label>
+        <select id="selCreaturesTab-Legs" disabled="disabled" data-bind="value: ActiveCreature.LegsItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Feet:</label>
+        <select id="selCreaturesTab-Feet" disabled="disabled" data-bind="value: ActiveCreature.FeetItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Ear (L):</label>
+        <select id="selCreaturesTab-EarL" disabled="disabled" data-bind="value: ActiveCreature.EarLeftItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Ear (R):</label>
+        <select id="selCreaturesTab-EarR" disabled="disabled" data-bind="value: ActiveCreature.EarRightItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Ring (L):</label>
+        <select id="selCreaturesTab-RingL" disabled="disabled" data-bind="value: ActiveCreature.RingLeftItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Ring (R):</label>
+        <select id="selCreaturesTab-RingR" disabled="disabled" data-bind="value: ActiveCreature.RingRightItemID" class="clsCreatureObjectField" size="3"></select>
+
+        <label>Neck:</label>
+        <select id="selCreaturesTab-Neck" disabled="disabled" data-bind="value: ActiveCreature.NeckItemID" class="clsCreatureObjectField" size="3"></select>
+
+    </div>
+
+    <h3>Inventory</h3>
+    <div id="divCreaturesTab-Inventory" data-bind="foreach: ActiveCreature.Inventory">
+    </div>
+
+    <h3>Description</h3>
+    <div id="divCreaturesTab-Description">
+        <textarea id="txtCreaturesTab-Description" disabled="disabled" data-bind="value: ActiveCreature.Description" class="clsCreatureObjectField"></textarea>
+    </div>
+
+    <h3>Comments</h3>
+    <div id="divCreaturesTab-Comments">
+        <textarea id="txtCreaturesTab-Comments" disabled="disabled" data-bind="value: ActiveCreature.Comment" class="clsCreatureObjectField"></textarea>
+    </div>
+
+    <h3>Local Variables</h3>
+    <div id="divCreaturesTab-LocalVariables">
+        <input id="btnCreaturesTab-AddLocalVariable" type="button" value="Add New Variable" onclick="$('#divNewLocalVariableBox').dialog('open');" />
+
+        <div data-bind="foreach: ActiveCreature.LocalVariables">
+            <label data-bind="text: Name"></label>
+            <input type="button" data-bind="value: 'Edit'" />
+            <input type="button" data-bind="value: 'Delete'" />
+                        
+        </div>
+    </div>
+
+
+
+    <h3>Events</h3>
+    <div id="divCreaturesTab-Events">
+        <label id="lblCreaturesEvents-OnSpawn">On Spawn:</label>
+        <select id="selCreaturesEvents-OnSpawn" disabled="disabled" data-bind="value: ActiveCreature.OnSpawnEventScriptID" class="clsCreatureObjectField" size="3"></select>
+
+        <label id="lblCreaturesEvents-OnDamaged">On Damaged:</label>
+        <select id="selCreaturesEvents-OnDamaged" disabled="disabled" data-bind="value: ActiveCreature.OnDamagedEventScriptID" class="clsCreatureObjectField" size="3"></select>
+
+        <label id="lblCreaturesEvents-OnDeath">On Death:</label>
+        <select id="selCreaturesEvents-OnDeath" disabled="disabled" data-bind="value: ActiveCreature.OnDeathEventScriptID" class="clsCreatureObjectField" size="3"></select>
+
+        <label id="lblCreaturesEvents-OnConversation">On Conversation:</label>
+        <select id="selCreaturesEvents-OnConversation" disabled="disabled" data-bind="value: ActiveCreature.OnConversationEventScriptID" class="clsCreatureObjectField" size="3"></select>
+
+        <label id="lblCreaturesEvents-OnHeartbeat">On Heartbeat:</label>
+        <select id="selCreaturesEvents-OnHeartbeat" disabled="disabled" data-bind="value: ActiveCreature.OnHeartbeatEventScriptID" class="clsCreatureObjectField" size="3"></select>
+
+    </div>
+</div>

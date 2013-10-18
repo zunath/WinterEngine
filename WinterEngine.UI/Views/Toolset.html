@@ -39,7 +39,22 @@
 
             <div data-partial="Toolset/TreeViewPartial.html"></div>
             <div id="divToShowGame"></div>
-            <div data-partial="Toolset/ObjectTabControlsPartial.html"></div>
+            <div id="objectTabControls" class="clsHidden" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+                <div id="divObjectTabContainer">
+                    <div data-partial="Toolset/ObjectControls/AreaObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/ConversationObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/CreatureObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/ItemObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/PlaceableObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/ScriptObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/TilesetObjectControlPartial.html"></div>
+                </div>
+
+                <div data-partial="Toolset/ObjectControls/ApplyDiscardChangesPartial.html"></div>
+            </div>
+
+
+
             <div data-partial="Toolset/AreaFooterPartial.html"></div>
 
             <!-- Pop up boxes -->

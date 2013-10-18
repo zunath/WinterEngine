@@ -107,6 +107,30 @@
     <Content Include="Views\MainMenu.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\ApplyDiscardChangesPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\AreaObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\ConversationObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\TilesetObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\ScriptObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\PlaceableObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\ItemObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\CreatureObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Partial\Toolset\PopUpBoxes\NewLocalVariablePartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -321,9 +345,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\Toolset\ObjectBarPartial.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\Partial\Toolset\ObjectTabControlsPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\Toolset\PopUpBoxes\AboutPartial.html">
