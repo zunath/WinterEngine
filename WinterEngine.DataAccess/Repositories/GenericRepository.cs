@@ -31,10 +31,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public virtual void AddList(List<TEntity> entityList)
         {
-            foreach (TEntity entity in entityList)
-            {
-                _entities.Set<TEntity>().Add(entity);
-            }
+            _entities.Set<TEntity>().AddRange(entityList);
         }
 
         public virtual void Delete(TEntity entity)
