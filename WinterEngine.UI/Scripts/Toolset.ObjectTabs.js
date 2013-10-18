@@ -75,7 +75,7 @@ function LoadObjectData_Callback() {
 
 function ObjectTabApplyChanges() {
     var mode = ToolsetViewModel.CurrentObjectMode();
-    var jsonModel = ko.toJSON(ToolsetViewModel);
+    var jsonModel = JSON.stringify(ko.viewmodel.toModel(ToolsetViewModel));
     Entity.SaveObjectData(mode, jsonModel);
 }
 
