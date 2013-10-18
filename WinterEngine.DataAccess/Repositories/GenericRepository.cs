@@ -39,6 +39,11 @@ namespace WinterEngine.DataAccess.Repositories
             _entities.Set<TEntity>().Remove(entity);
         }
 
+        public virtual void DeleteList(List<TEntity> entityList)
+        {
+            _entities.Set<TEntity>().RemoveRange(entityList);
+        }
+
         public virtual void Update(TEntity entity)
         {
             _entities.Entry(entity).State = EntityState.Modified;

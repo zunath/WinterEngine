@@ -64,6 +64,9 @@ namespace WinterEngine.DataAccess
                 newArea.GraphicResourceID = null;
             }
 
+
+            Context.LocalVariableRepository.DeleteList(dbArea.LocalVariables);
+            Context.LocalVariableRepository.AddList(newArea.LocalVariables);
             Context.Context.Entry(dbArea).CurrentValues.SetValues(newArea);
         }
 
@@ -92,6 +95,8 @@ namespace WinterEngine.DataAccess
         public void Delete(int resourceID)
         {
             Area area = Context.AreaRepository.Get(a => a.ResourceID == resourceID).SingleOrDefault();
+
+            Context.LocalVariableRepository.DeleteList(area.LocalVariables);
             Context.AreaRepository.Delete(area);
         }
 
@@ -134,7 +139,13 @@ namespace WinterEngine.DataAccess
         public void DeleteAllByCategory(Category resourceCategory)
         {
             List<Area> areaList = Context.AreaRepository.Get(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            Context.DeleteAll(areaList);
+
+            foreach (Area area in areaList)
+            {
+                Context.LocalVariableRepository.DeleteList(area.LocalVariables);
+            }
+
+            Context.AreaRepository.DeleteList(areaList);
         }
 
         /// <summary>

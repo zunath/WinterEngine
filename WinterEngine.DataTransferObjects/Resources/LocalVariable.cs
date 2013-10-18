@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using ProtoBuf;
+using WinterEngine.DataTransferObjects.Enumerations;
+using Newtonsoft.Json;
 
 namespace WinterEngine.DataTransferObjects
 {
@@ -20,5 +22,7 @@ namespace WinterEngine.DataTransferObjects
         [ProtoMember(2)]
         [MaxLength(4000)]
         public string Value { get; set; }
+        [JsonIgnore] // Note: Ignore this property because it will create a circular reference loop when serializing via JSON.NET
+        public virtual GameObjectBase ParentGameObject { get; set; }
     }
 }

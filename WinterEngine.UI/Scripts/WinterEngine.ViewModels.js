@@ -35,7 +35,5 @@ function InitializeToolsetViewModel() {
         else if (mode == 'Tileset') {
             return ToolsetViewModel.ActiveTileset;
         }
-
-
     };
 }

@@ -217,6 +217,20 @@ namespace WinterEngine.DataAccess
             }
         }
 
+        private GenericRepository<ModuleDataContext, LocalVariable> localVariableRepository;
+        public GenericRepository<ModuleDataContext, LocalVariable> LocalVariableRepository
+        {
+            get
+            {
+                if (this.localVariableRepository == null)
+                {
+                    this.localVariableRepository
+                        = new GenericRepository<ModuleDataContext, LocalVariable>(context);
+                }
+                return localVariableRepository;
+            }
+        }
+
         #endregion
 
         #region Mapping repositories
