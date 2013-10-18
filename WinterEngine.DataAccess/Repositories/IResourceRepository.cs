@@ -7,7 +7,7 @@ using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    interface IResourceRepository<T> : IDisposable where T : GameResourceBase
+    public interface IResourceRepository<T> : IDisposable where T : GameResourceBase
     {
         T Add(T entity);
         void Add(List<T> entityList);

@@ -7,8 +7,6 @@ using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 
-
-
 namespace WinterEngine.DataAccess
 {
     public class ItemRepository : RepositoryBase, IGameObjectRepository<Item>

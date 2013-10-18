@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.Library", "WinterEngine.Library\WinterEngine.Library.csproj", "{483CD518-A771-4FDA-A97E-DC2E42AEF780}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterEngine.DataTransferObjects", "WinterEngine.DataTransferObjects\WinterEngine.DataTransferObjects.csproj", "{273D0963-A639-4529-BDC1-049BB8695799}"
