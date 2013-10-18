@@ -107,6 +107,9 @@
     <Content Include="Views\MainMenu.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Partial\Toolset\PopUpBoxes\NewLocalVariablePartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Toolset.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

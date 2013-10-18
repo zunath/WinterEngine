@@ -62,14 +62,13 @@
 
             <h3>Local Variables</h3>
             <div id="divAreasTab-LocalVariables">
-                <input id="btnAreasTab-AddLocalVariable" type="button" value="Add New Variable" />
+                <input id="btnAreasTab-AddLocalVariable" type="button" value="Add New Variable" onclick="$('#divNewLocalVariableBox').dialog('open');" />
 
                 <div data-bind="foreach: ActiveArea.LocalVariables">
-                    <div class="btn-group">
-                        <input type="text" data-bind="value: Name" />
-                        <input type="text" data-bind="value: Value" />
-                        <input type="button" value="Remove" />
-                    </div>
+                    <label data-bind="text: Name"></label>
+                    <input type="button" data-bind="value: 'Edit'" />
+                    <input type="button" data-bind="value: 'Delete'" />
+                        
                 </div>
             </div>
 

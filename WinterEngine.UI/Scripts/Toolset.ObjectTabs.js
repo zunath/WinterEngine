@@ -92,3 +92,21 @@ function SelectTilesetSpriteSheet() {
 
     Entity.LoadTilesetSpritesheet(selectedSpritesheetID);
 }
+
+function NewLocalVariableBoxOKClick() {
+
+    var activeObject = ToolsetViewModel.GetActiveObject();
+
+    activeObject.LocalVariables.push({
+        Name: $('#txtLocalVariableName').val(),
+        Value: $('#txtLocalVariableValue').val()
+    });
+
+    $('#divNewLocalVariableBox').dialog('close');
+}
+
+function NewLocalVariableCancelClick() {
+    $('#txtLocalVariableName').val('');
+    $('#txtLocalVariableValue').val('');
+    $('#divNewLocalVariableBox').dialog('close');
+}

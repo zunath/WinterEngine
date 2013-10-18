@@ -1,0 +1,22 @@
+﻿<div id="divNewLocalVariableBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+
+    <form id="formNewLocalVariable">
+        <label id="lblNewLocalVariableError" class="clsErrorMessage"></label>
+
+        <div class="row-fluid">
+            <label for="txtLocalVariableName">Variable Name:</label>
+            <input id="txtLocalVariableName" class="required" type="text" maxlength="64" />
+        </div>
+        <div class="row-fluid">
+            <label for="txtLocalVariableValue">Value:</label>
+            <input id="txtLocalVariableValue" class="required" type="text" maxlength="4000" />
+        </div>
+
+        <div class="span1">
+            <input id="btnNewLocalVariableOK" type="button" class="clsFullButton" value="OK" onclick="NewLocalVariableBoxOKClick();" />
+        </div>
+        <div class="span1">
+            <input id="btnNewLocalVariableCancel" type="button" class="clsFullButton" value="Cancel" onclick="NewLocalVariableCancelClick();" />
+        </div>
+    </form>
+</div>
