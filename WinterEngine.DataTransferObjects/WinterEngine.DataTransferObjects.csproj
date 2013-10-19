@@ -94,8 +94,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\ConnectionAddress.cs" />
+    <Compile Include="Enumerations\GenderTypeEnum.cs" />
     <Compile Include="Enumerations\ModuleRebuildModeEnum.cs" />
     <Compile Include="GameObjects\Tileset.cs" />
+    <Compile Include="Resources\Gender.cs" />
     <Compile Include="XMLObjects\ContentPackageResourceXML.cs" />
     <Compile Include="BusinessObjects\JSTreeNode.cs" />
     <Compile Include="BusinessObjects\Location.cs" />

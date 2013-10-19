@@ -40,7 +40,11 @@
     <div id="divItemsTab-Events">
 
         <label id="lblItemsEvents-OnSpawn">On Spawn:</label>
-        <select id="selItemsEvents-OnSpawn" disabled="disabled" data-bind="value: ActiveItem.OnSpawnEventScriptID" class="clsItemObjectField" size="3"></select>
+        <select id="selItemsEvents-OnSpawn" disabled="disabled" class="clsItemObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveItem.OnSpawnEventScriptID" ></select>
 
     </div>
 </div>

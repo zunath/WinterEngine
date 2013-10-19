@@ -18,7 +18,11 @@
         <select id="selCreatureDetails-Race" disabled="disabled" data-bind="value: ActiveCreature.Race" class="clsCreatureObjectField" size="3"></select>
 
         <label>Gender:</label>
-        <select id="selCreatureDetails-Gender" disabled="disabled" data-bind="" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreatureDetails-Gender" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: GenderList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveCreature.GenderID"></select>
 
         <label>Faction:</label>
         <select id="selCreatureDetails-Faction" disabled="disabled" data-bind="" class="clsCreatureObjectField" size="3"></select>
@@ -139,19 +143,39 @@
     <h3>Events</h3>
     <div id="divCreaturesTab-Events">
         <label id="lblCreaturesEvents-OnSpawn">On Spawn:</label>
-        <select id="selCreaturesEvents-OnSpawn" disabled="disabled" data-bind="value: ActiveCreature.OnSpawnEventScriptID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesEvents-OnSpawn" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveCreature.OnSpawnEventScriptID"></select>
 
         <label id="lblCreaturesEvents-OnDamaged">On Damaged:</label>
-        <select id="selCreaturesEvents-OnDamaged" disabled="disabled" data-bind="value: ActiveCreature.OnDamagedEventScriptID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesEvents-OnDamaged" disabled="disabled" class="clsCreatureObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveCreature.OnDamagedEventScriptID"></select>
 
         <label id="lblCreaturesEvents-OnDeath">On Death:</label>
-        <select id="selCreaturesEvents-OnDeath" disabled="disabled" data-bind="value: ActiveCreature.OnDeathEventScriptID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesEvents-OnDeath" disabled="disabled" class="clsCreatureObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveCreature.OnDeathEventScriptID"></select>
 
         <label id="lblCreaturesEvents-OnConversation">On Conversation:</label>
-        <select id="selCreaturesEvents-OnConversation" disabled="disabled" data-bind="value: ActiveCreature.OnConversationEventScriptID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesEvents-OnConversation" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveCreature.OnConversationEventScriptID"></select>
 
         <label id="lblCreaturesEvents-OnHeartbeat">On Heartbeat:</label>
-        <select id="selCreaturesEvents-OnHeartbeat" disabled="disabled" data-bind="value: ActiveCreature.OnHeartbeatEventScriptID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesEvents-OnHeartbeat" disabled="disabled" class="clsCreatureObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveCreature.OnHeartbeatEventScriptID"></select>
 
     </div>
 </div>

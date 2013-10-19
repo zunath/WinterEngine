@@ -39,25 +39,53 @@
     <div id="divPlaceablesTab-Events">
 
         <label id="lblPlaceablesEvents-OnSpawn">On Spawn:</label>
-        <select id="selPlaceablesEvents-OnSpawn" disabled="disabled" data-bind="value: ActivePlaceable.OnSpawnEventScriptID" class="clsPlaceableObjectField" size="3"></select>
+        <select id="selPlaceablesEvents-OnSpawn" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnSpawnEventScriptID" ></select>
 
         <label id="lblPlaceablesEvents-OnDamaged">On Damaged:</label>
-        <select id="selPlaceablesEvents-OnDamaged" disabled="disabled" data-bind="value: ActivePlaceable.OnDamagedEventScriptID" class="clsPlaceableObjectField" size="3"></select>
+        <select id="selPlaceablesEvents-OnDamaged" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnDamagedEventScriptID" ></select>
 
         <label id="lblPlaceablesEvents-OnDeath">On Death:</label>
-        <select id="selPlaceablesEvents-OnDeath" disabled="disabled" data-bind="value: ActivePlaceable.OnDeathEventScriptID" class="clsPlaceableObjectField" size="3"></select>
+        <select id="selPlaceablesEvents-OnDeath" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnDeathEventScriptID" ></select>
 
         <label id="lblPlaceablesEvents-OnHeartbeat">On Heartbeat:</label>
-        <select id="selPlaceablesEvents-OnHeartbeat" disabled="disabled" data-bind="value: ActivePlaceable.OnHeartbeatEventScriptID" class="clsPlaceableObjectField" size="3"></select>
+        <select id="selPlaceablesEvents-OnHeartbeat" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnHeartbeatEventScriptID" ></select>
 
         <label id="lblPlaceablesEvents-OnOpen">On Open:</label>
-        <select id="selPlaceablesEvents-OnOpen" disabled="disabled" data-bind="value: ActivePlaceable.OnOpenEventScriptID" class="clsPlaceableObjectField" size="3"></select>
+        <select id="selPlaceablesEvents-OnOpen" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnOpenEventScriptID" ></select>
 
         <label id="lblPlaceablesEvents-OnClose">On Close:</label>
-        <select id="selPlaceablesEvents-OnClose" disabled="disabled" data-bind="value: ActivePlaceable.OnCloseEventScriptID" class="clsPlaceableObjectField" size="3"></select>
+        <select id="selPlaceablesEvents-OnClose" disabled="disabled" class="clsPlaceableObjectField" size="3"
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnCloseEventScriptID"></select>
 
         <label id="lblPlaceablesEvents-OnUsed">On Used:</label>
-        <select id="selPlaceablesEvents-OnUsed" disabled="disabled" data-bind="value: ActivePlaceable.OnUsedEventScriptID" class="clsPlaceableObjectField" size="3"></select>
+        <select id="selPlaceablesEvents-OnUsed" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnUsedEventScriptID" ></select>
 
     </div>
 </div>

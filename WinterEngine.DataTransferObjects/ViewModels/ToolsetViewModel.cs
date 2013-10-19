@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 
@@ -43,7 +44,8 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public List<ContentPackageResource> TilesetSpriteSheetsList { get; set; }
         public List<Item> ItemList { get; set; }
         public List<Script> ScriptList { get; set; }
-
+        public List<Gender> GenderList { get; set; }
+        
         #endregion
 
         public ToolsetViewModel()
@@ -65,6 +67,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             TilesetSpriteSheetsList = new List<ContentPackageResource>();
             ItemList = new List<Item>();
             ScriptList = new List<Script>();
+            GenderList = new List<Gender>();
         }
     }
 }

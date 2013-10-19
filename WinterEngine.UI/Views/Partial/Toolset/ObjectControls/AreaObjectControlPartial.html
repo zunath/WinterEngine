@@ -73,16 +73,32 @@
     <div id="divAreasTab-Events">
 
         <label id="lblAreaEvents-OnAreaEnter">On Area Enter:</label>
-        <select id="selAreaEvents-OnAreaEnter" disabled="disabled" data-bind="value: ActiveArea.OnEnterEventScriptID" class="clsAreaObjectField" size="3"></select>
+        <select id="selAreaEvents-OnAreaEnter" disabled="disabled" class="clsAreaObjectField" size="3"
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function(item) {return item.ResourceID},
+                       value: ActiveArea.OnEnterEventScriptID" ></select>
 
         <label id="lblAreaEvents-OnAreaExit">On Area Exit:</label>
-        <select id="selAreaEvents-OnAreaExit" disabled="disabled" data-bind="value: ActiveArea.OnExitEventScriptID" class="clsAreaObjectField" size="3"></select>
+        <select id="selAreaEvents-OnAreaExit" disabled="disabled" class="clsAreaObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveArea.OnExitEventScriptID"></select>
 
         <label id="lblAreaEvents-OnAreaHeartbeat">On Area Heartbeat:</label>
-        <select id="selAreaEvents-OnAreaHeartbeat" disabled="disabled" data-bind="value: ActiveArea.OnHeartbeatEventScriptID" class="clsAreaObjectField" size="3"></select>
+        <select id="selAreaEvents-OnAreaHeartbeat" disabled="disabled" class="clsAreaObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveArea.OnHeartbeatEventScriptID" ></select>
 
         <label id="lblAreaEvents-OnUserDefinedEvent">On User Defined Event:</label>
-        <select id="selAreaEvents-OnUserDefinedEvent" disabled="disabled" data-bind="value: ActiveArea.OnUserDefinedEventScriptID" class="clsAreaObjectField" size="3"></select>
+        <select id="selAreaEvents-OnUserDefinedEvent" disabled="disabled" class="clsAreaObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveArea.OnUserDefinedEventScriptID" ></select>
 
     </div>
 </div>

@@ -19,6 +19,7 @@ using WinterEngine.Editor.Managers;
 using WinterEngine.Library.Managers;
 using WinterEngine.Library.Utility;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json.Converters;
 
 
 namespace WinterEngine.Game.Entities
@@ -455,6 +456,12 @@ namespace WinterEngine.Game.Entities
                     newObject.Resref = resref;
                     newObject.ResourceCategoryID = categoryID;
 
+                    if (gameObjectType == GameObjectTypeEnum.Creature)
+                    {
+                        // Default to the first gender, to avoid bad data.
+                        (newObject as Creature).GenderID = 1;
+                    }
+
                     resourceID = factory.AddToDatabase(newObject).ResourceID;
                 }
 
@@ -723,7 +730,19 @@ namespace WinterEngine.Game.Entities
 
             using (ScriptRepository repo = new ScriptRepository())
             {
-                ViewModel.ScriptList = repo.GetAll();
+                List<Script> resourceList = repo.GetAll();
+                resourceList.Insert(0, new Script
+                {
+                    Name = "(None)",
+                    ResourceID = 0
+                });
+
+                ViewModel.ScriptList = resourceList;
+            }
+
+            using (GenderRepository repo = new GenderRepository())
+            {
+                ViewModel.GenderList = repo.GetAll();
             }
         }
 

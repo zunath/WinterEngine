@@ -231,6 +231,20 @@ namespace WinterEngine.DataAccess
             }
         }
 
+        private GenericRepository<ModuleDataContext, Gender> genderRepository;
+        public GenericRepository<ModuleDataContext, Gender> GenderRepository
+        {
+            get
+            {
+                if (this.genderRepository == null)
+                {
+                    this.genderRepository
+                        = new GenericRepository<ModuleDataContext, Gender>(context);
+                }
+                return genderRepository;
+            }
+        }
+
         #endregion
 
         #region Mapping repositories

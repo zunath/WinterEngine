@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using System.ComponentModel.DataAnnotations;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects
 {
@@ -55,6 +56,11 @@ namespace WinterEngine.DataTransferObjects
         [ProtoMember(16)]
         [XmlIgnore]
         public bool IsInvulnerable { get; set; }
+
+        public int GenderID { get; set; }
+
+        [ForeignKey("GenderID")]
+        public virtual Gender Gender { get; set; }
 
         // EQUIPPED ITEMS
 

@@ -23,6 +23,8 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("ContentPackageResources")]
         ContentPackageResource = 7,
         [Description("GameObject")]
-        GameObject = 8
+        GameObject = 8,
+        [Description("Gender")]
+        Gender = 9
     }
 }

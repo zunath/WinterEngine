@@ -295,6 +295,25 @@ namespace WinterEngine.Library.Managers
         /// </summary>
         private void InitializeData()
         {
+            // Add the default genders
+            using (GenderRepository repo = new GenderRepository())
+            {
+                repo.Add(new Gender
+                {
+                    GenderType = GenderTypeEnum.Male,
+                    IsSystemResource = true,
+                    Name = "Male",
+                    ResourceType = ResourceTypeEnum.Gender
+                });
+                repo.Add(new Gender
+                {
+                    GenderType = GenderTypeEnum.Female,
+                    IsSystemResource = true,
+                    Name = "Female",
+                    ResourceType = ResourceTypeEnum.Gender
+                });
+            }
+
             // Add the "Uncategorized" category for each resource type.
             using (CategoryRepository repo = new CategoryRepository())
             {
