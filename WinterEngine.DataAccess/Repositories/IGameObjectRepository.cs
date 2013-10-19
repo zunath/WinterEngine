@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 
 namespace WinterEngine.DataAccess.Repositories
@@ -18,6 +19,7 @@ namespace WinterEngine.DataAccess.Repositories
         void Delete(int resourceID);
         bool Exists(string resref);
         List<T> GetAll();
+        List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false);
         List<T> GetAllByResourceCategory(Category resourceCategory);
         T GetByID(int resourceID);
         T GetByResref(string resref);

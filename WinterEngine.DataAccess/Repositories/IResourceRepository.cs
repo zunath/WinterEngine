@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -15,6 +16,7 @@ namespace WinterEngine.DataAccess.Repositories
         void Upsert(T entity);
         void Delete(T entity);
         List<T> GetAll();
+        List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false);
         bool Exists(T entity);
         T GetByID(int entityID);
     }

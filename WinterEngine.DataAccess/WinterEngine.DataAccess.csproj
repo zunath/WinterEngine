@@ -103,6 +103,7 @@
     <Compile Include="Repositories\ContentPackageRepository.cs" />
     <Compile Include="Repositories\ContentPackageResourceRepository.cs" />
     <Compile Include="Repositories\ConversationRepository.cs" />
+    <Compile Include="Repositories\FactionRepository.cs" />
     <Compile Include="Repositories\GenderRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\IGameObjectRepository.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="Repositories\ModuleRepository.cs" />
     <Compile Include="Repositories\PlaceableRepository.cs" />
+    <Compile Include="Repositories\RaceRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ScriptRepository.cs" />

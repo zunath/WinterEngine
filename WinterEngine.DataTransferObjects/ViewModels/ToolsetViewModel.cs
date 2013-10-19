@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataTransferObjects.ViewModels
 {
@@ -41,11 +42,14 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public List<GameModule> ModuleList { get; set; }
         public List<ContentPackage> AvailableContentPackages { get; set; }
         public List<ContentPackage> AttachedContentPackages { get; set; }
-        public List<ContentPackageResource> TilesetSpriteSheetsList { get; set; }
-        public List<Item> ItemList { get; set; }
-        public List<Script> ScriptList { get; set; }
-        public List<Gender> GenderList { get; set; }
-        
+        public List<DropDownListUIObject> TilesetSpriteSheetsList { get; set; }
+        public List<DropDownListUIObject> ItemList { get; set; }
+        public List<DropDownListUIObject> ScriptList { get; set; }
+        public List<DropDownListUIObject> GenderList { get; set; }
+        public List<DropDownListUIObject> ConversationList { get; set; }
+        public List<DropDownListUIObject> RaceList { get; set; }
+        public List<DropDownListUIObject> FactionList { get; set; }
+
         #endregion
 
         public ToolsetViewModel()
@@ -64,10 +68,13 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             ModuleList = new List<GameModule>();
             AvailableContentPackages = new List<ContentPackage>();
             AttachedContentPackages = new List<ContentPackage>();
-            TilesetSpriteSheetsList = new List<ContentPackageResource>();
-            ItemList = new List<Item>();
-            ScriptList = new List<Script>();
-            GenderList = new List<Gender>();
+            TilesetSpriteSheetsList = new List<DropDownListUIObject>();
+            ItemList = new List<DropDownListUIObject>();
+            ScriptList = new List<DropDownListUIObject>();
+            GenderList = new List<DropDownListUIObject>();
+            ConversationList = new List<DropDownListUIObject>();
+            RaceList = new List<DropDownListUIObject>();
+            FactionList = new List<DropDownListUIObject>();
         }
     }
 }

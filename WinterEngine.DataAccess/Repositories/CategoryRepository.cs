@@ -5,6 +5,7 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 
 namespace WinterEngine.DataAccess
@@ -33,6 +34,24 @@ namespace WinterEngine.DataAccess
         public List<Category> GetAll()
         {
             return Context.CategoryRepository.Get().ToList();
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        {
+            List<DropDownListUIObject> items = (from category
+                                                in Context.CategoryRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = category.Name,
+                                                    ResourceID = category.ResourceID
+                                                }).ToList();
+
+            if (includeDefault)
+            {
+                items.Insert(0, new DropDownListUIObject(0, "(None)"));
+            }
+
+            return items;
         }
 
         /// <summary>

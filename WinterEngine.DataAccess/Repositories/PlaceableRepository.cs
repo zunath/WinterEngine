@@ -6,6 +6,7 @@ using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 
 
@@ -99,6 +100,23 @@ namespace WinterEngine.DataAccess
         public List<Placeable> GetAll()
         {
             return Context.PlaceableRepository.Get().ToList();
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        {
+            List<DropDownListUIObject> items = (from placeable
+                                                in Context.PlaceableRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = placeable.Name,
+                                                    ResourceID = placeable.ResourceID
+                                                }).ToList();
+            if (includeDefault)
+            {
+                items.Insert(0, new DropDownListUIObject(0, "(None)"));
+            }
+
+            return items;
         }
 
         /// <summary>

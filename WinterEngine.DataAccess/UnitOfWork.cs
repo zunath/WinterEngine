@@ -245,6 +245,20 @@ namespace WinterEngine.DataAccess
             }
         }
 
+        private GenericRepository<ModuleDataContext, Faction> factionRepository;
+        public GenericRepository<ModuleDataContext, Faction> FactionRepository
+        {
+            get
+            {
+                if (this.factionRepository == null)
+                {
+                    this.factionRepository
+                        = new GenericRepository<ModuleDataContext, Faction>(context);
+                }
+                return factionRepository;
+            }
+        }
+
         #endregion
 
         #region Mapping repositories

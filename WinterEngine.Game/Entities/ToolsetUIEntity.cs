@@ -20,6 +20,7 @@ using WinterEngine.Library.Managers;
 using WinterEngine.Library.Utility;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Converters;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 
 namespace WinterEngine.Game.Entities
@@ -712,38 +713,39 @@ namespace WinterEngine.Game.Entities
 
             using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
             {
-                List<ContentPackageResource> resourceList = repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset);
-                resourceList.Insert(0, new ContentPackageResource
-                {
-                    ContentPackageResourceType = ContentPackageResourceTypeEnum.Tileset,
-                    Name = "(None)",
-                    ResourceID = 0,
-                    ResourceType = ResourceTypeEnum.GameObject
-                });
-                ViewModel.TilesetSpriteSheetsList = resourceList;
+                ViewModel.TilesetSpriteSheetsList = repo.GetAllUIObjects(ContentPackageResourceTypeEnum.Tileset, true);
             }
 
             using (ItemRepository repo = new ItemRepository())
             {
-                ViewModel.ItemList = repo.GetAll();
+                ViewModel.ItemList = repo.GetAllUIObjects(true);
             }
 
             using (ScriptRepository repo = new ScriptRepository())
             {
-                List<Script> resourceList = repo.GetAll();
-                resourceList.Insert(0, new Script
-                {
-                    Name = "(None)",
-                    ResourceID = 0
-                });
-
-                ViewModel.ScriptList = resourceList;
+                ViewModel.ScriptList = repo.GetAllUIObjects(true);
             }
 
             using (GenderRepository repo = new GenderRepository())
             {
-                ViewModel.GenderList = repo.GetAll();
+                ViewModel.GenderList = repo.GetAllUIObjects();
             }
+
+            using (ConversationRepository repo = new ConversationRepository())
+            {
+                ViewModel.ConversationList = repo.GetAllUIObjects(true);
+            }
+
+            using (RaceRepository repo = new RaceRepository())
+            {
+                ViewModel.RaceList = repo.GetAllUIObjects(true);
+            }
+
+            using (FactionRepository repo = new FactionRepository())
+            {
+                ViewModel.FactionList = repo.GetAllUIObjects(true);
+            }
+
         }
 
         private void ClearViewModelPopulation()

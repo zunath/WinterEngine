@@ -6,6 +6,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -102,6 +103,23 @@ namespace WinterEngine.DataAccess.Repositories
         public List<Script> GetAll()
         {
             return Context.ScriptRepository.Get().ToList();
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        {
+            List<DropDownListUIObject> items = (from script
+                                                in Context.ScriptRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = script.Name,
+                                                    ResourceID = script.ResourceID
+                                                }).ToList();
+            if (includeDefault)
+            {
+                items.Insert(0, new DropDownListUIObject(0, "(None)"));
+            }
+
+            return items;
         }
 
         /// <summary>

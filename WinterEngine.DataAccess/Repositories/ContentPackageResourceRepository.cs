@@ -7,6 +7,7 @@ using Ionic.Zip;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 
 namespace WinterEngine.DataAccess.Repositories
@@ -72,6 +73,42 @@ namespace WinterEngine.DataAccess.Repositories
             return Context.ContentPackageResourceRepository.Get(null, null, "ContentPackage").ToList();
         }
 
+        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        {
+            List<DropDownListUIObject> items = (from contentPackageResource
+                                                in Context.ContentPackageResourceRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = contentPackageResource.Name,
+                                                    ResourceID = contentPackageResource.ResourceID
+                                                }).ToList();
+
+            if (includeDefault)
+            {
+                items.Insert(0, new DropDownListUIObject(0, "(None)"));
+            }
+
+            return items;
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects(ContentPackageResourceTypeEnum resourceType, bool includeDefault = false)
+        {
+            List<DropDownListUIObject> items = (from category
+                                               in Context.ContentPackageResourceRepository.Get()
+                                                where category.ContentPackageResourceType == resourceType
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = category.Name,
+                                                    ResourceID = category.ResourceID
+                                                }).ToList();
+
+            if (includeDefault)
+            {
+                items.Insert(0, new DropDownListUIObject(0, "(None)"));
+            }
+
+            return items;
+        }
         public List<ContentPackageResource> GetAllByResourceType(ContentPackageResourceTypeEnum resourceType)
         {
             return Context.ContentPackageResourceRepository.Get(x => x.ContentPackageResourceType == resourceType).ToList();

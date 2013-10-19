@@ -5,6 +5,7 @@ using System.Text;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -86,6 +87,23 @@ namespace WinterEngine.DataAccess.Repositories
         public List<Tileset> GetAll()
         {
             return Context.TilesetRepository.Get().ToList();
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        {
+            List<DropDownListUIObject> items = (from tileset
+                                                in Context.TilesetRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = tileset.Name,
+                                                    ResourceID = tileset.ResourceID
+                                                }).ToList();
+            if (includeDefault)
+            {
+                items.Insert(0, new DropDownListUIObject(0, "(None)"));
+            }
+
+            return items;
         }
 
         public void DeleteAllByCategory(Category category)

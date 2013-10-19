@@ -11,6 +11,7 @@ using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Paths;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 
 namespace WinterEngine.DataAccess.Repositories
@@ -108,6 +109,23 @@ namespace WinterEngine.DataAccess.Repositories
         public List<ContentPackage> GetAll()
         {
             return Context.ContentPackageRepository.Get().ToList();
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        {
+            List<DropDownListUIObject> items = (from contentPackage
+                                                in Context.ContentPackageRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = contentPackage.Name,
+                                                    ResourceID = contentPackage.ResourceID
+                                                }).ToList();
+            if (includeDefault)
+            {
+                items.Insert(0, new DropDownListUIObject(0, "(None)"));
+            }
+
+            return items;
         }
 
 

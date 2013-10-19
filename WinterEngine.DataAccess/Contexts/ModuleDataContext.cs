@@ -23,6 +23,8 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<Script> Scripts { get; set; }
         public DbSet<LocalVariable> LocalVariables { get; set; }
+        public DbSet<Faction> Factions { get; set; }
+        public DbSet<Gender> Genders { get; set; }
 
         public ModuleDataContext()
         {

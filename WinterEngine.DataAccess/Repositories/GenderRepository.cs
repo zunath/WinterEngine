@@ -6,6 +6,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -88,6 +89,23 @@ namespace WinterEngine.DataAccess.Repositories
         public List<Gender> GetAll()
         {
             return Context.GenderRepository.Get().ToList();
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        {
+            List<DropDownListUIObject> items = (from gender
+                                                in Context.GenderRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = gender.Name,
+                                                    ResourceID = gender.ResourceID
+                                                }).ToList();
+            if (includeDefault)
+            {
+                items.Insert(0, new DropDownListUIObject(0, "(None)"));
+            }
+
+            return items;
         }
 
         public Gender GetByID(int resourceID)
