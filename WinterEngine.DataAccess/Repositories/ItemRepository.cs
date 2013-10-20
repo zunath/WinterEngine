@@ -181,7 +181,7 @@ namespace WinterEngine.DataAccess
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Item> items = GetAllByResourceCategory(category);
+                List<Item> items = Context.ItemRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Item item in items)
                 {
                     JSTreeNode childNode = new JSTreeNode(item.Name);

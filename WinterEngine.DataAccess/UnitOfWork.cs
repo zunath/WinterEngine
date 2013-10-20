@@ -123,6 +123,20 @@ namespace WinterEngine.DataAccess
             }
         }
 
+        private GenericRepository<ModuleDataContext, Ability> abilityRepository;
+        public GenericRepository<ModuleDataContext, Ability> AbilityRepository
+        {
+            get
+            {
+                if (this.abilityRepository == null)
+                {
+                    this.abilityRepository
+                        = new GenericRepository<ModuleDataContext, Ability>(context);
+                }
+                return abilityRepository;
+            }
+        }
+
         private GenericRepository<ModuleDataContext, ContentPackage> contentPackageRepository;
         public GenericRepository<ModuleDataContext, ContentPackage> ContentPackageRepository
         {
@@ -256,6 +270,20 @@ namespace WinterEngine.DataAccess
                         = new GenericRepository<ModuleDataContext, Faction>(context);
                 }
                 return factionRepository;
+            }
+        }
+
+        private GenericRepository<ModuleDataContext, CharacterClass> characterClassRepository;
+        public GenericRepository<ModuleDataContext, CharacterClass> CharacterClassRepository
+        {
+            get
+            {
+                if (this.characterClassRepository == null)
+                {
+                    this.characterClassRepository
+                        = new GenericRepository<ModuleDataContext, CharacterClass>(context);
+                }
+                return characterClassRepository;
             }
         }
 

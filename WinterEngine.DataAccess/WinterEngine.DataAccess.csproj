@@ -91,6 +91,7 @@
     <Compile Include="Contexts\ModuleDataContext.cs" />
     <Compile Include="Contexts\ModuleDataContextConfiguration.cs" />
     <Compile Include="Contexts\ModuleDataContextMigrationConfiguration.cs" />
+    <Compile Include="EntityCreationScripts.cs" />
     <Compile Include="Factories\FileExtensionFactory.cs" />
     <Compile Include="Factories\GameObjectFactory.cs" />
     <Compile Include="Factories\GameResourceFactory.cs" />
@@ -99,7 +100,9 @@
     <Compile Include="FileAccess\FileArchiveManager.cs" />
     <Compile Include="Interface\IGenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AbilityRepository.cs" />
     <Compile Include="Repositories\AreaRepository.cs" />
+    <Compile Include="Repositories\CharacterClassRepository.cs" />
     <Compile Include="Repositories\ContentPackageRepository.cs" />
     <Compile Include="Repositories\ContentPackageResourceRepository.cs" />
     <Compile Include="Repositories\ConversationRepository.cs" />
@@ -108,6 +111,7 @@
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\IGameObjectRepository.cs" />
     <Compile Include="Repositories\IResourceRepository.cs" />
+    <Compile Include="Repositories\ItemPropertyRepository.cs" />
     <Compile Include="Repositories\ItemTypeRepository.cs" />
     <Compile Include="Repositories\DatabaseRepository.cs" />
     <Compile Include="Repositories\CreatureRepository.cs" />
@@ -131,9 +135,7 @@
       <Name>WinterEngine.DataTransferObjects</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

@@ -451,17 +451,8 @@ namespace WinterEngine.Game.Entities
                 }
                 else
                 {
-                    GameObjectBase newObject = factory.CreateObject(gameObjectType);
-                    newObject.Name = name;
-                    newObject.Tag = tag;
-                    newObject.Resref = resref;
+                    GameObjectBase newObject = factory.CreateObject(gameObjectType, name, tag, resref);
                     newObject.ResourceCategoryID = categoryID;
-
-                    if (gameObjectType == GameObjectTypeEnum.Creature)
-                    {
-                        // Default to the first gender, to avoid bad data.
-                        (newObject as Creature).GenderID = 1;
-                    }
 
                     resourceID = factory.AddToDatabase(newObject).ResourceID;
                 }
@@ -728,7 +719,7 @@ namespace WinterEngine.Game.Entities
 
             using (GenderRepository repo = new GenderRepository())
             {
-                ViewModel.GenderList = repo.GetAllUIObjects();
+                ViewModel.GenderList = repo.GetAllUIObjects(true);
             }
 
             using (ConversationRepository repo = new ConversationRepository())

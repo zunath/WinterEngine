@@ -184,7 +184,7 @@ namespace WinterEngine.DataAccess.Repositories
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Script> scripts = GetAllByResourceCategory(category);
+                List<Script> scripts = Context.ScriptRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Script script in scripts)
                 {
                     JSTreeNode childNode = new JSTreeNode(script.Name);

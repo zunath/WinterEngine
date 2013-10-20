@@ -25,6 +25,8 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("GameObject")]
         GameObject = 8,
         [Description("Gender")]
-        Gender = 9
+        Gender = 9,
+        [Description("Faction")]
+        Faction = 10
     }
 }

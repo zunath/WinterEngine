@@ -24,7 +24,10 @@ namespace WinterEngine.DataTransferObjects
         [MaxLength(32)]
         public string LastName { get; set; }
         [ProtoMember(3)]
-        public Race Race { get; set; }
+        [ForeignKey("RaceID")]
+        public virtual Race Race { get; set; }
+        public int? RaceID { get; set; }
+
         [ProtoMember(5)]
         public int Strength { get; set; }
         [ProtoMember(6)]
@@ -57,10 +60,17 @@ namespace WinterEngine.DataTransferObjects
         [XmlIgnore]
         public bool IsInvulnerable { get; set; }
 
-        public int GenderID { get; set; }
-
         [ForeignKey("GenderID")]
         public virtual Gender Gender { get; set; }
+        public int? GenderID { get; set; }
+
+        [ForeignKey("FactionID")]
+        public virtual Faction Faction { get; set; }
+        public int? FactionID { get; set; }
+
+        [ForeignKey("ConversationID")]
+        public virtual Conversation Conversation { get; set; }
+        public int? ConversationID { get; set; }
 
         // EQUIPPED ITEMS
 

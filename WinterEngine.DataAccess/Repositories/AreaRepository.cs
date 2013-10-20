@@ -195,7 +195,7 @@ namespace WinterEngine.DataAccess
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
                 
-                List<Area> areas = GetAllByResourceCategory(category);
+                List<Area> areas = Context.AreaRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Area area in areas)
                 {
                     JSTreeNode childNode = new JSTreeNode(area.Name);

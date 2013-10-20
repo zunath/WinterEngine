@@ -115,6 +115,12 @@ namespace WinterEngine.DataTransferObjects
 
         public virtual List<LocalVariable> LocalVariables { get; set; }
 
+        /// <summary>
+        /// Gets or sets whether the object is available for selection in the tree view.
+        /// </summary>
+        public bool IsInTreeView { get; set; }
+
+
         #endregion
 
         #region Constructors

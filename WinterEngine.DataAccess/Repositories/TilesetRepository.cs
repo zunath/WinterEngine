@@ -129,7 +129,7 @@ namespace WinterEngine.DataAccess.Repositories
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Tileset> tilesets = GetAllByResourceCategory(category);
+                List<Tileset> tilesets = Context.TilesetRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Tileset tileset in tilesets)
                 {
                     JSTreeNode childNode = new JSTreeNode(tileset.Name);
@@ -146,8 +146,6 @@ namespace WinterEngine.DataAccess.Repositories
             rootNode.children = treeNodes;
             return rootNode;
         }
-
-
 
         public override void Dispose()
         {

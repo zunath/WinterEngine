@@ -128,7 +128,7 @@ namespace WinterEngine.Library.Managers
                     repo.Add(gameModule);
                 }
 
-                InitializeData();
+                EntityCreationScripts.Initialize();
                 LoadSystemContentPacks();
 
                 return true;
@@ -287,90 +287,6 @@ namespace WinterEngine.Library.Managers
         /// </summary>
         private void LoadSystemContentPacks()
         {
-        }
-
-        /// <summary>
-        /// Handles setting up system data in the module's database.
-        /// These are core pieces of data needed to ensure everything runs correctly.
-        /// </summary>
-        private void InitializeData()
-        {
-            // Add the default genders
-            using (GenderRepository repo = new GenderRepository())
-            {
-                repo.Add(new Gender
-                {
-                    GenderType = GenderTypeEnum.Male,
-                    IsSystemResource = true,
-                    Name = "Male",
-                    ResourceType = ResourceTypeEnum.Gender
-                });
-                repo.Add(new Gender
-                {
-                    GenderType = GenderTypeEnum.Female,
-                    IsSystemResource = true,
-                    Name = "Female",
-                    ResourceType = ResourceTypeEnum.Gender
-                });
-            }
-
-            // Add the "Uncategorized" category for each resource type.
-            using (CategoryRepository repo = new CategoryRepository())
-            {
-                List<Category> categoryList = new List<Category>();
-
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Area,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Conversation,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Creature,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Item,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Placeable,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Script,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Tileset,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-
-                repo.Add(categoryList);
-            }
         }
 
         #endregion

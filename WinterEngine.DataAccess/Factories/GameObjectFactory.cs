@@ -21,24 +21,90 @@ namespace WinterEngine.DataAccess.Factories
         /// </summary>
         /// <param name="resourceType"></param>
         /// <returns></returns>
-        public GameObjectBase CreateObject(GameObjectTypeEnum resourceType)
+        public GameObjectBase CreateObject(GameObjectTypeEnum resourceType, string name, string tag, string resref)
         {
             switch (resourceType)
             {
                 case GameObjectTypeEnum.Area:
-                    return new Area { GameObjectType = resourceType };
+                    {
+                        return new Area 
+                        { 
+                            Name = name,
+                            Tag = tag,
+                            Resref = resref,
+                            GameObjectType = resourceType 
+                        };
+                    }
                 case GameObjectTypeEnum.Conversation:
-                    return new Conversation { GameObjectType = resourceType };
+                    {
+                        return new Conversation
+                        {
+                            Name = name,
+                            Tag = tag,
+                            Resref = resref,
+                            GameObjectType = resourceType
+                        };
+                    }
                 case GameObjectTypeEnum.Creature:
-                    return new Creature { GameObjectType = resourceType };
+                    {
+                        return new Creature
+                        {
+                            Name = name,
+                            Tag = tag,
+                            Resref = resref,
+                            GameObjectType = resourceType,
+                            Constitution = 1,
+                            Dexterity = 1,
+                            HitPoints = 1,
+                            Intelligence = 1,
+                            Level = 1,
+                            MaxHitPoints = 1,
+                            MaxMana = 1,
+                            Strength = 1,
+                            Wisdom = 1,
+                            IsInvulnerable = false,
+                        };
+                    }
                 case GameObjectTypeEnum.Item:
-                    return new Item { GameObjectType = resourceType };
+                    {
+                        return new Item
+                        {
+                            Name = name,
+                            Tag = tag,
+                            Resref = resref,
+                            GameObjectType = resourceType 
+                        };
+                    }
                 case GameObjectTypeEnum.Placeable:
-                    return new Placeable { GameObjectType = resourceType };
+                    {
+                        return new Placeable
+                        {
+                            Name = name,
+                            Tag = tag,
+                            Resref = resref,
+                            GameObjectType = resourceType 
+                        };
+                    }
                 case GameObjectTypeEnum.Script:
-                    return new Script { GameObjectType = resourceType };
+                    {
+                        return new Script
+                        {
+                            Name = name,
+                            Tag = tag,
+                            Resref = resref,
+                            GameObjectType = resourceType 
+                        };
+                    }
                 case GameObjectTypeEnum.Tileset:
-                    return new Tileset { GameObjectType = resourceType };
+                    {
+                        return new Tileset
+                        {
+                            Name = name,
+                            Tag = tag,
+                            Resref = resref,
+                            GameObjectType = resourceType 
+                        };
+                    }
                 default:
                     throw new Exception("Game object type not supported.");
             }

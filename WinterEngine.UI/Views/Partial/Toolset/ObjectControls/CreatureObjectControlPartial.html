@@ -15,7 +15,11 @@
         <select id="selCreatureDetails-Appearance" disabled="disabled" data-bind="" class="clsCreatureObjectField" size="3"></select>
 
         <label>Race:</label>
-        <select id="selCreatureDetails-Race" disabled="disabled" data-bind="value: ActiveCreature.Race" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreatureDetails-Race" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: RaceList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveCreature.RaceID" ></select>
 
         <label>Gender:</label>
         <select id="selCreatureDetails-Gender" disabled="disabled" class="clsCreatureObjectField" size="3"
@@ -25,14 +29,22 @@
                        value: ActiveCreature.GenderID"></select>
 
         <label>Faction:</label>
-        <select id="selCreatureDetails-Faction" disabled="disabled" data-bind="" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreatureDetails-Faction" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: FactionList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveCreature.FactionID"></select>
 
         <label>Conversation:</label>
-        <select id="selCreatureDetails-Conversation" disabled="disabled" data-bind="" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreatureDetails-Conversation" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ConversationList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.ConversationID"></select>
 
         <label>
             Is Invulnerable:
-            <input id="chkCreatureDetails-IsInvulnerable" disabled="disabled" type="checkbox" data-bind="value: ActiveCreature.Name" class="clsCreatureObjectField" />
+            <input id="chkCreatureDetails-IsInvulnerable" disabled="disabled" type="checkbox" data-bind="value: ActiveCreature.IsInvulnerable" class="clsCreatureObjectField" />
         </label>
 
     </div>
@@ -40,25 +52,25 @@
     <h3>Attributes</h3>
     <div id="divCreaturesTab-Attributes">
         <label>Hit Points:</label>
-        <input id="numCreaturesTab-HitPoints" type="number" max="65535" disabled="disabled" data-bind="value: ActiveCreature.HitPoints" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-HitPoints" type="number" min="1" max="65535" disabled="disabled" data-bind="value: ActiveCreature.MaxHitPoints" class="clsCreatureObjectField" />
 
         <label>Mana:</label>
-        <input id="numCreaturesTab-Mana" type="number" max="65535" disabled="disabled" data-bind="value: ActiveCreature.Mana" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Mana" type="number" min="1" max="65535" disabled="disabled" data-bind="value: ActiveCreature.MaxMana" class="clsCreatureObjectField" />
 
         <label>Strength:</label>
-        <input id="numCreaturesTab-Strength" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature.Strength" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Strength" type="number" min="1" max="255" disabled="disabled" data-bind="value: ActiveCreature.Strength" class="clsCreatureObjectField" />
 
         <label>Dexterity:</label>
-        <input id="numCreaturesTab-Dexterity" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature.Dexterity" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Dexterity" type="number" min="1" max="255" disabled="disabled" data-bind="value: ActiveCreature.Dexterity" class="clsCreatureObjectField" />
 
         <label>Constitution:</label>
-        <input id="numCreaturesTab-Constitution" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature.Constitution" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Constitution" type="number" min="1" max="255" disabled="disabled" data-bind="value: ActiveCreature.Constitution" class="clsCreatureObjectField" />
 
         <label>Intelligence:</label>
-        <input id="numCreaturesTab-Intelligence" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature.Intelligence" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Intelligence" type="number" min="1" max="255" disabled="disabled" data-bind="value: ActiveCreature.Intelligence" class="clsCreatureObjectField" />
 
         <label>Wisdom:</label>
-        <input id="numCreaturesTab-Wisdom" type="number" max="255" disabled="disabled" data-bind="value: ActiveCreature.Wisdom" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Wisdom" type="number" min="1" max="255" disabled="disabled" data-bind="value: ActiveCreature.Wisdom" class="clsCreatureObjectField" />
 
     </div>
 
@@ -69,46 +81,102 @@
     <h3>Equipment</h3>
     <div id="divCreaturesTab-Equipment">
         <label>Main Hand:</label>
-        <select id="selCreaturesTab-MainHand" disabled="disabled" data-bind="value: ActiveCreature.MainHandItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-MainHand" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveCreature.MainHandItemID"></select>
 
         <label>Off Hand:</label>
-        <select id="selCreaturesTab-OffHand" disabled="disabled" data-bind="value: ActiveCreature.OffHandItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-OffHand" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveCreature.OffHandItemID"></select>
 
         <label>Head:</label>
-        <select id="selCreaturesTab-Head" disabled="disabled" data-bind="value: ActiveCreature.HeadItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-Head" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.HeadItemID"></select>
 
         <label>Body:</label>
-        <select id="selCreaturesTab-Body" disabled="disabled" data-bind="value: ActiveCreature.BodyItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-Body" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.BodyItemID"></select>
 
         <label>Back:</label>
-        <select id="selCreaturesTab-Back" disabled="disabled" data-bind="value: ActiveCreature.BackItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-Back" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.BackItemID"></select>
 
         <label>Hands:</label>
-        <select id="selCreaturesTab-Hands" disabled="disabled" data-bind="value: ActiveCreature.HandsItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-Hands" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.HandsItemID"></select>
 
         <label>Waist:</label>
-        <select id="selCreaturesTab-Waist" disabled="disabled" data-bind="value: ActiveCreature.WaistItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-Waist" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.WaistItemID"></select>
 
         <label>Legs:</label>
-        <select id="selCreaturesTab-Legs" disabled="disabled" data-bind="value: ActiveCreature.LegsItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-Legs" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.LegsItemID"></select>
 
         <label>Feet:</label>
-        <select id="selCreaturesTab-Feet" disabled="disabled" data-bind="value: ActiveCreature.FeetItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-Feet" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.FeetItemID"></select>
 
         <label>Ear (L):</label>
-        <select id="selCreaturesTab-EarL" disabled="disabled" data-bind="value: ActiveCreature.EarLeftItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-EarL" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.EarLeftItemID"></select>
 
         <label>Ear (R):</label>
-        <select id="selCreaturesTab-EarR" disabled="disabled" data-bind="value: ActiveCreature.EarRightItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-EarR" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.EarRightItemID"></select>
 
         <label>Ring (L):</label>
-        <select id="selCreaturesTab-RingL" disabled="disabled" data-bind="value: ActiveCreature.RingLeftItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-RingL" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.RingLeftItemID"></select>
 
         <label>Ring (R):</label>
-        <select id="selCreaturesTab-RingR" disabled="disabled" data-bind="value: ActiveCreature.RingRightItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-RingR" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.RingRightItemID"></select>
 
         <label>Neck:</label>
-        <select id="selCreaturesTab-Neck" disabled="disabled" data-bind="value: ActiveCreature.NeckItemID" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreaturesTab-Neck" disabled="disabled" class="clsCreatureObjectField" size="3"
+            data-bind="options: ItemList,
+                        optionsText: function (item) { return item.Name },
+                        optionsValue: function (item) { return item.ResourceID },
+                        value: ActiveCreature.NeckItemID"></select>
 
     </div>
 
