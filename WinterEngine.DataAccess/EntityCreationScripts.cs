@@ -252,7 +252,6 @@ namespace WinterEngine.DataAccess
                 {
                     defaultConversation = context.ConversationRepository.Add(new Conversation
                     {
-                        ResourceID = context.Context.Conversations.Count() + 1, // TEMPORARY FIX: Identities are not being generated in EF6 - waiting for bug fix from Microsoft.
                         GraphicResourceID = defaultContentPackageResourceNone.ResourceID,
                         IsDefault = true,
                         IsInTreeView = false,
@@ -273,7 +272,6 @@ namespace WinterEngine.DataAccess
                 {
                     defaultItem = context.ItemRepository.Add(new Item
                     {
-                        ResourceID = context.Context.Items.Count() + 1, // TEMPORARY FIX: Identities are not being generated in EF6 - waiting for bug fix from Microsoft.
                         GraphicResourceID = defaultContentPackageResourceItem.ResourceID,
                         IsDefault = true,
                         IsInTreeView = false,
@@ -296,7 +294,6 @@ namespace WinterEngine.DataAccess
                 {
                     defaultTileset = context.TilesetRepository.Add(new Tileset
                     {
-                        ResourceID = context.Context.Tilesets.Count() + 1, // TEMPORARY FIX: Identities are not being generated in EF6 - waiting for bug fix from Microsoft.
                         GraphicResourceID = defaultContentPackageResourceTileset.ResourceID,
                         IsDefault = true,
                         IsInTreeView = false,
