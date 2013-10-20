@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WinterEngine.DataAccess;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 
 
@@ -23,16 +24,29 @@ namespace WinterEngine.DataAccess.Factories
         /// <returns></returns>
         public GameObjectBase CreateObject(GameObjectTypeEnum resourceType, string name, string tag, string resref)
         {
+            DefaultObjectIDs defaultIDs;
+
+            using (DefaultObjectRepository repo = new DefaultObjectRepository())
+            {
+                defaultIDs = repo.GetDefaultObjectIDs();
+            }
+
             switch (resourceType)
             {
                 case GameObjectTypeEnum.Area:
                     {
-                        return new Area 
-                        { 
+                        return new Area
+                        {
                             Name = name,
                             Tag = tag,
                             Resref = resref,
-                            GameObjectType = resourceType 
+                            GameObjectType = resourceType,
+                            //ResourceCategoryID = defaultIDs.CategoryAreaID,
+                            //OnEnterEventScriptID = defaultIDs.ScriptID,
+                            //OnExitEventScriptID = defaultIDs.ScriptID,
+                            //OnHeartbeatEventScriptID = defaultIDs.ScriptID,
+                            //OnUserDefinedEventScriptID = defaultIDs.ScriptID,
+                            IsInTreeView = true,
                         };
                     }
                 case GameObjectTypeEnum.Conversation:
@@ -42,7 +56,10 @@ namespace WinterEngine.DataAccess.Factories
                             Name = name,
                             Tag = tag,
                             Resref = resref,
-                            GameObjectType = resourceType
+                            GameObjectType = resourceType,
+                            //ResourceCategoryID = defaultIDs.CategoryConversationID,
+                            IsInTreeView = true,
+
                         };
                     }
                 case GameObjectTypeEnum.Creature:
@@ -63,6 +80,31 @@ namespace WinterEngine.DataAccess.Factories
                             Strength = 1,
                             Wisdom = 1,
                             IsInvulnerable = false,
+                            //BackItemID = defaultIDs.ItemID,
+                            //BodyItemID = defaultIDs.ItemID,
+                            //ConversationID = defaultIDs.ConversationID,
+                            //EarLeftItemID = defaultIDs.ItemID,
+                            //EarRightItemID = defaultIDs.ItemID,
+                            //FactionID = defaultIDs.FactionID,
+                            //FeetItemID = defaultIDs.ItemID,
+                            //GenderID = defaultIDs.GenderID,
+                            //HandsItemID = defaultIDs.ItemID,
+                            //HeadItemID = defaultIDs.ItemID,
+                            //LegsItemID = defaultIDs.ItemID,
+                            //MainHandItemID = defaultIDs.ItemID,
+                            //NeckItemID = defaultIDs.ItemID,
+                            //OffHandItemID = defaultIDs.ItemID,
+                            //OnConversationEventScriptID = defaultIDs.ScriptID,
+                            //OnDamagedEventScriptID = defaultIDs.ScriptID,
+                            //OnDeathEventScriptID = defaultIDs.ScriptID,
+                            //OnHeartbeatEventScriptID = defaultIDs.ScriptID,
+                            //OnSpawnEventScriptID = defaultIDs.ScriptID,
+                            //RaceID = defaultIDs.RaceID,
+                            //ResourceCategoryID = defaultIDs.CategoryCreatureID,
+                            //RingLeftItemID = defaultIDs.ItemID,
+                            //RingRightItemID = defaultIDs.ItemID,
+                            //WaistItemID = defaultIDs.ItemID,
+                            IsInTreeView = true,
                         };
                     }
                 case GameObjectTypeEnum.Item:
@@ -72,7 +114,11 @@ namespace WinterEngine.DataAccess.Factories
                             Name = name,
                             Tag = tag,
                             Resref = resref,
-                            GameObjectType = resourceType 
+                            GameObjectType = resourceType,
+                            GraphicResourceID = defaultIDs.ContentPackageResourceItemID,
+                            OnSpawnEventScriptID = defaultIDs.ScriptID,
+                            ResourceCategoryID = defaultIDs.CategoryItemID,
+                            IsInTreeView = true
                         };
                     }
                 case GameObjectTypeEnum.Placeable:
@@ -82,7 +128,16 @@ namespace WinterEngine.DataAccess.Factories
                             Name = name,
                             Tag = tag,
                             Resref = resref,
-                            GameObjectType = resourceType 
+                            GameObjectType = resourceType,
+                            OnCloseEventScriptID = defaultIDs.ScriptID,
+                            OnDamagedEventScriptID = defaultIDs.ScriptID,
+                            OnDeathEventScriptID = defaultIDs.ScriptID,
+                            OnHeartbeatEventScriptID = defaultIDs.ScriptID,
+                            OnOpenEventScriptID = defaultIDs.ScriptID,
+                            OnSpawnEventScriptID = defaultIDs.ScriptID,
+                            OnUsedEventScriptID = defaultIDs.ScriptID,
+                            ResourceCategoryID = defaultIDs.CategoryPlaceableID,
+                            IsInTreeView = true,
                         };
                     }
                 case GameObjectTypeEnum.Script:
@@ -92,7 +147,9 @@ namespace WinterEngine.DataAccess.Factories
                             Name = name,
                             Tag = tag,
                             Resref = resref,
-                            GameObjectType = resourceType 
+                            GameObjectType = resourceType,
+                            ResourceCategoryID = defaultIDs.CategoryScriptID,
+                            IsInTreeView = true,
                         };
                     }
                 case GameObjectTypeEnum.Tileset:
@@ -102,7 +159,9 @@ namespace WinterEngine.DataAccess.Factories
                             Name = name,
                             Tag = tag,
                             Resref = resref,
-                            GameObjectType = resourceType 
+                            GameObjectType = resourceType,
+                            ResourceCategoryID = defaultIDs.CategoryTilesetID,
+                            IsInTreeView = true,
                         };
                     }
                 default:

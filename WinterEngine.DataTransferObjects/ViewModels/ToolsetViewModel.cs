@@ -49,6 +49,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public List<DropDownListUIObject> ConversationList { get; set; }
         public List<DropDownListUIObject> RaceList { get; set; }
         public List<DropDownListUIObject> FactionList { get; set; }
+        public List<DropDownListUIObject> TilesetList { get; set; }
 
         #endregion
 
@@ -75,6 +76,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             ConversationList = new List<DropDownListUIObject>();
             RaceList = new List<DropDownListUIObject>();
             FactionList = new List<DropDownListUIObject>();
+            TilesetList = new List<DropDownListUIObject>();
         }
     }
 }

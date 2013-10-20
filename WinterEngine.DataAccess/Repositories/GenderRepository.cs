@@ -91,7 +91,7 @@ namespace WinterEngine.DataAccess.Repositories
             return Context.GenderRepository.Get().ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from gender
                                                 in Context.GenderRepository.Get()
@@ -100,10 +100,6 @@ namespace WinterEngine.DataAccess.Repositories
                                                     Name = gender.Name,
                                                     ResourceID = gender.ResourceID
                                                 }).ToList();
-            if (includeDefault)
-            {
-                items.Insert(0, new DropDownListUIObject(0, "(None)"));
-            }
 
             return items;
         }
@@ -122,6 +118,12 @@ namespace WinterEngine.DataAccess.Repositories
         {
             Gender dbGender = Context.GenderRepository.Get(x => x.ResourceID == gender.ResourceID).SingleOrDefault();
             return !Object.ReferenceEquals(dbGender, null);
+        }
+
+        public int GetDefaultResourceID()
+        {
+            Gender defaultObject = Context.GenderRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         public override void Dispose()

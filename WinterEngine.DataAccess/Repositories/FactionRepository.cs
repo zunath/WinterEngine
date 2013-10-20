@@ -25,7 +25,7 @@ namespace WinterEngine.DataAccess.Repositories
             return Context.FactionRepository.Get().ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from item
                                                 in Context.FactionRepository.Get()
@@ -34,11 +34,6 @@ namespace WinterEngine.DataAccess.Repositories
                                                     Name = item.Name,
                                                     ResourceID = item.ResourceID
                                                 }).ToList();
-            if (includeDefault)
-            {
-                items.Insert(0, new DropDownListUIObject(0, "(None)"));
-            }
-
             return items;
         }
 
@@ -87,6 +82,12 @@ namespace WinterEngine.DataAccess.Repositories
         public void Delete(Faction faction)
         {
             Context.FactionRepository.Delete(faction);
+        }
+
+        public int GetDefaultResourceID()
+        {
+            Faction defaultObject = Context.FactionRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         public override void Dispose()

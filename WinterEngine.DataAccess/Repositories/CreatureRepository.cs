@@ -107,7 +107,7 @@ namespace WinterEngine.DataAccess
             return Context.CreatureRepository.Get().ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from creature
                                                 in Context.CreatureRepository.Get()
@@ -116,11 +116,6 @@ namespace WinterEngine.DataAccess
                                                     Name = creature.Name,
                                                     ResourceID = creature.ResourceID
                                                 }).ToList();
-            if (includeDefault)
-            {
-                items.Insert(0, new DropDownListUIObject(0, "(None)"));
-            }
-
             return items;
         }
 
@@ -202,6 +197,12 @@ namespace WinterEngine.DataAccess
 
             rootNode.children = treeNodes;
             return rootNode;
+        }
+
+        public int GetDefaultResourceID()
+        {
+            Creature defaultObject = Context.CreatureRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         public override void Dispose()

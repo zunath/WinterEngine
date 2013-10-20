@@ -36,7 +36,7 @@ namespace WinterEngine.DataAccess
             return Context.CategoryRepository.Get().ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from category
                                                 in Context.CategoryRepository.Get()
@@ -45,11 +45,6 @@ namespace WinterEngine.DataAccess
                                                     Name = category.Name,
                                                     ResourceID = category.ResourceID
                                                 }).ToList();
-
-            if (includeDefault)
-            {
-                items.Insert(0, new DropDownListUIObject(0, "(None)"));
-            }
 
             return items;
         }
@@ -144,6 +139,12 @@ namespace WinterEngine.DataAccess
         public Category GetUncategorizedCategory(GameObjectTypeEnum resourceType)
         {
             return Context.CategoryRepository.Get(x => x.IsSystemResource == true && x.GameObjectType == resourceType).SingleOrDefault();
+        }
+
+        public int GetDefaultResourceID(GameObjectTypeEnum resourceType)
+        {
+            Category defaultObject = Context.CategoryRepository.Get(x => x.IsDefault && x.GameObjectType == resourceType).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         public override void Dispose()

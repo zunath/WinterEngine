@@ -89,7 +89,7 @@ namespace WinterEngine.DataAccess.Repositories
             return Context.TilesetRepository.Get().ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from tileset
                                                 in Context.TilesetRepository.Get()
@@ -98,10 +98,6 @@ namespace WinterEngine.DataAccess.Repositories
                                                     Name = tileset.Name,
                                                     ResourceID = tileset.ResourceID
                                                 }).ToList();
-            if (includeDefault)
-            {
-                items.Insert(0, new DropDownListUIObject(0, "(None)"));
-            }
 
             return items;
         }
@@ -145,6 +141,12 @@ namespace WinterEngine.DataAccess.Repositories
 
             rootNode.children = treeNodes;
             return rootNode;
+        }
+
+        public int GetDefaultResourceID()
+        {
+            Tileset defaultObject = Context.TilesetRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         public override void Dispose()

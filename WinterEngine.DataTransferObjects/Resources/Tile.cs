@@ -10,6 +10,7 @@ using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects
 {
+    [Serializable]
     [Table("Tiles")]
     public class Tile
     {

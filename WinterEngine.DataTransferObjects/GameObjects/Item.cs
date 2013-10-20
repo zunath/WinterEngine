@@ -29,7 +29,7 @@ namespace WinterEngine.DataTransferObjects
 
         // EVENT SCRIPTS
 
-        public int? OnSpawnEventScriptID { get; set; }
+        public int OnSpawnEventScriptID { get; set; }
 
         [ForeignKey("OnSpawnEventScriptID")]
         public virtual Script OnSpawnEventScript { get; set; }

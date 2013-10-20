@@ -15,6 +15,7 @@ using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.Editor.Managers;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 
 namespace WinterEngine.Library.Managers
 {
@@ -128,14 +129,15 @@ namespace WinterEngine.Library.Managers
                     repo.Add(gameModule);
                 }
 
-                EntityCreationScripts.Initialize();
+                EntityCreationScripts creationScripts = new EntityCreationScripts();
+                creationScripts.Initialize();
                 LoadSystemContentPacks();
 
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
-                return false;
+                throw new Exception("Error creating module.", ex);
             }
         }
 

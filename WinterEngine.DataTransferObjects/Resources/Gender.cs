@@ -7,6 +7,7 @@ using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects
 {
+    [Serializable]
     [Table("Genders")]
     public class Gender : GameResourceBase
     {

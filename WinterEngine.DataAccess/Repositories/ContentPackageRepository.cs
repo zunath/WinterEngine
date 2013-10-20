@@ -111,7 +111,7 @@ namespace WinterEngine.DataAccess.Repositories
             return Context.ContentPackageRepository.Get().ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from contentPackage
                                                 in Context.ContentPackageRepository.Get()
@@ -120,11 +120,6 @@ namespace WinterEngine.DataAccess.Repositories
                                                     Name = contentPackage.Name,
                                                     ResourceID = contentPackage.ResourceID
                                                 }).ToList();
-            if (includeDefault)
-            {
-                items.Insert(0, new DropDownListUIObject(0, "(None)"));
-            }
-
             return items;
         }
 
@@ -179,6 +174,12 @@ namespace WinterEngine.DataAccess.Repositories
         public ContentPackage GetByID(int packageID)
         {
             return Context.ContentPackageRepository.Get(x => x.ResourceID == packageID).SingleOrDefault();
+        }
+
+        public int GetDefaultResourceID()
+        {
+            ContentPackage defaultObject = Context.ContentPackageRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         #endregion

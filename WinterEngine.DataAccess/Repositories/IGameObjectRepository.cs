@@ -19,7 +19,7 @@ namespace WinterEngine.DataAccess.Repositories
         void Delete(int resourceID);
         bool Exists(string resref);
         List<T> GetAll();
-        List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false);
+        List<DropDownListUIObject> GetAllUIObjects();
         List<T> GetAllByResourceCategory(Category resourceCategory);
         T GetByID(int resourceID);
         T GetByResref(string resref);

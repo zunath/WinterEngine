@@ -106,6 +106,7 @@
     <Compile Include="Repositories\ContentPackageRepository.cs" />
     <Compile Include="Repositories\ContentPackageResourceRepository.cs" />
     <Compile Include="Repositories\ConversationRepository.cs" />
+    <Compile Include="Repositories\DefaultObjectRepository.cs" />
     <Compile Include="Repositories\FactionRepository.cs" />
     <Compile Include="Repositories\GenderRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />

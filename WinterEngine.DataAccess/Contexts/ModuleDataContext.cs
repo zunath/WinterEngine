@@ -25,7 +25,7 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<LocalVariable> LocalVariables { get; set; }
         public DbSet<Faction> Factions { get; set; }
         public DbSet<Gender> Genders { get; set; }
-
+        
         public ModuleDataContext()
         {
         }

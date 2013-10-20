@@ -704,49 +704,58 @@ namespace WinterEngine.Game.Entities
 
             using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
             {
-                ViewModel.TilesetSpriteSheetsList = repo.GetAllUIObjects(ContentPackageResourceTypeEnum.Tileset, true);
+                ViewModel.TilesetSpriteSheetsList = repo.GetAllUIObjects(ContentPackageResourceTypeEnum.Tileset, false);
             }
 
             using (ItemRepository repo = new ItemRepository())
             {
-                ViewModel.ItemList = repo.GetAllUIObjects(true);
+                ViewModel.ItemList = repo.GetAllUIObjects();
             }
 
             using (ScriptRepository repo = new ScriptRepository())
             {
-                ViewModel.ScriptList = repo.GetAllUIObjects(true);
+                ViewModel.ScriptList = repo.GetAllUIObjects();
             }
 
             using (GenderRepository repo = new GenderRepository())
             {
-                ViewModel.GenderList = repo.GetAllUIObjects(true);
+                ViewModel.GenderList = repo.GetAllUIObjects();
             }
 
             using (ConversationRepository repo = new ConversationRepository())
             {
-                ViewModel.ConversationList = repo.GetAllUIObjects(true);
+                ViewModel.ConversationList = repo.GetAllUIObjects();
             }
 
             using (RaceRepository repo = new RaceRepository())
             {
-                ViewModel.RaceList = repo.GetAllUIObjects(true);
+                ViewModel.RaceList = repo.GetAllUIObjects();
             }
 
             using (FactionRepository repo = new FactionRepository())
             {
-                ViewModel.FactionList = repo.GetAllUIObjects(true);
+                ViewModel.FactionList = repo.GetAllUIObjects();
             }
 
+            using (TilesetRepository repo = new TilesetRepository())
+            {
+                ViewModel.TilesetList = repo.GetAllUIObjects();
+            }
         }
 
         private void ClearViewModelPopulation()
         {
+            ViewModel.ModuleList.Clear();
+            ViewModel.AvailableContentPackages.Clear();
+            ViewModel.AttachedContentPackages.Clear();
             ViewModel.TilesetSpriteSheetsList.Clear();
             ViewModel.ItemList.Clear();
             ViewModel.ScriptList.Clear();
-            ViewModel.AvailableContentPackages.Clear();
-            ViewModel.AttachedContentPackages.Clear();
-            ViewModel.ModuleList.Clear();
+            ViewModel.GenderList.Clear();
+            ViewModel.ConversationList.Clear();
+            ViewModel.RaceList.Clear();
+            ViewModel.FactionList.Clear();
+            ViewModel.TilesetList.Clear();
         }
 
         private void ChangeObjectMode(object sender, JavascriptMethodEventArgs e)

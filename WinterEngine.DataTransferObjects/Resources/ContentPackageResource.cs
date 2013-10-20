@@ -13,6 +13,7 @@ using WinterEngine.DataTransferObjects.Paths;
 
 namespace WinterEngine.DataTransferObjects
 {
+    [Serializable]
     [Table("ContentPackageResources")]
     public class ContentPackageResource : GameResourceBase
     {

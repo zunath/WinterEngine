@@ -26,7 +26,7 @@ namespace WinterEngine.DataAccess.Repositories
             return Context.ItemPropertyRepository.Get().ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from item
                                                 in Context.ItemPropertyRepository.Get()
@@ -35,11 +35,6 @@ namespace WinterEngine.DataAccess.Repositories
                                                     Name = item.Name,
                                                     ResourceID = item.ResourceID
                                                 }).ToList();
-            if (includeDefault)
-            {
-                items.Insert(0, new DropDownListUIObject(0, "(None)"));
-            }
-
             return items;
         }
 
@@ -88,6 +83,12 @@ namespace WinterEngine.DataAccess.Repositories
         public void Delete(ItemProperty itemProperty)
         {
             Context.ItemPropertyRepository.Delete(itemProperty);
+        }
+
+        public int GetDefaultResourceID()
+        {
+            ItemProperty defaultObject = Context.ItemPropertyRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         public override void Dispose()

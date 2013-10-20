@@ -102,7 +102,7 @@ namespace WinterEngine.DataAccess
             return Context.PlaceableRepository.Get().ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from placeable
                                                 in Context.PlaceableRepository.Get()
@@ -111,11 +111,6 @@ namespace WinterEngine.DataAccess
                                                     Name = placeable.Name,
                                                     ResourceID = placeable.ResourceID
                                                 }).ToList();
-            if (includeDefault)
-            {
-                items.Insert(0, new DropDownListUIObject(0, "(None)"));
-            }
-
             return items;
         }
 
@@ -200,6 +195,11 @@ namespace WinterEngine.DataAccess
             return rootNode;
         }
 
+        public int GetDefaultResourceID()
+        {
+            Placeable defaultObject = Context.PlaceableRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
+        }
 
         public override void Dispose()
         {

@@ -105,7 +105,7 @@ namespace WinterEngine.DataAccess.Repositories
             return Context.ScriptRepository.Get().ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from script
                                                 in Context.ScriptRepository.Get()
@@ -114,11 +114,6 @@ namespace WinterEngine.DataAccess.Repositories
                                                     Name = script.Name,
                                                     ResourceID = script.ResourceID
                                                 }).ToList();
-            if (includeDefault)
-            {
-                items.Insert(0, new DropDownListUIObject(0, "(None)"));
-            }
-
             return items;
         }
 
@@ -200,6 +195,12 @@ namespace WinterEngine.DataAccess.Repositories
 
             rootNode.children = treeNodes;
             return rootNode;
+        }
+
+        public int GetDefaultResourceID()
+        {
+            Script defaultObject = Context.ScriptRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         public override void Dispose()

@@ -100,7 +100,7 @@ namespace WinterEngine.DataAccess.Repositories
             return Context.ConversationRepository.Get().ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false)
+        public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from conversation
                                                 in Context.ConversationRepository.Get()
@@ -109,10 +109,6 @@ namespace WinterEngine.DataAccess.Repositories
                                                     Name = conversation.Name,
                                                     ResourceID = conversation.ResourceID
                                                 }).ToList();
-            if (includeDefault)
-            {
-                items.Insert(0, new DropDownListUIObject(0, "(None)"));
-            }
 
             return items;
         }
@@ -195,6 +191,12 @@ namespace WinterEngine.DataAccess.Repositories
 
             rootNode.children = treeNodes;
             return rootNode;
+        }
+
+        public int GetDefaultResourceID()
+        {
+            Conversation defaultObject = Context.ConversationRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         public override void Dispose()

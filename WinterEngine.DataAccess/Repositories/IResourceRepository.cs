@@ -16,7 +16,7 @@ namespace WinterEngine.DataAccess.Repositories
         void Upsert(T entity);
         void Delete(T entity);
         List<T> GetAll();
-        List<DropDownListUIObject> GetAllUIObjects(bool includeDefault = false);
+        List<DropDownListUIObject> GetAllUIObjects();
         bool Exists(T entity);
         T GetByID(int entityID);
     }
