@@ -41,12 +41,13 @@ namespace WinterEngine.DataAccess.Factories
                             Tag = tag,
                             Resref = resref,
                             GameObjectType = resourceType,
-                            //ResourceCategoryID = defaultIDs.CategoryAreaID,
-                            //OnEnterEventScriptID = defaultIDs.ScriptID,
-                            //OnExitEventScriptID = defaultIDs.ScriptID,
-                            //OnHeartbeatEventScriptID = defaultIDs.ScriptID,
-                            //OnUserDefinedEventScriptID = defaultIDs.ScriptID,
+                            ResourceCategoryID = defaultIDs.CategoryAreaID,
+                            OnEnterEventScriptID = defaultIDs.ScriptID,
+                            OnExitEventScriptID = defaultIDs.ScriptID,
+                            OnHeartbeatEventScriptID = defaultIDs.ScriptID,
+                            OnUserDefinedEventScriptID = defaultIDs.ScriptID,
                             IsInTreeView = true,
+                            GraphicResourceID = defaultIDs.ContentPackageResourceNoneID
                         };
                     }
                 case GameObjectTypeEnum.Conversation:
@@ -57,8 +58,9 @@ namespace WinterEngine.DataAccess.Factories
                             Tag = tag,
                             Resref = resref,
                             GameObjectType = resourceType,
-                            //ResourceCategoryID = defaultIDs.CategoryConversationID,
+                            ResourceCategoryID = defaultIDs.CategoryConversationID,
                             IsInTreeView = true,
+                            GraphicResourceID = defaultIDs.ContentPackageResourceNoneID
 
                         };
                     }
@@ -80,31 +82,32 @@ namespace WinterEngine.DataAccess.Factories
                             Strength = 1,
                             Wisdom = 1,
                             IsInvulnerable = false,
-                            //BackItemID = defaultIDs.ItemID,
-                            //BodyItemID = defaultIDs.ItemID,
-                            //ConversationID = defaultIDs.ConversationID,
-                            //EarLeftItemID = defaultIDs.ItemID,
-                            //EarRightItemID = defaultIDs.ItemID,
-                            //FactionID = defaultIDs.FactionID,
-                            //FeetItemID = defaultIDs.ItemID,
-                            //GenderID = defaultIDs.GenderID,
-                            //HandsItemID = defaultIDs.ItemID,
-                            //HeadItemID = defaultIDs.ItemID,
-                            //LegsItemID = defaultIDs.ItemID,
-                            //MainHandItemID = defaultIDs.ItemID,
-                            //NeckItemID = defaultIDs.ItemID,
-                            //OffHandItemID = defaultIDs.ItemID,
-                            //OnConversationEventScriptID = defaultIDs.ScriptID,
-                            //OnDamagedEventScriptID = defaultIDs.ScriptID,
-                            //OnDeathEventScriptID = defaultIDs.ScriptID,
-                            //OnHeartbeatEventScriptID = defaultIDs.ScriptID,
-                            //OnSpawnEventScriptID = defaultIDs.ScriptID,
-                            //RaceID = defaultIDs.RaceID,
-                            //ResourceCategoryID = defaultIDs.CategoryCreatureID,
-                            //RingLeftItemID = defaultIDs.ItemID,
-                            //RingRightItemID = defaultIDs.ItemID,
-                            //WaistItemID = defaultIDs.ItemID,
+                            BackItemID = defaultIDs.ItemID,
+                            BodyItemID = defaultIDs.ItemID,
+                            ConversationID = defaultIDs.ConversationID,
+                            EarLeftItemID = defaultIDs.ItemID,
+                            EarRightItemID = defaultIDs.ItemID,
+                            FactionID = defaultIDs.FactionID,
+                            FeetItemID = defaultIDs.ItemID,
+                            GenderID = defaultIDs.GenderID,
+                            HandsItemID = defaultIDs.ItemID,
+                            HeadItemID = defaultIDs.ItemID,
+                            LegsItemID = defaultIDs.ItemID,
+                            MainHandItemID = defaultIDs.ItemID,
+                            NeckItemID = defaultIDs.ItemID,
+                            OffHandItemID = defaultIDs.ItemID,
+                            OnConversationEventScriptID = defaultIDs.ScriptID,
+                            OnDamagedEventScriptID = defaultIDs.ScriptID,
+                            OnDeathEventScriptID = defaultIDs.ScriptID,
+                            OnHeartbeatEventScriptID = defaultIDs.ScriptID,
+                            OnSpawnEventScriptID = defaultIDs.ScriptID,
+                            RaceID = defaultIDs.RaceID,
+                            ResourceCategoryID = defaultIDs.CategoryCreatureID,
+                            RingLeftItemID = defaultIDs.ItemID,
+                            RingRightItemID = defaultIDs.ItemID,
+                            WaistItemID = defaultIDs.ItemID,
                             IsInTreeView = true,
+                            GraphicResourceID = defaultIDs.ContentPackageResourceCharacterID
                         };
                     }
                 case GameObjectTypeEnum.Item:
@@ -138,6 +141,7 @@ namespace WinterEngine.DataAccess.Factories
                             OnUsedEventScriptID = defaultIDs.ScriptID,
                             ResourceCategoryID = defaultIDs.CategoryPlaceableID,
                             IsInTreeView = true,
+                            GraphicResourceID = defaultIDs.ContentPackageResourcePlaceableID
                         };
                     }
                 case GameObjectTypeEnum.Script:
@@ -150,6 +154,7 @@ namespace WinterEngine.DataAccess.Factories
                             GameObjectType = resourceType,
                             ResourceCategoryID = defaultIDs.CategoryScriptID,
                             IsInTreeView = true,
+                            GraphicResourceID = defaultIDs.ContentPackageResourceNoneID
                         };
                     }
                 case GameObjectTypeEnum.Tileset:
@@ -162,6 +167,7 @@ namespace WinterEngine.DataAccess.Factories
                             GameObjectType = resourceType,
                             ResourceCategoryID = defaultIDs.CategoryTilesetID,
                             IsInTreeView = true,
+                            GraphicResourceID = defaultIDs.ContentPackageResourceTilesetID
                         };
                     }
                 default:

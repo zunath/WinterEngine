@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 
@@ -20,7 +21,7 @@ namespace WinterEngine.DataTransferObjects
         private GameObjectTypeEnum _gameObjectType;
         private int _resourceCategoryID;
         private Category _resourceCategory;
-        private int? _graphicResourceID;
+        private int _graphicResourceID;
         private ContentPackageResource _graphicResource;
 
         // Temporary fields (not stored in database)
@@ -101,13 +102,14 @@ namespace WinterEngine.DataTransferObjects
         }
 
         [ForeignKey("GraphicResourceID")]
+        [JsonIgnore]
         public virtual ContentPackageResource GraphicResource
         {
             get { return _graphicResource; }
             set { _graphicResource = value; }
         }
 
-        public int? GraphicResourceID
+        public int GraphicResourceID
         {
             get { return _graphicResourceID; }
             set { _graphicResourceID = value; }

@@ -57,11 +57,6 @@ namespace WinterEngine.DataAccess
             }
             if (dbPlaceable == null) return;
 
-            if (newPlaceable.GraphicResourceID <= 0)
-            {
-                newPlaceable.GraphicResourceID = null;
-            }
-
             Context.Context.Entry(dbPlaceable).CurrentValues.SetValues(newPlaceable);
         }
 

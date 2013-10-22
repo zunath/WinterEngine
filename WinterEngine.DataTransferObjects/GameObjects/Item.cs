@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 using WinterEngine.DataTransferObjects;
 
 
@@ -31,6 +32,7 @@ namespace WinterEngine.DataTransferObjects
 
         public int OnSpawnEventScriptID { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("OnSpawnEventScriptID")]
         public virtual Script OnSpawnEventScript { get; set; }
 

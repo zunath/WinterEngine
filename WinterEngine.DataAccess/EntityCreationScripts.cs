@@ -154,27 +154,6 @@ namespace WinterEngine.DataAccess
                 {
                     throw new Exception("Error adding races.", ex);
                 }
-
-                try
-                {
-                    defaultScript = context.ScriptRepository.Add(new Script
-                    {
-                        IsDefault = true,
-                        IsInTreeView = false,
-                        IsSystemResource = true,
-                        Name = "(None)",
-                        Tag = "",
-                        Resref = "",
-                        ResourceCategoryID = defaultCategoryScript.ResourceID 
-                    });
-
-
-                    context.Save();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error adding scripts.", ex);
-                }
                 try
                 {
                     defaultContentPackageResourceBGM = context.ContentPackageResourceRepository.Add(new ContentPackageResource
@@ -233,6 +212,29 @@ namespace WinterEngine.DataAccess
                 {
                     throw new Exception("Error adding content package resources.", ex);
                 }
+
+                try
+                {
+                    defaultScript = context.ScriptRepository.Add(new Script
+                    {
+                        IsDefault = true,
+                        IsInTreeView = false,
+                        IsSystemResource = true,
+                        Name = "(None)",
+                        Tag = "",
+                        Resref = "",
+                        ResourceCategoryID = defaultCategoryScript.ResourceID,
+                        GraphicResourceID = defaultContentPackageResourceNone.ResourceID
+                    });
+
+
+                    context.Save();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error adding scripts.", ex);
+                }
+                
                 try
                 {
                     defaultFaction = context.FactionRepository.Add(new Faction

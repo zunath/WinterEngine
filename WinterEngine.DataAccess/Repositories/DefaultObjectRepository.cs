@@ -46,14 +46,16 @@ namespace WinterEngine.DataAccess.Repositories
             ContentPackageResource defaultContentPackageResourcePlaceable = Context.ContentPackageResourceRepository.Get(x => x.IsDefault && x.ContentPackageResourceType == ContentPackageResourceTypeEnum.Placeable).FirstOrDefault();
             ContentPackageResource defaultContentPackageResourceSoundEffect = Context.ContentPackageResourceRepository.Get(x => x.IsDefault && x.ContentPackageResourceType == ContentPackageResourceTypeEnum.SoundEffect).FirstOrDefault();
             ContentPackageResource defaultContentPackageResourceTileset = Context.ContentPackageResourceRepository.Get(x => x.IsDefault && x.ContentPackageResourceType == ContentPackageResourceTypeEnum.Tileset).FirstOrDefault();
-            
+            ContentPackageResource defaultContentPackageResourceNone = Context.ContentPackageResourceRepository.Get(x => x.IsDefault && x.ContentPackageResourceType == ContentPackageResourceTypeEnum.None).FirstOrDefault();
+
             result.ContentPackageResourceBGMID = defaultContentPackageResourceBGM == null ? 0 : defaultContentPackageResourceBGM.ResourceID;
             result.ContentPackageResourceCharacterID = defaultContentPackageResourceCharacter == null ? 0 : defaultContentPackageResourceCharacter.ResourceID;
             result.ContentPackageResourceItemID = defaultContentPackageResourceItem == null ? 0 : defaultContentPackageResourceItem.ResourceID;
             result.ContentPackageResourcePlaceableID = defaultContentPackageResourcePlaceable == null ? 0 : defaultContentPackageResourcePlaceable.ResourceID;
             result.ContentPackageResourceSoundEffectID = defaultContentPackageResourceSoundEffect == null ? 0 : defaultContentPackageResourceSoundEffect.ResourceID;
             result.ContentPackageResourceTilesetID = defaultContentPackageResourceTileset == null ? 0 : defaultContentPackageResourceTileset.ResourceID;
-            
+            result.ContentPackageResourceNoneID = defaultContentPackageResourceNone == null ? 0 : defaultContentPackageResourceNone.ResourceID;
+
             Conversation defaultConversation = Context.ConversationRepository.Get(x => x.IsDefault).FirstOrDefault();
             result.ConversationID = defaultConversation == null ? 0 : defaultConversation.ResourceID;
 

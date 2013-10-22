@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
 using WinterEngine.DataTransferObjects.BusinessObjects;
+using Newtonsoft.Json;
 
 
 namespace WinterEngine.DataTransferObjects
@@ -77,19 +78,23 @@ namespace WinterEngine.DataTransferObjects
         }
 
         // EVENT SCRIPTS
-        public int? OnEnterEventScriptID { get; set; }
-        public int? OnExitEventScriptID { get; set; }
-        public int? OnHeartbeatEventScriptID { get; set; }
-        public int? OnUserDefinedEventScriptID { get; set; }
+        public int OnEnterEventScriptID { get; set; }
+        public int OnExitEventScriptID { get; set; }
+        public int OnHeartbeatEventScriptID { get; set; }
+        public int OnUserDefinedEventScriptID { get; set; }
 
         
         [ForeignKey("OnEnterEventScriptID")]
+        [JsonIgnore]
         public virtual Script OnAreaEnterEventScript { get; set; }
         [ForeignKey("OnExitEventScriptID")]
+        [JsonIgnore]
         public virtual Script OnAreaExitEventScript { get; set; }
         [ForeignKey("OnHeartbeatEventScriptID")]
+        [JsonIgnore]
         public virtual Script OnAreaHeartbeatEventScript { get; set; }
         [ForeignKey("OnUserDefinedEventScriptID")]
+        [JsonIgnore]
         public virtual Script OnAreaUserDefinedEventScript { get; set; }
         
         #endregion

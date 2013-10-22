@@ -23,6 +23,7 @@ namespace WinterEngine.DataTransferObjects.BusinessObjects
         public int ContentPackageResourcePlaceableID { get; set; }
         public int ContentPackageResourceSoundEffectID { get; set; }
         public int ContentPackageResourceTilesetID { get; set; }
+        public int ContentPackageResourceNoneID { get; set; }
         public int FactionID { get; set; }
         public int ConversationID { get; set; }
         public int ItemID { get; set; }
