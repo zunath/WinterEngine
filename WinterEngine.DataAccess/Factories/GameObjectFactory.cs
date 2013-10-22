@@ -47,7 +47,8 @@ namespace WinterEngine.DataAccess.Factories
                             OnHeartbeatEventScriptID = defaultIDs.ScriptID,
                             OnUserDefinedEventScriptID = defaultIDs.ScriptID,
                             IsInTreeView = true,
-                            GraphicResourceID = defaultIDs.ContentPackageResourceNoneID
+                            GraphicResourceID = defaultIDs.ContentPackageResourceNoneID,
+                            TilesetID = defaultIDs.TilesetID
                         };
                     }
                 case GameObjectTypeEnum.Conversation:

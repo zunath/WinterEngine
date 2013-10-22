@@ -94,6 +94,7 @@ function SelectTilesetSpriteSheet() {
 }
 
 function NewLocalVariableBoxOKClick() {
+    if (!$('#formNewLocalVariable').valid()) return;
 
     var activeObject = ToolsetViewModel.GetActiveObject();
 
@@ -102,6 +103,8 @@ function NewLocalVariableBoxOKClick() {
         Value: $('#txtLocalVariableValue').val()
     });
 
+    $('#txtLocalVariableName').val('');
+    $('#txtLocalVariableValue').val('');
     $('#divNewLocalVariableBox').dialog('close');
 }
 

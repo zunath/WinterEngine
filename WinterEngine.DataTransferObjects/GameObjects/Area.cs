@@ -34,6 +34,10 @@ namespace WinterEngine.DataTransferObjects
         /// Gets or sets the tiles used by this area.
         /// </summary>
         public virtual List<Tile> Tiles { get; set; }
+        [JsonIgnore]
+        [ForeignKey("TilesetID")]
+        public virtual Tileset AreaTileset { get; set; }
+        public int TilesetID { get; set; }
 
         /// <summary>
         /// Gets or sets the number of tiles wide this map is. Range: 1-32

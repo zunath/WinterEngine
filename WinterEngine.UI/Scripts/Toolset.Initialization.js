@@ -40,7 +40,7 @@ function InitializeMainMenu() {
 }
 
 function InitializeValidation() {
-    $('#formNewModule, #formNewObject, #formNewCategory').validate({
+    $('.clsValidationForm').validate({
         errorPlacement: $.noop
     });
 }

@@ -15,7 +15,7 @@
             data-bind="options: TilesetList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveArea.TilesWide" ></select>
+                       value: ActiveArea.TilesetID" ></select>
 
         <label id="lblAreaDetails-MapWidth" for="numAreaDetails-MapWidth">Width:</label>
         <input id="numAreaDetails-MapWidth" type="number" min="1" max="32" data-bind="value: ActiveArea.TilesWide" disabled="disabled" class="clsAreaObjectField" />
