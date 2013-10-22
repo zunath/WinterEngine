@@ -25,6 +25,7 @@ namespace WinterEngine.Library.Managers
 
         private string _moduleName;
         private string _moduleTag;
+        private string _moduleResref;
 
         private string _modulePath;
         private string _tempDirectoryPath;
@@ -50,7 +51,13 @@ namespace WinterEngine.Library.Managers
             get { return _moduleTag; }
             set { _moduleTag = value; }
         }
-        
+
+        public string ModuleResref
+        {
+            get { return _moduleResref; }
+            set { _moduleResref = value; }
+        }
+
         /// <summary>
         /// Gets or sets the path to the module file.
         /// </summary>
@@ -119,18 +126,18 @@ namespace WinterEngine.Library.Managers
                     repo.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB", true);
                 }
 
-                // Add the module details to the correct table.
-                using (ModuleRepository repo = new ModuleRepository())
-                {
-                    GameModule gameModule = new GameModule();
-                    gameModule.ModuleName = ModuleName;
-                    gameModule.ModuleTag = ModuleTag;
-
-                    repo.Add(gameModule);
-                }
-
                 EntityCreationScripts creationScripts = new EntityCreationScripts();
                 creationScripts.Initialize();
+
+                // Add the module details to the correct table.
+                using (GameModuleRepository repo = new GameModuleRepository())
+                {
+                    GameObjectFactory factory = new GameObjectFactory();
+                    GameModule module = factory.CreateObject(GameObjectTypeEnum.GameModule, ModuleName, ModuleTag, ModuleResref) as GameModule;
+
+                    repo.Add(module);
+                }
+
                 LoadSystemContentPacks();
 
                 return true;

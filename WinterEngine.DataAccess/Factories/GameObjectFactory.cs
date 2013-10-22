@@ -171,6 +171,30 @@ namespace WinterEngine.DataAccess.Factories
                             GraphicResourceID = defaultIDs.ContentPackageResourceTilesetID
                         };
                     }
+                case GameObjectTypeEnum.GameModule:
+                    {
+                        return new GameModule
+                        {
+                            Name = name,
+                            Tag = tag,
+                            Resref = resref,
+                            GameObjectType = resourceType,
+                            GraphicResourceID = defaultIDs.ContentPackageResourceNoneID,
+                            IsDefault = true,
+                            IsInTreeView = false,
+                            IsSystemResource = true,
+                            MaxLevel = 99,
+                            ResourceCategoryID = defaultIDs.CategoryGameModuleID,
+                            OnHeartbeatEventScriptID = defaultIDs.ScriptID,
+                            OnModuleLoadEventScriptID = defaultIDs.ScriptID,
+                            OnPlayerDeathEventScriptID = defaultIDs.ScriptID,
+                            OnPlayerDyingEventScriptID = defaultIDs.ScriptID,
+                            OnPlayerEnterEventScriptID = defaultIDs.ScriptID,
+                            OnPlayerLeavingEventScriptID = defaultIDs.ScriptID,
+                            OnPlayerLeftEventScriptID = defaultIDs.ScriptID,
+                            OnPlayerRespawnEventScriptID = defaultIDs.ScriptID
+                        };
+                    }
                 default:
                     throw new Exception("Game object type not supported.");
             }
@@ -237,6 +261,13 @@ namespace WinterEngine.DataAccess.Factories
                     using (TilesetRepository repo = new TilesetRepository(connectionString))
                     {
                         resultGameObject = repo.Add(gameObject as Tileset);
+                    }
+                }
+                else if (gameObject.GameObjectType == GameObjectTypeEnum.GameModule)
+                {
+                    using (GameModuleRepository repo = new GameModuleRepository())
+                    {
+                        resultGameObject = repo.Add(gameObject as GameModule);
                     }
                 }
                 else
@@ -323,6 +354,13 @@ namespace WinterEngine.DataAccess.Factories
                 using (TilesetRepository repo = new TilesetRepository(connectionString))
                 {
                     repo.Update(gameObject as Tileset);
+                }
+            }
+            else if (gameObject.GameObjectType == GameObjectTypeEnum.GameModule)
+            {
+                using (GameModuleRepository repo = new GameModuleRepository())
+                {
+                    repo.Update(gameObject as GameModule);
                 }
             }
             else
@@ -441,6 +479,13 @@ namespace WinterEngine.DataAccess.Factories
             else if (resourceType == GameObjectTypeEnum.Tileset)
             {
                 using (TilesetRepository repo = new TilesetRepository(connectionString))
+                {
+                    repo.Delete(resourceID);
+                }
+            }
+            else if (resourceType == GameObjectTypeEnum.GameModule)
+            {
+                using (GameModuleRepository repo = new GameModuleRepository())
                 {
                     repo.Delete(resourceID);
                 }

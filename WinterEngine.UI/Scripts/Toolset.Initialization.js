@@ -13,18 +13,20 @@ function Initialize() {
     InitializeDialogBox('#divSaveAsOverwriteConfirmation', 'Save Confirmation');
     InitializeDialogBox('#divImportBox', 'Import ERF');
     InitializeDialogBox('#divExportBox', 'Export ERF');
-    InitializeDialogBox('#divModulePropertiesBox', 'Module Properties');
     InitializeDialogBox('#divAlertBox', 'Alert');
     InitializeDialogBox('#divNewObject', 'New Object');
     InitializeDialogBox('#divConfirmDelete', 'Delete Object');
     InitializeDialogBox('#divCreateCategory', 'Create Category');
     InitializeDialogBox('#divRenameTreeNode', 'Rename Object');
     InitializeDialogBox('#divNewLocalVariableBox', 'New Local Variable');
-
     
     InitializeTabbedContainers();
+    InitializeAccordions();
     InitializeManageContentPackagesBox();
-    
+    InitializeDialogBox('#divModulePropertiesBox', 'Module Properties');
+    $('#divModulePropertiesBox').dialog('option', 'width', '450');
+    $('#divModulePropertiesBox').dialog('option', 'height', '500');
+
     $("input[type=button]").button();
 
     // Unblock the UI - the UI blocking is done to prevent the user from making javascript calls before Awesomium has loaded.
@@ -65,6 +67,11 @@ function InitializeDialogBox(selector, dialogTitle) {
 }
 
 function InitializeTabbedContainers() {
+    $('#divModulePropertiesBox').tabs();
+
+}
+
+function InitializeAccordions() {
     $('#divAreasTab').accordion({ collapsible: true, heightStyle: "content" });
     $('#divCreaturesTab').accordion({ collapsible: true, heightStyle: "content" });
     $('#divItemsTab').accordion({ collapsible: true, heightStyle: "content" });

@@ -30,7 +30,7 @@ namespace WinterEngine.DataAccess.Repositories
             Category defaultCategoryPlaceable = Context.CategoryRepository.Get(x => x.IsDefault && x.GameObjectType == GameObjectTypeEnum.Placeable).FirstOrDefault();
             Category defaultCategoryScript = Context.CategoryRepository.Get(x => x.IsDefault && x.GameObjectType == GameObjectTypeEnum.Script).FirstOrDefault();
             Category defaultCategoryTileset = Context.CategoryRepository.Get(x => x.IsDefault && x.GameObjectType == GameObjectTypeEnum.Tileset).FirstOrDefault();
-
+            Category defaultCategoryGameModule = Context.CategoryRepository.Get(x => x.IsDefault && x.GameObjectType == GameObjectTypeEnum.GameModule).FirstOrDefault();
 
             result.CategoryAreaID = defaultCategoryArea == null ? 0 : defaultCategoryArea.ResourceID;
             result.CategoryConversationID = defaultCategoryConversation == null ? 0 : defaultCategoryConversation.ResourceID;
@@ -39,6 +39,7 @@ namespace WinterEngine.DataAccess.Repositories
             result.CategoryPlaceableID = defaultCategoryPlaceable == null ? 0 : defaultCategoryPlaceable.ResourceID;
             result.CategoryScriptID = defaultCategoryScript == null ? 0 : defaultCategoryScript.ResourceID;
             result.CategoryTilesetID = defaultCategoryTileset == null ? 0 : defaultCategoryTileset.ResourceID;
+            result.CategoryGameModuleID = defaultCategoryGameModule == null ? 9 : defaultCategoryGameModule.ResourceID;
 
             ContentPackageResource defaultContentPackageResourceBGM = Context.ContentPackageResourceRepository.Get(x => x.IsDefault && x.ContentPackageResourceType == ContentPackageResourceTypeEnum.BGM).FirstOrDefault();
             ContentPackageResource defaultContentPackageResourceCharacter = Context.ContentPackageResourceRepository.Get(x => x.IsDefault && x.ContentPackageResourceType == ContentPackageResourceTypeEnum.Character).FirstOrDefault();

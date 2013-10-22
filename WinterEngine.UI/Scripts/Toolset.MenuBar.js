@@ -10,6 +10,7 @@ function CloseNewModuleBox() {
     $('#lblNewModuleError').text('');
     $('#txtModuleName').val('');
     $('#txtModuleTag').val('');
+    $('#txtModuleResref').val('');
     $('#divNewModuleBox').dialog('close');
 }
 
@@ -18,8 +19,9 @@ function NewModuleBoxOKClick() {
 
     var moduleName = $('#txtModuleName').val();
     var moduleTag = $('#txtModuleTag').val();
+    var moduleResref = $('#txtModuleResref').val();
 
-    Entity.NewModuleButtonClick(moduleName, moduleTag);
+    Entity.NewModuleButtonClick(moduleName, moduleTag, moduleResref);
 }
 
 function NewModuleBoxOKClick_Callback(success) {
@@ -200,6 +202,8 @@ function PasteButtonClick(element) {
 
 function ModulePropertiesButtonClick(element) {
     if (IsMenuButtonDisabled($(element))) return;
+
+    $('#divModulePropertiesBox').dialog('open');
 }
 
 /* Button Functionality - Content Menu */
@@ -320,6 +324,7 @@ function ToggleModuleActionButtons(isEnabled) {
         $('#liExportButton').removeClass('ui-state-disabled');
         $('#liManageContentPackagesButton').removeClass('ui-state-disabled');
         $('#liBuildModuleButton').removeClass('ui-state-disabled');
+        $('#liModulePropertiesButton').removeClass('ui-state-disabled');
     }
     else {
         $('#liCloseModuleButton').addClass('ui-state-disabled');
@@ -329,5 +334,6 @@ function ToggleModuleActionButtons(isEnabled) {
         $('#liExportButton').addClass('ui-state-disabled');
         $('#liManageContentPackagesButton').addClass('ui-state-disabled');
         $('#liBuildModuleButton').addClass('ui-state-disabled');
+        $('#liModulePropertiesButton').addClass('ui-state-disabled');
     }
 }

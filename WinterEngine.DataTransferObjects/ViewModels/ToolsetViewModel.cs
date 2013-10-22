@@ -27,6 +27,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
 
         #region Selectable Object Data
 
+        public GameModule ActiveModule { get; set; }
         public Area ActiveArea { get; set; }
         public Creature ActiveCreature { get; set; }
         public Item ActiveItem { get; set; }
@@ -58,6 +59,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             CurrentObjectMode = "";
             CurrentObjectTabSelector = "";
             CurrentObjectTreeSelector = "";
+            ActiveModule = new GameModule();
             ActiveArea = new Area(true);
             ActiveConversation = new Conversation(true);
             ActiveCreature = new Creature(true);

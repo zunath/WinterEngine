@@ -21,6 +21,7 @@ namespace WinterEngine.DataAccess
             Category defaultCategoryConversation;
             Category defaultCategoryScript;
             Category defaultCategoryTileset;
+            Category defaultCategoryGameModule;
             Gender defaultGender;
             Race defaultRace;
             Script defaultScript;
@@ -93,6 +94,14 @@ namespace WinterEngine.DataAccess
                     {
                         Name = "*Uncategorized",
                         GameObjectType = GameObjectTypeEnum.Tileset,
+                        ResourceType = ResourceTypeEnum.GameObject,
+                        IsSystemResource = true,
+                        IsDefault = true,
+                    });
+                    defaultCategoryGameModule = context.CategoryRepository.Add(new Category
+                    {
+                        Name = "*Uncategorized",
+                        GameObjectType = GameObjectTypeEnum.GameModule,
                         ResourceType = ResourceTypeEnum.GameObject,
                         IsSystemResource = true,
                         IsDefault = true,

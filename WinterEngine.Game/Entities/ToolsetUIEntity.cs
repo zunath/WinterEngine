@@ -198,6 +198,7 @@ namespace WinterEngine.Game.Entities
         {
             ModuleManager.ModuleName = e.Arguments[0];
             ModuleManager.ModuleTag = e.Arguments[1];
+            ModuleManager.ModuleResref = e.Arguments[2];
             bool success = ModuleManager.CreateModule();
             PopulateToolsetViewModel();
 
@@ -701,6 +702,11 @@ namespace WinterEngine.Game.Entities
         private void PopulateToolsetViewModel()
         {
             ClearViewModelPopulation();
+
+            using (GameModuleRepository repo = new GameModuleRepository())
+            {
+                ViewModel.ActiveModule = repo.GetModule();
+            }
 
             using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
             {

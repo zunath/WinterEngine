@@ -14,6 +14,7 @@ namespace WinterEngine.DataTransferObjects.BusinessObjects
         public int CategoryConversationID { get; set; }
         public int CategoryScriptID { get; set; }
         public int CategoryTilesetID { get; set; }
+        public int CategoryGameModuleID { get; set; }
         public int GenderID { get; set; }
         public int RaceID { get; set; }
         public int ScriptID { get; set; }

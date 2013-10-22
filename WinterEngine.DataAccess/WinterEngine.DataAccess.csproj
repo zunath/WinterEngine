@@ -110,6 +110,7 @@
     <Compile Include="Repositories\FactionRepository.cs" />
     <Compile Include="Repositories\GenderRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\IGameModuleRepository.cs" />
     <Compile Include="Repositories\IGameObjectRepository.cs" />
     <Compile Include="Repositories\IResourceRepository.cs" />
     <Compile Include="Repositories\ItemPropertyRepository.cs" />
@@ -117,7 +118,7 @@
     <Compile Include="Repositories\DatabaseRepository.cs" />
     <Compile Include="Repositories\CreatureRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
-    <Compile Include="Repositories\ModuleRepository.cs" />
+    <Compile Include="Repositories\GameModuleRepository.cs" />
     <Compile Include="Repositories\PlaceableRepository.cs" />
     <Compile Include="Repositories\RaceRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />

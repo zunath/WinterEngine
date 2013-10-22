@@ -104,6 +104,21 @@ namespace WinterEngine.DataAccess
         }
 
 
+        private GenericRepository<ModuleDataContext, GameModule> gameModuleRepository;
+        public GenericRepository<ModuleDataContext, GameModule> GameModuleRepository
+        {
+            get
+            {
+                if (this.gameModuleRepository == null)
+                {
+                    this.gameModuleRepository
+                        = new GenericRepository<ModuleDataContext, GameModule>(context);
+                }
+                return gameModuleRepository;
+            }
+        }
+
+
 
         #endregion
 
