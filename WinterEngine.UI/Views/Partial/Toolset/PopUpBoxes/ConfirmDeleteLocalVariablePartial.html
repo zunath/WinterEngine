@@ -1,0 +1,12 @@
+﻿
+<div id="divConfirmDeleteLocalVariable" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    <label id="lblConfirmDelete">
+    </label>
+
+    <label id="lblConfirmDeleteErrors" class="clsErrorMessage">
+        Are you sure you want to delete this local variable?
+    </label>
+
+    <input id="btnDeletLocalVariableConfirm" type="button" value="Delete" class="clsHalfButton" onclick="ConfirmDeleteLocalVariable();" />
+    <input id="btnDeleteLocalVariableCancel" type="button" value="Cancel" class="clsHalfButton" onclick="$('#divConfirmDeleteLocalVariable').dialog('close');" />
+</div>

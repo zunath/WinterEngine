@@ -59,7 +59,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             CurrentObjectMode = "";
             CurrentObjectTabSelector = "";
             CurrentObjectTreeSelector = "";
-            ActiveModule = new GameModule();
+            ActiveModule = new GameModule(true);
             ActiveArea = new Area(true);
             ActiveConversation = new Conversation(true);
             ActiveCreature = new Creature(true);

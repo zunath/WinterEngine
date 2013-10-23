@@ -19,6 +19,7 @@ function Initialize() {
     InitializeDialogBox('#divCreateCategory', 'Create Category');
     InitializeDialogBox('#divRenameTreeNode', 'Rename Object');
     InitializeDialogBox('#divNewLocalVariableBox', 'New Local Variable');
+    InitializeDialogBox("#divConfirmDeleteLocalVariable", "Delete Local Variable");
     
     InitializeTabbedContainers();
     InitializeAccordions();

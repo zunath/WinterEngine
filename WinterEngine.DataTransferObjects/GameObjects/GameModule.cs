@@ -66,5 +66,24 @@ namespace WinterEngine.DataTransferObjects
         public virtual Script OnPlayerRespawnEventScript { get; set; }
 
         #endregion
+
+        #region Constructors
+
+        public GameModule()
+        {
+        }
+
+        public GameModule(bool instantiateLists = false)
+        {
+            if (instantiateLists)
+            {
+                LocalVariables = new List<LocalVariable>();
+            }
+            else
+            {
+            }
+        }
+
+        #endregion
     }
 }

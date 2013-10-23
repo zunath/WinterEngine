@@ -113,3 +113,9 @@ function NewLocalVariableCancelClick() {
     $('#txtLocalVariableValue').val('');
     $('#divNewLocalVariableBox').dialog('close');
 }
+
+function ConfirmDeleteLocalVariable() {
+    var mode = ToolsetViewModel.CurrentObjectMode();
+    
+    alert(mode);
+}

@@ -131,6 +131,9 @@
     <Content Include="Views\Partial\Toolset\ObjectControls\CreatureObjectControlPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Partial\Toolset\PopUpBoxes\ConfirmDeleteLocalVariablePartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Partial\Toolset\PopUpBoxes\NewLocalVariablePartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -347,7 +350,7 @@
     <Content Include="Views\Partial\Toolset\PopUpBoxes\AlertPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Partial\Toolset\PopUpBoxes\ConfirmDeletePartial.html">
+    <Content Include="Views\Partial\Toolset\PopUpBoxes\ConfirmDeleteObjectPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\Toolset\PopUpBoxes\CreateCategoryPartial.html">

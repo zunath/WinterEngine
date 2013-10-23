@@ -115,7 +115,7 @@ namespace WinterEngine.DataTransferObjects
             set { _graphicResourceID = value; }
         }
 
-        public virtual List<LocalVariable> LocalVariables { get; set; }
+        public List<LocalVariable> LocalVariables { get; set; }
 
         /// <summary>
         /// Gets or sets whether the object is available for selection in the tree view.

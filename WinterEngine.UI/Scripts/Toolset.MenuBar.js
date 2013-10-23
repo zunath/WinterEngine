@@ -229,7 +229,7 @@ function SaveModuleProperties_Callback() {
 
 function CloseModulePropertiesBox() {
     $('#divModulePropertiesBox').dialog('close');
-    ToolsetViewModel.Refresh();
+    ToolsetViewModel.RefreshModuleProperties();
 }
 
 /* Button Functionality - Content Menu */

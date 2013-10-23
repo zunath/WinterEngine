@@ -11,6 +11,15 @@ function InitializeToolsetViewModel() {
         ko.viewmodel.updateFromModel(ToolsetViewModel, parsedModel);
     };
 
+    ToolsetViewModel.RefreshModuleProperties = function () {
+        var parsedModel = JSON.parse(Entity.GetModelJSON()).ActiveModule;
+        var currentViewModel = ko.viewmodel.toModel(ToolsetViewModel);
+        currentViewModel.ActiveModule = parsedModel;
+
+        ko.viewmodel.updateFromModel(ToolsetViewModel, currentViewModel);
+
+    }
+
     ToolsetViewModel.GetActiveObject = function () {
         var mode = ToolsetViewModel.CurrentObjectMode();
 
