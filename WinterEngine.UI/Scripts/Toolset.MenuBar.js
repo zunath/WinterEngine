@@ -31,6 +31,7 @@ function NewModuleBoxOKClick_Callback(success) {
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
         $('#divObjectBar').removeClass('clsHidden');
+        ToolsetViewModel.Refresh();
     }
     else {
         $('#lblNewModuleError').text('There was an error creating a new module.');
@@ -204,6 +205,31 @@ function ModulePropertiesButtonClick(element) {
     if (IsMenuButtonDisabled($(element))) return;
 
     $('#divModulePropertiesBox').dialog('open');
+}
+
+function SaveModulePropertiesChanges() {
+    if (!$('#formMPBasicDetails').valid()) {
+        $("#divModulePropertiesBox").tabs("option", "active", 0);
+    }
+    else if (!$('#formMPEvents').valid()) {
+        $("#divModulePropertiesBox").tabs("option", "active", 1);
+    }
+    else if (!$('#formMPText').valid()) {
+        $("#divModulePropertiesBox").tabs("option", "active", 2);
+    }
+    else {
+        var model = ko.viewmodel.toModel(ToolsetViewModel).ActiveModule;
+        Entity.SaveModuleProperties(JSON.stringify(model));
+    }
+}
+
+function SaveModuleProperties_Callback() {
+    CloseModulePropertiesBox();
+}
+
+function CloseModulePropertiesBox() {
+    $('#divModulePropertiesBox').dialog('close');
+    ToolsetViewModel.Refresh();
 }
 
 /* Button Functionality - Content Menu */

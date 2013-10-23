@@ -148,6 +148,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButton);
 
             // Edit Menu Bindings
+            EntityJavascriptObject.Bind("SaveModuleProperties", false, SaveModuleProperties);
 
             // Object Mode Bindings
             EntityJavascriptObject.Bind("ChangeObjectMode", false, ChangeObjectMode);
@@ -272,6 +273,26 @@ namespace WinterEngine.Game.Entities
         #endregion
 
         #region UI Methods - Edit Menu Bindings
+
+        private void SaveModuleProperties(object sender, JavascriptMethodEventArgs e)
+        {
+            try
+            {
+                GameModule updatedModule = JsonConvert.DeserializeObject<GameModule>(e.Arguments[0]);
+
+                using (GameModuleRepository repo = new GameModuleRepository())
+                {
+                    repo.Update(updatedModule);
+                }
+
+                PopulateToolsetViewModel();
+                AsyncJavascriptCallback("SaveModuleProperties_Callback");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error saving module properties", ex);
+            }
+        }
 
         #endregion
 

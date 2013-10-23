@@ -9,15 +9,12 @@
             <a href="#EventsTab">Events</a>
         </li>
         <li>
-            <a href="#AdvancedTab">Advanced</a>
-        </li>
-        <li>
             <a href="#TextTab">Text</a>
         </li>
     </ul>
 
     <div id="BasicTab">
-        <form id="formMPBasicDetails">
+        <form id="formMPBasicDetails" class="clsValidationForm">
             <label id="lblMPModuleName" for="txtMPModuleName">Module Name:</label>
             <input id="txtMPModuleName" name="txtMPModuleName" type="text" class="required" maxlength="64"
                 data-bind="value: ActiveModule.Name" />
@@ -38,77 +35,79 @@
     </div>
 
     <div id="EventsTab">
-        <label id="lblMPOnPlayerEnter" for="selMPOnPlayerEnter">On Player Enter:</label>
-        <select id="selMPOnPlayerEnter" name="selMPOnPlayerEnter" size="3"
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveModule.OnPlayerEnterEventScriptID"></select>
+        <form id="formMPEvents" class="clsValidationForm">
 
-        <label id="lblMPOnPlayerLeaving" for="selMPOnPlayerLeaving">On Player Leaving:</label>
-        <select id="selMPOnPlayerLeaving" name="selMPOnPlayerLeaving" size="3"
-            data-bind="options: ScriptList,
-                        optionsText: function (item) { return item.Name },
-                        optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveModule.OnPlayerLeavingEventScriptID"></select>
-        
-        <label id="lblMPOnPlayerLeft" for="selMPOnPlayerLeft">On Player Left:</label>
-        <select id="selMPOnPlayerLeft" name="selMPOnPlayerLeft" size="3"
-            data-bind="options: ScriptList,
-                        optionsText: function (item) { return item.Name },
-                        optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveModule.OnPlayerLeftEventScriptID"></select>
-        
-        <label id="lblMPOnHeartbeat" for="selMPOnHeartbeat">On Heartbeat:</label>
-        <select id="selMPOnHeartbeat" name="selMPOnHeartbeat" size="3"
-            data-bind="options: ScriptList,
-                        optionsText: function (item) { return item.Name },
-                        optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveModule.OnHeartbeatEventScriptID"></select>
+            <label id="lblMPOnPlayerEnter" for="selMPOnPlayerEnter">On Player Enter:</label>
+            <select id="selMPOnPlayerEnter" name="selMPOnPlayerEnter" size="3"
+                data-bind="options: ScriptList,
+                           optionsText: function (item) { return item.Name },
+                           optionsValue: function (item) { return item.ResourceID },
+                           value: ActiveModule.OnPlayerEnterEventScriptID"></select>
 
-        <label id="lblMPOnModuleLoad" for="selMPOnModuleLoad">On Module Load:</label>
-        <select id="selMPOnModuleLoad" name="selMPOnModuleLoad" size="3"
-            data-bind="options: ScriptList,
-                        optionsText: function (item) { return item.Name },
-                        optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveModule.OnModuleLoadEventScriptID"></select>
+            <label id="lblMPOnPlayerLeaving" for="selMPOnPlayerLeaving">On Player Leaving:</label>
+            <select id="selMPOnPlayerLeaving" name="selMPOnPlayerLeaving" size="3"
+                data-bind="options: ScriptList,
+                            optionsText: function (item) { return item.Name },
+                            optionsValue: function (item) { return item.ResourceID },
+                            value: ActiveModule.OnPlayerLeavingEventScriptID"></select>
         
-        <label id="lblMPOnPlayerDeath" for="selMPOnPlayerDeath">On Player Death:</label>
-        <select id="selMPOnPlayerDeath" name="selMPOnPlayerDeath" size="3"
-            data-bind="options: ScriptList,
-                        optionsText: function (item) { return item.Name },
-                        optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveModule.OnPlayerDeathEventScriptID"></select>
+            <label id="lblMPOnPlayerLeft" for="selMPOnPlayerLeft">On Player Left:</label>
+            <select id="selMPOnPlayerLeft" name="selMPOnPlayerLeft" size="3"
+                data-bind="options: ScriptList,
+                            optionsText: function (item) { return item.Name },
+                            optionsValue: function (item) { return item.ResourceID },
+                            value: ActiveModule.OnPlayerLeftEventScriptID"></select>
         
-        <label id="lblMPOnPlayerDying" for="selMPOnPlayerDying">On Player Dying:</label>
-        <select id="selMPOnPlayerDying" name="selMPOnPlayerDying" size="3"
-            data-bind="options: ScriptList,
-                        optionsText: function (item) { return item.Name },
-                        optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveModule.OnPlayerDyingEventScriptID"></select>
-        
-        <label id="lblMPOnPlayerRespawn" for="selMPOnPlayerRespawn">On Player Respawn:</label>
-        <select id="selMPOnPlayerRespawn" name="selMPOnPlayerRespawn" size="3"
-            data-bind="options: ScriptList,
-                        optionsText: function (item) { return item.Name },
-                        optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveModule.OnPlayerRespawnEventScriptID"></select>
+            <label id="lblMPOnHeartbeat" for="selMPOnHeartbeat">On Heartbeat:</label>
+            <select id="selMPOnHeartbeat" name="selMPOnHeartbeat" size="3"
+                data-bind="options: ScriptList,
+                            optionsText: function (item) { return item.Name },
+                            optionsValue: function (item) { return item.ResourceID },
+                            value: ActiveModule.OnHeartbeatEventScriptID"></select>
 
-    </div>
-
-    <div id="AdvancedTab">
+            <label id="lblMPOnModuleLoad" for="selMPOnModuleLoad">On Module Load:</label>
+            <select id="selMPOnModuleLoad" name="selMPOnModuleLoad" size="3"
+                data-bind="options: ScriptList,
+                            optionsText: function (item) { return item.Name },
+                            optionsValue: function (item) { return item.ResourceID },
+                            value: ActiveModule.OnModuleLoadEventScriptID"></select>
         
+            <label id="lblMPOnPlayerDeath" for="selMPOnPlayerDeath">On Player Death:</label>
+            <select id="selMPOnPlayerDeath" name="selMPOnPlayerDeath" size="3"
+                data-bind="options: ScriptList,
+                            optionsText: function (item) { return item.Name },
+                            optionsValue: function (item) { return item.ResourceID },
+                            value: ActiveModule.OnPlayerDeathEventScriptID"></select>
+        
+            <label id="lblMPOnPlayerDying" for="selMPOnPlayerDying">On Player Dying:</label>
+            <select id="selMPOnPlayerDying" name="selMPOnPlayerDying" size="3"
+                data-bind="options: ScriptList,
+                            optionsText: function (item) { return item.Name },
+                            optionsValue: function (item) { return item.ResourceID },
+                            value: ActiveModule.OnPlayerDyingEventScriptID"></select>
+        
+            <label id="lblMPOnPlayerRespawn" for="selMPOnPlayerRespawn">On Player Respawn:</label>
+            <select id="selMPOnPlayerRespawn" name="selMPOnPlayerRespawn" size="3"
+                data-bind="options: ScriptList,
+                            optionsText: function (item) { return item.Name },
+                            optionsValue: function (item) { return item.ResourceID },
+                            value: ActiveModule.OnPlayerRespawnEventScriptID"></select>
+            
+        </form>
     </div>
 
     <div id="TextTab">
-        <label id="lblMPDescription" for="txtMPDescription">Module Description:</label>
-        <textarea id="txtMPDescription" name="txtMPDescription"
-            data-bind="value: ActiveModule.Description"></textarea>
-        <label id="lblMPComments" for="txtMPComments">Module Comments:</label>
-        <textarea id="txtMPComments" name="txtMPComments"
-            data-bind="value: ActiveModule.Comment"></textarea>
+        <form id="formMPText" class="clsValidationForm">
+            <label id="lblMPDescription" for="txtMPDescription">Module Description:</label>
+            <textarea id="txtMPDescription" name="txtMPDescription"
+                data-bind="value: ActiveModule.Description"></textarea>
+            <label id="lblMPComments" for="txtMPComments">Module Comments:</label>
+            <textarea id="txtMPComments" name="txtMPComments"
+                data-bind="value: ActiveModule.Comment"></textarea>
+        </form>
     </div>
     
-    <input type="button" value="Save and Close" />
-    <input type="button" value="Cancel" />
+    <input type="button" value="Save and Close" onclick="SaveModulePropertiesChanges();" />
+    <input type="button" value="Cancel" onclick="CloseModulePropertiesBox();" />
+
 </div>

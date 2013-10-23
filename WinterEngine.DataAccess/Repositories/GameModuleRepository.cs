@@ -16,6 +16,17 @@ namespace WinterEngine.DataAccess
     /// </summary>
     public class GameModuleRepository : RepositoryBase, IGameModuleRepository
     {
+        #region Constructors
+
+        public GameModuleRepository(string connectionString = "", bool autoSaveChanges = true) 
+            : base(connectionString, autoSaveChanges)
+        {
+        }
+
+        #endregion
+
+        #region Methods
+
         public GameModule Add(GameModule gameModule)
         {
             return Context.GameModuleRepository.Add(gameModule);
@@ -46,5 +57,11 @@ namespace WinterEngine.DataAccess
             return Context.GameModuleRepository.Get().FirstOrDefault();
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
+
+        #endregion
     }
 }

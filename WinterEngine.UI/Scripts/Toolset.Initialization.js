@@ -42,6 +42,7 @@ function InitializeMainMenu() {
 }
 
 function InitializeValidation() {
+    $.validator.setDefaults({ ignore: [] });
     $('.clsValidationForm').validate({
         errorPlacement: $.noop
     });
