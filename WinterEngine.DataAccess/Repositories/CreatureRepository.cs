@@ -62,7 +62,14 @@ namespace WinterEngine.DataAccess
             }
             if (dbCreature == null) return;
 
+            foreach (LocalVariable variable in newCreature.LocalVariables)
+            {
+                variable.GameObjectBaseID = newCreature.ResourceID;
+            }
+
             Context.Context.Entry(dbCreature).CurrentValues.SetValues(newCreature);
+            Context.LocalVariableRepository.DeleteList(dbCreature.LocalVariables.ToList());
+            Context.LocalVariableRepository.AddList(newCreature.LocalVariables.ToList());
         }
 
         /// <summary>

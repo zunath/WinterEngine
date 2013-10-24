@@ -60,7 +60,14 @@ namespace WinterEngine.DataAccess.Repositories
             }
             if (dbScript == null) return;
 
+            foreach (LocalVariable variable in newScript.LocalVariables)
+            {
+                variable.GameObjectBaseID = newScript.ResourceID;
+            }
+
             Context.Context.Entry(dbScript).CurrentValues.SetValues(newScript);
+            Context.LocalVariableRepository.DeleteList(dbScript.LocalVariables.ToList());
+            Context.LocalVariableRepository.AddList(newScript.LocalVariables.ToList());
         }
 
         /// <summary>
