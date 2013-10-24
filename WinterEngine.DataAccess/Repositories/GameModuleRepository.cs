@@ -37,7 +37,14 @@ namespace WinterEngine.DataAccess
             GameModule dbModule = GetModule();
             if (dbModule == null) throw new Exception("Game module does not exist");
 
+            foreach (LocalVariable variable in module.LocalVariables)
+            {
+                variable.GameObjectBaseID = module.ResourceID;
+            }
+
             Context.Context.Entry(dbModule).CurrentValues.SetValues(module);
+            Context.LocalVariableRepository.DeleteList(dbModule.LocalVariables.ToList());
+            Context.LocalVariableRepository.AddList(module.LocalVariables.ToList());
         }
 
         public void Delete(int resourceID)

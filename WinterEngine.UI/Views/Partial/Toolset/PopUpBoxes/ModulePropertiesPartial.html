@@ -9,7 +9,7 @@
             <a href="#EventsTab">Events</a>
         </li>
         <li>
-            <a href="#TextTab">Text</a>
+            <a href="#AdvancedTab">Advanced</a>
         </li>
     </ul>
 
@@ -96,7 +96,7 @@
         </form>
     </div>
 
-    <div id="TextTab">
+    <div id="AdvancedTab">
         <form id="formMPText" class="clsValidationForm">
             <label id="lblMPDescription" for="txtMPDescription">Module Description:</label>
             <textarea id="txtMPDescription" name="txtMPDescription"
@@ -105,6 +105,20 @@
             <textarea id="txtMPComments" name="txtMPComments"
                 data-bind="value: ActiveModule.Comment"></textarea>
         </form>
+
+        
+        <h3>Local Variables</h3>
+        <div id="divMPLocalVariables">
+            <input id="btnMPAddLocalVariable" type="button" value="Add New Variable" onclick="OpenNewLocalVariableBox(true);" />
+
+            <div data-bind="foreach: ActiveModule.LocalVariables">
+                <label data-bind="text: Name"></label>
+                <input type="button" data-bind="value: 'Edit'" />
+                <input type="button" data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox(Name, LocalVariableID) }" />
+                        
+            </div>
+        </div>
+
     </div>
     
     <input type="button" value="Save and Close" onclick="SaveModulePropertiesChanges();" />
