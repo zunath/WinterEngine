@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Core.Objects.DataClasses;
 using Newtonsoft.Json;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
@@ -115,7 +116,7 @@ namespace WinterEngine.DataTransferObjects
             set { _graphicResourceID = value; }
         }
 
-        public List<LocalVariable> LocalVariables { get; set; }
+        public virtual ICollection<LocalVariable> LocalVariables { get; set; }
 
         /// <summary>
         /// Gets or sets whether the object is available for selection in the tree view.

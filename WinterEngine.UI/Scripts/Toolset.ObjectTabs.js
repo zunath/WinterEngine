@@ -80,6 +80,7 @@ function ObjectTabApplyChanges() {
 }
 
 function ObjectTabApplyChanges_Callback() {
+    ToolsetViewModel.Refresh();
 }
 
 function ObjectTabDiscardChanges() {

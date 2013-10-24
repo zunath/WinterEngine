@@ -669,33 +669,42 @@ namespace WinterEngine.Game.Entities
                 if (gameObjectType == GameObjectTypeEnum.Area)
                 {
                     factory.UpsertInDatabase(model.ActiveArea);
+                    ViewModel.ActiveArea = model.ActiveArea;
                     ObjectSelectionEventArgs areaEventArgs = new ObjectSelectionEventArgs(model.ActiveArea.ResourceID);
                     RefreshAreaEntity(this, areaEventArgs);
                 }
                 else if (gameObjectType == GameObjectTypeEnum.Conversation)
                 {
                     factory.UpsertInDatabase(model.ActiveConversation);
+                    ViewModel.ActiveConversation = model.ActiveConversation;
                 }
                 else if (gameObjectType == GameObjectTypeEnum.Creature)
                 {
                     factory.UpsertInDatabase(model.ActiveCreature);
+                    ViewModel.ActiveCreature = model.ActiveCreature;
                 }
                 else if (gameObjectType == GameObjectTypeEnum.Item)
                 {
                     factory.UpsertInDatabase(model.ActiveItem);
+                    ViewModel.ActiveItem = model.ActiveItem;
                 }
                 else if (gameObjectType == GameObjectTypeEnum.Placeable)
                 {
                     factory.UpsertInDatabase(model.ActivePlaceable);
+                    ViewModel.ActivePlaceable = model.ActivePlaceable;
                 }
                 else if (gameObjectType == GameObjectTypeEnum.Script)
                 {
                     factory.UpsertInDatabase(model.ActiveScript);
+                    ViewModel.ActiveScript = model.ActiveScript;
                 }
                 else if (gameObjectType == GameObjectTypeEnum.Tileset)
                 {
                     factory.UpsertInDatabase(model.ActiveTileset);
+                    ViewModel.ActiveTileset = model.ActiveTileset;
                 }
+
+                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
             }
             catch
             {

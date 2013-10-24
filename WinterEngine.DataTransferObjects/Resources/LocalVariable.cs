@@ -22,7 +22,11 @@ namespace WinterEngine.DataTransferObjects
         [ProtoMember(2)]
         [MaxLength(4000)]
         public string Value { get; set; }
+
+        public int GameObjectBaseID { get; set; }
+
         [JsonIgnore] // Note: Ignore this property because it will create a circular reference loop when serializing via JSON.NET
-        public virtual GameObjectBase ParentGameObject { get; set; }
+        [ForeignKey("GameObjectBaseID")]
+        public virtual GameObjectBase GameObject { get; set; }
     }
 }
