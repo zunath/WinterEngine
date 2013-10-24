@@ -97,6 +97,7 @@ namespace WinterEngine.DataAccess
         public void Delete(int resourceID)
         {
             Creature creature = Context.CreatureRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
+            Context.LocalVariableRepository.DeleteList(creature.LocalVariables.ToList());
             Context.CreatureRepository.Delete(creature);
         }
 

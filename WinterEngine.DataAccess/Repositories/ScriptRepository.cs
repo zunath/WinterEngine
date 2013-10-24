@@ -95,6 +95,7 @@ namespace WinterEngine.DataAccess.Repositories
         public void Delete(int resourceID)
         {
             Script script = Context.ScriptRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
+            Context.LocalVariableRepository.DeleteList(script.LocalVariables.ToList());
             Context.ScriptRepository.Delete(script);
         }
 

@@ -58,14 +58,10 @@ namespace WinterEngine.DataAccess.Repositories
             return !Object.ReferenceEquals(tileset, null);
         }
 
-        public void Delete(Tileset tileset)
-        {
-            Context.TilesetRepository.Delete(tileset);
-        }
-
         public void Delete(int resourceID)
         {
             Tileset tileset = Context.TilesetRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            Context.LocalVariableRepository.DeleteList(tileset.LocalVariables.ToList());
             Context.TilesetRepository.Delete(tileset);
         }
 

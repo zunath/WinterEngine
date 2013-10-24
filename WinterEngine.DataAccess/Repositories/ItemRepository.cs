@@ -92,6 +92,7 @@ namespace WinterEngine.DataAccess
         public void Delete(int resourceID)
         {
             Item item = Context.ItemRepository.Get(i => i.ResourceID == resourceID).SingleOrDefault();
+            Context.LocalVariableRepository.DeleteList(item.LocalVariables.ToList());
             Context.ItemRepository.Delete(item);
         }
 

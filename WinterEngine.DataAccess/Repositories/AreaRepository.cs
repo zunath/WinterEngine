@@ -97,6 +97,7 @@ namespace WinterEngine.DataAccess
         {
             Area area = Context.AreaRepository.Get(a => a.ResourceID == resourceID).SingleOrDefault();
 
+            Context.LocalVariableRepository.DeleteList(area.LocalVariables.ToList());
             Context.AreaRepository.Delete(area);
         }
 

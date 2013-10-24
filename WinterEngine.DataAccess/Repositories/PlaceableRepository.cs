@@ -92,6 +92,7 @@ namespace WinterEngine.DataAccess
         public void Delete(int resourceID)
         {
             Placeable placeable = Context.PlaceableRepository.Get(p => p.ResourceID == resourceID).SingleOrDefault();
+            Context.LocalVariableRepository.DeleteList(placeable.LocalVariables.ToList());
             Context.PlaceableRepository.Delete(placeable);
         }
 
