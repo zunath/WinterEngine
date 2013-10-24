@@ -25,12 +25,12 @@
 
     <h3>Local Variables</h3>
     <div id="divPlaceablesTab-LocalVariables">
-        <input id="btnPlaceablesTab-AddLocalVariable" type="button" value="Add New Variable" onclick="$('#divNewLocalVariableBox').dialog('open');" />
+        <input id="btnPlaceablesTab-AddLocalVariable" type="button" value="Add New Variable" onclick="OpenEditLocalVariableBox(false, 'create');" />
 
         <div data-bind="foreach: ActivePlaceable.LocalVariables">
             <label data-bind="text: Name"></label>
-            <input type="button" data-bind="value: 'Edit'" />
-            <input type="button" data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox(Name, LocalVariableID) }" />
+            <input type="button" data-bind="value: 'Edit', click: function (data, event) { OpenEditLocalVariableBox(false, 'edit', $data); }" />
+            <input type="button" data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox($data) }" />
                         
         </div>
     </div>

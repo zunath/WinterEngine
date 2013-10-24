@@ -94,49 +94,62 @@ function SelectTilesetSpriteSheet() {
     Entity.LoadTilesetSpritesheet(selectedSpritesheetID);
 }
 
-function OpenNewLocalVariableBox(isModuleProperties) {
-    if (isModuleProperties) {
-        $('#divNewLocalVariableBox').data('ismoduleproperties', true);
+function OpenEditLocalVariableBox(isModuleProperties, mode, variableObject) {
+    $('#divEditLocalVariableBox').data('ismoduleproperties', isModuleProperties);
+    $('#divEditLocalVariableBox').data('mode', mode);
+    $('#divEditLocalVariableBox').data('variableobject', variableObject);
+    $('#divEditLocalVariableBox').dialog('open');
+
+    if (mode == 'edit') {
+        $('#txtLocalVariableName').val(variableObject.Name());
+        $('#txtLocalVariableValue').val(variableObject.Value());
     }
-    $('#divNewLocalVariableBox').dialog('open');
-
 }
 
-function NewLocalVariableBoxOKClick() {
-    if (!$('#formNewLocalVariable').valid()) return;
-    var isModuleProperties = $('#divNewLocalVariableBox').data('ismoduleproperties');
+function EditLocalVariableCancelClick() {
+    $('#txtLocalVariableName').val('');
+    $('#txtLocalVariableValue').val('');
+    $('#divEditLocalVariableBox').data('ismoduleproperties', '');
+    $('#divEditLocalVariableBox').data('mode', '');
+    $('#divEditLocalVariableBox').data('variableobject', '');
+    $('#divEditLocalVariableBox').dialog('close');
+}
+
+function EditLocalVariableBoxOKClick() {
+    if (!$('#formEditLocalVariable').valid()) return;
+    var isModuleProperties = $('#divEditLocalVariableBox').data('ismoduleproperties');
     var activeObject = isModuleProperties == true ? ToolsetViewModel.ActiveModule : ToolsetViewModel.GetActiveObject();
+    var mode = $('#divEditLocalVariableBox').data('mode');
 
-    activeObject.LocalVariables.push({
-        Name: $('#txtLocalVariableName').val(),
-        Value: $('#txtLocalVariableValue').val()
-    });
+    if (mode == 'edit') {
+        var variableObject = $('#divEditLocalVariableBox').data('variableobject');
+        variableObject.Name($('#txtLocalVariableName').val());
+        variableObject.Value($('#txtLocalVariableValue').val());
+    }
+    else if (mode == 'create') {
+        activeObject.LocalVariables.push({
+            Name: $('#txtLocalVariableName').val(),
+            Value: $('#txtLocalVariableValue').val()
+        });
+    }
 
     $('#txtLocalVariableName').val('');
     $('#txtLocalVariableValue').val('');
-    $('#divNewLocalVariableBox').dialog('close');
+    $('#divEditLocalVariableBox').dialog('close');
 }
 
-function NewLocalVariableCancelClick() {
-    $('#txtLocalVariableName').val('');
-    $('#txtLocalVariableValue').val('');
-    $('#divNewLocalVariableBox').data('ismoduleproperties', '');
-    $('#divNewLocalVariableBox').dialog('close');
-}
-
-function OpenDeleteLocalVariableBox(name, localVariableID) {
-    $('#divConfirmDeleteLocalVariable').data('name', name);
-    $('#divConfirmDeleteLocalVariable').data('localvariableid', localVariableID);
+function OpenDeleteLocalVariableBox(variableObject) {
+    $('#divConfirmDeleteLocalVariable').data('variableobject', variableObject);
     $('#divConfirmDeleteLocalVariable').dialog('open');
 
 }
 
 function ConfirmDeleteLocalVariableClick() {
     var name = $('#divConfirmDeleteLocalVariable').data('name');
-    var localVariableID = $('#divConfirmDeleteLocalVariable').data('localvariableid');
-    var isModuleProperties = $('#divNewLocalVariableBox').data('ismoduleproperties');
+    var variableObject = $('#divConfirmDeleteLocalVariable').data('variableobject');
+    var isModuleProperties = $('#divEditLocalVariableBox').data('ismoduleproperties');
     var activeObject = isModuleProperties == true ? ToolsetViewModel.ActiveModule : ToolsetViewModel.GetActiveObject();
-    activeObject.LocalVariables.remove(function (variable) { return variable.LocalVariableID == localVariableID; });
+    activeObject.LocalVariables.remove(function (variable) { return variable.LocalVariableID == variableObject.LocalVariableID; });
     CloseDeleteLocalVariableClick();
 }
 

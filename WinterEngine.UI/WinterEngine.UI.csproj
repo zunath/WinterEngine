@@ -137,7 +137,7 @@
     <Content Include="Views\Partial\Toolset\PopUpBoxes\ConfirmDeleteLocalVariablePartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Partial\Toolset\PopUpBoxes\NewLocalVariablePartial.html">
+    <Content Include="Views\Partial\Toolset\PopUpBoxes\LocalVariableEditorPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Toolset.html">
