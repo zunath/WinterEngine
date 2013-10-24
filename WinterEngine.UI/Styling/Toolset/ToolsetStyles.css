@@ -44,7 +44,7 @@ body
     */
 }
 
-#divToShowGame
+.clsMainPanel
 {
 	-webkit-box-flex:10.0;
     -webkit-box-align:stretch; 

@@ -178,7 +178,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("MouseExitUI", false, SetMouseIsInUIFalse);
             EntityJavascriptObject.Bind("GetPartialViewHTML", true, GetPartialViewHTML);
 
-            AsyncJavascriptCallback("Awesomium_LoadPartialViews");
+            RunJavaScriptMethod("Awesomium_LoadPartialViews();");
         }
 
         private void SetMouseIsInUITrue(object sender, JavascriptMethodEventArgs e)

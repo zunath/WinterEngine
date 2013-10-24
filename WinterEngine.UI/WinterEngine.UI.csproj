@@ -113,6 +113,9 @@
     <Content Include="Views\Partial\Toolset\ObjectControls\AreaObjectControlPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\ConversationEditor.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Partial\Toolset\ObjectControls\ConversationObjectControlPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
