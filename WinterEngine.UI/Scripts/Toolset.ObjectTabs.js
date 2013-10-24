@@ -115,8 +115,24 @@ function NewLocalVariableCancelClick() {
     $('#divNewLocalVariableBox').dialog('close');
 }
 
-function ConfirmDeleteLocalVariable() {
-    var mode = ToolsetViewModel.CurrentObjectMode();
-    
-    alert(mode);
+function OpenDeleteLocalVariableBox(name, localVariableID) {
+    $('#divConfirmDeleteLocalVariable').data('name', name);
+    $('#divConfirmDeleteLocalVariable').data('localvariableid', localVariableID);
+    $('#divConfirmDeleteLocalVariable').dialog('open');
+
+}
+
+function ConfirmDeleteLocalVariableClick() {
+    var name = $('#divConfirmDeleteLocalVariable').data('name');
+    var localVariableID = $('#divConfirmDeleteLocalVariable').data('localvariableid');
+    var activeObject = ToolsetViewModel.GetActiveObject();
+    activeObject.LocalVariables.remove(function (variable) { return variable.LocalVariableID == localVariableID; });
+    Entity.DeleteLocalVariableFromActiveObject(localVariableID);
+    CloseDeleteLocalVariableClick();
+}
+
+function CloseDeleteLocalVariableClick() {
+    $('#divConfirmDeleteLocalVariable').data('name', '');
+    $('#divConfirmDeleteLocalVariable').data('localvariableid', '');
+    $('#divConfirmDeleteLocalVariable').dialog('close');
 }

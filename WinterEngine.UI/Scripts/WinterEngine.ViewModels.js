@@ -45,4 +45,5 @@ function InitializeToolsetViewModel() {
             return ToolsetViewModel.ActiveTileset;
         }
     };
+
 }

@@ -68,7 +68,7 @@
         <div data-bind="foreach: ActiveArea.LocalVariables">
             <label data-bind="text: Name"></label>
             <input type="button" data-bind="value: 'Edit'" />
-            <input type="button" data-bind="value: 'Delete'" onclick="$('#divConfirmDeleteLocalVariable').dialog('open');" />
+            <input type="button" data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox(Name, LocalVariableID) }" />
                         
         </div>
     </div>

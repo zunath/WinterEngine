@@ -248,7 +248,7 @@
     <Content Include="Scripts\Toolset.ObjectTabs.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Toolset.TreeViews.js">
+    <Content Include="Scripts\Toolset.ObjectTreeViews.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Styling\DataTables\jquery.dataTables.css">
