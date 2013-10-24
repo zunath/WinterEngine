@@ -101,8 +101,15 @@ function OpenEditLocalVariableBox(isModuleProperties, mode, variableObject) {
     $('#divEditLocalVariableBox').dialog('open');
 
     if (mode == 'edit') {
-        $('#txtLocalVariableName').val(variableObject.Name());
-        $('#txtLocalVariableValue').val(variableObject.Value());
+        if (ko.isObservable(variableObject)) {
+            $('#txtLocalVariableName').val(variableObject.Name());
+            $('#txtLocalVariableValue').val(variableObject.Value());
+        }
+        else {
+            // Variable hasn't been added to the model. Update the local reference.
+            $('#txtLocalVariableName').val(variableObject.Name);
+            $('#txtLocalVariableValue').val(variableObject.Value);
+        }
     }
 }
 
@@ -123,8 +130,19 @@ function EditLocalVariableBoxOKClick() {
 
     if (mode == 'edit') {
         var variableObject = $('#divEditLocalVariableBox').data('variableobject');
-        variableObject.Name($('#txtLocalVariableName').val());
-        variableObject.Value($('#txtLocalVariableValue').val());
+
+        if (ko.isObservable(variableObject)) {
+            variableObject.Name($('#txtLocalVariableName').val());
+            variableObject.Value($('#txtLocalVariableValue').val());
+        }
+        else {
+            // Object hasn't been updated on the C# model so we need to replace the existing one with a new, updated copy.
+            activeObject.LocalVariables.remove(function (item) {return item.LocalVariableID == variableObject.LocalVariableID });
+            activeObject.LocalVariables.push({
+                Name: $('#txtLocalVariableName').val(),
+                Value: $('#txtLocalVariableValue').val()
+            });
+        }
     }
     else if (mode == 'create') {
         activeObject.LocalVariables.push({
