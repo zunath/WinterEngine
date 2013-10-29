@@ -644,6 +644,7 @@ namespace WinterEngine.Game.Entities
             else if (ViewModel.GameObjectType == GameObjectTypeEnum.Tileset)
             {
                 ViewModel.ActiveTileset = gameObject as Tileset;
+                RaiseTilesetSpritesheetLoadEvent(gameObject.GraphicResourceID);
             }
 
             AsyncJavascriptCallback("LoadObjectData_Callback");
@@ -818,11 +819,15 @@ namespace WinterEngine.Game.Entities
 
         public void LoadTilesetSpritesheet(object sender, JavascriptMethodEventArgs e)
         {
-            int resourceID = (int)e.Arguments[0];
+            int graphicResourceID = (int)e.Arguments[0];
+            RaiseTilesetSpritesheetLoadEvent(graphicResourceID);
+        }
 
+        private void RaiseTilesetSpritesheetLoadEvent(int graphicResourceID)
+        {
             if (OnTilesetSpritesheetLoaded != null)
             {
-                OnTilesetSpritesheetLoaded(this, new ObjectSelectionEventArgs(resourceID));
+                OnTilesetSpritesheetLoaded(this, new ObjectSelectionEventArgs(graphicResourceID));
             }
         }
 

@@ -7,6 +7,7 @@ using WinterEngine.Game.Screens;
 using FlatRedBall.Graphics;
 using FlatRedBall.Math;
 using WinterEngine.Game.Entities;
+using WinterEngine.Game.Factories;
 using FlatRedBall;
 using FlatRedBall.Screens;
 using System;
@@ -50,6 +51,8 @@ namespace WinterEngine.Game.Entities
 		static List<string> mRegisteredUnloads = new List<string>();
 		static List<string> LoadedContentManagers = new List<string>();
 		
+		private PositionedObjectList<TileEntity> TileList;
+		private WinterEngine.Game.Entities.TileEntity TileEntityInstance;
 		protected Layer LayerProvidedByContainer = null;
 
         public TilesetEditorEntity(string contentManagerName) :
@@ -71,6 +74,9 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
+			TileList = new PositionedObjectList<TileEntity>();
+			TileEntityInstance = new WinterEngine.Game.Entities.TileEntity(ContentManagerName, false);
+			TileEntityInstance.Name = "TileEntityInstance";
 			
 			PostInitialize();
 			if (addToManagers)
@@ -94,6 +100,15 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Activity
 			
+			for (int i = TileList.Count - 1; i > -1; i--)
+			{
+				if (i < TileList.Count)
+				{
+					// We do the extra if-check because activity could destroy any number of entities
+					TileList[i].Activity();
+				}
+			}
+			TileEntityInstance.Activity();
 			CustomActivity();
 			
 			// After Custom Activity
@@ -104,6 +119,15 @@ namespace WinterEngine.Game.Entities
 			// Generated Destroy
 			SpriteManager.RemovePositionedObject(this);
 			
+			for (int i = TileList.Count - 1; i > -1; i--)
+			{
+				TileList[i].Destroy();
+			}
+			if (TileEntityInstance != null)
+			{
+				TileEntityInstance.Destroy();
+				TileEntityInstance.Detach();
+			}
 
 
 			CustomDestroy();
@@ -114,6 +138,11 @@ namespace WinterEngine.Game.Entities
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
+			if (TileEntityInstance.Parent == null)
+			{
+				TileEntityInstance.CopyAbsoluteToRelative();
+				TileEntityInstance.AttachTo(this, false);
+			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -133,6 +162,7 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
+			TileEntityInstance.AddToManagers(layerToAddTo);
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
@@ -144,6 +174,11 @@ namespace WinterEngine.Game.Entities
 		{
 			this.ForceUpdateDependenciesDeep();
 			SpriteManager.ConvertToManuallyUpdated(this);
+			for (int i = 0; i < TileList.Count; i++)
+			{
+				TileList[i].ConvertToManuallyUpdated();
+			}
+			TileEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -175,6 +210,7 @@ namespace WinterEngine.Game.Entities
 					}
 				}
 			}
+			WinterEngine.Game.Entities.TileEntity.LoadStaticContent(contentManagerName);
 			if (registerUnload && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 			{
 				lock (mLockObject)
@@ -221,9 +257,11 @@ namespace WinterEngine.Game.Entities
 		public virtual void SetToIgnorePausing ()
 		{
 			FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(this);
+			TileEntityInstance.SetToIgnorePausing();
 		}
 		public virtual void MoveToLayer (Layer layerToMoveTo)
 		{
+			TileEntityInstance.MoveToLayer(layerToMoveTo);
 			LayerProvidedByContainer = layerToMoveTo;
 		}
 

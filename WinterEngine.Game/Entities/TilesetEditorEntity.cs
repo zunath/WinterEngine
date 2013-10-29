@@ -84,29 +84,26 @@ namespace WinterEngine.Game.Entities
         {
             try
             {
-                
 
-                if (e.ResourceID > 0)
+                ContentPackageResource resource;
+
+                using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
                 {
-                    ContentPackageResource resource;
+                    resource = repo.GetByID(e.ResourceID);
+                }
 
-                    using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
-                    {
-                        resource = repo.GetByID(e.ResourceID);
-                    }
-
+                if (resource != null && !resource.IsDefault)
+                {
                     EntitySpriteSheet = resource.ToTexture2D();
                     GenerateTileSpriteList();
-                    
                 }
+                
             }
             catch
             {
                 throw;
             }
         }
-
-
 
         public void LoadTilesetEditor(object sender, EventArgs e)
         {
@@ -141,6 +138,7 @@ namespace WinterEngine.Game.Entities
                         Y = -(currentRow * (int)MappingEnum.TileHeight)
                     };
 
+                    TileEntityInstance.SpriteInstance = sprite;
                 }
             }
 
