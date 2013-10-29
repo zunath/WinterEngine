@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework.Media;
 
 // Generated Usings
 using WinterEngine.Game.Entities;
+using WinterEngine.Game.Factories;
 using FlatRedBall;
 using FlatRedBall.Screens;
 using System;

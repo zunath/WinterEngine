@@ -147,8 +147,8 @@ namespace WinterEngine.Game.Entities
 					mSpriteInstance.CopyAbsoluteToRelative();
 					mSpriteInstance.AttachTo(this, false);
 				}
-				SpriteInstance.TextureScale = 1f;
 				SpriteInstance.Texture = null;
+				SpriteInstance.TextureScale = 1f;
 			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}

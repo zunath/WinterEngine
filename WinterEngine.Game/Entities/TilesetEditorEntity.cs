@@ -95,6 +95,8 @@ namespace WinterEngine.Game.Entities
                 if (resource != null && !resource.IsDefault)
                 {
                     EntitySpriteSheet = resource.ToTexture2D();
+
+                    //EntitySpriteSheet = FlatRedBallServices.Load<Texture2D>(@"Content/TestTileset.png");
                     GenerateTileSpriteList();
                 }
                 
@@ -129,7 +131,7 @@ namespace WinterEngine.Game.Entities
                     Sprite sprite = new Sprite
                     {
                         Texture = EntitySpriteSheet,
-                        PixelSize = 0.5f,                    
+                        PixelSize = 0.5f,
                         TopTexturePixel = currentRow * (int)MappingEnum.TileHeight,
                         LeftTexturePixel = currentColumn * (int)MappingEnum.TileWidth,
                         BottomTexturePixel = (currentRow + 1) * (int)MappingEnum.TileHeight,
@@ -138,7 +140,16 @@ namespace WinterEngine.Game.Entities
                         Y = -(currentRow * (int)MappingEnum.TileHeight)
                     };
 
-                    TileEntityInstance.SpriteInstance = sprite;
+                    SpriteManager.AddSprite(sprite);
+
+                    //TileEntityInstance.SpriteInstance.Texture = EntitySpriteSheet;
+                    //TileEntityInstance.SpriteInstance.PixelSize = 0.5f;
+                    //TileEntityInstance.SpriteInstance.TopTexturePixel = currentRow * (int)MappingEnum.TileHeight;
+                    //TileEntityInstance.SpriteInstance.LeftTexturePixel = currentColumn * (int)MappingEnum.TileWidth;
+                    //TileEntityInstance.SpriteInstance.BottomTexturePixel = (currentRow + 1) * (int)MappingEnum.TileHeight;
+                    //TileEntityInstance.SpriteInstance.RightTexturePixel = (currentColumn + 1) * (int)MappingEnum.TileWidth;
+                    //TileEntityInstance.SpriteInstance.X = currentColumn * (int)MappingEnum.TileWidth;
+                    //TileEntityInstance.SpriteInstance.Y = -(currentRow * (int)MappingEnum.TileHeight);
                 }
             }
 
