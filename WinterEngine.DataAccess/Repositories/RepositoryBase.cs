@@ -1,36 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WinterEngine.DataAccess.Contexts;
+using WinterEngine.DataAccess.Repositories.Interfaces;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class RepositoryBase
+    public class RepositoryBase : IRepository
     {
         #region Fields
 
-        private UnitOfWork _unitOfWork;
-        private string _connectionString;
+        protected ModuleDataContext _context;
         private bool _autoSaveChanges;
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the connection string local to this repository.
-        /// </summary>
-        public string ConnectionString
-        {
-            get { return _connectionString; }
-            set { _connectionString = value; }
-        }
-
-        public UnitOfWork Context
-        {
-            get { return _unitOfWork; }
-        }
 
         /// <summary>
         /// Gets or sets whether the repository will save all changes before being disposed.
@@ -46,15 +34,11 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Constructors
 
-        public RepositoryBase(string connectionString = "", bool autoSaveChanges = true)
+        public RepositoryBase(ModuleDataContext context, bool autoSave)
         {
-            if (String.IsNullOrWhiteSpace(connectionString))
-            {
-                connectionString = WinterConnectionInformation.ActiveConnectionString;
-            }
-            ConnectionString = connectionString;
-            _unitOfWork = new UnitOfWork(ConnectionString);
-            _autoSaveChanges = autoSaveChanges;
+            if (context == null) throw new ArgumentNullException("DbContext");
+            _context = context;
+            _autoSaveChanges = autoSave;
         }
 
         #endregion
@@ -63,14 +47,14 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void SaveChanges()
         {
-            Context.Save();
+            _context.SaveChanges();
         }
 
         public virtual void Dispose()
         {
             if (AutoSaveChanges)
             {
-                Context.Save();
+                _context.SaveChanges();
             }
         }
 

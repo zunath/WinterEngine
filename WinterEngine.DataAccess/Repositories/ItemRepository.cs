@@ -6,6 +6,7 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataAccess.Repositories.Interfaces;
 
 namespace WinterEngine.DataAccess
 {
@@ -13,8 +14,8 @@ namespace WinterEngine.DataAccess
     {
         #region Constructors
 
-        public ItemRepository(string connectionString = "", bool autoSaveChanges = true)
-            : base(connectionString, autoSaveChanges)
+        public ItemRepository(ModuleDataContext context, bool autoSaveChanges = true)
+            : base(context, autoSaveChanges)
         {
         }
 
@@ -29,12 +30,12 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Item Add(Item item)
         {
-            return Context.ItemRepository.Add(item);
+            return _context.Items.Add(item);
         }
 
         public void Add(List<Item> itemList)
         {
-            Context.ItemRepository.AddList(itemList);
+            _context.Items.AddRange(itemList);
         }
 
         /// <summary>
@@ -46,11 +47,11 @@ namespace WinterEngine.DataAccess
             Item dbItem;
             if (newItem.ResourceID <= 0)
             {
-                dbItem = Context.ItemRepository.Get(x => x.Resref == newItem.Resref).SingleOrDefault();
+                dbItem = _context.Items.Where(x => x.Resref == newItem.Resref).SingleOrDefault();
             }
             else
             {
-                dbItem = Context.ItemRepository.Get(x => x.ResourceID == newItem.ResourceID).SingleOrDefault();
+                dbItem = _context.Items.Where(x => x.ResourceID == newItem.ResourceID).SingleOrDefault();
             }
             if (dbItem == null) return;
 
@@ -59,7 +60,7 @@ namespace WinterEngine.DataAccess
                 newItem.GraphicResourceID = null;
             }
 
-            Context.Context.Entry(dbItem).CurrentValues.SetValues(newItem);
+            _context.Entry(dbItem).CurrentValues.SetValues(newItem);
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace WinterEngine.DataAccess
         {
             if (item.ResourceID <= 0)
             {
-                Context.ItemRepository.Add(item);
+                _context.Items.Add(item);
             }
             else
             {
@@ -86,8 +87,8 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Item item = Context.ItemRepository.Get(i => i.ResourceID == resourceID).SingleOrDefault();
-            Context.ItemRepository.Delete(item);
+            Item item = _context.Items.Where(i => i.ResourceID == resourceID).SingleOrDefault();
+            _context.Items.Remove(item);
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Item> GetAll()
         {
-            return Context.ItemRepository.Get().ToList();
+            return _context.Items.ToList();
         }
 
         /// <summary>
@@ -105,7 +106,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Item> GetAllByResourceCategory(Category resourceCategory)
         {
-            return Context.ItemRepository.Get(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
+            return _context.Items.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }
 
         /// <summary>
@@ -115,12 +116,12 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Item GetByResref(string resref)
         {
-            return Context.ItemRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            return _context.Items.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
         public Item GetByID(int resourceID)
         {
-            return Context.ItemRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            return _context.Items.Where(x => x.ResourceID == resourceID).SingleOrDefault();
         }
 
         /// <summary>
@@ -128,8 +129,8 @@ namespace WinterEngine.DataAccess
         /// </summary>
         public void DeleteAllByCategory(Category resourceCategory)
         {
-            List<Item> itemList = Context.ItemRepository.Get(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            Context.DeleteAll(itemList);
+            List<Item> itemList = _context.Items.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
+            _context.Items.RemoveRange(itemList);
         }
 
         /// <summary>
@@ -140,7 +141,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            Item item = Context.ItemRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            Item item = _context.Items.Where(x => x.Resref == resref).SingleOrDefault();
             return !Object.ReferenceEquals(item, null);
         }
 
@@ -153,7 +154,7 @@ namespace WinterEngine.DataAccess
             JSTreeNode rootNode = new JSTreeNode("Items");
             rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Item).ToList();
+            List<Category> categories = _context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Item).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);

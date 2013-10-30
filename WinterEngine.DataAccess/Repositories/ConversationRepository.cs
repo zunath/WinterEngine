@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WinterEngine.DataAccess.Contexts;
+using WinterEngine.DataAccess.Repositories.Interfaces;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
@@ -12,9 +14,9 @@ namespace WinterEngine.DataAccess.Repositories
     public class ConversationRepository : RepositoryBase, IGameObjectRepository<Conversation>
     {
         #region Constructors
-        
-        public ConversationRepository(string connectionString = "", bool autoSaveChanges = true) 
-            : base(connectionString, autoSaveChanges)
+
+        public ConversationRepository(ModuleDataContext context, bool autoSaveChanges = true)
+            : base(context, autoSaveChanges)
         {
         }
 
@@ -29,7 +31,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public Conversation Add(Conversation conversation)
         {
-            return Context.ConversationRepository.Add(conversation);
+            return _context.Conversations.Add(conversation);
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="conversationList">The list of conversations to add to the database.</param>
         public void Add(List<Conversation> conversationList)
         {
-            Context.ConversationRepository.AddList(conversationList);
+            _context.Conversations.AddRange(conversationList);
         }
 
         /// <summary>
@@ -51,15 +53,15 @@ namespace WinterEngine.DataAccess.Repositories
             Conversation dbConversation;
             if (newConversation.ResourceID <= 0)
             {
-                dbConversation = Context.ConversationRepository.Get(x => x.Resref == newConversation.Resref).SingleOrDefault();
+                dbConversation = _context.Conversations.Where(x => x.Resref == newConversation.Resref).SingleOrDefault();
             }
             else
             {
-                dbConversation = Context.ConversationRepository.Get(x => x.ResourceID == newConversation.ResourceID).SingleOrDefault();
+                dbConversation = _context.Conversations.Where(x => x.ResourceID == newConversation.ResourceID).SingleOrDefault();
             }
             if (dbConversation == null) return;
 
-            Context.Context.Entry(dbConversation).CurrentValues.SetValues(newConversation);
+            _context.Entry(dbConversation).CurrentValues.SetValues(newConversation);
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace WinterEngine.DataAccess.Repositories
         {
             if (conversation.ResourceID <= 0)
             {
-                Context.ConversationRepository.Add(conversation);
+                _context.Conversations.Add(conversation);
             }
             else
             {
@@ -86,8 +88,8 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Conversation conversation = Context.ConversationRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
-            Context.ConversationRepository.Delete(conversation);
+            Conversation conversation = _context.Conversations.Where(c => c.ResourceID == resourceID).SingleOrDefault();
+            _context.Conversations.Remove(conversation);
         }
 
         /// <summary>
@@ -96,7 +98,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public List<Conversation> GetAll()
         {
-            return Context.ConversationRepository.Get().ToList();
+            return _context.Conversations.ToList();
         }
 
         /// <summary>
@@ -105,7 +107,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public List<Conversation> GetAllByResourceCategory(Category resourceCategory)
         {
-            return Context.ConversationRepository.Get(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
+            return _context.Conversations.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }
 
         /// <summary>
@@ -115,12 +117,12 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public Conversation GetByResref(string resref)
         {
-            return Context.ConversationRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            return _context.Conversations.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
         public Conversation GetByID(int resourceID)
         {
-            return Context.ConversationRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            return _context.Conversations.Where(x => x.ResourceID == resourceID).SingleOrDefault();
         }
 
         /// <summary>
@@ -128,8 +130,8 @@ namespace WinterEngine.DataAccess.Repositories
         /// </summary>
         public void DeleteAllByCategory(Category resourceCategory)
         {
-            List<Conversation> conversationList = Context.ConversationRepository.Get(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            Context.DeleteAll(conversationList);
+            List<Conversation> conversationList = _context.Conversations.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
+            _context.Conversations.RemoveRange(conversationList);
         }
 
         /// <summary>
@@ -140,7 +142,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            Conversation conversation = Context.ConversationRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            Conversation conversation = _context.Conversations.Where(x => x.Resref == resref).SingleOrDefault();
             return !Object.ReferenceEquals(conversation, null);
         }
 
@@ -153,7 +155,7 @@ namespace WinterEngine.DataAccess.Repositories
             JSTreeNode rootNode = new JSTreeNode("Conversations");
             rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Conversation).ToList();
+            List<Category> categories = _context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Conversation).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
+using WinterEngine.DataAccess.Repositories.Interfaces;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
@@ -15,8 +16,8 @@ namespace WinterEngine.DataAccess
     {
         #region Constructors
 
-        public PlaceableRepository(string connectionString = "", bool autoSaveChanges = true)
-            : base(connectionString, autoSaveChanges)
+        public PlaceableRepository(ModuleDataContext context, bool autoSaveChanges = true)
+            : base(context, autoSaveChanges)
         {
         }
 
@@ -31,12 +32,12 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Placeable Add(Placeable placeable)
         {
-            return Context.PlaceableRepository.Add(placeable);
+            return _context.Placeables.Add(placeable);
         }
 
         public void Add(List<Placeable> placeableList)
         {
-            Context.PlaceableRepository.AddList(placeableList);
+            _context.Placeables.AddRange(placeableList);
         }
 
         /// <summary>
@@ -48,11 +49,11 @@ namespace WinterEngine.DataAccess
             Placeable dbPlaceable;
             if (newPlaceable.ResourceID <= 0)
             {
-                dbPlaceable = Context.PlaceableRepository.Get(x => x.Resref == newPlaceable.Resref).SingleOrDefault();
+                dbPlaceable = _context.Placeables.Where(x => x.Resref == newPlaceable.Resref).SingleOrDefault();
             }
             else
             {
-                dbPlaceable = Context.PlaceableRepository.Get(x => x.ResourceID == newPlaceable.ResourceID).SingleOrDefault();
+                dbPlaceable = _context.Placeables.Where(x => x.ResourceID == newPlaceable.ResourceID).SingleOrDefault();
             }
             if (dbPlaceable == null) return;
 
@@ -61,7 +62,7 @@ namespace WinterEngine.DataAccess
                 newPlaceable.GraphicResourceID = null;
             }
 
-            Context.Context.Entry(dbPlaceable).CurrentValues.SetValues(newPlaceable);
+            _context.Entry(dbPlaceable).CurrentValues.SetValues(newPlaceable);
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace WinterEngine.DataAccess
         {
             if (placeable.ResourceID <= 0)
             {
-                Context.PlaceableRepository.Add(placeable);
+                _context.Placeables.Add(placeable);
             }
             else
             {
@@ -82,14 +83,14 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// Deletes a placeable with the specified resref from the database.
+        /// Removes a placeable with the specified resref from the database.
         /// </summary>
-        /// <param name="resref">The resource reference to search for and delete.</param>
+        /// <param name="resref">The resource reference to search for and Remove.</param>
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Placeable placeable = Context.PlaceableRepository.Get(p => p.ResourceID == resourceID).SingleOrDefault();
-            Context.PlaceableRepository.Delete(placeable);
+            Placeable placeable = _context.Placeables.Where(p => p.ResourceID == resourceID).SingleOrDefault();
+            _context.Placeables.Remove(placeable);
         }
 
         /// <summary>
@@ -98,7 +99,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Placeable> GetAll()
         {
-            return Context.PlaceableRepository.Get().ToList();
+            return _context.Placeables.ToList();
         }
 
         /// <summary>
@@ -107,7 +108,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Placeable> GetAllByResourceCategory(Category resourceCategory)
         {
-            return Context.PlaceableRepository.Get(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
+            return _context.Placeables.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }
 
         /// <summary>
@@ -117,21 +118,21 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Placeable GetByResref(string resref)
         {
-            return Context.PlaceableRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            return _context.Placeables.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
         public Placeable GetByID(int resourceID)
         {
-            return Context.PlaceableRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            return _context.Placeables.Where(x => x.ResourceID == resourceID).SingleOrDefault();
         }
 
         /// <summary>
-        /// Deletes all of the placeables attached to a specified category from the database.
+        /// Removes all of the placeables attached to a specified category from the database.
         /// </summary>
         public void DeleteAllByCategory(Category resourceCategory)
         {
-            List<Placeable> placeableList = Context.PlaceableRepository.Get(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            Context.DeleteAll(placeableList);
+            List<Placeable> placeableList = _context.Placeables.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
+            _context.Placeables.RemoveRange(placeableList);
         }
 
         /// <summary>
@@ -142,7 +143,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            Placeable placeable = Context.PlaceableRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            Placeable placeable = _context.Placeables.Where(x => x.Resref == resref).SingleOrDefault();
             return !Object.ReferenceEquals(placeable, null);
         }
 
@@ -156,7 +157,7 @@ namespace WinterEngine.DataAccess
             JSTreeNode rootNode = new JSTreeNode("Placeables");
             rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Placeable).ToList();
+            List<Category> categories = _context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Placeable).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);

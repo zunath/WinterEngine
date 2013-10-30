@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WinterEngine.DataAccess.Contexts;
+using WinterEngine.DataAccess.Repositories.Interfaces;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
@@ -9,12 +11,12 @@ using WinterEngine.DataTransferObjects.GameObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class ScriptRepository : RepositoryBase, IGameObjectRepository<Script>
+    public class Scripts : RepositoryBase, IGameObjectRepository<Script>
     {
         #region Constructors
 
-        public ScriptRepository(string connectionString = "", bool autoSaveChanges = true) 
-            : base(connectionString, autoSaveChanges)
+        public Scripts(ModuleDataContext context, bool autoSaveChanges = true)
+            : base(context, autoSaveChanges)
         {
         }
 
@@ -29,7 +31,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public Script Add(Script script)
         {
-            return Context.ScriptRepository.Add(script);
+            return _context.Scripts.Add(script);
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="scriptList">The list of scripts to add to the database.</param>
         public void Add(List<Script> scriptList)
         {
-            Context.ScriptRepository.AddList(scriptList);
+            _context.Scripts.AddRange(scriptList);
         }
 
         /// <summary>
@@ -51,11 +53,11 @@ namespace WinterEngine.DataAccess.Repositories
             Script dbScript;
             if (newScript.ResourceID <= 0)
             {
-                dbScript = Context.ScriptRepository.Get(x => x.Resref == newScript.Resref).SingleOrDefault();
+                dbScript = _context.Scripts.Where(x => x.Resref == newScript.Resref).SingleOrDefault();
             }
             else
             {
-                dbScript = Context.ScriptRepository.Get(x => x.ResourceID == newScript.ResourceID).SingleOrDefault();
+                dbScript = _context.Scripts.Where(x => x.ResourceID == newScript.ResourceID).SingleOrDefault();
             }
             if (dbScript == null) return;
 
@@ -64,7 +66,7 @@ namespace WinterEngine.DataAccess.Repositories
                 newScript.GraphicResourceID = null;
             }
 
-            Context.Context.Entry(dbScript).CurrentValues.SetValues(newScript);
+            _context.Entry(dbScript).CurrentValues.SetValues(newScript);
         }
 
         /// <summary>
@@ -76,7 +78,7 @@ namespace WinterEngine.DataAccess.Repositories
         {
             if (script.ResourceID <= 0)
             {
-                Context.ScriptRepository.Add(script);
+                _context.Scripts.Add(script);
             }
             else
             {
@@ -85,14 +87,14 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         /// <summary>
-        /// Deletes a script with the specified resref from the database.
+        /// Removes a script with the specified resref from the database.
         /// </summary>
-        /// <param name="resref">The resource reference to search for and delete.</param>
+        /// <param name="resref">The resource reference to search for and Remove.</param>
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Script script = Context.ScriptRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
-            Context.ScriptRepository.Delete(script);
+            Script script = _context.Scripts.Where(c => c.ResourceID == resourceID).SingleOrDefault();
+            _context.Scripts.Remove(script);
         }
 
         /// <summary>
@@ -101,7 +103,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public List<Script> GetAll()
         {
-            return Context.ScriptRepository.Get().ToList();
+            return _context.Scripts.ToList();
         }
 
         /// <summary>
@@ -110,7 +112,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public List<Script> GetAllByResourceCategory(Category resourceCategory)
         {
-            return Context.ScriptRepository.Get(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
+            return _context.Scripts.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }
 
         /// <summary>
@@ -120,21 +122,21 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public Script GetByResref(string resref)
         {
-            return Context.ScriptRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            return _context.Scripts.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
         public Script GetByID(int resourceID)
         {
-            return Context.ScriptRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            return _context.Scripts.Where(x => x.ResourceID == resourceID).SingleOrDefault();
         }
 
         /// <summary>
-        /// Deletes all of the scripts attached to a specified category from the database.
+        /// Removes all of the scripts attached to a specified category from the database.
         /// </summary>
         public void DeleteAllByCategory(Category resourceCategory)
         {
-            List<Script> scriptList = Context.ScriptRepository.Get(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            Context.DeleteAll(scriptList);
+            List<Script> scriptList = _context.Scripts.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
+            _context.Scripts.RemoveRange(scriptList);
         }
 
         /// <summary>
@@ -145,7 +147,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            Script script = Context.ScriptRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            Script script = _context.Scripts.Where(x => x.Resref == resref).SingleOrDefault();
             return !Object.ReferenceEquals(script, null);
         }
 
@@ -158,7 +160,7 @@ namespace WinterEngine.DataAccess.Repositories
             JSTreeNode rootNode = new JSTreeNode("Scripts");
             rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Script).ToList();
+            List<Category> categories = _context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Script).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);

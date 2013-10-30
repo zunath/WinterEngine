@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
@@ -17,8 +18,8 @@ namespace WinterEngine.DataAccess
     {
         #region Constructors
 
-        public CategoryRepository(string connectionString = "", bool autoSaveChanges = true) 
-            : base(connectionString, autoSaveChanges)
+        public CategoryRepository(ModuleDataContext context, bool autoSaveChanges = true)
+            :base(context, autoSaveChanges)
         {
         }
 
@@ -32,7 +33,9 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Category> GetAll()
         {
-            return Context.CategoryRepository.Get().ToList();
+            var result = _context.ResourceCategories.ToList();
+            return result;
+            //return Context.CategoryRepository.Get().ToList();
         }
 
         /// <summary>
@@ -42,7 +45,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Category> GetAllResourceCategoriesByResourceType(GameObjectTypeEnum resourceType)
         {
-            return Context.CategoryRepository.Get(x => x.GameObjectType.Equals(resourceType)).ToList();
+            return _context.ResourceCategories.Where(x => x.GameObjectType.Equals(resourceType)).ToList();
         }
 
         /// <summary>
@@ -52,12 +55,12 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Category Add(Category resourceCategory)
         {
-            return Context.CategoryRepository.Add(resourceCategory);
+            return _context.ResourceCategories.Add(resourceCategory);
         }
 
         public void Add(List<Category> categoryList)
         {
-            Context.CategoryRepository.AddList(categoryList);
+            _context.ResourceCategories.AddRange(categoryList);
         }
 
         /// <summary>
@@ -67,17 +70,17 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Update(Category resourceCategory)
         {
-            Category dbCategory = Context.CategoryRepository.Get(x => x.ResourceID == resourceCategory.ResourceID).SingleOrDefault();
+            Category dbCategory = _context.ResourceCategories.Where(x => x.ResourceID == resourceCategory.ResourceID).SingleOrDefault();
             if (dbCategory == null) return;
 
-            Context.Context.Entry(dbCategory).CurrentValues.SetValues(resourceCategory);
+            _context.Entry(dbCategory).CurrentValues.SetValues(resourceCategory);
         }
 
         public void Upsert(Category category)
         {
             if (category.ResourceID <= 0)
             {
-                Context.CategoryRepository.Add(category);
+                _context.ResourceCategories.Add(category);
             }
             else
             {
@@ -93,7 +96,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(Category resourceCategory)
         {
-            Category category = Context.CategoryRepository.Get(r => r.ResourceID.Equals(resourceCategory.ResourceID)).SingleOrDefault();
+            Category category = _context.ResourceCategories.Where(r => r.ResourceID.Equals(resourceCategory.ResourceID)).SingleOrDefault();
             return !Object.ReferenceEquals(category, null);
         }
 
@@ -104,7 +107,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(Category resourceCategory)
         {
-            Context.CategoryRepository.Delete(resourceCategory);
+            _context.ResourceCategories.Remove(resourceCategory);
         }
 
         /// <summary>
@@ -114,7 +117,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Category GetByID(int categoryID)
         {
-            return Context.CategoryRepository.Get(x => x.ResourceID == categoryID).SingleOrDefault();
+            return _context.ResourceCategories.Where(x => x.ResourceID == categoryID).SingleOrDefault();
         }
 
         /// <summary>
@@ -124,7 +127,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Category GetUncategorizedCategory(GameObjectTypeEnum resourceType)
         {
-            return Context.CategoryRepository.Get(x => x.IsSystemResource == true && x.GameObjectType == resourceType).SingleOrDefault();
+            return _context.ResourceCategories.Where(x => x.IsSystemResource == true && x.GameObjectType == resourceType).SingleOrDefault();
         }
 
         public override void Dispose()
