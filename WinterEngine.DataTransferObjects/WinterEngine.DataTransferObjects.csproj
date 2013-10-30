@@ -97,6 +97,7 @@
     <Compile Include="BusinessObjects\DefaultObjectIDs.cs" />
     <Compile Include="Enumerations\GenderTypeEnum.cs" />
     <Compile Include="Enumerations\ModuleRebuildModeEnum.cs" />
+    <Compile Include="EventArgsExtended\PositionEventArgs.cs" />
     <Compile Include="GameObjects\Tileset.cs" />
     <Compile Include="Resources\Faction.cs" />
     <Compile Include="Resources\Gender.cs" />

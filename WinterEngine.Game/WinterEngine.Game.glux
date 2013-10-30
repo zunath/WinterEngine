@@ -558,14 +558,6 @@
           <AttachToContainer>true</AttachToContainer>
           <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
-        <NamedObjectSave>
-          <SourceType>Entity</SourceType>
-          <SourceFile />
-          <SourceClassType>Entities\TileEntity</SourceClassType>
-          <InstanceName>TileEntityInstance</InstanceName>
-          <AttachToContainer>true</AttachToContainer>
-          <IndependentOfCamera>true</IndependentOfCamera>
-        </NamedObjectSave>
       </NamedObjects>
       <Is2D>true</Is2D>
     </EntitySave>

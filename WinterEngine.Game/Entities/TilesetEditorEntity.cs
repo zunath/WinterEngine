@@ -25,6 +25,7 @@ using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.Enumerations;
 using FlatRedBall.ManagedSpriteGroups;
 using FlatRedBall.TileGraphics;
+using WinterEngine.Game.Factories;
 
 namespace WinterEngine.Game.Entities
 {
@@ -47,7 +48,7 @@ namespace WinterEngine.Game.Entities
 
         #region Events / Delegates
 
-        public event EventHandler<ObjectSelectionEventArgs> OnTileSelected;
+        public event EventHandler<PositionEventArgs> OnTileSelected;
 
         #endregion
 
@@ -56,17 +57,18 @@ namespace WinterEngine.Game.Entities
 
         private void CustomInitialize()
         {
+            TileEntityFactory.Initialize(TileList, ContentManagerName);
         }
 
         private void CustomActivity()
         {
 
-
         }
 
         private void CustomDestroy()
         {
-
+            ClearTileEntityList();
+            TileEntityFactory.Destroy();
 
         }
 
@@ -84,7 +86,7 @@ namespace WinterEngine.Game.Entities
         {
             try
             {
-
+                ClearTileEntityList();
                 ContentPackageResource resource;
 
                 using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
@@ -95,8 +97,6 @@ namespace WinterEngine.Game.Entities
                 if (resource != null && !resource.IsDefault)
                 {
                     EntitySpriteSheet = resource.ToTexture2D();
-
-                    //EntitySpriteSheet = FlatRedBallServices.Load<Texture2D>(@"Content/TestTileset.png");
                     GenerateTileSpriteList();
                 }
                 
@@ -116,9 +116,16 @@ namespace WinterEngine.Game.Entities
 
         #region Methods
 
+        private void ClearTileEntityList()
+        {
+            for (int index = TileList.Count - 1; index >= 0; index--)
+            {
+                TileList[index].Destroy();
+            }
+        }
+
         private void GenerateTileSpriteList()
         {
-
             int numberOfColumns = EntitySpriteSheet.Width / (int)MappingEnum.TileWidth;
             int numberOfRows = EntitySpriteSheet.Height / (int)MappingEnum.TileHeight;
             int numberOfTiles = numberOfColumns * numberOfRows;
@@ -127,29 +134,8 @@ namespace WinterEngine.Game.Entities
             {
                 for (int currentRow = 0; currentRow < numberOfRows; currentRow++)
                 {
-
-                    Sprite sprite = new Sprite
-                    {
-                        Texture = EntitySpriteSheet,
-                        PixelSize = 0.5f,
-                        TopTexturePixel = currentRow * (int)MappingEnum.TileHeight,
-                        LeftTexturePixel = currentColumn * (int)MappingEnum.TileWidth,
-                        BottomTexturePixel = (currentRow + 1) * (int)MappingEnum.TileHeight,
-                        RightTexturePixel = (currentColumn + 1) * (int)MappingEnum.TileWidth,
-                        X = currentColumn * (int)MappingEnum.TileWidth,
-                        Y = -(currentRow * (int)MappingEnum.TileHeight)
-                    };
-
-                    SpriteManager.AddSprite(sprite);
-
-                    //TileEntityInstance.SpriteInstance.Texture = EntitySpriteSheet;
-                    //TileEntityInstance.SpriteInstance.PixelSize = 0.5f;
-                    //TileEntityInstance.SpriteInstance.TopTexturePixel = currentRow * (int)MappingEnum.TileHeight;
-                    //TileEntityInstance.SpriteInstance.LeftTexturePixel = currentColumn * (int)MappingEnum.TileWidth;
-                    //TileEntityInstance.SpriteInstance.BottomTexturePixel = (currentRow + 1) * (int)MappingEnum.TileHeight;
-                    //TileEntityInstance.SpriteInstance.RightTexturePixel = (currentColumn + 1) * (int)MappingEnum.TileWidth;
-                    //TileEntityInstance.SpriteInstance.X = currentColumn * (int)MappingEnum.TileWidth;
-                    //TileEntityInstance.SpriteInstance.Y = -(currentRow * (int)MappingEnum.TileHeight);
+                    TileEntity entity = TileEntityFactory.CreateNew();
+                    entity.InitializeSprite(EntitySpriteSheet, currentRow, currentColumn);
                 }
             }
 
