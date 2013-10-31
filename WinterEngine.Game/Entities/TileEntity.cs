@@ -20,6 +20,7 @@ using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
+using FlatRedBall.Graphics;
 
 
 #endif
@@ -56,6 +57,9 @@ namespace WinterEngine.Game.Entities
                     OnSelectTile(this, new PositionEventArgs(SpriteSheetRow, SpriteSheetColumn));
                 }
             }
+
+
+            SpriteManager.ManualUpdate(SpriteInstance);
 		}
 
 		private void CustomDestroy()
@@ -91,7 +95,8 @@ namespace WinterEngine.Game.Entities
             SpriteInstance.LeftTexturePixel = column * (int)MappingEnum.TileWidth;
             SpriteInstance.BottomTexturePixel = (row + 1) * (int)MappingEnum.TileHeight;
             SpriteInstance.RightTexturePixel = (column + 1) * (int)MappingEnum.TileWidth;
-            
+            SpriteInstance.ColorOperation = ColorOperation.InterpolateColor;
+                
             SpriteManager.AddSprite(SpriteInstance);
             SpriteInstance.AttachTo(this, false);
         }
@@ -100,6 +105,22 @@ namespace WinterEngine.Game.Entities
         {
             SpriteInstance.Detach();
             SpriteManager.RemoveSprite(SpriteInstance);
+        }
+
+        public void HighlightAsSelection()
+        {
+            SpriteInstance.Alpha = 0.5f;
+            SpriteInstance.Blue = 0.5f;
+            SpriteInstance.Green = 0.0f;
+            SpriteInstance.Red = 0.5f;
+        }
+
+        public void RemoveSelectionHighlight()
+        {
+            SpriteInstance.Alpha = 1.0f;
+            SpriteInstance.Blue = 0.0f;
+            SpriteInstance.Green = 0.0f;
+            SpriteInstance.Red = 0.0f;
         }
 
         #endregion

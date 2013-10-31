@@ -26,6 +26,8 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using FlatRedBall.ManagedSpriteGroups;
 using FlatRedBall.TileGraphics;
 using WinterEngine.Game.Factories;
+using WinterEngine.DataTransferObjects.BusinessObjects;
+using Microsoft.Xna.Framework;
 
 namespace WinterEngine.Game.Entities
 {
@@ -38,12 +40,16 @@ namespace WinterEngine.Game.Entities
 
         #region Properties
 
+        private TileEntity SelectedTile { get; set; }
+
         private Texture2D EntitySpriteSheet
         {
             get { return _tilesetSpriteSheet; }
             set { _tilesetSpriteSheet = value; }
         }
-        
+
+        private Dictionary<Vector2, int> TileLookup { get; set; } 
+
         #endregion
 
         #region Events / Delegates
@@ -58,6 +64,7 @@ namespace WinterEngine.Game.Entities
         private void CustomInitialize()
         {
             TileEntityFactory.Initialize(TileList, ContentManagerName);
+            TileLookup = new Dictionary<Vector2, int>();
         }
 
         private void CustomActivity()
@@ -87,6 +94,7 @@ namespace WinterEngine.Game.Entities
             try
             {
                 ClearTileEntityList();
+                TileLookup.Clear();
                 ContentPackageResource resource;
 
                 using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
@@ -107,9 +115,15 @@ namespace WinterEngine.Game.Entities
             }
         }
 
-        public void LoadTilesetEditor(object sender, EventArgs e)
+        private void SelectTile(object sender, PositionEventArgs e)
         {
+            if (SelectedTile != null)
+            {
+                SelectedTile.RemoveSelectionHighlight();
+            }
 
+            SelectedTile = TileList[TileLookup[new Vector2(e.X, e.Y)]];
+            SelectedTile.HighlightAsSelection();
         }
 
         #endregion
@@ -120,6 +134,7 @@ namespace WinterEngine.Game.Entities
         {
             for (int index = TileList.Count - 1; index >= 0; index--)
             {
+                TileList[index].OnSelectTile -= SelectTile;
                 TileList[index].Destroy();
             }
         }
@@ -129,6 +144,7 @@ namespace WinterEngine.Game.Entities
             int numberOfColumns = EntitySpriteSheet.Width / (int)MappingEnum.TileWidth;
             int numberOfRows = EntitySpriteSheet.Height / (int)MappingEnum.TileHeight;
             int numberOfTiles = numberOfColumns * numberOfRows;
+            int tileIndex = 0;
 
             for (int currentColumn = 0; currentColumn < numberOfColumns; currentColumn++)
             {
@@ -136,11 +152,13 @@ namespace WinterEngine.Game.Entities
                 {
                     TileEntity entity = TileEntityFactory.CreateNew();
                     entity.InitializeSprite(EntitySpriteSheet, currentRow, currentColumn);
+                    entity.OnSelectTile += SelectTile;
+                    TileLookup.Add(new Vector2(currentRow, currentColumn), tileIndex);
+
+                    tileIndex++;
                 }
             }
-
         }
-        
 
         #endregion
     }
