@@ -75,7 +75,8 @@ namespace WinterEngine.Game.Screens
             ToolsetUIEntityInstance.OnAreaLoaded += HandleAreaLoadEvent;
         
             // Tileset Editor
-            ToolsetUIEntityInstance.OnTilesetSpritesheetLoaded += TilesetEditorEntityInstance.HandleLoadTilesetSpritesheetEvent;
+            ToolsetUIEntityInstance.OnTilesetLoaded += TilesetEditorEntityInstance.HandleLoadTilesetSpritesheetEvent;
+            ToolsetUIEntityInstance.OnTilesetSaved += TilesetEditorEntityInstance.HandleSaveTilesetSpritesheetEvent;
         }
 
         private void HandleModeChangeEvent(object sender, ObjectModeChangedEventArgs e)

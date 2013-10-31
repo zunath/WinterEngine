@@ -107,8 +107,8 @@ namespace WinterEngine.Game.Entities
         public event EventHandler<ObjectSelectionEventArgs> OnAreaLoaded;
 
         // Tileset Editor Events
-        public event EventHandler<TilesetSelectionEventArgs> OnTilesetSpritesheetLoaded;
-        public event EventHandler<EventArgs> OnTilesetEditorOpened;
+        public event EventHandler<TilesetSelectionEventArgs> OnTilesetLoaded;
+        public event EventHandler<TilesetSelectionEventArgs> OnTilesetSaved;
 
         #endregion
 
@@ -646,7 +646,7 @@ namespace WinterEngine.Game.Entities
             else if (ViewModel.GameObjectType == GameObjectTypeEnum.Tileset)
             {
                 ViewModel.ActiveTileset = gameObject as Tileset;
-                RaiseTilesetSpritesheetLoadEvent(gameObject.GraphicResourceID);
+                RaiseTilesetLoadEvent(gameObject.GraphicResourceID);
             }
 
             AsyncJavascriptCallback("LoadObjectData_Callback");
@@ -705,6 +705,7 @@ namespace WinterEngine.Game.Entities
                 {
                     factory.UpsertInDatabase(model.ActiveTileset);
                     ViewModel.ActiveTileset = model.ActiveTileset;
+                    RaiseTilesetSaveEvent();
                 }
 
                 AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
@@ -804,14 +805,6 @@ namespace WinterEngine.Game.Entities
             ViewModel.CurrentObjectTabSelector = e.Arguments[2];
             string mode = e.Arguments[0];
 
-            if (mode == "Tileset")
-            {
-                if (OnTilesetEditorOpened != null)
-                {
-                    OnTilesetEditorOpened(this, new EventArgs());
-                }
-            }
-
             // Inform subscribers (AKA: The screen) that the object mode has changed.
             if (OnObjectModeChanged != null)
             {
@@ -828,16 +821,25 @@ namespace WinterEngine.Game.Entities
         public void LoadTilesetSpritesheet(object sender, JavascriptMethodEventArgs e)
         {
             int graphicResourceID = (int)e.Arguments[0];
-            RaiseTilesetSpritesheetLoadEvent(graphicResourceID);
+            RaiseTilesetLoadEvent(graphicResourceID);
         }
 
-        private void RaiseTilesetSpritesheetLoadEvent(int graphicResourceID)
+        private void RaiseTilesetLoadEvent(int graphicResourceID)
         {
-            if (OnTilesetSpritesheetLoaded != null)
+            if (OnTilesetLoaded != null)
             {
-                OnTilesetSpritesheetLoaded(this, new TilesetSelectionEventArgs(ViewModel.ActiveTileset.ResourceID, graphicResourceID));
+                OnTilesetLoaded(this, new TilesetSelectionEventArgs(ViewModel.ActiveTileset.ResourceID, graphicResourceID));
             }
         }
+
+        private void RaiseTilesetSaveEvent()
+        {
+            if (OnTilesetSaved != null)
+            {
+                OnTilesetSaved(this, new TilesetSelectionEventArgs(ViewModel.ActiveTileset.ResourceID, ViewModel.ActiveTileset.GraphicResourceID));
+            }
+        }
+
         #endregion
 
     }

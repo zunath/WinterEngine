@@ -36,10 +36,6 @@ namespace WinterEngine.DataTransferObjects
         /// </summary>
         public int TextureCellY { get; set; }
         /// <summary>
-        /// Gets or sets the map height position of the tile.
-        /// </summary>
-        public int TileHeight { get; set; }
-        /// <summary>
         /// Gets or sets the map X cell position of the tile.
         /// </summary>
         public int MapCellX { get; set; }

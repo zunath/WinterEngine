@@ -112,6 +112,29 @@ namespace WinterEngine.Game.Entities
             }
         }
 
+        public void HandleSaveTilesetSpritesheetEvent(object sender, TilesetSelectionEventArgs e)
+        {
+            try
+            {
+                List<Tile> tileDTOs = (from tile
+                                       in TileList
+                                       select new Tile
+                                       {
+                                           IsPassable = tile.IsPassable,
+                                           TextureCellX = tile.SpriteSheetColumn,
+                                           TextureCellY = tile.SpriteSheetRow,
+                                           TilesetID = e.TilesetResourceID
+                                       }).ToList();
+
+
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         #endregion
 
         #region Methods
