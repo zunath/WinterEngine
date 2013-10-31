@@ -72,7 +72,6 @@ namespace WinterEngine.Game.Screens
         
             // Tileset Editor
             ToolsetUIEntityInstance.OnTilesetSpritesheetLoaded += TilesetEditorEntityInstance.LoadTilesetSpritesheet;
-            TilesetEditorEntityInstance.OnTileSelected += ToolsetUIEntityInstance.LoadTile;
         }
 
         #endregion

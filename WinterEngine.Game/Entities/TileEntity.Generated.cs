@@ -65,6 +65,7 @@ namespace WinterEngine.Game.Entities
 				mSpriteInstance = value;
 			}
 		}
+		private FlatRedBall.Sprite PassabilitySpriteInstance;
 		public int Index { get; set; }
 		public bool Used { get; set; }
 		protected Layer LayerProvidedByContainer = null;
@@ -88,6 +89,7 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
+			PassabilitySpriteInstance = new FlatRedBall.Sprite();
 			
 			PostInitialize();
 			if (addToManagers)
@@ -130,6 +132,10 @@ namespace WinterEngine.Game.Entities
 			{
 				SpriteManager.RemoveSpriteOneWay(SpriteInstance);
 			}
+			if (PassabilitySpriteInstance != null)
+			{
+				SpriteManager.RemoveSpriteOneWay(PassabilitySpriteInstance);
+			}
 
 
 			CustomDestroy();
@@ -150,6 +156,13 @@ namespace WinterEngine.Game.Entities
 				SpriteInstance.Texture = null;
 				SpriteInstance.TextureScale = 1f;
 			}
+			if (PassabilitySpriteInstance.Parent == null)
+			{
+				PassabilitySpriteInstance.CopyAbsoluteToRelative();
+				PassabilitySpriteInstance.AttachTo(this, false);
+			}
+			PassabilitySpriteInstance.TextureScale = 1f;
+			PassabilitySpriteInstance.Texture = null;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -169,6 +182,9 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
+			SpriteManager.AddToLayer(PassabilitySpriteInstance, layerToAddTo);
+			PassabilitySpriteInstance.TextureScale = 1f;
+			PassabilitySpriteInstance.Texture = null;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
@@ -181,6 +197,7 @@ namespace WinterEngine.Game.Entities
 			this.ForceUpdateDependenciesDeep();
 			SpriteManager.ConvertToManuallyUpdated(this);
 			SpriteManager.ConvertToManuallyUpdated(SpriteInstance);
+			SpriteManager.ConvertToManuallyUpdated(PassabilitySpriteInstance);
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -267,6 +284,10 @@ namespace WinterEngine.Game.Entities
 			{
 				return true;
 			}
+			if (PassabilitySpriteInstance.Alpha != 0 && PassabilitySpriteInstance.AbsoluteVisible && cursor.IsOn3D(PassabilitySpriteInstance, LayerProvidedByContainer))
+			{
+				return true;
+			}
 			return false;
 		}
 		public virtual bool WasClickedThisFrame (FlatRedBall.Gui.Cursor cursor)
@@ -286,6 +307,7 @@ namespace WinterEngine.Game.Entities
 			{
 				FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(SpriteInstance);
 			}
+			FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(PassabilitySpriteInstance);
 		}
 		public virtual void MoveToLayer (Layer layerToMoveTo)
 		{
@@ -294,6 +316,11 @@ namespace WinterEngine.Game.Entities
 				LayerProvidedByContainer.Remove(SpriteInstance);
 			}
 			SpriteManager.AddToLayer(SpriteInstance, layerToMoveTo);
+			if (LayerProvidedByContainer != null)
+			{
+				LayerProvidedByContainer.Remove(PassabilitySpriteInstance);
+			}
+			SpriteManager.AddToLayer(PassabilitySpriteInstance, layerToMoveTo);
 			LayerProvidedByContainer = layerToMoveTo;
 		}
 

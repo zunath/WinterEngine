@@ -24,10 +24,11 @@ using WinterEngine.Library.Extensions;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.Enumerations;
 using FlatRedBall.ManagedSpriteGroups;
-using FlatRedBall.TileGraphics;
 using WinterEngine.Game.Factories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WinterEngine.Game.Entities
 {
@@ -40,6 +41,7 @@ namespace WinterEngine.Game.Entities
 
         #region Properties
 
+        private int TilesetResourceID { get; set; }
         private TileEntity SelectedTile { get; set; }
 
         private Texture2D EntitySpriteSheet
@@ -48,13 +50,9 @@ namespace WinterEngine.Game.Entities
             set { _tilesetSpriteSheet = value; }
         }
 
-        private Dictionary<Vector2, int> TileLookup { get; set; } 
-
         #endregion
 
         #region Events / Delegates
-
-        public event EventHandler<PositionEventArgs> OnTileSelected;
 
         #endregion
 
@@ -64,7 +62,6 @@ namespace WinterEngine.Game.Entities
         private void CustomInitialize()
         {
             TileEntityFactory.Initialize(TileList, ContentManagerName);
-            TileLookup = new Dictionary<Vector2, int>();
         }
 
         private void CustomActivity()
@@ -89,17 +86,17 @@ namespace WinterEngine.Game.Entities
 
         #region Event Handling
 
-        public void LoadTilesetSpritesheet(object sender, ObjectSelectionEventArgs e)
+        public void LoadTilesetSpritesheet(object sender, TilesetSelectionEventArgs e)
         {
             try
             {
                 ClearTileEntityList();
-                TileLookup.Clear();
+                this.TilesetResourceID = e.TilesetResourceID;
                 ContentPackageResource resource;
 
                 using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
                 {
-                    resource = repo.GetByID(e.ResourceID);
+                    resource = repo.GetByID(e.GraphicResourceID);
                 }
 
                 if (resource != null && !resource.IsDefault)
@@ -115,17 +112,6 @@ namespace WinterEngine.Game.Entities
             }
         }
 
-        private void SelectTile(object sender, PositionEventArgs e)
-        {
-            if (SelectedTile != null)
-            {
-                SelectedTile.RemoveSelectionHighlight();
-            }
-
-            SelectedTile = TileList[TileLookup[new Vector2(e.X, e.Y)]];
-            SelectedTile.HighlightAsSelection();
-        }
-
         #endregion
 
         #region Methods
@@ -134,7 +120,6 @@ namespace WinterEngine.Game.Entities
         {
             for (int index = TileList.Count - 1; index >= 0; index--)
             {
-                TileList[index].OnSelectTile -= SelectTile;
                 TileList[index].Destroy();
             }
         }
@@ -146,15 +131,21 @@ namespace WinterEngine.Game.Entities
             int numberOfTiles = numberOfColumns * numberOfRows;
             int tileIndex = 0;
 
+            Tileset activeTileset;
+            using (TilesetRepository repo = new TilesetRepository())
+            {
+                activeTileset = repo.GetByID(TilesetResourceID);
+            }
+
             for (int currentColumn = 0; currentColumn < numberOfColumns; currentColumn++)
             {
                 for (int currentRow = 0; currentRow < numberOfRows; currentRow++)
                 {
+                    Tile activeTile = activeTileset.TileList.FirstOrDefault(x => x.TextureCellX == currentColumn && x.TextureCellY == currentRow);
+                    bool isPassable = activeTile == null ? true : activeTile.IsPassable;
                     TileEntity entity = TileEntityFactory.CreateNew();
-                    entity.InitializeSprite(EntitySpriteSheet, currentRow, currentColumn);
-                    entity.OnSelectTile += SelectTile;
-                    TileLookup.Add(new Vector2(currentRow, currentColumn), tileIndex);
-
+                    entity.InitializeSprite(EntitySpriteSheet, currentRow, currentColumn, isPassable);
+                    
                     tileIndex++;
                 }
             }

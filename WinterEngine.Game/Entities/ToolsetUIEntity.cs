@@ -105,7 +105,7 @@ namespace WinterEngine.Game.Entities
         public event EventHandler<ObjectSelectionEventArgs> OnAreaLoaded;
 
         // Tileset Editor Events
-        public event EventHandler<ObjectSelectionEventArgs> OnTilesetSpritesheetLoaded;
+        public event EventHandler<TilesetSelectionEventArgs> OnTilesetSpritesheetLoaded;
         public event EventHandler<EventArgs> OnTilesetEditorOpened;
 
         #endregion
@@ -827,14 +827,9 @@ namespace WinterEngine.Game.Entities
         {
             if (OnTilesetSpritesheetLoaded != null)
             {
-                OnTilesetSpritesheetLoaded(this, new ObjectSelectionEventArgs(graphicResourceID));
+                OnTilesetSpritesheetLoaded(this, new TilesetSelectionEventArgs(ViewModel.ActiveTileset.ResourceID, graphicResourceID));
             }
         }
-
-        public void LoadTile(object sender, EventArgs e)
-        {
-        }
-
         #endregion
 
     }

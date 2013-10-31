@@ -33,12 +33,11 @@ namespace WinterEngine.Game.Entities
 
         public int SpriteSheetRow { get; private set; }
         public int SpriteSheetColumn { get; private set; }
+        public bool IsPassable { get; private set; }
 
         #endregion
 
         #region Events / Delegates
-
-        public event EventHandler<PositionEventArgs> OnSelectTile;
 
         #endregion
 
@@ -52,14 +51,13 @@ namespace WinterEngine.Game.Entities
 		{
             if (WasClickedThisFrame(GuiManager.Cursor))
             {
-                if (OnSelectTile != null)
-                {
-                    OnSelectTile(this, new PositionEventArgs(SpriteSheetRow, SpriteSheetColumn));
-                }
+                IsPassable = !IsPassable;
+                RefreshPassability();
             }
 
 
             SpriteManager.ManualUpdate(SpriteInstance);
+            SpriteManager.ManualUpdate(PassabilitySpriteInstance);
 		}
 
 		private void CustomDestroy()
@@ -81,8 +79,9 @@ namespace WinterEngine.Game.Entities
 
         #region Methods
 
-        public void InitializeSprite(Texture2D texture, int row, int column)
+        public void InitializeSprite(Texture2D texture, int row, int column, bool isPassable)
         {
+            this.IsPassable = isPassable;
             this.SpriteSheetRow = row;
             this.SpriteSheetColumn = column;
             SpriteInstance = new Sprite();
@@ -96,31 +95,37 @@ namespace WinterEngine.Game.Entities
             SpriteInstance.BottomTexturePixel = (row + 1) * (int)MappingEnum.TileHeight;
             SpriteInstance.RightTexturePixel = (column + 1) * (int)MappingEnum.TileWidth;
             SpriteInstance.ColorOperation = ColorOperation.InterpolateColor;
-                
+            
             SpriteManager.AddSprite(SpriteInstance);
             SpriteInstance.AttachTo(this, false);
+
+            PassabilitySpriteInstance = new Sprite();
+            RefreshPassability();
+            PassabilitySpriteInstance.PixelSize = 0.5f;
+            PassabilitySpriteInstance.Z = 1;
+
+            SpriteManager.AddSprite(PassabilitySpriteInstance);
+            PassabilitySpriteInstance.AttachTo(SpriteInstance, false);
         }
 
         public void DestroySprite()
         {
             SpriteInstance.Detach();
+            PassabilitySpriteInstance.Detach();
             SpriteManager.RemoveSprite(SpriteInstance);
+            SpriteManager.RemoveSprite(PassabilitySpriteInstance);
         }
 
-        public void HighlightAsSelection()
+        private void RefreshPassability()
         {
-            SpriteInstance.Alpha = 0.5f;
-            SpriteInstance.Blue = 0.5f;
-            SpriteInstance.Green = 0.0f;
-            SpriteInstance.Red = 0.5f;
-        }
-
-        public void RemoveSelectionHighlight()
-        {
-            SpriteInstance.Alpha = 1.0f;
-            SpriteInstance.Blue = 0.0f;
-            SpriteInstance.Green = 0.0f;
-            SpriteInstance.Red = 0.0f;
+            if (IsPassable)
+            {
+                PassabilitySpriteInstance.Texture = FlatRedBallServices.Load<Texture2D>(@"Content/Editor/Icons/Passable.png");
+            }
+            else
+            {
+                PassabilitySpriteInstance.Texture = FlatRedBallServices.Load<Texture2D>(@"Content/Editor/Icons/Unpassable.png");
+            }
         }
 
         #endregion

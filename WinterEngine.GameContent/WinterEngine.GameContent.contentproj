@@ -78,6 +78,18 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Content>
+    <Content Include="Editor\Icons\Passable.png">
+      <Name>Passable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Editor\Icons\Unpassable.png">
+      <Name>Unpassable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestTileset.png">
       <Name>TestTileset</Name>
       <Importer>TextureImporter</Importer>

@@ -22,6 +22,11 @@ namespace WinterEngine.DataTransferObjects
         [Key]
         public int TileID { get; set; }
 
+        public int TilesetID { get; set; }
+
+        [ForeignKey("TilesetID")]
+        public virtual Tileset ParentTileset { get; set; }
+
         /// <summary>
         /// Gets or sets the X cell position of the texture being used for this tile.
         /// </summary>
