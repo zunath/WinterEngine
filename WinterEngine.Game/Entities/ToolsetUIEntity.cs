@@ -101,6 +101,8 @@ namespace WinterEngine.Game.Entities
 
         #region Events / Delegates
 
+        public event EventHandler<ObjectModeChangedEventArgs> OnObjectModeChanged;
+
         // Area Editor Events
         public event EventHandler<ObjectSelectionEventArgs> OnAreaLoaded;
 
@@ -808,6 +810,12 @@ namespace WinterEngine.Game.Entities
                 {
                     OnTilesetEditorOpened(this, new EventArgs());
                 }
+            }
+
+            // Inform subscribers (AKA: The screen) that the object mode has changed.
+            if (OnObjectModeChanged != null)
+            {
+                OnObjectModeChanged(this, new ObjectModeChangedEventArgs((GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), mode)));
             }
 
             AsyncJavascriptCallback("ChangeObjectMode_Callback");

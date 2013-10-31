@@ -27,12 +27,12 @@ using FlatRedBall.ManagedSpriteGroups;
 using WinterEngine.Game.Factories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using System.Linq;
+using WinterEngine.Game.Interfaces;
 
 namespace WinterEngine.Game.Entities
 {
-    public partial class TilesetEditorEntity
+    public partial class TilesetEditorEntity: IEditorEntity
     {
         #region Fields
 
@@ -86,7 +86,7 @@ namespace WinterEngine.Game.Entities
 
         #region Event Handling
 
-        public void LoadTilesetSpritesheet(object sender, TilesetSelectionEventArgs e)
+        public void HandleLoadTilesetSpritesheetEvent(object sender, TilesetSelectionEventArgs e)
         {
             try
             {
@@ -148,6 +148,26 @@ namespace WinterEngine.Game.Entities
                     
                     tileIndex++;
                 }
+            }
+        }
+
+        #endregion
+
+        #region Interface Methods
+
+        public void HideEntity()
+        {
+            foreach (TileEntity tile in TileList)
+            {
+                tile.HideEntity();
+            }
+        }
+
+        public void ShowEntity()
+        {
+            foreach (TileEntity tile in TileList)
+            {
+                tile.ShowEntity();
             }
         }
 

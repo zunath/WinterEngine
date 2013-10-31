@@ -34,7 +34,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class AreaEntity : PositionedObject, IDestroyable
+	public partial class AreaEditorEntity : PositionedObject, IDestroyable
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static string ContentManagerName
@@ -53,13 +53,13 @@ namespace WinterEngine.Game.Entities
 		
 		protected Layer LayerProvidedByContainer = null;
 
-        public AreaEntity(string contentManagerName) :
+        public AreaEditorEntity(string contentManagerName) :
             this(contentManagerName, true)
         {
         }
 
 
-        public AreaEntity(string contentManagerName, bool addToManagers) :
+        public AreaEditorEntity(string contentManagerName, bool addToManagers) :
 			base()
 		{
 			// Don't delete this:
@@ -171,7 +171,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AreaEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AreaEditorEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -182,7 +182,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AreaEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AreaEditorEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -232,7 +232,7 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class AreaEntityExtensionMethods
+	public static class AreaEditorEntityExtensionMethods
 	{
 	}
 	

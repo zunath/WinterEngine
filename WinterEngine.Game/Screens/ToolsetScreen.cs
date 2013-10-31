@@ -23,6 +23,7 @@ using WinterEngine.Game.Entities;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.Game.Screens
 {
@@ -67,11 +68,27 @@ namespace WinterEngine.Game.Screens
         {
             ToolsetUIEntityInstance.OnChangeScreen += base.ChangeScreen;
             
+            // Changed object mode event
+            ToolsetUIEntityInstance.OnObjectModeChanged += HandleModeChangeEvent;
+
             // Area Editor
-            ToolsetUIEntityInstance.OnAreaLoaded += OpenArea;
+            ToolsetUIEntityInstance.OnAreaLoaded += HandleAreaLoadEvent;
         
             // Tileset Editor
-            ToolsetUIEntityInstance.OnTilesetSpritesheetLoaded += TilesetEditorEntityInstance.LoadTilesetSpritesheet;
+            ToolsetUIEntityInstance.OnTilesetSpritesheetLoaded += TilesetEditorEntityInstance.HandleLoadTilesetSpritesheetEvent;
+        }
+
+        private void HandleModeChangeEvent(object sender, ObjectModeChangedEventArgs e)
+        {
+            HideAllEditors();
+            if (e.GameObjectType == GameObjectTypeEnum.Area)
+            {
+                AreaEntityInstance.ShowEntity();
+            }
+            else if (e.GameObjectType == GameObjectTypeEnum.Tileset)
+            {
+                TilesetEditorEntityInstance.ShowEntity();
+            }
         }
 
         #endregion
@@ -119,7 +136,7 @@ namespace WinterEngine.Game.Screens
 
         #region User Actions
 
-        private void OpenArea(object sender, ObjectSelectionEventArgs e)
+        private void HandleAreaLoadEvent(object sender, ObjectSelectionEventArgs e)
         {
             Area selectedArea;
             using (AreaRepository repo = new AreaRepository())
@@ -128,6 +145,16 @@ namespace WinterEngine.Game.Screens
             }
 
             AreaEntityInstance.ChangeArea(selectedArea);
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void HideAllEditors()
+        {
+            AreaEntityInstance.HideEntity();
+            TilesetEditorEntityInstance.HideEntity();
         }
 
         #endregion

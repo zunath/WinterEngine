@@ -161,8 +161,8 @@ namespace WinterEngine.Game.Entities
 				PassabilitySpriteInstance.CopyAbsoluteToRelative();
 				PassabilitySpriteInstance.AttachTo(this, false);
 			}
-			PassabilitySpriteInstance.TextureScale = 1f;
 			PassabilitySpriteInstance.Texture = null;
+			PassabilitySpriteInstance.TextureScale = 1f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -183,8 +183,8 @@ namespace WinterEngine.Game.Entities
 			RotationY = 0;
 			RotationZ = 0;
 			SpriteManager.AddToLayer(PassabilitySpriteInstance, layerToAddTo);
-			PassabilitySpriteInstance.TextureScale = 1f;
 			PassabilitySpriteInstance.Texture = null;
+			PassabilitySpriteInstance.TextureScale = 1f;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;

@@ -21,13 +21,14 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using FlatRedBall.Graphics;
+using WinterEngine.Game.Interfaces;
 
 
 #endif
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class TileEntity
+	public partial class TileEntity : IEditorEntity
     {
         #region Properties
 
@@ -94,7 +95,6 @@ namespace WinterEngine.Game.Entities
             SpriteInstance.LeftTexturePixel = column * (int)MappingEnum.TileWidth;
             SpriteInstance.BottomTexturePixel = (row + 1) * (int)MappingEnum.TileHeight;
             SpriteInstance.RightTexturePixel = (column + 1) * (int)MappingEnum.TileWidth;
-            SpriteInstance.ColorOperation = ColorOperation.InterpolateColor;
             
             SpriteManager.AddSprite(SpriteInstance);
             SpriteInstance.AttachTo(this, false);
@@ -105,7 +105,7 @@ namespace WinterEngine.Game.Entities
             PassabilitySpriteInstance.Z = 1;
 
             SpriteManager.AddSprite(PassabilitySpriteInstance);
-            PassabilitySpriteInstance.AttachTo(SpriteInstance, false);
+            PassabilitySpriteInstance.AttachTo(this, false);
         }
 
         public void DestroySprite()
@@ -126,6 +126,22 @@ namespace WinterEngine.Game.Entities
             {
                 PassabilitySpriteInstance.Texture = FlatRedBallServices.Load<Texture2D>(@"Content/Editor/Icons/Unpassable.png");
             }
+        }
+
+        #endregion
+
+        #region Interface Methods
+
+        public void HideEntity()
+        {
+            this.SpriteInstance.Visible = false;
+            this.PassabilitySpriteInstance.Visible = false;
+        }
+
+        public void ShowEntity()
+        {
+            this.SpriteInstance.Visible = true;
+            this.PassabilitySpriteInstance.Visible = true;
         }
 
         #endregion

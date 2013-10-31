@@ -6,13 +6,13 @@ using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects.EventArgsExtended
 {
-    public class ObjectSelectionEventArgs : EventArgs
+    public class ObjectModeChangedEventArgs: EventArgs
     {
-        public int ResourceID { get; set; }
+        public GameObjectTypeEnum GameObjectType { get; set; }
 
-        public ObjectSelectionEventArgs(int resourceID)
+        public ObjectModeChangedEventArgs(GameObjectTypeEnum gameObjectType)
         {
-            this.ResourceID = resourceID;
+            this.GameObjectType = gameObjectType;
         }
     }
 }

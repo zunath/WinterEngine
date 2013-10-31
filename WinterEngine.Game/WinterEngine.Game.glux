@@ -140,7 +140,7 @@
         <NamedObjectSave>
           <SourceType>Entity</SourceType>
           <SourceFile />
-          <SourceClassType>Entities\AreaEntity</SourceClassType>
+          <SourceClassType>Entities\AreaEditorEntity</SourceClassType>
           <InstanceName>AreaEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <IndependentOfCamera>true</IndependentOfCamera>
@@ -162,7 +162,7 @@
         <string>GLUE</string>
       </Tags>
       <Source>GLUE</Source>
-      <Name>Entities\AreaEntity</Name>
+      <Name>Entities\AreaEditorEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>

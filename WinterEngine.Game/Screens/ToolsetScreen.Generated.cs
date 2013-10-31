@@ -37,7 +37,7 @@ namespace WinterEngine.Game.Screens
 		#endif
 		
 		private WinterEngine.Game.Entities.ToolsetUIEntity ToolsetUIEntityInstance;
-		private WinterEngine.Game.Entities.AreaEntity AreaEntityInstance;
+		private WinterEngine.Game.Entities.AreaEditorEntity AreaEntityInstance;
 		private WinterEngine.Game.Entities.TilesetEditorEntity TilesetEditorEntityInstance;
 
 		public ToolsetScreen()
@@ -51,7 +51,7 @@ namespace WinterEngine.Game.Screens
 			LoadStaticContent(ContentManagerName);
 			ToolsetUIEntityInstance = new WinterEngine.Game.Entities.ToolsetUIEntity(ContentManagerName, false);
 			ToolsetUIEntityInstance.Name = "ToolsetUIEntityInstance";
-			AreaEntityInstance = new WinterEngine.Game.Entities.AreaEntity(ContentManagerName, false);
+			AreaEntityInstance = new WinterEngine.Game.Entities.AreaEditorEntity(ContentManagerName, false);
 			AreaEntityInstance.Name = "AreaEntityInstance";
 			TilesetEditorEntityInstance = new WinterEngine.Game.Entities.TilesetEditorEntity(ContentManagerName, false);
 			TilesetEditorEntityInstance.Name = "TilesetEditorEntityInstance";
@@ -160,7 +160,7 @@ namespace WinterEngine.Game.Screens
 			}
 			#endif
 			WinterEngine.Game.Entities.ToolsetUIEntity.LoadStaticContent(contentManagerName);
-			WinterEngine.Game.Entities.AreaEntity.LoadStaticContent(contentManagerName);
+			WinterEngine.Game.Entities.AreaEditorEntity.LoadStaticContent(contentManagerName);
 			WinterEngine.Game.Entities.TilesetEditorEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
