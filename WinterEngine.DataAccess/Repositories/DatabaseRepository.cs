@@ -12,7 +12,7 @@ namespace WinterEngine.DataAccess
     /// Data access class. Handles creating new database files for modules 
     /// and generating the standard tables that the rest of the toolset uses.
     /// </summary>
-    public class DatabaseRepository : IDisposable
+    public class DatabaseRepository : IDatabaseRepository
     {
         /// <summary>
         /// Changes the database connection to the specified path. All subsequent database calls
@@ -72,10 +72,6 @@ namespace WinterEngine.DataAccess
             }
 
             return fullPath;
-        }
-
-        public void Dispose()
-        {
         }
 
     }

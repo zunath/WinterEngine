@@ -6,7 +6,6 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.DataAccess.Repositories.Interfaces;
 
 namespace WinterEngine.DataAccess
 {
@@ -78,6 +77,15 @@ namespace WinterEngine.DataAccess
             {
                 Update(item);
             }
+        }
+
+        /// <summary>
+        /// Deletes and item from the database.
+        /// </summary>
+        /// <param name="item"></param>
+        public void Delete(Item item)
+        {
+            this.Delete(item.ResourceID);
         }
 
         /// <summary>
@@ -178,11 +186,6 @@ namespace WinterEngine.DataAccess
 
             rootNode.children = treeNodes;
             return rootNode;
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
 
         #endregion

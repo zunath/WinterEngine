@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinterEngine.DataAccess.Contexts;
-using WinterEngine.DataAccess.Repositories.Interfaces;
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -48,14 +47,6 @@ namespace WinterEngine.DataAccess.Repositories
         public void SaveChanges()
         {
             _context.SaveChanges();
-        }
-
-        public virtual void Dispose()
-        {
-            if (AutoSaveChanges)
-            {
-                _context.SaveChanges();
-            }
         }
 
         #endregion

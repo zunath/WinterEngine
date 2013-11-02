@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
-using WinterEngine.DataAccess.Repositories.Interfaces;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
@@ -85,6 +84,15 @@ namespace WinterEngine.DataAccess
             {
                 Update(creature);
             }
+        }
+
+        /// <summary>
+        /// Deletes a creature from the database
+        /// </summary>
+        /// <param name="creature"></param>
+        void IGenericRepository<Creature>.Delete(Creature creature)
+        {
+            this.Delete(creature.ResourceID);
         }
 
         /// <summary>
@@ -185,11 +193,6 @@ namespace WinterEngine.DataAccess
 
             rootNode.children = treeNodes;
             return rootNode;
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
 
         #endregion

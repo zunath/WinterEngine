@@ -5,14 +5,14 @@ using System.Text;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 
-namespace WinterEngine.DataAccess.Repositories.Interfaces
+namespace WinterEngine.DataAccess.Repositories
 {
-    public interface IRepository : IDisposable
+    public interface IRepository
     {
         void SaveChanges();
     }
 
-    public interface IGenericRepository<T> : IRepository, IDisposable
+    public interface IGenericRepository<T> : IRepository
     {
         T Add(T entity);
         void Add(List<T> entityList);

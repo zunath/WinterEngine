@@ -10,7 +10,7 @@ namespace WinterEngine.DataAccess
     /// <summary>
     /// Repository for accessing module-related data from the database.
     /// </summary>
-    public class ModuleRepository : IDisposable
+    public class ModuleRepository : IModuleRepository
     {
         /// <summary>
         /// Adds a game module to the database. Note that there should only ever be one module
@@ -68,10 +68,6 @@ namespace WinterEngine.DataAccess
                     context.SaveChanges();
                 }
             }
-        }
-
-        public void Dispose()
-        {
         }
 
     }

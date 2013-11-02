@@ -130,11 +130,6 @@ namespace WinterEngine.DataAccess
             return _context.ResourceCategories.Where(x => x.IsSystemResource == true && x.GameObjectType == resourceType).SingleOrDefault();
         }
 
-        public override void Dispose()
-        {
-            base.Dispose();
-        }
-
         #endregion
     }
 }

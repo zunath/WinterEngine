@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinterEngine.DataAccess.Contexts;
-using WinterEngine.DataAccess.Repositories.Interfaces;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
@@ -84,6 +83,15 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(script);
             }
+        }
+
+        /// <summary>
+        /// Removes a script from the database.
+        /// </summary>
+        /// <param name="script"></param>
+        public void Delete(Script script)
+        {
+            this.Delete(script.ResourceID);
         }
 
         /// <summary>
@@ -185,12 +193,7 @@ namespace WinterEngine.DataAccess.Repositories
             rootNode.children = treeNodes;
             return rootNode;
         }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-        }
-
+        
         #endregion
     }
 }

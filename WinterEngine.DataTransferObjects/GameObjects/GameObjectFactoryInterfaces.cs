@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 
-namespace WinterEngine.DataAccess.Factories
+namespace WinterEngine.DataTransferObjects
 {
     public interface IAreaFactory { Area Create(); }
     public interface IConversationFactory { Conversation Create(); }
@@ -13,4 +13,7 @@ namespace WinterEngine.DataAccess.Factories
     public interface IPlaceableFactory { Placeable Create(); }
     public interface IScriptFactory { Script Create(); }
     public interface ITilesetFactory { Tileset Create(); }
+
+    public interface IGameObjectFactory { GameObjectBase Create(GameObjectTypeEnum resourceType); }
+
 }

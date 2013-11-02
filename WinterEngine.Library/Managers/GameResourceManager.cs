@@ -1,8 +1,11 @@
-﻿using Ionic.Zip;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
+using Ionic.Zip;
+
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Paths;
@@ -11,13 +14,22 @@ using WinterEngine.Library.Extensions;
 using WinterEngine.DataTransferObjects.Enumerations;
 
 
+
 namespace WinterEngine.Editor.Managers
 {
-    public static class GameResourceManager
+    public class GameResourceManager
     {
         #region Methods
 
-        public static ContentPackageXML DeserializeContentPackageFile(string filePath)
+        private readonly IGenericRepository<ContentPackage> _contentPackageRepository;
+
+        public GameResourceManager(IGenericRepository<ContentPackage> contentPackageRepository)
+        {
+            if (contentPackageRepository == null) throw new ArgumentNullException("contentPackageRepository");
+            _contentPackageRepository = contentPackageRepository;
+        }
+
+        public ContentPackageXML DeserializeContentPackageFile(string filePath)
         {
             ContentPackageXML packageXML;
 
@@ -46,7 +58,7 @@ namespace WinterEngine.Editor.Managers
             }
         }
 
-        public static List<ContentPackageResource> GetAllResourcesInContentPackage(string filePath)
+        public List<ContentPackageResource> GetAllResourcesInContentPackage(string filePath)
         {
             try
             {
@@ -56,7 +68,7 @@ namespace WinterEngine.Editor.Managers
                 foreach (ContentPackageResourceXML current in xmlModel.ResourceList)
                 {
                     string truncatedName = Path.GetFileNameWithoutExtension(current.FileName).Truncate(64);
-                    
+
                     ContentPackageResource resource = new ContentPackageResource
                     {
                         FileName = current.FileName,
@@ -74,45 +86,46 @@ namespace WinterEngine.Editor.Managers
             }
         }
 
-        public static void RebuildModule(List<ContentPackage> contentPackages, ModuleRebuildModeEnum rebuildMode)
+        public void RebuildModule(List<ContentPackage> contentPackages, ModuleRebuildModeEnum rebuildMode)
         {
-            contentPackages.ForEach(a => a.ResourceList = GameResourceManager.GetAllResourcesInContentPackage(DirectoryPaths.ContentPackageDirectoryPath + a.FileName));
+            contentPackages.ForEach(a => a.ResourceList = GetAllResourcesInContentPackage(DirectoryPaths.ContentPackageDirectoryPath + a.FileName));
 
             try
             {
-                using (ContentPackageRepository repo = new ContentPackageRepository())
+
+                List<ContentPackage> existingContentPackages;
+                if (rebuildMode == ModuleRebuildModeEnum.SystemResourcesOnly)
                 {
-                    List<ContentPackage> existingContentPackages; 
-                    if(rebuildMode == ModuleRebuildModeEnum.SystemResourcesOnly)
+                    //existingContentPackages = _contentPackageRepository.GetAllSystemResources();
+                    existingContentPackages = _contentPackageRepository.GetAll().Where(x => x.IsSystemResource == true).ToList();
+                }
+                else if (rebuildMode == ModuleRebuildModeEnum.UserResourcesOnly)
+                {
+                    //existingContentPackages = _contentPackageRepository.GetAllUserResources();
+                    existingContentPackages = _contentPackageRepository.GetAll().Where(x => x.IsSystemResource == false).ToList();
+                }
+                else
+                {
+                    existingContentPackages = _contentPackageRepository.GetAll();
+                }
+
+                // Update or remove existing
+                foreach (ContentPackage current in existingContentPackages)
+                {
+                    if (contentPackages.Exists(x => x.FileName == current.FileName))
                     {
-                        existingContentPackages = repo.GetAllSystemResources();
-                    }
-                    else if(rebuildMode == ModuleRebuildModeEnum.UserResourcesOnly)
-                    {
-                        existingContentPackages = repo.GetAllUserResources();
+                        _contentPackageRepository.Update(current);
+                        contentPackages.RemoveAll(x => x.FileName == current.FileName);
                     }
                     else
                     {
-                        existingContentPackages = repo.GetAll();
+                        _contentPackageRepository.Delete(current);
                     }
-
-                    // Update or remove existing
-                    foreach (ContentPackage current in existingContentPackages)
-                    {
-                        if (contentPackages.Exists(x => x.FileName == current.FileName))
-                        {
-                            repo.Update(current);
-                            contentPackages.RemoveAll(x => x.FileName == current.FileName);
-                        }
-                        else
-                        {
-                            repo.Delete(current);
-                        }
-                    }
-
-                    // Add the new ones
-                    repo.Add(contentPackages);
                 }
+
+                // Add the new ones
+                _contentPackageRepository.Add(contentPackages);
+
             }
             catch
             {
@@ -123,13 +136,12 @@ namespace WinterEngine.Editor.Managers
         /// <summary>
         /// Handles refreshing content package resource links in the database and updating existing references. Uses the currently active set of content packages in the database.
         /// </summary>
-        public static void RebuildModule(ModuleRebuildModeEnum rebuildMode)
+        public void RebuildModule(ModuleRebuildModeEnum rebuildMode)
         {
-            using (ContentPackageRepository repo = new ContentPackageRepository())
-            {
-                List<ContentPackage> contentPackages = repo.GetAllUserResources();
-                RebuildModule(contentPackages, rebuildMode);
-            }
+
+            List<ContentPackage> contentPackages = _contentPackageRepository.GetAll().Where(x => x.IsSystemResource == false).ToList();
+            RebuildModule(contentPackages, rebuildMode);
+
         }
 
         #endregion

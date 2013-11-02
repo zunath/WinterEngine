@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
-using WinterEngine.DataAccess.Repositories.Interfaces;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 
@@ -115,11 +114,6 @@ namespace WinterEngine.DataAccess
         public void Delete(ItemType itemType)
         {
             _context.ItemTypes.Remove(itemType);
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
 
         #endregion

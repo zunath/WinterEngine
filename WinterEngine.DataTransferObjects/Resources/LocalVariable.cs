@@ -10,7 +10,7 @@ namespace WinterEngine.DataTransferObjects
 {
     [Table("LocalVariables")]
     [ProtoContract]
-    public class LocalVariable
+    public class LocalVariable : GameResourceBase
     {
         [Key]
         public int LocalVariableID { get; set; }

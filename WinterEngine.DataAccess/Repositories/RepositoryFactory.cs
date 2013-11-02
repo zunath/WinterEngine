@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinterEngine.DataAccess.Repositories;
-using WinterEngine.DataAccess.Repositories.Interfaces;
 using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.DataAccess.Factories
@@ -36,7 +35,7 @@ namespace WinterEngine.DataAccess.Factories
         [Inject] public IResourceRepository<Race> raceRepository { private get; set; }
         [Inject] public IResourceRepository<Tile> tileRepository { private get; set; }
         
-        public IRepository GetRepository()
+        public IRepository GetRepository(string name)
         {
             throw new NotImplementedException();
         }
@@ -117,7 +116,7 @@ namespace WinterEngine.DataAccess.Factories
             }
         }
 
-        public IGameObjectRepository<T> GetGameObjectRepository<T>() where T:GameObjectBase
+        public IGameObjectRepository<T> GetGameObjectRepository<T>() where T : GameObjectBase
         {
             if (typeof(T) == typeof(Area))
             {
@@ -200,5 +199,6 @@ namespace WinterEngine.DataAccess.Factories
                 throw new NotImplementedException();
             }
         }
+    
     }
 }

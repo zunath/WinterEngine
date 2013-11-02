@@ -28,6 +28,11 @@ namespace WinterEngine.Library.Managers
         private string _modulePath;
         private string _tempDirectoryPath;
 
+        private readonly IDatabaseRepository _databaseRepository;
+        private readonly IModuleRepository _moduleRepository;
+        private readonly IGenericRepository<ContentPackage> _contentPackageRepository;
+        private readonly IGenericRepository<Category> _categoryRepository;
+
         #endregion
 
         #region Properties
@@ -75,20 +80,25 @@ namespace WinterEngine.Library.Managers
         /// <summary>
         /// Constructor which creates an empty WinterModule.
         /// </summary>
-        public ModuleManager()
+        public ModuleManager(IGenericRepository<ContentPackage> contentPackageRepository, IGenericRepository<Category> categoryRepository)
         {
+            if (contentPackageRepository == null) throw new ArgumentNullException("contentPackageRepository");
+            _contentPackageRepository = contentPackageRepository;
+
+            if (categoryRepository == null) throw new ArgumentNullException("categoryRepository");
+            _categoryRepository = categoryRepository;
         }
 
-        /// <summary>
-        /// Constructor which creates a blank WinterModule.
-        /// Be sure to set the ModuleOpened, ModuleSaved, and ModuleClosed delegates
-        /// or you will get a null reference exception.
-        /// </summary>
-        public ModuleManager(string moduleName, string moduleTag)
-        {
-            ModuleName = moduleName;
-            ModuleTag = moduleTag;
-        }
+        ///// <summary>
+        ///// Constructor which creates a blank WinterModule.
+        ///// Be sure to set the ModuleOpened, ModuleSaved, and ModuleClosed delegates
+        ///// or you will get a null reference exception.
+        ///// </summary>
+        //public ModuleManager(string moduleName, string moduleTag)
+        //{
+        //    ModuleName = moduleName;
+        //    ModuleTag = moduleTag;
+        //}
 
         #endregion
 
@@ -113,20 +123,16 @@ namespace WinterEngine.Library.Managers
                 }
 
                 // Build a new database file and structure.
-                using (DatabaseRepository repo = new DatabaseRepository())
-                {
-                    repo.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB", true);
-                }
+                
+                _databaseRepository.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB", true);
+                
 
-                // Add the module details to the correct table.
-                using (ModuleRepository repo = new ModuleRepository())
-                {
-                    GameModule gameModule = new GameModule();
-                    gameModule.ModuleName = ModuleName;
-                    gameModule.ModuleTag = ModuleTag;
+                GameModule gameModule = new GameModule();
+                gameModule.ModuleName = ModuleName;
+                gameModule.ModuleTag = ModuleTag;
 
-                    repo.Add(gameModule);
-                }
+                _moduleRepository.Add(gameModule);
+                
 
                 InitializeData();
                 LoadSystemContentPacks();
@@ -196,10 +202,8 @@ namespace WinterEngine.Library.Managers
             string databaseFilePath = fileHelper.GetDatabaseFileInDirectory(TemporaryDirectoryPath);
 
             // Change the database connection to the file located in the extracted module folder.
-            using (DatabaseRepository repo = new DatabaseRepository())
-            {
-                repo.ChangeDatabaseConnection(databaseFilePath);
-            }
+            _databaseRepository.ChangeDatabaseConnection(databaseFilePath);
+            
 
             CheckForMissingContentPackages();
         }
@@ -248,11 +252,8 @@ namespace WinterEngine.Library.Managers
                 fileContentPackages.Add(Path.GetFileName(path));
             }
 
-            // Retrieve the required content packages (ones which are attached to the module)
-            using (ContentPackageRepository repo = new ContentPackageRepository())
-            {
-                moduleContentPackages = repo.GetAllFileNames();
-            }
+            moduleContentPackages = _contentPackageRepository.GetAll().Select(x => x.FileName).ToList();
+            
 
             // Determine which content packages do not exist on disk that are required by this module.
             missingContentPackages = moduleContentPackages.Except(fileContentPackages).ToList();
@@ -296,8 +297,7 @@ namespace WinterEngine.Library.Managers
         private void InitializeData()
         {
             // Add the "Uncategorized" category for each resource type.
-            using (CategoryRepository repo = new CategoryRepository())
-            {
+            
                 List<Category> categoryList = new List<Category>();
 
                 categoryList.Add(new Category
@@ -350,8 +350,8 @@ namespace WinterEngine.Library.Managers
                     IsSystemResource = true
                 });
 
-                repo.Add(categoryList);
-            }
+                _categoryRepository.Add(categoryList);
+            
         }
 
         #endregion

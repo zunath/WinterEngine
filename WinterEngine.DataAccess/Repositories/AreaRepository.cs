@@ -83,6 +83,11 @@ namespace WinterEngine.DataAccess
             }
         }
 
+        void IGenericRepository<Area>.Delete(Area area)
+        {
+            this.Delete(area.ResourceID);
+        }
+
         /// <summary>
         /// Deletes an area with the specified resource ID from the database.
         /// </summary>
@@ -184,11 +189,6 @@ namespace WinterEngine.DataAccess
 
             rootNode.children = treeNodes;
             return rootNode;
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
 
         #endregion

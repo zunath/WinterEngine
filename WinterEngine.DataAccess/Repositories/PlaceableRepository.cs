@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
-using WinterEngine.DataAccess.Repositories.Interfaces;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
@@ -80,6 +79,15 @@ namespace WinterEngine.DataAccess
             {
                 Update(placeable);
             }
+        }
+
+        /// <summary>
+        /// Removes a placeable from the database
+        /// </summary>
+        /// <param name="placeable"></param>
+        void IGenericRepository<Placeable>.Delete(Placeable placeable)
+        {
+            this.Delete(placeable.ResourceID);
         }
 
         /// <summary>
@@ -181,12 +189,6 @@ namespace WinterEngine.DataAccess
 
             rootNode.children = treeNodes;
             return rootNode;
-        }
-
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
 
         #endregion

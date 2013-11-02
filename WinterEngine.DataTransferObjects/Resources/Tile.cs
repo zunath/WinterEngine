@@ -11,7 +11,7 @@ using WinterEngine.DataTransferObjects.Enumerations;
 namespace WinterEngine.DataTransferObjects
 {
     [Table("Tiles")]
-    public class Tile
+    public class Tile : GameResourceBase
     {
         #region Properties
 
