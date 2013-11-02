@@ -10,14 +10,12 @@ using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.XMLObjects;
-using WinterEngine.Library.Extensions;
+using WinterEngine.Editor.Extensions;
 using WinterEngine.DataTransferObjects.Enumerations;
 
-
-
-namespace WinterEngine.Editor.Managers
+namespace WinterEngine.Library.Managers
 {
-    public class GameResourceManager
+    public class GameResourceManager : IGameResourceManager
     {
         #region Methods
 

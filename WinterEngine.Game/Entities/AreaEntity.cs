@@ -8,10 +8,10 @@ using FlatRedBall.TileGraphics;
 using Microsoft.Xna.Framework;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
-using WinterEngine.Library.Utility;
+using WinterEngine.Editor.Utility;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
-using WinterEngine.Library.Extensions;
+using WinterEngine.Editor.Extensions;
 
 
 namespace WinterEngine.Game.Entities

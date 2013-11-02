@@ -84,6 +84,8 @@
     <Compile Include="Extensions\ContentPackageResourceExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Managers\GameResourceManager.cs" />
+    <Compile Include="Managers\IGameResourceManager.cs" />
+    <Compile Include="Managers\IModuleManager.cs" />
     <Compile Include="Managers\ModuleManager.cs" />
     <Compile Include="Utility\EnumerationHelper.cs" />
     <Compile Include="Utility\FileHelper.cs" />

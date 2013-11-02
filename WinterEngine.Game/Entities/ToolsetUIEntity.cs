@@ -14,10 +14,9 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.ViewModels;
-using WinterEngine.Library.Extensions;
-using WinterEngine.Editor.Managers;
+using WinterEngine.Editor.Extensions;
 using WinterEngine.Library.Managers;
-using WinterEngine.Library.Utility;
+using WinterEngine.Editor.Utility;
 using Microsoft.Xna.Framework.Graphics;
 
 

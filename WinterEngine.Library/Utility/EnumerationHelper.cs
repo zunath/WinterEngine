@@ -5,7 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.ComponentModel;
 
-namespace WinterEngine.Library.Utility
+namespace WinterEngine.Editor.Utility
 {
     public static class EnumerationHelper
     {

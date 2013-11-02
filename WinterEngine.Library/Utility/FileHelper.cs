@@ -4,7 +4,7 @@ using System.IO;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.Enumerations;
 
-namespace WinterEngine.Library.Utility
+namespace WinterEngine.Editor.Utility
 {
     /// <summary>
     /// File handling and manipulation for Winter Engine.

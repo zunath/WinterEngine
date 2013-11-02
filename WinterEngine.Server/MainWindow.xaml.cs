@@ -37,6 +37,9 @@ namespace WinterEngine.Server
         private BackgroundWorker _gameListenerThread;
         private BindingList<string> _connectedUsernames;
 
+        private readonly IModuleManager _moduleManager;
+        private readonly IGenericRepository<ContentPackage> _contentPackage;
+
         #endregion
 
         #region Properties
@@ -99,8 +102,14 @@ namespace WinterEngine.Server
 
         #region Constructors
 
-        public MainWindow()
+        public MainWindow(IModuleManager moduleManager, IGenericRepository<ContentPackage> contentPackage)
         {
+            if (moduleManager == null) throw new ArgumentNullException("moduleManager");
+            _moduleManager = moduleManager;
+
+            if (contentPackage == null) throw new ArgumentNullException("contentPackage");
+            _contentPackage = contentPackage;
+
             InitializeComponent();
         }
 
@@ -262,14 +271,8 @@ namespace WinterEngine.Server
         {
             string path = OpenFile.FileName;
             textBoxModuleFileName.Text = Path.GetFileNameWithoutExtension(path);
-
-            ModuleManager manager = new ModuleManager();
-            manager.OpenModule(path);
-
-            using (ContentPackageRepository repo = new ContentPackageRepository())
-            {
-                ContentPackageList = repo.GetAll();
-            }
+            _moduleManager.OpenModule(path);
+            ContentPackageList = _contentPackage.GetAll();
         }
 
         /// <summary>

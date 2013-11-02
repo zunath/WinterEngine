@@ -20,7 +20,7 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess.Repositories;
-using WinterEngine.Library.Extensions;
+using WinterEngine.Editor.Extensions;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.Enumerations;
 using FlatRedBall.ManagedSpriteGroups;

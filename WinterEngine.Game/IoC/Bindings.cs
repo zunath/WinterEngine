@@ -9,7 +9,7 @@ using Ninject.Extensions.Factory;
 using WinterEngine.DataAccess;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
-using WinterEngine.Library;
+using WinterEngine.Editor;
 using WinterEngine.Network;
 
 using WinterEngine.Game.Performance;

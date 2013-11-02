@@ -10,15 +10,15 @@ using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 
-using WinterEngine.Library.Utility;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.Paths;
-using WinterEngine.Editor.Managers;
+using WinterEngine.Library.Managers;
+using WinterEngine.Editor.Utility;
 
 namespace WinterEngine.Library.Managers
 {
-    public class ModuleManager
+    public class ModuleManager : IModuleManager
     {
         #region Fields
 
@@ -80,13 +80,22 @@ namespace WinterEngine.Library.Managers
         /// <summary>
         /// Constructor which creates an empty WinterModule.
         /// </summary>
-        public ModuleManager(IGenericRepository<ContentPackage> contentPackageRepository, IGenericRepository<Category> categoryRepository)
+        public ModuleManager(IGenericRepository<ContentPackage> contentPackageRepository,
+            IGenericRepository<Category> categoryRepository,
+            IModuleRepository moduleRepository, 
+            IDatabaseRepository databaseRepository)
         {
             if (contentPackageRepository == null) throw new ArgumentNullException("contentPackageRepository");
             _contentPackageRepository = contentPackageRepository;
 
             if (categoryRepository == null) throw new ArgumentNullException("categoryRepository");
             _categoryRepository = categoryRepository;
+
+            if (moduleRepository == null) throw new ArgumentNullException("moduleRepository");
+            _moduleRepository = moduleRepository;
+
+            if (databaseRepository == null) throw new ArgumentNullException("databaseRepository");
+            _databaseRepository = databaseRepository;
         }
 
         ///// <summary>

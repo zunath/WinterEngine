@@ -13,7 +13,7 @@ using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.XMLObjects;
-using WinterEngine.Editor.Managers;
+using WinterEngine.Library.Managers;
 
 namespace WinterEngine.ContentPackageCreator
 {
@@ -23,7 +23,7 @@ namespace WinterEngine.ContentPackageCreator
     public partial class MainWindow : Window
     {
         #region Fields
-
+        IGameResourceManager _gameResourceManager;
         #endregion
 
         #region Properties
@@ -37,8 +37,11 @@ namespace WinterEngine.ContentPackageCreator
 
         #region Constructors
 
-        public MainWindow()
+        public MainWindow(IGameResourceManager gameResourceManager)
         {
+            if (gameResourceManager == null) throw new ArgumentNullException("gameResourceManager");
+            _gameResourceManager = gameResourceManager;
+
             InitializeComponent();
         }
 
@@ -315,8 +318,7 @@ namespace WinterEngine.ContentPackageCreator
         {
             try
             {
-                Model = GameResourceManager.DeserializeContentPackageFile(filePath);
-
+                Model = _gameResourceManager.DeserializeContentPackageFile(filePath);
                 foreach (ContentPackageResourceXML resource in Model.ResourceList)
                 {
                     resource.IsInPackage = true;
