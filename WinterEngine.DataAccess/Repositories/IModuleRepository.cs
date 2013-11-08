@@ -6,6 +6,7 @@ using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.DataAccess
 {
+    //todo can IRepository replace this?
     public interface IModuleRepository
     {
         void Add(GameModule gameModule);
