@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Awesomium.Core;
 using FlatRedBall;
 using Newtonsoft.Json;
@@ -18,6 +19,7 @@ using WinterEngine.Editor.Extensions;
 using WinterEngine.Library.Managers;
 using WinterEngine.Editor.Utility;
 using Microsoft.Xna.Framework.Graphics;
+using System.Reflection;
 
 
 namespace WinterEngine.Game.Entities
@@ -26,73 +28,70 @@ namespace WinterEngine.Game.Entities
     {
         #region Fields
 
-        private ToolsetViewModel _viewModel;
-        private FileExtensionFactory _extensionFactory;
-        private ModuleManager _moduleManager;
-        private JsonSerializerSettings _serializerSettings;
+        private readonly ToolsetViewModel _viewModel;
+        private readonly FileExtensionFactory _extensionFactory;
+        private readonly ModuleManager _moduleManager;
+        private readonly JsonSerializerSettings _serializerSettings;
+
+        private readonly IRepositoryFactory _repositoryFactory;
+        private readonly IGameObjectFactory _gameObjectFacotry;
+        private readonly IGameResourceManager _resourceManager;
         
         #endregion
 
         #region Properties
 
-        private ToolsetViewModel ViewModel 
+        private ToolsetViewModel ViewModel
         {
             get
             {
-                if (_viewModel == null)
-                {
-                    _viewModel = new ToolsetViewModel();
-                }
+
                 return _viewModel;
             }
-            set
-            {
-                _viewModel = new ToolsetViewModel();
 
-            }
         }
 
-        private JsonSerializerSettings JSONSerializerSettings
-        {
-            get
-            {
-                if (_serializerSettings == null)
-                {
-                    _serializerSettings = new JsonSerializerSettings 
-                    { 
-                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                        NullValueHandling = NullValueHandling.Ignore
-                    };
-                }
-                return _serializerSettings;
-            }
-        }
+        //private JsonSerializerSettings JSONSerializerSettings
+        //{
+        //    get
+        //    {
+        //        if (_serializerSettings == null)
+        //        {
+        //            _serializerSettings = new JsonSerializerSettings
+        //            {
+        //                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+        //                NullValueHandling = NullValueHandling.Ignore
+        //            };
+        //        }
+        //        return _serializerSettings;
+        //    }
+        //}
 
-        private FileExtensionFactory ExtensionFactory 
-        {
-            get
-            {
-                if (_extensionFactory == null)
-                {
-                    _extensionFactory = new FileExtensionFactory();
-                }
+        //private FileExtensionFactory ExtensionFactory 
+        //{
+        //    get
+        //    {
+        //        if (_extensionFactory == null)
+        //        {
+        //            _extensionFactory = new FileExtensionFactory();
+        //        }
 
-                return _extensionFactory;
-            }
-        }
+        //        return _extensionFactory;
+        //    }
+        //}
 
-        private ModuleManager ModuleManager
-        {
-            get
-            {
-                if (_moduleManager == null)
-                {
-                    _moduleManager = new ModuleManager();
-                }
+        //private ModuleManager ModuleManager
+        //{
+        //    get
+        //    {
+        //        if (_moduleManager == null)
+        //        {
+        //            _moduleManager = new ModuleManager();
+        //        }
 
-                return _moduleManager;
-            }
-        }
+        //        return _moduleManager;
+        //    }
+        //}
 
         #endregion
 
@@ -120,7 +119,7 @@ namespace WinterEngine.Game.Entities
 
 		private void CustomDestroy()
 		{
-            ModuleManager.CloseModule();
+            _moduleManager.CloseModule();
 		}
 
         private static void CustomLoadStaticContent(string contentManagerName)
@@ -184,7 +183,7 @@ namespace WinterEngine.Game.Entities
 
         private void SaveModule()
         {
-            ModuleManager.SaveModule();
+            _moduleManager.SaveModule();
         }
 
         #endregion
@@ -193,9 +192,9 @@ namespace WinterEngine.Game.Entities
 
         private void NewModuleButton(object sender, JavascriptMethodEventArgs e)
         {
-            ModuleManager.ModuleName = e.Arguments[0];
-            ModuleManager.ModuleTag = e.Arguments[1];
-            bool success = ModuleManager.CreateModule();
+            _moduleManager.ModuleName = e.Arguments[0];
+            _moduleManager.ModuleTag = e.Arguments[1];
+            bool success = _moduleManager.CreateModule();
             PopulateToolsetViewModel();
 
             AsyncJavascriptCallback("NewModuleBoxOKClick_Callback", success);
@@ -205,8 +204,8 @@ namespace WinterEngine.Game.Entities
         {
             try
             {
-                string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] + ExtensionFactory.GetFileExtension(FileTypeEnum.Module);
-                ModuleManager.OpenModule(filePath);
+                string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] + _extensionFactory.GetFileExtension(FileTypeEnum.Module);
+                _moduleManager.OpenModule(filePath);
                 PopulateToolsetViewModel();
 
                 AsyncJavascriptCallback("OpenModuleButtonClick_Callback", true);
@@ -221,7 +220,7 @@ namespace WinterEngine.Game.Entities
 
         private void SaveModuleButton(object sender, JavascriptMethodEventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(ModuleManager.ModulePath))
+            if (String.IsNullOrWhiteSpace(_moduleManager.ModulePath))
             {
                 AsyncJavascriptCallback("ShowSaveAsModulePopUp");
             }
@@ -234,8 +233,8 @@ namespace WinterEngine.Game.Entities
         private void SaveAsModuleButton(object sender, JavascriptMethodEventArgs e)
         {
             SaveAsResponseTypeEnum response = SaveAsResponseTypeEnum.SaveFailed;
-            string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] 
-                + ExtensionFactory.GetFileExtension(FileTypeEnum.Module);
+            string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0]
+                + _extensionFactory.GetFileExtension(FileTypeEnum.Module);
             bool forceOverwrite = e.Arguments[1];
 
             if (File.Exists(filePath) && !forceOverwrite)
@@ -244,7 +243,7 @@ namespace WinterEngine.Game.Entities
             }
             else
             {
-                ModuleManager.ModulePath = filePath;
+                _moduleManager.ModulePath = filePath;
                 SaveModule();
                 response = SaveAsResponseTypeEnum.SaveSuccessful;
             }
@@ -254,7 +253,7 @@ namespace WinterEngine.Game.Entities
 
         private void CloseModuleButton(object sender, JavascriptMethodEventArgs e)
         {
-            ModuleManager.CloseModule();
+            _moduleManager.CloseModule();
             ClearViewModelPopulation();
 
             AsyncJavascriptCallback("CloseModuleButtonClick_Callback");
@@ -280,7 +279,7 @@ namespace WinterEngine.Game.Entities
 
             try
             {
-                GameResourceManager.RebuildModule(ModuleRebuildModeEnum.UserResourcesOnly);
+                _resourceManager.RebuildModule(ModuleRebuildModeEnum.UserResourcesOnly);
                 success = true;
             }
             catch(Exception ex)
@@ -297,15 +296,13 @@ namespace WinterEngine.Game.Entities
             List<ContentPackage> attachedContentPackages;
             List<ContentPackage> availableContentPackages = new List<ContentPackage>();
 
-            using (ContentPackageRepository repo = new ContentPackageRepository())
-            {
-                attachedContentPackages = repo.GetAllUserResources();
-                // We don't need to send the resource list to the GUI because it could contain a lot of data.
-                // We'll pick up the resource list when we go to do a save/rebuild of the module.
-                attachedContentPackages.ForEach(a => a.ResourceList = null);
-            }
+            var repo = _repositoryFactory.GetGenericRepository<ContentPackage>();
+            attachedContentPackages = repo.GetAll().Where(x => x.IsSystemResource == false).ToList();
+            // We don't need to send the resource list to the GUI because it could contain a lot of data.
+            // We'll pick up the resource list when we go to do a save/rebuild of the module.
+            attachedContentPackages.ForEach(a => a.ResourceList = null);
 
-            string[] files = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + ExtensionFactory.GetFileExtension(FileTypeEnum.ContentPackage));
+            string[] files = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + _extensionFactory.GetFileExtension(FileTypeEnum.ContentPackage));
             foreach (string currentPackage in files)
             {
                 ContentPackage package = new ContentPackage
@@ -318,8 +315,8 @@ namespace WinterEngine.Game.Entities
                 availableContentPackages.Add(package);
             }
 
-            ViewModel.AvailableContentPackages = availableContentPackages;
-            ViewModel.AttachedContentPackages = attachedContentPackages;
+            //ViewModel.AvailableContentPackages = availableContentPackages;
+            //ViewModel.AttachedContentPackages = attachedContentPackages;
 
             AsyncJavascriptCallback("ManageContentPackagesButton_Callback");
         }
@@ -328,7 +325,7 @@ namespace WinterEngine.Game.Entities
         {
             string jsonUpdatedContentPackages = e.Arguments[0];
             List<ContentPackage> contentPackageList = JsonConvert.DeserializeObject<List<ContentPackage>>(jsonUpdatedContentPackages);
-            GameResourceManager.RebuildModule(contentPackageList, ModuleRebuildModeEnum.UserResourcesOnly);
+            _resourceManager.RebuildModule(contentPackageList, ModuleRebuildModeEnum.UserResourcesOnly);
             PopulateToolsetViewModel();
 
             AsyncJavascriptCallback("ManageContentPackagesSaveChanges_Callback");
@@ -360,35 +357,18 @@ namespace WinterEngine.Game.Entities
                 JSTreeNode scriptRootNode;
                 JSTreeNode tilesetRootNode;
 
+                /*
+                 * I don't think the repositories need to generate JSTreeNode.
+                 */
+
                 // Get each category's children for each object type
-                using (AreaRepository repo = new AreaRepository())
-                {
-                    areaRootNode = repo.GenerateJSTreeHierarchy();
-                }
-                using (CreatureRepository repo = new CreatureRepository())
-                {
-                    creatureRootNode = repo.GenerateJSTreeHierarchy();
-                }
-                using (ItemRepository repo = new ItemRepository())
-                {
-                    itemRootNode = repo.GenerateJSTreeHierarchy();
-                }
-                using (PlaceableRepository repo = new PlaceableRepository())
-                {
-                    placeableRootNode = repo.GenerateJSTreeHierarchy();
-                }
-                using (ConversationRepository repo = new ConversationRepository())
-                {
-                    conversationRootNode = repo.GenerateJSTreeHierarchy();
-                }
-                using (ScriptRepository repo = new ScriptRepository())
-                {
-                    scriptRootNode = repo.GenerateJSTreeHierarchy();
-                }
-                using (TilesetRepository repo = new TilesetRepository())
-                {
-                    tilesetRootNode = repo.GenerateJSTreeHierarchy();
-                }
+                areaRootNode = _repositoryFactory.GetGameObjectRepository<Area>().GenerateJSTreeHierarchy();
+                creatureRootNode = _repositoryFactory.GetGameObjectRepository<Creature>().GenerateJSTreeHierarchy();
+                itemRootNode = _repositoryFactory.GetGameObjectRepository<Item>().GenerateJSTreeHierarchy();
+                placeableRootNode = _repositoryFactory.GetGameObjectRepository<Placeable>().GenerateJSTreeHierarchy();
+                conversationRootNode = _repositoryFactory.GetGameObjectRepository<Conversation>().GenerateJSTreeHierarchy();
+                scriptRootNode = _repositoryFactory.GetGameObjectRepository<Script>().GenerateJSTreeHierarchy();
+                tilesetRootNode = _repositoryFactory.GetGameObjectRepository<Tileset>().GenerateJSTreeHierarchy();
                 
                 AsyncJavascriptCallback("LoadTreeViews_Callback",
                     JsonConvert.SerializeObject(areaRootNode),
@@ -417,10 +397,12 @@ namespace WinterEngine.Game.Entities
                 GameObjectType = gameObjectType
             };
 
-            using (CategoryRepository repo = new CategoryRepository())
-            {
-                newCategory = repo.Add(newCategory);
-            }
+            //using (CategoryRepository repo = new CategoryRepository())
+            //{
+            //    newCategory = repo.Add(newCategory);
+            //}
+
+            newCategory = _repositoryFactory.GetGenericRepository<Category>().Add(newCategory);
 
             AsyncJavascriptCallback("CreateNewCategory_Callback",
                 error == ErrorTypeEnum.None ? true : false,
@@ -434,7 +416,8 @@ namespace WinterEngine.Game.Entities
             try
             {
                 ErrorTypeEnum error = ErrorTypeEnum.None;
-                GameObjectFactory factory = new GameObjectFactory();
+                //GameObjectFactory factory = new GameObjectFactory();
+                
                 string name = e.Arguments[0];
                 string tag = e.Arguments[1];
                 string resref = e.Arguments[2];
@@ -442,20 +425,23 @@ namespace WinterEngine.Game.Entities
                 GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[4]);
                 int resourceID = 0;
 
-                if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
-                {
-                    error = ErrorTypeEnum.ObjectResrefAlreadyExists;
-                }
-                else
-                {
-                    GameObjectBase newObject = factory.CreateObject(gameObjectType);
-                    newObject.Name = name;
-                    newObject.Tag = tag;
-                    newObject.Resref = resref;
-                    newObject.ResourceCategoryID = categoryID;
+                //Why do we need to check if it exists? Can't we just save it?
+                //if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
+                //{
+                //    error = ErrorTypeEnum.ObjectResrefAlreadyExists;
+                //}
+                //else
+                //{
+                GameObjectBase newObject = _gameObjectFacotry.Create(gameObjectType);
+                newObject.Name = name;
+                newObject.Tag = tag;
+                newObject.Resref = resref;
+                newObject.ResourceCategoryID = categoryID;
 
-                    resourceID = factory.AddToDatabase(newObject).ResourceID;
-                }
+                resourceID = _repositoryFactory.GetRepository(gameObjectType).Save(newObject);
+
+                
+                //}
 
                 AsyncJavascriptCallback("CreateNewObject_Callback",
                     error == ErrorTypeEnum.None ? true : false,
@@ -470,20 +456,23 @@ namespace WinterEngine.Game.Entities
             }
         }
 
+        //TODO: It would be nice to get rid of this
         private void DeleteCategory(object sender, JavascriptMethodEventArgs e)
         {
             ErrorTypeEnum error = ErrorTypeEnum.None;
             int categoryID = (int)e.Arguments[0];
-            GameObjectFactory factory = new GameObjectFactory();
+            //GameObjectFactory factory = new GameObjectFactory();
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[1]);
-            Category categoryToRemove;
+            
 
-            using(CategoryRepository repo = new CategoryRepository())
-            {
-                categoryToRemove = repo.GetByID(categoryID);
-            }
+            //using(CategoryRepository repo = new CategoryRepository())
+            //{
+            //    categoryToRemove = repo.GetByID(categoryID);
+            //}
 
-            factory.DeleteFromDatabaseByCategory(categoryToRemove, gameObjectType);
+            Category categoryToRemove = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
+
+            _repositoryFactory.GetRepository(gameObjectType).DeleteByCategory(categoryToRemove);
         
             if (gameObjectType == GameObjectTypeEnum.Area)
             {
@@ -498,11 +487,13 @@ namespace WinterEngine.Game.Entities
         private void DeleteObject(object sender, JavascriptMethodEventArgs e)
         {
             ErrorTypeEnum error = ErrorTypeEnum.None;
-            GameObjectFactory factory = new GameObjectFactory();
+            //GameObjectFactory factory = new GameObjectFactory();
             int resourceID = (int)e.Arguments[0];
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[1]);
 
-            factory.DeleteFromDatabase(resourceID, gameObjectType);
+            //factory.DeleteFromDatabase(resourceID, gameObjectType);
+
+            _repositoryFactory.GetRepository(gameObjectType).Delete(resourceID);
 
             if (gameObjectType == GameObjectTypeEnum.Area)
             {
@@ -514,24 +505,25 @@ namespace WinterEngine.Game.Entities
                 EnumerationHelper.GetEnumerationDescription(error));
         }
 
+        //Todo: Why isn't a save good for this?
         private void RenameCategory(object sender, JavascriptMethodEventArgs e)
         {
             ErrorTypeEnum error = ErrorTypeEnum.None;
             string name = e.Arguments[0];
             int categoryID = (int)e.Arguments[1];
             
-            using (CategoryRepository repo = new CategoryRepository())
+            //using (CategoryRepository repo = new CategoryRepository())
+            //{
+            Category dbCategory = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
+            if (!dbCategory.IsSystemResource)
             {
-                Category dbCategory = repo.GetByID(categoryID);
-                if (!dbCategory.IsSystemResource)
-                {
-                    dbCategory.Name = name;
-                }
-                else
-                {
-                    error = ErrorTypeEnum.CannotChangeSystemResource;
-                }
+                dbCategory.Name = name;
             }
+            else
+            {
+                error = ErrorTypeEnum.CannotChangeSystemResource;
+            }
+            //}
 
             AsyncJavascriptCallback("RenameObject_Callback",
                 error == ErrorTypeEnum.None ? true : false,
@@ -539,15 +531,18 @@ namespace WinterEngine.Game.Entities
                 name);
         }
 
+        //Todo: Why isn't a save good for this?
         private void RenameObject(object sender, JavascriptMethodEventArgs e)
         {
             ErrorTypeEnum error = ErrorTypeEnum.None;
-            GameObjectFactory factory = new GameObjectFactory();
+            //GameObjectFactory factory = new GameObjectFactory();
             string name = e.Arguments[0];
             int resourceID = (int)e.Arguments[1];
             GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[2]);
 
-            GameObjectBase dbObject = factory.GetFromDatabaseByID(resourceID, gameObjectType);
+            //GameObjectBase dbObject = factory.GetFromDatabaseByID(resourceID, gameObjectType);
+
+            var dbObject = (GameObjectBase)_repositoryFactory.GetRepository(gameObjectType).Load(resourceID);
 
             if (dbObject == null)
             {
@@ -558,7 +553,7 @@ namespace WinterEngine.Game.Entities
                 if (!dbObject.IsSystemResource)
                 {
                     dbObject.Name = name;
-                    factory.UpdateInDatabase(dbObject);
+                    _repositoryFactory.GetRepository(gameObjectType).Save(dbObject);
                 }
                 else
                 {
@@ -589,41 +584,19 @@ namespace WinterEngine.Game.Entities
 
         private void LoadObjectData(object sender, JavascriptMethodEventArgs e)
         {
-            GameObjectFactory factory = new GameObjectFactory();
             int resourceID = (int)e.Arguments[0];
-            GameObjectBase gameObject = factory.GetFromDatabaseByID(resourceID, ViewModel.GameObjectType);
             ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
 
+            var gameObject = _repositoryFactory.GetRepository(ViewModel.GameObjectType).Load(resourceID);
+            Type type = Type.GetType("WinterEngine.DataTransferObjects" + ViewModel.GameObjectType.ToString() + "`1");
+            var prop = ViewModel.GetType().GetProperties().Where(p => p.GetType() == type).Single();
+            prop.SetValue(prop, gameObject, null);
+            
             if (ViewModel.GameObjectType == GameObjectTypeEnum.Area)
             {
-                ViewModel.ActiveArea = gameObject as Area;
                 RefreshAreaEntity(this, eventArgs);
             }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Conversation)
-            {
-                ViewModel.ActiveConversation = gameObject as Conversation;
-            }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Creature)
-            {
-                ViewModel.ActiveCreature = gameObject as Creature;
-            }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Item)
-            {
-                ViewModel.ActiveItem = gameObject as Item;
-            }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Placeable)
-            {
-                ViewModel.ActivePlaceable = gameObject as Placeable;
-            }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Script)
-            {
-                ViewModel.ActiveScript = gameObject as Script;
-            }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Tileset)
-            {
-                ViewModel.ActiveTileset = gameObject as Tileset;
-            }
-
+            
             AsyncJavascriptCallback("LoadObjectData_Callback");
         }
 
@@ -639,40 +612,22 @@ namespace WinterEngine.Game.Entities
         {
             try
             {
-                GameObjectFactory factory = new GameObjectFactory();
                 GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
-                string jsonModel = e.Arguments[1];
-                ToolsetViewModel model = JsonConvert.DeserializeObject<ToolsetViewModel>(jsonModel, JSONSerializerSettings);
                 
+                string jsonModel = e.Arguments[1];
+                ToolsetViewModel model = JsonConvert.DeserializeObject<ToolsetViewModel>(jsonModel, _serializerSettings);
+                
+                Type type = Type.GetType("WinterEngine.DataTransferObjects" + gameObjectType.ToString() + "`1");
+
+                var prop = model.GetType().GetProperties().Where(p => p.GetType() == type).Single();
+                var gameObject = (GameObjectBase)prop.GetValue(model, null);
+
+                _repositoryFactory.GetRepository(type.ToString()).Save(gameObject);
+
                 if (gameObjectType == GameObjectTypeEnum.Area)
                 {
-                    factory.UpsertInDatabase(model.ActiveArea);
                     ObjectSelectionEventArgs areaEventArgs = new ObjectSelectionEventArgs(model.ActiveArea.ResourceID);
                     RefreshAreaEntity(this, areaEventArgs);
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Conversation)
-                {
-                    factory.UpsertInDatabase(model.ActiveConversation);
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Creature)
-                {
-                    factory.UpsertInDatabase(model.ActiveCreature);
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Item)
-                {
-                    factory.UpsertInDatabase(model.ActiveItem);
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Placeable)
-                {
-                    factory.UpsertInDatabase(model.ActivePlaceable);
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Script)
-                {
-                    factory.UpsertInDatabase(model.ActiveScript);
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Tileset)
-                {
-                    factory.UpsertInDatabase(model.ActiveTileset);
                 }
             }
             catch
@@ -684,7 +639,7 @@ namespace WinterEngine.Game.Entities
         private void GetModulesList(object sender, JavascriptMethodEventArgs e)
         {
             string[] files = Directory.GetFiles(DirectoryPaths.ModuleDirectoryPath, "*"
-                + ExtensionFactory.GetFileExtension(FileTypeEnum.Module));
+                + _extensionFactory.GetFileExtension(FileTypeEnum.Module));
             List<GameModule> moduleList = new List<GameModule>();
             foreach (string current in files)
             {
@@ -702,28 +657,22 @@ namespace WinterEngine.Game.Entities
         {
             ClearViewModelPopulation();
 
-            using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
-            {
-                List<ContentPackageResource> resourceList = repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset);
-                resourceList.Insert(0, new ContentPackageResource
-                {
-                    ContentPackageResourceType = ContentPackageResourceTypeEnum.Tileset,
-                    Name = "(None)",
-                    ResourceID = 0,
-                    ResourceType = ResourceTypeEnum.GameObject
-                });
-                ViewModel.TilesetSpriteSheetsList = resourceList;
-            }
+           
+            //List<ContentPackageResource> resourceList = repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset);
 
-            using (ItemRepository repo = new ItemRepository())
+            List<ContentPackageResource> resourceList = _repositoryFactory.GetGenericRepository<ContentPackageResource>().GetAll().Where(x => x.ContentPackageResourceType == ContentPackageResourceTypeEnum.Tileset).ToList();
+            resourceList.Insert(0, new ContentPackageResource
             {
-                ViewModel.ItemList = repo.GetAll();
-            }
+                ContentPackageResourceType = ContentPackageResourceTypeEnum.Tileset,
+                Name = "(None)",
+                ResourceID = 0,
+                ResourceType = ResourceTypeEnum.GameObject
+            });
+            ViewModel.TilesetSpriteSheetsList = resourceList;
 
-            using (ScriptRepository repo = new ScriptRepository())
-            {
-                ViewModel.ScriptList = repo.GetAll();
-            }
+            ViewModel.ItemList = _repositoryFactory.GetGenericRepository<Item>().GetAll();
+            ViewModel.ScriptList = _repositoryFactory.GetGenericRepository<Script>().GetAll();
+            
         }
 
         private void ClearViewModelPopulation()

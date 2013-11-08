@@ -14,13 +14,18 @@ namespace WinterEngine.DataAccess
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class CategoryRepository : RepositoryBase, IResourceRepository<Category>
+    public class CategoryRepository : IResourceRepository<Category>, IRepository
     {
         #region Constructors
 
-        public CategoryRepository(ModuleDataContext context, bool autoSaveChanges = true)
-            :base(context, autoSaveChanges)
+        private readonly ModuleDataContext _context;
+        private readonly bool _autoSaveChanges;
+
+        public CategoryRepository(ModuleDataContext context, bool autoSave = true)
         {
+            if (context == null) throw new ArgumentNullException("DbContext");
+            _context = context;
+            _autoSaveChanges = autoSave;
         }
 
         #endregion
@@ -131,5 +136,25 @@ namespace WinterEngine.DataAccess
         }
 
         #endregion
+
+        public object Load(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Save(object gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteByCategory(Category category)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -9,10 +9,13 @@ namespace WinterEngine.DataAccess.Repositories
 {
     public interface IRepository
     {
-        void SaveChanges();
+        object Load(int resourceID);
+        int Save(object gameObject);
+        void DeleteByCategory(Category category);
+        void Delete(int resourceID);
     }
 
-    public interface IGenericRepository<T> : IRepository
+    public interface IGenericRepository<T>
     {
         T Add(T entity);
         void Add(List<T> entityList);

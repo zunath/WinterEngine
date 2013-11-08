@@ -30,6 +30,7 @@ namespace WinterEngine.Library.Managers
 
         private readonly IDatabaseRepository _databaseRepository;
         private readonly IModuleRepository _moduleRepository;
+        private readonly IFileArchiveManager _fileArchiveManager;
         private readonly IGenericRepository<ContentPackage> _contentPackageRepository;
         private readonly IGenericRepository<Category> _categoryRepository;
 
@@ -82,6 +83,7 @@ namespace WinterEngine.Library.Managers
         /// </summary>
         public ModuleManager(IGenericRepository<ContentPackage> contentPackageRepository,
             IGenericRepository<Category> categoryRepository,
+            IFileArchiveManager fileArchiveManager,
             IModuleRepository moduleRepository, 
             IDatabaseRepository databaseRepository)
         {
@@ -91,11 +93,15 @@ namespace WinterEngine.Library.Managers
             if (categoryRepository == null) throw new ArgumentNullException("categoryRepository");
             _categoryRepository = categoryRepository;
 
+            if (fileArchiveManager == null) throw new ArgumentNullException("fileArchiveManager");
+            _fileArchiveManager = fileArchiveManager;
+
             if (moduleRepository == null) throw new ArgumentNullException("moduleRepository");
             _moduleRepository = moduleRepository;
 
             if (databaseRepository == null) throw new ArgumentNullException("databaseRepository");
             _databaseRepository = databaseRepository;
+
         }
 
         ///// <summary>
@@ -126,22 +132,16 @@ namespace WinterEngine.Library.Managers
         {
             try
             {
-                using (FileArchiveManager manager = new FileArchiveManager())
-                {
-                    TemporaryDirectoryPath = manager.CreateUniqueDirectory();
-                }
+                TemporaryDirectoryPath = _fileArchiveManager.CreateUniqueDirectory();                
 
-                // Build a new database file and structure.
-                
-                _databaseRepository.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB", true);
-                
+                // Build a new database file and structure.                
+                _databaseRepository.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB", true);                
 
                 GameModule gameModule = new GameModule();
                 gameModule.ModuleName = ModuleName;
                 gameModule.ModuleTag = ModuleTag;
 
-                _moduleRepository.Add(gameModule);
-                
+                _moduleRepository.Add(gameModule);                
 
                 InitializeData();
                 LoadSystemContentPacks();
@@ -159,28 +159,26 @@ namespace WinterEngine.Library.Managers
         /// </summary>
         /// <param name="path"></param>
         public void SaveModule(string path)
-        {
-            using (FileArchiveManager manager = new FileArchiveManager())
+        {            
+            // Update the path to the module file
+            if (!String.IsNullOrEmpty(path))
             {
-                // Update the path to the module file
-                if (!String.IsNullOrEmpty(path))
-                {
-                    ModulePath = path;
-                }
-                string backupPath = manager.GenerateUniqueFileName(ModulePath);
-
-                // Make a back up of the module file just in case something goes wrong.
-                if (File.Exists(ModulePath))
-                {
-                    File.Copy(ModulePath, backupPath);
-                }
-
-                File.Delete(ModulePath);
-                manager.ArchiveDirectory(TemporaryDirectoryPath, ModulePath);
-
-                // Delete the backup since the new save was successful.
-                File.Delete(backupPath);
+                ModulePath = path;
             }
+            string backupPath = _fileArchiveManager.GenerateUniqueFileName(ModulePath);
+
+            // Make a back up of the module file just in case something goes wrong.
+            if (File.Exists(ModulePath))
+            {
+                File.Copy(ModulePath, backupPath);
+            }
+
+            File.Delete(ModulePath);
+            _fileArchiveManager.ArchiveDirectory(TemporaryDirectoryPath, ModulePath);
+
+            // Delete the backup since the new save was successful.
+            File.Delete(backupPath);
+            
         }
 
         /// <summary>
@@ -200,12 +198,11 @@ namespace WinterEngine.Library.Managers
             WinterConnectionInformation.ActiveModuleDirectoryPath = path;
             ModulePath = path;
 
-            using(FileArchiveManager manager = new FileArchiveManager())
-            {
-                TemporaryDirectoryPath = manager.CreateUniqueDirectory();
+
+            TemporaryDirectoryPath = _fileArchiveManager.CreateUniqueDirectory();
                 // Extract all files contained in the module zip file to the temporary directory.
-                manager.ExtractArchive(ModulePath, TemporaryDirectoryPath);
-            }
+            _fileArchiveManager.ExtractArchive(ModulePath, TemporaryDirectoryPath);
+            
 
             FileHelper fileHelper = new FileHelper();
             string databaseFilePath = fileHelper.GetDatabaseFileInDirectory(TemporaryDirectoryPath);

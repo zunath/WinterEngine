@@ -15,8 +15,9 @@ namespace WinterEngine.Server
         static void Main(string[] args)
         {
             Application app = new Application();
-            IModuleManager moduleManager = new ModuleManager();
-            app.Run(new MainWindow());
+            //IModuleManager moduleManager = new ModuleManager();
+            MainWindow window = null;
+            app.Run(window);
 
         }
     }

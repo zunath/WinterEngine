@@ -8,7 +8,7 @@ using Ionic.Zlib;
 
 namespace WinterEngine.DataAccess.FileAccess
 {
-    public class FileArchiveManager : IDisposable
+    public class FileArchiveManager : IFileArchiveManager
     {
         #region Constructors
 
@@ -110,10 +110,6 @@ namespace WinterEngine.DataAccess.FileAccess
             return path + index;
         }
 
-
-        public void Dispose()
-        {
-        }
 
         #endregion
     }

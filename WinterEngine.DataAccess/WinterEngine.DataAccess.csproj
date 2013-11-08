@@ -95,6 +95,7 @@
     <Compile Include="Contexts\ModuleDataContextConfiguration.cs" />
     <Compile Include="Contexts\ModuleDataContextMigrationConfiguration.cs" />
     <Compile Include="Factories\FileExtensionFactory.cs" />
+    <Compile Include="FileAccess\IFileArchiveManager.cs" />
     <Compile Include="Repositories\IDatabaseRepository.cs" />
     <Compile Include="Repositories\IModuleRepository.cs" />
     <Compile Include="Repositories\RepositoryFactory.cs" />

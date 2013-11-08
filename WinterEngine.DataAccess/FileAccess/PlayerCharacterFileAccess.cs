@@ -12,7 +12,7 @@ using WinterEngine.DataTransferObjects.Paths;
 
 namespace WinterEngine.DataAccess.FileAccess
 {
-    public class PlayerCharacterFileAccess : IDisposable
+    public class PlayerCharacterFileAccess
     {
         #region Fields
 
@@ -201,9 +201,5 @@ namespace WinterEngine.DataAccess.FileAccess
         }
 
         #endregion
-
-        public void Dispose()
-        {
-        }
     }
 }

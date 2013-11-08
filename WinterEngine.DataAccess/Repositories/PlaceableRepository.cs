@@ -11,13 +11,18 @@ using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataAccess
 {
-    public class PlaceableRepository : RepositoryBase, IGameObjectRepository<Placeable>
+    public class PlaceableRepository : IGameObjectRepository<Placeable>, IRepository
     {
+
+        private readonly ModuleDataContext _context;
+        private readonly bool _autoSaveChanges;
         #region Constructors
 
-        public PlaceableRepository(ModuleDataContext context, bool autoSaveChanges = true)
-            : base(context, autoSaveChanges)
+        public PlaceableRepository(ModuleDataContext context, bool autoSave = true)
         {
+            if (context == null) throw new ArgumentNullException("DbContext");
+            _context = context;
+            _autoSaveChanges = autoSave;
         }
 
         #endregion
@@ -192,5 +197,20 @@ namespace WinterEngine.DataAccess
         }
 
         #endregion
+
+        public object Load(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Save(object gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteByCategory(Category category)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

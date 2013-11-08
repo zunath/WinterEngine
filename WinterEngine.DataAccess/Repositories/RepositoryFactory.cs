@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataAccess.Factories
 {
@@ -36,6 +37,11 @@ namespace WinterEngine.DataAccess.Factories
         [Inject] public IResourceRepository<Tile> tileRepository { private get; set; }
         
         public IRepository GetRepository(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IRepository GetRepository(GameObjectTypeEnum gameObjectType)
         {
             throw new NotImplementedException();
         }

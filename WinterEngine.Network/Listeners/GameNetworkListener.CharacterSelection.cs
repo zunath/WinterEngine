@@ -34,10 +34,10 @@ namespace WinterEngine.Network.Listeners
             if (ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
             {
                 string username = ConnectionUsernamesDictionary[packet.SenderConnection];
-                using (PlayerCharacterFileAccess repo = new PlayerCharacterFileAccess())
-                {
-                    characterList = repo.GetCharactersByUsername(username);
-                }
+                PlayerCharacterFileAccess repo = new PlayerCharacterFileAccess();
+                
+                characterList = repo.GetCharactersByUsername(username);
+                
 
                 CharacterSelectionPacket resultPacket = new CharacterSelectionPacket
                 {
@@ -63,10 +63,9 @@ namespace WinterEngine.Network.Listeners
             {
                 string filePath = DirectoryPaths.CharacterVaultDirectoryPath + ConnectionUsernamesDictionary[packet.SenderConnection] + "/" + packet.FileName;
 
-                using(PlayerCharacterFileAccess repo = new PlayerCharacterFileAccess())
-                {
-                    responseType = repo.DeletePlayerCharacterFile(filePath);
-                }
+                PlayerCharacterFileAccess repo = new PlayerCharacterFileAccess();
+                responseType = repo.DeletePlayerCharacterFile(filePath);
+                
             }
             else
             {

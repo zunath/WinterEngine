@@ -9,7 +9,7 @@ using WinterEngine.DataTransferObjects;
 
 namespace WinterEngine.DataAccess.FileAccess
 {
-    public class ERFFileAccess: IDisposable
+    public class ERFFileAccess
     {
         #region Fields
 
@@ -81,9 +81,5 @@ namespace WinterEngine.DataAccess.FileAccess
         }
 
         #endregion
-
-        public void Dispose()
-        {
-        }
     }
 }

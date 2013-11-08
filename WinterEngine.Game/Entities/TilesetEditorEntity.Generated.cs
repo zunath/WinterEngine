@@ -103,9 +103,6 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Destroy
 			SpriteManager.RemovePositionedObject(this);
-			
-
-
 			CustomDestroy();
 		}
 

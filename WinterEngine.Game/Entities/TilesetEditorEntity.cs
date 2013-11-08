@@ -33,6 +33,7 @@ namespace WinterEngine.Game.Entities
         #region Fields
 
         private Texture2D _tilesetSpriteSheet;
+        private IGenericRepository<ContentPackageResource> contentPackageResourceRepo;
         #endregion
 
         #region Properties
@@ -88,16 +89,10 @@ namespace WinterEngine.Game.Entities
 
                 if (e.ResourceID > 0)
                 {
-                    ContentPackageResource resource;
 
-                    using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
-                    {
-                        resource = repo.GetByID(e.ResourceID);
-                    }
-
+                    ContentPackageResource resource = contentPackageResourceRepo.GetByID(e.ResourceID);
                     EntitySpriteSheet = resource.ToTexture2D();
-                    GenerateTileSpriteList();
-                    
+                    GenerateTileSpriteList();                    
                 }
             }
             catch

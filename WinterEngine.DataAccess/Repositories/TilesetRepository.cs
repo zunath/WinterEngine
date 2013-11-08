@@ -9,13 +9,19 @@ using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class Tilesets : RepositoryBase, IGameObjectRepository<Tileset>
+    public class Tilesets : IGameObjectRepository<Tileset>, IRepository
     {
+
+        private readonly ModuleDataContext _context;
+        private readonly bool _autoSaveChanges;
+
         #region Constructors
 
-        public Tilesets(ModuleDataContext context, bool autoSaveChanges = true)
-            : base(context, autoSaveChanges)
+        public Tilesets(ModuleDataContext context, bool autoSave = true)
         {
+            if (context == null) throw new ArgumentNullException("DbContext");
+            _context = context;
+            _autoSaveChanges = autoSave;
         }
 
         #endregion
@@ -135,6 +141,21 @@ namespace WinterEngine.DataAccess.Repositories
 
 
         public void Delete(Tileset entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Load(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Save(object gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteByCategory(Category category)
         {
             throw new NotImplementedException();
         }

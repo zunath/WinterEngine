@@ -23,11 +23,14 @@ using WinterEngine.Game.Entities;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess;
+using WinterEngine.DataAccess.Repositories;
 
 namespace WinterEngine.Game.Screens
 {
 	public partial class ToolsetScreen
     {
+        private readonly IGenericRepository<Area> _areaRepo;
+
         #region Constants
 
         const int MaxZoomDistance = 1000;
@@ -181,12 +184,7 @@ namespace WinterEngine.Game.Screens
 
         private void OpenArea(object sender, ObjectSelectionEventArgs e)
         {
-            Area selectedArea;
-            using (AreaRepository repo = new AreaRepository())
-            {
-                selectedArea = repo.GetByID(e.ResourceID);
-            }
-
+            Area selectedArea = _areaRepo.GetByID(e.ResourceID);
             AreaEntityInstance.ChangeArea(selectedArea);
         }
 

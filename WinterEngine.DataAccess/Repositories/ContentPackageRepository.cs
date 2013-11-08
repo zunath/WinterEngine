@@ -15,19 +15,24 @@ using WinterEngine.DataTransferObjects.Paths;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class ContentPackageRepository : RepositoryBase, IResourceRepository<ContentPackage>
+    public class ContentPackageRepository : IResourceRepository<ContentPackage>, IRepository
     {
         #region Constants
 
         private const string ManifestFileName = "Manifest.xml";
 
+        private readonly ModuleDataContext _context;
+        private readonly bool _autoSaveChanges;
+
         #endregion
 
         #region Constructors
 
-        public ContentPackageRepository(ModuleDataContext context, bool autoSaveChanges = true)
-            : base(context, autoSaveChanges)
+        public ContentPackageRepository(ModuleDataContext context, bool autoSave = true)
         {
+            if (context == null) throw new ArgumentNullException("DbContext");
+            _context = context;
+            _autoSaveChanges = autoSave;
         }
 
         #endregion
@@ -164,5 +169,25 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         #endregion
+
+        public object Load(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Save(object gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteByCategory(Category category)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
