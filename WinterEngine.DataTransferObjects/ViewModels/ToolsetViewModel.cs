@@ -52,6 +52,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
                 return isLoaded;
             }
         }
+        public bool IsModuleOpened { get; set; }
 
         #region Selectable Object Data
 
@@ -84,6 +85,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
 
         public ToolsetViewModel()
         {
+            IsModuleOpened = false;
             CurrentObjectMode = "";
             CurrentObjectTabSelector = "";
             CurrentObjectTreeSelector = "";

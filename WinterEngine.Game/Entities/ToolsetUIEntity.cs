@@ -170,7 +170,6 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("DeleteCategory", false, DeleteCategory);
             EntityJavascriptObject.Bind("DeleteObject", false, DeleteObject);
             EntityJavascriptObject.Bind("RenameCategory", false, RenameCategory);
-            EntityJavascriptObject.Bind("RenameObject", false, RenameObject);
 
             // Data Manipulation Bindings 
             EntityJavascriptObject.Bind("GetModelJSON", true, GetModelJSON);
@@ -204,6 +203,7 @@ namespace WinterEngine.Game.Entities
             ModuleManager.ModuleResref = e.Arguments[2];
             bool success = ModuleManager.CreateModule();
             PopulateToolsetViewModel();
+            ViewModel.IsModuleOpened = success;
 
             AsyncJavascriptCallback("NewModuleBoxOKClick_Callback", success);
         }
@@ -215,6 +215,7 @@ namespace WinterEngine.Game.Entities
                 string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] + ExtensionFactory.GetFileExtension(FileTypeEnum.Module);
                 ModuleManager.OpenModule(filePath);
                 PopulateToolsetViewModel();
+                ViewModel.IsModuleOpened = true;
 
                 AsyncJavascriptCallback("OpenModuleButtonClick_Callback", true);
 
@@ -263,6 +264,7 @@ namespace WinterEngine.Game.Entities
         {
             ModuleManager.CloseModule();
             ClearViewModelPopulation();
+            ViewModel.IsModuleOpened = false;
 
             AsyncJavascriptCallback("CloseModuleButtonClick_Callback");
         }
@@ -588,39 +590,6 @@ namespace WinterEngine.Game.Entities
                 name);
         }
 
-        private void RenameObject(object sender, JavascriptMethodEventArgs e)
-        {
-            ErrorTypeEnum error = ErrorTypeEnum.None;
-            GameObjectFactory factory = new GameObjectFactory();
-            string name = e.Arguments[0];
-            int resourceID = (int)e.Arguments[1];
-            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[2]);
-
-            GameObjectBase dbObject = factory.GetFromDatabaseByID(resourceID, gameObjectType);
-
-            if (dbObject == null)
-            {
-                error = ErrorTypeEnum.ObjectResrefDoesNotExist;
-            }
-            else
-            {
-                if (!dbObject.IsSystemResource)
-                {
-                    dbObject.Name = name;
-                    factory.UpdateInDatabase(dbObject);
-                }
-                else
-                {
-                    error = ErrorTypeEnum.CannotChangeSystemResource;
-                }
-            }
-
-            AsyncJavascriptCallback("RenameObject_Callback",
-                error == ErrorTypeEnum.None ? true : false,
-                EnumerationHelper.GetEnumerationDescription(error),
-                name);
-        }
-
         #endregion
 
         #region UI Methods - Data Manipulation
@@ -825,18 +794,21 @@ namespace WinterEngine.Game.Entities
 
         private void ChangeObjectMode(object sender, JavascriptMethodEventArgs e)
         {
-            ViewModel.CurrentObjectMode = e.Arguments[0];
-            ViewModel.CurrentObjectTreeSelector = e.Arguments[1];
-            ViewModel.CurrentObjectTabSelector = e.Arguments[2];
-            string mode = e.Arguments[0];
-
-            // Inform subscribers (AKA: The screen) that the object mode has changed.
-            if (OnObjectModeChanged != null)
+            if (ViewModel.IsModuleOpened)
             {
-                OnObjectModeChanged(this, new ObjectModeChangedEventArgs((GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), mode)));
-            }
+                ViewModel.CurrentObjectMode = e.Arguments[0];
+                ViewModel.CurrentObjectTreeSelector = e.Arguments[1];
+                ViewModel.CurrentObjectTabSelector = e.Arguments[2];
+                string mode = e.Arguments[0];
 
-            AsyncJavascriptCallback("ChangeObjectMode_Callback");
+                // Inform subscribers (AKA: The screen) that the object mode has changed.
+                if (OnObjectModeChanged != null)
+                {
+                    OnObjectModeChanged(this, new ObjectModeChangedEventArgs((GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), mode)));
+                }
+
+                AsyncJavascriptCallback("ChangeObjectMode_Callback");
+            }
         }
 
         #endregion
