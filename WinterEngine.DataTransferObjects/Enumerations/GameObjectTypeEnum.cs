@@ -23,6 +23,8 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("Tilesets")]
         Tileset = 7,
         [Description("GameModules")]
-        GameModule = 8
+        GameModule = 8,
+        [Description("Unknown")]
+        Unknown = 99
     }
 }

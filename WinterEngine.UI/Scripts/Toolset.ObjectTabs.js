@@ -84,7 +84,9 @@ function ObjectTabApplyChanges_Callback() {
 }
 
 function ObjectTabDiscardChanges() {
-    LoadObjectData();
+    var selectedNode = $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('get_selected');
+    var resourceID = $(selectedNode).data('resourceid');
+    LoadObjectData(resourceID);
 }
 
 

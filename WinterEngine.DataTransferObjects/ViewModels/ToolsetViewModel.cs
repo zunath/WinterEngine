@@ -21,7 +21,35 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         {
             get
             {
-                return (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), CurrentObjectMode);
+                try
+                {
+                    return (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), CurrentObjectMode);
+                }
+                catch
+                {
+                    return GameObjectTypeEnum.Unknown;
+                }
+            }
+        }
+
+        public bool IsObjectLoadedForCurrentObjectMode
+        {
+            get
+            {
+                bool isLoaded = false;
+
+                if ((GameObjectType == GameObjectTypeEnum.Area && ActiveArea.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Conversation && ActiveConversation.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Creature && ActiveCreature.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Item && ActiveItem.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Placeable && ActivePlaceable.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Script && ActiveScript.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Tileset && ActiveTileset.ResourceID > 0))
+                {
+                    isLoaded = true;
+                }
+
+                return isLoaded;
             }
         }
 

@@ -530,7 +530,32 @@ namespace WinterEngine.Game.Entities
 
             if (gameObjectType == GameObjectTypeEnum.Area)
             {
+                ViewModel.ActiveArea = new Area(true);
                 RefreshAreaEntity(this, new ObjectSelectionEventArgs(0));
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Conversation)
+            {
+                ViewModel.ActiveConversation = new Conversation(true);
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Creature)
+            {
+                ViewModel.ActiveCreature = new Creature(true);
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Item)
+            {
+                ViewModel.ActiveItem = new Item(true);
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Placeable)
+            {
+                ViewModel.ActivePlaceable = new Placeable(true);
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Script)
+            {
+                ViewModel.ActiveScript = new Script();
+            }
+            else if (gameObjectType == GameObjectTypeEnum.Tileset)
+            {
+                ViewModel.ActiveTileset = new Tileset();
             }
 
             AsyncJavascriptCallback("DeleteObject_Callback", 

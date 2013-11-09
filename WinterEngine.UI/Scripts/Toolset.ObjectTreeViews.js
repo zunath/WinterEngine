@@ -283,6 +283,8 @@ function DeleteObject_Callback(success, errorMessage) {
         $('.clsConversationObjectField').attr('disabled', 'disabled').val('');
         $('.clsScriptObjectField').attr('disabled', 'disabled').val('');
         $('.clsTilesetObjectField').attr('disabled', 'disabled').val('');
+
+        ToolsetViewModel.Refresh();
     }
     else {
         $('#lblConfirmDeleteErrors').text(errorMessage);
