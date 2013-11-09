@@ -72,11 +72,29 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Editor\Icons\EmptyCell.png">
+      <Name>EmptyCell</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Editor\Icons\NoGraphic_64x64.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>NoGraphic_64x64</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Content>
+    <Content Include="Editor\Icons\Passable.png">
+      <Name>Passable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Editor\Icons\Unpassable.png">
+      <Name>Unpassable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

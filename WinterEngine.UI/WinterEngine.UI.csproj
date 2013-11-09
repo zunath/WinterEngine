@@ -95,7 +95,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\knockout.viewmodel.min.js">
+    <Content Include="Scripts\knockout.viewmodel.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\CharacterSelection.html">
@@ -107,7 +107,37 @@
     <Content Include="Views\MainMenu.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Partial\Toolset\PopUpBoxes\NewLocalVariablePartial.html">
+    <Content Include="Views\Partial\Toolset\ObjectControls\ApplyDiscardChangesPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\AreaObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\ConversationEditor.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\ConversationObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\TilesetObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\ScriptObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\PlaceableObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\ItemObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ObjectControls\CreatureObjectControlPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\PopUpBoxes\ConfirmDeleteLocalVariablePartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\PopUpBoxes\LocalVariableEditorPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Toolset.html">
@@ -197,12 +227,6 @@
     <Content Include="Scripts\knockout-2.3.0.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\knockout.mapping-latest.debug.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Scripts\knockout.mapping-latest.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Scripts\MainMenu.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -224,7 +248,7 @@
     <Content Include="Scripts\Toolset.ObjectTabs.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Toolset.TreeViews.js">
+    <Content Include="Scripts\Toolset.ObjectTreeViews.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Styling\DataTables\jquery.dataTables.css">
@@ -323,16 +347,13 @@
     <Content Include="Views\Partial\Toolset\ObjectBarPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Partial\Toolset\ObjectTabControlsPartial.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\Partial\Toolset\PopUpBoxes\AboutPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\Toolset\PopUpBoxes\AlertPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Partial\Toolset\PopUpBoxes\ConfirmDeletePartial.html">
+    <Content Include="Views\Partial\Toolset\PopUpBoxes\ConfirmDeleteObjectPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\Toolset\PopUpBoxes\CreateCategoryPartial.html">

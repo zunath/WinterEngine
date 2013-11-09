@@ -1,0 +1,50 @@
+﻿
+<div id="divItemsTab" class="clsObjectTabDiv">
+    <h3>Item Details</h3>
+    <div id="divItemsTab-Details">
+        <label id="lblItemDetails-Name" for="txtItemDetails-Name">Name:</label>
+        <input id="txtItemDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveItem.Name" class="clsItemObjectField" />
+
+        <label id="lblItemDetails-Tag" for="txtItemDetails-Tag">Tag:</label>
+        <input id="txtItemDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveItem.Tag" class="clsItemObjectField" />
+
+        <label id="lblItemDetails-Resref" for="txtItemDetails-Resref">Resref:</label>
+        <input id="txtItemDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveItem.Resref" class="clsItemObjectField" />
+
+    </div>
+
+    <h3>Description</h3>
+    <div id="divItemsTab-Description">
+        <textarea id="txtItemDetails-Description" disabled="disabled" data-bind="value: ActiveItem.Description" class="clsItemObjectField"></textarea>
+    </div>
+
+    <h3>Comments</h3>
+    <div id="divItemsTab-Comments">
+        <textarea id="txtItemDetails-Comments" disabled="disabled" data-bind="value: ActiveItem.Comment" class="clsItemObjectField"></textarea>
+    </div>
+
+    <h3>Local Variables</h3>
+
+    <div id="divItemsTab-LocalVariables">
+        <input id="btnItemsTab-AddLocalVariable" type="button" value="Add New Variable" onclick="OpenEditLocalVariableBox(false, 'create');" />
+
+        <div data-bind="foreach: ActiveItem.LocalVariables">
+            <label data-bind="text: Name"></label>
+            <input type="button" data-bind="value: 'Edit', click: function (data, event) { OpenEditLocalVariableBox(false, 'edit', $data); }" />
+            <input type="button" data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox($data) }" />
+                        
+        </div>
+    </div>
+
+    <h3>Events</h3>
+    <div id="divItemsTab-Events">
+
+        <label id="lblItemsEvents-OnSpawn">On Spawn:</label>
+        <select id="selItemsEvents-OnSpawn" disabled="disabled" class="clsItemObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveItem.OnSpawnEventScriptID" ></select>
+
+    </div>
+</div>

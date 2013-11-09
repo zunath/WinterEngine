@@ -19,7 +19,8 @@ using WinterEngine.Editor.Extensions;
 using WinterEngine.Library.Managers;
 using WinterEngine.Editor.Utility;
 using Microsoft.Xna.Framework.Graphics;
-using System.Reflection;
+using Newtonsoft.Json.Converters;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 
 namespace WinterEngine.Game.Entities
@@ -32,7 +33,7 @@ namespace WinterEngine.Game.Entities
         private readonly FileExtensionFactory _extensionFactory;
         private readonly ModuleManager _moduleManager;
         private readonly JsonSerializerSettings _serializerSettings;
-
+        
         private readonly IRepositoryFactory _repositoryFactory;
         private readonly IGameObjectFactory _gameObjectFacotry;
         private readonly IGameResourceManager _resourceManager;
@@ -41,7 +42,7 @@ namespace WinterEngine.Game.Entities
 
         #region Properties
 
-        private ToolsetViewModel ViewModel
+        private ToolsetViewModel ViewModel 
         {
             get
             {
@@ -49,7 +50,7 @@ namespace WinterEngine.Game.Entities
                 return _viewModel;
             }
 
-        }
+            }
 
         //private JsonSerializerSettings JSONSerializerSettings
         //{
@@ -97,12 +98,14 @@ namespace WinterEngine.Game.Entities
 
         #region Events / Delegates
 
+        public event EventHandler<ObjectModeChangedEventArgs> OnObjectModeChanged;
+
         // Area Editor Events
         public event EventHandler<ObjectSelectionEventArgs> OnAreaLoaded;
 
         // Tileset Editor Events
-        public event EventHandler<ObjectSelectionEventArgs> OnTilesetSpritesheetLoaded;
-        public event EventHandler<EventArgs> OnTilesetEditorOpened;
+        public event EventHandler<TilesetSelectionEventArgs> OnTilesetLoaded;
+        public event EventHandler<TilesetSelectionEventArgs> OnTilesetSaved;
 
         #endregion
 
@@ -144,6 +147,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButton);
 
             // Edit Menu Bindings
+            EntityJavascriptObject.Bind("SaveModuleProperties", false, SaveModuleProperties);
 
             // Object Mode Bindings
             EntityJavascriptObject.Bind("ChangeObjectMode", false, ChangeObjectMode);
@@ -192,6 +196,10 @@ namespace WinterEngine.Game.Entities
 
         private void NewModuleButton(object sender, JavascriptMethodEventArgs e)
         {
+            ModuleManager.ModuleName = e.Arguments[0];
+            ModuleManager.ModuleTag = e.Arguments[1];
+            ModuleManager.ModuleResref = e.Arguments[2];
+            bool success = ModuleManager.CreateModule();
             _moduleManager.ModuleName = e.Arguments[0];
             _moduleManager.ModuleTag = e.Arguments[1];
             bool success = _moduleManager.CreateModule();
@@ -233,7 +241,7 @@ namespace WinterEngine.Game.Entities
         private void SaveAsModuleButton(object sender, JavascriptMethodEventArgs e)
         {
             SaveAsResponseTypeEnum response = SaveAsResponseTypeEnum.SaveFailed;
-            string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0]
+            string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] 
                 + _extensionFactory.GetFileExtension(FileTypeEnum.Module);
             bool forceOverwrite = e.Arguments[1];
 
@@ -268,6 +276,26 @@ namespace WinterEngine.Game.Entities
 
         #region UI Methods - Edit Menu Bindings
 
+        private void SaveModuleProperties(object sender, JavascriptMethodEventArgs e)
+        {
+            try
+            {
+                GameModule updatedModule = JsonConvert.DeserializeObject<GameModule>(e.Arguments[0]);
+
+                using (GameModuleRepository repo = new GameModuleRepository())
+                {
+                    repo.Update(updatedModule);
+                }
+
+                PopulateToolsetViewModel();
+                AsyncJavascriptCallback("SaveModuleProperties_Callback");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error saving module properties", ex);
+            }
+        }
+
         #endregion
 
         #region UI Methods - Content Menu Bindings
@@ -298,9 +326,9 @@ namespace WinterEngine.Game.Entities
 
             var repo = _repositoryFactory.GetGenericRepository<ContentPackage>();
             attachedContentPackages = repo.GetAll().Where(x => x.IsSystemResource == false).ToList();
-            // We don't need to send the resource list to the GUI because it could contain a lot of data.
-            // We'll pick up the resource list when we go to do a save/rebuild of the module.
-            attachedContentPackages.ForEach(a => a.ResourceList = null);
+                // We don't need to send the resource list to the GUI because it could contain a lot of data.
+                // We'll pick up the resource list when we go to do a save/rebuild of the module.
+                attachedContentPackages.ForEach(a => a.ResourceList = null);
 
             string[] files = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + _extensionFactory.GetFileExtension(FileTypeEnum.ContentPackage));
             foreach (string currentPackage in files)
@@ -425,6 +453,13 @@ namespace WinterEngine.Game.Entities
                 GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[4]);
                 int resourceID = 0;
 
+                if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
+                {
+                    error = ErrorTypeEnum.ObjectResrefAlreadyExists;
+                }
+                else
+                {
+                    GameObjectBase newObject = factory.CreateObject(gameObjectType, name, tag, resref);
                 //Why do we need to check if it exists? Can't we just save it?
                 //if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
                 //{
@@ -436,7 +471,7 @@ namespace WinterEngine.Game.Entities
                 newObject.Name = name;
                 newObject.Tag = tag;
                 newObject.Resref = resref;
-                newObject.ResourceCategoryID = categoryID;
+                    newObject.ResourceCategoryID = categoryID;
 
                 resourceID = _repositoryFactory.GetRepository(gameObjectType).Save(newObject);
 
@@ -515,14 +550,14 @@ namespace WinterEngine.Game.Entities
             //using (CategoryRepository repo = new CategoryRepository())
             //{
             Category dbCategory = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
-            if (!dbCategory.IsSystemResource)
-            {
-                dbCategory.Name = name;
-            }
-            else
-            {
-                error = ErrorTypeEnum.CannotChangeSystemResource;
-            }
+                if (!dbCategory.IsSystemResource)
+                {
+                    dbCategory.Name = name;
+                }
+                else
+                {
+                    error = ErrorTypeEnum.CannotChangeSystemResource;
+                }
             //}
 
             AsyncJavascriptCallback("RenameObject_Callback",
@@ -596,7 +631,32 @@ namespace WinterEngine.Game.Entities
             {
                 RefreshAreaEntity(this, eventArgs);
             }
-            
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Conversation)
+            {
+                ViewModel.ActiveConversation = gameObject as Conversation;
+            }
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Creature)
+            {
+                ViewModel.ActiveCreature = gameObject as Creature;
+            }
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Item)
+            {
+                ViewModel.ActiveItem = gameObject as Item;
+            }
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Placeable)
+            {
+                ViewModel.ActivePlaceable = gameObject as Placeable;
+            }
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Script)
+            {
+                ViewModel.ActiveScript = gameObject as Script;
+            }
+            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Tileset)
+            {
+                ViewModel.ActiveTileset = gameObject as Tileset;
+                RaiseTilesetLoadEvent(gameObject.GraphicResourceID);
+            }
+
             AsyncJavascriptCallback("LoadObjectData_Callback");
         }
 
@@ -623,12 +683,47 @@ namespace WinterEngine.Game.Entities
                 var gameObject = (GameObjectBase)prop.GetValue(model, null);
 
                 _repositoryFactory.GetRepository(type.ToString()).Save(gameObject);
-
+                
                 if (gameObjectType == GameObjectTypeEnum.Area)
                 {
+                    factory.UpsertInDatabase(model.ActiveArea);
+                    ViewModel.ActiveArea = model.ActiveArea;
                     ObjectSelectionEventArgs areaEventArgs = new ObjectSelectionEventArgs(model.ActiveArea.ResourceID);
                     RefreshAreaEntity(this, areaEventArgs);
                 }
+                else if (gameObjectType == GameObjectTypeEnum.Conversation)
+                {
+                    factory.UpsertInDatabase(model.ActiveConversation);
+                    ViewModel.ActiveConversation = model.ActiveConversation;
+                }
+                else if (gameObjectType == GameObjectTypeEnum.Creature)
+                {
+                    factory.UpsertInDatabase(model.ActiveCreature);
+                    ViewModel.ActiveCreature = model.ActiveCreature;
+                }
+                else if (gameObjectType == GameObjectTypeEnum.Item)
+                {
+                    factory.UpsertInDatabase(model.ActiveItem);
+                    ViewModel.ActiveItem = model.ActiveItem;
+                }
+                else if (gameObjectType == GameObjectTypeEnum.Placeable)
+                {
+                    factory.UpsertInDatabase(model.ActivePlaceable);
+                    ViewModel.ActivePlaceable = model.ActivePlaceable;
+                }
+                else if (gameObjectType == GameObjectTypeEnum.Script)
+                {
+                    factory.UpsertInDatabase(model.ActiveScript);
+                    ViewModel.ActiveScript = model.ActiveScript;
+                }
+                else if (gameObjectType == GameObjectTypeEnum.Tileset)
+                {
+                    factory.UpsertInDatabase(model.ActiveTileset);
+                    ViewModel.ActiveTileset = model.ActiveTileset;
+                    RaiseTilesetSaveEvent();
+                }
+
+                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
             }
             catch
             {
@@ -657,6 +752,15 @@ namespace WinterEngine.Game.Entities
         {
             ClearViewModelPopulation();
 
+            using (GameModuleRepository repo = new GameModuleRepository())
+            {
+                ViewModel.ActiveModule = repo.GetModule();
+            }
+
+            using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
+            {
+                ViewModel.TilesetSpriteSheetsList = repo.GetAllUIObjects(ContentPackageResourceTypeEnum.Tileset, false);
+            }
            
             //List<ContentPackageResource> resourceList = repo.GetAllByResourceType(ContentPackageResourceTypeEnum.Tileset);
 
@@ -672,17 +776,55 @@ namespace WinterEngine.Game.Entities
 
             ViewModel.ItemList = _repositoryFactory.GetGenericRepository<Item>().GetAll();
             ViewModel.ScriptList = _repositoryFactory.GetGenericRepository<Script>().GetAll();
-            
+            using (ItemRepository repo = new ItemRepository())
+            {
+                ViewModel.ItemList = repo.GetAllUIObjects();
+            }
+
+            using (ScriptRepository repo = new ScriptRepository())
+            {
+                ViewModel.ScriptList = repo.GetAllUIObjects();
+            }
+
+            using (GenderRepository repo = new GenderRepository())
+            {
+                ViewModel.GenderList = repo.GetAllUIObjects();
+            }
+
+            using (ConversationRepository repo = new ConversationRepository())
+            {
+                ViewModel.ConversationList = repo.GetAllUIObjects();
+            }
+
+            using (RaceRepository repo = new RaceRepository())
+            {
+                ViewModel.RaceList = repo.GetAllUIObjects();
+            }
+
+            using (FactionRepository repo = new FactionRepository())
+            {
+                ViewModel.FactionList = repo.GetAllUIObjects();
+            }
+
+            using (TilesetRepository repo = new TilesetRepository())
+            {
+                ViewModel.TilesetList = repo.GetAllUIObjects();
+            }
         }
 
         private void ClearViewModelPopulation()
         {
+            ViewModel.ModuleList.Clear();
+            ViewModel.AvailableContentPackages.Clear();
+            ViewModel.AttachedContentPackages.Clear();
             ViewModel.TilesetSpriteSheetsList.Clear();
             ViewModel.ItemList.Clear();
             ViewModel.ScriptList.Clear();
-            ViewModel.AvailableContentPackages.Clear();
-            ViewModel.AttachedContentPackages.Clear();
-            ViewModel.ModuleList.Clear();
+            ViewModel.GenderList.Clear();
+            ViewModel.ConversationList.Clear();
+            ViewModel.RaceList.Clear();
+            ViewModel.FactionList.Clear();
+            ViewModel.TilesetList.Clear();
         }
 
         private void ChangeObjectMode(object sender, JavascriptMethodEventArgs e)
@@ -692,12 +834,10 @@ namespace WinterEngine.Game.Entities
             ViewModel.CurrentObjectTabSelector = e.Arguments[2];
             string mode = e.Arguments[0];
 
-            if (mode == "Tileset")
-            {
-                if (OnTilesetEditorOpened != null)
+            // Inform subscribers (AKA: The screen) that the object mode has changed.
+            if (OnObjectModeChanged != null)
                 {
-                    OnTilesetEditorOpened(this, new EventArgs());
-                }
+                OnObjectModeChanged(this, new ObjectModeChangedEventArgs((GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), mode)));
             }
 
             AsyncJavascriptCallback("ChangeObjectMode_Callback");
@@ -709,16 +849,24 @@ namespace WinterEngine.Game.Entities
 
         public void LoadTilesetSpritesheet(object sender, JavascriptMethodEventArgs e)
         {
-            int resourceID = (int)e.Arguments[0];
+            int graphicResourceID = (int)e.Arguments[0];
+            RaiseTilesetLoadEvent(graphicResourceID);
+        }
 
-            if (OnTilesetSpritesheetLoaded != null)
+        private void RaiseTilesetLoadEvent(int graphicResourceID)
+        {
+            if (OnTilesetLoaded != null)
             {
-                OnTilesetSpritesheetLoaded(this, new ObjectSelectionEventArgs(resourceID));
+                OnTilesetLoaded(this, new TilesetSelectionEventArgs(ViewModel.ActiveTileset.ResourceID, graphicResourceID));
             }
         }
 
-        public void LoadTile(object sender, EventArgs e)
+        private void RaiseTilesetSaveEvent()
         {
+            if (OnTilesetSaved != null)
+        {
+                OnTilesetSaved(this, new TilesetSelectionEventArgs(ViewModel.ActiveTileset.ResourceID, ViewModel.ActiveTileset.GraphicResourceID));
+            }
         }
 
         #endregion

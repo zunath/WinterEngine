@@ -10,6 +10,7 @@ function CloseNewModuleBox() {
     $('#lblNewModuleError').text('');
     $('#txtModuleName').val('');
     $('#txtModuleTag').val('');
+    $('#txtModuleResref').val('');
     $('#divNewModuleBox').dialog('close');
 }
 
@@ -18,8 +19,9 @@ function NewModuleBoxOKClick() {
 
     var moduleName = $('#txtModuleName').val();
     var moduleTag = $('#txtModuleTag').val();
+    var moduleResref = $('#txtModuleResref').val();
 
-    Entity.NewModuleButtonClick(moduleName, moduleTag);
+    Entity.NewModuleButtonClick(moduleName, moduleTag, moduleResref);
 }
 
 function NewModuleBoxOKClick_Callback(success) {
@@ -29,6 +31,7 @@ function NewModuleBoxOKClick_Callback(success) {
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
         $('#divObjectBar').removeClass('clsHidden');
+        ToolsetViewModel.Refresh();
     }
     else {
         $('#lblNewModuleError').text('There was an error creating a new module.');
@@ -200,6 +203,33 @@ function PasteButtonClick(element) {
 
 function ModulePropertiesButtonClick(element) {
     if (IsMenuButtonDisabled($(element))) return;
+
+    $('#divModulePropertiesBox').dialog('open');
+}
+
+function SaveModulePropertiesChanges() {
+    if (!$('#formMPBasicDetails').valid()) {
+        $("#divModulePropertiesBox").tabs("option", "active", 0);
+    }
+    else if (!$('#formMPEvents').valid()) {
+        $("#divModulePropertiesBox").tabs("option", "active", 1);
+    }
+    else if (!$('#formMPText').valid()) {
+        $("#divModulePropertiesBox").tabs("option", "active", 2);
+    }
+    else {
+        var model = ko.viewmodel.toModel(ToolsetViewModel).ActiveModule;
+        Entity.SaveModuleProperties(JSON.stringify(model));
+    }
+}
+
+function SaveModuleProperties_Callback() {
+    CloseModulePropertiesBox();
+}
+
+function CloseModulePropertiesBox() {
+    $('#divModulePropertiesBox').dialog('close');
+    ToolsetViewModel.RefreshModuleProperties();
 }
 
 /* Button Functionality - Content Menu */
@@ -320,6 +350,7 @@ function ToggleModuleActionButtons(isEnabled) {
         $('#liExportButton').removeClass('ui-state-disabled');
         $('#liManageContentPackagesButton').removeClass('ui-state-disabled');
         $('#liBuildModuleButton').removeClass('ui-state-disabled');
+        $('#liModulePropertiesButton').removeClass('ui-state-disabled');
     }
     else {
         $('#liCloseModuleButton').addClass('ui-state-disabled');
@@ -329,5 +360,6 @@ function ToggleModuleActionButtons(isEnabled) {
         $('#liExportButton').addClass('ui-state-disabled');
         $('#liManageContentPackagesButton').addClass('ui-state-disabled');
         $('#liBuildModuleButton').addClass('ui-state-disabled');
+        $('#liModulePropertiesButton').addClass('ui-state-disabled');
     }
 }

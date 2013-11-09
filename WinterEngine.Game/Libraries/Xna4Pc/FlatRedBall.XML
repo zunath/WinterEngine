@@ -2035,6 +2035,13 @@
             Extension Library project.
             </summary>
         </member>
+        <member name="M:FlatRedBall.Content.Math.Geometry.ShapeCollectionSave.FromFile(System.String)">
+            <summary>
+            Deserializes a file into a new ShapeCollectionSave and returns it.
+            </summary>
+            <param name="fileName">The absolute or relative file name. If the file name is relative, then the FileManager's RelativeDirectory will be used.</param>
+            <returns>The newly-created ShapeCollectionSave.</returns>
+        </member>
         <member name="T:FlatRedBall.Content.Math.Splines.SplineSave">
             <summary>
             A savable representation of a Spline.  This is used in SplineSaveLists.
@@ -2043,42 +2050,6 @@
         <member name="T:FlatRedBall.Content.Math.Splines.SplineSaveList">
             <summary>
             Save class for lists of Splines. 
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Content.ModelAnimation.AnimationReader">
-            <summary>
-            Class responsible for reading in processed animation info written in the Content Pipeline.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Content.ModelAnimation.AnimationReader.Read(Microsoft.Xna.Framework.Content.ContentReader,FlatRedBall.Graphics.Model.Animation.AnimationInfoCollection)">
-            <summary>
-            Reads in an XNB stream and converts it to a ModelInfo object
-            </summary>
-            <param name="input">The stream from which the data will be read</param>
-            <param name="existingInstance">Not used</param>
-            <returns>The unserialized ModelAnimationCollection object</returns>
-        </member>
-        <member name="T:FlatRedBall.Content.ModelAnimation.PaletteEffectReader">
-            <summary>
-            Reads a BasicPaletteEffect from the content pipeline.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Content.ModelAnimation.PaletteEffectReader.Read(Microsoft.Xna.Framework.Content.ContentReader,FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect)">
-            <summary>
-            Reads a BasicPaletteEffect.
-            </summary>
-            <param name="input">The input stream.</param>
-            <param name="existingInstance">N/A.</param>
-            <returns>A new instance of BasicPaletteEffec.t</returns>
-        </member>
-        <member name="T:FlatRedBall.Content.ModelAnimation.WheLoader.WheReader">
-            <summary>
-            This class will be instantiated by the XNA Framework Content
-            Pipeline to read the specified data type from binary .xnb format.
-            
-            Unlike the other Content Pipeline support classes, this should
-            be a part of your main game project, and not the Content Pipeline
-            Extension Library project.
             </summary>
         </member>
         <member name="T:FlatRedBall.Content.Model.MaterialSaveBase">
@@ -2183,16 +2154,6 @@
         <member name="T:FlatRedBall.Content.Model.ModelMeshSave">
             <summary>
             Save class for information about ModelMeshes. This contains a list of ModelMeshPartSaves.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Content.Model.WMELoader.WmeReader">
-            <summary>
-            This class will be instantiated by the XNA Framework Content
-            Pipeline to read the specified data type from binary .xnb format.
-            
-            Unlike the other Content Pipeline support classes, this should
-            be a part of your main game project, and not the Content Pipeline
-            Extension Library project.
             </summary>
         </member>
         <member name="T:FlatRedBall.Content.NodeNetworkReader">
@@ -4649,6 +4610,26 @@
             </summary>
             <returns>The list of parents.</returns>
         </member>
+        <member name="M:FlatRedBall.Math.PositionedObjectList`1.Shift(System.Single,System.Single,System.Single)">
+            <summary>
+            Shifts all contained objects' Position by the arguments x,y,z.
+            </summary>
+            <param name="x">Amount to move on the X axis.</param>
+            <param name="y">Amount to move on the Y axis.</param>
+            <param name="z">Amount to move on the Z axis.</param>
+        </member>
+        <member name="M:FlatRedBall.Math.PositionedObjectList`1.Shift(Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Shifts all contained objects' Position by the argument vector.
+            </summary>
+            <param name="vector">The amount to change Position by.</param>
+        </member>
+        <member name="M:FlatRedBall.Math.PositionedObjectList`1.ShiftRelative(Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Shifts all contained objects' RelativePosition by the argument vector.
+            </summary>
+            <param name="vector">The amount to change RelativePosition by.</param>
+        </member>
         <member name="T:FlatRedBall.Content.Model.XLoader.Templates.Animation">
             <summary>
             This template contains animations referencing a previous frame. It should contain one reference 
@@ -5597,496 +5578,6 @@
             <remarks>
             This is the runtime object created when loading .emix files.
             </remarks>
-        </member>
-        <member name="T:FlatRedBall.Graphics.PostProcessing.Bloom">
-            <summary>
-            Post processing class which can be used to create a bloom (glow) effect.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase">
-            <summary>
-            Base class for post-processing effects
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.mEnabled">
-            <summary>
-            Whether or not this effect is enabled
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.mEffect">
-            <summary>
-            The effect for this post processing effect
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.mRenderTargetFormat">
-            <summary>
-            The surface format for the render target for this effect
-            (default is SurfaceFormat.Color)
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.mTexture">
-            <summary>
-            The texture that was rendered by the render target
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.mScreenRectangle">
-            <summary>
-            The screen rectangle
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.#ctor">
-            <summary>
-            Creates a basic post-processing effect
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.#ctor(System.String,System.String)">
-            <summary>
-            Loads the specified effect as a default post-processing effect
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.#ctor(System.String)">
-            <summary>
-            Loads the specified effect as a default post-processing effect
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.#ctor(Microsoft.Xna.Framework.Graphics.Effect)">
-            <summary>
-            Uses the specified effect as a default post-processing effect
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.ToString">
-            <summary>
-            Reports this effect's name as a string
-            </summary>
-            <returns>The effect's name as a string</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.Update">
-            <summary>
-            Update the post processing effect
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.InitializeEffect">
-            <summary>
-            Loads the effect and initializes values in the shader
-            Base method sets the screen rectangle to full-screen
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.SetEffectParameters(FlatRedBall.Camera)">
-            <summary>
-            Sets the effect's parameters before drawing
-            (override and implement this in your own effects)
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.DrawToCameraRenderTarget(FlatRedBall.Camera,Microsoft.Xna.Framework.Graphics.Texture2D@,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Rectangle@)">
-            <summary>
-            This function MUST be overridden for any effects that make passes with multiple techniques.
-            </summary>
-            <param name="camera"></param>
-            <param name="texture"></param>
-            <param name="clearColor"></param>
-            <param name="sourceRectangle"></param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.Draw(FlatRedBall.Camera,Microsoft.Xna.Framework.Graphics.Texture2D@,Microsoft.Xna.Framework.Rectangle@,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws the effect using the drawn screen texture
-            Base method draws screen texture with current effect to current screen rectangle
-            </summary>
-            <param name="camera">The camera to use when drawing.</param>
-            <param name="screenTexture">The screen texture.</param>
-            <param name="baseRectangle">The rectangle to draw to.</param>
-            <param name="clearColor">The background color.</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.DrawIfEnabled(FlatRedBall.Camera,Microsoft.Xna.Framework.Graphics.Texture2D@,Microsoft.Xna.Framework.Rectangle@,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws this effect if it is enabled (helper method)
-            </summary>
-            <param name="camera">The camera to use when drawing</param>
-            <param name="clearColor">The color to use as transparent</param>
-            <param name="screenTexture">The screen texture</param>
-            <param name="baseRectangle">The rectangle to draw to</param>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.Enabled">
-            <summary>
-            Enables or disables this effect
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.Effect">
-            <summary>
-            Gets the shader used to render this effect
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectBase.Texture">
-            <summary>
-            Gets the texture that was rendered
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Bloom.#ctor">
-            <summary>
-            Internal Constructor (so this class can't be instantiated externally)
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Bloom.ToString">
-            <summary>
-            Reports this effect's name as a string
-            </summary>
-            <returns>The effect's name as a string</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Bloom.InitializeEffect">
-            <summary>
-            Loads the effect
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Bloom.SetSampleParameters">
-            <summary>
-            Calculates and sets the sampling parameters in the shader
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Bloom.Draw(FlatRedBall.Camera,Microsoft.Xna.Framework.Graphics.Texture2D@,Microsoft.Xna.Framework.Rectangle@,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws the effect
-            </summary>
-            <param name="screenTexture">The screen texture</param>
-            <param name="baseRectangle">The rectangle to draw to</param>
-            <param name="clearColor">The background color</param>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Bloom.GaussianStrength">
-            <summary>
-            Controls the strength of the Gaussian blur used in the blooming algorithm
-            (the standard deviation of the normal curve used for sampling nearby coordinates).  Default value is 4.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Bloom.LinearStrength">
-            <summary>
-            Controls the strength of the linear blur used in the blooming algorithm
-            (Scales the sampling points to nearer or farther away)
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Bloom.Quality">
-            <summary>
-            Gets or sets the quality of the blur used in the blooming algorithm
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Bloom.BloomThreshold">
-            <summary>
-            Gets or sets the bloom threshold - only pixels brighter than the
-            bloom threshold will be bloomed
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Bloom.BaseIntensity">
-            <summary>
-            Gets or sets the intensity of the base image
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Bloom.BloomIntensity">
-            <summary>
-            Gets or sets the intensity of the bloomed image. Default is 1.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Bloom.BaseSaturation">
-            <summary>
-            Gets or sets the saturation of the base image
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Bloom.BloomSaturation">
-            <summary>
-            Gets or sets the saturation of the bloomed image
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.PostProcessing.Blur">
-            <summary>
-            Post processing effect which can be used to blur the screen.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.Blur.mBlurSampleCount">
-            <summary>
-            The number of samples used in the blur filtering (static for now)
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Blur.#ctor">
-            <summary>
-            Internal Constructor (so this class can't be instantiated externally)
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Blur.ToString">
-            <summary>
-            Reports this effect's name as a string
-            </summary>
-            <returns>The effect's name as a string</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Blur.InitializeEffect">
-            <summary>
-            Loads the effect
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Blur.SetSampleParameters">
-            <summary>
-            Calculates and sets the sampling parameters in the shader
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Blur.Draw(FlatRedBall.Camera,Microsoft.Xna.Framework.Graphics.Texture2D@,Microsoft.Xna.Framework.Rectangle@,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws the effect
-            </summary>
-            <param name="screenTexture">The screen texture</param>
-            <param name="baseRectangle">The rectangle to draw to</param>
-            <param name="clearColor">The background color</param>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Blur.GaussianStrength">
-            <summary>
-            Controls the strength of the Gaussian blur
-            (the standard deviation of the normal curve used for sampling nearby coordinates)
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Blur.LinearStrength">
-            <summary>
-            Controls the strength of the linear blur
-            (Scales the sampling points to nearer or farther away)
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Blur.Quality">
-            <summary>
-            Gets or sets the quality of the blur
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.PostProcessing.DirectionalBlur">
-            <summary>
-            Post processing to implement directional blur.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.DirectionalBlur.mBlurSampleCount">
-            <summary>
-            The number of samples used in the blur filtering (static for now)
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.DirectionalBlur.#ctor">
-            <summary>
-            Internal Constructor (so this class can't be instantiated externally)
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.DirectionalBlur.ToString">
-            <summary>
-            Reports this effect's name as a string
-            </summary>
-            <returns>The effect's name as a string</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.DirectionalBlur.InitializeEffect">
-            <summary>
-            Loads the effect
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.DirectionalBlur.SetSampleParameters">
-            <summary>
-            Calculates and sets the sampling parameters in the shader
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.DirectionalBlur.Draw(FlatRedBall.Camera,Microsoft.Xna.Framework.Graphics.Texture2D@,Microsoft.Xna.Framework.Rectangle@,Microsoft.Xna.Framework.Color)">
-            <summary>
-            Draws the effect
-            </summary>
-            <param name="screenTexture">The screen texture</param>
-            <param name="baseRectangle">The rectangle to draw to</param>
-            <param name="clearColor">The background color</param>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.DirectionalBlur.GaussianStrength">
-            <summary>
-            Controls the strength of the Gaussian blur
-            (the standard deviation of the normal curve used for sampling nearby coordinates)
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.DirectionalBlur.Length">
-            <summary>
-            Gets or sets the length of the directional blur (in pixels)
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.DirectionalBlur.Angle">
-            <summary>
-            Gets or sets the angle of the directional blur
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.DirectionalBlur.Quality">
-            <summary>
-            Gets or sets the quality of the blur
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.PostProcessing.Pixellate">
-            <summary>
-            Performs a pixellate effect on the screen - effectively reducing the resolution
-            without recreating render targets.
-            </summary>
-            <remarks>
-            This effect was used frequently on the Super Nintendo, such as during
-            transitions.
-            </remarks>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Pixellate.#ctor">
-            <summary>
-            Internal Constructor (so this class can't be instantiated externally)
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Pixellate.ToString">
-            <summary>
-            Reports this effect's name as a string
-            </summary>
-            <returns>The effect's name as a string</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.Pixellate.InitializeEffect">
-            <summary>
-            Loads the effect
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.Pixellate.Strength">
-            <summary>
-            Gets or sets the strength of the pixellation (pixel size)
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.PostProcessing.EffectQuality">
-            <summary>
-            Quality of an effect - used for effect with varying quality levels
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.EffectQuality.High">
-            <summary>
-            High quality - uses 9 samples in horizontal and vertical directions
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.EffectQuality.Medium">
-            <summary>
-            Medium quality - uses 7 samples in horizontal and vertical directions
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.EffectQuality.Low">
-            <summary>
-            Low quality - uses 5 samples in horizontal and vertical directions
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectCollection">
-            <summary>
-            An ordered collection of PostProcessingEffects.
-            </summary>
-            <remarks>
-            Each camera in FlatRedBall contains a PostProcessingEffectCollection, so
-            this class is not usually instantiated outside of the FlatRedBall engine.
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectCollection.EffectCombineOrder">
-            <summary>
-            Gets or sets the list of effects, which defines the order
-            in which post-processing effects are combined.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectCollection.Bloom">
-            <summary>
-            Gets the bloom effect
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectCollection.Blur">
-            <summary>
-            Gets the blur effect
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectCollection.DirectionalBlur">
-            <summary>
-            Gets the directional blur effect
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectCollection.RadialBlur">
-            <summary>
-            Gets the radial blur effect
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.PostProcessingEffectCollection.Pixellate">
-            <summary>
-            Gets the pixellate effect
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.PostProcessing.PostProcessingManager">
-            <summary>
-            Static class providing access to post processing classes including the out-of-the-box
-            post processing features.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.PostProcessingManager.mSpriteBatch">
-            <summary>
-            The SpiteBatch used to render the resulting texture
-            after post pocessing is performed.  This uses the Camera's
-            RenderTagetTexture for the given Camera
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.PostProcessingManager.InitializeEffects">
-            <summary>
-            Loads all effects and initializes effect variables
-            </summary>
-            <remarks>
-            This method is automatically called when FlatRedBall is Initialized if
-            post processing is suppoted in the current build of the engine. 
-            </remarks>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.PostProcessingManager.IsInitialized">
-            <summary>
-            Whether the PostPocessingManager has been initialized yet.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.PostProcessingManager.PixelSize">
-            <summary>
-            Gets the currently set pixel size
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.PostProcessing.RadialBlur">
-            <summary>
-            Post processing effect which can be used to perform a radial blur.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.PostProcessing.RadialBlur.mBlurSampleCount">
-            <summary>
-            The number of samples used in the blur filtering (static for now)
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.RadialBlur.#ctor">
-            <summary>
-            Internal Constructor (so this class can't be instantiated externally)
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.RadialBlur.ToString">
-            <summary>
-            Reports this effect's name as a string
-            </summary>
-            <returns>The effect's name as a string</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.RadialBlur.InitializeEffect">
-            <summary>
-            Loads the effect
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.PostProcessing.RadialBlur.SetSampleParameters">
-            <summary>
-            Calculates and sets the sampling parameters in the shader
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.RadialBlur.GaussianStrength">
-            <summary>
-            Controls the strength of the Gaussian blur
-            (the standard deviation of the normal curve used for sampling nearby coordinates)
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.RadialBlur.Length">
-            <summary>
-            Gets or sets the length of the directional blur (in pixels)
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.RadialBlur.CenterX">
-            <summary>
-            Gets or sets the x value of the point from which the blur originates (in UV coordinates)
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.RadialBlur.CenterY">
-            <summary>
-            Gets or sets the y value of the point from which the blur originates (in UV coordinates)
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.PostProcessing.RadialBlur.Quality">
-            <summary>
-            Gets or sets the quality of the blur
-            </summary>
         </member>
         <member name="T:FlatRedBall.Graphics.RenderMode">
             <summary>
@@ -7278,6 +6769,29 @@
             Gets and sets the time that playback started.  Setting this value simulates changing
             when the playback started.
             </summary>
+        </member>
+        <member name="M:FlatRedBall.Input.Xbox360GamePad.CreateDefaultButtonMap">
+            <summary>
+            Creates a ButtomMap for this controller using the default bindings.  This is 
+            a quick way to simulate an Xbox360 controller using the keyboard.
+            </summary>
+            <remarks>
+            This creates the following bindings:
+            * Left analog stick = arrow keys
+            * A button = A key
+            * B button = S key
+            * X button = Q key
+            * Y button = W key
+            * Left trigger = E key
+            * Right trigger = R key
+            * Left shoulder = D key
+            * Right Shoulder = F key
+            * Back button = Backspace key
+            * Start button = Enter key
+            
+            This will not simulate that the controller is connected, so you will have to set 
+            FakeIsConnected to true if your game checks the connected state.
+            </remarks>
         </member>
         <member name="M:FlatRedBall.Input.Xbox360GamePad.IgnoreButtonForOneFrame(FlatRedBall.Input.Xbox360GamePad.Button)">
             <summary>
@@ -12406,6 +11920,22 @@
             though the segment may not cross the x=0 line.
             </remarks>
         </member>
+        <member name="M:FlatRedBall.Math.Geometry.ShapeCollection.MakeTwoWay">
+            <summary>
+            Makes all contained lists (such as for AxisAlignedRectangles and Circles) two-way.
+            </summary>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.ShapeCollection.MakeOneWay">
+            <summary>
+            Makes all contained lists (such as for AxisAlignedRectangles and Circles) one-way.
+            </summary>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.ShapeCollection.Shift(Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Moves all contained objects by the argument shiftVector;
+            </summary>
+            <param name="shiftVector">The amount to shift by.</param>
+        </member>
         <member name="M:FlatRedBall.Math.Geometry.ShapeCollection.IsPointInside(System.Single,System.Single)">
             <summary>
             Checks if the designated 2D point is in the 2D shapes of the shape collection
@@ -12925,6 +12455,15 @@
             <summary>
             The time relative to the start of the Spline when an object moving through the Spline
             will pass through this point.
+            </summary>
+        </member>
+        <member name="F:FlatRedBall.Math.Splines.SplinePoint.UseCustomVelocityValue">
+            <summary>
+            Controls whether the Velocity value is unchanged by calling
+            CalculateVelocities on the Spline.  By default this is false,
+            which means velocity on this SplinePoint will be set according
+            to the position of the neighboring SplinePoints.  If this value
+            is true, then the velocity on this will not be changed by Spline.CalculateVelocities.
             </summary>
         </member>
         <member name="T:FlatRedBall.Math.Statistics.LinearRegression">

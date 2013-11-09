@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataTransferObjects.ViewModels
 {
@@ -25,6 +27,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
 
         #region Selectable Object Data
 
+        public GameModule ActiveModule { get; set; }
         public Area ActiveArea { get; set; }
         public Creature ActiveCreature { get; set; }
         public Item ActiveItem { get; set; }
@@ -40,9 +43,14 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public List<GameModule> ModuleList { get; set; }
         public List<ContentPackage> AvailableContentPackages { get; set; }
         public List<ContentPackage> AttachedContentPackages { get; set; }
-        public List<ContentPackageResource> TilesetSpriteSheetsList { get; set; }
-        public List<Item> ItemList { get; set; }
-        public List<Script> ScriptList { get; set; }
+        public List<DropDownListUIObject> TilesetSpriteSheetsList { get; set; }
+        public List<DropDownListUIObject> ItemList { get; set; }
+        public List<DropDownListUIObject> ScriptList { get; set; }
+        public List<DropDownListUIObject> GenderList { get; set; }
+        public List<DropDownListUIObject> ConversationList { get; set; }
+        public List<DropDownListUIObject> RaceList { get; set; }
+        public List<DropDownListUIObject> FactionList { get; set; }
+        public List<DropDownListUIObject> TilesetList { get; set; }
 
         #endregion
 
@@ -51,6 +59,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             CurrentObjectMode = "";
             CurrentObjectTabSelector = "";
             CurrentObjectTreeSelector = "";
+            ActiveModule = new GameModule(true);
             ActiveArea = new Area(true);
             ActiveConversation = new Conversation(true);
             ActiveCreature = new Creature(true);
@@ -62,9 +71,14 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             ModuleList = new List<GameModule>();
             AvailableContentPackages = new List<ContentPackage>();
             AttachedContentPackages = new List<ContentPackage>();
-            TilesetSpriteSheetsList = new List<ContentPackageResource>();
-            ItemList = new List<Item>();
-            ScriptList = new List<Script>();
+            TilesetSpriteSheetsList = new List<DropDownListUIObject>();
+            ItemList = new List<DropDownListUIObject>();
+            ScriptList = new List<DropDownListUIObject>();
+            GenderList = new List<DropDownListUIObject>();
+            ConversationList = new List<DropDownListUIObject>();
+            RaceList = new List<DropDownListUIObject>();
+            FactionList = new List<DropDownListUIObject>();
+            TilesetList = new List<DropDownListUIObject>();
         }
     }
 }

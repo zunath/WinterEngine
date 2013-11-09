@@ -11,51 +11,41 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Editor.Utility;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
+using WinterEngine.Library.Extensions;
+using WinterEngine.Game.Interfaces;
 using WinterEngine.Editor.Extensions;
 
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class AreaEntity
+	public partial class AreaEditorEntity: IEditorEntity
     {
         #region Fields
-
-        private Texture2D _mapSpriteSheet;
 
         #endregion
 
         #region Properties
 
-        /// <summary>
-        /// Currently displayed area.
-        /// </summary>
-        private Area ActiveArea { get; set; }
-
-        /// <summary>
-        /// Spritesheet texture for the active area.
-        /// </summary>
-        private Texture2D AreaSpriteSheet 
-        {
-            get
-            {
-                if (_mapSpriteSheet == null)
-                {
-                    _mapSpriteSheet = ActiveArea.GraphicResource.ToTexture2D();
-                }
-
-                return _mapSpriteSheet;
-            }
-            set
-            {
-                _mapSpriteSheet = value;
-            }
-        }
 
         #endregion
 
         #region FRB Events
         private void CustomInitialize()
 		{
+
+            //for (int x = 0; x <= 10; x++)
+            //{
+            //    for (int y = 0; y <= 10; y++)
+            //    {
+            //        Sprite sprite = new Sprite();
+            //        sprite.PixelSize = 0.5f;
+            //        sprite.Texture = FlatRedBallServices.Load<Texture2D>(@"Content/Editor/Icons/EmptyCell.png");
+            //        sprite.X = x * 32;
+            //        sprite.Y = y * 32;
+
+            //        SpriteManager.AddSprite(sprite);
+            //    }
+            //}
         }
 
         private void CustomActivity()
@@ -79,6 +69,19 @@ namespace WinterEngine.Game.Entities
         #region Methods
 
         public void ChangeArea(Area newArea)
+        {
+        }
+
+        #endregion
+
+        #region Interface Methods
+
+        public void HideEntity()
+        {
+            
+        }
+
+        public void ShowEntity()
         {
         }
 

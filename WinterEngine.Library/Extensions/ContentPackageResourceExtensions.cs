@@ -20,19 +20,7 @@ namespace WinterEngine.Editor.Extensions
         public static Texture2D ToTexture2D(this ContentPackageResource resource)
         {
             MemoryStream stream = ToMemoryStream(resource);
-
-            // Reference: http://stackoverflow.com/questions/2869801/is-there-a-fast-alternative-to-creating-a-texture2d-from-a-bitmap-object-in-xna
-            Bitmap bitmap = new Bitmap(stream);
-            BitmapData data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height), System.Drawing.Imaging.ImageLockMode.ReadOnly, bitmap.PixelFormat);
-            int bufferSize = data.Height * data.Stride;
-            byte[] bytes = new byte[bufferSize];
-
-            Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
-            Texture2D texture = new Texture2D(FlatRedBallServices.GraphicsDevice, bitmap.Width, bitmap.Height);
-            texture.SetData(bytes);
-            bitmap.UnlockBits(data);
-
-            return texture;
+            return Texture2D.FromStream(FlatRedBallServices.GraphicsDevice, stream);
         }
 
         public static MemoryStream ToMemoryStream(this ContentPackageResource resource)

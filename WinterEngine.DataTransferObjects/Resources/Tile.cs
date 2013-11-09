@@ -10,6 +10,7 @@ using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects
 {
+    [Serializable]
     [Table("Tiles")]
     public class Tile : GameResourceBase
     {
@@ -21,6 +22,11 @@ namespace WinterEngine.DataTransferObjects
         [Key]
         public int TileID { get; set; }
 
+        public int TilesetID { get; set; }
+
+        [ForeignKey("TilesetID")]
+        public virtual Tileset ParentTileset { get; set; }
+
         /// <summary>
         /// Gets or sets the X cell position of the texture being used for this tile.
         /// </summary>
@@ -29,10 +35,6 @@ namespace WinterEngine.DataTransferObjects
         /// Gets or sets the Y cell position of the texture being used for this tile.
         /// </summary>
         public int TextureCellY { get; set; }
-        /// <summary>
-        /// Gets or sets the map height position of the tile.
-        /// </summary>
-        public int TileHeight { get; set; }
         /// <summary>
         /// Gets or sets the map X cell position of the tile.
         /// </summary>

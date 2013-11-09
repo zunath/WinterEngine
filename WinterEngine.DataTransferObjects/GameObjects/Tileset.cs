@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace WinterEngine.DataTransferObjects
 {
@@ -14,6 +15,9 @@ namespace WinterEngine.DataTransferObjects
         #endregion
 
         #region Properties
+
+        [JsonIgnore] // Ignore to prevent circular references
+        public virtual List<Tile> TileList { get; set; }
 
         #endregion
 

@@ -1,0 +1,91 @@
+﻿
+<div id="divPlaceablesTab" class="clsObjectTabDiv">
+    <h3>Placeable Details</h3>
+    <div id="divPlaceablesTab-Details">
+        <label id="lblPlaceableDetails-Name" for="txtPlaceableDetails-Name">Name:</label>
+        <input id="txtPlaceableDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActivePlaceable.Name" class="clsPlaceableObjectField" />
+
+        <label id="lblPlaceableDetails-Tag" for="txtPlaceableDetails-Tag">Tag:</label>
+        <input id="txtPlaceableDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActivePlaceable.Tag" class="clsPlaceableObjectField" />
+
+        <label id="lblPlaceableDetails-Resref" for="txtPlaceableDetails-Resref">Resref:</label>
+        <input id="txtPlaceableDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActivePlaceable.Resref" class="clsPlaceableObjectField" />
+
+    </div>
+
+    <h3>Description</h3>
+    <div id="divPlaceableDetails-Description">
+        <textarea id="txtPlaceableDetails-Description" disabled="disabled" data-bind="value: ActivePlaceable.Description" class="clsPlaceableObjectField"></textarea>
+    </div>
+
+    <h3>Comments</h3>
+    <div id="divPlaceableDetails-Comments">
+        <textarea id="txtPlaceableDetails-Comments" disabled="disabled" data-bind="value: ActivePlaceable.Comment" class="clsPlaceableObjectField"></textarea>
+    </div>
+
+    <h3>Local Variables</h3>
+    <div id="divPlaceablesTab-LocalVariables">
+        <input id="btnPlaceablesTab-AddLocalVariable" type="button" value="Add New Variable" onclick="OpenEditLocalVariableBox(false, 'create');" />
+
+        <div data-bind="foreach: ActivePlaceable.LocalVariables">
+            <label data-bind="text: Name"></label>
+            <input type="button" data-bind="value: 'Edit', click: function (data, event) { OpenEditLocalVariableBox(false, 'edit', $data); }" />
+            <input type="button" data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox($data) }" />
+                        
+        </div>
+    </div>
+
+    <h3>Events</h3>
+    <div id="divPlaceablesTab-Events">
+
+        <label id="lblPlaceablesEvents-OnSpawn">On Spawn:</label>
+        <select id="selPlaceablesEvents-OnSpawn" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnSpawnEventScriptID" ></select>
+
+        <label id="lblPlaceablesEvents-OnDamaged">On Damaged:</label>
+        <select id="selPlaceablesEvents-OnDamaged" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnDamagedEventScriptID" ></select>
+
+        <label id="lblPlaceablesEvents-OnDeath">On Death:</label>
+        <select id="selPlaceablesEvents-OnDeath" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnDeathEventScriptID" ></select>
+
+        <label id="lblPlaceablesEvents-OnHeartbeat">On Heartbeat:</label>
+        <select id="selPlaceablesEvents-OnHeartbeat" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnHeartbeatEventScriptID" ></select>
+
+        <label id="lblPlaceablesEvents-OnOpen">On Open:</label>
+        <select id="selPlaceablesEvents-OnOpen" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnOpenEventScriptID" ></select>
+
+        <label id="lblPlaceablesEvents-OnClose">On Close:</label>
+        <select id="selPlaceablesEvents-OnClose" disabled="disabled" class="clsPlaceableObjectField" size="3"
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnCloseEventScriptID"></select>
+
+        <label id="lblPlaceablesEvents-OnUsed">On Used:</label>
+        <select id="selPlaceablesEvents-OnUsed" disabled="disabled" class="clsPlaceableObjectField" size="3" 
+            data-bind="options: ScriptList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActivePlaceable.OnUsedEventScriptID" ></select>
+
+    </div>
+</div>

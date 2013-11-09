@@ -18,11 +18,11 @@
     <script src="../Scripts/jquery.validate.js"></script>
     <script src="../Scripts/jquery.jstree.js"></script>
     <script src="../Scripts/knockout-2.3.0.js"></script>
-    <script src="../Scripts/knockout.viewmodel.min.js"></script>
+    <script src="../Scripts/knockout.viewmodel.js"></script>
     <script src="../Scripts/jquery.blockUI.js"></script>
     <script src="../Scripts/WinterEngine.ViewModels.js"></script>
     <script src="../Scripts/Toolset.Initialization.js"></script>
-    <script src="../Scripts/Toolset.TreeViews.js"></script>
+    <script src="../Scripts/Toolset.ObjectTreeViews.js"></script>
     <script src="../Scripts/Toolset.MenuBar.js"></script>
     <script src="../Scripts/Toolset.ObjectBar.js"></script>
     <script src="../Scripts/Toolset.ObjectTabs.js"></script>
@@ -38,8 +38,26 @@
         <div id="nonMenuBarContainer">
 
             <div data-partial="Toolset/TreeViewPartial.html"></div>
-            <div id="divToShowGame"></div>
-            <div data-partial="Toolset/ObjectTabControlsPartial.html"></div>
+            
+            <div data-partial="Toolset/ObjectControls/ConversationEditor.html"></div>
+            <div id="divToShowGame" class="clsMainPanel"></div>
+
+            <div id="objectTabControls" class="clsHidden" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+                <div id="divObjectTabContainer">
+                    <div data-partial="Toolset/ObjectControls/AreaObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/ConversationObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/CreatureObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/ItemObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/PlaceableObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/ScriptObjectControlPartial.html"></div>
+                    <div data-partial="Toolset/ObjectControls/TilesetObjectControlPartial.html"></div>
+                </div>
+
+                <div data-partial="Toolset/ObjectControls/ApplyDiscardChangesPartial.html"></div>
+            </div>
+
+
+
             <div data-partial="Toolset/AreaFooterPartial.html"></div>
 
             <!-- Pop up boxes -->
@@ -51,11 +69,12 @@
             <div data-partial="Toolset/PopUpBoxes/AboutPartial.html"></div>
             <div data-partial="Toolset/PopUpBoxes/AlertPartial.html"></div>
             <div data-partial="Toolset/PopUpBoxes/NewObjectPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/ConfirmDeletePartial.html"></div>
+            <div data-partial="Toolset/PopUpBoxes/ConfirmDeleteObjectPartial.html"></div>
             <div data-partial="Toolset/PopUpBoxes/CreateCategoryPartial.html"></div>
             <div data-partial="Toolset/PopUpBoxes/RenameTreeNodePartial.html"></div>
             <div data-partial="Toolset/PopUpBoxes/ManageContentPackagesPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/NewLocalVariablePartial.html"></div>
+            <div data-partial="Toolset/PopUpBoxes/LocalVariableEditorPartial.html"></div>
+            <div data-partial="Toolset/PopUpBoxes/ConfirmDeleteLocalVariablePartial.html"></div>
             <!-- End pop up boxes -->
 
 

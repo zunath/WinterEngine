@@ -11,6 +11,7 @@ using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Paths;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 
 namespace WinterEngine.DataAccess.Repositories
@@ -115,6 +116,18 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.ContentPackages.ToList();
         }
 
+        public List<DropDownListUIObject> GetAllUIObjects()
+        {
+            List<DropDownListUIObject> items = (from contentPackage
+                                                in Context.ContentPackageRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = contentPackage.Name,
+                                                    ResourceID = contentPackage.ResourceID
+                                                }).ToList();
+            return items;
+        }
+
 
         /// <summary>
         /// Returns the file names of every content package used by the module.
@@ -166,6 +179,12 @@ namespace WinterEngine.DataAccess.Repositories
         public ContentPackage GetByID(int packageID)
         {
             return _context.ContentPackages.Where(x => x.ResourceID == packageID).SingleOrDefault();
+        }
+
+        public int GetDefaultResourceID()
+        {
+            ContentPackage defaultObject = Context.ContentPackageRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         #endregion

@@ -27,6 +27,7 @@ namespace WinterEngine.DataTransferObjects
         /// Gets or sets a resource's ID
         /// </summary>
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ResourceID
         {
             get { return _resourceID; }
@@ -71,6 +72,8 @@ namespace WinterEngine.DataTransferObjects
             get { return _isSystemResource; }
             set { _isSystemResource = value; }
         }
+
+        public bool IsDefault { get; set; }
 
         public DateTime CreateDate { get; set; }
         

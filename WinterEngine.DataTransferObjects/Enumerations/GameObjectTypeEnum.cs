@@ -21,6 +21,8 @@ namespace WinterEngine.DataTransferObjects.Enumerations
         [Description("Items")]
         Item = 6,
         [Description("Tilesets")]
-        Tileset = 7
+        Tileset = 7,
+        [Description("GameModules")]
+        GameModule = 8
     }
 }

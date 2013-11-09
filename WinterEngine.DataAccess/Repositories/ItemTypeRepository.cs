@@ -5,6 +5,7 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 
 namespace WinterEngine.DataAccess
@@ -34,6 +35,19 @@ namespace WinterEngine.DataAccess
         public List<ItemType> GetAll()
         {
             return _context.ItemTypes.ToList();
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects()
+        {
+            List<DropDownListUIObject> items = (from item
+                                                in Context.ItemTypeRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = item.Name,
+                                                    ResourceID = item.ResourceID
+                                                }).ToList();
+
+            return items;
         }
 
 
@@ -126,6 +140,12 @@ namespace WinterEngine.DataAccess
         public object Load(int resourceID)
         {
             throw new NotImplementedException();
+        }
+
+        public int GetDefaultResourceID()
+        {
+            ItemType defaultObject = Context.ItemTypeRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         public int Save(object gameObject)

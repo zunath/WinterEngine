@@ -7,6 +7,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -17,7 +18,7 @@ namespace WinterEngine.DataAccess.Repositories
         private readonly bool _autoSaveChanges;
 
         #region Constructors
-
+        
         public ConversationRepository(ModuleDataContext context, bool autoSave = true)
         {
             if (context == null) throw new ArgumentNullException("DbContext");
@@ -66,7 +67,14 @@ namespace WinterEngine.DataAccess.Repositories
             }
             if (dbConversation == null) return;
 
-            _context.Entry(dbConversation).CurrentValues.SetValues(newConversation);
+            foreach (LocalVariable variable in newConversation.LocalVariables)
+            {
+                variable.GameObjectBaseID = newConversation.ResourceID;
+            }
+
+            Context.Context.Entry(dbConversation).CurrentValues.SetValues(newConversation);
+            Context.LocalVariableRepository.DeleteList(dbConversation.LocalVariables.ToList());
+            Context.LocalVariableRepository.AddList(newConversation.LocalVariables.ToList());
         }
 
         /// <summary>
@@ -102,6 +110,9 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public void Delete(int resourceID)
         {
+            Conversation conversation = Context.ConversationRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
+            Context.LocalVariableRepository.DeleteList(conversation.LocalVariables.ToList());
+            Context.ConversationRepository.Delete(conversation);
             Conversation conversation = _context.Conversations.Where(c => c.ResourceID == resourceID).SingleOrDefault();
             _context.Conversations.Remove(conversation);
         }
@@ -113,6 +124,19 @@ namespace WinterEngine.DataAccess.Repositories
         public List<Conversation> GetAll()
         {
             return _context.Conversations.ToList();
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects()
+        {
+            List<DropDownListUIObject> items = (from conversation
+                                                in Context.ConversationRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = conversation.Name,
+                                                    ResourceID = conversation.ResourceID
+                                                }).ToList();
+
+            return items;
         }
 
         /// <summary>
@@ -177,7 +201,7 @@ namespace WinterEngine.DataAccess.Repositories
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Conversation> conversations = GetAllByResourceCategory(category);
+                List<Conversation> conversations = Context.ConversationRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Conversation conversation in conversations)
                 {
                     JSTreeNode childNode = new JSTreeNode(conversation.Name);
@@ -195,6 +219,13 @@ namespace WinterEngine.DataAccess.Repositories
             return rootNode;
         }
 
+        public int GetDefaultResourceID()
+        {
+            Conversation defaultObject = Context.ConversationRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
+        }
+
+        public override void Dispose()
         #endregion
 
         public object Load(int resourceID)

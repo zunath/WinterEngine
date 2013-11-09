@@ -1,0 +1,24 @@
+﻿
+<div id="divTilesetsTab" class="clsObjectTabDiv">
+    <h3>Tileset Details</h3>
+    <div id="divTilesetsTab-Details">
+        <label id="lblTilesetDetails-Name" for="txtTilesetDetails-Name">Name:</label>
+        <input id="txtTilesetDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset.Name" class="clsTilesetObjectField" />
+
+        <label id="lblTilesetDetails-Tag" for="txtTilesetDetails-Tag">Tag:</label>
+        <input id="txtTilesetDetails-Tag" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset.Tag" class="clsTilesetObjectField" />
+
+        <label id="lblTilesetDetails-Resref" for="txtTilesetDetails-Resref">Resref:</label>
+        <input id="txtTilesetDetails-Resref" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset.Resref" class="clsTilesetObjectField" />
+
+        <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
+        <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField" onchange="SelectTilesetSpriteSheet;"
+            data-bind="options: TilesetSpriteSheetsList,
+                       optionsText: function (item) { return item.Name },
+                       optionsValue: function (item) { return item.ResourceID },
+                       value: ActiveTileset.GraphicResourceID == null ? 0 : ActiveTileset.GraphicResourceID,
+                       click: function (item) { return Entity.LoadTilesetSpritesheet(parseInt($('#selTilesetDetails-Spritesheet').val())); }">
+        </select>
+
+    </div>
+</div>

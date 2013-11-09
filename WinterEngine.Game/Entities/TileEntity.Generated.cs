@@ -6,7 +6,10 @@ using GuiManager = FlatRedBall.Gui.GuiManager;
 using WinterEngine.Game.Screens;
 using FlatRedBall.Graphics;
 using FlatRedBall.Math;
+using WinterEngine.Game.Performance;
+using FlatRedBall.Gui;
 using WinterEngine.Game.Entities;
+using WinterEngine.Game.Factories;
 using FlatRedBall;
 using FlatRedBall.Screens;
 using System;
@@ -33,7 +36,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class AreaEntity : PositionedObject, IDestroyable
+	public partial class TileEntity : PositionedObject, IDestroyable, IPoolable, IClickable
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static string ContentManagerName
@@ -50,15 +53,30 @@ namespace WinterEngine.Game.Entities
 		static List<string> mRegisteredUnloads = new List<string>();
 		static List<string> LoadedContentManagers = new List<string>();
 		
+		private FlatRedBall.Sprite mSpriteInstance;
+		public FlatRedBall.Sprite SpriteInstance
+		{
+			get
+			{
+				return mSpriteInstance;
+			}
+			set
+			{
+				mSpriteInstance = value;
+			}
+		}
+		private FlatRedBall.Sprite PassabilitySpriteInstance;
+		public int Index { get; set; }
+		public bool Used { get; set; }
 		protected Layer LayerProvidedByContainer = null;
 
-        public AreaEntity(string contentManagerName) :
+        public TileEntity(string contentManagerName) :
             this(contentManagerName, true)
         {
         }
 
 
-        public AreaEntity(string contentManagerName, bool addToManagers) :
+        public TileEntity(string contentManagerName, bool addToManagers) :
 			base()
 		{
 			// Don't delete this:
@@ -71,6 +89,7 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
+			PassabilitySpriteInstance = new FlatRedBall.Sprite();
 			
 			PostInitialize();
 			if (addToManagers)
@@ -93,6 +112,7 @@ namespace WinterEngine.Game.Entities
 		public virtual void Activity()
 		{
 			// Generated Activity
+			mIsPaused = false;
 			
 			CustomActivity();
 			
@@ -103,7 +123,19 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Destroy
 			SpriteManager.RemovePositionedObject(this);
+			if (Used)
+			{
+				TileEntityFactory.MakeUnused(this, false);
+			}
 			
+			if (SpriteInstance != null)
+			{
+				SpriteManager.RemoveSpriteOneWay(SpriteInstance);
+			}
+			if (PassabilitySpriteInstance != null)
+			{
+				SpriteManager.RemoveSpriteOneWay(PassabilitySpriteInstance);
+			}
 
 
 			CustomDestroy();
@@ -114,6 +146,23 @@ namespace WinterEngine.Game.Entities
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
+			if (SpriteInstance!= null)
+			{
+				if (mSpriteInstance.Parent == null)
+				{
+					mSpriteInstance.CopyAbsoluteToRelative();
+					mSpriteInstance.AttachTo(this, false);
+				}
+				SpriteInstance.Texture = null;
+				SpriteInstance.TextureScale = 1f;
+			}
+			if (PassabilitySpriteInstance.Parent == null)
+			{
+				PassabilitySpriteInstance.CopyAbsoluteToRelative();
+				PassabilitySpriteInstance.AttachTo(this, false);
+			}
+			PassabilitySpriteInstance.Texture = null;
+			PassabilitySpriteInstance.TextureScale = 1f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -133,6 +182,9 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
+			SpriteManager.AddToLayer(PassabilitySpriteInstance, layerToAddTo);
+			PassabilitySpriteInstance.Texture = null;
+			PassabilitySpriteInstance.TextureScale = 1f;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
@@ -144,6 +196,8 @@ namespace WinterEngine.Game.Entities
 		{
 			this.ForceUpdateDependenciesDeep();
 			SpriteManager.ConvertToManuallyUpdated(this);
+			SpriteManager.ConvertToManuallyUpdated(SpriteInstance);
+			SpriteManager.ConvertToManuallyUpdated(PassabilitySpriteInstance);
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -170,7 +224,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AreaEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("TileEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -181,7 +235,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("AreaEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("TileEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -212,6 +266,34 @@ namespace WinterEngine.Game.Entities
 		{
 			return null;
 		}
+		public virtual bool HasCursorOver (FlatRedBall.Gui.Cursor cursor)
+		{
+			if (mIsPaused)
+			{
+				return false;
+			}
+			if (LayerProvidedByContainer != null && LayerProvidedByContainer.Visible == false)
+			{
+				return false;
+			}
+			if (!cursor.IsOn(LayerProvidedByContainer))
+			{
+				return false;
+			}
+			if (SpriteInstance.Alpha != 0 && SpriteInstance.AbsoluteVisible && cursor.IsOn3D(SpriteInstance, LayerProvidedByContainer))
+			{
+				return true;
+			}
+			if (PassabilitySpriteInstance.Alpha != 0 && PassabilitySpriteInstance.AbsoluteVisible && cursor.IsOn3D(PassabilitySpriteInstance, LayerProvidedByContainer))
+			{
+				return true;
+			}
+			return false;
+		}
+		public virtual bool WasClickedThisFrame (FlatRedBall.Gui.Cursor cursor)
+		{
+			return cursor.PrimaryClick && HasCursorOver(cursor);
+		}
 		protected bool mIsPaused;
 		public override void Pause (FlatRedBall.Instructions.InstructionList instructions)
 		{
@@ -221,9 +303,24 @@ namespace WinterEngine.Game.Entities
 		public virtual void SetToIgnorePausing ()
 		{
 			FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(this);
+			if (SpriteInstance != null)
+			{
+				FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(SpriteInstance);
+			}
+			FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(PassabilitySpriteInstance);
 		}
 		public virtual void MoveToLayer (Layer layerToMoveTo)
 		{
+			if (LayerProvidedByContainer != null)
+			{
+				LayerProvidedByContainer.Remove(SpriteInstance);
+			}
+			SpriteManager.AddToLayer(SpriteInstance, layerToMoveTo);
+			if (LayerProvidedByContainer != null)
+			{
+				LayerProvidedByContainer.Remove(PassabilitySpriteInstance);
+			}
+			SpriteManager.AddToLayer(PassabilitySpriteInstance, layerToMoveTo);
 			LayerProvidedByContainer = layerToMoveTo;
 		}
 
@@ -231,7 +328,7 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class AreaEntityExtensionMethods
+	public static class TileEntityExtensionMethods
 	{
 	}
 	

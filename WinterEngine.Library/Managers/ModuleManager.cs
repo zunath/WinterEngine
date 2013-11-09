@@ -13,6 +13,8 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.Paths;
+using WinterEngine.Editor.Managers;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.Library.Managers;
 using WinterEngine.Editor.Utility;
 
@@ -24,6 +26,7 @@ namespace WinterEngine.Library.Managers
 
         private string _moduleName;
         private string _moduleTag;
+        private string _moduleResref;
 
         private string _modulePath;
         private string _tempDirectoryPath;
@@ -56,6 +59,12 @@ namespace WinterEngine.Library.Managers
             set { _moduleTag = value; }
         }
         
+        public string ModuleResref
+        {
+            get { return _moduleResref; }
+            set { _moduleResref = value; }
+        }
+
         /// <summary>
         /// Gets or sets the path to the module file.
         /// </summary>
@@ -134,23 +143,32 @@ namespace WinterEngine.Library.Managers
             {
                 TemporaryDirectoryPath = _fileArchiveManager.CreateUniqueDirectory();                
 
-                // Build a new database file and structure.                
+                // Build a new database file and structure.
                 _databaseRepository.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB", true);                
 
+                EntityCreationScripts creationScripts = new EntityCreationScripts();
+                creationScripts.Initialize();
+
+                // Add the module details to the correct table.
+                using (GameModuleRepository repo = new GameModuleRepository())
+                {
+                    GameObjectFactory factory = new GameObjectFactory();
+                    GameModule module = factory.CreateObject(GameObjectTypeEnum.GameModule, ModuleName, ModuleTag, ModuleResref) as GameModule;
                 GameModule gameModule = new GameModule();
                 gameModule.ModuleName = ModuleName;
                 gameModule.ModuleTag = ModuleTag;
 
+                    repo.Add(module);
+                }
                 _moduleRepository.Add(gameModule);                
 
-                InitializeData();
                 LoadSystemContentPacks();
 
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
-                return false;
+                throw new Exception("Error creating module.", ex);
             }
         }
 
@@ -159,27 +177,27 @@ namespace WinterEngine.Library.Managers
         /// </summary>
         /// <param name="path"></param>
         public void SaveModule(string path)
-        {            
-            // Update the path to the module file
-            if (!String.IsNullOrEmpty(path))
-            {
-                ModulePath = path;
-            }
+        {
+                // Update the path to the module file
+                if (!String.IsNullOrEmpty(path))
+                {
+                    ModulePath = path;
+                }
             string backupPath = _fileArchiveManager.GenerateUniqueFileName(ModulePath);
 
-            // Make a back up of the module file just in case something goes wrong.
-            if (File.Exists(ModulePath))
-            {
-                File.Copy(ModulePath, backupPath);
-            }
+                // Make a back up of the module file just in case something goes wrong.
+                if (File.Exists(ModulePath))
+                {
+                    File.Copy(ModulePath, backupPath);
+                }
 
-            File.Delete(ModulePath);
+                File.Delete(ModulePath);
             _fileArchiveManager.ArchiveDirectory(TemporaryDirectoryPath, ModulePath);
 
-            // Delete the backup since the new save was successful.
-            File.Delete(backupPath);
+                // Delete the backup since the new save was successful.
+                File.Delete(backupPath);
             
-        }
+            }
 
         /// <summary>
         /// Saves the module using the existing path.

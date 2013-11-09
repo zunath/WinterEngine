@@ -176,13 +176,17 @@
     <Compile Include="Entities\MainMenuUIEntity.Generated.cs">
       <DependentUpon>MainMenuUIEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\AreaEntity.cs" />
-    <Compile Include="Entities\AreaEntity.Generated.cs">
-      <DependentUpon>AreaEntity.cs</DependentUpon>
+    <Compile Include="Entities\AreaEditorEntity.cs" />
+    <Compile Include="Entities\AreaEditorEntity.Generated.cs">
+      <DependentUpon>AreaEditorEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\ServerListUIEntity.cs" />
     <Compile Include="Entities\ServerListUIEntity.Generated.cs">
       <DependentUpon>ServerListUIEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TileEntity.cs" />
+    <Compile Include="Entities\TileEntity.Generated.cs">
+      <DependentUpon>TileEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\TilesetEditorEntity.cs" />
     <Compile Include="Entities\TilesetEditorEntity.Generated.cs">
@@ -192,7 +196,9 @@
     <Compile Include="Entities\ToolsetUIEntity.Generated.cs">
       <DependentUpon>ToolsetUIEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Factories\TileEntityFactory.Generated.cs" />
     <Compile Include="GlobalContent.Generated.cs" />
+    <Compile Include="Interfaces\IEditorEntity.cs" />
     <Compile Include="IoC\Bindings.cs" />
     <Compile Include="Performance\IEntityFactory.Generated.cs" />
     <Compile Include="Performance\IPoolable.Generated.cs" />

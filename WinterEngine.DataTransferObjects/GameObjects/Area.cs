@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations.Schema;
 using WinterEngine.DataTransferObjects.BusinessObjects;
+using Newtonsoft.Json;
 
 
 namespace WinterEngine.DataTransferObjects
@@ -33,6 +34,10 @@ namespace WinterEngine.DataTransferObjects
         /// Gets or sets the tiles used by this area.
         /// </summary>
         public virtual List<Tile> Tiles { get; set; }
+        [JsonIgnore]
+        [ForeignKey("TilesetID")]
+        public virtual Tileset AreaTileset { get; set; }
+        public int TilesetID { get; set; }
 
         /// <summary>
         /// Gets or sets the number of tiles wide this map is. Range: 1-32
@@ -77,19 +82,23 @@ namespace WinterEngine.DataTransferObjects
         }
 
         // EVENT SCRIPTS
-        public int? OnEnterEventScriptID { get; set; }
-        public int? OnExitEventScriptID { get; set; }
-        public int? OnHeartbeatEventScriptID { get; set; }
-        public int? OnUserDefinedEventScriptID { get; set; }
+        public int OnEnterEventScriptID { get; set; }
+        public int OnExitEventScriptID { get; set; }
+        public int OnHeartbeatEventScriptID { get; set; }
+        public int OnUserDefinedEventScriptID { get; set; }
 
         
         [ForeignKey("OnEnterEventScriptID")]
+        [JsonIgnore]
         public virtual Script OnAreaEnterEventScript { get; set; }
         [ForeignKey("OnExitEventScriptID")]
+        [JsonIgnore]
         public virtual Script OnAreaExitEventScript { get; set; }
         [ForeignKey("OnHeartbeatEventScriptID")]
+        [JsonIgnore]
         public virtual Script OnAreaHeartbeatEventScript { get; set; }
         [ForeignKey("OnUserDefinedEventScriptID")]
+        [JsonIgnore]
         public virtual Script OnAreaUserDefinedEventScript { get; set; }
         
         #endregion

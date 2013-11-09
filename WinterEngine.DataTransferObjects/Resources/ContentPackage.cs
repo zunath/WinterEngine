@@ -9,6 +9,7 @@ using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects
 {
+    [Serializable]
     [Table("ContentPackages")]
     public class ContentPackage : GameResourceBase
     {

@@ -155,7 +155,7 @@ namespace WinterEngine.Game.Entities
 
         private void OnConsoleMessage(object sender, ConsoleMessageEventArgs e)
         {
-            WinForms.MessageBox.Show(e.Message, "Console Message");
+            WinForms.MessageBox.Show("( Source: " + e.Source + " ) Line: " + e.LineNumber + ". Message: " + e.Message, "Console Message");
         }
 
         private void OnJavascriptDialog(object sender, JavascriptDialogEventArgs e)
@@ -178,7 +178,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("MouseExitUI", false, SetMouseIsInUIFalse);
             EntityJavascriptObject.Bind("GetPartialViewHTML", true, GetPartialViewHTML);
 
-            AsyncJavascriptCallback("Awesomium_LoadPartialViews");
+            RunJavaScriptMethod("Awesomium_LoadPartialViews();");
         }
 
         private void SetMouseIsInUITrue(object sender, JavascriptMethodEventArgs e)

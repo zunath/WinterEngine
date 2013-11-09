@@ -7,6 +7,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.GameObjects;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -65,11 +66,14 @@ namespace WinterEngine.DataAccess.Repositories
             }
             if (dbScript == null) return;
 
-            if (newScript.GraphicResourceID <= 0)
+            foreach (LocalVariable variable in newScript.LocalVariables)
             {
-                newScript.GraphicResourceID = null;
+                variable.GameObjectBaseID = newScript.ResourceID;
             }
 
+            Context.Context.Entry(dbScript).CurrentValues.SetValues(newScript);
+            Context.LocalVariableRepository.DeleteList(dbScript.LocalVariables.ToList());
+            Context.LocalVariableRepository.AddList(newScript.LocalVariables.ToList());
             _context.Entry(dbScript).CurrentValues.SetValues(newScript);
         }
 
@@ -106,6 +110,9 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public void Delete(int resourceID)
         {
+            Script script = Context.ScriptRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
+            Context.LocalVariableRepository.DeleteList(script.LocalVariables.ToList());
+            Context.ScriptRepository.Delete(script);
             Script script = _context.Scripts.Where(c => c.ResourceID == resourceID).SingleOrDefault();
             _context.Scripts.Remove(script);
         }
@@ -117,6 +124,18 @@ namespace WinterEngine.DataAccess.Repositories
         public List<Script> GetAll()
         {
             return _context.Scripts.ToList();
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects()
+        {
+            List<DropDownListUIObject> items = (from script
+                                                in Context.ScriptRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = script.Name,
+                                                    ResourceID = script.ResourceID
+                                                }).ToList();
+            return items;
         }
 
         /// <summary>
@@ -181,7 +200,7 @@ namespace WinterEngine.DataAccess.Repositories
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Script> scripts = GetAllByResourceCategory(category);
+                List<Script> scripts = Context.ScriptRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Script script in scripts)
                 {
                     JSTreeNode childNode = new JSTreeNode(script.Name);
@@ -198,7 +217,14 @@ namespace WinterEngine.DataAccess.Repositories
             rootNode.children = treeNodes;
             return rootNode;
         }
-        
+
+        public int GetDefaultResourceID()
+        {
+            Script defaultObject = Context.ScriptRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
+        }
+
+        public override void Dispose()
         #endregion
 
         public object Load(int resourceID)

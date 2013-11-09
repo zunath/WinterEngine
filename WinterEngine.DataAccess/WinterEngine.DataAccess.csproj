@@ -94,6 +94,7 @@
     <Compile Include="Contexts\ModuleDataContext.cs" />
     <Compile Include="Contexts\ModuleDataContextConfiguration.cs" />
     <Compile Include="Contexts\ModuleDataContextMigrationConfiguration.cs" />
+    <Compile Include="EntityCreationScripts.cs" />
     <Compile Include="Factories\FileExtensionFactory.cs" />
     <Compile Include="FileAccess\IFileArchiveManager.cs" />
     <Compile Include="Repositories\IDatabaseRepository.cs" />
@@ -103,18 +104,26 @@
     <Compile Include="FileAccess\PlayerCharacterFileAccess.cs" />
     <Compile Include="FileAccess\FileArchiveManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AbilityRepository.cs" />
     <Compile Include="Repositories\AreaRepository.cs" />
+    <Compile Include="Repositories\CharacterClassRepository.cs" />
     <Compile Include="Repositories\ContentPackageRepository.cs" />
     <Compile Include="Repositories\ContentPackageResourceRepository.cs" />
     <Compile Include="Repositories\ConversationRepository.cs" />
+    <Compile Include="Repositories\DefaultObjectRepository.cs" />
+    <Compile Include="Repositories\FactionRepository.cs" />
+    <Compile Include="Repositories\GenderRepository.cs" />
+    <Compile Include="Repositories\IGameModuleRepository.cs" />
+    <Compile Include="Repositories\ItemPropertyRepository.cs" />
     <Compile Include="Repositories\IRepositoryFactory.cs" />
     <Compile Include="Repositories\IRepositoryInterfaces.cs" />
     <Compile Include="Repositories\ItemTypeRepository.cs" />
     <Compile Include="Repositories\DatabaseRepository.cs" />
     <Compile Include="Repositories\CreatureRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
-    <Compile Include="Repositories\ModuleRepository.cs" />
+    <Compile Include="Repositories\GameModuleRepository.cs" />
     <Compile Include="Repositories\PlaceableRepository.cs" />
+    <Compile Include="Repositories\RaceRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ScriptRepository.cs" />
@@ -130,9 +139,7 @@
       <Name>WinterEngine.DataTransferObjects</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

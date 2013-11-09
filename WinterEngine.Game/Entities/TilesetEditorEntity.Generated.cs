@@ -7,6 +7,7 @@ using WinterEngine.Game.Screens;
 using FlatRedBall.Graphics;
 using FlatRedBall.Math;
 using WinterEngine.Game.Entities;
+using WinterEngine.Game.Factories;
 using FlatRedBall;
 using FlatRedBall.Screens;
 using System;
@@ -50,6 +51,7 @@ namespace WinterEngine.Game.Entities
 		static List<string> mRegisteredUnloads = new List<string>();
 		static List<string> LoadedContentManagers = new List<string>();
 		
+		private PositionedObjectList<TileEntity> TileList;
 		protected Layer LayerProvidedByContainer = null;
 
         public TilesetEditorEntity(string contentManagerName) :
@@ -71,6 +73,7 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
+			TileList = new PositionedObjectList<TileEntity>();
 			
 			PostInitialize();
 			if (addToManagers)
@@ -94,6 +97,14 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Activity
 			
+			for (int i = TileList.Count - 1; i > -1; i--)
+			{
+				if (i < TileList.Count)
+				{
+					// We do the extra if-check because activity could destroy any number of entities
+					TileList[i].Activity();
+				}
+			}
 			CustomActivity();
 			
 			// After Custom Activity
@@ -103,6 +114,13 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Destroy
 			SpriteManager.RemovePositionedObject(this);
+			
+			for (int i = TileList.Count - 1; i > -1; i--)
+			{
+				TileList[i].Destroy();
+			}
+
+
 			CustomDestroy();
 		}
 
@@ -141,6 +159,10 @@ namespace WinterEngine.Game.Entities
 		{
 			this.ForceUpdateDependenciesDeep();
 			SpriteManager.ConvertToManuallyUpdated(this);
+			for (int i = 0; i < TileList.Count; i++)
+			{
+				TileList[i].ConvertToManuallyUpdated();
+			}
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{

@@ -6,6 +6,7 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -71,6 +72,9 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void Delete(int resourceID)
         {
+            Tileset tileset = Context.TilesetRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            Context.LocalVariableRepository.DeleteList(tileset.LocalVariables.ToList());
+            Context.TilesetRepository.Delete(tileset);
             Tileset tileset = _context.Tilesets.Where(x => x.ResourceID == resourceID).SingleOrDefault();
             _context.Tilesets.Remove(tileset);
         }
@@ -93,6 +97,19 @@ namespace WinterEngine.DataAccess.Repositories
         public List<Tileset> GetAll()
         {
             return _context.Tilesets.ToList();
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects()
+        {
+            List<DropDownListUIObject> items = (from tileset
+                                                in Context.TilesetRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = tileset.Name,
+                                                    ResourceID = tileset.ResourceID
+                                                }).ToList();
+
+            return items;
         }
 
         public void DeleteAllByCategory(Category category)
@@ -118,7 +135,7 @@ namespace WinterEngine.DataAccess.Repositories
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Tileset> tilesets = GetAllByResourceCategory(category);
+                List<Tileset> tilesets = Context.TilesetRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Tileset tileset in tilesets)
                 {
                     JSTreeNode childNode = new JSTreeNode(tileset.Name);
@@ -148,6 +165,11 @@ namespace WinterEngine.DataAccess.Repositories
         public object Load(int resourceID)
         {
             throw new NotImplementedException();
+        }
+        public int GetDefaultResourceID()
+        {
+            Tileset defaultObject = Context.TilesetRepository.Get(x => x.IsDefault).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
         public int Save(object gameObject)

@@ -6,6 +6,7 @@ using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 
 namespace WinterEngine.DataAccess
@@ -41,6 +42,19 @@ namespace WinterEngine.DataAccess
             var result = _context.ResourceCategories.ToList();
             return result;
             //return Context.CategoryRepository.Get().ToList();
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects()
+        {
+            List<DropDownListUIObject> items = (from category
+                                                in Context.CategoryRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = category.Name,
+                                                    ResourceID = category.ResourceID
+                                                }).ToList();
+
+            return items;
         }
 
         /// <summary>
@@ -147,7 +161,13 @@ namespace WinterEngine.DataAccess
             throw new NotImplementedException();
         }
 
-        public void DeleteByCategory(Category category)
+        public int GetDefaultResourceID(GameObjectTypeEnum resourceType)
+        {
+            Category defaultObject = Context.CategoryRepository.Get(x => x.IsDefault && x.GameObjectType == resourceType).FirstOrDefault();
+            return defaultObject == null ? 0 : defaultObject.ResourceID;
+        }
+
+        public override void Dispose()
         {
             throw new NotImplementedException();
         }
