@@ -22,6 +22,7 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using FlatRedBall.Graphics;
 using WinterEngine.Game.Interfaces;
+using WinterEngine.Game.Factories;
 
 
 #endif
@@ -34,7 +35,6 @@ namespace WinterEngine.Game.Entities
 
         public int SpriteSheetRow { get; private set; }
         public int SpriteSheetColumn { get; private set; }
-        public bool IsPassable { get; private set; }
 
         #endregion
 
@@ -46,23 +46,18 @@ namespace WinterEngine.Game.Entities
 
         private void CustomInitialize()
 		{
+            CollisionBoxEntityFactory.Initialize(this.CollisionBoxList, ContentManagerName);
 		}
 
 		private void CustomActivity()
 		{
-            if (WasClickedThisFrame(GuiManager.Cursor))
-            {
-                IsPassable = !IsPassable;
-                RefreshPassability();
-            }
-
-
             SpriteManager.ManualUpdate(SpriteInstance);
-            SpriteManager.ManualUpdate(PassabilitySpriteInstance);
+
 		}
 
-		private void CustomDestroy()
+        private void CustomDestroy()
 		{
+            CollisionBoxEntityFactory.Destroy();
             DestroySprite();
 		}
 
@@ -80,9 +75,8 @@ namespace WinterEngine.Game.Entities
 
         #region Methods
 
-        public void InitializeSprite(Texture2D texture, int row, int column, bool isPassable)
+        public void InitializeSprite(Texture2D texture, int row, int column)
         {
-            this.IsPassable = isPassable;
             this.SpriteSheetRow = row;
             this.SpriteSheetColumn = column;
             SpriteInstance = new Sprite();
@@ -99,32 +93,46 @@ namespace WinterEngine.Game.Entities
             SpriteManager.AddSprite(SpriteInstance);
             SpriteInstance.AttachTo(this, false);
 
-            PassabilitySpriteInstance = new Sprite();
-            RefreshPassability();
-            PassabilitySpriteInstance.PixelSize = 0.5f;
-            PassabilitySpriteInstance.Z = 1;
+            //PassabilitySpriteInstance = new Sprite();
+            //RefreshPassability();
+            //PassabilitySpriteInstance.PixelSize = 0.5f;
+            //PassabilitySpriteInstance.Z = 1;
 
-            SpriteManager.AddSprite(PassabilitySpriteInstance);
-            PassabilitySpriteInstance.AttachTo(this, false);
+            //SpriteManager.AddSprite(PassabilitySpriteInstance);
+            //PassabilitySpriteInstance.AttachTo(this, false);
         }
 
-        public void DestroySprite()
+        private void DestroySprite()
         {
             SpriteInstance.Detach();
-            PassabilitySpriteInstance.Detach();
+            //PassabilitySpriteInstance.Detach();
             SpriteManager.RemoveSprite(SpriteInstance);
-            SpriteManager.RemoveSprite(PassabilitySpriteInstance);
         }
 
-        private void RefreshPassability()
+        public void InitializeCollisionBoxes()
         {
-            if (IsPassable)
+            int collisionBoxWidth = (int)MappingEnum.TileWidth / (int)MappingEnum.CollisionBoxDivisor;
+            int collisionBoxHeight = (int)MappingEnum.TileHeight / (int)MappingEnum.CollisionBoxDivisor;
+            int numberOfCollisionBoxesRows = (int)MappingEnum.CollisionBoxDivisor;
+            int numberOfCollisionBoxesColumns = (int)MappingEnum.CollisionBoxDivisor;
+
+            // In FRB, the origin is at the center of the sprite. We need to compensate for this by shifting
+            // the collision boxes to the left (negative X) and up (positive Y)
+            int offsetX = ((int)MappingEnum.TileWidth / 2) - (collisionBoxWidth / 2);
+            int offsetY = ((int)MappingEnum.TileHeight / 2) - (collisionBoxHeight / 2);
+
+            for (int row = 0; row < numberOfCollisionBoxesRows; row++)
             {
-                PassabilitySpriteInstance.Texture = FlatRedBallServices.Load<Texture2D>(@"Content/Editor/Icons/Passable.png");
-            }
-            else
-            {
-                PassabilitySpriteInstance.Texture = FlatRedBallServices.Load<Texture2D>(@"Content/Editor/Icons/Unpassable.png");
+                for (int column = 0; column < numberOfCollisionBoxesColumns; column++)
+                {
+                    CollisionBoxEntity box = CollisionBoxEntityFactory.CreateNew();
+                    box.TileRow = row;
+                    box.TileColumn = column;
+
+                    box.X = (this.Position.X - offsetX) + (column * collisionBoxWidth);
+                    box.Y = (this.Position.Y + offsetY) - (row * collisionBoxHeight);
+                    
+                }
             }
         }
 
@@ -135,13 +143,11 @@ namespace WinterEngine.Game.Entities
         public void HideEntity()
         {
             this.SpriteInstance.Visible = false;
-            this.PassabilitySpriteInstance.Visible = false;
         }
 
         public void ShowEntity()
         {
             this.SpriteInstance.Visible = true;
-            this.PassabilitySpriteInstance.Visible = true;
         }
 
         #endregion

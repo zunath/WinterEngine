@@ -7,7 +7,6 @@ using WinterEngine.Game.Screens;
 using FlatRedBall.Graphics;
 using FlatRedBall.Math;
 using WinterEngine.Game.Performance;
-using FlatRedBall.Gui;
 using WinterEngine.Game.Entities;
 using WinterEngine.Game.Factories;
 using FlatRedBall;
@@ -36,7 +35,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class TileEntity : PositionedObject, IDestroyable, IPoolable, IClickable
+	public partial class TileEntity : PositionedObject, IDestroyable, IPoolable
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static string ContentManagerName
@@ -65,7 +64,21 @@ namespace WinterEngine.Game.Entities
 				mSpriteInstance = value;
 			}
 		}
-		private FlatRedBall.Sprite PassabilitySpriteInstance;
+		static float SpriteInstanceXReset;
+		static float SpriteInstanceYReset;
+		static float SpriteInstanceZReset;
+		static float SpriteInstanceXVelocityReset;
+		static float SpriteInstanceYVelocityReset;
+		static float SpriteInstanceZVelocityReset;
+		static float SpriteInstanceRotationXReset;
+		static float SpriteInstanceRotationYReset;
+		static float SpriteInstanceRotationZReset;
+		static float SpriteInstanceRotationXVelocityReset;
+		static float SpriteInstanceRotationYVelocityReset;
+		static float SpriteInstanceRotationZVelocityReset;
+		static float SpriteInstanceAlphaReset;
+		static float SpriteInstanceAlphaRateReset;
+		private PositionedObjectList<CollisionBoxEntity> CollisionBoxList;
 		public int Index { get; set; }
 		public bool Used { get; set; }
 		protected Layer LayerProvidedByContainer = null;
@@ -89,7 +102,7 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			PassabilitySpriteInstance = new FlatRedBall.Sprite();
+			CollisionBoxList = new PositionedObjectList<CollisionBoxEntity>();
 			
 			PostInitialize();
 			if (addToManagers)
@@ -103,6 +116,7 @@ namespace WinterEngine.Game.Entities
 // Generated AddToManagers
 		public virtual void AddToManagers (Layer layerToAddTo)
 		{
+			PostInitialize();
 			LayerProvidedByContainer = layerToAddTo;
 			SpriteManager.AddPositionedObject(this);
 			AddToManagersBottomUp(layerToAddTo);
@@ -112,8 +126,15 @@ namespace WinterEngine.Game.Entities
 		public virtual void Activity()
 		{
 			// Generated Activity
-			mIsPaused = false;
 			
+			for (int i = CollisionBoxList.Count - 1; i > -1; i--)
+			{
+				if (i < CollisionBoxList.Count)
+				{
+					// We do the extra if-check because activity could destroy any number of entities
+					CollisionBoxList[i].Activity();
+				}
+			}
 			CustomActivity();
 			
 			// After Custom Activity
@@ -132,9 +153,9 @@ namespace WinterEngine.Game.Entities
 			{
 				SpriteManager.RemoveSpriteOneWay(SpriteInstance);
 			}
-			if (PassabilitySpriteInstance != null)
+			for (int i = CollisionBoxList.Count - 1; i > -1; i--)
 			{
-				SpriteManager.RemoveSpriteOneWay(PassabilitySpriteInstance);
+				CollisionBoxList[i].Destroy();
 			}
 
 
@@ -156,13 +177,6 @@ namespace WinterEngine.Game.Entities
 				SpriteInstance.Texture = null;
 				SpriteInstance.TextureScale = 1f;
 			}
-			if (PassabilitySpriteInstance.Parent == null)
-			{
-				PassabilitySpriteInstance.CopyAbsoluteToRelative();
-				PassabilitySpriteInstance.AttachTo(this, false);
-			}
-			PassabilitySpriteInstance.Texture = null;
-			PassabilitySpriteInstance.TextureScale = 1f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -182,9 +196,6 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
-			SpriteManager.AddToLayer(PassabilitySpriteInstance, layerToAddTo);
-			PassabilitySpriteInstance.Texture = null;
-			PassabilitySpriteInstance.TextureScale = 1f;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
@@ -197,7 +208,10 @@ namespace WinterEngine.Game.Entities
 			this.ForceUpdateDependenciesDeep();
 			SpriteManager.ConvertToManuallyUpdated(this);
 			SpriteManager.ConvertToManuallyUpdated(SpriteInstance);
-			SpriteManager.ConvertToManuallyUpdated(PassabilitySpriteInstance);
+			for (int i = 0; i < CollisionBoxList.Count; i++)
+			{
+				CollisionBoxList[i].ConvertToManuallyUpdated();
+			}
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -266,34 +280,6 @@ namespace WinterEngine.Game.Entities
 		{
 			return null;
 		}
-		public virtual bool HasCursorOver (FlatRedBall.Gui.Cursor cursor)
-		{
-			if (mIsPaused)
-			{
-				return false;
-			}
-			if (LayerProvidedByContainer != null && LayerProvidedByContainer.Visible == false)
-			{
-				return false;
-			}
-			if (!cursor.IsOn(LayerProvidedByContainer))
-			{
-				return false;
-			}
-			if (SpriteInstance.Alpha != 0 && SpriteInstance.AbsoluteVisible && cursor.IsOn3D(SpriteInstance, LayerProvidedByContainer))
-			{
-				return true;
-			}
-			if (PassabilitySpriteInstance.Alpha != 0 && PassabilitySpriteInstance.AbsoluteVisible && cursor.IsOn3D(PassabilitySpriteInstance, LayerProvidedByContainer))
-			{
-				return true;
-			}
-			return false;
-		}
-		public virtual bool WasClickedThisFrame (FlatRedBall.Gui.Cursor cursor)
-		{
-			return cursor.PrimaryClick && HasCursorOver(cursor);
-		}
 		protected bool mIsPaused;
 		public override void Pause (FlatRedBall.Instructions.InstructionList instructions)
 		{
@@ -307,7 +293,6 @@ namespace WinterEngine.Game.Entities
 			{
 				FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(SpriteInstance);
 			}
-			FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(PassabilitySpriteInstance);
 		}
 		public virtual void MoveToLayer (Layer layerToMoveTo)
 		{
@@ -316,11 +301,6 @@ namespace WinterEngine.Game.Entities
 				LayerProvidedByContainer.Remove(SpriteInstance);
 			}
 			SpriteManager.AddToLayer(SpriteInstance, layerToMoveTo);
-			if (LayerProvidedByContainer != null)
-			{
-				LayerProvidedByContainer.Remove(PassabilitySpriteInstance);
-			}
-			SpriteManager.AddToLayer(PassabilitySpriteInstance, layerToMoveTo);
 			LayerProvidedByContainer = layerToMoveTo;
 		}
 

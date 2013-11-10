@@ -47,10 +47,6 @@ namespace WinterEngine.DataTransferObjects
         /// Gets or sets the layer on which this tile exists.
         /// </summary>
         public int MapLayer { get; set; }
-        /// <summary>
-        /// Gets or sets whether the player can pass over the tile.
-        /// </summary>
-        public bool IsPassable { get; set; }
 
         #endregion
 

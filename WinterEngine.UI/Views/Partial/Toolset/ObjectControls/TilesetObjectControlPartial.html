@@ -17,7 +17,7 @@
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
                        value: ActiveTileset.GraphicResourceID == null ? 0 : ActiveTileset.GraphicResourceID,
-                       click: function (item) { return Entity.LoadTilesetSpritesheet(parseInt($('#selTilesetDetails-Spritesheet').val())); }">
+                       click: function (item) { return SelectTilesetSpriteSheet(); }">
         </select>
 
     </div>

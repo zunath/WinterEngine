@@ -19,7 +19,12 @@ namespace WinterEngine.Game.Factories
 				throw new System.Exception("You must first initialize the factory to use it.");
 			}
 			TileEntity instance = null;
-			instance = new TileEntity(mContentManagerName, false);
+			instance = mPool.GetNextAvailable();
+			if (instance == null)
+			{
+				mPool.AddToPool(new TileEntity(mContentManagerName, false));
+				instance =  mPool.GetNextAvailable();
+			}
 			instance.AddToManagers(layer);
 			if (mScreenListReference != null)
 			{
@@ -36,6 +41,7 @@ namespace WinterEngine.Game.Factories
 		{
 			mContentManagerName = contentManager;
 			mScreenListReference = listFromScreen;
+			FactoryInitialize();
 		}
 		
 		public static void Destroy ()
@@ -73,7 +79,12 @@ namespace WinterEngine.Game.Factories
 		/// </summary>
 		public static void MakeUnused (TileEntity objectToMakeUnused, bool callDestroy)
 		{
-			objectToMakeUnused.Destroy();
+			mPool.MakeUnused(objectToMakeUnused);
+			
+			if (callDestroy)
+			{
+				objectToMakeUnused.Destroy();
+			}
 		}
 		
 		
