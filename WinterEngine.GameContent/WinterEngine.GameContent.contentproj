@@ -66,6 +66,10 @@
     <Folder Include="Game\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Entities\TileCollisionBoxEntity\Transparent_8x8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Transparent_8x8</Name>
+    </None>
     <None Include="Modules\deleteme.txt">
       <Name>deleteme</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

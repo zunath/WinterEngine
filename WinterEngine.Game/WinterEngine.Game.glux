@@ -521,9 +521,34 @@
       <NamedObjects>
         <NamedObjectSave>
           <CustomProperty>
-            <Type>Color</Type>
-            <Member>Color</Member>
-            <ValueAsString>Red</ValueAsString>
+            <Type>Texture2D</Type>
+            <Member>Texture</Member>
+            <ValueAsString>Transparent_8x8</ValueAsString>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>PixelSize</Member>
+            <ValueAsFloat>0.5</ValueAsFloat>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>Alpha</Member>
+            <ValueAsFloat>0.5</ValueAsFloat>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>Blue</Member>
+            <ValueAsFloat>0</ValueAsFloat>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>ColorOperation</Type>
+            <Member>ColorOperation</Member>
+            <ValueAsInt>10</ValueAsInt>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>Green</Member>
+            <ValueAsFloat>0</ValueAsFloat>
           </CustomProperty>
           <CustomProperty>
             <Type>float</Type>
@@ -531,37 +556,40 @@
             <ValueAsFloat>8</ValueAsFloat>
           </CustomProperty>
           <CustomProperty>
-            <Type>bool</Type>
-            <Member>Visible</Member>
-            <ValueAsBool>true</ValueAsBool>
+            <Type>float</Type>
+            <Member>Red</Member>
+            <ValueAsFloat>0.5</ValueAsFloat>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>TextureScale</Member>
+            <ValueAsFloat>0</ValueAsFloat>
           </CustomProperty>
           <CustomProperty>
             <Type>float</Type>
             <Member>Width</Member>
             <ValueAsFloat>8</ValueAsFloat>
           </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>Z</Member>
+            <ValueAsFloat>1</ValueAsFloat>
+          </CustomProperty>
           <SourceType>FlatRedBallType</SourceType>
           <SourceFile />
-          <SourceClassType>AxisAlignedRectangle</SourceClassType>
+          <SourceClassType>Sprite</SourceClassType>
           <InstanceName>SpriteInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
-          <VariablesToReset>
-            <string>X</string>
-            <string>Y</string>
-            <string>Z</string>
-            <string>XVelocity</string>
-            <string>YVelocity</string>
-            <string>ZVelocity</string>
-            <string>RotationX</string>
-            <string>RotationY</string>
-            <string>RotationZ</string>
-            <string>RotationXVelocity</string>
-            <string>RotationYVelocity</string>
-            <string>RotationZVelocity</string>
-          </VariablesToReset>
           <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
       </NamedObjects>
+      <ReferencedFiles>
+        <ReferencedFileSave>
+          <Name>Entities/TileCollisionBoxEntity/Transparent_8x8.png</Name>
+          <IsSharedStatic>true</IsSharedStatic>
+          <RuntimeType>Microsoft.Xna.Framework.Graphics.Texture2D</RuntimeType>
+        </ReferencedFileSave>
+      </ReferencedFiles>
       <CreatedByOtherEntities>true</CreatedByOtherEntities>
       <PooledByFactory>true</PooledByFactory>
       <Is2D>true</Is2D>

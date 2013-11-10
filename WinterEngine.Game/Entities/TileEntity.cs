@@ -121,6 +121,7 @@ namespace WinterEngine.Game.Entities
             int offsetX = ((int)MappingEnum.TileWidth / 2) - (collisionBoxWidth / 2);
             int offsetY = ((int)MappingEnum.TileHeight / 2) - (collisionBoxHeight / 2);
 
+            int boxIndex = 1;
             for (int row = 0; row < numberOfCollisionBoxesRows; row++)
             {
                 for (int column = 0; column < numberOfCollisionBoxesColumns; column++)
@@ -128,10 +129,12 @@ namespace WinterEngine.Game.Entities
                     TileCollisionBoxEntity box = TileCollisionBoxEntityFactory.CreateNew();
                     box.TileRow = row;
                     box.TileColumn = column;
+                    box.CollisionBoxIndex = boxIndex;
 
                     box.X = (this.Position.X - offsetX) + (column * collisionBoxWidth);
                     box.Y = (this.Position.Y + offsetY) - (row * collisionBoxHeight);
-                    
+
+                    boxIndex++;
                 }
             }
         }
