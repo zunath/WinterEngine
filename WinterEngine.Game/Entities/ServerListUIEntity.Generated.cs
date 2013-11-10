@@ -287,16 +287,5 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class ServerListUIEntityExtensionMethods
-	{
-		public static void SetVisible (this PositionedObjectList<ServerListUIEntity> list, bool value)
-		{
-			int count = list.Count;
-			for (int i = 0; i < count; i++)
-			{
-				list[i].Visible = value;
-			}
-		}
-	}
 	
 }

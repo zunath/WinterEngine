@@ -46,7 +46,7 @@ namespace WinterEngine.Game.Entities
 
         private void CustomInitialize()
 		{
-            CollisionBoxEntityFactory.Initialize(this.CollisionBoxList, ContentManagerName);
+            TileCollisionBoxEntityFactory.Initialize(this.CollisionBoxList, ContentManagerName);
 		}
 
 		private void CustomActivity()
@@ -57,7 +57,7 @@ namespace WinterEngine.Game.Entities
 
         private void CustomDestroy()
 		{
-            CollisionBoxEntityFactory.Destroy();
+            TileCollisionBoxEntityFactory.Destroy();
             DestroySprite();
 		}
 
@@ -125,7 +125,7 @@ namespace WinterEngine.Game.Entities
             {
                 for (int column = 0; column < numberOfCollisionBoxesColumns; column++)
                 {
-                    CollisionBoxEntity box = CollisionBoxEntityFactory.CreateNew();
+                    TileCollisionBoxEntity box = TileCollisionBoxEntityFactory.CreateNew();
                     box.TileRow = row;
                     box.TileColumn = column;
 

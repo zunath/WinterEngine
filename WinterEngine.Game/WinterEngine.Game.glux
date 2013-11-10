@@ -288,61 +288,6 @@
         <string>GLUE</string>
       </Tags>
       <Source>GLUE</Source>
-      <ImplementsIClickable>true</ImplementsIClickable>
-      <Name>Entities\CollisionBoxEntity</Name>
-      <NamedObjects>
-        <NamedObjectSave>
-          <CustomProperty>
-            <Type>Color</Type>
-            <Member>Color</Member>
-            <ValueAsString>Red</ValueAsString>
-          </CustomProperty>
-          <CustomProperty>
-            <Type>float</Type>
-            <Member>Height</Member>
-            <ValueAsFloat>8</ValueAsFloat>
-          </CustomProperty>
-          <CustomProperty>
-            <Type>bool</Type>
-            <Member>Visible</Member>
-            <ValueAsBool>true</ValueAsBool>
-          </CustomProperty>
-          <CustomProperty>
-            <Type>float</Type>
-            <Member>Width</Member>
-            <ValueAsFloat>8</ValueAsFloat>
-          </CustomProperty>
-          <SourceType>FlatRedBallType</SourceType>
-          <SourceFile />
-          <SourceClassType>AxisAlignedRectangle</SourceClassType>
-          <InstanceName>SpriteInstance</InstanceName>
-          <AttachToContainer>true</AttachToContainer>
-          <VariablesToReset>
-            <string>X</string>
-            <string>Y</string>
-            <string>Z</string>
-            <string>XVelocity</string>
-            <string>YVelocity</string>
-            <string>ZVelocity</string>
-            <string>RotationX</string>
-            <string>RotationY</string>
-            <string>RotationZ</string>
-            <string>RotationXVelocity</string>
-            <string>RotationYVelocity</string>
-            <string>RotationZVelocity</string>
-          </VariablesToReset>
-          <IndependentOfCamera>true</IndependentOfCamera>
-        </NamedObjectSave>
-      </NamedObjects>
-      <CreatedByOtherEntities>true</CreatedByOtherEntities>
-      <PooledByFactory>true</PooledByFactory>
-      <Is2D>true</Is2D>
-    </EntitySave>
-    <EntitySave>
-      <Tags>
-        <string>GLUE</string>
-      </Tags>
-      <Source>GLUE</Source>
       <CustomVariables>
         <CustomVariable>
           <Properties>
@@ -571,6 +516,61 @@
         <string>GLUE</string>
       </Tags>
       <Source>GLUE</Source>
+      <ImplementsIClickable>true</ImplementsIClickable>
+      <Name>Entities\TileCollisionBoxEntity</Name>
+      <NamedObjects>
+        <NamedObjectSave>
+          <CustomProperty>
+            <Type>Color</Type>
+            <Member>Color</Member>
+            <ValueAsString>Red</ValueAsString>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>Height</Member>
+            <ValueAsFloat>8</ValueAsFloat>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>bool</Type>
+            <Member>Visible</Member>
+            <ValueAsBool>true</ValueAsBool>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>Width</Member>
+            <ValueAsFloat>8</ValueAsFloat>
+          </CustomProperty>
+          <SourceType>FlatRedBallType</SourceType>
+          <SourceFile />
+          <SourceClassType>AxisAlignedRectangle</SourceClassType>
+          <InstanceName>SpriteInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <VariablesToReset>
+            <string>X</string>
+            <string>Y</string>
+            <string>Z</string>
+            <string>XVelocity</string>
+            <string>YVelocity</string>
+            <string>ZVelocity</string>
+            <string>RotationX</string>
+            <string>RotationY</string>
+            <string>RotationZ</string>
+            <string>RotationXVelocity</string>
+            <string>RotationYVelocity</string>
+            <string>RotationZVelocity</string>
+          </VariablesToReset>
+          <IndependentOfCamera>true</IndependentOfCamera>
+        </NamedObjectSave>
+      </NamedObjects>
+      <CreatedByOtherEntities>true</CreatedByOtherEntities>
+      <PooledByFactory>true</PooledByFactory>
+      <Is2D>true</Is2D>
+    </EntitySave>
+    <EntitySave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <Name>Entities\TileEntity</Name>
       <NamedObjects>
         <NamedObjectSave>
@@ -612,7 +612,7 @@
           <SourceType>FlatRedBallType</SourceType>
           <SourceFile />
           <SourceClassType>PositionedObjectList&lt;T&gt;</SourceClassType>
-          <SourceClassGenericType>Entities\CollisionBoxEntity</SourceClassGenericType>
+          <SourceClassGenericType>Entities\TileCollisionBoxEntity</SourceClassGenericType>
           <InstanceName>CollisionBoxList</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <IndependentOfCamera>true</IndependentOfCamera>

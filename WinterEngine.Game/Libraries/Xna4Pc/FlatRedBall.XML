@@ -43,12 +43,104 @@
             This supports line of sight.
             </summary>
         </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.#ctor(System.Single,System.Single,System.Single,System.Int32,System.Int32)">
+            <summary>
+            Instantiates a new VisibilityGrid.
+            </summary>
+            <param name="xSeed">The absolute x coordinate seed value.</param>
+            <param name="ySeed">The absolute y coordinate seed value.</param>
+            <param name="gridSpacing">The amount of distance in world coordinates between rows and columns.</param>
+            <param name="numberOfXTiles">Number of tiles wide (on the X axis)</param>
+            <param name="numberOfYTiles">Number of tiles heigh (on the Y axis)</param>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.Activity">
+            <summary>
+            Checks if any viewers have changed since last Update, and if so it updates the grid.
+            </summary>
+            <returns>Whether anything has changed.</returns>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.Destroy">
+            <summary>
+            Destroys the VisibilityGrid - specifically disposing its internal fog texture.
+            </summary>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.AddViewer(FlatRedBall.AI.LineOfSight.IViewer)">
+            <summary>
+            Adds an IViewer to this grid.
+            </summary>
+            <param name="viewerToAdd">The viewer to add.</param>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.BleedDirectlyVisibleToWalls">
+            <summary>
+            Makes walls visible if they are adjacent to visible non-walls.
+            </summary>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.BlockWorld(System.Single,System.Single)">
+            <summary>
+            Adds a block (or wall) at a given world location.
+            </summary>
+            <param name="worldX">The world coordinate X.</param>
+            <param name="worldY">The world coordinate Y.</param>
+        </member>
         <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.UnBlockWorld(System.Single,System.Single)">
             <summary>
             Unblocks a tile that was previously marked as a world blocker
             </summary>
             <param name="X">The X coordinate of the tile</param>
             <param name="Y">The Y coordinate of the tile</param>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.ClearBlockedTiles">
+            <summary>
+            Clears all blocked tiles.
+            </summary>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.IsPositionInDirectView(FlatRedBall.AI.LineOfSight.IViewer,Microsoft.Xna.Framework.Vector3@)">
+            <summary>
+            Returns whether a given world position is in view of a given viewer.
+            </summary>
+            <param name="viewer">The viewer to check visibility for.</param>
+            <param name="targetPosition">The world coordinates.</param>
+            <returns>Whether in view.</returns>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.IsRevealedWorld(System.Single,System.Single)">
+            <summary>
+            Returns whether a given world coordinate is relealed.
+            </summary>
+            <param name="worldX">The world x coordinate.</param>
+            <param name="worldY">The world y coordinate.</param>
+            <returns>Whether the world coordinate is revealed or not.</returns>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.IsRevealed(System.Int32,System.Int32)">
+            <summary>
+            Returns whether a given X and Y index is revealed.
+            </summary>
+            <param name="xIndex">The x index</param>
+            <param name="yIndex">The y index</param>
+            <returns>Whether the location specified by the x/y index is revealed.</returns>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.MakeAllHidden">
+            <summary>
+            Hides the entire grid (makes it not revealed).
+            </summary>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.MakeAllRevealed">
+            <summary>
+            Reveals the entire grid.
+            </summary>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.RemoveViewer(FlatRedBall.AI.LineOfSight.IViewer)">
+            <summary>
+            Removes a viewer.
+            </summary>
+            <param name="viewerToRemove">The argument IViewer to remove.</param>
+        </member>
+        <member name="M:FlatRedBall.AI.LineOfSight.VisibilityGrid.RevealCircleWorld(System.Single,System.Single,System.Single)">
+            <summary>
+            Reveals a circle around the given world coordinate using a given radius
+            </summary>
+            <param name="worldX">The world coordinate X</param>
+            <param name="worldY">The world coordinate Y</param>
+            <param name="worldRadius">The radius in world units</param>
         </member>
         <member name="M:FlatRedBall.AI.Pathfinding.PathfindingFunctions.IsInLineOfSight(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,FlatRedBall.Math.PositionedObjectList{FlatRedBall.Math.Geometry.Polygon})">
             <summary>
@@ -270,6 +362,7 @@
             <param name="destination">The world-coordinate of the destination.</param>
             <param name="numberOfOptimizations">The number of times the algorithm will take the midpoint between
             two nodes to test if they are within line of sight of each other (higher means nearer to optimal path).</param>
+            <param name="optimizationsDeep"></param>
             <param name="collisionThreshold">Usually the object using the path will be larger than 0, use the size of the collision for testing line of sight.</param>
             <param name="collisionMap">The collision map which will have the obstacles you are trying to path around.</param>
             <returns></returns>
@@ -1600,7 +1693,7 @@
             Currently, this method assumes viewing down the Z axis.
             </remarks>
             <param name="x">The absolute X position of the point.</param>
-            <param name="z">The absolute Z position of the point.</param>
+            <param name="absoluteZ">The absolute Z position of the point.</param>
             <returns></returns>
         </member>
         <member name="M:FlatRedBall.Camera.IsYInView(System.Double,System.Double)">
@@ -1611,7 +1704,7 @@
             Currently, this method assumes viewing down the Z axis.
             </remarks>
             <param name="y">The absolute Y position of the point.</param>
-            <param name="z">The absolute Z position of the point.</param>
+            <param name="absoluteZ">The absolute Z position of the point.</param>
             <returns></returns>
         </member>
         <member name="M:FlatRedBall.Camera.PixelsPerUnitAt(System.Single)">
@@ -2492,6 +2585,14 @@
             SpriteRigs to the runtime instances.
             </summary>
         </member>
+        <member name="M:FlatRedBall.Content.SpriteRig.SpriteRigReader.Read(Microsoft.Xna.Framework.Content.ContentReader,FlatRedBall.ManagedSpriteGroups.SpriteRig)">
+            <summary>
+            Reads a sprite rig from a ContentReader
+            </summary>
+            <param name="input"></param>
+            <param name="existingInstance"></param>
+            <returns></returns>
+        </member>
         <member name="T:FlatRedBall.Content.SpriteReader">
             <summary>
             Class used by FlatRedBall to read Sprites out of a .XNB file when used
@@ -2503,6 +2604,78 @@
             Base class for SpriteRigSave and SpriteRigSaveContent.
             </summary>
             <typeparam name="T">The type of the Sprite.  Can be SpriteSave or SpriteSaveContent.</typeparam>
+        </member>
+        <member name="F:FlatRedBall.Content.SpriteRig.SpriteRigSaveBase`1.RootName">
+            <summary>
+            The name of the Root sprite of the SpriteRig.
+            </summary>
+        </member>
+        <member name="F:FlatRedBall.Content.SpriteRig.SpriteRigSaveBase`1.RootVisible">
+            <summary>
+            Whether the root is visible - often used for debugging or in tools
+            </summary>
+        </member>
+        <member name="F:FlatRedBall.Content.SpriteRig.SpriteRigSaveBase`1.JointsVisible">
+            <summary>
+            Whether joints are visible - often used for debugging or in tools.
+            </summary>
+        </member>
+        <member name="F:FlatRedBall.Content.SpriteRig.SpriteRigSaveBase`1.AssetsRelativeToFile">
+            <summary>
+            Whether the assets referenced by the SpriteRigSaveBase should be serialized as relative to file.
+            </summary>
+        </member>
+        <member name="F:FlatRedBall.Content.SpriteRig.SpriteRigSaveBase`1.RightHandedCoordinateSystem">
+            <summary>
+            Whether the SpriteRigSaveBase uses a right-handed coordinate system.
+            </summary>
+        </member>
+        <member name="F:FlatRedBall.Content.SpriteRig.SpriteRigSaveBase`1.TimeMeasurementUnit">
+            <summary>
+            The TimeMeasurementUnit used by the SpriteRigSaveBase.
+            </summary>
+        </member>
+        <member name="F:FlatRedBall.Content.SpriteRig.SpriteRigSaveBase`1.mFileName">
+            <summary>
+            The file name for this SpriteRigSaveBase
+            </summary>
+        </member>
+        <member name="M:FlatRedBall.Content.SpriteRig.SpriteRigSave.#ctor(FlatRedBall.SpriteList,FlatRedBall.SpriteList,System.Collections.Generic.List{FlatRedBall.ManagedSpriteGroups.PoseChain},FlatRedBall.Sprite,System.Boolean)">
+            <summary>
+            Instantiates a new SpriteRigSave.
+            </summary>
+            <param name="jointsToUse"></param>
+            <param name="bodySpritesToUse"></param>
+            <param name="poseChains"></param>
+            <param name="rootSprite"></param>
+            <param name="assetsRelativeToFile"></param>
+        </member>
+        <member name="M:FlatRedBall.Content.SpriteRig.SpriteRigSave.GetReferencedFiles(FlatRedBall.IO.RelativeType)">
+            <summary>
+            Returns a list of files referenced by this instance.
+            </summary>
+            <param name="relativeType">Whether the returned files should be absolute or relative.</param>
+            <returns>All referenced files.</returns>
+        </member>
+        <member name="M:FlatRedBall.Content.SpriteRig.SpriteRigSave.Save(System.String)">
+            <summary>
+            Saves this file to a XML file on disk.
+            </summary>
+            <param name="fileName">The name of the file to save to.</param>
+        </member>
+        <member name="M:FlatRedBall.Content.SpriteRig.SpriteRigSave.FromFile(System.String)">
+            <summary>
+            Loads the argument file and converts it to a SpriteRigSave.
+            </summary>
+            <param name="fileName">The file to load.</param>
+            <returns>The loaded file.</returns>
+        </member>
+        <member name="M:FlatRedBall.Content.SpriteRig.SpriteRigSave.ToSpriteRig(System.String)">
+            <summary>
+            Converts this to a SpriteRig using the contentManagerName.
+            </summary>
+            <param name="contentManagerName">The content manager to use when loading referenced files.</param>
+            <returns>The resulting SpriteRig.</returns>
         </member>
         <member name="T:FlatRedBall.Content.TextReader">
             <summary>
@@ -2592,7 +2765,7 @@
             <summary>
             The update method for command line games.  Does not render anything to the screen
             </summary>
-            <param name="game">The GameTime</param>
+            <param name="gameTime">The GameTime</param>
         </member>
         <member name="M:FlatRedBall.FlatRedBallServices.UpdateDependencies">
             <summary>
@@ -3543,10 +3716,18 @@
             <param name="diffuseColor"></param>
             <returns></returns>
         </member>
-        <member name="T:FlatRedBall.Graphics.Model.AnimatedPositionedBone">
+        <member name="T:FlatRedBall.Graphics.Model.EffectParameterProperties">
             <summary>
-            An animated bone that can be attached to
+            Runtime effect property value which can be used to set effects.
             </summary>
+        </member>
+        <member name="T:FlatRedBall.Graphics.Model.Material">
+            <summary>
+            A list of effects and parameters.  
+            </summary>
+            <remarks>
+            This class is generally not used during runtime - it's used in the FlatRedBall content pipeline.
+            </remarks>
         </member>
         <member name="T:FlatRedBall.Graphics.Model.PositionedBone">
             <summary>
@@ -3598,662 +3779,6 @@
             <summary>
             Gets and sets the rate at which the Y Scale of the object changes in units per second.
             </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.AnimationController">
-            <summary>
-            Controls an animation by advancing it's time and affecting
-            bone transforms
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.AnimationController.animation">
-            <summary>
-            Contains the interpolated transforms for all bones in an animation.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.AnimationController.#ctor(FlatRedBall.Graphics.Model.Animation.AnimationInfo)">
-            <summary>
-            Creates a new animation controller.
-            </summary>
-            <param name="sourceAnimation">The source animation that the controller will use.
-            This is stored in the ModelAnimator class.</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.AnimationController.OnAnimationEnded(System.EventArgs)">
-            <summary>
-            Called when the current animation reaches the end.
-            </summary>
-            <param name="args">The event args.</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.AnimationController.TimedActivity(System.Single,System.Double,System.Single)">
-            <summary>
-            Advances the current time in the animation.
-            </summary>
-            <param name="gameTime">Contains the time by which the animation will be advanced</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.AnimationController.GetCurrentBoneTransform(FlatRedBall.Graphics.Model.Animation.BonePose)">
-            <summary>
-            Gets the current transform for the given BonePose object in the animation.
-            This is only called when a bone pose is affected by the current animation.
-            </summary>
-            <param name="pose">The BonePose object querying for the current transform in
-            the animation.</param>
-            <returns>The current transform of the bone.</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.AnimationController.ContainsAnimationTrack(FlatRedBall.Graphics.Model.Animation.BonePose)">
-            <summary>
-            Returns true if the animation contains a track for the given BonePose.
-            </summary>
-            <param name="pose">The BonePose to test for track existence.</param>
-            <returns>True if the animation contains a track for the given BonePose.</returns>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationController.IsLooping">
-            <summary>
-            Gets or sets a value that determines if the animation is looping.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationController.EndedThisFrame">
-            <summary>
-            Gets a value that determines if the animation ended or looped this frame.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationController.LoopedThisFrame">
-            <summary>
-            Gets a value that determines if the animation looped this frame.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationController.Duration">
-            <summary>
-            Gets the total duration, in ticks, of the animation.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationController.AnimationSource">
-            <summary>
-            Gets the source animation that this controller is using.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationController.ElapsedTime">
-            <summary>
-            Gets or sets the elapsed time for the animation in seconds.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationController.SpeedFactor">
-            <summary>
-            Gets or sets the value that is multiplied by the time when it is
-            advanced to determine the playback speed of the animation.
-            </summary>
-        </member>
-        <member name="E:FlatRedBall.Graphics.Model.Animation.AnimationController.AnimationEnded">
-            <summary>
-            Fired when the controller is not looping and the animation has ended.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.BoneKeyframeCollection">
-            <summary>
-            A collection of BoneKeyFrames that represents an animation track.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.BoneKeyframeCollection.GetIndexByTime(System.Double)">
-            <summary>
-            Gets the index in the track at the given time.
-            </summary>
-            <param name="ticks">The time for which the index is found.</param>
-            <returns>The index in the track at the given time.</returns>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BoneKeyframeCollection.Duration">
-            <summary>
-            Gets the duration of the animation track.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BoneKeyframeCollection.BoneName">
-            <summary>
-            Gets the name of the bone associated with the animation track.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.BoneKeyframe">
-            <summary>
-            Represents a keyframe in an animation track.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.BoneKeyframe.#ctor(Microsoft.Xna.Framework.Matrix,System.Double)">
-            <summary>
-            Creats a new BoneKeyframe.
-            </summary>
-            <param name="transform">The transform for the keyframe.</param>
-            <param name="time">The time in ticks for the keyframe.</param>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.BoneKeyframe.Transform">
-            <summary>
-            The transform for the keyframe.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.BoneKeyframe.Time">
-            <summary>
-            The time for the keyframe.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.AnimationChannelCollection">
-            <summary>
-            A collection of animation channels or tracks, which are sections of an
-            animation that run for one bone.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationChannelCollection.Item(System.String)">
-            <summary>
-            Gets the BoneKeyframeCollection that is associated with the given bone.
-            </summary>
-            <param name="boneName">The name of the bone that contains a track in this
-            AnimationChannelCollection.</param>
-            <returns>The track associated with the given bone.</returns>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.AnimationInfo">
-            <summary>
-            Contains information about an animation.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.AnimationInfo.AffectsBone(System.String)">
-            <summary>
-            Returns true if the animation contains any tracks that affect the given
-            bone.
-            </summary>
-            <param name="boneName">The bone to test for track information.</param>
-            <returns>True if the animation contains any tracks that affect the given
-            bone.</returns>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationInfo.AnimationName">
-            <summary>
-            The name of the animation.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationInfo.AnimationChannels">
-            <summary>
-            Gets a collection of channels that represent the bone animation
-            tracks for this animation.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationInfo.AffectedBones">
-            <summary>
-            Gets a collection of bones that have tracks in this animation.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationInfo.Duration">
-            <summary>
-            Gets the total duration of this animation in ticks.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationInfo.Name">
-            <summary>
-            Gets the name of the animation.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.AnimationInfoCollection">
-            <summary>
-            A collection of AnimationInfo objects.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.AnimationInfoCollection.FromModel(Microsoft.Xna.Framework.Graphics.Model)">
-            <summary>
-            Gets a collection of animations stored in the model.
-            </summary>
-            <param name="model">The model that contains the animations.</param>
-            <returns>The animations stored in the model.</returns>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.AnimationInfoCollection.Item(System.Int32)">
-            <summary>
-            Gets the AnimationInfo object at the given index.
-            </summary>
-            <param name="index">The index of the AnimationInfo object.</param>
-            <returns>The AnimationInfo object at the given index.</returns>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect">
-            <summary>
-            Provides functionality similar to that of BasicEffect, but uses a 
-            Matrix Palette.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.PALETTE_SIZE">
-            <summary>
-            The max number of bones in the effect's matrix palette.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.SetParamsFromBasicEffect(Microsoft.Xna.Framework.Graphics.BasicEffect)">
-            <summary>
-            Sets the parameters of this effect from a BasicEffect instance.
-            </summary>
-            <param name="effect">An instance containing the parameters to be copied.</param>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.Texture">
-            <summary>
-            Gets or sets the texture associated with this effect.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.TextureEnabled">
-            <summary>
-            Gets or sets a value enabling the textures.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.MatrixPalette">
-            <summary>
-            Gets or sets the bone palette values.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.AmbientLightColor">
-            <summary>
-            Gets or sets the additive ambient color of this effect.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.SpecularColor">
-            <summary>
-            Gets or sets the specular color of this effect.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.SpecularPower">
-            <summary>
-            Gets or sets the specular power of this effect.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.DiffuseColor">
-            <summary>
-            Gets or sets the diffuse color of this effect.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.LightingEnabled">
-            <summary>
-            Enables or disables lighting.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.EmissiveColor">
-            <summary>
-            Gets or sets the emissive color of this effect.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.World">
-            <summary>
-            Gets or sets the world matrix of this effect.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.View">
-            <summary>
-            Gets or sets the view matrix of this effect.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.Projection">
-            <summary>
-            Gets or sets the projection matrix of this effect.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.BasicDirectionalLight">
-            <summary>
-            A basic directional light that uses phong shading.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.BasicDirectionalLight.Enabled">
-            <summary>
-            Enables or disables this light.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.BasicDirectionalLight.Direction">
-            <summary>
-            Gets or sets the direction of this light.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.BasicDirectionalLight.SpecularColor">
-            <summary>
-            Gets or sets the specular color of this light.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BasicPaletteEffect.BasicDirectionalLight.DiffuseColor">
-            <summary>
-            Gets or sets the diffuse color of this light.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.BonePoseCollection">
-            <summary>
-            A collection of BonePose objects that represent the bone transforms of a model
-            as affected by animations.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.BonePoseCollection.CopyAbsoluteTransformsTo(Microsoft.Xna.Framework.Matrix[])">
-            <summary>
-            Computes the absolute transforms for the collection and copies
-            the values.
-            </summary>
-            <param name="transforms">The array into which the transforms will be 
-            copied.</param>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BonePoseCollection.Item(System.String)">
-            <summary>
-            Gets a BonePose object.
-            </summary>
-            <param name="boneName">The name of the bone for which the BonePose 
-            will be returned.</param>
-            <returns>The BonePose associated with the bone name.</returns>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.BonePose">
-            <summary>
-            Represents the current pose of a model bone.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.BonePose.GetHierarchy">
-            <summary>
-            Finds a collection of bones that represents the tree of BonePoses with
-            the current BonePose as the root.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.BonePose.ToString">
-            <summary>
-            Returns a string representation of the ModelAnimator.
-            </summary>
-            <returns>The string representation of the ModelAnimator.</returns>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BonePose.Children">
-            <summary>
-            Gets the immediate children of the current bone.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BonePose.Parent">
-            <summary>
-            Gets the bone's parent.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BonePose.Index">
-            <summary>
-            Gets the index of the bone.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BonePose.Name">
-            <summary>
-            Gets the name of the bone.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BonePose.CurrentController">
-            <summary>
-            Gets or sets the current animation that affects this bone.  If null,
-            then DefaultTransform will be used for this bone's transform.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BonePose.CurrentBlendController">
-            <summary>
-            Gets or sets the blend animation that affects this bone.  If the value
-            is null, then no blending will occur.
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BonePose.BlendFactor">
-            <summary>
-            Gets or sets the amount to interpolate between the current animation and
-            the current blend animation, if the current blend animation is not null
-            </summary>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.BonePose.DefaultTransform">
-            <summary>
-            Represents the matrix used by the BonePose when it is not affected by
-            an animation or when the animation does not contain a track for the bone.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.ModelAnimator">
-            <summary>
-            Contains animation data for a model.  This class is not exposed
-            outside of the engine.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.ContainsBone(System.String)">
-            <summary>
-            Checks whether a bone with the specified name exists
-            </summary>
-            <param name="boneName">The name of the bone</param>
-            <returns>Whether or not the bone with the specified name exists</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.ContainsAnimation(System.String)">
-            <summary>
-            Checks whether an animation with the specified name exists
-            </summary>
-            <param name="animationName">The name of the animation.</param>
-            <returns>Whether or not the animation with the specified name exists</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.GetAnimation(System.String)">
-            <summary>
-            Gets an animation controller for the specified animation
-            </summary>
-            <param name="animationName">The name of the animation</param>
-            <returns>An animation controller</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.SetAnimation(System.String)">
-            <summary>
-            Sets the animation on the model to the animation track with the specified name
-            </summary>
-            <param name="animationName">The name of the animation</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.SetAnimation(System.String,System.String)">
-            <summary>
-            Sets the animation on the model to the animation track with the specified name
-            </summary>
-            <param name="boneName">The name of the bone to set the animation on</param>
-            <param name="animationName">The name of the animation</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.ClearBlendAnimation">
-            <summary>
-            Sets the current blend animation to null
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.ClearBlendAnimation(System.String)">
-            <summary>
-            Sets the current blend animation to null
-            </summary>
-            <param name="boneName">The bone to clear the blend animation on</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.ClearAnimation">
-            <summary>
-            Sets the current animation to null
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.ClearAnimation(System.String)">
-            <summary>
-            Sets the current animation to null
-            </summary>
-            <param name="boneName">The bone to clear the animation on</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.SetBlendAnimation(System.String)">
-            <summary>
-            Sets the blend-to animation on the model to the animation track with the specified name
-            </summary>
-            <param name="animationName">The name of the animation</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.SetBlendAnimation(System.String,System.String)">
-            <summary>
-            Sets the blend-to animation on the model to the animation track with the specified name
-            </summary>
-            <param name="boneName">The name of the bone to set the animation on</param>
-            <param name="animationName">The name of the animation</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.SetBlendAmount(System.Single)">
-            <summary>
-            Sets the blending factor for the current animations on all bones
-            </summary>
-            <param name="blendFactor">The amount to blend between the current animation and the blend animation, in the range [0,1]</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.SetBlendAmount(System.String,System.Single)">
-            <summary>
-            Sets the blending factor for the current animations on all bones
-            </summary>
-            <param name="boneName">The name of the bone to set the blend amount on</param>
-            <param name="blendFactor">The amount to blend between the current animation and the blend animation, in the range [0,1]</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.ModelAnimator.SetSpeedFactor(System.String,System.Single)">
-            <summary>
-            Sets the speed factor for a specific animation
-            </summary>
-            <param name="animationName">The name of the animation to set the speed factor on</param>
-            <param name="speedFactor">The speed of the animation, with 1.0f as normal speed</param>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.ModelAnimator.Item(System.String)">
-            <summary>
-            Gets an animation controller
-            </summary>
-            <param name="animationName">The name of the animation</param>
-            <returns>An animation controller for the specified animation</returns>
-        </member>
-        <member name="P:FlatRedBall.Graphics.Model.Animation.ModelAnimator.SpeedFactor">
-            <summary>
-            Sets the speed factor for all animations
-            </summary>
-            <param name="speedFactor">The speed of the animation, with 1.0f as normal speed</param>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.EffectParameterProperties">
-            <summary>
-            Runtime effect property value which can be used to set effects.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Material">
-            <summary>
-            A list of effects and parameters.  
-            </summary>
-            <remarks>
-            This class is generally not used during runtime - it's used in the FlatRedBall content pipeline.
-            </remarks>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.SkinInfo">
-            <summary>
-            A structure that contains information for a bindpose skin offset.
-            Represents the inverse bind pose for a bone.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.SkinInfo.#ctor(System.String,Microsoft.Xna.Framework.Matrix,System.Int32,System.Int32)">
-            <summary>
-            Creates a new SkinInfo.
-            </summary>
-            <param name="name">The name of the bone attached to the transform.</param>
-            <param name="inverseBindPoseTransform">The inverse bind pose transform for the bone.</param>
-            <param name="paletteIndex">The index in the MatrixPalette for the bone.</param>
-            <param name="boneIndex">The index of the bone.</param>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.SkinInfo.BoneName">
-            <summary>
-            The name of the bone attached to the transform.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.SkinInfo.InverseBindPoseTransform">
-            <summary>
-            The transform for the bone.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.SkinInfo.PaletteIndex">
-            <summary>
-            The index in the MatrixPalette for the bone.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.SkinInfo.BoneIndex">
-            <summary>
-            The index of the bone.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.SkinInfoCollection">
-            <summary>
-            A collection of SkinInfo objects.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.SkinInfoCollection.FromModel(Microsoft.Xna.Framework.Graphics.Model)">
-            <summary>
-            Finds the skinning info for the model and calculates the inverse
-            reference poses required for animation.
-            </summary>
-            <param name="model">The model that contains the skinning info.</param>
-            <returns>A collection of SkinInfo objects.</returns>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.SkinningType">
-            <summary>
-            Info on how a model is skinned.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.SkinningType.None">
-            <summary>
-            No skinning.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.SkinningType.FourBonesPerVertex">
-            <summary>
-            A max of four influences per vertex.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.SkinningType.EightBonesPerVertex">
-            <summary>
-            A max of eight influences per vertex.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.SkinningType.TwelveBonesPerVertex">
-            <summary>
-            A max of twelve influences per vertex.
-            </summary>
-        </member>
-        <member name="T:FlatRedBall.Graphics.Model.Animation.Util">
-            <summary>
-            Provides various animation utilities.
-            </summary>
-        </member>
-        <member name="F:FlatRedBall.Graphics.Model.Animation.Util.TICKS_PER_60FPS">
-            <summary>
-            Ticks per frame at 60 frames per second.
-            </summary>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.Util.GetSkinningType(Microsoft.Xna.Framework.Graphics.VertexElement[])">
-            <summary>
-            Gets info on what skinning info a vertex element array contains.
-            </summary>
-            <param name="elements">The vertex elements.</param>
-            <returns>Info on what type of skinning the elements contain.</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.Util.ReflectMatrix(Microsoft.Xna.Framework.Matrix@)">
-            <summary>
-            Reflects a matrix across the Z axis by multiplying both the Z
-            column and the Z row by -1 such that the Z,Z element stays intact.
-            </summary>
-            <param name="m">The matrix to be reflected across the Z axis</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.Util.Convert``1(System.Byte[],System.Int32,Microsoft.Xna.Framework.Graphics.GraphicsDevice)">
-            <summary>
-            Converts from an array of bytes to any vertex type.
-            </summary>
-            <typeparam name="T">The type of vertex to which we are converting the bytes</typeparam>
-            <param name="data">The bytes that will be converted to the vertices</param>
-            <param name="vertexSize">The size of one vertex</param>
-            <param name="device">Any working device; required to use our conversion hack</param>
-            <returns>An array of the converted vertices</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.Util.SlerpMatrix(Microsoft.Xna.Framework.Matrix,Microsoft.Xna.Framework.Matrix,System.Single)">
-            <summary>
-            Roughly decomposes two matrices and performs spherical linear interpolation
-            </summary>
-            <param name="start">Source matrix for interpolation</param>
-            <param name="end">Destination matrix for interpolation</param>
-            <param name="slerpAmount">Ratio of interpolation</param>
-            <returns>The interpolated matrix</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.Util.SlerpMatrix(Microsoft.Xna.Framework.Matrix@,Microsoft.Xna.Framework.Matrix@,System.Single,Microsoft.Xna.Framework.Matrix@)">
-            <summary>
-            Roughly decomposes two matrices and performs spherical linear interpolation
-            </summary>
-            <param name="start">Source matrix for interpolation</param>
-            <param name="end">Destination matrix for interpolation</param>
-            <param name="slerpAmount">Ratio of interpolation</param>
-            <param name="result">Stores the result of hte interpolation.</param>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.Util.IsSkinned(Microsoft.Xna.Framework.Graphics.ModelMeshPart)">
-            <summary>
-            Determines whether or not a ModelMeshPart is skinned.
-            </summary>
-            <param name="meshPart">The part to check.</param>
-            <returns>True if the part is skinned.</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.Util.IsSkinned(Microsoft.Xna.Framework.Graphics.ModelMesh)">
-            <summary>
-            Determines whether or not a ModelMesh is skinned.
-            </summary>
-            <param name="mesh">The mesh to check.</param>
-            <returns>True if the mesh is skinned.</returns>
-        </member>
-        <member name="M:FlatRedBall.Graphics.Model.Animation.Util.IsSkinned(Microsoft.Xna.Framework.Graphics.Model)">
-            <summary>
-            Determines whether or not a Model is skinned.
-            </summary>
-            <param name="model">The model to check.</param>
-            <returns>True if the model is skinned.</returns>
         </member>
         <member name="M:FlatRedBall.Graphics.Model.ModelManager.CreateModel(System.String,System.String,System.Boolean)">
             <summary>
@@ -4641,7 +4166,12 @@
             Used as the base class that binds all template types together.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:FlatRedBall.Content.Model.XLoader.Templates.Template.UUID" -->
+        <member name="P:FlatRedBall.Content.Model.XLoader.Templates.Template.UUID">
+            <summary>
+             universally unique identifier (UUID) formatted to the Open Software Foundation's Distributed 
+             Computing Environment standard and surrounded by angle brackets &lt; and &gt;
+            </summary>
+        </member>
         <member name="M:FlatRedBall.Content.Model.XLoader.Templates.Animation.#ctor">
             <summary>
             This template contains animations referencing a previous frame. It should contain one reference 
@@ -4817,19 +4347,19 @@
             <summary>
             Returns a Microsoft XNA Color representation of this ColorRGB
             </summary>
-            <param name="colorRGBA">The ColorRGB to convert.</param>
+            <param name="colorRGB">The ColorRGB to convert.</param>
         </member>
         <member name="M:FlatRedBall.Content.Model.XLoader.Templates.ColorRGB.ToVector4(FlatRedBall.Content.Model.XLoader.Templates.ColorRGB)">
             <summary>
             Returns a Microsoft XNA Vector4 representation of this ColorRGB
             </summary>
-            <param name="colorRGBA">The ColorRGB to convert.</param>
+            <param name="colorRGB">The ColorRGB to convert.</param>
         </member>
         <member name="M:FlatRedBall.Content.Model.XLoader.Templates.ColorRGB.ToVector3(FlatRedBall.Content.Model.XLoader.Templates.ColorRGB)">
             <summary>
             Returns a Microsoft XNA Vector3 representation of this ColorRGB
             </summary>
-            <param name="colorRGBA">The ColorRGB to convert.</param>
+            <param name="colorRGB">The ColorRGB to convert.</param>
         </member>
         <member name="P:FlatRedBall.Content.Model.XLoader.Templates.ColorRGB.Red">
             <summary>
@@ -5665,25 +5195,30 @@
             <summary>
             Prepares objects on the specified camera for drawing before beginning the drawing loop.
             </summary>
-            <param name="layer">The camera to prepare.</param>
+            <param name="camera">The camera to prepare.</param>
         </member>
         <member name="M:FlatRedBall.Graphics.Renderers.IRenderer.SetDeviceSettings(FlatRedBall.Camera,FlatRedBall.Graphics.RenderMode)">
             <summary>
             Sets up render states for this renderer.  Called when the last renderer to draw was not
             this renderer.
             </summary>
+            <param name="camera"></param>
+            <param name="renderMode"></param>
         </member>
         <member name="M:FlatRedBall.Graphics.Renderers.IRenderer.Draw(FlatRedBall.Camera,FlatRedBall.Graphics.Layer,FlatRedBall.Graphics.RenderMode)">
             <summary>
             Draws objects on the specified layer.  For renderers that DrawSorted, this should draw the
             next object on the layer, and GetNextObjectDepth should now return the following object.
             </summary>
+            <param name="camera">The camera to draw.</param>
             <param name="layer">The layer to draw.</param>
+            <param name="renderMode"></param>
         </member>
         <member name="M:FlatRedBall.Graphics.Renderers.IRenderer.GetNextObjectDepth(FlatRedBall.Camera,FlatRedBall.Graphics.Layer)">
             <summary>
             Returns the depth of the next object to draw on this layer for the current sort mode.
             </summary>
+            <param name="camera">The Camera currently being drawn.</param>
             <param name="layer">The layer currently being drawn.</param>
             <returns>The depth of the next object on this layer for the current sort mode.</returns>
         </member>
@@ -5691,6 +5226,7 @@
             <summary>
             Returns true if this layer hasn't drawn all of its objects for this Renderer.
             </summary>
+            <param name="camera">The Camera to check</param>
             <param name="layer">The layer to check.</param>
             <returns>Whether or not the renderer has drawn all objects on the layer.</returns>
         </member>
@@ -5699,6 +5235,7 @@
             Called to remove layer information from a renderer (for renderers that store
             layer information).
             </summary>
+            <param name="camera">The Camera to move the Layer from</param>
             <param name="layer">The layer to remove</param>
         </member>
         <member name="P:FlatRedBall.Graphics.Renderers.IRenderer.DrawSorted">
@@ -6113,9 +5650,6 @@
             in games with multiple cameras.
             </remarks>
             <param name="cameraToUse">The camera that the cursor will belong to.</param>
-            <param name="formToUse">Reference to the form that the application is running on.</param>
-            <param name="inpMan">Reference to the InputManager.</param>
-            <param name="SpriteManager">Reference to the SpriteManager</param>
         </member>
         <member name="M:FlatRedBall.Gui.Cursor.ActualXVelocityAt(System.Single)">
             <summary>
@@ -6151,7 +5685,7 @@
             </remarks>
             <param name="x">The x value to change.</param>
             <param name="y">The y value to change.</param>
-            <param name="z">The z value to use.</param>
+            <param name="absoluteZ">The z value to use.</param>
         </member>
         <member name="M:FlatRedBall.Gui.Cursor.GetCursorPositionForSprite(System.Single@,System.Single@,System.Single)">
             <summary>
@@ -6165,7 +5699,7 @@
             </remarks>
             <param name="x"></param>
             <param name="y"></param>
-            <param name="z"></param>
+            <param name="absolute"></param>
         </member>
         <member name="M:FlatRedBall.Gui.Cursor.GetCursorPosition(FlatRedBall.PositionedObject,System.Single)">
             <summary>
@@ -6177,7 +5711,7 @@
             to the cursor's position.
             </remarks>
             <param name="positionedObject">Reference to the positioned object.</param>
-            <param name="z">The Z value at which the position should be set.</param>
+            <param name="absoluteZ">The Z value at which the position should be set.</param>
         </member>
         <member name="M:FlatRedBall.Gui.Cursor.GetSpriteOver``1(System.Collections.Generic.IList{``0})">
             <summary>
@@ -6196,6 +5730,7 @@
             </summary>
             <param name="spriteArray">The SpriteArray to search through.</param>
             <param name="considerInactives">Whether inactive Sprites (Sprites with the .active variable set to false) are considered.</param>
+            <param name="skipFirst"></param>
             <returns>The Sprite that is found, or null if the cursor is not over any Sprites.</returns>
         </member>
         <member name="M:FlatRedBall.Gui.Cursor.GetSpriteOver(System.Collections.Generic.IList{FlatRedBall.SpriteList})">
@@ -6282,7 +5817,6 @@
             </code>
             </remarks>
             <param name="textObject">The TextObject to test if the cursor is over.</param>
-            <param name="TextManager">Reference to the TextManager which is used to retrieve dimensions of the Text object.</param>
             <returns>Whether the cursor is on the TextObject.</returns>
         </member>
         <member name="M:FlatRedBall.Gui.Cursor.IsOn(FlatRedBall.Gui.IWindow)">
@@ -6380,9 +5914,8 @@
             <remarks>
             The relative Sprite position is used in the GetCursorPositionForSprite method.  Relative values
             keep objects from "snapping" to the center of the cursor when grabbed.
-            <seealso cref="M:FlatRedBall.Gui.Cursor.GetCursorPositionForSprite(System.Single@,System.Single@,System.Single)"/>
             </remarks>
-            <param name="spriteToSetTo">The Sprite that the relative values should be set to.</param>
+            <param name="objectSetTo">The PositionedObject that the relative values should be set to.</param>
         </member>
         <member name="P:FlatRedBall.Gui.Cursor.Active">
             <summary>
@@ -6435,7 +5968,6 @@
             This will only be accurate if the object is also 100 units away from the camera and
             if the camera is centered on the origin.  The
             x and y values must be passed to the GetCursorPosition method.
-            <seealso cref="M:FlatRedBall.Gui.Cursor.GetCursorPosition(System.Single@,System.Single@,System.Single)"/>
             </remarks>
         </member>
         <member name="P:FlatRedBall.Gui.Cursor.XVelocity">
@@ -6659,7 +6191,6 @@
             </summary>
             <remarks>
             If this reference is not null, the reference's ReceiveInput method is called in the InputManager.GetInputState method.
-            <seealso cref="!:FlatRedBall.InputManager.GetInputState"/>
             <seealso cref="T:FlatRedBall.Gui.IInputReceiver"/>
             </remarks>
         </member>
@@ -6695,6 +6226,7 @@
             <typeparam name="T">The type of the first argument.</typeparam>
             <param name="objectToTest">The object to test if the mouse is on.</param>
             <param name="relativeToCamera">Whether the object's Position is relative to the Camera.</param>
+            <param name="camera"></param>
             <param name="intersectionPoint">The point where the intersection between the ray casted from the 
             mouse into the distance and the argument objectToTest occurred.</param>
             <returns>Whether the mouse is over the argument objectToTest</returns>
@@ -6903,6 +6435,42 @@
             to identify if an Instruction is a generic Instruction.
             </summary>
         </member>
+        <member name="M:FlatRedBall.Instructions.GenericInstruction.SetTarget(System.Object)">
+            <summary>
+            Sets the object which this instruction operates on.
+            </summary>
+            <param name="target">The object that this instruction operates on.</param>
+        </member>
+        <member name="P:FlatRedBall.Instructions.GenericInstruction.TypeAsString">
+            <summary>
+            Returns the FullName of the Type that this GenericInstruction operates on.
+            </summary>
+        </member>
+        <member name="P:FlatRedBall.Instructions.GenericInstruction.Member">
+            <summary>
+            The Name of the member (such as "X" or "Width") that this instruction modifies.
+            </summary>
+        </member>
+        <member name="P:FlatRedBall.Instructions.GenericInstruction.MemberType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:FlatRedBall.Instructions.GenericInstruction.MemberTypeAsString">
+            <summary>
+            The FullName of the type of the Member that is being modified.  For example, this would return "System.String" for a float member like X.
+            </summary>
+        </member>
+        <member name="P:FlatRedBall.Instructions.GenericInstruction.MemberValueAsString">
+            <summary>
+            Returns a ToString() representation of the member.
+            </summary>
+        </member>
+        <member name="P:FlatRedBall.Instructions.GenericInstruction.MemberValueAsObject">
+            <summary>
+            Returns the value of the member casted as an object.
+            </summary>
+        </member>
         <member name="T:FlatRedBall.Instructions.Instruction`2">
             <summary>
             Generic method of setting a particular variable at a given time.
@@ -6925,7 +6493,7 @@
         </member>
         <member name="M:FlatRedBall.Instructions.Instruction`2.#ctor(`0,System.String,`1,System.Double)">
             <param name="targetObject">The object to operate on (ex. a PositionedObject)</param>
-            <param name="property">The name of the property to set</param>
+            <param name="member">The name of the property to set</param>
             <param name="value">The value to set to the property when the instruction is executed</param>
             <param name="timeToExecute">Absolute time to executing this instruction</param>
         </member>
@@ -6959,9 +6527,9 @@
             finally sets the rotational values to fix any problems introduced by timing.
             </remarks>
             <param name="positionedObject">The Sprite to rotate.</param>
-            <param name="rotX">The final relative rotX value.</param>
-            <param name="rotY">The final relative rotY value.</param>
-            <param name="rotZ">The final relative rotZ value.</param>
+            <param name="rotationX">The final relative rotX value.</param>
+            <param name="rotationY">The final relative rotY value.</param>
+            <param name="rotationZ">The final relative rotZ value.</param>
             <param name="secondsToTake">The number of seconds to take in the rotation.</param>
         </member>
         <member name="M:FlatRedBall.Instructions.InstructionManager.UncastedSetMember(System.Object,System.String,System.Object)">
@@ -7591,9 +7159,6 @@
             <exception cref="T:ArgumentNullException">
             	<paramref name="array"/> is <see langword="null"/>.
             </exception>
-            <exception cref="T:System.ArgumentException">
-            	The number of fields in the record is greater than the available space from <paramref name="index"/> to the end of <paramref name="array"/>.
-            </exception>
         </member>
         <member name="M:FlatRedBall.IO.Csv.CsvReader.CopyCurrentRecordTo(System.String[],System.Int32)">
             <summary>
@@ -7688,12 +7253,6 @@
             </exception>
             <exception cref="T:System.InvalidOperationException">
             	There is no current record.
-            </exception>
-            <exception cref="!:MissingFieldCsvException">
-            	The CSV data appears to be missing a field.
-            </exception>
-            <exception cref="!:MalformedCsvException">
-            	The CSV data appears to be malformed.
             </exception>
             <exception cref="T:System.ComponentModel.ObjectDisposedException">
             The instance has been disposed of.
@@ -8349,6 +7908,18 @@
         <member name="P:FlatRedBall.IO.Csv.Resources.ExceptionMessage.RecordIndexLessThanZero">
             <summary>
               Looks up a localized string similar to Record index must be 0 or more..
+            </summary>
+        </member>
+        <member name="F:FlatRedBall.IO.Csv.CsvHeader.Name">
+            <summary>
+            The name of the header - such as "Health"
+            </summary>
+        </member>
+        <member name="F:FlatRedBall.IO.Csv.CsvHeader.IsRequired">
+            <summary>
+            Whether objects must have a value in this header.  This is true for dictionaries, and to
+            help the csv deserialization understand when a column belongs to a new instance or if it is
+            a column used for lists.
             </summary>
         </member>
         <member name="T:FlatRedBall.IO.Csv.RuntimeCsvRepresentation">
@@ -11306,11 +10877,9 @@
              this will change the SpriteGrid bluerint
             
              </remarks>
-             <param name="SpriteManager">Reference to the SpriteManager used to create and destroy Sprites and textures.</param>
-             <param name="mCamera">Reference to the camnera used to determine whether a point on the SpriteGrid is in the scren.</param>
-             <param name="yOrZ">Whether the SpriteGrid should extend on the XY or XZ plane.</param>
-             <param name="mBlueprintToUse">Reference to a Sprite representing the mBlueprint to be used for the grid.</param>
-             <param name="random">Reference to a Random used to assign random frames if the SpriteGrid references AnimationChains.</param>
+             <param name="camera">Reference to the camnera used to determine whether a point on the SpriteGrid is in the scren.</param>
+             <param name="gridPlane">Whether the SpriteGrid should extend on the XY or XZ plane.</param>
+             <param name="blueprintToUse">Reference to a Sprite representing the mBlueprint to be used for the grid.</param>
         </member>
         <member name="M:FlatRedBall.ManagedSpriteGroups.SpriteGrid.Destroy">
             <summary>
@@ -11526,12 +11095,14 @@
             <summary>
             Creates a height map from a texture
             </summary>
-            <param name="texturePath">The path to the texture</param>
+            <param name="textureName">The path to the texture</param>
+            <param name="contentManager"></param>
         </member>
         <member name="M:FlatRedBall.Math.Collision.HeightMap.#ctor(System.String,System.Int32,System.Int32,Microsoft.Xna.Framework.Graphics.Model)">
             <summary>
             Creates a height map from a model (heightmap will be available next frame)
             </summary>
+            <param name="contentManagerName"></param>
             <param name="width">The desired width of the heightmap (resolution)</param>
             <param name="height">The desired height of the heightmap (resolution)</param>
             <param name="model">The model to render for the heightmap</param>
@@ -11561,6 +11132,48 @@
             <summary>
             Gets the raw data for this heightmap
             </summary>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.AxisAlignedRectangle.CollideAgainst(FlatRedBall.Math.Geometry.Circle)">
+            <summary>
+            Returns whether this instance collides against the argument Circle.
+            </summary>
+            <param name="circle">The Circle to test collision against.</param>
+            <returns>Whether collision has occurred.</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.AxisAlignedRectangle.CollideAgainst(FlatRedBall.Math.Geometry.AxisAlignedRectangle)">
+            <summary>
+            Returns whether this instance collides against the argument AxisAlignedRectangle.
+            </summary>
+            <param name="rectangle">The AxisAlignedRectangle to test collision against.</param>
+            <returns>Whether collision has occurred.</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.AxisAlignedRectangle.CollideAgainst(FlatRedBall.Math.Geometry.Polygon)">
+            <summary>
+            Returns whether this instance collides against the argument Polygon.
+            </summary>
+            <param name="polygon">The Polygon to test collision against.</param>
+            <returns>Whether collision has occurred.</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.AxisAlignedRectangle.CollideAgainst(FlatRedBall.Math.Geometry.Line)">
+            <summary>
+            Returns whether this instance collides against the argument Line.
+            </summary>
+            <param name="line">The Line to test collision against.</param>
+            <returns>Whether collision has occurred.</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.AxisAlignedRectangle.CollideAgainst(FlatRedBall.Math.Geometry.Capsule2D)">
+            <summary>
+            Returns whether this instance collides against the argument Capsule2D.
+            </summary>
+            <param name="capsule">The Capsule2D to test collision against.</param>
+            <returns>Whether collision has occurred.</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.AxisAlignedRectangle.CollideAgainst(FlatRedBall.Math.Geometry.ShapeCollection)">
+            <summary>
+            Returns whether this instance collides against the argument ShapeCollection.
+            </summary>
+            <param name="shapeCollection">The ShapeCollection to test collision against.</param>
+            <returns>Whether collision has occurred.</returns>
         </member>
         <member name="M:FlatRedBall.Math.Geometry.Circle.DistanceTo(FlatRedBall.Math.Geometry.Line)">
             <summary>
@@ -11794,7 +11407,7 @@
             <param name="vector">The point to start from.</param>
             <returns>A vector representing the distance from the argument vector to this.</returns>
         </member>
-        <member name="F:FlatRedBall.Math.Geometry.Polygon.sThrowAwayInt">
+        <member name="M:FlatRedBall.Math.Geometry.Polygon.VectorFrom(System.Double,System.Double)">
             <summary>
             Returns a vector from the argument point to the closest point on this Polygon.
             </summary>
@@ -12268,6 +11881,33 @@
             <param name="polygon">The first polygon.  This one will be modified.</param>
             <param name="otherPolygon">The second polygon which will not be modified.</param>
         </member>
+        <member name="M:FlatRedBall.Math.Geometry.Sphere.Pause(FlatRedBall.Instructions.InstructionList)">
+            <summary>
+            Pauses this instance and stores the unpause instructions in the argument InstructionList
+            </summary>
+            <param name="instructions">The list to fill</param>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.Sphere.TimedActivity(System.Single,System.Double,System.Single)">
+            <summary>
+            Applies the every-frame activity for moving the object.  This is automatically called every frame by the engine if this object is part of the ShapeManager.
+            </summary>
+            <param name="secondDifference">The number of seconds that have passed since last frame</param>
+            <param name="secondDifferenceSquaredDividedByTwo">SecondDifference * secondDifference / 2 - used for integrating acceleration.</param>
+            <param name="lastSecondDifference">How much time passed last frame.</param>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.Sphere.AsBoundingSphere">
+            <summary>
+            Constructs a BoundingSphere instance form this.
+            </summary>
+            <returns>The created instance</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.Sphere.CollideAgainst(FlatRedBall.Math.Geometry.Sphere)">
+            <summary>
+            Returns whether this instance overlaps the argument Sphere.
+            </summary>
+            <param name="sphere">The other Sphere to test against.</param>
+            <returns>Whether collision has occurred.</returns>
+        </member>
         <member name="M:FlatRedBall.Math.Geometry.Sphere.CollideAgainstMove(FlatRedBall.Math.Geometry.Sphere,System.Single,System.Single)">
             <summary>
             Collision method that returns whether collision has occurred and repositions this and the
@@ -12277,6 +11917,79 @@
             <param name="thisMass">The mass of the calling Sphere.  This value is used relative to "otherMass".  Both cannot be 0.</param>
             <param name="otherMass">The mass of the argument Sphere.  This value is used relative to "thisMass".  Both cannot be 0.</param>
             <returns>Whether the calling Sphere and the argument Sphere are touching.</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.Sphere.CollideAgainst(FlatRedBall.Math.Geometry.AxisAlignedCube)">
+            <summary>
+            Returns whether this instance overlaps the argument AxisAlignedCube
+            </summary>
+            <param name="cube">The instance AxisAlignedCube to test against.</param>
+            <returns>Whether collision has occurred</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.Sphere.CollideAgainstMove(FlatRedBall.Math.Geometry.AxisAlignedCube,System.Single,System.Single)">
+            <summary>
+            Returns whether this instance overlaps the argument cube, and separates the two instances according to their relative masses.
+            </summary>
+            <param name="cube">The cube to perform collision against.</param>
+            <param name="thisMass">The mass of this instance.</param>
+            <param name="otherMass">The mass of the cube.</param>
+            <returns>Whether the objects were overlapping before the reposition.</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.Sphere.CollideAgainstBounce(FlatRedBall.Math.Geometry.AxisAlignedCube,System.Single,System.Single,System.Single)">
+            <summary>
+            Performs a bounce collision (a collision which modifies velocity and acceleration), and separates the objects if so.
+            </summary>
+            <param name="cube">The cube to perform collision against.</param>
+            <param name="thisMass">The mass of this instance.</param>
+            <param name="otherMass">Th e mass of the argument cube.</param>
+            <param name="elasticity">The ratio of velocity to preserve.</param>
+            <returns>Whether a collision occurred.</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.Sphere.CollideAgainstBounce(FlatRedBall.Math.Geometry.Sphere,System.Single,System.Single,System.Single)">
+            <summary>
+            Performs a bounce collision (a collision which modifies velocity and acceleration), and separates the objects if so.
+            </summary>
+            <param name="sphere">The Sphere to perform collision against.</param>
+            <param name="thisMass">The mass of this instance.</param>
+            <param name="otherMass">Th e mass of the argument cube.</param>
+            <param name="elasticity">The ratio of velocity to preserve.</param>
+            <returns>Whether a collision occurred.</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.Sphere.IsPointInside(Microsoft.Xna.Framework.Vector3@)">
+            <summary>
+            Returns whether the argument point is inside this instance.
+            </summary>
+            <param name="point">The point in world coordinates.</param>
+            <returns>Whether the point is inside this.</returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.Sphere.IsMouseOver(FlatRedBall.Gui.Cursor)">
+            <summary>
+            Returns whether the argument cursor is over this instance.
+            </summary>
+            <param name="cursor">The cursor to check.</param>
+            <returns></returns>
+        </member>
+        <member name="M:FlatRedBall.Math.Geometry.Sphere.IsMouseOver(FlatRedBall.Gui.Cursor,FlatRedBall.Graphics.Layer)">
+            <summary>
+            Returns whether the argument cursor is over this instance considering Layer coordinates.
+            </summary>
+            <param name="cursor">The cursor to check.</param>
+            <param name="layer">The layer that this instance sits on.</param>
+            <returns>Whether the mouse is over this.</returns>
+        </member>
+        <member name="P:FlatRedBall.Math.Geometry.Sphere.Color">
+            <summary>
+            The Sphere's Color to use when being rendered.
+            </summary>
+        </member>
+        <member name="P:FlatRedBall.Math.Geometry.Sphere.RadiusVelocity">
+            <summary>
+            The rate at which the velocity is increasing - this is 0 by default.
+            </summary>
+        </member>
+        <member name="P:FlatRedBall.Math.Geometry.Sphere.Visible">
+            <summary>
+            Whether this instance is visible.  Setting this to true will add this instance to the ShapeManager's drawn list.
+            </summary>
         </member>
         <member name="M:FlatRedBall.Math.MathFunctions.AngleToAngle(System.Single,System.Single)">
             <summary>
@@ -12295,11 +12008,11 @@
             Extracts the RotationX, RotationY, and RotationZ values out of a 
             </summary>
             <param name="matrixToExtractFrom">The matrix to get the rotation values out of.</param>
-            <param name="RotationX">The RotationX of the Matrix.</param>
-            <param name="RotationY">The RotationY of the Matrix.</param>
-            <param name="RotationZ">The RotationZ of the Matrix.</param>
+            <param name="rotationX">The RotationX of the Matrix.</param>
+            <param name="rotationY">The RotationY of the Matrix.</param>
+            <param name="rotationZ">The RotationZ of the Matrix.</param>
         </member>
-        <member name="F:FlatRedBall.Math.MathFunctions.frameToFrameInteger">
+        <member name="M:FlatRedBall.Math.MathFunctions.FrameToFrame(FlatRedBall.Graphics.Animation.AnimationChain,System.Int32,System.Int32)">
             <summary>
             Determines the shortest absolute difference between two frames.
             </summary>
@@ -12475,6 +12188,7 @@
             <summary>
             Returns a float value between 0 and the argument maxValue;
             </summary>
+            <param name="random">The random instance to use.</param>
             <param name="maxValue">The max value to return.</param>
             <returns>A value between 0 and the max value.</returns>
         </member>

@@ -243,8 +243,5 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class MainMenuUIEntityExtensionMethods
-	{
-	}
 	
 }

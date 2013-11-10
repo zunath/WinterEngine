@@ -78,7 +78,7 @@ namespace WinterEngine.Game.Entities
 		static float SpriteInstanceRotationZVelocityReset;
 		static float SpriteInstanceAlphaReset;
 		static float SpriteInstanceAlphaRateReset;
-		private PositionedObjectList<CollisionBoxEntity> CollisionBoxList;
+		private PositionedObjectList<TileCollisionBoxEntity> CollisionBoxList;
 		public int Index { get; set; }
 		public bool Used { get; set; }
 		protected Layer LayerProvidedByContainer = null;
@@ -102,7 +102,7 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			CollisionBoxList = new PositionedObjectList<CollisionBoxEntity>();
+			CollisionBoxList = new PositionedObjectList<TileCollisionBoxEntity>();
 			
 			PostInitialize();
 			if (addToManagers)
@@ -308,8 +308,5 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class TileEntityExtensionMethods
-	{
-	}
 	
 }
