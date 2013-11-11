@@ -135,7 +135,9 @@
           <SourceClassType>Entities\ToolsetUIEntity</SourceClassType>
           <InstanceName>ToolsetUIEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
+          <AttachToCamera>true</AttachToCamera>
           <IndependentOfCamera>true</IndependentOfCamera>
+          <LayerOn>LayerInstance</LayerOn>
         </NamedObjectSave>
         <NamedObjectSave>
           <SourceType>Entity</SourceType>
@@ -152,6 +154,15 @@
           <InstanceName>TilesetEditorEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
           <IndependentOfCamera>true</IndependentOfCamera>
+        </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>FlatRedBallType</SourceType>
+          <SourceFile />
+          <SourceClassType>Layer</SourceClassType>
+          <InstanceName>LayerInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <Is2D>false</Is2D>
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>
@@ -186,38 +197,6 @@
           <Type>string</Type>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
       </CustomVariables>
       <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
       <Name>Entities\CharacterCreationUIEntity</Name>
@@ -245,41 +224,8 @@
           <DefaultValue xsi:type="xsd:string">file:///./Views/CharacterSelection.html</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
       </CustomVariables>
       <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
-      <ImplementsIVisible>true</ImplementsIVisible>
       <Name>Entities\CharacterSelectUIEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>
@@ -303,38 +249,6 @@
           <Name>ResourcePath</Name>
           <Type>string</Type>
           <DefaultValue xsi:type="xsd:string">file:///./Views/GameUI.html</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
       </CustomVariables>
@@ -369,16 +283,10 @@
               <Name>Type</Name>
               <ValueAsString>float</ValueAsString>
             </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
           </Properties>
-          <Name>X</Name>
+          <Name>Y</Name>
           <Type>float</Type>
           <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <SetByDerived>true</SetByDerived>
-          <SourceObject />
         </CustomVariable>
         <CustomVariable>
           <Properties>
@@ -386,18 +294,40 @@
               <Name>Type</Name>
               <ValueAsString>float</ValueAsString>
             </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
           </Properties>
-          <Name>Y</Name>
+          <Name>X</Name>
           <Type>float</Type>
           <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <SetByDerived>true</SetByDerived>
         </CustomVariable>
       </CustomVariables>
+      <ImplementsIVisible>true</ImplementsIVisible>
+      <ImplementsIWindow>true</ImplementsIWindow>
       <Name>Entities\GuiBaseEntity</Name>
+      <NamedObjects>
+        <NamedObjectSave>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>TextureScale</Member>
+            <ValueAsFloat>1</ValueAsFloat>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>X</Member>
+            <ValueAsFloat>0</ValueAsFloat>
+          </CustomProperty>
+          <CustomProperty>
+            <Type>float</Type>
+            <Member>Y</Member>
+            <ValueAsFloat>0</ValueAsFloat>
+          </CustomProperty>
+          <SourceType>FlatRedBallType</SourceType>
+          <SourceFile />
+          <SourceClassType>Sprite</SourceClassType>
+          <InstanceName>UISprite</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <IndependentOfCamera>true</IndependentOfCamera>
+        </NamedObjectSave>
+      </NamedObjects>
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
@@ -420,38 +350,6 @@
           <Name>ResourcePath</Name>
           <Type>string</Type>
           <DefaultValue xsi:type="xsd:string">file:///./Views/MainMenu.html</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
       </CustomVariables>
@@ -481,33 +379,8 @@
           <DefaultValue xsi:type="xsd:string">file:///./Views/ServerList.html</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
       </CustomVariables>
       <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
-      <ImplementsIVisible>true</ImplementsIVisible>
       <Name>Entities\ServerListUIEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>
@@ -692,41 +565,8 @@
           <DefaultValue xsi:type="xsd:string">file:///./Views/Toolset.html</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
       </CustomVariables>
       <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
-      <ImplementsIVisible>true</ImplementsIVisible>
       <Name>Entities\ToolsetUIEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>

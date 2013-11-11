@@ -6,6 +6,7 @@ using GuiManager = FlatRedBall.Gui.GuiManager;
 using WinterEngine.Game.Screens;
 using FlatRedBall.Graphics;
 using FlatRedBall.Math;
+using FlatRedBall.Gui;
 using WinterEngine.Game.Entities;
 using WinterEngine.Game.Factories;
 using FlatRedBall;
@@ -34,7 +35,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class GuiBaseEntity : PositionedObject, IDestroyable
+	public partial class GuiBaseEntity : PositionedObject, IDestroyable, IVisible, IWindow
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static string ContentManagerName
@@ -51,7 +52,52 @@ namespace WinterEngine.Game.Entities
 		static List<string> mRegisteredUnloads = new List<string>();
 		static List<string> LoadedContentManagers = new List<string>();
 		
+		private FlatRedBall.Sprite UISprite;
 		public virtual string ResourcePath { get; set; }
+		public event EventHandler BeforeVisibleSet;
+		public event EventHandler AfterVisibleSet;
+		protected bool mVisible = true;
+		public virtual bool Visible
+		{
+			get
+			{
+				return mVisible;
+			}
+			set
+			{
+				if (BeforeVisibleSet != null)
+				{
+					BeforeVisibleSet(this, null);
+				}
+				mVisible = value;
+				if (AfterVisibleSet != null)
+				{
+					AfterVisibleSet(this, null);
+				}
+			}
+		}
+		public bool IgnoresParentVisibility { get; set; }
+		public bool AbsoluteVisible
+		{
+			get
+			{
+				return Visible && (Parent == null || IgnoresParentVisibility || Parent is IVisible == false || (Parent as IVisible).AbsoluteVisible);
+			}
+		}
+		IVisible IVisible.Parent
+		{
+			get
+			{
+				if (this.Parent != null && this.Parent is IVisible)
+				{
+					return this.Parent as IVisible;
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
 		protected Layer LayerProvidedByContainer = null;
 
         public GuiBaseEntity(string contentManagerName) :
@@ -73,6 +119,9 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
+			UISprite = new FlatRedBall.Sprite();
+			this.Click += CallLosePush;
+			this.RollOff += CallLosePush;
 			
 			PostInitialize();
 			if (addToManagers)
@@ -88,6 +137,7 @@ namespace WinterEngine.Game.Entities
 		{
 			LayerProvidedByContainer = layerToAddTo;
 			SpriteManager.AddPositionedObject(this);
+			GuiManager.AddWindow(this);
 			AddToManagersBottomUp(layerToAddTo);
 			CustomInitialize();
 		}
@@ -95,6 +145,7 @@ namespace WinterEngine.Game.Entities
 		public virtual void Activity()
 		{
 			// Generated Activity
+			mIsPaused = false;
 			
 			CustomActivity();
 			
@@ -105,7 +156,12 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Destroy
 			SpriteManager.RemovePositionedObject(this);
+			GuiManager.RemoveWindow(this);
 			
+			if (UISprite != null)
+			{
+				UISprite.Detach(); SpriteManager.RemoveSprite(UISprite);
+			}
 
 
 			CustomDestroy();
@@ -116,6 +172,28 @@ namespace WinterEngine.Game.Entities
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
+			if (UISprite.Parent == null)
+			{
+				UISprite.CopyAbsoluteToRelative();
+				UISprite.AttachTo(this, false);
+			}
+			UISprite.TextureScale = 1f;
+			if (UISprite.Parent == null)
+			{
+				UISprite.X = 0f;
+			}
+			else
+			{
+				UISprite.RelativeX = 0f;
+			}
+			if (UISprite.Parent == null)
+			{
+				UISprite.Y = 0f;
+			}
+			else
+			{
+				UISprite.RelativeY = 0f;
+			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -135,17 +213,52 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
+			SpriteManager.AddToLayer(UISprite, layerToAddTo);
+			UISprite.TextureScale = 1f;
+			if (UISprite.Parent == null)
+			{
+				UISprite.X = 0f;
+			}
+			else
+			{
+				UISprite.RelativeX = 0f;
+			}
+			if (UISprite.Parent == null)
+			{
+				UISprite.Y = 0f;
+			}
+			else
+			{
+				UISprite.RelativeY = 0f;
+			}
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
 			RotationX = oldRotationX;
 			RotationY = oldRotationY;
 			RotationZ = oldRotationZ;
+			if (Parent == null)
+			{
+				Y = 0f;
+			}
+			else
+			{
+				RelativeY = 0f;
+			}
+			if (Parent == null)
+			{
+				X = 0f;
+			}
+			else
+			{
+				RelativeX = 0f;
+			}
 		}
 		public virtual void ConvertToManuallyUpdated ()
 		{
 			this.ForceUpdateDependenciesDeep();
 			SpriteManager.ConvertToManuallyUpdated(this);
+			SpriteManager.ConvertToManuallyUpdated(UISprite);
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -214,6 +327,354 @@ namespace WinterEngine.Game.Entities
 		{
 			return null;
 		}
+		
+    // DELEGATE START HERE
+    
+
+        #region IWindow methods and properties
+
+        public event WindowEvent Click;
+		public event WindowEvent ClickNoSlide;
+		public event WindowEvent SlideOnClick;
+        public event WindowEvent Push;
+		public event WindowEvent DragOver;
+		public event WindowEvent RollOn;
+		public event WindowEvent RollOff;
+		public event WindowEvent LosePush;
+
+        System.Collections.ObjectModel.ReadOnlyCollection<IWindow> IWindow.Children
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        bool mEnabled = true;
+
+
+		bool IWindow.Visible
+        {
+            get
+            {
+                return this.AbsoluteVisible;
+            }
+			set
+			{
+				this.Visible = value;
+			}
+        }
+		
+		public bool MovesWhenGrabbed
+        {
+            get;
+            set;
+        }
+
+        bool IWindow.GuiManagerDrawn
+        {
+            get
+            {
+                return false;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IgnoredByCursor
+        {
+            get
+            {
+                return false;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+
+        public System.Collections.ObjectModel.ReadOnlyCollection<IWindow> FloatingChildren
+        {
+            get { return null; }
+        }
+
+        public FlatRedBall.ManagedSpriteGroups.SpriteFrame SpriteFrame
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        float IWindow.WorldUnitX
+        {
+            get
+            {
+                return Position.X;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        float IWindow.WorldUnitY
+        {
+            get
+            {
+                return Position.Y;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        float IWindow.WorldUnitRelativeX
+        {
+            get
+            {
+                return RelativePosition.X;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        float IWindow.WorldUnitRelativeY
+        {
+            get
+            {
+                return RelativePosition.Y;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        float IWindow.ScaleX
+        {
+            get;
+            set;
+        }
+
+        float IWindow.ScaleY
+        {
+            get;
+            set;
+        }
+
+        IWindow IWindow.Parent
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        void IWindow.Activity(Camera camera)
+        {
+
+        }
+
+        void IWindow.CallRollOff()
+        {
+			if(RollOff != null)
+			{
+				RollOff(this);
+			}
+        }
+
+        void IWindow.CallRollOn()
+        {
+			if(RollOn != null)
+			{
+				RollOn(this);
+			}
+        }
+
+		
+		void CallLosePush(IWindow instance)
+		{
+			if(LosePush != null)
+			{
+				LosePush(instance);
+			}
+		}
+
+        void IWindow.CloseWindow()
+        {
+            throw new NotImplementedException();
+        }
+
+		void IWindow.CallClick()
+		{
+			if(Click != null)
+			{
+				Click(this);
+			}
+		}
+
+        public bool GetParentVisibility()
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IWindow.IsPointOnWindow(float x, float y)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnDragging()
+        {
+			if(DragOver != null)
+			{
+				DragOver(this);
+			}
+        }
+
+        public void OnResize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnResizeEnd()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnLosingFocus()
+        {
+            // Do nothing
+        }
+
+        public bool OverlapsWindow(IWindow otherWindow)
+        {
+            return false; // we don't care about this.
+        }
+
+        public void SetScaleTL(float newScaleX, float newScaleY)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetScaleTL(float newScaleX, float newScaleY, bool keepTopLeftStatic)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void TestCollision(FlatRedBall.Gui.Cursor cursor)
+        {
+            if (HasCursorOver(cursor))
+            {
+                cursor.WindowOver = this;
+
+                if (cursor.PrimaryPush)
+                {
+
+                    cursor.WindowPushed = this;
+
+                    if (Push != null)
+                        Push(this);
+
+
+					cursor.GrabWindow(this);
+
+                }
+
+                if (cursor.PrimaryClick) // both pushing and clicking can occur in one frame because of buffered input
+                {
+                    if (cursor.WindowPushed == this)
+                    {
+                        if (Click != null)
+                        {
+                            Click(this);
+                        }
+						if(cursor.PrimaryClickNoSlide && ClickNoSlide != null)
+						{
+							ClickNoSlide(this);
+						}
+
+                        // if (cursor.PrimaryDoubleClick && DoubleClick != null)
+                        //   DoubleClick(this);
+                    }
+					else
+					{
+						if(SlideOnClick != null)
+						{
+							SlideOnClick(this);
+						}
+					}
+                }
+            }
+        }
+
+        void IWindow.UpdateDependencies()
+        {
+            // do nothing
+        }
+
+        Layer ILayered.Layer
+        {
+            get
+            {
+				return LayerProvidedByContainer;
+            }
+        }
+
+
+        #endregion
+
+		bool IWindow.Enabled
+		{
+			get
+			{
+				return mEnabled;
+			}
+			set
+			{
+				mEnabled = value;
+			}
+		}
+		public virtual bool HasCursorOver (FlatRedBall.Gui.Cursor cursor)
+		{
+			if (mIsPaused)
+			{
+				return false;
+			}
+			if (!AbsoluteVisible)
+			{
+				return false;
+			}
+			if (LayerProvidedByContainer != null && LayerProvidedByContainer.Visible == false)
+			{
+				return false;
+			}
+			if (!cursor.IsOn(LayerProvidedByContainer))
+			{
+				return false;
+			}
+			if (UISprite.Alpha != 0 && UISprite.AbsoluteVisible && cursor.IsOn3D(UISprite, LayerProvidedByContainer))
+			{
+				return true;
+			}
+			return false;
+		}
+		public virtual bool WasClickedThisFrame (FlatRedBall.Gui.Cursor cursor)
+		{
+			return cursor.PrimaryClick && HasCursorOver(cursor);
+		}
 		protected bool mIsPaused;
 		public override void Pause (FlatRedBall.Instructions.InstructionList instructions)
 		{
@@ -223,9 +684,15 @@ namespace WinterEngine.Game.Entities
 		public virtual void SetToIgnorePausing ()
 		{
 			FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(this);
+			FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(UISprite);
 		}
 		public virtual void MoveToLayer (Layer layerToMoveTo)
 		{
+			if (LayerProvidedByContainer != null)
+			{
+				LayerProvidedByContainer.Remove(UISprite);
+			}
+			SpriteManager.AddToLayer(UISprite, layerToMoveTo);
 			LayerProvidedByContainer = layerToMoveTo;
 		}
 

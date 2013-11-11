@@ -34,7 +34,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class ServerListUIEntity : WinterEngine.Game.Entities.GuiBaseEntity, IDestroyable, IVisible
+	public partial class ServerListUIEntity : WinterEngine.Game.Entities.GuiBaseEntity, IDestroyable
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static new string ContentManagerName
@@ -51,50 +51,6 @@ namespace WinterEngine.Game.Entities
 		static List<string> mRegisteredUnloads = new List<string>();
 		static List<string> LoadedContentManagers = new List<string>();
 		
-		public event EventHandler BeforeVisibleSet;
-		public event EventHandler AfterVisibleSet;
-		protected bool mVisible = true;
-		public virtual bool Visible
-		{
-			get
-			{
-				return mVisible;
-			}
-			set
-			{
-				if (BeforeVisibleSet != null)
-				{
-					BeforeVisibleSet(this, null);
-				}
-				mVisible = value;
-				if (AfterVisibleSet != null)
-				{
-					AfterVisibleSet(this, null);
-				}
-			}
-		}
-		public bool IgnoresParentVisibility { get; set; }
-		public bool AbsoluteVisible
-		{
-			get
-			{
-				return Visible && (Parent == null || IgnoresParentVisibility || Parent is IVisible == false || (Parent as IVisible).AbsoluteVisible);
-			}
-		}
-		IVisible IVisible.Parent
-		{
-			get
-			{
-				if (this.Parent != null && this.Parent is IVisible)
-				{
-					return this.Parent as IVisible;
-				}
-				else
-				{
-					return null;
-				}
-			}
-		}
 
         public ServerListUIEntity(string contentManagerName) :
             this(contentManagerName, true)
@@ -182,22 +138,6 @@ namespace WinterEngine.Game.Entities
 			RotationY = oldRotationY;
 			RotationZ = oldRotationZ;
 			ResourcePath = "file:///./Views/ServerList.html";
-			if (Parent == null)
-			{
-				X = 0f;
-			}
-			else
-			{
-				RelativeX = 0f;
-			}
-			if (Parent == null)
-			{
-				Y = 0f;
-			}
-			else
-			{
-				RelativeY = 0f;
-			}
 		}
 		public override void ConvertToManuallyUpdated ()
 		{

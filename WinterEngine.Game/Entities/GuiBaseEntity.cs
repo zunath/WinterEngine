@@ -74,22 +74,21 @@ namespace WinterEngine.Game.Entities
 
         private void CustomInitialize()
         {
-            _batch = new SpriteBatch(FlatRedBallServices.GraphicsDevice);
             InitializeAwesomium();
-
-            WinterEngineService.OnXNADraw += DrawAwesomium;
-
         }
 
 		private void CustomActivity()
 		{
+            this.LayerProvidedByContainer.UsePixelCoordinates();
+            
+            this.UISprite.Texture = AwesomeComponent.WebViewTexture;
+            this.UISprite.Width = FlatRedBallServices.GraphicsDevice.Viewport.Bounds.Width;
+            this.UISprite.Height = FlatRedBallServices.GraphicsDevice.Viewport.Bounds.Height;
 		}
 
 		private void CustomDestroy()
         {
             DisposeAwesomium();
-
-            WinterEngineService.OnXNADraw -= DrawAwesomium;
 		}
 
         private static void CustomLoadStaticContent(string contentManagerName)
@@ -127,17 +126,6 @@ namespace WinterEngine.Game.Entities
 
         #endregion
 
-        #region Rendering Methods
-
-
-        public JSObject RunJavaScriptMethod(string methodName)
-        {
-            return AwesomeComponent.WebView.ExecuteJavascriptWithResult(methodName);
-        }
-
-
-        #endregion
-
         #region Awesomium Event Handling
 
         private void InitializeAwesomium()
@@ -151,6 +139,10 @@ namespace WinterEngine.Game.Entities
             AwesomeComponent.WebView.DocumentReady += OnDocumentReady;
             AwesomeComponent.WebView.ShowJavascriptDialog += OnJavascriptDialog;
             AwesomeComponent.WebView.ConsoleMessage += OnConsoleMessage;
+
+            this.UISprite.Texture = AwesomeComponent.WebViewTexture;
+            this.UISprite.Width = FlatRedBallServices.GraphicsDevice.Viewport.Bounds.Width;
+            this.UISprite.Height = FlatRedBallServices.GraphicsDevice.Viewport.Bounds.Height;
         }
 
         private void OnConsoleMessage(object sender, ConsoleMessageEventArgs e)
@@ -165,6 +157,7 @@ namespace WinterEngine.Game.Entities
 
         private void DisposeAwesomium()
         {
+            FlatRedBallServices.Game.Components.Remove(AwesomeComponent);
             FlatRedBallServices.Game.Window.ClientSizeChanged -= ResizeWindow;
             AwesomeComponent.WebView.Dispose();
         }
@@ -189,18 +182,6 @@ namespace WinterEngine.Game.Entities
         private void SetMouseIsInUIFalse(object sender, JavascriptMethodEventArgs e)
         {
             IsMouseOverUI = false;
-        }
-
-        private void DrawAwesomium(object sender, EventArgs e)
-        {
-            if (AwesomeComponent.WebViewTexture != null)
-            {
-                _batch.Begin();
-                _batch.Draw(AwesomeComponent.WebViewTexture,
-                    FlatRedBallServices.GraphicsDevice.Viewport.Bounds,
-                    Microsoft.Xna.Framework.Color.White);
-                _batch.End();
-            }
         }
 
         private void ResizeWindow(object sender, EventArgs e)
@@ -229,6 +210,11 @@ namespace WinterEngine.Game.Entities
                 window.InvokeAsync(callback, args);
             }
 
+        }
+
+        public JSObject RunJavaScriptMethod(string methodName)
+        {
+            return AwesomeComponent.WebView.ExecuteJavascriptWithResult(methodName);
         }
 
         #endregion

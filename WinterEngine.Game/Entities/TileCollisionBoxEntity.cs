@@ -67,7 +67,7 @@ namespace WinterEngine.Game.Entities
 		{
             if (InputManager.Mouse.ButtonDown(Mouse.MouseButtons.LeftButton))
             {
-                if (!IsPainting && this.HasCursorOver(GuiManager.Cursor) )
+                if (!IsPainting && this.HasCursorOver(GuiManager.Cursor))
                 {
                     IsPassable = !IsPassable;
 
@@ -78,7 +78,7 @@ namespace WinterEngine.Game.Entities
             {
                 IsPainting = false;
             }
-
+            
 		}
 
 		private void CustomDestroy()
