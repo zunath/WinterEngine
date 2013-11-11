@@ -22,17 +22,39 @@ using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using FlatRedBall.Screens;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
+using WinterEngine.DataTransferObjects.BusinessObjects;
+using WinterEngine.Game.Services;
+using WinterEngine.Network.Enums;
+using Awesomium.Core;
+using System.Diagnostics;
+using WinterEngine.Network;
 #endif
 
 namespace WinterEngine.Game.Screens
 {
-	public partial class MainMenuScreen
+    public partial class MainMenuScreen
     {
         #region Fields
+
+        private WebServiceClientUtility _webClientUtility;
 
         #endregion
 
         #region Properties
+
+        private WebServiceClientUtility WebUtility
+        {
+            get
+            {
+                if (_webClientUtility == null)
+                {
+                    _webClientUtility = new WebServiceClientUtility();
+                }
+
+                return _webClientUtility;
+            }
+        }
+
 
         #endregion
 
@@ -40,28 +62,304 @@ namespace WinterEngine.Game.Screens
 
         #endregion
 
-        #region Methods
+        #region FRB Events
 
         void CustomInitialize()
         {
-            MainMenuGuiEntityInstance.OnChangeScreen += base.ChangeScreen;
-		}
+            AwesomiumWebView.DocumentReady += OnDocumentReady;
+        }
 
-		void CustomActivity(bool firstTimeCalled)
-		{
+        void CustomActivity(bool firstTimeCalled)
+        {
 
 
-		}
+        }
 
-		void CustomDestroy()
-		{
+        void CustomDestroy()
+        {
 
-		}
+        }
 
         static void CustomLoadStaticContent(string contentManagerName)
         {
 
 
+        }
+
+        #endregion
+
+        #region UI Bindings
+
+        private void OnDocumentReady(object sender, EventArgs e)
+        {
+            AwesomiumWebView.DocumentReady -= OnDocumentReady;
+
+            EntityJavascriptObject.Bind("LoginButtonClick", false, LoginButtonClick);
+            EntityJavascriptObject.Bind("LogoutButtonClick", true, LogoutButtonClick);
+            EntityJavascriptObject.Bind("FindServerButtonClick", false, FindServerButtonClick);
+            EntityJavascriptObject.Bind("ToolsetButtonClick", false, ToolsetButtonClick);
+            EntityJavascriptObject.Bind("SettingsButtonClick", false, SettingsButtonClick);
+            EntityJavascriptObject.Bind("WebsiteButtonClick", false, WebsiteButtonClick);
+            EntityJavascriptObject.Bind("ForumsButtonClick", false, ForumsButtonClick);
+            EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButtonClick);
+
+            EntityJavascriptObject.Bind("UpsertProfileButtonClick", false, UpsertProfileButtonClick);
+            EntityJavascriptObject.Bind("ResendAccountActivationEmail", false, ResendAccountActivationEmail);
+
+            // User profile data binding
+            EntityJavascriptObject.Bind("GetUserName", true, GetUserName);
+            EntityJavascriptObject.Bind("GetPassword", true, GetPassword);
+            EntityJavascriptObject.Bind("GetEmail", true, GetEmail);
+            EntityJavascriptObject.Bind("GetFirstName", true, GetFirstName);
+            EntityJavascriptObject.Bind("GetLastName", true, GetLastName);
+            EntityJavascriptObject.Bind("GetDateOfBirth", true, GetDateOfBirth);
+            EntityJavascriptObject.Bind("GetIsLoggedIn", true, GetIsLoggedIn);
+
+            // Logo Links
+            EntityJavascriptObject.Bind("FlatRedBallLogoLinkClick", false, FlatRedBallLogoLinkClick);
+            EntityJavascriptObject.Bind("XNALogoLinkClick", false, XNALogoLinkClick);
+
+
+            // This method fires after the client side OnDocumentReady - must call it here to 
+            // toggle logged-in options.
+            RunJavaScriptMethod("CheckIfLoggedIn();");
+        }
+
+        #endregion
+
+
+        #region UI Methods
+
+        /// <summary>
+        /// Sends login credentials to master server and attempts to log in.
+        /// Returns true if log in is successful.
+        /// Returns false if log in is unsuccessful.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void LoginButtonClick(object sender, JavascriptMethodEventArgs args)
+        {
+            string username = args.Arguments[0].ToString();
+            string password = args.Arguments[1].ToString();
+            LoginCredentials loginCredentials = new LoginCredentials { UserName = username, Password = password };
+            WinterEngineService.InitializeUserProfile(WebUtility.AttemptUserLogin(loginCredentials));
+            UserProfileResponseTypeEnum responseType = UserProfileResponseTypeEnum.Failure;
+
+            if (WinterEngineService.ActiveUserProfile.UserID > 0 && WinterEngineService.ActiveUserProfile.IsEmailVerified)
+            {
+                WinterEngineService.ActiveUserProfile.IsLoggedIn = true;
+                responseType = UserProfileResponseTypeEnum.Successful;
+            }
+            else if (WinterEngineService.ActiveUserProfile.UserID > 0 && !WinterEngineService.ActiveUserProfile.IsEmailVerified)
+            {
+                responseType = UserProfileResponseTypeEnum.AccountNotActivated;
+            }
+            else
+            {
+                responseType = UserProfileResponseTypeEnum.InvalidPassword;
+            }
+
+            AsyncJavascriptCallback("DoLogin_Callback", (int)responseType);
+        }
+
+        /// <summary>
+        /// Removes user's profile from memory, effectively logging them out.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void LogoutButtonClick(object sender, JavascriptMethodEventArgs args)
+        {
+            WinterEngineService.InitializeUserProfile(new UserProfile());
+        }
+
+        /// <summary>
+        /// Changes active screen to the Server List screen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void FindServerButtonClick(object sender, JavascriptMethodEventArgs args)
+        {
+            ChangeScreen(this, new TypeOfEventArgs(typeof(ServerListScreen)));
+
+        }
+
+        /// <summary>
+        /// Changes active screen to the toolset screen.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void ToolsetButtonClick(object sender, JavascriptMethodEventArgs args)
+        {
+            ChangeScreen(this, new TypeOfEventArgs(typeof(ToolsetScreen)));
+        }
+
+        private void SettingsButtonClick(object sender, JavascriptMethodEventArgs args)
+        {
+        }
+
+        /// <summary>
+        /// Opens user's default browser and navigates to the Winter Engine website.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void WebsiteButtonClick(object sender, JavascriptMethodEventArgs args)
+        {
+            Process.Start("https://www.winterengine.com/");
+        }
+
+        /// <summary>
+        /// Opens user's default browser and navigates to the Winter Engine forums.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void ForumsButtonClick(object sender, JavascriptMethodEventArgs args)
+        {
+            Process.Start("https://www.winterengine.com/forum");
+        }
+
+        /// <summary>
+        /// Attempts to create a new user profile on the master server.
+        /// Can fail for any of the following reasons:
+        ///     - Username already exists
+        ///     - Invalid password
+        ///     - Password mismatch
+        ///     - Email address already in use
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void UpsertProfileButtonClick(object sender, JavascriptMethodEventArgs args)
+        {
+            UserProfileResponseTypeEnum responseType = UserProfileResponseTypeEnum.Failure;
+
+            string password = args.Arguments[1];
+            string confirmPassword = args.Arguments[2];
+            bool isCreatingNewProfile = (bool)args.Arguments[7];
+
+            if (password == confirmPassword)
+            {
+                UserProfile profile = new UserProfile
+                {
+                    UserName = args.Arguments[0],
+                    UserPassword = args.Arguments[1],
+                    UserEmail = args.Arguments[3],
+                    UserFirstName = args.Arguments[4],
+                    UserLastName = args.Arguments[5],
+                };
+
+                DateTime parsedDOB;
+                DateTime.TryParse(args.Arguments[6], out parsedDOB);
+                profile.UserDOB = parsedDOB;
+
+                responseType = WebUtility.SendUserProfile(profile, isCreatingNewProfile);
+            }
+            else
+            {
+                responseType = UserProfileResponseTypeEnum.PasswordMismatch;
+            }
+
+            AsyncJavascriptCallback("SaveProfileButton_Callback", Convert.ToInt32(responseType));
+        }
+
+        /// <summary>
+        /// Closes the game window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void ExitButtonClick(object sender, JavascriptMethodEventArgs args)
+        {
+            FlatRedBallServices.Game.Exit();
+        }
+
+        /// <summary>
+        /// Opens user's default browser and navigates to the FlatRedBall website
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void FlatRedBallLogoLinkClick(object sender, JavascriptMethodEventArgs args)
+        {
+            Process.Start("http://www.flatredball.com/");
+        }
+
+        /// <summary>
+        /// Opens user's default browser and navigates to the XNA website.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void XNALogoLinkClick(object sender, JavascriptMethodEventArgs args)
+        {
+            Process.Start("http://msdn.microsoft.com/en-us/centrum-xna.aspx");
+        }
+
+        /// <summary>
+        /// Sends request to master server to resend the activation email for a user's account.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void ResendAccountActivationEmail(object sender, JavascriptMethodEventArgs args)
+        {
+            WebUtility.RequestActivationEmailResend(WinterEngineService.ActiveUserProfile.UserEmail);
+        }
+
+        #endregion
+
+        #region Profile Javascript Data Retrieval Methods
+
+        private void GetUserName(object sender, JavascriptMethodEventArgs e)
+        {
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
+            {
+                e.Result = WinterEngineService.ActiveUserProfile.UserName;
+            }
+        }
+
+        private void GetPassword(object sender, JavascriptMethodEventArgs e)
+        {
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
+            {
+                e.Result = WinterEngineService.ActiveUserProfile.UserPassword;
+            }
+        }
+
+        private void GetEmail(object sender, JavascriptMethodEventArgs e)
+        {
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
+            {
+                e.Result = WinterEngineService.ActiveUserProfile.UserEmail;
+            }
+        }
+
+        private void GetFirstName(object sender, JavascriptMethodEventArgs e)
+        {
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
+            {
+                e.Result = WinterEngineService.ActiveUserProfile.UserFirstName;
+            }
+        }
+
+        private void GetLastName(object sender, JavascriptMethodEventArgs e)
+        {
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
+            {
+                e.Result = WinterEngineService.ActiveUserProfile.UserLastName;
+            }
+        }
+
+        private void GetDateOfBirth(object sender, JavascriptMethodEventArgs e)
+        {
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
+            {
+                e.Result = WinterEngineService.ActiveUserProfile.UserDOB.ToString("MM/dd/yyyy");
+            }
+        }
+
+        private void GetIsLoggedIn(object sender, JavascriptMethodEventArgs e)
+        {
+            e.Result = false;
+
+            if (!Object.ReferenceEquals(WinterEngineService.ActiveUserProfile, null))
+            {
+                e.Result = WinterEngineService.ActiveUserProfile.IsLoggedIn;
+            }
         }
 
         #endregion

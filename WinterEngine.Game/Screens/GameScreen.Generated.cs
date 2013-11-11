@@ -29,7 +29,7 @@ using System.Text;
 
 namespace WinterEngine.Game.Screens
 {
-	public partial class MainMenuScreen : BaseScreen
+	public partial class GameScreen : BaseScreen
 	{
 		// Generated Fields
 		#if DEBUG
@@ -37,7 +37,7 @@ namespace WinterEngine.Game.Screens
 		#endif
 		
 
-		public MainMenuScreen()
+		public GameScreen()
 			: base()
 		{
 		}
@@ -104,7 +104,7 @@ namespace WinterEngine.Game.Screens
 		public override void AddToManagersBottomUp ()
 		{
 			base.AddToManagersBottomUp();
-			UIResourcePath = "file:///./Views/MainMenu.html";
+			UIResourcePath = "file:///./Views/GameUI.html";
 		}
 		public override void ConvertToManuallyUpdated ()
 		{

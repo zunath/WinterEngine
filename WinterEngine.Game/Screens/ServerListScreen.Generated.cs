@@ -36,7 +36,6 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private WinterEngine.Game.Entities.ServerListUIEntity ServerListGuiEntityInstance;
 
 		public ServerListScreen()
 			: base()
@@ -47,8 +46,6 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			ServerListGuiEntityInstance = new WinterEngine.Game.Entities.ServerListUIEntity(ContentManagerName, false);
-			ServerListGuiEntityInstance.Name = "ServerListGuiEntityInstance";
 			
 			
 			base.Initialize(addToManagers);
@@ -69,7 +66,6 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				ServerListGuiEntityInstance.Activity();
 			}
 			else
 			{
@@ -90,11 +86,6 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
-			if (ServerListGuiEntityInstance != null)
-			{
-				ServerListGuiEntityInstance.Destroy();
-				ServerListGuiEntityInstance.Detach();
-			}
 
 			base.Destroy();
 
@@ -113,12 +104,11 @@ namespace WinterEngine.Game.Screens
 		public override void AddToManagersBottomUp ()
 		{
 			base.AddToManagersBottomUp();
-			ServerListGuiEntityInstance.AddToManagers(mLayer);
+			UIResourcePath = "file:///./Views/ServerList.html";
 		}
 		public override void ConvertToManuallyUpdated ()
 		{
 			base.ConvertToManuallyUpdated();
-			ServerListGuiEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static new void LoadStaticContent (string contentManagerName)
 		{
@@ -137,7 +127,6 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
-			WinterEngine.Game.Entities.ServerListUIEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]

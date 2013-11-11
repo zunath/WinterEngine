@@ -36,6 +36,7 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
+		public virtual string UIResourcePath { get; set; }
 
 		public BaseScreen()
 			: base("BaseScreen")

@@ -36,7 +36,6 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
-		private WinterEngine.Game.Entities.ToolsetUIEntity ToolsetUIEntityInstance;
 		private WinterEngine.Game.Entities.AreaEditorEntity AreaEntityInstance;
 		private WinterEngine.Game.Entities.TilesetEditorEntity TilesetEditorEntityInstance;
 
@@ -49,8 +48,6 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			ToolsetUIEntityInstance = new WinterEngine.Game.Entities.ToolsetUIEntity(ContentManagerName, false);
-			ToolsetUIEntityInstance.Name = "ToolsetUIEntityInstance";
 			AreaEntityInstance = new WinterEngine.Game.Entities.AreaEditorEntity(ContentManagerName, false);
 			AreaEntityInstance.Name = "AreaEntityInstance";
 			TilesetEditorEntityInstance = new WinterEngine.Game.Entities.TilesetEditorEntity(ContentManagerName, false);
@@ -75,7 +72,6 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
-				ToolsetUIEntityInstance.Activity();
 				AreaEntityInstance.Activity();
 				TilesetEditorEntityInstance.Activity();
 			}
@@ -98,11 +94,6 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
-			if (ToolsetUIEntityInstance != null)
-			{
-				ToolsetUIEntityInstance.Destroy();
-				ToolsetUIEntityInstance.Detach();
-			}
 			if (AreaEntityInstance != null)
 			{
 				AreaEntityInstance.Destroy();
@@ -131,14 +122,13 @@ namespace WinterEngine.Game.Screens
 		public override void AddToManagersBottomUp ()
 		{
 			base.AddToManagersBottomUp();
-			ToolsetUIEntityInstance.AddToManagers(mLayer);
 			AreaEntityInstance.AddToManagers(mLayer);
 			TilesetEditorEntityInstance.AddToManagers(mLayer);
+			UIResourcePath = "file:///./Views/Toolset.html";
 		}
 		public override void ConvertToManuallyUpdated ()
 		{
 			base.ConvertToManuallyUpdated();
-			ToolsetUIEntityInstance.ConvertToManuallyUpdated();
 			AreaEntityInstance.ConvertToManuallyUpdated();
 			TilesetEditorEntityInstance.ConvertToManuallyUpdated();
 		}
@@ -159,7 +149,6 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
-			WinterEngine.Game.Entities.ToolsetUIEntity.LoadStaticContent(contentManagerName);
 			WinterEngine.Game.Entities.AreaEditorEntity.LoadStaticContent(contentManagerName);
 			WinterEngine.Game.Entities.TilesetEditorEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);

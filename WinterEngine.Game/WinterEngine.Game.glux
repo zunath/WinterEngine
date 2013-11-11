@@ -6,6 +6,23 @@
         <string>GLUE</string>
       </Tags>
       <Source>GLUE</Source>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>string</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>UIResourcePath</Name>
+          <Type>string</Type>
+          <SetByDerived>true</SetByDerived>
+        </CustomVariable>
+      </CustomVariables>
       <Name>Screens\BaseScreen</Name>
     </ScreenSave>
     <ScreenSave>
@@ -14,16 +31,21 @@
       </Tags>
       <Source>GLUE</Source>
       <BaseScreen>Screens\BaseScreen</BaseScreen>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>string</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>UIResourcePath</Name>
+          <Type>string</Type>
+          <DefaultValue xsi:type="xsd:string">file:///./Views/CharacterSelection.html</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+      </CustomVariables>
       <Name>Screens\CharacterSelectScreen</Name>
-      <NamedObjects>
-        <NamedObjectSave>
-          <SourceType>Entity</SourceType>
-          <SourceClassType>Entities\CharacterSelectUIEntity</SourceClassType>
-          <InstanceName>CharacterSelectUIEntityInstance</InstanceName>
-          <AttachToContainer>true</AttachToContainer>
-          <IndependentOfCamera>true</IndependentOfCamera>
-        </NamedObjectSave>
-      </NamedObjects>
     </ScreenSave>
     <ScreenSave>
       <Tags>
@@ -31,16 +53,47 @@
       </Tags>
       <Source>GLUE</Source>
       <BaseScreen>Screens\BaseScreen</BaseScreen>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>string</ValueAsString>
+            </PropertySave>
+            <PropertySave>
+              <Name>CreatesProperties</Name>
+              <ValueAsBool>true</ValueAsBool>
+            </PropertySave>
+          </Properties>
+          <Name>UIResourcePath</Name>
+          <Type>string</Type>
+          <DefaultValue xsi:type="xsd:string">file:///./Views/GameUI.html</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+      </CustomVariables>
+      <Name>Screens\GameScreen</Name>
+    </ScreenSave>
+    <ScreenSave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
+      <BaseScreen>Screens\BaseScreen</BaseScreen>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>string</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>UIResourcePath</Name>
+          <Type>string</Type>
+          <DefaultValue xsi:type="xsd:string">file:///./Views/MainMenu.html</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+      </CustomVariables>
       <Name>Screens\MainMenuScreen</Name>
-      <NamedObjects>
-        <NamedObjectSave>
-          <SourceType>Entity</SourceType>
-          <SourceClassType>Entities\MainMenuUIEntity</SourceClassType>
-          <InstanceName>MainMenuGuiEntityInstance</InstanceName>
-          <AttachToContainer>true</AttachToContainer>
-          <IndependentOfCamera>true</IndependentOfCamera>
-        </NamedObjectSave>
-      </NamedObjects>
     </ScreenSave>
     <ScreenSave>
       <Tags>
@@ -48,17 +101,21 @@
       </Tags>
       <Source>GLUE</Source>
       <BaseScreen>Screens\BaseScreen</BaseScreen>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>string</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>UIResourcePath</Name>
+          <Type>string</Type>
+          <DefaultValue xsi:type="xsd:string">file:///./Views/ServerList.html</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+      </CustomVariables>
       <Name>Screens\ServerListScreen</Name>
-      <NamedObjects>
-        <NamedObjectSave>
-          <SourceType>Entity</SourceType>
-          <SourceClassType>Entities\ServerListUIEntity</SourceClassType>
-          <InstanceName>ServerListGuiEntityInstance</InstanceName>
-          <AttachToContainer>true</AttachToContainer>
-          <IndependentOfCamera>true</IndependentOfCamera>
-          <LayerOn />
-        </NamedObjectSave>
-      </NamedObjects>
     </ScreenSave>
     <ScreenSave>
       <Tags>
@@ -128,15 +185,22 @@
       </Tags>
       <Source>GLUE</Source>
       <BaseScreen>Screens\BaseScreen</BaseScreen>
+      <CustomVariables>
+        <CustomVariable>
+          <Properties>
+            <PropertySave>
+              <Name>Type</Name>
+              <ValueAsString>string</ValueAsString>
+            </PropertySave>
+          </Properties>
+          <Name>UIResourcePath</Name>
+          <Type>string</Type>
+          <DefaultValue xsi:type="xsd:string">file:///./Views/Toolset.html</DefaultValue>
+          <DefinedByBase>true</DefinedByBase>
+        </CustomVariable>
+      </CustomVariables>
       <Name>Screens\ToolsetScreen</Name>
       <NamedObjects>
-        <NamedObjectSave>
-          <SourceType>Entity</SourceType>
-          <SourceClassType>Entities\ToolsetUIEntity</SourceClassType>
-          <InstanceName>ToolsetUIEntityInstance</InstanceName>
-          <AttachToContainer>true</AttachToContainer>
-          <IndependentOfCamera>true</IndependentOfCamera>
-        </NamedObjectSave>
         <NamedObjectSave>
           <SourceType>Entity</SourceType>
           <SourceFile />
@@ -163,352 +227,6 @@
       </Tags>
       <Source>GLUE</Source>
       <Name>Entities\AreaEditorEntity</Name>
-      <Is2D>true</Is2D>
-    </EntitySave>
-    <EntitySave>
-      <Tags>
-        <string>GLUE</string>
-      </Tags>
-      <Source>GLUE</Source>
-      <CustomVariables>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>string</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>ResourcePath</Name>
-          <Type>string</Type>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-      </CustomVariables>
-      <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
-      <Name>Entities\CharacterCreationUIEntity</Name>
-      <Is2D>true</Is2D>
-    </EntitySave>
-    <EntitySave>
-      <Tags>
-        <string>GLUE</string>
-      </Tags>
-      <Source>GLUE</Source>
-      <CustomVariables>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>string</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>ResourcePath</Name>
-          <Type>string</Type>
-          <DefaultValue xsi:type="xsd:string">file:///./Views/CharacterSelection.html</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-      </CustomVariables>
-      <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
-      <ImplementsIVisible>true</ImplementsIVisible>
-      <Name>Entities\CharacterSelectUIEntity</Name>
-      <Is2D>true</Is2D>
-    </EntitySave>
-    <EntitySave>
-      <Tags>
-        <string>GLUE</string>
-      </Tags>
-      <Source>GLUE</Source>
-      <CustomVariables>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>string</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>ResourcePath</Name>
-          <Type>string</Type>
-          <DefaultValue xsi:type="xsd:string">file:///./Views/GameUI.html</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-      </CustomVariables>
-      <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
-      <Name>Entities\GameUIEntity</Name>
-      <Is2D>true</Is2D>
-    </EntitySave>
-    <EntitySave>
-      <Tags>
-        <string>GLUE</string>
-      </Tags>
-      <Source>GLUE</Source>
-      <CustomVariables>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>string</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>ResourcePath</Name>
-          <Type>string</Type>
-          <SetByDerived>true</SetByDerived>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <SetByDerived>true</SetByDerived>
-          <SourceObject />
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <SetByDerived>true</SetByDerived>
-        </CustomVariable>
-      </CustomVariables>
-      <Name>Entities\GuiBaseEntity</Name>
-      <Is2D>true</Is2D>
-    </EntitySave>
-    <EntitySave>
-      <Tags>
-        <string>GLUE</string>
-      </Tags>
-      <Source>GLUE</Source>
-      <CustomVariables>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>string</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>ResourcePath</Name>
-          <Type>string</Type>
-          <DefaultValue xsi:type="xsd:string">file:///./Views/MainMenu.html</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-      </CustomVariables>
-      <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
-      <Name>Entities\MainMenuUIEntity</Name>
-      <Is2D>true</Is2D>
-    </EntitySave>
-    <EntitySave>
-      <Tags>
-        <string>GLUE</string>
-      </Tags>
-      <Source>GLUE</Source>
-      <CustomVariables>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>string</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>ResourcePath</Name>
-          <Type>string</Type>
-          <DefaultValue xsi:type="xsd:string">file:///./Views/ServerList.html</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-      </CustomVariables>
-      <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
-      <ImplementsIVisible>true</ImplementsIVisible>
-      <Name>Entities\ServerListUIEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>
     <EntitySave>
@@ -668,66 +386,6 @@
           <IndependentOfCamera>true</IndependentOfCamera>
         </NamedObjectSave>
       </NamedObjects>
-      <Is2D>true</Is2D>
-    </EntitySave>
-    <EntitySave>
-      <Tags>
-        <string>GLUE</string>
-      </Tags>
-      <Source>GLUE</Source>
-      <CustomVariables>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>string</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>ResourcePath</Name>
-          <Type>string</Type>
-          <DefaultValue xsi:type="xsd:string">file:///./Views/Toolset.html</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>X</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-        <CustomVariable>
-          <Properties>
-            <PropertySave>
-              <Name>Type</Name>
-              <ValueAsString>float</ValueAsString>
-            </PropertySave>
-            <PropertySave>
-              <Name>CreatesProperties</Name>
-              <ValueAsBool>true</ValueAsBool>
-            </PropertySave>
-          </Properties>
-          <Name>Y</Name>
-          <Type>float</Type>
-          <DefaultValue xsi:type="xsd:float">0</DefaultValue>
-          <DefinedByBase>true</DefinedByBase>
-        </CustomVariable>
-      </CustomVariables>
-      <BaseEntity>Entities\GuiBaseEntity</BaseEntity>
-      <ImplementsIVisible>true</ImplementsIVisible>
-      <Name>Entities\ToolsetUIEntity</Name>
       <Is2D>true</Is2D>
     </EntitySave>
   </Entities>
