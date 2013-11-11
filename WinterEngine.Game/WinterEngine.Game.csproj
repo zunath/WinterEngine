@@ -141,13 +141,43 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\CharacterCreationUIEntity.cs" />
+    <Compile Include="Entities\CharacterCreationUIEntity.Generated.cs">
+      <DependentUpon>CharacterCreationUIEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CharacterSelectUIEntity.cs" />
+    <Compile Include="Entities\CharacterSelectUIEntity.Generated.cs">
+      <DependentUpon>CharacterSelectUIEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entities\TileCollisionBoxEntity.cs" />
     <Compile Include="Entities\TileCollisionBoxEntity.Generated.cs">
       <DependentUpon>TileCollisionBoxEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entities\GameUIEntity.cs" />
+    <Compile Include="Entities\GameUIEntity.Generated.cs">
+      <DependentUpon>GameUIEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\GuiBaseEntity.cs" />
+    <Compile Include="Entities\GuiBaseEntity.Event.cs">
+      <DependentUpon>GuiBaseEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\GuiBaseEntity.Generated.cs">
+      <DependentUpon>GuiBaseEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\GuiBaseEntity.Generated.Event.cs">
+      <DependentUpon>GuiBaseEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MainMenuUIEntity.cs" />
+    <Compile Include="Entities\MainMenuUIEntity.Generated.cs">
+      <DependentUpon>MainMenuUIEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entities\AreaEditorEntity.cs" />
     <Compile Include="Entities\AreaEditorEntity.Generated.cs">
       <DependentUpon>AreaEditorEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ServerListUIEntity.cs" />
+    <Compile Include="Entities\ServerListUIEntity.Generated.cs">
+      <DependentUpon>ServerListUIEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Entities\TileEntity.cs" />
     <Compile Include="Entities\TileEntity.Generated.cs">
@@ -156,6 +186,10 @@
     <Compile Include="Entities\TilesetEditorEntity.cs" />
     <Compile Include="Entities\TilesetEditorEntity.Generated.cs">
       <DependentUpon>TilesetEditorEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ToolsetUIEntity.cs" />
+    <Compile Include="Entities\ToolsetUIEntity.Generated.cs">
+      <DependentUpon>ToolsetUIEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Factories\TileCollisionBoxEntityFactory.Generated.cs" />
     <Compile Include="Factories\TileEntityFactory.Generated.cs" />
@@ -174,10 +208,6 @@
     <Compile Include="Screens\CharacterSelectScreen.cs" />
     <Compile Include="Screens\CharacterSelectScreen.Generated.cs">
       <DependentUpon>CharacterSelectScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Screens\GameScreen.cs" />
-    <Compile Include="Screens\GameScreen.Generated.cs">
-      <DependentUpon>GameScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.Event.cs">

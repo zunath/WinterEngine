@@ -36,6 +36,7 @@ namespace WinterEngine.Game.Screens
 		static bool HasBeenLoadedWithGlobalContentManager = false;
 		#endif
 		
+		private WinterEngine.Game.Entities.CharacterSelectUIEntity CharacterSelectUIEntityInstance;
 
 		public CharacterSelectScreen()
 			: base()
@@ -46,6 +47,8 @@ namespace WinterEngine.Game.Screens
         {
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
+			CharacterSelectUIEntityInstance = new WinterEngine.Game.Entities.CharacterSelectUIEntity(ContentManagerName, false);
+			CharacterSelectUIEntityInstance.Name = "CharacterSelectUIEntityInstance";
 			
 			
 			base.Initialize(addToManagers);
@@ -66,6 +69,7 @@ namespace WinterEngine.Game.Screens
 			if (!IsPaused)
 			{
 				
+				CharacterSelectUIEntityInstance.Activity();
 			}
 			else
 			{
@@ -86,6 +90,11 @@ namespace WinterEngine.Game.Screens
 		{
 			// Generated Destroy
 			
+			if (CharacterSelectUIEntityInstance != null)
+			{
+				CharacterSelectUIEntityInstance.Destroy();
+				CharacterSelectUIEntityInstance.Detach();
+			}
 
 			base.Destroy();
 
@@ -104,11 +113,12 @@ namespace WinterEngine.Game.Screens
 		public override void AddToManagersBottomUp ()
 		{
 			base.AddToManagersBottomUp();
-			UIResourcePath = "file:///./Views/CharacterSelection.html";
+			CharacterSelectUIEntityInstance.AddToManagers(mLayer);
 		}
 		public override void ConvertToManuallyUpdated ()
 		{
 			base.ConvertToManuallyUpdated();
+			CharacterSelectUIEntityInstance.ConvertToManuallyUpdated();
 		}
 		public static new void LoadStaticContent (string contentManagerName)
 		{
@@ -127,6 +137,7 @@ namespace WinterEngine.Game.Screens
 				throw new Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
 			}
 			#endif
+			WinterEngine.Game.Entities.CharacterSelectUIEntity.LoadStaticContent(contentManagerName);
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]
