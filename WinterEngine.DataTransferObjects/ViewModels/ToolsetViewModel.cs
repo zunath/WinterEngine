@@ -23,7 +23,14 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             {
                 try
                 {
-                    return (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), CurrentObjectMode);
+                    if (String.IsNullOrWhiteSpace(CurrentObjectMode))
+                    {
+                        return GameObjectTypeEnum.Unknown;
+                    }
+                    else
+                    {
+                        return (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), CurrentObjectMode);
+                    }
                 }
                 catch
                 {
@@ -64,7 +71,6 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public Conversation ActiveConversation { get; set; }
         public Script ActiveScript { get; set; }
         public Tileset ActiveTileset { get; set; }
-        public Tile ActiveTile { get; set; }
         #endregion
 
         #region Drop Down Menu List Data
@@ -97,7 +103,6 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             ActivePlaceable = new Placeable(true);
             ActiveScript = new Script();
             ActiveTileset = new Tileset();
-            ActiveTile = new Tile();
             ModuleList = new List<GameModule>();
             AvailableContentPackages = new List<ContentPackage>();
             AttachedContentPackages = new List<ContentPackage>();

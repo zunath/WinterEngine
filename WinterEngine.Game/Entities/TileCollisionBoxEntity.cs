@@ -29,15 +29,28 @@ namespace WinterEngine.Game.Entities
     {
         #region Fields
 
-        private bool _isWalkable;
+        private bool _isPassable;
 
         #endregion
 
         #region Properties
 
+        public bool IsPassable 
+        {
+            get
+            {
+                return _isPassable;
+            }
+            set
+            {
+                _isPassable = value;
+                UpdatePassability();
+            }
+        }
+
         public int TileRow { get; set; }
         public int TileColumn { get; set; }
-        public int CollisionBoxIndex { get; set; }
+        public int TileIndex { get; set; }
         private bool IsPainting { get; set; }
 
         #endregion
@@ -56,20 +69,7 @@ namespace WinterEngine.Game.Entities
             {
                 if (!IsPainting && this.HasCursorOver(GuiManager.Cursor) )
                 {
-                    _isWalkable = !_isWalkable;
-
-                    if (_isWalkable)
-                    {
-                        this.SpriteInstance.Green = 0.5f;
-                        this.SpriteInstance.Blue = 0.0f;
-                        this.SpriteInstance.Red = 0.0f;
-                    }
-                    else
-                    {
-                        this.SpriteInstance.Green = 0.0f;
-                        this.SpriteInstance.Blue = 0.0f;
-                        this.SpriteInstance.Red = 0.5f;
-                    }
+                    IsPassable = !IsPassable;
 
                     IsPainting = true;
                 }
@@ -93,5 +93,26 @@ namespace WinterEngine.Game.Entities
 
         }
         #endregion
+
+        #region Methods
+
+        private void UpdatePassability()
+        {
+            if (_isPassable)
+            {
+                this.SpriteInstance.Green = 0.5f;
+                this.SpriteInstance.Blue = 0.0f;
+                this.SpriteInstance.Red = 0.0f;
+            }
+            else
+            {
+                this.SpriteInstance.Green = 0.0f;
+                this.SpriteInstance.Blue = 0.0f;
+                this.SpriteInstance.Red = 0.5f;
+            }
+        }
+
+        #endregion
+
     }
 }

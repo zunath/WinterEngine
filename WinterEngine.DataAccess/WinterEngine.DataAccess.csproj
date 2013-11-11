@@ -124,6 +124,7 @@
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ScriptRepository.cs" />
+    <Compile Include="Repositories\TileCollisionBoxRepository.cs" />
     <Compile Include="Repositories\TilesetRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="WinterConnectionInformation.cs" />

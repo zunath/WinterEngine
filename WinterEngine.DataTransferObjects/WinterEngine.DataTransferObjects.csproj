@@ -103,6 +103,7 @@
     <Compile Include="GameObjects\Tileset.cs" />
     <Compile Include="Resources\Faction.cs" />
     <Compile Include="Resources\Gender.cs" />
+    <Compile Include="Resources\TileCollisionBox.cs" />
     <Compile Include="UIObjects\DropDownListUIObject.cs" />
     <Compile Include="XMLObjects\ContentPackageResourceXML.cs" />
     <Compile Include="BusinessObjects\JSTreeNode.cs" />

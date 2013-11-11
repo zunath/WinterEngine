@@ -275,8 +275,6 @@ function DeleteObject_Callback(success, errorMessage) {
         $('.clsTilesetObjectField').attr('disabled', 'disabled').val('');
 
         ToolsetViewModel.Refresh();
-
-        alert($(ToolsetViewModel.CurrentObjectTreeSelector()));
         $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('deselect_all');
     }
     else {

@@ -13,6 +13,7 @@ using FlatRedBall.Math.Splines;
 using BitmapFont = FlatRedBall.Graphics.BitmapFont;
 using Cursor = FlatRedBall.Gui.Cursor;
 using GuiManager = FlatRedBall.Gui.GuiManager;
+using System.Linq;
 
 #if FRB_XNA || SILVERLIGHT
 using Keys = Microsoft.Xna.Framework.Input.Keys;
@@ -23,6 +24,8 @@ using WinterEngine.DataTransferObjects.EventArgsExtended;
 using FlatRedBall.Graphics;
 using WinterEngine.Game.Interfaces;
 using WinterEngine.Game.Factories;
+using WinterEngine.DataTransferObjects;
+using WinterEngine.DataAccess.Repositories;
 
 
 #endif
@@ -33,6 +36,7 @@ namespace WinterEngine.Game.Entities
     {
         #region Properties
 
+        public int TileID { get; set; }
         public int SpriteSheetRow { get; private set; }
         public int SpriteSheetColumn { get; private set; }
 
@@ -57,6 +61,7 @@ namespace WinterEngine.Game.Entities
 
         private void CustomDestroy()
 		{
+            CollisionBoxList.Clear();
             TileCollisionBoxEntityFactory.Destroy();
             DestroySprite();
 		}
@@ -92,25 +97,17 @@ namespace WinterEngine.Game.Entities
             
             SpriteManager.AddSprite(SpriteInstance);
             SpriteInstance.AttachTo(this, false);
-
-            //PassabilitySpriteInstance = new Sprite();
-            //RefreshPassability();
-            //PassabilitySpriteInstance.PixelSize = 0.5f;
-            //PassabilitySpriteInstance.Z = 1;
-
-            //SpriteManager.AddSprite(PassabilitySpriteInstance);
-            //PassabilitySpriteInstance.AttachTo(this, false);
         }
 
         private void DestroySprite()
         {
             SpriteInstance.Detach();
-            //PassabilitySpriteInstance.Detach();
             SpriteManager.RemoveSprite(SpriteInstance);
         }
 
-        public void InitializeCollisionBoxes()
+        public void InitializeCollisionBoxes(int tileID, List<TileCollisionBox> dbCollisionBoxes)
         {
+            this.TileID = tileID;
             int collisionBoxWidth = (int)MappingEnum.TileWidth / (int)MappingEnum.CollisionBoxDivisor;
             int collisionBoxHeight = (int)MappingEnum.TileHeight / (int)MappingEnum.CollisionBoxDivisor;
             int numberOfCollisionBoxesRows = (int)MappingEnum.CollisionBoxDivisor;
@@ -126,10 +123,12 @@ namespace WinterEngine.Game.Entities
             {
                 for (int column = 0; column < numberOfCollisionBoxesColumns; column++)
                 {
+                    TileCollisionBox dbBox = dbCollisionBoxes.SingleOrDefault(x => x.TileLocationIndex == boxIndex && x.TileID == TileID);
                     TileCollisionBoxEntity box = TileCollisionBoxEntityFactory.CreateNew();
                     box.TileRow = row;
                     box.TileColumn = column;
-                    box.CollisionBoxIndex = boxIndex;
+                    box.TileIndex = boxIndex;
+                    box.IsPassable = dbBox == null ? false : dbBox.IsPassable;
 
                     box.X = (this.Position.X - offsetX) + (column * collisionBoxWidth);
                     box.Y = (this.Position.Y + offsetY) - (row * collisionBoxHeight);

@@ -18,6 +18,7 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<ItemType> ItemTypes { get; set; }
         public DbSet<Tileset> Tilesets { get; set; }
         public DbSet<Tile> Tiles { get; set; }
+        public DbSet<TileCollisionBox> TileCollisionBoxes { get; set; }
         public DbSet<ContentPackage> ContentPackages { get; set; }
         public DbSet<ContentPackageResource> ContentPackageResources { get; set; }
         public DbSet<Conversation> Conversations { get; set; }

@@ -334,6 +334,20 @@ namespace WinterEngine.DataAccess
             }
         }
 
+        private GenericRepository<ModuleDataContext, TileCollisionBox> tileCollisionBoxRepository;
+        public GenericRepository<ModuleDataContext, TileCollisionBox> TileCollisionBoxRepository
+        {
+            get
+            {
+                if (this.tileCollisionBoxRepository == null)
+                {
+                    this.tileCollisionBoxRepository
+                        = new GenericRepository<ModuleDataContext, TileCollisionBox>(context);
+                }
+                return tileCollisionBoxRepository;
+            }
+        }
+
         #endregion
 
         private Object getTargetRepository(Object item)

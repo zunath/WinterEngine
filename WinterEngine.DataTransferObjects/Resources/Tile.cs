@@ -48,6 +48,8 @@ namespace WinterEngine.DataTransferObjects
         /// </summary>
         public int MapLayer { get; set; }
 
+        public virtual ICollection<TileCollisionBox> CollisionBoxes { get; set; }
+
         #endregion
 
         #region Constructors
