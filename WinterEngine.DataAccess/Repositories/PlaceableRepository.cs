@@ -67,9 +67,9 @@ namespace WinterEngine.DataAccess
                 variable.GameObjectBaseID = newPlaceable.ResourceID;
             }
 
-            Context.Context.Entry(dbPlaceable).CurrentValues.SetValues(newPlaceable);
-            Context.LocalVariableRepository.DeleteList(dbPlaceable.LocalVariables.ToList());
-            Context.LocalVariableRepository.AddList(newPlaceable.LocalVariables.ToList());
+            _context.Entry(dbPlaceable).CurrentValues.SetValues(newPlaceable);
+            _context.LocalVariables.RemoveRange(dbPlaceable.LocalVariables.ToList());
+            _context.LocalVariables.AddRange(newPlaceable.LocalVariables.ToList());
             _context.Entry(dbPlaceable).CurrentValues.SetValues(newPlaceable);
         }
 
@@ -106,10 +106,8 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Placeable placeable = Context.PlaceableRepository.Get(p => p.ResourceID == resourceID).SingleOrDefault();
-            Context.LocalVariableRepository.DeleteList(placeable.LocalVariables.ToList());
-            Context.PlaceableRepository.Delete(placeable);
             Placeable placeable = _context.Placeables.Where(p => p.ResourceID == resourceID).SingleOrDefault();
+            _context.LocalVariables.RemoveRange(placeable.LocalVariables.ToList());
             _context.Placeables.Remove(placeable);
         }
 
@@ -122,17 +120,18 @@ namespace WinterEngine.DataAccess
             return _context.Placeables.ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects()
-        {
-            List<DropDownListUIObject> items = (from placeable
-                                                in Context.PlaceableRepository.Get()
-                                                select new DropDownListUIObject
-                                                {
-                                                    Name = placeable.Name,
-                                                    ResourceID = placeable.ResourceID
-                                                }).ToList();
-            return items;
-        }
+        //todo: move logic somewhere else
+        //public List<DropDownListUIObject> GetAllUIObjects()
+        //{
+        //    List<DropDownListUIObject> items = (from placeable
+        //                                        in Context.PlaceableRepository.Get()
+        //                                        select new DropDownListUIObject
+        //                                        {
+        //                                            Name = placeable.Name,
+        //                                            ResourceID = placeable.ResourceID
+        //                                        }).ToList();
+        //    return items;
+        //}
 
         /// <summary>
         /// Returns all of the placeables in a specified category from the database.
@@ -197,7 +196,7 @@ namespace WinterEngine.DataAccess
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Placeable> placeables = Context.PlaceableRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
+                List<Placeable> placeables = _context.Placeables.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Placeable placeable in placeables)
                 {
                     JSTreeNode childNode = new JSTreeNode(placeable.Name);
@@ -217,7 +216,7 @@ namespace WinterEngine.DataAccess
 
         public int GetDefaultResourceID()
         {
-            Placeable defaultObject = Context.PlaceableRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Placeable defaultObject = _context.Placeables.Where(x => x.IsDefault).FirstOrDefault();
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
         #endregion

@@ -37,18 +37,19 @@ namespace WinterEngine.DataAccess
             return _context.ItemTypes.ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects()
-        {
-            List<DropDownListUIObject> items = (from item
-                                                in Context.ItemTypeRepository.Get()
-                                                select new DropDownListUIObject
-                                                {
-                                                    Name = item.Name,
-                                                    ResourceID = item.ResourceID
-                                                }).ToList();
+        //move logic somewhere else
+        //public List<DropDownListUIObject> GetAllUIObjects()
+        //{
+        //    List<DropDownListUIObject> items = (from item
+        //                                        in Context.ItemTypeRepository.Get()
+        //                                        select new DropDownListUIObject
+        //                                        {
+        //                                            Name = item.Name,
+        //                                            ResourceID = item.ResourceID
+        //                                        }).ToList();
 
-            return items;
-        }
+        //    return items;
+        //}
 
 
         /// <summary>
@@ -144,7 +145,7 @@ namespace WinterEngine.DataAccess
 
         public int GetDefaultResourceID()
         {
-            ItemType defaultObject = Context.ItemTypeRepository.Get(x => x.IsDefault).FirstOrDefault();
+            ItemType defaultObject = _context.ItemTypes.Where(x => x.IsDefault).FirstOrDefault();
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

@@ -69,7 +69,7 @@ namespace WinterEngine.DataAccess
                 variable.GameObjectBaseID = newArea.ResourceID;
             }
 
-            Context.Context.Entry(dbArea).CurrentValues.SetValues(newArea);
+            _context.Entry(dbArea).CurrentValues.SetValues(newArea);
         }
 
         /// <summary>
@@ -101,10 +101,10 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Area area = Context.AreaRepository.Get(a => a.ResourceID == resourceID).SingleOrDefault();
+            Area area = _context.Areas.Where(a => a.ResourceID == resourceID).SingleOrDefault();
 
-            Context.LocalVariableRepository.DeleteList(area.LocalVariables.ToList());
-            Context.AreaRepository.Delete(area);
+            _context.LocalVariables.RemoveRange(area.LocalVariables.ToList());
+            _context.Areas.Remove(area);
         }
 
         /// <summary>
@@ -116,17 +116,18 @@ namespace WinterEngine.DataAccess
             return _context.Areas.ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects()
-        {
-            List<DropDownListUIObject> items = (from area
-                                                in Context.AreaRepository.Get()
-                                                select new DropDownListUIObject
-                                                {
-                                                    Name = area.Name,
-                                                    ResourceID = area.ResourceID
-                                                }).ToList();
-            return items;
-        }
+        //todo: Move this logic somewhere else
+        //public List<DropDownListUIObject> GetAllUIObjects()
+        //{
+        //    List<DropDownListUIObject> items = (from area
+        //                                        in Context.AreaRepository.Get()
+        //                                        select new DropDownListUIObject
+        //                                        {
+        //                                            Name = area.Name,
+        //                                            ResourceID = area.ResourceID
+        //                                        }).ToList();
+        //    return items;
+        //}
 
         /// <summary>
         /// Returns all of the areas in a specified category from the database.
@@ -193,7 +194,7 @@ namespace WinterEngine.DataAccess
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
                 
-                List<Area> areas = Context.AreaRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
+                List<Area> areas = _context.Areas.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Area area in areas)
                 {
                     JSTreeNode childNode = new JSTreeNode(area.Name);
@@ -213,7 +214,7 @@ namespace WinterEngine.DataAccess
 
         public int GetDefaultResourceID()
         {
-            Area defaultObject = Context.AreaRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Area defaultObject = _context.Areas.Where(x => x.IsDefault).FirstOrDefault();
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

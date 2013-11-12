@@ -14,13 +14,19 @@ namespace WinterEngine.DataAccess
     /// <summary>
     /// Repository for accessing module-related data from the database.
     /// </summary>
-    public class GameModuleRepository : RepositoryBase, IGameModuleRepository
+    public class GameModuleRepository
     {
+
+        private readonly ModuleDataContext _context;
+        private readonly bool _autoSaveChanges;
+
         #region Constructors
 
-        public GameModuleRepository(string connectionString = "", bool autoSaveChanges = true) 
-            : base(connectionString, autoSaveChanges)
+        public GameModuleRepository(ModuleDataContext context, bool autoSave = true)
         {
+            if (context == null) throw new ArgumentNullException("DbContext");
+            _context = context;
+            _autoSaveChanges = autoSave;
         }
 
         #endregion
@@ -29,7 +35,7 @@ namespace WinterEngine.DataAccess
 
         public GameModule Add(GameModule gameModule)
         {
-            return Context.GameModuleRepository.Add(gameModule);
+            return _context.Modules.Add(gameModule);
         }
 
         public void Update(GameModule module)
@@ -42,15 +48,15 @@ namespace WinterEngine.DataAccess
                 variable.GameObjectBaseID = module.ResourceID;
             }
 
-            Context.Context.Entry(dbModule).CurrentValues.SetValues(module);
-            Context.LocalVariableRepository.DeleteList(dbModule.LocalVariables.ToList());
-            Context.LocalVariableRepository.AddList(module.LocalVariables.ToList());
+            _context.Entry(dbModule).CurrentValues.SetValues(module);
+            _context.LocalVariables.RemoveRange(dbModule.LocalVariables.ToList());
+            _context.LocalVariables.AddRange(module.LocalVariables.ToList());
         }
 
         public void Delete(int resourceID)
         {
-            GameModule module = Context.GameModuleRepository.Get(x => x.ResourceID == resourceID).FirstOrDefault();
-            Context.GameModuleRepository.Delete(module);
+            GameModule module = _context.Modules.Where(x => x.ResourceID == resourceID).FirstOrDefault();
+            _context.Modules.Remove(module);
         }
 
         public bool Exists()
@@ -61,12 +67,7 @@ namespace WinterEngine.DataAccess
 
         public GameModule GetModule()
         {
-            return Context.GameModuleRepository.Get().FirstOrDefault();
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
+            return _context.Modules.FirstOrDefault();
         }
 
         #endregion

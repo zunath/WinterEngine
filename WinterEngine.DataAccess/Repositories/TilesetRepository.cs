@@ -72,10 +72,8 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void Delete(int resourceID)
         {
-            Tileset tileset = Context.TilesetRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
-            Context.LocalVariableRepository.DeleteList(tileset.LocalVariables.ToList());
-            Context.TilesetRepository.Delete(tileset);
             Tileset tileset = _context.Tilesets.Where(x => x.ResourceID == resourceID).SingleOrDefault();
+            _context.LocalVariables.RemoveRange(tileset.LocalVariables.ToList());
             _context.Tilesets.Remove(tileset);
         }
 
@@ -99,18 +97,19 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Tilesets.ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects()
-        {
-            List<DropDownListUIObject> items = (from tileset
-                                                in Context.TilesetRepository.Get()
-                                                select new DropDownListUIObject
-                                                {
-                                                    Name = tileset.Name,
-                                                    ResourceID = tileset.ResourceID
-                                                }).ToList();
+        //Move logic somewhere else
+        //public List<DropDownListUIObject> GetAllUIObjects()
+        //{
+        //    List<DropDownListUIObject> items = (from tileset
+        //                                        in Context.TilesetRepository.Get()
+        //                                        select new DropDownListUIObject
+        //                                        {
+        //                                            Name = tileset.Name,
+        //                                            ResourceID = tileset.ResourceID
+        //                                        }).ToList();
 
-            return items;
-        }
+        //    return items;
+        //}
 
         public void DeleteAllByCategory(Category category)
         {
@@ -135,7 +134,7 @@ namespace WinterEngine.DataAccess.Repositories
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Tileset> tilesets = Context.TilesetRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
+                List<Tileset> tilesets = _context.Tilesets.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Tileset tileset in tilesets)
                 {
                     JSTreeNode childNode = new JSTreeNode(tileset.Name);
@@ -168,7 +167,7 @@ namespace WinterEngine.DataAccess.Repositories
         }
         public int GetDefaultResourceID()
         {
-            Tileset defaultObject = Context.TilesetRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Tileset defaultObject = _context.Tilesets.Where(x => x.IsDefault).FirstOrDefault();
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

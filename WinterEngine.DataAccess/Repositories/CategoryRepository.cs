@@ -44,18 +44,19 @@ namespace WinterEngine.DataAccess
             //return Context.CategoryRepository.Get().ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects()
-        {
-            List<DropDownListUIObject> items = (from category
-                                                in Context.CategoryRepository.Get()
-                                                select new DropDownListUIObject
-                                                {
-                                                    Name = category.Name,
-                                                    ResourceID = category.ResourceID
-                                                }).ToList();
+        //todo: Move somewhere else
+        //public List<DropDownListUIObject> GetAllUIObjects()
+        //{
+        //    List<DropDownListUIObject> items = (from category
+        //                                        in Context.CategoryRepository.Get()
+        //                                        select new DropDownListUIObject
+        //                                        {
+        //                                            Name = category.Name,
+        //                                            ResourceID = category.ResourceID
+        //                                        }).ToList();
 
-            return items;
-        }
+        //    return items;
+        //}
 
         /// <summary>
         /// Returns all of the resource categories for a particular resource type.
@@ -151,6 +152,11 @@ namespace WinterEngine.DataAccess
 
         #endregion
 
+        public void DeleteByCategory(Category category)
+        {
+            throw new NotImplementedException();
+        }
+
         public object Load(int resourceID)
         {
             throw new NotImplementedException();
@@ -163,13 +169,8 @@ namespace WinterEngine.DataAccess
 
         public int GetDefaultResourceID(GameObjectTypeEnum resourceType)
         {
-            Category defaultObject = Context.CategoryRepository.Get(x => x.IsDefault && x.GameObjectType == resourceType).FirstOrDefault();
+            Category defaultObject = _context.ResourceCategories.Where(x => x.IsDefault && x.GameObjectType == resourceType).FirstOrDefault();
             return defaultObject == null ? 0 : defaultObject.ResourceID;
-        }
-
-        public override void Dispose()
-        {
-            throw new NotImplementedException();
         }
 
         public void Delete(int resourceID)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
@@ -10,13 +11,19 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class GenderRepository : RepositoryBase, IResourceRepository<Gender>
+    public class GenderRepository : IRepository, IResourceRepository<Gender>
     {
+
+        private readonly ModuleDataContext _context;
+        private readonly bool _autoSaveChanges;
+
         #region Constructors
 
-        public GenderRepository(string connectionString = "", bool autoSaveChanges = true) 
-            : base(connectionString, autoSaveChanges)
+        public GenderRepository(ModuleDataContext context, bool autoSave = true)
         {
+            if (context == null) throw new ArgumentNullException("DbContext");
+            _context = context;
+            _autoSaveChanges = autoSave;
         }
 
         #endregion
@@ -30,7 +37,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public Gender Add(Gender gender)
         {
-            return Context.GenderRepository.Add(gender);
+            return _context.Genders.Add(gender);
         }
 
         /// <summary>
@@ -39,7 +46,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="genderList">The list of genders to add to the database.</param>
         public void Add(List<Gender> genderList)
         {
-            Context.GenderRepository.AddList(genderList);
+            _context.Genders.AddRange(genderList);
         }
 
         /// <summary>
@@ -48,10 +55,10 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="newScript">The new gender that will replace the gender with the matching ID.</param>
         public void Update(Gender newGender)
         {
-            Gender dbGender = Context.GenderRepository.Get(x => x.ResourceID == newGender.ResourceID).SingleOrDefault();
+            Gender dbGender = _context.Genders.Where(x => x.ResourceID == newGender.ResourceID).SingleOrDefault();
             if (dbGender == null) return;
 
-            Context.Context.Entry(dbGender).CurrentValues.SetValues(newGender);
+            _context.Entry(dbGender).CurrentValues.SetValues(newGender);
         }
 
         /// <summary>
@@ -63,7 +70,7 @@ namespace WinterEngine.DataAccess.Repositories
         {
             if (gender.ResourceID <= 0)
             {
-                Context.GenderRepository.Add(gender);
+                _context.Genders.Add(gender);
             }
             else
             {
@@ -78,8 +85,8 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Gender gender = Context.GenderRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
-            Context.GenderRepository.Delete(gender);
+            Gender gender = _context.Genders.Where(c => c.ResourceID == resourceID).SingleOrDefault();
+            _context.Genders.Remove(gender);
         }
 
         /// <summary>
@@ -88,49 +95,61 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public List<Gender> GetAll()
         {
-            return Context.GenderRepository.Get().ToList();
+            return _context.Genders.ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects()
-        {
-            List<DropDownListUIObject> items = (from gender
-                                                in Context.GenderRepository.Get()
-                                                select new DropDownListUIObject
-                                                {
-                                                    Name = gender.Name,
-                                                    ResourceID = gender.ResourceID
-                                                }).ToList();
+        //todo: move this logic somewhere else
+        //public List<DropDownListUIObject> GetAllUIObjects()
+        //{
+        //    List<DropDownListUIObject> items = (from gender
+        //                                        in Context.GenderRepository.Get()
+        //                                        select new DropDownListUIObject
+        //                                        {
+        //                                            Name = gender.Name,
+        //                                            ResourceID = gender.ResourceID
+        //                                        }).ToList();
 
-            return items;
-        }
+        //    return items;
+        //}
 
         public Gender GetByID(int resourceID)
         {
-            return Context.GenderRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            return _context.Genders.Where(x => x.ResourceID == resourceID).SingleOrDefault();
         }
 
         public void Delete(Gender gender)
         {
-            Context.GenderRepository.Delete(gender);
+            _context.Genders.Remove(gender);
         }
 
         public bool Exists(Gender gender)
         {
-            Gender dbGender = Context.GenderRepository.Get(x => x.ResourceID == gender.ResourceID).SingleOrDefault();
+            Gender dbGender = _context.Genders.Where(x => x.ResourceID == gender.ResourceID).SingleOrDefault();
             return !Object.ReferenceEquals(dbGender, null);
         }
 
         public int GetDefaultResourceID()
         {
-            Gender defaultObject = Context.GenderRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Gender defaultObject = _context.Genders.Where(x => x.IsDefault).FirstOrDefault();
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
-        public override void Dispose()
-        {
-            base.Dispose();
-        }
 
         #endregion
+
+        public object Load(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Save(object gameObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteByCategory(Category category)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

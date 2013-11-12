@@ -72,9 +72,9 @@ namespace WinterEngine.DataAccess.Repositories
                 variable.GameObjectBaseID = newConversation.ResourceID;
             }
 
-            Context.Context.Entry(dbConversation).CurrentValues.SetValues(newConversation);
-            Context.LocalVariableRepository.DeleteList(dbConversation.LocalVariables.ToList());
-            Context.LocalVariableRepository.AddList(newConversation.LocalVariables.ToList());
+            _context.Entry(dbConversation).CurrentValues.SetValues(newConversation);
+            _context.LocalVariables.RemoveRange(dbConversation.LocalVariables.ToList());
+            _context.LocalVariables.AddRange(newConversation.LocalVariables.ToList());
         }
 
         /// <summary>
@@ -110,10 +110,8 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Conversation conversation = Context.ConversationRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
-            Context.LocalVariableRepository.DeleteList(conversation.LocalVariables.ToList());
-            Context.ConversationRepository.Delete(conversation);
             Conversation conversation = _context.Conversations.Where(c => c.ResourceID == resourceID).SingleOrDefault();
+            _context.LocalVariables.RemoveRange(conversation.LocalVariables.ToList());
             _context.Conversations.Remove(conversation);
         }
 
@@ -126,18 +124,19 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Conversations.ToList();
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects()
-        {
-            List<DropDownListUIObject> items = (from conversation
-                                                in Context.ConversationRepository.Get()
-                                                select new DropDownListUIObject
-                                                {
-                                                    Name = conversation.Name,
-                                                    ResourceID = conversation.ResourceID
-                                                }).ToList();
+        //todo: move this somewhere else
+        //public List<DropDownListUIObject> GetAllUIObjects()
+        //{
+        //    List<DropDownListUIObject> items = (from conversation
+        //                                        in Context.ConversationRepository.Get()
+        //                                        select new DropDownListUIObject
+        //                                        {
+        //                                            Name = conversation.Name,
+        //                                            ResourceID = conversation.ResourceID
+        //                                        }).ToList();
 
-            return items;
-        }
+        //    return items;
+        //}
 
         /// <summary>
         /// Returns all of the conversations in a specified category from the database.
@@ -201,7 +200,7 @@ namespace WinterEngine.DataAccess.Repositories
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Conversation> conversations = Context.ConversationRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
+                List<Conversation> conversations = _context.Conversations.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Conversation conversation in conversations)
                 {
                     JSTreeNode childNode = new JSTreeNode(conversation.Name);
@@ -221,11 +220,10 @@ namespace WinterEngine.DataAccess.Repositories
 
         public int GetDefaultResourceID()
         {
-            Conversation defaultObject = Context.ConversationRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Conversation defaultObject = _context.Conversations.Where(x => x.IsDefault).FirstOrDefault();
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
-        public override void Dispose()
         #endregion
 
         public object Load(int resourceID)

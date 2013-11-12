@@ -33,6 +33,7 @@ namespace WinterEngine.Library.Managers
 
         private readonly IDatabaseRepository _databaseRepository;
         private readonly IModuleRepository _moduleRepository;
+        private readonly IGameModuleRepository _gameModuleRepository;
         private readonly IFileArchiveManager _fileArchiveManager;
         private readonly IGenericRepository<ContentPackage> _contentPackageRepository;
         private readonly IGenericRepository<Category> _categoryRepository;
@@ -58,7 +59,7 @@ namespace WinterEngine.Library.Managers
             get { return _moduleTag; }
             set { _moduleTag = value; }
         }
-        
+
         public string ModuleResref
         {
             get { return _moduleResref; }
@@ -93,8 +94,9 @@ namespace WinterEngine.Library.Managers
         public ModuleManager(IGenericRepository<ContentPackage> contentPackageRepository,
             IGenericRepository<Category> categoryRepository,
             IFileArchiveManager fileArchiveManager,
-            IModuleRepository moduleRepository, 
-            IDatabaseRepository databaseRepository)
+            IModuleRepository moduleRepository,
+            IDatabaseRepository databaseRepository,
+            IGameModuleRepository gameModuleRepository)
         {
             if (contentPackageRepository == null) throw new ArgumentNullException("contentPackageRepository");
             _contentPackageRepository = contentPackageRepository;
@@ -110,6 +112,9 @@ namespace WinterEngine.Library.Managers
 
             if (databaseRepository == null) throw new ArgumentNullException("databaseRepository");
             _databaseRepository = databaseRepository;
+
+            if (gameModuleRepository == null) throw new ArgumentNullException("gameModuleRepository");
+            _gameModuleRepository = gameModuleRepository;
 
         }
 
@@ -127,7 +132,7 @@ namespace WinterEngine.Library.Managers
         #endregion
 
         #region Events / Delegates
-        
+
         #endregion
 
         #region Methods
@@ -141,10 +146,10 @@ namespace WinterEngine.Library.Managers
         {
             try
             {
-                TemporaryDirectoryPath = _fileArchiveManager.CreateUniqueDirectory();                
+                TemporaryDirectoryPath = _fileArchiveManager.CreateUniqueDirectory();
 
                 // Build a new database file and structure.
-                _databaseRepository.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB", true);                
+                _databaseRepository.CreateNewDatabase(TemporaryDirectoryPath, "WinterEngineDB", true);
 
                 EntityCreationScripts creationScripts = new EntityCreationScripts();
                 creationScripts.Initialize();
@@ -154,19 +159,19 @@ namespace WinterEngine.Library.Managers
                 {
                     GameObjectFactory factory = new GameObjectFactory();
                     GameModule module = factory.CreateObject(GameObjectTypeEnum.GameModule, ModuleName, ModuleTag, ModuleResref) as GameModule;
-                GameModule gameModule = new GameModule();
-                gameModule.ModuleName = ModuleName;
-                gameModule.ModuleTag = ModuleTag;
+                    GameModule gameModule = new GameModule();
+                    gameModule.ModuleName = ModuleName;
+                    gameModule.ModuleTag = ModuleTag;
 
                     repo.Add(module);
                 }
-                _moduleRepository.Add(gameModule);                
+                _moduleRepository.Add(gameModule);
 
                 LoadSystemContentPacks();
 
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Error creating module.", ex);
             }
@@ -178,26 +183,26 @@ namespace WinterEngine.Library.Managers
         /// <param name="path"></param>
         public void SaveModule(string path)
         {
-                // Update the path to the module file
-                if (!String.IsNullOrEmpty(path))
-                {
-                    ModulePath = path;
-                }
+            // Update the path to the module file
+            if (!String.IsNullOrEmpty(path))
+            {
+                ModulePath = path;
+            }
             string backupPath = _fileArchiveManager.GenerateUniqueFileName(ModulePath);
 
-                // Make a back up of the module file just in case something goes wrong.
-                if (File.Exists(ModulePath))
-                {
-                    File.Copy(ModulePath, backupPath);
-                }
+            // Make a back up of the module file just in case something goes wrong.
+            if (File.Exists(ModulePath))
+            {
+                File.Copy(ModulePath, backupPath);
+            }
 
-                File.Delete(ModulePath);
+            File.Delete(ModulePath);
             _fileArchiveManager.ArchiveDirectory(TemporaryDirectoryPath, ModulePath);
 
-                // Delete the backup since the new save was successful.
-                File.Delete(backupPath);
-            
-            }
+            // Delete the backup since the new save was successful.
+            File.Delete(backupPath);
+
+        }
 
         /// <summary>
         /// Saves the module using the existing path.
@@ -218,16 +223,16 @@ namespace WinterEngine.Library.Managers
 
 
             TemporaryDirectoryPath = _fileArchiveManager.CreateUniqueDirectory();
-                // Extract all files contained in the module zip file to the temporary directory.
+            // Extract all files contained in the module zip file to the temporary directory.
             _fileArchiveManager.ExtractArchive(ModulePath, TemporaryDirectoryPath);
-            
+
 
             FileHelper fileHelper = new FileHelper();
             string databaseFilePath = fileHelper.GetDatabaseFileInDirectory(TemporaryDirectoryPath);
 
             // Change the database connection to the file located in the extracted module folder.
             _databaseRepository.ChangeDatabaseConnection(databaseFilePath);
-            
+
 
             CheckForMissingContentPackages();
         }
@@ -277,7 +282,7 @@ namespace WinterEngine.Library.Managers
             }
 
             moduleContentPackages = _contentPackageRepository.GetAll().Select(x => x.FileName).ToList();
-            
+
 
             // Determine which content packages do not exist on disk that are required by this module.
             missingContentPackages = moduleContentPackages.Except(fileContentPackages).ToList();
@@ -321,61 +326,61 @@ namespace WinterEngine.Library.Managers
         private void InitializeData()
         {
             // Add the "Uncategorized" category for each resource type.
-            
-                List<Category> categoryList = new List<Category>();
 
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Area,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Conversation,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Creature,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Item,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Placeable,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Script,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
-                categoryList.Add(new Category
-                {
-                    Name = "*Uncategorized",
-                    GameObjectType = GameObjectTypeEnum.Tileset,
-                    ResourceType = ResourceTypeEnum.GameObject,
-                    IsSystemResource = true
-                });
+            List<Category> categoryList = new List<Category>();
 
-                _categoryRepository.Add(categoryList);
-            
+            categoryList.Add(new Category
+            {
+                Name = "*Uncategorized",
+                GameObjectType = GameObjectTypeEnum.Area,
+                ResourceType = ResourceTypeEnum.GameObject,
+                IsSystemResource = true
+            });
+            categoryList.Add(new Category
+            {
+                Name = "*Uncategorized",
+                GameObjectType = GameObjectTypeEnum.Conversation,
+                ResourceType = ResourceTypeEnum.GameObject,
+                IsSystemResource = true
+            });
+            categoryList.Add(new Category
+            {
+                Name = "*Uncategorized",
+                GameObjectType = GameObjectTypeEnum.Creature,
+                ResourceType = ResourceTypeEnum.GameObject,
+                IsSystemResource = true
+            });
+            categoryList.Add(new Category
+            {
+                Name = "*Uncategorized",
+                GameObjectType = GameObjectTypeEnum.Item,
+                ResourceType = ResourceTypeEnum.GameObject,
+                IsSystemResource = true
+            });
+            categoryList.Add(new Category
+            {
+                Name = "*Uncategorized",
+                GameObjectType = GameObjectTypeEnum.Placeable,
+                ResourceType = ResourceTypeEnum.GameObject,
+                IsSystemResource = true
+            });
+            categoryList.Add(new Category
+            {
+                Name = "*Uncategorized",
+                GameObjectType = GameObjectTypeEnum.Script,
+                ResourceType = ResourceTypeEnum.GameObject,
+                IsSystemResource = true
+            });
+            categoryList.Add(new Category
+            {
+                Name = "*Uncategorized",
+                GameObjectType = GameObjectTypeEnum.Tileset,
+                ResourceType = ResourceTypeEnum.GameObject,
+                IsSystemResource = true
+            });
+
+            _categoryRepository.Add(categoryList);
+
         }
 
         #endregion
