@@ -24,6 +24,7 @@ using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataAccess.Repositories;
 
 namespace WinterEngine.Game.Screens
 {
@@ -76,7 +77,16 @@ namespace WinterEngine.Game.Screens
         
             // Tileset Editor
             ToolsetUIEntityInstance.OnTilesetLoaded += TilesetEditorEntityInstance.HandleLoadTilesetSpritesheetEvent;
-            ToolsetUIEntityInstance.OnTilesetSaved += TilesetEditorEntityInstance.HandleSaveTilesetSpritesheetEvent;
+
+            // Object save events
+            ToolsetUIEntityInstance.OnSaveArea += SaveArea;
+            ToolsetUIEntityInstance.OnSaveConversation += SaveConversation;
+            ToolsetUIEntityInstance.OnSaveCreature += SaveCreature;
+            ToolsetUIEntityInstance.OnSaveItem += SaveItem;
+            ToolsetUIEntityInstance.OnSavePlaceable += SavePlaceable;
+            ToolsetUIEntityInstance.OnSaveScript += SaveScript;
+            ToolsetUIEntityInstance.OnSaveTileset += SaveTileset;
+
         }
 
         private void HandleModeChangeEvent(object sender, ObjectModeChangedEventArgs e)
@@ -156,6 +166,60 @@ namespace WinterEngine.Game.Screens
         {
             AreaEntityInstance.HideEntity();
             TilesetEditorEntityInstance.HideEntity();
+        }
+
+        #endregion
+
+        #region Save Methods
+
+        private void SaveArea(object sender, GameObjectSaveEventArgs e)
+        {
+            using (AreaRepository repo = new AreaRepository())
+            {
+                repo.Upsert(e.ActiveArea);
+            }
+        }
+        private void SaveCreature(object sender, GameObjectSaveEventArgs e)
+        {
+            using (CreatureRepository repo = new CreatureRepository())
+            {
+                repo.Upsert(e.ActiveCreature);
+            }
+        }
+        private void SaveItem(object sender, GameObjectSaveEventArgs e)
+        {
+            using (ItemRepository repo = new ItemRepository())
+            {
+                repo.Upsert(e.ActiveItem);
+            }
+        }
+        private void SavePlaceable(object sender, GameObjectSaveEventArgs e)
+        {
+            using (PlaceableRepository repo = new PlaceableRepository())
+            {
+                repo.Upsert(e.ActivePlaceable);
+            }
+        }
+        private void SaveConversation(object sender, GameObjectSaveEventArgs e)
+        {
+            using (ConversationRepository repo = new ConversationRepository())
+            {
+                repo.Upsert(e.ActiveConversation);
+            }
+        }
+        private void SaveScript(object sender, GameObjectSaveEventArgs e)
+        {
+            using (ScriptRepository repo = new ScriptRepository())
+            {
+                repo.Upsert(e.ActiveScript);
+            }
+        }
+        private void SaveTileset(object sender, GameObjectSaveEventArgs e)
+        {
+            using (TilesetRepository repo = new TilesetRepository())
+            {
+                repo.Upsert(e.ActiveTileset);
+            }
         }
 
         #endregion

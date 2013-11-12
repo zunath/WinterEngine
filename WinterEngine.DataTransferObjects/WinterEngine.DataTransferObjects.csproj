@@ -99,6 +99,7 @@
     <Compile Include="Enumerations\ModuleRebuildModeEnum.cs" />
     <Compile Include="EventArgsExtended\ObjectModeChangedEventArgs.cs" />
     <Compile Include="EventArgsExtended\PositionEventArgs.cs" />
+    <Compile Include="EventArgsExtended\GameObjectSaveEventArgs.cs" />
     <Compile Include="EventArgsExtended\TilesetSelectionEventArgs.cs" />
     <Compile Include="GameObjects\Tileset.cs" />
     <Compile Include="Resources\Faction.cs" />

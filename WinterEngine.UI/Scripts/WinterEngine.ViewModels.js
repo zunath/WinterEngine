@@ -30,28 +30,16 @@ function InitializeToolsetViewModel() {
 
     ToolsetViewModel.GetActiveObject = function () {
         var mode = ToolsetViewModel.CurrentObjectMode();
+        return ToolsetViewModel["Active" + mode];
+    };
 
-        if (mode == 'Area') {
-            return ToolsetViewModel.ActiveArea;
-        }
-        else if (mode == 'Creature') {
-            return ToolsetViewModel.ActiveCreature;
-        }
-        else if (mode == 'Item') {
-            return ToolsetViewModel.ActiveItem;
-        }
-        else if (mode == 'Placeable') {
-            return ToolsetViewModel.ActivePlaceable;
-        }
-        else if (mode == 'Conversation') {
-            return ToolsetViewModel.ActiveConversation;
-        }
-        else if (mode == 'Script') {
-            return ToolsetViewModel.ActiveScript;
-        }
-        else if (mode == 'Tileset') {
-            return ToolsetViewModel.ActiveTileset;
-        }
+    ToolsetViewModel.SaveActiveObject = function () {
+        var mode = ToolsetViewModel.CurrentObjectMode();
+        var obj = ko.viewmodel.toModel(ToolsetViewModel.GetActiveObject());
+        var jsonObject = JSON.stringify(obj);
+
+        // Dynamic method call to C# based on current mode
+        window["Entity"]["Save" + mode](jsonObject);
     };
 
 }

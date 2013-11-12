@@ -108,7 +108,16 @@ namespace WinterEngine.Game.Entities
 
         // Tileset Editor Events
         public event EventHandler<TilesetSelectionEventArgs> OnTilesetLoaded;
-        public event EventHandler<TilesetSelectionEventArgs> OnTilesetSaved;
+
+        // Object save events
+        public event EventHandler<GameObjectSaveEventArgs> OnSaveArea;
+        public event EventHandler<GameObjectSaveEventArgs> OnSaveCreature;
+        public event EventHandler<GameObjectSaveEventArgs> OnSaveItem;
+        public event EventHandler<GameObjectSaveEventArgs> OnSavePlaceable;
+        public event EventHandler<GameObjectSaveEventArgs> OnSaveConversation;
+        public event EventHandler<GameObjectSaveEventArgs> OnSaveScript;
+        public event EventHandler<GameObjectSaveEventArgs> OnSaveTileset;
+        
 
         #endregion
 
@@ -173,7 +182,15 @@ namespace WinterEngine.Game.Entities
 
             // Data Manipulation Bindings 
             EntityJavascriptObject.Bind("GetModelJSON", true, GetModelJSON);
-            EntityJavascriptObject.Bind("SaveObjectData", false, SaveObjectData);
+
+            EntityJavascriptObject.Bind("SaveArea", false, SaveArea);
+            EntityJavascriptObject.Bind("SaveCreature", false, SaveCreature);
+            EntityJavascriptObject.Bind("SaveItem", false, SaveItem);
+            EntityJavascriptObject.Bind("SavePlaceable", false, SavePlaceable);
+            EntityJavascriptObject.Bind("SaveConversation", false, SaveConversation);
+            EntityJavascriptObject.Bind("SaveScript", false, SaveScript);
+            EntityJavascriptObject.Bind("SaveTileset", false, SaveTileset);
+
             EntityJavascriptObject.Bind("LoadObjectData", false, LoadObjectData);
             EntityJavascriptObject.Bind("GetModulesList", true, GetModulesList);
             
@@ -654,59 +671,73 @@ namespace WinterEngine.Game.Entities
             }
         }
 
-        private void SaveObjectData(object sender, JavascriptMethodEventArgs e)
+        private void SaveArea(object sender, JavascriptMethodEventArgs e)
         {
-            try
+            if (OnSaveArea != null)
             {
-                GameObjectFactory factory = new GameObjectFactory();
-                GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[0]);
-                string jsonModel = e.Arguments[1];
-                ToolsetViewModel model = JsonConvert.DeserializeObject<ToolsetViewModel>(jsonModel, JSONSerializerSettings);
-                
-                if (gameObjectType == GameObjectTypeEnum.Area)
-                {
-                    factory.UpsertInDatabase(model.ActiveArea);
-                    ViewModel.ActiveArea = model.ActiveArea;
-                    ObjectSelectionEventArgs areaEventArgs = new ObjectSelectionEventArgs(model.ActiveArea.ResourceID);
-                    RefreshAreaEntity(this, areaEventArgs);
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Conversation)
-                {
-                    factory.UpsertInDatabase(model.ActiveConversation);
-                    ViewModel.ActiveConversation = model.ActiveConversation;
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Creature)
-                {
-                    factory.UpsertInDatabase(model.ActiveCreature);
-                    ViewModel.ActiveCreature = model.ActiveCreature;
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Item)
-                {
-                    factory.UpsertInDatabase(model.ActiveItem);
-                    ViewModel.ActiveItem = model.ActiveItem;
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Placeable)
-                {
-                    factory.UpsertInDatabase(model.ActivePlaceable);
-                    ViewModel.ActivePlaceable = model.ActivePlaceable;
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Script)
-                {
-                    factory.UpsertInDatabase(model.ActiveScript);
-                    ViewModel.ActiveScript = model.ActiveScript;
-                }
-                else if (gameObjectType == GameObjectTypeEnum.Tileset)
-                {
-                    factory.UpsertInDatabase(model.ActiveTileset);
-                    ViewModel.ActiveTileset = model.ActiveTileset;
-                    RaiseTilesetSaveEvent();
-                }
-
+                ViewModel.ActiveArea = JsonConvert.DeserializeObject<Area>(e.Arguments[0]);
+                OnSaveArea(this, new GameObjectSaveEventArgs(ViewModel.ActiveArea));
                 AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
             }
-            catch
+        }
+
+        private void SaveCreature(object sender, JavascriptMethodEventArgs e)
+        {
+            if (OnSaveCreature != null)
             {
-                throw;
+                ViewModel.ActiveCreature = JsonConvert.DeserializeObject<Creature>(e.Arguments[0]);
+                OnSaveCreature(this, new GameObjectSaveEventArgs(ViewModel.ActiveCreature));
+                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
+            }
+        }
+
+        private void SaveItem(object sender, JavascriptMethodEventArgs e)
+        {
+            if (OnSaveItem != null)
+            {
+                ViewModel.ActiveItem = JsonConvert.DeserializeObject<Item>(e.Arguments[0]);
+                OnSaveItem(this, new GameObjectSaveEventArgs(ViewModel.ActiveItem));
+                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
+            }
+        }
+
+        private void SavePlaceable(object sender, JavascriptMethodEventArgs e)
+        {
+            if (OnSavePlaceable != null)
+            {
+                ViewModel.ActivePlaceable = JsonConvert.DeserializeObject<Placeable>(e.Arguments[0]);
+                OnSavePlaceable(this, new GameObjectSaveEventArgs(ViewModel.ActivePlaceable));
+                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
+            }
+        }
+
+        private void SaveConversation(object sender, JavascriptMethodEventArgs e)
+        {
+            if (OnSaveConversation != null)
+            {
+                ViewModel.ActiveConversation = JsonConvert.DeserializeObject<Conversation>(e.Arguments[0]);
+                OnSaveConversation(this, new GameObjectSaveEventArgs(ViewModel.ActiveConversation));
+                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
+            }
+        }
+
+        private void SaveScript(object sender, JavascriptMethodEventArgs e)
+        {
+            if (OnSaveScript != null)
+            {
+                ViewModel.ActiveScript = JsonConvert.DeserializeObject<Script>(e.Arguments[0]);
+                OnSaveScript(this, new GameObjectSaveEventArgs(ViewModel.ActiveScript));
+                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
+            }
+        }
+
+        private void SaveTileset(object sender, JavascriptMethodEventArgs e)
+        {
+            if (OnSaveTileset != null)
+            {
+                ViewModel.ActiveTileset = JsonConvert.DeserializeObject<Tileset>(e.Arguments[0]);
+                OnSaveTileset(this, new GameObjectSaveEventArgs(ViewModel.ActiveTileset));
+                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
             }
         }
 
@@ -826,14 +857,6 @@ namespace WinterEngine.Game.Entities
             if (OnTilesetLoaded != null)
             {
                 OnTilesetLoaded(this, new TilesetSelectionEventArgs(ViewModel.ActiveTileset.ResourceID, graphicResourceID));
-            }
-        }
-
-        private void RaiseTilesetSaveEvent()
-        {
-            if (OnTilesetSaved != null)
-            {
-                OnTilesetSaved(this, new TilesetSelectionEventArgs(ViewModel.ActiveTileset.ResourceID, ViewModel.ActiveTileset.GraphicResourceID));
             }
         }
 
