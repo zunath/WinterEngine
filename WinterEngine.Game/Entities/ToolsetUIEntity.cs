@@ -500,6 +500,8 @@ namespace WinterEngine.Game.Entities
                     resourceID = factory.AddToDatabase(newObject).ResourceID;
                 }
 
+                PopulateToolsetViewModel();
+
                 AsyncJavascriptCallback("CreateNewObject_Callback",
                     error == ErrorTypeEnum.None ? true : false,
                     EnumerationHelper.GetEnumerationDescription(error),
@@ -532,6 +534,8 @@ namespace WinterEngine.Game.Entities
             {
                 RefreshAreaEntity(this, new ObjectSelectionEventArgs(0));
             }
+
+            PopulateToolsetViewModel();
 
             AsyncJavascriptCallback("DeleteObject_Callback",
                 error == ErrorTypeEnum.None ? true : false,
@@ -576,6 +580,8 @@ namespace WinterEngine.Game.Entities
             {
                 ViewModel.ActiveTileset = new Tileset();
             }
+
+            PopulateToolsetViewModel();
 
             AsyncJavascriptCallback("DeleteObject_Callback", 
                 error == ErrorTypeEnum.None ? true : false,

@@ -79,7 +79,10 @@ function BuildObjectTreeViewContextMenu(node) {
 // Initializes a specified div selector as a tree view.
 function InitializeTreeView(selector, data) {
     $(selector).jstree({
-        "animation": 0,
+
+        "core": {
+            "animation": 0,
+        },
         "plugins": ["json_data", "ui", "themeroller", "sort", "crrm", "contextmenu", "types"],
         "json_data": {
             "data": [
@@ -212,6 +215,8 @@ function CreateNewObject_Callback(success, errorMessage, gameObjectType, name, r
         $(newObject).data('resourceid', resourceID);
         $(newObject).data('nodetype', 'object');
         CloseNewObjectBox();
+
+        ToolsetViewModel.Refresh();
     }
     else {
         $('#lblNewObjectErrors').text(errorMessage);
