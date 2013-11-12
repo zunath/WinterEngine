@@ -37,7 +37,9 @@ function ObjectTabDiscardChanges() {
 
 function SelectTilesetSpriteSheet() {
     var selectedSpritesheetID = parseInt($('#selTilesetDetails-Spritesheet option:selected').val());
-    Entity.LoadTilesetSpritesheet(selectedSpritesheetID);
+    if (selectedSpritesheetID > 0) {
+        Entity.LoadTilesetSpritesheet(selectedSpritesheetID);
+    }
 }
 
 function OpenEditLocalVariableBox(isModuleProperties, mode, variableObject) {
