@@ -21,9 +21,45 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         {
             get
             {
-                return (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), CurrentObjectMode);
+                try
+                {
+                    if (String.IsNullOrWhiteSpace(CurrentObjectMode))
+                    {
+                        return GameObjectTypeEnum.Unknown;
+                    }
+                    else
+                    {
+                        return (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), CurrentObjectMode);
+                    }
+                }
+                catch
+                {
+                    return GameObjectTypeEnum.Unknown;
+                }
             }
         }
+
+        public bool IsObjectLoadedForCurrentObjectMode
+        {
+            get
+            {
+                bool isLoaded = false;
+
+                if ((GameObjectType == GameObjectTypeEnum.Area && ActiveArea.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Conversation && ActiveConversation.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Creature && ActiveCreature.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Item && ActiveItem.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Placeable && ActivePlaceable.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Script && ActiveScript.ResourceID > 0) ||
+                   (GameObjectType == GameObjectTypeEnum.Tileset && ActiveTileset.ResourceID > 0))
+                {
+                    isLoaded = true;
+                }
+
+                return isLoaded;
+            }
+        }
+        public bool IsModuleOpened { get; set; }
 
         #region Selectable Object Data
 
@@ -35,7 +71,6 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public Conversation ActiveConversation { get; set; }
         public Script ActiveScript { get; set; }
         public Tileset ActiveTileset { get; set; }
-        public Tile ActiveTile { get; set; }
         #endregion
 
         #region Drop Down Menu List Data
@@ -56,6 +91,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
 
         public ToolsetViewModel()
         {
+            IsModuleOpened = false;
             CurrentObjectMode = "";
             CurrentObjectTabSelector = "";
             CurrentObjectTreeSelector = "";
@@ -67,7 +103,6 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             ActivePlaceable = new Placeable(true);
             ActiveScript = new Script();
             ActiveTileset = new Tileset();
-            ActiveTile = new Tile();
             ModuleList = new List<GameModule>();
             AvailableContentPackages = new List<ContentPackage>();
             AttachedContentPackages = new List<ContentPackage>();

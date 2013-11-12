@@ -74,9 +74,7 @@ function LoadObjectData_Callback() {
 }
 
 function ObjectTabApplyChanges() {
-    var mode = ToolsetViewModel.CurrentObjectMode();
-    var jsonModel = JSON.stringify(ko.viewmodel.toModel(ToolsetViewModel));
-    Entity.SaveObjectData(mode, jsonModel);
+    ToolsetViewModel.SaveActiveObject();
 }
 
 function ObjectTabApplyChanges_Callback() {
@@ -84,13 +82,14 @@ function ObjectTabApplyChanges_Callback() {
 }
 
 function ObjectTabDiscardChanges() {
-    LoadObjectData();
+    var selectedNode = $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('get_selected');
+    var resourceID = $(selectedNode).data('resourceid');
+    LoadObjectData(resourceID);
 }
 
 
 function SelectTilesetSpriteSheet() {
     var selectedSpritesheetID = parseInt($('#selTilesetDetails-Spritesheet option:selected').val());
-
     Entity.LoadTilesetSpritesheet(selectedSpritesheetID);
 }
 

@@ -91,8 +91,8 @@ namespace WinterEngine.Game.Entities
         {
             try
             {
-                ClearTileEntityList();
                 this.TilesetResourceID = e.TilesetResourceID;
+                ClearTileEntityList();
                 ContentPackageResource resource;
 
                 using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
@@ -122,13 +122,25 @@ namespace WinterEngine.Game.Entities
                                        in TileList
                                        select new Tile
                                        {
-                                           IsPassable = tile.IsPassable,
                                            TextureCellX = tile.SpriteSheetColumn,
                                            TextureCellY = tile.SpriteSheetRow,
-                                           TilesetID = e.TilesetResourceID
+                                           TilesetID = e.TilesetResourceID,
+                                           CollisionBoxes = (from box
+                                                             in tile.CollisionBoxList
+                                                             select new TileCollisionBox
+                                                             {
+                                                                 IsPassable = box.IsPassable,
+                                                                 TileLocationIndex = box.TileIndex
+                                                             }).ToList()
                                        }).ToList();
 
+                using (TilesetRepository repo = new TilesetRepository())
+                {
+                    Tileset tileset = repo.GetByID(e.TilesetResourceID);
+                    tileset.TileList = tileDTOs;
 
+                    repo.Update(tileset);
+                }
 
             }
             catch
@@ -161,16 +173,21 @@ namespace WinterEngine.Game.Entities
             {
                 activeTileset = repo.GetByID(TilesetResourceID);
             }
+            TileList.Clear();
 
+            List<TileCollisionBox> activeTilesetCollisionBoxes = new TileCollisionBoxRepository().GetByTilesetID(activeTileset.ResourceID);
+            
             for (int currentColumn = 0; currentColumn < numberOfColumns; currentColumn++)
             {
                 for (int currentRow = 0; currentRow < numberOfRows; currentRow++)
                 {
-                    Tile activeTile = activeTileset.TileList.FirstOrDefault(x => x.TextureCellX == currentColumn && x.TextureCellY == currentRow);
-                    bool isPassable = activeTile == null ? true : activeTile.IsPassable;
+                    Tile activeTile = activeTileset.TileList.SingleOrDefault(x => x.TextureCellX == currentColumn && x.TextureCellY == currentRow);
                     TileEntity entity = TileEntityFactory.CreateNew();
-                    entity.InitializeSprite(EntitySpriteSheet, currentRow, currentColumn, isPassable);
-                    
+                    int tileID = activeTile == null ? 0 : activeTile.TileID;
+
+                    entity.InitializeSprite(EntitySpriteSheet, currentRow, currentColumn);
+                    entity.InitializeCollisionBoxes(tileID, activeTilesetCollisionBoxes);
+
                     tileIndex++;
                 }
             }

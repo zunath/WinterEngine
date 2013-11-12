@@ -108,6 +108,7 @@
     <Compile Include="Enumerations\ModuleRebuildModeEnum.cs" />
     <Compile Include="EventArgsExtended\ObjectModeChangedEventArgs.cs" />
     <Compile Include="EventArgsExtended\PositionEventArgs.cs" />
+    <Compile Include="EventArgsExtended\GameObjectSaveEventArgs.cs" />
     <Compile Include="EventArgsExtended\TilesetSelectionEventArgs.cs" />
     <Compile Include="GameObjects\GameObjectFactory.cs" />
     <Compile Include="GameObjects\GameObjectFactoryInterfaces.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="GameObjects\Tileset.cs" />
     <Compile Include="Resources\Faction.cs" />
     <Compile Include="Resources\Gender.cs" />
+    <Compile Include="Resources\TileCollisionBox.cs" />
     <Compile Include="UIObjects\DropDownListUIObject.cs" />
     <Compile Include="XMLObjects\ContentPackageResourceXML.cs" />
     <Compile Include="BusinessObjects\JSTreeNode.cs" />

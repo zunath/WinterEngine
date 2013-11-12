@@ -158,6 +158,10 @@
     <Compile Include="Entities\CharacterSelectUIEntity.Generated.cs">
       <DependentUpon>CharacterSelectUIEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entities\TileCollisionBoxEntity.cs" />
+    <Compile Include="Entities\TileCollisionBoxEntity.Generated.cs">
+      <DependentUpon>TileCollisionBoxEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entities\GameUIEntity.cs" />
     <Compile Include="Entities\GameUIEntity.Generated.cs">
       <DependentUpon>GameUIEntity.cs</DependentUpon>
@@ -196,6 +200,7 @@
     <Compile Include="Entities\ToolsetUIEntity.Generated.cs">
       <DependentUpon>ToolsetUIEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Factories\TileCollisionBoxEntityFactory.Generated.cs" />
     <Compile Include="Factories\TileEntityFactory.Generated.cs" />
     <Compile Include="GlobalContent.Generated.cs" />
     <Compile Include="Interfaces\IEditorEntity.cs" />

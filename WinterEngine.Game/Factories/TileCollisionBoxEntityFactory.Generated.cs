@@ -6,23 +6,23 @@ using WinterEngine.Game.Performance;
 
 namespace WinterEngine.Game.Factories
 {
-	public class TileEntityFactory : IEntityFactory
+	public class TileCollisionBoxEntityFactory : IEntityFactory
 	{
-		public static TileEntity CreateNew ()
+		public static TileCollisionBoxEntity CreateNew ()
 		{
 			return CreateNew(null);
 		}
-		public static TileEntity CreateNew (Layer layer)
+		public static TileCollisionBoxEntity CreateNew (Layer layer)
 		{
 			if (string.IsNullOrEmpty(mContentManagerName))
 			{
 				throw new System.Exception("You must first initialize the factory to use it.");
 			}
-			TileEntity instance = null;
+			TileCollisionBoxEntity instance = null;
 			instance = mPool.GetNextAvailable();
 			if (instance == null)
 			{
-				mPool.AddToPool(new TileEntity(mContentManagerName, false));
+				mPool.AddToPool(new TileCollisionBoxEntity(mContentManagerName, false));
 				instance =  mPool.GetNextAvailable();
 			}
 			instance.AddToManagers(layer);
@@ -37,7 +37,7 @@ namespace WinterEngine.Game.Factories
 			return instance;
 		}
 		
-		public static void Initialize (PositionedObjectList<TileEntity> listFromScreen, string contentManager)
+		public static void Initialize (PositionedObjectList<TileCollisionBoxEntity> listFromScreen, string contentManager)
 		{
 			mContentManagerName = contentManager;
 			mScreenListReference = listFromScreen;
@@ -57,7 +57,7 @@ namespace WinterEngine.Game.Factories
 			const int numberToPreAllocate = 20;
 			for (int i = 0; i < numberToPreAllocate; i++)
 			{
-				TileEntity instance = new TileEntity(mContentManagerName, false);
+				TileCollisionBoxEntity instance = new TileCollisionBoxEntity(mContentManagerName, false);
 				mPool.AddToPool(instance);
 			}
 		}
@@ -67,7 +67,7 @@ namespace WinterEngine.Game.Factories
 		/// by generated code.  Use Destroy instead when writing custom code so that your code will behave
 		/// the same whether your Entity is pooled or not.
 		/// </summary>
-		public static void MakeUnused (TileEntity objectToMakeUnused)
+		public static void MakeUnused (TileCollisionBoxEntity objectToMakeUnused)
 		{
 			MakeUnused(objectToMakeUnused, true);
 		}
@@ -77,7 +77,7 @@ namespace WinterEngine.Game.Factories
 		/// by generated code.  Use Destroy instead when writing custom code so that your code will behave
 		/// the same whether your Entity is pooled or not.
 		/// </summary>
-		public static void MakeUnused (TileEntity objectToMakeUnused, bool callDestroy)
+		public static void MakeUnused (TileCollisionBoxEntity objectToMakeUnused, bool callDestroy)
 		{
 			mPool.MakeUnused(objectToMakeUnused);
 			
@@ -89,18 +89,18 @@ namespace WinterEngine.Game.Factories
 		
 		
 			static string mContentManagerName;
-			static PositionedObjectList<TileEntity> mScreenListReference;
-			static PoolList<TileEntity> mPool = new PoolList<TileEntity>();
-			public static Action<TileEntity> EntitySpawned;
+			static PositionedObjectList<TileCollisionBoxEntity> mScreenListReference;
+			static PoolList<TileCollisionBoxEntity> mPool = new PoolList<TileCollisionBoxEntity>();
+			public static Action<TileCollisionBoxEntity> EntitySpawned;
 			object IEntityFactory.CreateNew ()
 			{
-				return TileEntityFactory.CreateNew();
+				return TileCollisionBoxEntityFactory.CreateNew();
 			}
 			object IEntityFactory.CreateNew (Layer layer)
 			{
-				return TileEntityFactory.CreateNew(layer);
+				return TileCollisionBoxEntityFactory.CreateNew(layer);
 			}
-			public static PositionedObjectList<TileEntity> ScreenListReference
+			public static PositionedObjectList<TileCollisionBoxEntity> ScreenListReference
 			{
 				get
 				{
@@ -111,14 +111,14 @@ namespace WinterEngine.Game.Factories
 					mScreenListReference = value;
 				}
 			}
-			static TileEntityFactory mSelf;
-			public static TileEntityFactory Self
+			static TileCollisionBoxEntityFactory mSelf;
+			public static TileCollisionBoxEntityFactory Self
 			{
 				get
 				{
 					if (mSelf == null)
 					{
-						mSelf = new TileEntityFactory();
+						mSelf = new TileCollisionBoxEntityFactory();
 					}
 					return mSelf;
 				}

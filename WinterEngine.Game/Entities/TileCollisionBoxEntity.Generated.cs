@@ -7,6 +7,7 @@ using WinterEngine.Game.Screens;
 using FlatRedBall.Graphics;
 using FlatRedBall.Math;
 using WinterEngine.Game.Performance;
+using FlatRedBall.Gui;
 using WinterEngine.Game.Entities;
 using WinterEngine.Game.Factories;
 using FlatRedBall;
@@ -14,6 +15,7 @@ using FlatRedBall.Screens;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 #if XNA4 || WINDOWS_8
 using Color = Microsoft.Xna.Framework.Color;
@@ -35,7 +37,7 @@ using Model = Microsoft.Xna.Framework.Graphics.Model;
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class TileEntity : PositionedObject, IDestroyable, IPoolable
+	public partial class TileCollisionBoxEntity : PositionedObject, IDestroyable, IPoolable, IClickable
 	{
         // This is made global so that static lazy-loaded content can access it.
         public static string ContentManagerName
@@ -51,52 +53,20 @@ namespace WinterEngine.Game.Entities
 		static object mLockObject = new object();
 		static List<string> mRegisteredUnloads = new List<string>();
 		static List<string> LoadedContentManagers = new List<string>();
+		protected static Microsoft.Xna.Framework.Graphics.Texture2D Transparent_8x8;
 		
-		private FlatRedBall.Sprite mSpriteInstance;
-		public FlatRedBall.Sprite SpriteInstance
-		{
-			get
-			{
-				return mSpriteInstance;
-			}
-			set
-			{
-				mSpriteInstance = value;
-			}
-		}
-		static float SpriteInstanceXReset;
-		static float SpriteInstanceYReset;
-		static float SpriteInstanceZReset;
-		static float SpriteInstanceXVelocityReset;
-		static float SpriteInstanceYVelocityReset;
-		static float SpriteInstanceZVelocityReset;
-		static float SpriteInstanceRotationXReset;
-		static float SpriteInstanceRotationYReset;
-		static float SpriteInstanceRotationZReset;
-		static float SpriteInstanceRotationXVelocityReset;
-		static float SpriteInstanceRotationYVelocityReset;
-		static float SpriteInstanceRotationZVelocityReset;
-		static float SpriteInstanceAlphaReset;
-		static float SpriteInstanceAlphaRateReset;
-		private PositionedObjectList<TileCollisionBoxEntity> mCollisionBoxList;
-		public PositionedObjectList<TileCollisionBoxEntity> CollisionBoxList
-		{
-			get
-			{
-				return mCollisionBoxList;
-			}
-		}
+		private FlatRedBall.Sprite SpriteInstance;
 		public int Index { get; set; }
 		public bool Used { get; set; }
 		protected Layer LayerProvidedByContainer = null;
 
-        public TileEntity(string contentManagerName) :
+        public TileCollisionBoxEntity(string contentManagerName) :
             this(contentManagerName, true)
         {
         }
 
 
-        public TileEntity(string contentManagerName, bool addToManagers) :
+        public TileCollisionBoxEntity(string contentManagerName, bool addToManagers) :
 			base()
 		{
 			// Don't delete this:
@@ -109,7 +79,7 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			mCollisionBoxList = new PositionedObjectList<TileCollisionBoxEntity>();
+			SpriteInstance = new FlatRedBall.Sprite();
 			
 			PostInitialize();
 			if (addToManagers)
@@ -133,15 +103,8 @@ namespace WinterEngine.Game.Entities
 		public virtual void Activity()
 		{
 			// Generated Activity
+			mIsPaused = false;
 			
-			for (int i = CollisionBoxList.Count - 1; i > -1; i--)
-			{
-				if (i < CollisionBoxList.Count)
-				{
-					// We do the extra if-check because activity could destroy any number of entities
-					CollisionBoxList[i].Activity();
-				}
-			}
 			CustomActivity();
 			
 			// After Custom Activity
@@ -153,16 +116,12 @@ namespace WinterEngine.Game.Entities
 			SpriteManager.RemovePositionedObject(this);
 			if (Used)
 			{
-				TileEntityFactory.MakeUnused(this, false);
+				TileCollisionBoxEntityFactory.MakeUnused(this, false);
 			}
 			
 			if (SpriteInstance != null)
 			{
 				SpriteManager.RemoveSpriteOneWay(SpriteInstance);
-			}
-			for (int i = CollisionBoxList.Count - 1; i > -1; i--)
-			{
-				CollisionBoxList[i].Destroy();
 			}
 
 
@@ -174,16 +133,33 @@ namespace WinterEngine.Game.Entities
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
-			if (SpriteInstance!= null)
+			if (SpriteInstance.Parent == null)
 			{
-				if (mSpriteInstance.Parent == null)
-				{
-					mSpriteInstance.CopyAbsoluteToRelative();
-					mSpriteInstance.AttachTo(this, false);
-				}
-				SpriteInstance.Texture = null;
-				SpriteInstance.TextureScale = 1f;
+				SpriteInstance.CopyAbsoluteToRelative();
+				SpriteInstance.AttachTo(this, false);
 			}
+			SpriteInstance.Texture = Transparent_8x8;
+			SpriteInstance.Height = 8f;
+			SpriteInstance.TextureScale = 0f;
+			SpriteInstance.Width = 8f;
+			if (SpriteInstance.Parent == null)
+			{
+				SpriteInstance.Z = 1f;
+			}
+			else
+			{
+				SpriteInstance.RelativeZ = 1f;
+			}
+			SpriteInstance.PixelSize = 0.5f;
+			SpriteInstance.Alpha = 0.5f;
+			SpriteInstance.Blue = 0f;
+			#if FRB_MDX
+			SpriteInstance.ColorOperation = Microsoft.DirectX.Direct3D.TextureOperation.InterpolateColor;
+			#else
+			SpriteInstance.ColorOperation = FlatRedBall.Graphics.ColorOperation.InterpolateColor;
+			#endif
+			SpriteInstance.Green = 0f;
+			SpriteInstance.Red = 0.5f;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public virtual void AddToManagersBottomUp (Layer layerToAddTo)
@@ -203,6 +179,29 @@ namespace WinterEngine.Game.Entities
 			RotationX = 0;
 			RotationY = 0;
 			RotationZ = 0;
+			SpriteManager.AddToLayer(SpriteInstance, layerToAddTo);
+			SpriteInstance.Texture = Transparent_8x8;
+			SpriteInstance.Height = 8f;
+			SpriteInstance.TextureScale = 0f;
+			SpriteInstance.Width = 8f;
+			if (SpriteInstance.Parent == null)
+			{
+				SpriteInstance.Z = 1f;
+			}
+			else
+			{
+				SpriteInstance.RelativeZ = 1f;
+			}
+			SpriteInstance.PixelSize = 0.5f;
+			SpriteInstance.Alpha = 0.5f;
+			SpriteInstance.Blue = 0f;
+			#if FRB_MDX
+			SpriteInstance.ColorOperation = Microsoft.DirectX.Direct3D.TextureOperation.InterpolateColor;
+			#else
+			SpriteInstance.ColorOperation = FlatRedBall.Graphics.ColorOperation.InterpolateColor;
+			#endif
+			SpriteInstance.Green = 0f;
+			SpriteInstance.Red = 0.5f;
 			X = oldX;
 			Y = oldY;
 			Z = oldZ;
@@ -215,10 +214,6 @@ namespace WinterEngine.Game.Entities
 			this.ForceUpdateDependenciesDeep();
 			SpriteManager.ConvertToManuallyUpdated(this);
 			SpriteManager.ConvertToManuallyUpdated(SpriteInstance);
-			for (int i = 0; i < CollisionBoxList.Count; i++)
-			{
-				CollisionBoxList[i].ConvertToManuallyUpdated();
-			}
 		}
 		public static void LoadStaticContent (string contentManagerName)
 		{
@@ -245,10 +240,15 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("TileEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("TileCollisionBoxEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
+				if (!FlatRedBallServices.IsLoaded<Microsoft.Xna.Framework.Graphics.Texture2D>(@"content/entities/tilecollisionboxentity/transparent_8x8.png", ContentManagerName))
+				{
+					registerUnload = true;
+				}
+				Transparent_8x8 = FlatRedBallServices.Load<Microsoft.Xna.Framework.Graphics.Texture2D>(@"content/entities/tilecollisionboxentity/transparent_8x8.png", ContentManagerName);
 			}
 			if (registerUnload && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 			{
@@ -256,7 +256,7 @@ namespace WinterEngine.Game.Entities
 				{
 					if (!mRegisteredUnloads.Contains(ContentManagerName) && ContentManagerName != FlatRedBallServices.GlobalContentManager)
 					{
-						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("TileEntityStaticUnload", UnloadStaticContent);
+						FlatRedBallServices.GetContentManagerByName(ContentManagerName).AddUnloadMethod("TileCollisionBoxEntityStaticUnload", UnloadStaticContent);
 						mRegisteredUnloads.Add(ContentManagerName);
 					}
 				}
@@ -272,20 +272,63 @@ namespace WinterEngine.Game.Entities
 			}
 			if (LoadedContentManagers.Count == 0)
 			{
+				if (Transparent_8x8 != null)
+				{
+					Transparent_8x8= null;
+				}
 			}
 		}
 		[System.Obsolete("Use GetFile instead")]
 		public static object GetStaticMember (string memberName)
 		{
+			switch(memberName)
+			{
+				case  "Transparent_8x8":
+					return Transparent_8x8;
+			}
 			return null;
 		}
 		public static object GetFile (string memberName)
 		{
+			switch(memberName)
+			{
+				case  "Transparent_8x8":
+					return Transparent_8x8;
+			}
 			return null;
 		}
 		object GetMember (string memberName)
 		{
+			switch(memberName)
+			{
+				case  "Transparent_8x8":
+					return Transparent_8x8;
+			}
 			return null;
+		}
+		public virtual bool HasCursorOver (FlatRedBall.Gui.Cursor cursor)
+		{
+			if (mIsPaused)
+			{
+				return false;
+			}
+			if (LayerProvidedByContainer != null && LayerProvidedByContainer.Visible == false)
+			{
+				return false;
+			}
+			if (!cursor.IsOn(LayerProvidedByContainer))
+			{
+				return false;
+			}
+			if (SpriteInstance.Alpha != 0 && SpriteInstance.AbsoluteVisible && cursor.IsOn3D(SpriteInstance, LayerProvidedByContainer))
+			{
+				return true;
+			}
+			return false;
+		}
+		public virtual bool WasClickedThisFrame (FlatRedBall.Gui.Cursor cursor)
+		{
+			return cursor.PrimaryClick && HasCursorOver(cursor);
 		}
 		protected bool mIsPaused;
 		public override void Pause (FlatRedBall.Instructions.InstructionList instructions)
@@ -296,10 +339,7 @@ namespace WinterEngine.Game.Entities
 		public virtual void SetToIgnorePausing ()
 		{
 			FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(this);
-			if (SpriteInstance != null)
-			{
-				FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(SpriteInstance);
-			}
+			FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(SpriteInstance);
 		}
 		public virtual void MoveToLayer (Layer layerToMoveTo)
 		{

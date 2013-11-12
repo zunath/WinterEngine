@@ -138,22 +138,6 @@ namespace WinterEngine.Game.Entities
 			RotationY = oldRotationY;
 			RotationZ = oldRotationZ;
 			ResourcePath = "file:///./Views/MainMenu.html";
-			if (Parent == null)
-			{
-				X = 0f;
-			}
-			else
-			{
-				RelativeX = 0f;
-			}
-			if (Parent == null)
-			{
-				Y = 0f;
-			}
-			else
-			{
-				RelativeY = 0f;
-			}
 		}
 		public override void ConvertToManuallyUpdated ()
 		{
@@ -243,8 +227,5 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class MainMenuUIEntityExtensionMethods
-	{
-	}
 	
 }

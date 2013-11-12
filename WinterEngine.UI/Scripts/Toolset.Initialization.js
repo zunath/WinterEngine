@@ -29,6 +29,8 @@ function Initialize() {
     $('#divModulePropertiesBox').dialog('option', 'height', '500');
 
     $("input[type=button]").button();
+    $('#btnObjectTabApplyChanges').button('disable');
+    $('#btnObjectTabDiscardChanges').button('disable');
 
     // Unblock the UI - the UI blocking is done to prevent the user from making javascript calls before Awesomium has loaded.
     $.unblockUI();

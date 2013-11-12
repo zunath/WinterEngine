@@ -25,13 +25,6 @@ function BuildObjectTreeViewContextMenu(node) {
                 $('#divRenameTreeNode').dialog('open');
             }
         },
-        "RenameObject": {
-            "label": "Rename",
-            "action": function (obj) {
-                $('#divRenameTreeNode').data('RenameMode', 'RenameObject');
-                $('#divRenameTreeNode').dialog('open');
-            }
-        },
         "DeleteCategory": {
             "label": "Delete Category",
             "action": function (obj) {
@@ -58,7 +51,6 @@ function BuildObjectTreeViewContextMenu(node) {
     
     if ($(node).data("nodetype") == "root") {
         delete items.RenameCategory;
-        delete items.RenameObject;
         delete items.CreateObject;
         delete items.DeleteCategory;
         delete items.DeleteObject;
@@ -68,13 +60,11 @@ function BuildObjectTreeViewContextMenu(node) {
             delete items.DeleteCategory;
             delete items.RenameCategory;
         }
-        delete items.RenameObject;
         delete items.DeleteObject;
         delete items.CreateCategory;
     }
     else if ($(node).data("nodetype") == "object") {
         if ($(node).data("issystemresource") == "True") {
-            delete items.RenameObject;
             delete items.DeleteObject;
         }
         delete items.DeleteCategory;
@@ -283,6 +273,9 @@ function DeleteObject_Callback(success, errorMessage) {
         $('.clsConversationObjectField').attr('disabled', 'disabled').val('');
         $('.clsScriptObjectField').attr('disabled', 'disabled').val('');
         $('.clsTilesetObjectField').attr('disabled', 'disabled').val('');
+
+        ToolsetViewModel.Refresh();
+        $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('deselect_all');
     }
     else {
         $('#lblConfirmDeleteErrors').text(errorMessage);
@@ -307,10 +300,6 @@ function RenameObject() {
         var categoryID = $(selectedNode).data('categoryid');
         Entity.RenameCategory(newObjectName, categoryID);
     }
-    else if (mode == "RenameObject") {
-        var resourceID = $(selectedNode).data('resourceid');
-        Entity.RenameObject(newObjectName, resourceID, ToolsetViewModel.CurrentObjectMode());
-    }
 }
 
 // CALLBACK FUNCTION
@@ -322,6 +311,8 @@ function RenameObject_Callback(success, errorMessage, newName) {
 
         $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('set_text', selectedNode, newName);
         CloseRenameObjectBox();
+
+        ToolsetViewModel.Refresh();
     }
     else {
         $('#lblRenameTreeNodeErrors').text(errorMessage);

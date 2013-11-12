@@ -137,22 +137,6 @@ namespace WinterEngine.Game.Entities
 			RotationX = oldRotationX;
 			RotationY = oldRotationY;
 			RotationZ = oldRotationZ;
-			if (Parent == null)
-			{
-				X = 0f;
-			}
-			else
-			{
-				RelativeX = 0f;
-			}
-			if (Parent == null)
-			{
-				Y = 0f;
-			}
-			else
-			{
-				RelativeY = 0f;
-			}
 		}
 		public override void ConvertToManuallyUpdated ()
 		{
@@ -242,8 +226,5 @@ namespace WinterEngine.Game.Entities
 	
 	
 	// Extra classes
-	public static class CharacterCreationUIEntityExtensionMethods
-	{
-	}
 	
 }

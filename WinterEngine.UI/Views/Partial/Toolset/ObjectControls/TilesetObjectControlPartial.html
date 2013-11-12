@@ -12,12 +12,12 @@
         <input id="txtTilesetDetails-Resref" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset.Resref" class="clsTilesetObjectField" />
 
         <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
-        <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField" onchange="SelectTilesetSpriteSheet;"
+        <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField"
             data-bind="options: TilesetSpriteSheetsList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
                        value: ActiveTileset.GraphicResourceID == null ? 0 : ActiveTileset.GraphicResourceID,
-                       click: function (item) { return Entity.LoadTilesetSpritesheet(parseInt($('#selTilesetDetails-Spritesheet').val())); }">
+                       click: function (item) { return SelectTilesetSpriteSheet(); }">
         </select>
 
     </div>
