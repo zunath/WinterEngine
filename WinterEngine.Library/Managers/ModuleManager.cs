@@ -13,7 +13,6 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.Paths;
-using WinterEngine.Editor.Managers;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.Library.Managers;
 using WinterEngine.Editor.Utility;
@@ -32,11 +31,11 @@ namespace WinterEngine.Library.Managers
         private string _tempDirectoryPath;
 
         private readonly IDatabaseRepository _databaseRepository;
-        private readonly IModuleRepository _moduleRepository;
         private readonly IGameModuleRepository _gameModuleRepository;
         private readonly IFileArchiveManager _fileArchiveManager;
         private readonly IGenericRepository<ContentPackage> _contentPackageRepository;
         private readonly IGenericRepository<Category> _categoryRepository;
+        private readonly IGameObjectFactory _gameObjectFactory;
 
         #endregion
 
@@ -94,7 +93,6 @@ namespace WinterEngine.Library.Managers
         public ModuleManager(IGenericRepository<ContentPackage> contentPackageRepository,
             IGenericRepository<Category> categoryRepository,
             IFileArchiveManager fileArchiveManager,
-            IModuleRepository moduleRepository,
             IDatabaseRepository databaseRepository,
             IGameModuleRepository gameModuleRepository)
         {
@@ -106,9 +104,6 @@ namespace WinterEngine.Library.Managers
 
             if (fileArchiveManager == null) throw new ArgumentNullException("fileArchiveManager");
             _fileArchiveManager = fileArchiveManager;
-
-            if (moduleRepository == null) throw new ArgumentNullException("moduleRepository");
-            _moduleRepository = moduleRepository;
 
             if (databaseRepository == null) throw new ArgumentNullException("databaseRepository");
             _databaseRepository = databaseRepository;
@@ -155,17 +150,13 @@ namespace WinterEngine.Library.Managers
                 creationScripts.Initialize();
 
                 // Add the module details to the correct table.
-                using (GameModuleRepository repo = new GameModuleRepository())
-                {
-                    GameObjectFactory factory = new GameObjectFactory();
-                    GameModule module = factory.CreateObject(GameObjectTypeEnum.GameModule, ModuleName, ModuleTag, ModuleResref) as GameModule;
-                    GameModule gameModule = new GameModule();
-                    gameModule.ModuleName = ModuleName;
-                    gameModule.ModuleTag = ModuleTag;
+                GameModule module = _gameObjectFactory.Create(GameObjectTypeEnum.GameModule) as GameModule;
+                module.Name = ModuleName;
+                module.Tag = ModuleTag;
+                module.Resref = ModuleResref;
 
-                    repo.Add(module);
-                }
-                _moduleRepository.Add(gameModule);
+                _gameModuleRepository.Add(module);
+                _gameModuleRepository.ApplyChanges();
 
                 LoadSystemContentPacks();
 

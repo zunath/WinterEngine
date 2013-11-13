@@ -8,7 +8,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class ItemPropertyRepository : IRepository, IResourceRepository<ItemProperty>
+    public class ItemPropertyRepository : IResourceRepository<ItemProperty>
     {
         private readonly ModuleDataContext _context;
         private readonly bool _autoSaveChanges;

@@ -12,6 +12,7 @@ using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.XMLObjects;
 using WinterEngine.Editor.Extensions;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataAccess;
 
 namespace WinterEngine.Library.Managers
 {

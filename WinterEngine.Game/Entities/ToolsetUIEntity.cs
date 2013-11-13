@@ -21,6 +21,7 @@ using WinterEngine.Editor.Utility;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Converters;
 using WinterEngine.DataTransferObjects.UIObjects;
+using Ninject;
 
 
 namespace WinterEngine.Game.Entities
@@ -29,14 +30,18 @@ namespace WinterEngine.Game.Entities
     {
         #region Fields
 
-        private readonly ToolsetViewModel _viewModel;
-        private readonly FileExtensionFactory _extensionFactory;
-        private readonly ModuleManager _moduleManager;
-        private readonly JsonSerializerSettings _serializerSettings;
-        
-        private readonly IRepositoryFactory _repositoryFactory;
-        private readonly IGameObjectFactory _gameObjectFacotry;
-        private readonly IGameResourceManager _resourceManager;
+        public ToolsetViewModel _viewModel { get; set; }
+        public FileExtensionFactory _extensionFactory { get; set; }
+        public JsonSerializerSettings _serializerSettings { get; set; }
+
+        [Inject]
+        public ModuleManager _moduleManager { get; set; }
+        [Inject]
+        public IRepositoryFactory _repositoryFactory { get; set; }
+        [Inject]
+        public IGameObjectFactory _gameObjectFactory { get; set; }
+        [Inject]
+        public IGameResourceManager _resourceManager { get; set; }
         
         #endregion
 
@@ -50,49 +55,7 @@ namespace WinterEngine.Game.Entities
                 return _viewModel;
             }
 
-            }
-
-        //private JsonSerializerSettings JSONSerializerSettings
-        //{
-        //    get
-        //    {
-        //        if (_serializerSettings == null)
-        //        {
-        //            _serializerSettings = new JsonSerializerSettings
-        //            {
-        //                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-        //                NullValueHandling = NullValueHandling.Ignore
-        //            };
-        //        }
-        //        return _serializerSettings;
-        //    }
-        //}
-
-        //private FileExtensionFactory ExtensionFactory 
-        //{
-        //    get
-        //    {
-        //        if (_extensionFactory == null)
-        //        {
-        //            _extensionFactory = new FileExtensionFactory();
-        //        }
-
-        //        return _extensionFactory;
-        //    }
-        //}
-
-        //private ModuleManager ModuleManager
-        //{
-        //    get
-        //    {
-        //        if (_moduleManager == null)
-        //        {
-        //            _moduleManager = new ModuleManager();
-        //        }
-
-        //        return _moduleManager;
-        //    }
-        //}
+        }
 
         #endregion
 
@@ -212,13 +175,13 @@ namespace WinterEngine.Game.Entities
 
         private void NewModuleButton(object sender, JavascriptMethodEventArgs e)
         {
-            ModuleManager.ModuleName = e.Arguments[0];
-            ModuleManager.ModuleTag = e.Arguments[1];
-            ModuleManager.ModuleResref = e.Arguments[2];
-            bool success = ModuleManager.CreateModule();
+
             _moduleManager.ModuleName = e.Arguments[0];
             _moduleManager.ModuleTag = e.Arguments[1];
+            _moduleManager.ModuleResref = e.Arguments[2];
+
             bool success = _moduleManager.CreateModule();
+
             PopulateToolsetViewModel();
             ViewModel.IsModuleOpened = success;
 
@@ -300,11 +263,7 @@ namespace WinterEngine.Game.Entities
             try
             {
                 GameModule updatedModule = JsonConvert.DeserializeObject<GameModule>(e.Arguments[0]);
-
-                using (GameModuleRepository repo = new GameModuleRepository())
-                {
-                    repo.Update(updatedModule);
-                }
+                _repositoryFactory.GetGenericRepository<GameModule>().Update(updatedModule);
 
                 PopulateToolsetViewModel();
                 AsyncJavascriptCallback("SaveModuleProperties_Callback");
@@ -463,7 +422,6 @@ namespace WinterEngine.Game.Entities
             try
             {
                 ErrorTypeEnum error = ErrorTypeEnum.None;
-                //GameObjectFactory factory = new GameObjectFactory();
                 
                 string name = e.Arguments[0];
                 string tag = e.Arguments[1];
@@ -486,7 +444,7 @@ namespace WinterEngine.Game.Entities
                 //}
                 //else
                 //{
-                GameObjectBase newObject = _gameObjectFacotry.Create(gameObjectType);
+                GameObjectBase newObject = _gameObjectFactory.Create(gameObjectType);
                 newObject.Name = name;
                 newObject.Tag = tag;
                 newObject.Resref = resref;
@@ -495,7 +453,7 @@ namespace WinterEngine.Game.Entities
                 resourceID = _repositoryFactory.GetRepository(gameObjectType).Save(newObject);
 
                 
-                //}
+                }
 
                 AsyncJavascriptCallback("CreateNewObject_Callback",
                     error == ErrorTypeEnum.None ? true : false,
@@ -695,7 +653,7 @@ namespace WinterEngine.Game.Entities
             else if (ViewModel.GameObjectType == GameObjectTypeEnum.Tileset)
             {
                 ViewModel.ActiveTileset = gameObject as Tileset;
-                RaiseTilesetLoadEvent(gameObject.GraphicResourceID);
+                RaiseTilesetLoadEvent(ViewModel.ActiveTileset.GraphicResourceID);
             }
 
             AsyncJavascriptCallback("LoadObjectData_Callback");

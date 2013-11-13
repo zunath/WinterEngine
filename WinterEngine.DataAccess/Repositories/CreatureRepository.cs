@@ -12,7 +12,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess
 {
-    public class CreatureRepository : IGameObjectRepository<Creature>, IRepository
+    public class CreatureRepository : IGameObjectRepository<Creature>
     {
         private readonly ModuleDataContext _context;
         private readonly bool _autoSaveChanges;

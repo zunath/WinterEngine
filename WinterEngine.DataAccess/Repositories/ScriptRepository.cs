@@ -11,7 +11,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class Scripts : IGameObjectRepository<Script>, IRepository
+    public class Scripts : IGameObjectRepository<Script>
     {
 
         private readonly ModuleDataContext _context;

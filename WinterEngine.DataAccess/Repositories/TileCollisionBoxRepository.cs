@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class TileCollisionBoxRepository: RepositoryBase
+    public class TileCollisionBoxRepository: IResourceRepository<TileCollisionBox>
     {
+        private readonly ModuleDataContext _context;
+        private readonly bool _autoSaveChanges;
+
         #region Constructors
 
-        public TileCollisionBoxRepository(string connectionString = "", bool autoSaveChanges = true)
-            : base(connectionString, autoSaveChanges)
+        public TileCollisionBoxRepository(ModuleDataContext context, bool autoSave = true)
         {
+            if (context == null) throw new ArgumentNullException("DbContext");
+            _context = context;
+            _autoSaveChanges = autoSave;
         }
 
 
@@ -23,32 +29,33 @@ namespace WinterEngine.DataAccess.Repositories
 
         public List<TileCollisionBox> GetAll()
         {
-            return Context.TileCollisionBoxRepository.Get().ToList();
+            return _context.TileCollisionBoxes.ToList();
+
         }
 
         public TileCollisionBox Add(TileCollisionBox box)
         {
-            return Context.TileCollisionBoxRepository.Add(box);
+            return _context.TileCollisionBoxes.Add(box);
         }
 
         public void Add(List<TileCollisionBox> boxes)
         {
-            Context.TileCollisionBoxRepository.AddList(boxes);
+            _context.TileCollisionBoxes.AddRange(boxes);
         }
 
         public void Update(TileCollisionBox box)
         {
-            TileCollisionBox dbBox = Context.TileCollisionBoxRepository.Get(x => x.CollisionBoxID == box.CollisionBoxID).SingleOrDefault();
+            TileCollisionBox dbBox = _context.TileCollisionBoxes.Where(x => x.CollisionBoxID == box.CollisionBoxID).SingleOrDefault();
             if (dbBox == null) return;
 
-            Context.Context.Entry(dbBox).CurrentValues.SetValues(box);
+            _context.Entry(dbBox).CurrentValues.SetValues(box);
         }
 
         public void Upsert(TileCollisionBox box)
         {
             if (box.CollisionBoxID <= 0)
             {
-                Context.TileCollisionBoxRepository.Add(box);
+                _context.TileCollisionBoxes.Add(box);
             }
             else
             {
@@ -58,29 +65,29 @@ namespace WinterEngine.DataAccess.Repositories
 
         public TileCollisionBox GetByID(int boxID)
         {
-            return Context.TileCollisionBoxRepository.Get(x => x.CollisionBoxID == boxID).SingleOrDefault();
+            return _context.TileCollisionBoxes.Where(x => x.CollisionBoxID == boxID).SingleOrDefault();
         }
 
         public bool Exists(TileCollisionBox box)
         {
-            TileCollisionBox dbBox = Context.TileCollisionBoxRepository.Get(x => x.CollisionBoxID == box.CollisionBoxID).SingleOrDefault();
+            TileCollisionBox dbBox = _context.TileCollisionBoxes.Where(x => x.CollisionBoxID == box.CollisionBoxID).SingleOrDefault();
             return !Object.ReferenceEquals(dbBox, null);
         }
 
         public void Delete(TileCollisionBox box)
         {
-            Context.TileCollisionBoxRepository.Delete(box);
+            _context.TileCollisionBoxes.Remove(box);
         }
 
         public List<TileCollisionBox> GetByTileID(int tileID)
         {
-            return Context.TileCollisionBoxRepository.Get(x => x.TileID == tileID).ToList();
+            return _context.TileCollisionBoxes.Where(x => x.TileID == tileID).ToList();
         }
 
         public List<TileCollisionBox> GetByTilesetID(int tilesetID)
         {
             List<TileCollisionBox> collisionBoxes = new List<TileCollisionBox>();
-            List<Tile> tiles = Context.TileRepository.Get(x => x.TilesetID == tilesetID).ToList();
+            List<Tile> tiles = _context.Tiles.Where(x => x.TilesetID == tilesetID).ToList();
 
             foreach (Tile tile in tiles)
             {
@@ -91,6 +98,7 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         #endregion
+
 
     }
 }

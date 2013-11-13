@@ -16,7 +16,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class ContentPackageRepository : IResourceRepository<ContentPackage>, IRepository
+    public class ContentPackageRepository : IResourceRepository<ContentPackage>
     {
         #region Constants
 

@@ -10,7 +10,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess
 {
-    public class ItemRepository : IGameObjectRepository<Item>, IRepository
+    public class ItemRepository : IGameObjectRepository<Item>
     {
         #region Constructors
 

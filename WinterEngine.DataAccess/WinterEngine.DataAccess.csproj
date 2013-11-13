@@ -97,9 +97,8 @@
     <Compile Include="EntityCreationScripts.cs" />
     <Compile Include="Factories\FileExtensionFactory.cs" />
     <Compile Include="FileAccess\IFileArchiveManager.cs" />
-    <Compile Include="Repositories\IDatabaseRepository.cs" />
-    <Compile Include="Repositories\IModuleRepository.cs" />
-    <Compile Include="Repositories\RepositoryFactory.cs" />
+    <Compile Include="Interfaces\IDatabaseRepository.cs" />
+    <Compile Include="Factories\RepositoryFactory.cs" />
     <Compile Include="FileAccess\ERFFileAccess.cs" />
     <Compile Include="FileAccess\PlayerCharacterFileAccess.cs" />
     <Compile Include="FileAccess\FileArchiveManager.cs" />
@@ -113,10 +112,10 @@
     <Compile Include="Repositories\DefaultObjectRepository.cs" />
     <Compile Include="Repositories\FactionRepository.cs" />
     <Compile Include="Repositories\GenderRepository.cs" />
-    <Compile Include="Repositories\IGameModuleRepository.cs" />
+    <Compile Include="Interfaces\IGameModuleRepository.cs" />
     <Compile Include="Repositories\ItemPropertyRepository.cs" />
-    <Compile Include="Repositories\IRepositoryFactory.cs" />
-    <Compile Include="Repositories\IRepositoryInterfaces.cs" />
+    <Compile Include="Interfaces\IRepositoryFactory.cs" />
+    <Compile Include="Interfaces\IRepositoryInterfaces.cs" />
     <Compile Include="Repositories\ItemTypeRepository.cs" />
     <Compile Include="Repositories\DatabaseRepository.cs" />
     <Compile Include="Repositories\CreatureRepository.cs" />

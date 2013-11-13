@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using WinterEngine.DataTransferObjects;
 
-namespace WinterEngine.DataAccess.Repositories
+namespace WinterEngine.DataAccess
 {
-    public interface IGameModuleRepository: IDisposable
+    public interface IGameModuleRepository
     {
         GameModule Add(GameModule gameModule);
-        void Update(GameModule module);
+        void Save(GameModule module);
         void Delete(int resourceID);
         bool Exists();
         GameModule GetModule();
+        void ApplyChanges();
     }
 }

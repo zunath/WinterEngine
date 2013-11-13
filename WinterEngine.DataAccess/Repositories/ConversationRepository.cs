@@ -11,7 +11,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class ConversationRepository : IGameObjectRepository<Conversation>, IRepository
+    public class ConversationRepository : IGameObjectRepository<Conversation>
     {
 
         private readonly ModuleDataContext _context;

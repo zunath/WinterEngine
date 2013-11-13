@@ -30,7 +30,7 @@ namespace WinterEngine.Game.Screens
 {
 	public partial class ToolsetScreen
     {
-        private readonly IGenericRepository<Area> _areaRepo;
+        private readonly IRepositoryFactory _repositoryFactory;
 
         #region Constants
 
@@ -171,52 +171,31 @@ namespace WinterEngine.Game.Screens
 
         private void SaveArea(object sender, GameObjectSaveEventArgs e)
         {
-            using (AreaRepository repo = new AreaRepository())
-            {
-                repo.Upsert(e.ActiveArea);
-            }
+            _repositoryFactory.GetGameObjectRepository<Area>().Upsert(e.ActiveArea);
         }
         private void SaveCreature(object sender, GameObjectSaveEventArgs e)
         {
-            using (CreatureRepository repo = new CreatureRepository())
-            {
-                repo.Upsert(e.ActiveCreature);
-            }
+            _repositoryFactory.GetGameObjectRepository<Creature>().Upsert(e.ActiveCreature);
         }
         private void SaveItem(object sender, GameObjectSaveEventArgs e)
         {
-            using (ItemRepository repo = new ItemRepository())
-            {
-                repo.Upsert(e.ActiveItem);
-            }
+            _repositoryFactory.GetGameObjectRepository<Item>().Upsert(e.ActiveItem);
         }
         private void SavePlaceable(object sender, GameObjectSaveEventArgs e)
         {
-            using (PlaceableRepository repo = new PlaceableRepository())
-            {
-                repo.Upsert(e.ActivePlaceable);
-            }
+            _repositoryFactory.GetGameObjectRepository<Placeable>().Upsert(e.ActivePlaceable);
         }
         private void SaveConversation(object sender, GameObjectSaveEventArgs e)
         {
-            using (ConversationRepository repo = new ConversationRepository())
-            {
-                repo.Upsert(e.ActiveConversation);
-            }
+            _repositoryFactory.GetGameObjectRepository<Conversation>().Upsert(e.ActiveConversation);
         }
         private void SaveScript(object sender, GameObjectSaveEventArgs e)
         {
-            using (ScriptRepository repo = new ScriptRepository())
-            {
-                repo.Upsert(e.ActiveScript);
-            }
+            _repositoryFactory.GetGameObjectRepository<Script>().Upsert(e.ActiveScript);
         }
         private void SaveTileset(object sender, GameObjectSaveEventArgs e)
         {
-            using (TilesetRepository repo = new TilesetRepository())
-            {
-                repo.Upsert(e.ActiveTileset);
-            }
+            _repositoryFactory.GetGameObjectRepository<Tileset>().Upsert(e.ActiveTileset);
         }
 
         #endregion

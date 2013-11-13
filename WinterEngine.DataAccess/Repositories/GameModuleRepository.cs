@@ -14,7 +14,7 @@ namespace WinterEngine.DataAccess
     /// <summary>
     /// Repository for accessing module-related data from the database.
     /// </summary>
-    public class GameModuleRepository
+    public class GameModuleRepository : IGenericRepository<GameModule>
     {
 
         private readonly ModuleDataContext _context;
@@ -71,5 +71,36 @@ namespace WinterEngine.DataAccess
         }
 
         #endregion
+
+
+        public void Add(List<GameModule> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Upsert(GameModule entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(GameModule entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<GameModule> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public GameModule GetByID(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ApplyChanges()
+        {
+            _context.SaveChanges();
+        }
     }
 }

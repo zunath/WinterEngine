@@ -10,7 +10,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class Tilesets : IGameObjectRepository<Tileset>, IRepository
+    public class TilesetRepository : IGameObjectRepository<Tileset>
     {
 
         private readonly ModuleDataContext _context;
@@ -18,7 +18,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Constructors
 
-        public Tilesets(ModuleDataContext context, bool autoSave = true)
+        public TilesetRepository(ModuleDataContext context, bool autoSave = true)
         {
             if (context == null) throw new ArgumentNullException("DbContext");
             _context = context;

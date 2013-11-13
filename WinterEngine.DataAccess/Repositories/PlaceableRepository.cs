@@ -12,7 +12,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess
 {
-    public class PlaceableRepository : IGameObjectRepository<Placeable>, IRepository
+    public class PlaceableRepository : IGameObjectRepository<Placeable>
     {
 
         private readonly ModuleDataContext _context;

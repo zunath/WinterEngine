@@ -8,7 +8,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class FactionRepository : IResourceRepository<Faction>, IRepository
+    public class FactionRepository : IResourceRepository<Faction>
     {
 
         private readonly ModuleDataContext _context;

@@ -11,7 +11,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess
 {
-    public class AreaRepository : IGameObjectRepository<Area>, IRepository
+    public class AreaRepository : IGameObjectRepository<Area>
     {
         private readonly ModuleDataContext _context;
         private readonly bool _autoSaveChanges;
@@ -233,6 +233,11 @@ namespace WinterEngine.DataAccess
         public void DeleteByCategory(Category category)
         {
             throw new NotImplementedException();
+        }
+
+        public void ApplyChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }

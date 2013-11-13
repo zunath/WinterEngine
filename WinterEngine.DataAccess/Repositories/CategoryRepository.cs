@@ -15,7 +15,7 @@ namespace WinterEngine.DataAccess
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class CategoryRepository : IResourceRepository<Category>, IRepository
+    public class CategoryRepository : IResourceRepository<Category>
     {
         #region Constructors
 
@@ -176,6 +176,11 @@ namespace WinterEngine.DataAccess
         public void Delete(int resourceID)
         {
             throw new NotImplementedException();
+        }
+
+        public void ApplyChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }
