@@ -184,7 +184,7 @@ namespace WinterEngine.Game.Entities
                     int tileID = activeTile == null ? 0 : activeTile.TileID;
 
                     entity.InitializeSprite(EntitySpriteSheet, currentRow, currentColumn);
-                    entity.InitializeCollisionBoxes(tileID, activeTilesetCollisionBoxes);
+                    entity.InitializeCollisionBoxes(tileID, activeTilesetCollisionBoxes.Where(x => x.TileID == tileID).ToList());
 
                     tileIndex++;
                 }
@@ -200,6 +200,11 @@ namespace WinterEngine.Game.Entities
             foreach (TileEntity tile in TileList)
             {
                 tile.HideEntity();
+
+                foreach (TileCollisionBoxEntity box in tile.CollisionBoxList)
+                {
+                    box.HideEntity();
+                }
             }
         }
 
@@ -208,6 +213,11 @@ namespace WinterEngine.Game.Entities
             foreach (TileEntity tile in TileList)
             {
                 tile.ShowEntity();
+
+                foreach (TileCollisionBoxEntity box in tile.CollisionBoxList)
+                {
+                    box.ShowEntity();
+                }
             }
         }
 

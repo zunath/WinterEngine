@@ -19,13 +19,14 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using Microsoft.Xna.Framework;
+using WinterEngine.Game.Interfaces;
 
 
 #endif
 
 namespace WinterEngine.Game.Entities
 {
-	public partial class TileCollisionBoxEntity
+	public partial class TileCollisionBoxEntity : IEditorEntity
     {
         #region Fields
 
@@ -110,6 +111,20 @@ namespace WinterEngine.Game.Entities
                 this.SpriteInstance.Blue = 0.0f;
                 this.SpriteInstance.Red = 0.5f;
             }
+        }
+
+        #endregion
+
+        #region Interface Methods
+
+        public void HideEntity()
+        {
+            this.SpriteInstance.Visible = false;
+        }
+
+        public void ShowEntity()
+        {
+            this.SpriteInstance.Visible = true;
         }
 
         #endregion
