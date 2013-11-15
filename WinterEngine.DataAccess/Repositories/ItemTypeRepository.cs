@@ -28,14 +28,7 @@ namespace WinterEngine.DataAccess
 
         #region Methods
 
-        /// <summary>
-        /// Returns all item types from the database.
-        /// </summary>
-        /// <returns></returns>
-        public List<ItemType> GetAll()
-        {
-            return _context.ItemTypes.ToList();
-        }
+        
 
         //move logic somewhere else
         //public List<DropDownListUIObject> GetAllUIObjects()
@@ -72,6 +65,18 @@ namespace WinterEngine.DataAccess
             _context.ItemTypes.AddRange(itemTypeList);
         }
 
+        public void Save(ItemType itemType)
+        {
+            if (itemType.ResourceID <= 0)
+            {
+                _context.ItemTypes.Add(itemType);
+            }
+            else
+            {
+                Update(itemType);
+            }
+        }
+
         /// <summary>
         /// Updates an existing item type with new values.
         /// </summary>
@@ -85,16 +90,29 @@ namespace WinterEngine.DataAccess
             _context.Entry(dbItemType).CurrentValues.SetValues(itemType);
         }
 
-        public void Upsert(ItemType itemType)
+        /// <summary>
+        /// Deletes an item type from the database.
+        /// </summary>
+        /// <param name="itemType">The item type to delete.</param>
+        /// <returns></returns>
+        public void Delete(ItemType itemType)
         {
-            if (itemType.ResourceID <= 0)
-            {
-                _context.ItemTypes.Add(itemType);
-            }
-            else
-            {
-                Update(itemType);
-            }
+            _context.ItemTypes.Remove(itemType);
+        }
+
+        public void Delete(int resourceID)
+        {
+            var item = _context.ItemTypes.Find(resourceID);
+            Delete(item);
+        }
+
+        /// <summary>
+        /// Returns all item types from the database.
+        /// </summary>
+        /// <returns></returns>
+        public List<ItemType> GetAll()
+        {
+            return _context.ItemTypes.ToList();
         }
 
         /// <summary>
@@ -108,55 +126,23 @@ namespace WinterEngine.DataAccess
             return _context.ItemTypes.Where(x => x.ResourceID == itemTypeID).SingleOrDefault();
         }
 
-        /// <summary>
-        /// Returns true if an item type exists in the database.
-        /// Returns false if an item type does not exist in the database.
-        /// </summary>
-        /// <param name="itemType"></param>
-        /// <returns></returns>
-        public bool Exists(ItemType itemType)
+        public void ApplyChanges()
         {
-            ItemType dbItemType = _context.ItemTypes.Where(x => x.ResourceID == itemType.ResourceID).SingleOrDefault();
-            return !Object.ReferenceEquals(dbItemType, null);
+            throw new NotImplementedException();
         }
 
-        public void Delete(int ID)
-        {
-            var item = _context.ItemTypes.Find(ID);
-            Delete(item);
-        }
-
-        /// <summary>
-        /// Deletes an item type from the database.
-        /// </summary>
-        /// <param name="itemType">The item type to delete.</param>
-        /// <returns></returns>
-        public void Delete(ItemType itemType)
-        {
-            _context.ItemTypes.Remove(itemType);
-        }
+        ///// <summary>
+        ///// Returns true if an item type exists in the database.
+        ///// Returns false if an item type does not exist in the database.
+        ///// </summary>
+        ///// <param name="itemType"></param>
+        ///// <returns></returns>
+        //public bool Exists(ItemType itemType)
+        //{
+        //    ItemType dbItemType = _context.ItemTypes.Where(x => x.ResourceID == itemType.ResourceID).SingleOrDefault();
+        //    return !Object.ReferenceEquals(dbItemType, null);
+        //}
 
         #endregion
-
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GetDefaultResourceID()
-        {
-            ItemType defaultObject = _context.ItemTypes.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -27,6 +27,47 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
+        public Faction Add(Faction faction)
+        {
+            return _context.Factions.Add(faction);
+        }
+
+        public void Add(List<Faction> factionList)
+        {
+            _context.Factions.AddRange(factionList);
+        }
+
+        public void Save(Faction faction)
+        {
+            if (faction.ResourceID <= 0)
+            {
+                _context.Factions.Add(faction);
+            }
+            else
+            {
+                Update(faction);
+            }
+        }
+
+        public void Update(Faction faction)
+        {
+            Faction dbFaction = _context.Factions.Where(x => x.ResourceID == faction.ResourceID).SingleOrDefault();
+            if (dbFaction == null) return;
+
+            _context.Entry(dbFaction).CurrentValues.SetValues(faction);
+        }
+
+
+        public void Delete(Faction faction)
+        {
+            _context.Factions.Remove(faction);
+        }
+
+        public void Delete(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Faction> GetAll()
         {
             return _context.Factions.ToList();
@@ -46,79 +87,29 @@ namespace WinterEngine.DataAccess.Repositories
         //}
 
 
-        public Faction Add(Faction faction)
-        {
-            return _context.Factions.Add(faction);
-        }
-
-        public void Add(List<Faction> factionList)
-        {
-            _context.Factions.AddRange(factionList);
-        }
-
-        public void Update(Faction faction)
-        {
-            Faction dbFaction = _context.Factions.Where(x => x.ResourceID == faction.ResourceID).SingleOrDefault();
-            if (dbFaction == null) return;
-
-            _context.Entry(dbFaction).CurrentValues.SetValues(faction);
-        }
-
-        public void Upsert(Faction faction)
-        {
-            if (faction.ResourceID <= 0)
-            {
-                _context.Factions.Add(faction);
-            }
-            else
-            {
-                Update(faction);
-            }
-        }
-
         public Faction GetByID(int factionID)
         {
             return _context.Factions.Where(x => x.ResourceID == factionID).SingleOrDefault();
         }
 
-        public bool Exists(Faction faction)
+        public void ApplyChanges()
         {
-            Faction dbFaction = _context.Factions.Where(x => x.ResourceID == faction.ResourceID).SingleOrDefault();
-            return !Object.ReferenceEquals(dbFaction, null);
+            throw new NotImplementedException();
         }
 
-        public void Delete(Faction faction)
-        {
-            _context.Factions.Remove(faction);
-        }
+        //public bool Exists(Faction faction)
+        //{
+        //    Faction dbFaction = _context.Factions.Where(x => x.ResourceID == faction.ResourceID).SingleOrDefault();
+        //    return !Object.ReferenceEquals(dbFaction, null);
+        //}
 
-        public int GetDefaultResourceID()
-        {
-            Faction defaultObject = _context.Factions.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
-        }
+        //public int GetDefaultResourceID()
+        //{
+        //    Faction defaultObject = _context.Factions.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
 
         #endregion
 
-
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

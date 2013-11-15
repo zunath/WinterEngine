@@ -50,6 +50,23 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         /// <summary>
+        /// If an gender with the same resref is in the database, it will be replaced with newGender.
+        /// If an gender does not exist by newGender's ID, it will be added to the database.
+        /// </summary>
+        /// <param name="gender">The new gender to upsert.</param>
+        public void Save(Gender gender)
+        {
+            if (gender.ResourceID <= 0)
+            {
+                _context.Genders.Add(gender);
+            }
+            else
+            {
+                Update(gender);
+            }
+        }
+
+        /// <summary>
         /// Updates an existing gender in the database with new values.
         /// </summary>
         /// <param name="newScript">The new gender that will replace the gender with the matching ID.</param>
@@ -61,21 +78,9 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Entry(dbGender).CurrentValues.SetValues(newGender);
         }
 
-        /// <summary>
-        /// If an gender with the same resref is in the database, it will be replaced with newGender.
-        /// If an gender does not exist by newGender's ID, it will be added to the database.
-        /// </summary>
-        /// <param name="gender">The new gender to upsert.</param>
-        public void Upsert(Gender gender)
+        public void Delete(Gender gender)
         {
-            if (gender.ResourceID <= 0)
-            {
-                _context.Genders.Add(gender);
-            }
-            else
-            {
-                Update(gender);
-            }
+            _context.Genders.Remove(gender);
         }
 
         /// <summary>
@@ -117,39 +122,39 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Genders.Where(x => x.ResourceID == resourceID).SingleOrDefault();
         }
 
-        public void Delete(Gender gender)
+        public void ApplyChanges()
         {
-            _context.Genders.Remove(gender);
+            throw new NotImplementedException();
         }
 
-        public bool Exists(Gender gender)
-        {
-            Gender dbGender = _context.Genders.Where(x => x.ResourceID == gender.ResourceID).SingleOrDefault();
-            return !Object.ReferenceEquals(dbGender, null);
-        }
+        //public bool Exists(Gender gender)
+        //{
+        //    Gender dbGender = _context.Genders.Where(x => x.ResourceID == gender.ResourceID).SingleOrDefault();
+        //    return !Object.ReferenceEquals(dbGender, null);
+        //}
 
-        public int GetDefaultResourceID()
-        {
-            Gender defaultObject = _context.Genders.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
-        }
+        //public int GetDefaultResourceID()
+        //{
+        //    Gender defaultObject = _context.Genders.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
 
 
         #endregion
 
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
+        //public object Load(int resourceID)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
+        //public int Save(object gameObject)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
+        //public void DeleteByCategory(Category category)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

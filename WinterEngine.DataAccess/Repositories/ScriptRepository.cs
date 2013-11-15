@@ -49,6 +49,23 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         /// <summary>
+        /// If an script with the same resref is in the database, it will be replaced with newScript.
+        /// If an script does not exist by newScript's resref, it will be added to the database.
+        /// </summary>
+        /// <param name="script">The new script to upsert.</param>
+        public void Save(Script script)
+        {
+            if (script.ResourceID <= 0)
+            {
+                _context.Scripts.Add(script);
+            }
+            else
+            {
+                Update(script);
+            }
+        }
+
+        /// <summary>
         /// Updates an existing script in the database with new values.
         /// </summary>
         /// <param name="resref">The resource reference to search for and update.</param>
@@ -77,22 +94,7 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Entry(dbScript).CurrentValues.SetValues(newScript);
         }
 
-        /// <summary>
-        /// If an script with the same resref is in the database, it will be replaced with newScript.
-        /// If an script does not exist by newScript's resref, it will be added to the database.
-        /// </summary>
-        /// <param name="script">The new script to upsert.</param>
-        public void Upsert(Script script)
-        {
-            if (script.ResourceID <= 0)
-            {
-                _context.Scripts.Add(script);
-            }
-            else
-            {
-                Update(script);
-            }
-        }
+        
 
         /// <summary>
         /// Removes a script from the database.
@@ -128,6 +130,16 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Scripts.ToList();
         }
 
+        public Script GetByID(int resourceID)
+        {
+            return _context.Scripts.Where(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
+        public void ApplyChanges()
+        {
+            throw new NotImplementedException();
+        }
+
         //todo: This needs to go somehwhere else.
         //public List<DropDownListUIObject> GetAllUIObjects()
         //{
@@ -160,10 +172,7 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Scripts.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
-        public Script GetByID(int resourceID)
-        {
-            return _context.Scripts.Where(x => x.ResourceID == resourceID).SingleOrDefault();
-        }
+        
 
         /// <summary>
         /// Removes all of the scripts attached to a specified category from the database.
@@ -172,18 +181,6 @@ namespace WinterEngine.DataAccess.Repositories
         {
             List<Script> scriptList = _context.Scripts.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
             _context.Scripts.RemoveRange(scriptList);
-        }
-
-        /// <summary>
-        /// Returns True if an object with the specified resref exists in the database.
-        /// Returns False if no object with the specified resref is found in the database.
-        /// </summary>
-        /// <param name="resref">The resource reference to look for.</param>
-        /// <returns></returns>
-        public bool Exists(string resref)
-        {
-            Script script = _context.Scripts.Where(x => x.Resref == resref).SingleOrDefault();
-            return !Object.ReferenceEquals(script, null);
         }
 
         /// <summary>
@@ -221,27 +218,25 @@ namespace WinterEngine.DataAccess.Repositories
             return rootNode;
         }
 
-        public int GetDefaultResourceID()
+        /// <summary>
+        /// Returns True if an object with the specified resref exists in the database.
+        /// Returns False if no object with the specified resref is found in the database.
+        /// </summary>
+        /// <param name="resref">The resource reference to look for.</param>
+        /// <returns></returns>
+        public bool Exists(string resref)
         {
-            Script defaultObject = _context.Scripts.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
-        }
+            Script script = _context.Scripts.Where(x => x.Resref == resref).SingleOrDefault();
+            return !Object.ReferenceEquals(script, null);
+        }       
+
+        //public int GetDefaultResourceID()
+        //{
+        //    Script defaultObject = _context.Scripts.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
 
         #endregion
 
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

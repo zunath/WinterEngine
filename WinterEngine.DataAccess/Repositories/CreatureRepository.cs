@@ -50,6 +50,23 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
+        /// If an creature with the same resref is in the database, it will be replaced with newCreature.
+        /// If an creature does not exist by newCreature's resref, it will be added to the database.
+        /// </summary>
+        /// <param name="creature">The new creature to upsert.</param>
+        public void Save(Creature creature)
+        {
+            if (creature.ResourceID <= 0)
+            {
+                _context.Creatures.Add(creature);
+            }
+            else
+            {
+                Update(creature);
+            }
+        }
+
+        /// <summary>
         /// Updates an existing creature in the database with new values.
         /// </summary>
         /// <param name="resref">The resource reference to search for and update.</param>
@@ -76,27 +93,10 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// If an creature with the same resref is in the database, it will be replaced with newCreature.
-        /// If an creature does not exist by newCreature's resref, it will be added to the database.
-        /// </summary>
-        /// <param name="creature">The new creature to upsert.</param>
-        public void Upsert(Creature creature)
-        {
-            if (creature.ResourceID <= 0)
-            {
-                _context.Creatures.Add(creature);
-            }
-            else
-            {
-                Update(creature);
-            }
-        }
-
-        /// <summary>
         /// Deletes a creature from the database
         /// </summary>
         /// <param name="creature"></param>
-        void IGenericRepository<Creature>.Delete(Creature creature)
+        public void Delete(Creature creature)
         {
             this.Delete(creature.ResourceID);
         }
@@ -120,6 +120,16 @@ namespace WinterEngine.DataAccess
         public List<Creature> GetAll()
         {
             return _context.Creatures.ToList();
+        }
+
+        public Creature GetByID(int resourceID)
+        {
+            return _context.Creatures.Where(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
+        public void ApplyChanges()
+        {
+            throw new NotImplementedException();
         }
 
         //Move this logic somewhere else
@@ -154,11 +164,6 @@ namespace WinterEngine.DataAccess
             return _context.Creatures.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
-        public Creature GetByID(int resourceID)
-        {
-            return _context.Creatures.Where(x => x.ResourceID == resourceID).SingleOrDefault();
-        }
-
         /// <summary>
         /// Deletes all of the creatures attached to a specified category from the database.
         /// </summary>
@@ -166,18 +171,6 @@ namespace WinterEngine.DataAccess
         {
             List<Creature> creatureList = _context.Creatures.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
             _context.Creatures.RemoveRange(creatureList);
-        }
-
-        /// <summary>
-        /// Returns True if an object with the specified resref exists in the database.
-        /// Returns False if no object with the specified resref is found in the database.
-        /// </summary>
-        /// <param name="resref">The resource reference to look for.</param>
-        /// <returns></returns>
-        public bool Exists(string resref)
-        {
-            Creature creature = _context.Creatures.Where(x => x.Resref == resref).SingleOrDefault();
-            return !Object.ReferenceEquals(creature, null);
         }
 
         /// <summary>
@@ -215,27 +208,25 @@ namespace WinterEngine.DataAccess
             return rootNode;
         }
 
-        public int GetDefaultResourceID()
+        /// <summary>
+        /// Returns True if an object with the specified resref exists in the database.
+        /// Returns False if no object with the specified resref is found in the database.
+        /// </summary>
+        /// <param name="resref">The resource reference to look for.</param>
+        /// <returns></returns>
+        public bool Exists(string resref)
         {
-            Creature defaultObject = _context.Creatures.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
+            Creature creature = _context.Creatures.Where(x => x.Resref == resref).SingleOrDefault();
+            return !Object.ReferenceEquals(creature, null);
         }
+
+        //public int GetDefaultResourceID()
+        //{
+        //    Creature defaultObject = _context.Creatures.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
 
         #endregion
 
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

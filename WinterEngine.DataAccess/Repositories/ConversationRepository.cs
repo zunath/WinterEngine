@@ -50,6 +50,23 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         /// <summary>
+        /// If a conversation with the same resref is in the database, it will be replaced with newConversation.
+        /// If a conversation does not exist by newConversation's resref, it will be added to the database.
+        /// </summary>
+        /// <param name="conversation">The new conversation to upsert.</param>
+        public void Save(Conversation conversation)
+        {
+            if (conversation.ResourceID <= 0)
+            {
+                _context.Conversations.Add(conversation);
+            }
+            else
+            {
+                Update(conversation);
+            }
+        }
+
+        /// <summary>
         /// Updates an existing conversation in the database with new values.
         /// </summary>
         /// <param name="resref">The resource reference to search for and update.</param>
@@ -78,27 +95,10 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         /// <summary>
-        /// If a conversation with the same resref is in the database, it will be replaced with newConversation.
-        /// If a conversation does not exist by newConversation's resref, it will be added to the database.
-        /// </summary>
-        /// <param name="conversation">The new conversation to upsert.</param>
-        public void Upsert(Conversation conversation)
-        {
-            if (conversation.ResourceID <= 0)
-            {
-                _context.Conversations.Add(conversation);
-            }
-            else
-            {
-                Update(conversation);
-            }
-        }
-
-        /// <summary>
         /// Deletes a conversation from the database.
         /// </summary>
         /// <param name="conversation"></param>
-        void IGenericRepository<Conversation>.Delete(Conversation conversation)
+        public void Delete(Conversation conversation)
         {
             this.Delete(conversation.ResourceID);
         }
@@ -122,6 +122,16 @@ namespace WinterEngine.DataAccess.Repositories
         public List<Conversation> GetAll()
         {
             return _context.Conversations.ToList();
+        }
+
+        public Conversation GetByID(int resourceID)
+        {
+            return _context.Conversations.Where(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
+        public void ApplyChanges()
+        {
+            throw new NotImplementedException();
         }
 
         //todo: move this somewhere else
@@ -155,12 +165,7 @@ namespace WinterEngine.DataAccess.Repositories
         public Conversation GetByResref(string resref)
         {
             return _context.Conversations.Where(x => x.Resref == resref).SingleOrDefault();
-        }
-
-        public Conversation GetByID(int resourceID)
-        {
-            return _context.Conversations.Where(x => x.ResourceID == resourceID).SingleOrDefault();
-        }
+        }        
 
         /// <summary>
         /// Deletes all of the conversations attached to a specified category from the database.
@@ -169,18 +174,6 @@ namespace WinterEngine.DataAccess.Repositories
         {
             List<Conversation> conversationList = _context.Conversations.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
             _context.Conversations.RemoveRange(conversationList);
-        }
-
-        /// <summary>
-        /// Returns True if an object with the specified resref exists in the database.
-        /// Returns False if no object with the specified resref is found in the database.
-        /// </summary>
-        /// <param name="resref">The resource reference to look for.</param>
-        /// <returns></returns>
-        public bool Exists(string resref)
-        {
-            Conversation conversation = _context.Conversations.Where(x => x.Resref == resref).SingleOrDefault();
-            return !Object.ReferenceEquals(conversation, null);
         }
 
         /// <summary>
@@ -218,27 +211,25 @@ namespace WinterEngine.DataAccess.Repositories
             return rootNode;
         }
 
-        public int GetDefaultResourceID()
+        /// <summary>
+        /// Returns True if an object with the specified resref exists in the database.
+        /// Returns False if no object with the specified resref is found in the database.
+        /// </summary>
+        /// <param name="resref">The resource reference to look for.</param>
+        /// <returns></returns>
+        public bool Exists(string resref)
         {
-            Conversation defaultObject = _context.Conversations.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
+            Conversation conversation = _context.Conversations.Where(x => x.Resref == resref).SingleOrDefault();
+            return !Object.ReferenceEquals(conversation, null);
         }
+
+        //public int GetDefaultResourceID()
+        //{
+        //    Conversation defaultObject = _context.Conversations.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
 
         #endregion
 
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

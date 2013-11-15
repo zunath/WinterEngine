@@ -26,6 +26,46 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
+        public Race Add(Race race)
+        {
+            return _context.Races.Add(race);
+        }
+
+        public void Add(List<Race> raceList)
+        {
+            _context.Races.AddRange(raceList);
+        }
+
+        public void Save(Race race)
+        {
+            if (race.ResourceID <= 0)
+            {
+                _context.Races.Add(race);
+            }
+            else
+            {
+                Update(race);
+            }
+        }
+
+        public void Update(Race race)
+        {
+            Race dbRace = _context.Races.Where(x => x.ResourceID == race.ResourceID).SingleOrDefault();
+            if (dbRace == null) return;
+
+            _context.Entry(dbRace).CurrentValues.SetValues(race);
+        }
+
+        public void Delete(Race race)
+        {
+            _context.Races.Remove(race);
+        }
+
+        public void Delete(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Race> GetAll()
         {
             return _context.Races.ToList();
@@ -45,79 +85,30 @@ namespace WinterEngine.DataAccess.Repositories
         //}
 
 
-        public Race Add(Race race)
-        {
-            return _context.Races.Add(race);
-        }
-
-        public void Add(List<Race> raceList)
-        {
-            _context.Races.AddRange(raceList);
-        }
-
-        public void Update(Race race)
-        {
-            Race dbRace = _context.Races.Where(x => x.ResourceID == race.ResourceID).SingleOrDefault();
-            if (dbRace == null) return;
-
-            _context.Entry(dbRace).CurrentValues.SetValues(race);
-        }
-
-        public void Upsert(Race race)
-        {
-            if (race.ResourceID <= 0)
-            {
-                _context.Races.Add(race);
-            }
-            else
-            {
-                Update(race);
-            }
-        }
 
         public Race GetByID(int raceID)
         {
             return _context.Races.Where(x => x.ResourceID == raceID).SingleOrDefault();
         }
 
-        public bool Exists(Race race)
+        public void ApplyChanges()
         {
-            Race dbRace = _context.Races.Where(x => x.ResourceID == race.ResourceID).SingleOrDefault();
-            return !Object.ReferenceEquals(dbRace, null);
+            throw new NotImplementedException();
         }
 
-        public void Delete(Race race)
-        {
-            _context.Races.Remove(race);
-        }
+        //public bool Exists(Race race)
+        //{
+        //    Race dbRace = _context.Races.Where(x => x.ResourceID == race.ResourceID).SingleOrDefault();
+        //    return !Object.ReferenceEquals(dbRace, null);
+        //}
 
-        public int GetDefaultResourceID()
-        {
-            Race defaultObject = _context.Races.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
-        }
+        //public int GetDefaultResourceID()
+        //{
+        //    Race defaultObject = _context.Races.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
 
         #endregion
 
-
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

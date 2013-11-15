@@ -44,6 +44,23 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
+        /// If an item with the same resref is in the database, it will be replaced with newItem.
+        /// If an item does not exist by newItem's resref, it will be added to the database.
+        /// </summary>
+        /// <param name="newItem">The new item to upsert.</param>
+        public void Save(Item item)
+        {
+            if (item.ResourceID <= 0)
+            {
+                _context.Items.Add(item);
+            }
+            else
+            {
+                Update(item);
+            }
+        }
+
+        /// <summary>
         /// Updates an existing item in the database with new values.
         /// </summary>
         /// <param name="newItem">The new item that will replace the item with the matching resref.</param>
@@ -69,24 +86,7 @@ namespace WinterEngine.DataAccess
             _context.LocalVariables.RemoveRange(dbItem.LocalVariables.ToList());
             _context.LocalVariables.AddRange(newItem.LocalVariables.ToList());
             
-        }
-
-        /// <summary>
-        /// If an item with the same resref is in the database, it will be replaced with newItem.
-        /// If an item does not exist by newItem's resref, it will be added to the database.
-        /// </summary>
-        /// <param name="newItem">The new item to upsert.</param>
-        public void Upsert(Item item)
-        {
-            if (item.ResourceID <= 0)
-            {
-                _context.Items.Add(item);
-            }
-            else
-            {
-                Update(item);
-            }
-        }
+        }        
 
         /// <summary>
         /// Deletes and item from the database.
@@ -117,7 +117,7 @@ namespace WinterEngine.DataAccess
         {
             return _context.Items.ToList();
         }
-
+        
         //todo: move this logic somewhere else
         //public List<DropDownListUIObject> GetAllUIObjects()
         //{
@@ -131,6 +131,16 @@ namespace WinterEngine.DataAccess
 
         //    return items;
         //}
+
+        public Item GetByID(int resourceID)
+        {
+            return _context.Items.Where(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
+        public void ApplyChanges()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Returns all of the items in a specified category from the database.
@@ -151,11 +161,6 @@ namespace WinterEngine.DataAccess
             return _context.Items.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
-        public Item GetByID(int resourceID)
-        {
-            return _context.Items.Where(x => x.ResourceID == resourceID).SingleOrDefault();
-        }
-
         /// <summary>
         /// Deletes all of the items attached to a specified category from the database.
         /// </summary>
@@ -163,18 +168,6 @@ namespace WinterEngine.DataAccess
         {
             List<Item> itemList = _context.Items.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
             _context.Items.RemoveRange(itemList);
-        }
-
-        /// <summary>
-        /// Returns True if an object with the specified resref exists in the database.
-        /// Returns False if no object with the specified resref is found in the database.
-        /// </summary>
-        /// <param name="resref">The resource reference to look for.</param>
-        /// <returns></returns>
-        public bool Exists(string resref)
-        {
-            Item item = _context.Items.Where(x => x.Resref == resref).SingleOrDefault();
-            return !Object.ReferenceEquals(item, null);
         }
 
         /// <summary>
@@ -212,27 +205,27 @@ namespace WinterEngine.DataAccess
             return rootNode;
         }
 
-        public int GetDefaultResourceID()
+        /// <summary>
+        /// Returns True if an object with the specified resref exists in the database.
+        /// Returns False if no object with the specified resref is found in the database.
+        /// </summary>
+        /// <param name="resref">The resource reference to look for.</param>
+        /// <returns></returns>
+        public bool Exists(string resref)
         {
-            Item defaultObject = _context.Items.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
+            Item item = _context.Items.Where(x => x.Resref == resref).SingleOrDefault();
+            return !Object.ReferenceEquals(item, null);
         }
+
+        
+
+        //public int GetDefaultResourceID()
+        //{
+        //    Item defaultObject = _context.Items.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
 
         #endregion
 
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -39,15 +39,7 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Tilesets.AddRange(tilesetList);
         }
 
-        public void Update(Tileset newTileset)
-        {
-            Tileset dbTileset = _context.Tilesets.Where(x => x.ResourceID == newTileset.ResourceID).SingleOrDefault();
-            if (dbTileset == null) return;
-
-            _context.Entry(dbTileset).CurrentValues.SetValues(newTileset);
-        }
-
-        public void Upsert(Tileset tileset)
+        public void Save(Tileset tileset)
         {
             if (tileset.ResourceID <= 0)
             {
@@ -59,13 +51,15 @@ namespace WinterEngine.DataAccess.Repositories
             }
         }
 
-        public bool Exists(string resref)
+        public void Update(Tileset newTileset)
         {
-            Tileset tileset = _context.Tilesets.Where(x => x.Resref == resref).SingleOrDefault();
-            return !Object.ReferenceEquals(tileset, null);
+            Tileset dbTileset = _context.Tilesets.Where(x => x.ResourceID == newTileset.ResourceID).SingleOrDefault();
+            if (dbTileset == null) return;
+
+            _context.Entry(dbTileset).CurrentValues.SetValues(newTileset);
         }
 
-        public void Remove(Tileset tileset)
+        public void Delete(Tileset tileset)
         {
             _context.Tilesets.Remove(tileset);
         }
@@ -77,9 +71,19 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Tilesets.Remove(tileset);
         }
 
+        public List<Tileset> GetAll()
+        {
+            return _context.Tilesets.ToList();
+        }
+
         public Tileset GetByID(int tilesetID)
         {
             return _context.Tilesets.Where(x => x.ResourceID == tilesetID).SingleOrDefault();
+        }
+
+        public void ApplyChanges()
+        {
+            throw new NotImplementedException();
         }
 
         public List<Tileset> GetAllByResourceCategory(Category resourceCategory)
@@ -92,10 +96,7 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Tilesets.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
-        public List<Tileset> GetAll()
-        {
-            return _context.Tilesets.ToList();
-        }
+        
 
         //Move logic somewhere else
         //public List<DropDownListUIObject> GetAllUIObjects()
@@ -152,33 +153,19 @@ namespace WinterEngine.DataAccess.Repositories
             return rootNode;
         }
 
+        public bool Exists(string resref)
+        {
+            Tileset tileset = _context.Tilesets.Where(x => x.Resref == resref).SingleOrDefault();
+            return !Object.ReferenceEquals(tileset, null);
+        }
 
         #endregion
 
+        //public int GetDefaultResourceID()
+        //{
+        //    Tileset defaultObject = _context.Tilesets.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
 
-        public void Delete(Tileset entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-        public int GetDefaultResourceID()
-        {
-            Tileset defaultObject = _context.Tilesets.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -27,12 +27,6 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        public List<TileCollisionBox> GetAll()
-        {
-            return _context.TileCollisionBoxes.ToList();
-
-        }
-
         public TileCollisionBox Add(TileCollisionBox box)
         {
             return _context.TileCollisionBoxes.Add(box);
@@ -43,15 +37,7 @@ namespace WinterEngine.DataAccess.Repositories
             _context.TileCollisionBoxes.AddRange(boxes);
         }
 
-        public void Update(TileCollisionBox box)
-        {
-            TileCollisionBox dbBox = _context.TileCollisionBoxes.Where(x => x.CollisionBoxID == box.CollisionBoxID).SingleOrDefault();
-            if (dbBox == null) return;
-
-            _context.Entry(dbBox).CurrentValues.SetValues(box);
-        }
-
-        public void Upsert(TileCollisionBox box)
+        public void Save(TileCollisionBox box)
         {
             if (box.CollisionBoxID <= 0)
             {
@@ -63,15 +49,12 @@ namespace WinterEngine.DataAccess.Repositories
             }
         }
 
-        public TileCollisionBox GetByID(int boxID)
-        {
-            return _context.TileCollisionBoxes.Where(x => x.CollisionBoxID == boxID).SingleOrDefault();
-        }
-
-        public bool Exists(TileCollisionBox box)
+        public void Update(TileCollisionBox box)
         {
             TileCollisionBox dbBox = _context.TileCollisionBoxes.Where(x => x.CollisionBoxID == box.CollisionBoxID).SingleOrDefault();
-            return !Object.ReferenceEquals(dbBox, null);
+            if (dbBox == null) return;
+
+            _context.Entry(dbBox).CurrentValues.SetValues(box);
         }
 
         public void Delete(TileCollisionBox box)
@@ -79,23 +62,49 @@ namespace WinterEngine.DataAccess.Repositories
             _context.TileCollisionBoxes.Remove(box);
         }
 
-        public List<TileCollisionBox> GetByTileID(int tileID)
+        public void Delete(int resourceID)
         {
-            return _context.TileCollisionBoxes.Where(x => x.TileID == tileID).ToList();
+            throw new NotImplementedException();
         }
 
-        public List<TileCollisionBox> GetByTilesetID(int tilesetID)
+        public List<TileCollisionBox> GetAll()
         {
-            List<TileCollisionBox> collisionBoxes = new List<TileCollisionBox>();
-            List<Tile> tiles = _context.Tiles.Where(x => x.TilesetID == tilesetID).ToList();
-
-            foreach (Tile tile in tiles)
-            {
-                collisionBoxes.AddRange(tile.CollisionBoxes);
-            }
-
-            return collisionBoxes;
+            return _context.TileCollisionBoxes.ToList();
         }
+
+        public TileCollisionBox GetByID(int boxID)
+        {
+            return _context.TileCollisionBoxes.Where(x => x.CollisionBoxID == boxID).SingleOrDefault();
+        }
+
+        public void ApplyChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public bool Exists(TileCollisionBox box)
+        //{
+        //    TileCollisionBox dbBox = _context.TileCollisionBoxes.Where(x => x.CollisionBoxID == box.CollisionBoxID).SingleOrDefault();
+        //    return !Object.ReferenceEquals(dbBox, null);
+        //}        
+
+        //public List<TileCollisionBox> GetByTileID(int tileID)
+        //{
+        //    return _context.TileCollisionBoxes.Where(x => x.TileID == tileID).ToList();
+        //}
+
+        //public List<TileCollisionBox> GetByTilesetID(int tilesetID)
+        //{
+        //    List<TileCollisionBox> collisionBoxes = new List<TileCollisionBox>();
+        //    List<Tile> tiles = _context.Tiles.Where(x => x.TilesetID == tilesetID).ToList();
+
+        //    foreach (Tile tile in tiles)
+        //    {
+        //        collisionBoxes.AddRange(tile.CollisionBoxes);
+        //    }
+
+        //    return collisionBoxes;
+        //}
 
         #endregion
 

@@ -38,54 +38,41 @@ namespace WinterEngine.DataAccess
             return _context.Modules.Add(gameModule);
         }
 
+        public void Add(List<GameModule> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(GameModule entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(GameModule module)
         {
-            GameModule dbModule = GetModule();
-            if (dbModule == null) throw new Exception("Game module does not exist");
+            throw new NotImplementedException();
+            //GameModule dbModule = GetModule();
+            //if (dbModule == null) throw new Exception("Game module does not exist");
 
-            foreach (LocalVariable variable in module.LocalVariables)
-            {
-                variable.GameObjectBaseID = module.ResourceID;
-            }
+            //foreach (LocalVariable variable in module.LocalVariables)
+            //{
+            //    variable.GameObjectBaseID = module.ResourceID;
+            //}
 
-            _context.Entry(dbModule).CurrentValues.SetValues(module);
-            _context.LocalVariables.RemoveRange(dbModule.LocalVariables.ToList());
-            _context.LocalVariables.AddRange(module.LocalVariables.ToList());
+            //_context.Entry(dbModule).CurrentValues.SetValues(module);
+            //_context.LocalVariables.RemoveRange(dbModule.LocalVariables.ToList());
+            //_context.LocalVariables.AddRange(module.LocalVariables.ToList());
+        }
+
+        public void Delete(GameModule entity)
+        {
+            throw new NotImplementedException();
         }
 
         public void Delete(int resourceID)
         {
             GameModule module = _context.Modules.Where(x => x.ResourceID == resourceID).FirstOrDefault();
             _context.Modules.Remove(module);
-        }
-
-        public bool Exists()
-        {
-            GameModule module = GetModule();
-            return !Object.ReferenceEquals(module, null);
-        }
-
-        public GameModule GetModule()
-        {
-            return _context.Modules.FirstOrDefault();
-        }
-
-        #endregion
-
-
-        public void Add(List<GameModule> entityList)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Upsert(GameModule entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(GameModule entity)
-        {
-            throw new NotImplementedException();
         }
 
         public List<GameModule> GetAll()
@@ -102,5 +89,20 @@ namespace WinterEngine.DataAccess
         {
             _context.SaveChanges();
         }
+
+        //public bool Exists()
+        //{
+        //    GameModule module = GetModule();
+        //    return !Object.ReferenceEquals(module, null);
+        //}
+
+        //public GameModule GetModule()
+        //{
+        //    return _context.Modules.FirstOrDefault();
+        //}
+
+        #endregion
+
+                
     }
 }

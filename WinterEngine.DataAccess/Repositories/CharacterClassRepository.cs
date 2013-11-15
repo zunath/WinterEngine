@@ -27,26 +27,6 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        public List<CharacterClass> GetAll()
-        {
-            return _context.CharacterClasses.ToList();
-        }
-
-        //TODO: move this logic somehwere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from item
-        //                                        in Context.CharacterClassRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = item.Name,
-        //                                            ResourceID = item.ResourceID
-        //                                        }).ToList();
-
-        //    return items;
-        //}
-
-
         public CharacterClass Add(CharacterClass characterClass)
         {
             return _context.CharacterClasses.Add(characterClass);
@@ -57,15 +37,8 @@ namespace WinterEngine.DataAccess.Repositories
             _context.CharacterClasses.AddRange(characterClassList);
         }
 
-        public void Update(CharacterClass characterClass)
-        {
-            CharacterClass dbCharacterClass = _context.CharacterClasses.Find(characterClass);
-            if (dbCharacterClass == null) return;
 
-            _context.Entry(dbCharacterClass).CurrentValues.SetValues(characterClass);
-        }
-
-        public void Upsert(CharacterClass characterClass)
+        public void Save(CharacterClass characterClass)
         {
             if (characterClass.ResourceID <= 0)
             {
@@ -77,15 +50,12 @@ namespace WinterEngine.DataAccess.Repositories
             }
         }
 
-        public CharacterClass GetByID(int characterClassID)
+        public void Update(CharacterClass characterClass)
         {
-            return _context.CharacterClasses.Where(x => x.ResourceID == characterClassID).SingleOrDefault();
-        }
+            CharacterClass dbCharacterClass = _context.CharacterClasses.Find(characterClass);
+            if (dbCharacterClass == null) return;
 
-        public bool Exists(CharacterClass characterClass)
-        {
-            CharacterClass dbCharacterClass = _context.CharacterClasses.Where(x => x.ResourceID == characterClass.ResourceID).SingleOrDefault();
-            return !Object.ReferenceEquals(dbCharacterClass, null);
+            _context.Entry(dbCharacterClass).CurrentValues.SetValues(characterClass);
         }
 
         public void Delete(CharacterClass characterClass)
@@ -93,33 +63,38 @@ namespace WinterEngine.DataAccess.Repositories
             _context.CharacterClasses.Remove(characterClass);
         }
 
-        public int GetDefaultResourceID()
-        {
-            CharacterClass defaultObject = _context.CharacterClasses.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
-        }
-
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Delete(int resourceID)
         {
             throw new NotImplementedException();
         }
+
+        public List<CharacterClass> GetAll()
+        {
+            return _context.CharacterClasses.ToList();
+        }
+
+        public CharacterClass GetByID(int characterClassID)
+        {
+            return _context.CharacterClasses.Where(x => x.ResourceID == characterClassID).SingleOrDefault();
+        }
+
+        public void ApplyChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public bool Exists(CharacterClass characterClass)
+        //{
+        //    CharacterClass dbCharacterClass = _context.CharacterClasses.Where(x => x.ResourceID == characterClass.ResourceID).SingleOrDefault();
+        //    return !Object.ReferenceEquals(dbCharacterClass, null);
+        //}        
+
+        //public int GetDefaultResourceID()
+        //{
+        //    CharacterClass defaultObject = _context.CharacterClasses.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
+                
         #endregion
-
-
     }
 }

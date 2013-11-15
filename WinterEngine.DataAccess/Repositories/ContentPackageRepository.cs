@@ -20,7 +20,7 @@ namespace WinterEngine.DataAccess.Repositories
     {
         #region Constants
 
-        private const string ManifestFileName = "Manifest.xml";
+        //private const string ManifestFileName = "Manifest.xml";
 
         private readonly ModuleDataContext _context;
         private readonly bool _autoSaveChanges;
@@ -63,7 +63,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// If it already exists, the existing one will be updated with new values.
         /// </summary>
         /// <param name="package"></param>
-        public void Upsert(ContentPackage package)
+        public void Save(ContentPackage package)
         {
             if (package.ResourceID <= 0)
             {
@@ -107,6 +107,11 @@ namespace WinterEngine.DataAccess.Repositories
             _context.ContentPackages.Remove(package);
         }
 
+        public void Delete(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Returns all content packages from the database.
         /// </summary>
@@ -114,61 +119,6 @@ namespace WinterEngine.DataAccess.Repositories
         public List<ContentPackage> GetAll()
         {
             return _context.ContentPackages.ToList();
-        }
-
-        //todo: Move this logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from contentPackage
-        //                                        in Context.ContentPackageRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = contentPackage.Name,
-        //                                            ResourceID = contentPackage.ResourceID
-        //                                        }).ToList();
-        //    return items;
-        //}
-
-
-        /// <summary>
-        /// Returns the file names of every content package used by the module.
-        /// </summary>
-        /// <returns></returns>
-        public List<string> GetAllFileNames()
-        {
-            List<ContentPackage> packages = _context.ContentPackages.ToList();
-            return packages.Select(x => x.FileName).ToList();
-        }
-
-        /// <summary>
-        /// Returns all content packages which are not system resources (aka: user resources) from the database.
-        /// </summary>
-        /// <returns></returns>
-        public List<ContentPackage> GetAllUserResources()
-        {
-            return _context.ContentPackages.Where(x => x.IsSystemResource == false).ToList();
-        }
-
-        /// <summary>
-        /// Returns all content packages which are system resources from the database.
-        /// </summary>
-        /// <returns></returns>
-        public List<ContentPackage> GetAllSystemResources()
-        {
-            return _context.ContentPackages.Where(x => x.IsSystemResource == true).ToList();
-        }
-
-        /// <summary>
-        /// Returns true if a content package exists in the database.
-        /// Returns false if a content package does not exist in the database.
-        /// The content package's FileName property is used to check.
-        /// </summary>
-        /// <param name="package"></param>
-        /// <returns></returns>
-        public bool Exists(ContentPackage package)
-        {
-            ContentPackage dbPackage = _context.ContentPackages.Where(x => x.FileName == package.FileName).SingleOrDefault();
-            return !Object.ReferenceEquals(dbPackage, null);
         }
 
         /// <summary>
@@ -182,32 +132,60 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.ContentPackages.Where(x => x.ResourceID == packageID).SingleOrDefault();
         }
 
-        public int GetDefaultResourceID()
+
+        public void ApplyChanges()
         {
-            ContentPackage defaultObject = _context.ContentPackages.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
+            throw new NotImplementedException();
         }
+
+        ///// <summary>
+        ///// Returns the file names of every content package used by the module.
+        ///// </summary>
+        ///// <returns></returns>
+        //public List<string> GetAllFileNames()
+        //{
+        //    List<ContentPackage> packages = _context.ContentPackages.ToList();
+        //    return packages.Select(x => x.FileName).ToList();
+        //}
+
+        ///// <summary>
+        ///// Returns all content packages which are not system resources (aka: user resources) from the database.
+        ///// </summary>
+        ///// <returns></returns>
+        //public List<ContentPackage> GetAllUserResources()
+        //{
+        //    return _context.ContentPackages.Where(x => x.IsSystemResource == false).ToList();
+        //}
+
+        ///// <summary>
+        ///// Returns all content packages which are system resources from the database.
+        ///// </summary>
+        ///// <returns></returns>
+        //public List<ContentPackage> GetAllSystemResources()
+        //{
+        //    return _context.ContentPackages.Where(x => x.IsSystemResource == true).ToList();
+        //}
+
+        ///// <summary>
+        ///// Returns true if a content package exists in the database.
+        ///// Returns false if a content package does not exist in the database.
+        ///// The content package's FileName property is used to check.
+        ///// </summary>
+        ///// <param name="package"></param>
+        ///// <returns></returns>
+        //public bool Exists(ContentPackage package)
+        //{
+        //    ContentPackage dbPackage = _context.ContentPackages.Where(x => x.FileName == package.FileName).SingleOrDefault();
+        //    return !Object.ReferenceEquals(dbPackage, null);
+        //}
+
+        //public int GetDefaultResourceID()
+        //{
+        //    ContentPackage defaultObject = _context.ContentPackages.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
 
         #endregion
 
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

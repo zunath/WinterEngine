@@ -48,6 +48,23 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
+        /// If an area with the same resref is in the database, it will be replaced with newArea.
+        /// If an area does not exist by newArea's resref, it will be added to the database.
+        /// </summary>
+        /// <param name="area">The new area to upsert.</param>
+        public void Save(Area area)
+        {
+            if (area.ResourceID <= 0)
+            {
+                _context.Areas.Add(area);
+            }
+            else
+            {
+                Update(area);
+            }
+        }
+
+        /// <summary>
         /// Updates an existing area in the database with new values.
         /// </summary>
         /// <param name="newArea">The new area that will replace the area with the matching resref.</param>
@@ -72,24 +89,8 @@ namespace WinterEngine.DataAccess
             _context.Entry(dbArea).CurrentValues.SetValues(newArea);
         }
 
-        /// <summary>
-        /// If an area with the same resref is in the database, it will be replaced with newArea.
-        /// If an area does not exist by newArea's resref, it will be added to the database.
-        /// </summary>
-        /// <param name="area">The new area to upsert.</param>
-        public void Upsert(Area area)
-        {
-            if (area.ResourceID <= 0)
-            {
-                _context.Areas.Add(area);
-            }
-            else
-            {
-                Update(area);
-            }
-        }
 
-        void IGenericRepository<Area>.Delete(Area area)
+        public void Delete(Area area)
         {
             this.Delete(area.ResourceID);
         }
@@ -116,18 +117,16 @@ namespace WinterEngine.DataAccess
             return _context.Areas.ToList();
         }
 
-        //todo: Move this logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from area
-        //                                        in Context.AreaRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = area.Name,
-        //                                            ResourceID = area.ResourceID
-        //                                        }).ToList();
-        //    return items;
-        //}
+        public Area GetByID(int resourceID)
+        {
+            var result = _context.Areas.Where(x => x.ResourceID == resourceID).SingleOrDefault();
+            return result;
+        }
+
+        public void ApplyChanges()
+        {
+            _context.SaveChanges();
+        }
 
         /// <summary>
         /// Returns all of the areas in a specified category from the database.
@@ -138,6 +137,7 @@ namespace WinterEngine.DataAccess
             var result = _context.Areas.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
             return result;
         }
+
 
         /// <summary>
         /// Returns the area with the specified resref.
@@ -150,12 +150,6 @@ namespace WinterEngine.DataAccess
             return result;
         }
 
-        public Area GetByID(int resourceID)
-        {
-            var result = _context.Areas.Where(x => x.ResourceID == resourceID).SingleOrDefault();
-            return result;            
-        }
-
         /// <summary>
         /// Deletes all of the areas attached to a specified category from the database.
         /// </summary>
@@ -163,18 +157,6 @@ namespace WinterEngine.DataAccess
         {
             List<Area> areaList = _context.Areas.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
             _context.Areas.RemoveRange(areaList);
-        }
-
-        /// <summary>
-        /// Returns True if an object with the specified resref exists in the database.
-        /// Returns False if no object with the specified resref is found in the database.
-        /// </summary>
-        /// <param name="resref">The resource reference to look for.</param>
-        /// <returns></returns>
-        public bool Exists(string resref)
-        {
-            Area area = _context.Areas.Where(x => x.Resref == resref).SingleOrDefault();
-            return !Object.ReferenceEquals(area, null);
         }
 
         /// <summary>
@@ -212,32 +194,27 @@ namespace WinterEngine.DataAccess
             return rootNode;
         }
 
-        public int GetDefaultResourceID()
+
+        /// <summary>
+        /// Returns True if an object with the specified resref exists in the database.
+        /// Returns False if no object with the specified resref is found in the database.
+        /// </summary>
+        /// <param name="resref">The resource reference to look for.</param>
+        /// <returns></returns>
+        public bool Exists(string resref)
         {
-            Area defaultObject = _context.Areas.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
+            Area area = _context.Areas.Where(x => x.Resref == resref).SingleOrDefault();
+            return !Object.ReferenceEquals(area, null);
         }
+
+        //public int GetDefaultResourceID()
+        //{
+        //    Area defaultObject = _context.Areas.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
 
         #endregion
 
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
+        
     }
 }

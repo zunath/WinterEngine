@@ -11,7 +11,7 @@ namespace WinterEngine.DataAccess
     {
         T Add(T entity);
         void Add(List<T> entityList);
-        void Save(T entity);
+        void Save(T entity); //Why have an update and save?
         void Update(T entity);
         void Delete(T entity);
         void Delete(int resourceID);

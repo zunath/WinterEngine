@@ -46,6 +46,23 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
+        /// If an placeable with the same resref is in the database, it will be replaced with newPlaceable.
+        /// If an placeable does not exist by newPlaceable's resref, it will be added to the database.
+        /// </summary>
+        /// <param name="newItem">The new placeable to upsert.</param>
+        public void Save(Placeable placeable)
+        {
+            if (placeable.ResourceID <= 0)
+            {
+                _context.Placeables.Add(placeable);
+            }
+            else
+            {
+                Update(placeable);
+            }
+        }
+
+        /// <summary>
         /// Updates an existing placeable in the database with new values.
         /// </summary>
         /// <param name="newItem">The new placeable that will replace the placeable with the matching resref.</param>
@@ -73,28 +90,13 @@ namespace WinterEngine.DataAccess
             _context.Entry(dbPlaceable).CurrentValues.SetValues(newPlaceable);
         }
 
-        /// <summary>
-        /// If an placeable with the same resref is in the database, it will be replaced with newPlaceable.
-        /// If an placeable does not exist by newPlaceable's resref, it will be added to the database.
-        /// </summary>
-        /// <param name="newItem">The new placeable to upsert.</param>
-        public void Upsert(Placeable placeable)
-        {
-            if (placeable.ResourceID <= 0)
-            {
-                _context.Placeables.Add(placeable);
-            }
-            else
-            {
-                Update(placeable);
-            }
-        }
+        
 
         /// <summary>
         /// Removes a placeable from the database
         /// </summary>
         /// <param name="placeable"></param>
-        void IGenericRepository<Placeable>.Delete(Placeable placeable)
+        public void Delete(Placeable placeable)
         {
             this.Delete(placeable.ResourceID);
         }
@@ -118,6 +120,16 @@ namespace WinterEngine.DataAccess
         public List<Placeable> GetAll()
         {
             return _context.Placeables.ToList();
+        }
+        
+        public Placeable GetByID(int resourceID)
+        {
+            return _context.Placeables.Where(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
+        public void ApplyChanges()
+        {
+            throw new NotImplementedException();
         }
 
         //todo: move logic somewhere else
@@ -152,10 +164,6 @@ namespace WinterEngine.DataAccess
             return _context.Placeables.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
-        public Placeable GetByID(int resourceID)
-        {
-            return _context.Placeables.Where(x => x.ResourceID == resourceID).SingleOrDefault();
-        }
 
         /// <summary>
         /// Removes all of the placeables attached to a specified category from the database.
@@ -165,19 +173,6 @@ namespace WinterEngine.DataAccess
             List<Placeable> placeableList = _context.Placeables.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
             _context.Placeables.RemoveRange(placeableList);
         }
-
-        /// <summary>
-        /// Returns True if an object with the specified resref exists in the database.
-        /// Returns False if no object with the specified resref is found in the database.
-        /// </summary>
-        /// <param name="resref">The resource reference to look for.</param>
-        /// <returns></returns>
-        public bool Exists(string resref)
-        {
-            Placeable placeable = _context.Placeables.Where(x => x.Resref == resref).SingleOrDefault();
-            return !Object.ReferenceEquals(placeable, null);
-        }
-
 
         /// <summary>
         /// Generates a hierarchy of categories containing placeables for use in tree views.
@@ -214,26 +209,23 @@ namespace WinterEngine.DataAccess
             return rootNode;
         }
 
-        public int GetDefaultResourceID()
+        /// <summary>
+        /// Returns True if an object with the specified resref exists in the database.
+        /// Returns False if no object with the specified resref is found in the database.
+        /// </summary>
+        /// <param name="resref">The resource reference to look for.</param>
+        /// <returns></returns>
+        public bool Exists(string resref)
         {
-            Placeable defaultObject = _context.Placeables.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
+            Placeable placeable = _context.Placeables.Where(x => x.Resref == resref).SingleOrDefault();
+            return !Object.ReferenceEquals(placeable, null);
         }
+
+        //public int GetDefaultResourceID()
+        //{
+        //    Placeable defaultObject = _context.Placeables.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
         #endregion
-
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

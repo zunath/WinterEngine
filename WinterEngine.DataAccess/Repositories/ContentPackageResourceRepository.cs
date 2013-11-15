@@ -41,15 +41,7 @@ namespace WinterEngine.DataAccess.Repositories
             _context.ContentPackageResources.AddRange(resourceList);
         }
 
-        public void Update(ContentPackageResource resource)
-        {
-            ContentPackageResource dbResource = _context.ContentPackageResources.Where(x => x.ResourceID == resource.ResourceID).SingleOrDefault();
-            if (dbResource == null) return;
-
-            _context.Entry(dbResource).CurrentValues.SetValues(resource);
-        }
-
-        public void Upsert(ContentPackageResource resource)
+        public void Save(ContentPackageResource resource)
         {
             if (resource.ResourceID <= 0)
             {
@@ -61,22 +53,45 @@ namespace WinterEngine.DataAccess.Repositories
             }
         }
 
-        public void Upsert(List<ContentPackageResource> resourceList)
+        public void Update(ContentPackageResource resource)
         {
-            foreach (ContentPackageResource resource in resourceList)
-            {
-                Upsert(resource);
-            }
-        }
+            ContentPackageResource dbResource = _context.ContentPackageResources.Where(x => x.ResourceID == resource.ResourceID).SingleOrDefault();
+            if (dbResource == null) return;
+
+            _context.Entry(dbResource).CurrentValues.SetValues(resource);
+        }        
+
+        //public void Upsert(List<ContentPackageResource> resourceList)
+        //{
+        //    foreach (ContentPackageResource resource in resourceList)
+        //    {
+        //        Upsert(resource);
+        //    }
+        //}
 
         public void Delete(ContentPackageResource resource)
         {
             _context.ContentPackageResources.Remove(resource);
         }
 
+        public void Delete(int resourceID)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<ContentPackageResource> GetAll()
         {
             return _context.ContentPackageResources.ToList();
+        }
+
+        public ContentPackageResource GetByID(int resourceID)
+        {
+            return _context.ContentPackageResources.Where(x => x.ResourceID == resourceID).SingleOrDefault();
+        }
+
+        public void ApplyChanges()
+        {
+            throw new NotImplementedException();
         }
 
         //todo: move this somewhere else
@@ -113,55 +128,30 @@ namespace WinterEngine.DataAccess.Repositories
         //    return items;
         //}
 
-        public List<ContentPackageResource> GetAllByResourceType(ContentPackageResourceTypeEnum resourceType)
-        {
-            return _context.ContentPackageResources.Where(x => x.ContentPackageResourceType == resourceType).ToList();
-        }
+        //public List<ContentPackageResource> GetAllByResourceType(ContentPackageResourceTypeEnum resourceType)
+        //{
+        //    return _context.ContentPackageResources.Where(x => x.ContentPackageResourceType == resourceType).ToList();
+        //}
 
-        public bool Exists(ContentPackageResource resource)
-        {
-            List<ContentPackageResource> resources = _context.ContentPackageResources.Where(x => x.ResourceID == resource.ResourceID).ToList();
-            if (resources.Count > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //public bool Exists(ContentPackageResource resource)
+        //{
+        //    List<ContentPackageResource> resources = _context.ContentPackageResources.Where(x => x.ResourceID == resource.ResourceID).ToList();
+        //    if (resources.Count > 0)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
-        public ContentPackageResource GetByID(int resourceID)
-        {
-            return _context.ContentPackageResources.Where(x => x.ResourceID == resourceID).SingleOrDefault();
-        }
-
-        public int GetDefaultResourceID()
-        {
-            var defaultObject = _context.ContentPackageResources.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
-        }
+        //public int GetDefaultResourceID()
+        //{
+        //    var defaultObject = _context.ContentPackageResources.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
 
         #endregion
-
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

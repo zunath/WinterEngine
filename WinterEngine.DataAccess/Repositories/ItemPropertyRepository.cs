@@ -26,11 +26,17 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        public List<ItemProperty> GetAll()
+        public ItemProperty Add(ItemProperty itemProperty)
         {
-            return _context.ItemProperties.ToList();
+            return _context.ItemProperties.Add(itemProperty);
         }
 
+        public void Add(List<ItemProperty> itemPropertyList)
+        {
+            _context.ItemProperties.AddRange(itemPropertyList);
+        }
+
+        
         //todo: Move logic somewhere else
         //public List<DropDownListUIObject> GetAllUIObjects()
         //{
@@ -44,26 +50,7 @@ namespace WinterEngine.DataAccess.Repositories
         //    return items;
         //}
 
-
-        public ItemProperty Add(ItemProperty itemProperty)
-        {
-            return _context.ItemProperties.Add(itemProperty);
-        }
-
-        public void Add(List<ItemProperty> itemPropertyList)
-        {
-            _context.ItemProperties.AddRange(itemPropertyList);
-        }
-
-        public void Update(ItemProperty itemProperty)
-        {
-            ItemProperty dbItemProperty = _context.ItemProperties.Where(x => x.ResourceID == itemProperty.ResourceID).SingleOrDefault();
-            if (dbItemProperty == null) return;
-
-            _context.Entry(dbItemProperty).CurrentValues.SetValues(itemProperty);
-        }
-
-        public void Upsert(ItemProperty itemProperty)
+        public void Save(ItemProperty itemProperty)
         {
             if (itemProperty.ResourceID <= 0)
             {
@@ -74,16 +61,14 @@ namespace WinterEngine.DataAccess.Repositories
                 Update(itemProperty);
             }
         }
+        
 
-        public ItemProperty GetByID(int itemPropertyID)
-        {
-            return _context.ItemProperties.Where(x => x.ResourceID == itemPropertyID).SingleOrDefault();
-        }
-
-        public bool Exists(ItemProperty itemProperty)
+        public void Update(ItemProperty itemProperty)
         {
             ItemProperty dbItemProperty = _context.ItemProperties.Where(x => x.ResourceID == itemProperty.ResourceID).SingleOrDefault();
-            return !Object.ReferenceEquals(dbItemProperty, null);
+            if (dbItemProperty == null) return;
+
+            _context.Entry(dbItemProperty).CurrentValues.SetValues(itemProperty);
         }
 
         public void Delete(ItemProperty itemProperty)
@@ -91,33 +76,41 @@ namespace WinterEngine.DataAccess.Repositories
             _context.ItemProperties.Remove(itemProperty);
         }
 
-        public int GetDefaultResourceID()
-        {
-            ItemProperty defaultObject = _context.ItemProperties.Where(x => x.IsDefault).FirstOrDefault();
-            return defaultObject == null ? 0 : defaultObject.ResourceID;
-        }
-
-        #endregion
-
-
-        public object Load(int resourceID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Save(object gameObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Delete(int resourceID)
         {
             throw new NotImplementedException();
         }
+
+        public List<ItemProperty> GetAll()
+        {
+            return _context.ItemProperties.ToList();
+        }
+
+        public ItemProperty GetByID(int itemPropertyID)
+        {
+            return _context.ItemProperties.Where(x => x.ResourceID == itemPropertyID).SingleOrDefault();
+        }
+
+        public void ApplyChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public bool Exists(ItemProperty itemProperty)
+        //{
+        //    ItemProperty dbItemProperty = _context.ItemProperties.Where(x => x.ResourceID == itemProperty.ResourceID).SingleOrDefault();
+        //    return !Object.ReferenceEquals(dbItemProperty, null);
+        //}
+
+        
+
+        //public int GetDefaultResourceID()
+        //{
+        //    ItemProperty defaultObject = _context.ItemProperties.Where(x => x.IsDefault).FirstOrDefault();
+        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
+        //}
+
+        #endregion
+                
     }
 }
