@@ -65,7 +65,8 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void Delete(int resourceID)
         {
-            throw new NotImplementedException();
+            var charClass = _context.CharacterClasses.Find(resourceID);
+            _context.CharacterClasses.Remove(charClass);
         }
 
         public List<CharacterClass> GetAll()
@@ -80,7 +81,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         //public bool Exists(CharacterClass characterClass)

@@ -131,7 +131,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         //todo: move this somewhere else

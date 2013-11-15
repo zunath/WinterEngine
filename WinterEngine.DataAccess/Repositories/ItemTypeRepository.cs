@@ -128,7 +128,7 @@ namespace WinterEngine.DataAccess
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         ///// <summary>

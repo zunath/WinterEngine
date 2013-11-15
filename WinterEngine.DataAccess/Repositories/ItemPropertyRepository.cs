@@ -78,7 +78,8 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void Delete(int resourceID)
         {
-            throw new NotImplementedException();
+            var itemProperty = _context.ItemProperties.Find(resourceID);
+            Delete(itemProperty);
         }
 
         public List<ItemProperty> GetAll()
@@ -93,7 +94,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         //public bool Exists(ItemProperty itemProperty)

@@ -129,7 +129,7 @@ namespace WinterEngine.DataAccess
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         //Move this logic somewhere else

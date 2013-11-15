@@ -109,7 +109,8 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void Delete(int resourceID)
         {
-            throw new NotImplementedException();
+            var contPackage = _context.ContentPackages.Find(resourceID);
+            Delete(contPackage);
         }
 
         /// <summary>
@@ -135,7 +136,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         ///// <summary>

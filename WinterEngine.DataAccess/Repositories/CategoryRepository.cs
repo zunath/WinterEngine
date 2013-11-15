@@ -85,7 +85,8 @@ namespace WinterEngine.DataAccess
 
         public void Delete(int resourceID)
         {
-            throw new NotImplementedException();
+            var category = _context.ResourceCategories.Find(resourceID);
+            _context.ResourceCategories.Remove(category);
         }
 
         /// <summary>

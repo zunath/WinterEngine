@@ -64,7 +64,8 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void Delete(int resourceID)
         {
-            throw new NotImplementedException();
+            var tileCollisionBox = _context.TileCollisionBoxes.Find(resourceID);
+            Delete(tileCollisionBox);
         }
 
         public List<TileCollisionBox> GetAll()
@@ -79,7 +80,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         //public bool Exists(TileCollisionBox box)

@@ -66,7 +66,8 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void Delete(int resourceID)
         {
-            throw new NotImplementedException();
+            var ability = _context.Abilities.Find(resourceID);
+            _context.Abilities.Remove(ability);
         }
 
         public List<Ability> GetAll()
@@ -81,7 +82,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         //public bool Exists(Ability ability)

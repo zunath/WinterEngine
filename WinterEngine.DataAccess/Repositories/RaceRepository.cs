@@ -63,7 +63,8 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void Delete(int resourceID)
         {
-            throw new NotImplementedException();
+            var race = _context.Races.Find(resourceID);
+            Delete(race);
         }
 
         public List<Race> GetAll()
@@ -93,7 +94,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         //public bool Exists(Race race)

@@ -65,7 +65,8 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void Delete(int resourceID)
         {
-            throw new NotImplementedException();
+            var faction = _context.Factions.Find(resourceID);
+            _context.Factions.Remove(faction);
         }
 
         public List<Faction> GetAll()
@@ -94,7 +95,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         //public bool Exists(Faction faction)

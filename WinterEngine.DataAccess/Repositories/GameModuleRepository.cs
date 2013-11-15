@@ -50,23 +50,24 @@ namespace WinterEngine.DataAccess
 
         public void Update(GameModule module)
         {
-            throw new NotImplementedException();
+            //todo: What do I do with this?
             //GameModule dbModule = GetModule();
-            //if (dbModule == null) throw new Exception("Game module does not exist");
+            //if (dbModule == null) throw new NullReferenceException("Game module does not exist");
 
-            //foreach (LocalVariable variable in module.LocalVariables)
-            //{
-            //    variable.GameObjectBaseID = module.ResourceID;
-            //}
+            foreach (LocalVariable variable in module.LocalVariables)
+            {
+                variable.GameObjectBaseID = module.ResourceID;
+            }
 
             //_context.Entry(dbModule).CurrentValues.SetValues(module);
-            //_context.LocalVariables.RemoveRange(dbModule.LocalVariables.ToList());
-            //_context.LocalVariables.AddRange(module.LocalVariables.ToList());
+            _context.Entry(module).State = EntityState.Modified;
+            _context.LocalVariables.RemoveRange(module.LocalVariables.ToList());
+            _context.LocalVariables.AddRange(module.LocalVariables.ToList());
         }
 
         public void Delete(GameModule entity)
         {
-            throw new NotImplementedException();
+            _context.Modules.Remove(entity);
         }
 
         public void Delete(int resourceID)
@@ -77,12 +78,14 @@ namespace WinterEngine.DataAccess
 
         public List<GameModule> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _context.Modules.ToList();
+            return result;
         }
 
         public GameModule GetByID(int resourceID)
         {
-            throw new NotImplementedException();
+            var result = _context.Modules.Find(resourceID);
+            return result;
         }
 
         public void ApplyChanges()

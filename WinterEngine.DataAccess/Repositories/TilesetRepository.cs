@@ -83,7 +83,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void ApplyChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public List<Tileset> GetAllByResourceCategory(Category resourceCategory)
