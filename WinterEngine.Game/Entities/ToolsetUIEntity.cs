@@ -831,17 +831,19 @@ namespace WinterEngine.Game.Entities
 
         private void ChangeObjectMode(object sender, JavascriptMethodEventArgs e)
         {
-            if (ViewModel.IsModuleOpened)
+            //if (ViewModel.IsModuleOpened)
             {
                 ViewModel.CurrentObjectMode = e.Arguments[0];
                 ViewModel.CurrentObjectTreeSelector = e.Arguments[1];
-                ViewModel.CurrentObjectTabSelector = e.Arguments[2];
                 string mode = e.Arguments[0];
+                GameObjectTypeEnum gameObjectType = mode == "" ? 
+                    GameObjectTypeEnum.Unknown : 
+                    (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), mode);
 
                 // Inform subscribers (AKA: The screen) that the object mode has changed.
                 if (OnObjectModeChanged != null)
                 {
-                    OnObjectModeChanged(this, new ObjectModeChangedEventArgs((GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), mode)));
+                    OnObjectModeChanged(this, new ObjectModeChangedEventArgs(gameObjectType));
                 }
 
                 AsyncJavascriptCallback("ChangeObjectMode_Callback");

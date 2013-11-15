@@ -26,7 +26,7 @@ function InitializeToolsetViewModel() {
         currentViewModel.ActiveModule = parsedModel;
 
         ko.viewmodel.updateFromModel(ToolsetViewModel, currentViewModel);
-    }
+    };
 
     ToolsetViewModel.GetActiveObject = function () {
         var mode = ToolsetViewModel.CurrentObjectMode();
@@ -40,6 +40,28 @@ function InitializeToolsetViewModel() {
 
         // Dynamic method call to C# based on current mode
         window["Entity"]["Save" + mode](jsonObject);
+    };
+
+    ToolsetViewModel.RefreshActiveObject = function () {
+        var mode = ToolsetViewModel.CurrentObjectMode();
+        ToolsetViewModel.RefreshObject(mode);
+    };
+
+    ToolsetViewModel.RefreshObject = function (objectTypeName) {
+        var parsedObject = JSON.parse(Entity.GetModelJSON())["Active" + objectTypeName];
+        var currentViewModel = ko.viewmodel.toModel(ToolsetViewModel);
+        currentViewModel["Active" + objectTypeName] = parsedObject;
+
+        ko.viewmodel.updateFromModel(ToolsetViewModel, currentViewModel);
+    };
+
+    ToolsetViewModel.RefreshStatusVariables = function () {
+        var parsedModel = JSON.parse(Entity.GetModelJSON());
+        
+        ToolsetViewModel.CurrentObjectMode(parsedModel.CurrentObjectMode);
+        ToolsetViewModel.CurrentObjectTreeSelector(parsedModel.CurrentObjectTreeSelector);
+        ToolsetViewModel.IsObjectLoadedForCurrentObjectMode(parsedModel.IsObjectLoadedForCurrentObjectMode);
+        ToolsetViewModel.IsModuleOpened(parsedModel.IsModuleOpened);
     };
 
 }

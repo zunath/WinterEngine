@@ -25,7 +25,8 @@ function ObjectTabApplyChanges() {
 }
 
 function ObjectTabApplyChanges_Callback() {
-    ToolsetViewModel.Refresh();
+    //ToolsetViewModel.Refresh();
+    ToolsetViewModel.RefreshActiveObject();
 }
 
 function ObjectTabDiscardChanges() {

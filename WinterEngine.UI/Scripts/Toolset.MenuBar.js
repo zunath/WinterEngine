@@ -30,7 +30,6 @@ function NewModuleBoxOKClick_Callback(success) {
         ToggleModuleActionButtons(true);
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
-        $('#divObjectBar').removeClass('clsHidden');
         ToolsetViewModel.Refresh();
     }
     else {
@@ -70,7 +69,6 @@ function OpenModuleButtonClick_Callback(success) {
         ToggleModuleActionButtons(true);
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
-        $('#divObjectBar').removeClass('clsHidden');
         CloseOpenModulePopUp();
         ToolsetViewModel.Refresh();
     }
@@ -85,10 +83,8 @@ function CloseModuleButtonClick(element) {
 }
 
 function CloseModuleButtonClick_Callback() {
-    ChangeObjectMode();
-    HideAllTreeViews();
+    ChangeObjectMode('');
     ToggleModuleActionButtons(false);
-    $('#divObjectBar').addClass('clsHidden');
 }
 
 function SaveModuleButtonClick(element) {

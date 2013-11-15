@@ -14,7 +14,6 @@ namespace WinterEngine.DataTransferObjects.ViewModels
     {
         public string CurrentObjectMode { get; set; }
         public string CurrentObjectTreeSelector { get; set; }
-        public string CurrentObjectTabSelector { get; set; }
 
         [JsonIgnore]
         public GameObjectTypeEnum GameObjectType
@@ -93,7 +92,6 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         {
             IsModuleOpened = false;
             CurrentObjectMode = "";
-            CurrentObjectTabSelector = "";
             CurrentObjectTreeSelector = "";
             ActiveModule = new GameModule(true);
             ActiveArea = new Area(true);

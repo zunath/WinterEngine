@@ -138,11 +138,6 @@ function OnTreeViewNodeSelected() {
     }
 }
 
-// Convenience function to hide all tree view divs.
-function HideAllTreeViews() {
-    $('.clsTreeViewDiv').addClass('clsHidden');
-}
-
 // CALLBACK FUNCTION
 // Initializes all tree views for the different object types.
 function LoadTreeViews_Callback(jsonAreas,
