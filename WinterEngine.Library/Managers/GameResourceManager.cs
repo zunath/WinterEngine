@@ -9,6 +9,7 @@ using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.XMLObjects;
 using WinterEngine.Library.Extensions;
 using WinterEngine.DataTransferObjects.Enumerations;
+using System.Linq;
 
 
 namespace WinterEngine.Editor.Managers
@@ -85,11 +86,19 @@ namespace WinterEngine.Editor.Managers
                     List<ContentPackage> existingContentPackages; 
                     if(rebuildMode == ModuleRebuildModeEnum.SystemResourcesOnly)
                     {
-                        existingContentPackages = repo.GetAllSystemResources();
+                        existingContentPackages = repo.GetAll();
+                        existingContentPackages = (from package
+                                                   in existingContentPackages
+                                                   where package.IsSystemResource == true
+                                                   select package).ToList();
                     }
                     else if(rebuildMode == ModuleRebuildModeEnum.UserResourcesOnly)
                     {
-                        existingContentPackages = repo.GetAllUserResources();
+                        existingContentPackages = repo.GetAll();
+                        existingContentPackages = (from package
+                                                   in existingContentPackages
+                                                   where package.IsSystemResource == false
+                                                   select package).ToList();
                     }
                     else
                     {
@@ -127,7 +136,10 @@ namespace WinterEngine.Editor.Managers
         {
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                List<ContentPackage> contentPackages = repo.GetAllUserResources();
+                List<ContentPackage> contentPackages = (from package
+                                                        in repo.GetAll()
+                                                        where package.IsSystemResource == false
+                                                        select package).ToList();
                 RebuildModule(contentPackages, rebuildMode);
             }
         }

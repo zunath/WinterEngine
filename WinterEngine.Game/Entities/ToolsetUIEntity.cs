@@ -21,6 +21,7 @@ using WinterEngine.Library.Utility;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Converters;
 using WinterEngine.DataTransferObjects.UIObjects;
+using System.Linq;
 
 
 namespace WinterEngine.Game.Entities
@@ -345,7 +346,11 @@ namespace WinterEngine.Game.Entities
 
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                attachedContentPackages = repo.GetAllUserResources();
+                attachedContentPackages = (from package
+                                           in repo.GetAll()
+                                           where package.IsSystemResource == false
+                                           select package).ToList();
+
                 // We don't need to send the resource list to the GUI because it could contain a lot of data.
                 // We'll pick up the resource list when we go to do a save/rebuild of the module.
                 attachedContentPackages.ForEach(a => a.ResourceList = null);

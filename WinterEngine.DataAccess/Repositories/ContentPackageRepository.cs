@@ -124,24 +124,6 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         /// <summary>
-        /// Returns all content packages which are not system resources (aka: user resources) from the database.
-        /// </summary>
-        /// <returns></returns>
-        public List<ContentPackage> GetAllUserResources()
-        {
-            return Context.ContentPackageRepository.Get(x => x.IsSystemResource == false).ToList();
-        }
-
-        /// <summary>
-        /// Returns all content packages which are system resources from the database.
-        /// </summary>
-        /// <returns></returns>
-        public List<ContentPackage> GetAllSystemResources()
-        {
-            return Context.ContentPackageRepository.Get(x => x.IsSystemResource == true).ToList();
-        }
-
-        /// <summary>
         /// Returns true if a content package exists in the database.
         /// Returns false if a content package does not exist in the database.
         /// The content package's FileName property is used to check.
