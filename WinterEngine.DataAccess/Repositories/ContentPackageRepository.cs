@@ -123,17 +123,6 @@ namespace WinterEngine.DataAccess.Repositories
             return items;
         }
 
-
-        /// <summary>
-        /// Returns the file names of every content package used by the module.
-        /// </summary>
-        /// <returns></returns>
-        public List<string> GetAllFileNames()
-        {
-            List<ContentPackage> packages = Context.ContentPackageRepository.Get().ToList();
-            return packages.Select(x => x.FileName).ToList();
-        }
-
         /// <summary>
         /// Returns all content packages which are not system resources (aka: user resources) from the database.
         /// </summary>

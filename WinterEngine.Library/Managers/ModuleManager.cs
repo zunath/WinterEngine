@@ -260,7 +260,10 @@ namespace WinterEngine.Library.Managers
             // Retrieve the required content packages (ones which are attached to the module)
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                moduleContentPackages = repo.GetAllFileNames();
+                IEnumerable<ContentPackage> contentPackages = repo.GetAll();
+                moduleContentPackages = (from package
+                                         in contentPackages
+                                         select package.FileName).ToList();
             }
 
             // Determine which content packages do not exist on disk that are required by this module.
