@@ -59,7 +59,7 @@ namespace WinterEngine.DataAccess.Repositories
             if (dbResource == null) return;
 
             _context.Entry(dbResource).CurrentValues.SetValues(resource);
-        }        
+            }
 
         //public void Upsert(List<ContentPackageResource> resourceList)
         //{
@@ -81,19 +81,19 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         public List<ContentPackageResource> GetAll()
-        {
+                                                {
             return _context.ContentPackageResources.ToList();
         }
 
         public ContentPackageResource GetByID(int resourceID)
-        {
+                                                {
             return _context.ContentPackageResources.Where(x => x.ResourceID == resourceID).SingleOrDefault();
         }
 
         public void ApplyChanges()
-        {
+            {
             _context.SaveChanges();
-        }
+            }
 
         //todo: move this somewhere else
         //public List<DropDownListUIObject> GetAllUIObjects()

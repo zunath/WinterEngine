@@ -113,13 +113,58 @@ namespace WinterEngine.DataAccess.Repositories
             Delete(contPackage);
         }
 
+        public List<DropDownListUIObject> GetAllUIObjects()
+        {
+            List<DropDownListUIObject> items = (from contentPackage
+                                                in Context.ContentPackageRepository.Get()
+                                                select new DropDownListUIObject
+                                                {
+                                                    Name = contentPackage.Name,
+                                                    ResourceID = contentPackage.ResourceID
+                                                }).ToList();
+            return items;
+        }
+
+
         /// <summary>
-        /// Returns all content packages from the database.
+        /// Returns the file names of every content package used by the module.
         /// </summary>
         /// <returns></returns>
-        public List<ContentPackage> GetAll()
+        public List<string> GetAllFileNames()
         {
-            return _context.ContentPackages.ToList();
+            List<ContentPackage> packages = Context.ContentPackageRepository.Get().ToList();
+            return packages.Select(x => x.FileName).ToList();
+        }
+
+        /// <summary>
+        /// Returns all content packages which are not system resources (aka: user resources) from the database.
+        /// </summary>
+        /// <returns></returns>
+        public List<ContentPackage> GetAllUserResources()
+        {
+            return Context.ContentPackageRepository.Get(x => x.IsSystemResource == false).ToList();
+        }
+
+        /// <summary>
+        /// Returns all content packages which are system resources from the database.
+        /// </summary>
+        /// <returns></returns>
+        public List<ContentPackage> GetAllSystemResources()
+        {
+            return Context.ContentPackageRepository.Get(x => x.IsSystemResource == true).ToList();
+        }
+
+        /// <summary>
+        /// Returns true if a content package exists in the database.
+        /// Returns false if a content package does not exist in the database.
+        /// The content package's FileName property is used to check.
+        /// </summary>
+        /// <param name="package"></param>
+        /// <returns></returns>
+        public bool Exists(ContentPackage package)
+        {
+            ContentPackage dbPackage = Context.ContentPackageRepository.Get(x => x.FileName == package.FileName).SingleOrDefault();
+            return !Object.ReferenceEquals(dbPackage, null);
         }
 
         /// <summary>

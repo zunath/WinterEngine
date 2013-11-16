@@ -21,6 +21,7 @@ using WinterEngine.Editor.Utility;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Converters;
 using WinterEngine.DataTransferObjects.UIObjects;
+using System.Linq;
 using Ninject;
 
 
@@ -55,7 +56,7 @@ namespace WinterEngine.Game.Entities
                 return _viewModel;
             }
 
-        }
+            }
 
         #endregion
 
@@ -302,11 +303,17 @@ namespace WinterEngine.Game.Entities
             List<ContentPackage> attachedContentPackages;
             List<ContentPackage> availableContentPackages = new List<ContentPackage>();
 
-            var repo = _repositoryFactory.GetGenericRepository<ContentPackage>();
-            attachedContentPackages = repo.GetAll().Where(x => x.IsSystemResource == false).ToList();
+            using (ContentPackageRepository repo = new ContentPackageRepository())
+            {
+                attachedContentPackages = (from package
+                                           in repo.GetAll()
+                                           where package.IsSystemResource == false
+                                           select package).ToList();
+
                 // We don't need to send the resource list to the GUI because it could contain a lot of data.
                 // We'll pick up the resource list when we go to do a save/rebuild of the module.
                 attachedContentPackages.ForEach(a => a.ResourceList = null);
+            }
 
             string[] files = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + _extensionFactory.GetFileExtension(FileTypeEnum.ContentPackage));
             foreach (string currentPackage in files)
@@ -412,29 +419,6 @@ namespace WinterEngine.Game.Entities
                 name,
                 newCategory.ResourceID);
         }
-
-        private void SaveArea(object sender, JavascriptMethodEventArgs e)
-        {
-            bool duplicateResref = false;
-            string name = e.Arguments[0];
-            string tag = e.Arguments[1];
-            string resref = e.Arguments[2];
-            int categoryID = (int)e.Arguments[3];
-
-            Area area = _gameObjectFactory.Create(GameObjectTypeEnum.Area) as Area;
-            area.Name = name;
-            area.Tag = tag;
-            area.Resref = resref;
-
-            area = _repositoryFactory.GetGameObjectRepository<Area>().Add(area);
-
-
-            AsyncJavascriptCallback("CreateNewObject_Callback",
-                duplicateResref,
-                name,
-                area.ResourceID);
-        }
-
 
         private void AddNewObject(object sender, JavascriptMethodEventArgs e)
         {
@@ -576,15 +560,15 @@ namespace WinterEngine.Game.Entities
             //using (CategoryRepository repo = new CategoryRepository())
             //{
             Category dbCategory = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
-            if (!dbCategory.IsSystemResource)
-            {
-                dbCategory.Name = name;
-            }
-            else
-            {
-                error = ErrorTypeEnum.CannotChangeSystemResource;
-            }
-            
+                if (!dbCategory.IsSystemResource)
+                {
+                    dbCategory.Name = name;
+                }
+                else
+                {
+                    error = ErrorTypeEnum.CannotChangeSystemResource;
+                }
+
             AsyncJavascriptCallback("RenameObject_Callback",
                 error == ErrorTypeEnum.None ? true : false,
                 EnumerationHelper.GetEnumerationDescription(error),
@@ -812,19 +796,19 @@ namespace WinterEngine.Game.Entities
 
         private void ChangeObjectMode(object sender, JavascriptMethodEventArgs e)
         {
-                ViewModel.CurrentObjectMode = e.Arguments[0];
-                ViewModel.CurrentObjectTreeSelector = e.Arguments[1];
-                string mode = e.Arguments[0];
+            ViewModel.CurrentObjectMode = e.Arguments[0];
+            ViewModel.CurrentObjectTreeSelector = e.Arguments[1];
+            string mode = e.Arguments[0];
             GameObjectTypeEnum gameObjectType = GameObjectTypeEnum.Unknown;
             Enum.TryParse(mode, true, out gameObjectType);
 
-                // Inform subscribers (AKA: The screen) that the object mode has changed.
-                if (OnObjectModeChanged != null)
-                {
+            // Inform subscribers (AKA: The screen) that the object mode has changed.
+            if (OnObjectModeChanged != null)
+            {
                 OnObjectModeChanged(this, new ObjectModeChangedEventArgs(gameObjectType));
-                }
+            }
 
-                AsyncJavascriptCallback("ChangeObjectMode_Callback");
+            AsyncJavascriptCallback("ChangeObjectMode_Callback");
             
         }
 
