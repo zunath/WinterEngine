@@ -104,10 +104,6 @@ namespace WinterEngine.DataAccess.Repositories
 
             return items;
         }
-        public List<ContentPackageResource> GetAllByResourceType(ContentPackageResourceTypeEnum resourceType)
-        {
-            return Context.ContentPackageResourceRepository.Get(x => x.ContentPackageResourceType == resourceType).ToList();
-        }
 
         public bool Exists(ContentPackageResource resource)
         {
