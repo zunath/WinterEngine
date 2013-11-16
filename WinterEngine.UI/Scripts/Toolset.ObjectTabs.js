@@ -3,21 +3,8 @@
 }
 
 function LoadObjectData_Callback() {
-    var mode = ToolsetViewModel.CurrentObjectMode();
-
-    // Disable all fields
-    $('.clsAreaObjectField').attr('disabled', 'disabled');
-    $('.clsCreatureObjectField').attr('disabled', 'disabled');
-    $('.clsItemObjectField').attr('disabled', 'disabled');
-    $('.clsPlaceableObjectField').attr('disabled', 'disabled');
-    $('.clsConversationObjectField').attr('disabled', 'disabled');
-    $('.clsScriptObjectField').attr('disabled', 'disabled');
-    $('.clsTilesetObjectField').attr('disabled', 'disabled');
-
-    // Now enable just the set of fields for the active object mode.
-    $('.cls' + mode + 'ObjectField').removeAttr('disabled');
-
-    ToolsetViewModel.Refresh();
+    ToolsetViewModel.RefreshActiveObject();
+    ToolsetViewModel.RefreshStatusVariables();
 }
 
 function ObjectTabApplyChanges() {
@@ -25,7 +12,6 @@ function ObjectTabApplyChanges() {
 }
 
 function ObjectTabApplyChanges_Callback() {
-    //ToolsetViewModel.Refresh();
     ToolsetViewModel.RefreshActiveObject();
 }
 

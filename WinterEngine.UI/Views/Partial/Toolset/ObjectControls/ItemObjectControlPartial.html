@@ -3,30 +3,41 @@
     <h3>Item Details</h3>
     <div id="divItemsTab-Details">
         <label id="lblItemDetails-Name" for="txtItemDetails-Name">Name:</label>
-        <input id="txtItemDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveItem.Name" class="clsItemObjectField" />
+        <input id="txtItemDetails-Name" type="text" maxlength="64" 
+            data-bind="value: ActiveItem.Name,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label id="lblItemDetails-Tag" for="txtItemDetails-Tag">Tag:</label>
-        <input id="txtItemDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveItem.Tag" class="clsItemObjectField" />
+        <input id="txtItemDetails-Tag" type="text" maxlength="32" 
+            data-bind="value: ActiveItem.Tag,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label id="lblItemDetails-Resref" for="txtItemDetails-Resref">Resref:</label>
-        <input id="txtItemDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveItem.Resref" class="clsItemObjectField" />
+        <input id="txtItemDetails-Resref" type="text" maxlength="32" 
+            data-bind="value: ActiveItem.Resref,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
     </div>
 
     <h3>Description</h3>
     <div id="divItemsTab-Description">
-        <textarea id="txtItemDetails-Description" disabled="disabled" data-bind="value: ActiveItem.Description" class="clsItemObjectField"></textarea>
+        <textarea id="txtItemDetails-Description" 
+            data-bind="value: ActiveItem.Description,
+                       enable: IsObjectLoadedForCurrentObjectMode"></textarea>
     </div>
 
     <h3>Comments</h3>
     <div id="divItemsTab-Comments">
-        <textarea id="txtItemDetails-Comments" disabled="disabled" data-bind="value: ActiveItem.Comment" class="clsItemObjectField"></textarea>
+        <textarea id="txtItemDetails-Comments" 
+            data-bind="value: ActiveItem.Comment,
+                       enable: IsObjectLoadedForCurrentObjectMode"></textarea>
     </div>
 
     <h3>Local Variables</h3>
 
     <div id="divItemsTab-LocalVariables">
-        <input id="btnItemsTab-AddLocalVariable" type="button" value="Add New Variable" onclick="OpenEditLocalVariableBox(false, 'create');" />
+        <input id="btnItemsTab-AddLocalVariable" type="button" value="Add New Variable" onclick="OpenEditLocalVariableBox(false, 'create');" 
+            data-bind="enable: IsObjectLoadedForCurrentObjectMode"/>
 
         <div data-bind="foreach: ActiveItem.LocalVariables">
             <label data-bind="text: Name"></label>
@@ -40,11 +51,12 @@
     <div id="divItemsTab-Events">
 
         <label id="lblItemsEvents-OnSpawn">On Spawn:</label>
-        <select id="selItemsEvents-OnSpawn" disabled="disabled" class="clsItemObjectField" size="3" 
+        <select id="selItemsEvents-OnSpawn" size="3" 
             data-bind="options: ScriptList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveItem.OnSpawnEventScriptID" ></select>
+                       value: ActiveItem.OnSpawnEventScriptID,
+                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
 
     </div>
 </div>

@@ -27,7 +27,6 @@ function NewModuleBoxOKClick() {
 function NewModuleBoxOKClick_Callback(success) {
     if (success) {
         CloseNewModuleBox();
-        ToggleModuleActionButtons(true);
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
         ToolsetViewModel.Refresh();
@@ -66,14 +65,10 @@ function OpenModuleButtonClick(element) {
 
 function OpenModuleButtonClick_Callback(success) {
     if (success) {
-        ToggleModuleActionButtons(true);
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
         CloseOpenModulePopUp();
         ToolsetViewModel.Refresh();
-    }
-    else {
-        ToggleModuleActionButtons(false);
     }
 }
 
@@ -83,8 +78,7 @@ function CloseModuleButtonClick(element) {
 }
 
 function CloseModuleButtonClick_Callback() {
-    ChangeObjectMode('');
-    ToggleModuleActionButtons(false);
+    ChangeObjectMode();
 }
 
 function SaveModuleButtonClick(element) {
@@ -332,30 +326,5 @@ function CloseAlertBox() {
 }
 
 function IsMenuButtonDisabled(button) {
-    var isDisabled = button.parent().hasClass('ui-state-disabled');
-
-    return isDisabled;
-}
-
-function ToggleModuleActionButtons(isEnabled) {
-    if (isEnabled) {
-        $('#liCloseModuleButton').removeClass('ui-state-disabled');
-        $('#liSaveModuleButton').removeClass('ui-state-disabled');
-        $('#liSaveAsButton').removeClass('ui-state-disabled');
-        $('#liImportButton').removeClass('ui-state-disabled');
-        $('#liExportButton').removeClass('ui-state-disabled');
-        $('#liManageContentPackagesButton').removeClass('ui-state-disabled');
-        $('#liBuildModuleButton').removeClass('ui-state-disabled');
-        $('#liModulePropertiesButton').removeClass('ui-state-disabled');
-    }
-    else {
-        $('#liCloseModuleButton').addClass('ui-state-disabled');
-        $('#liSaveModuleButton').addClass('ui-state-disabled');
-        $('#liSaveAsButton').addClass('ui-state-disabled');
-        $('#liImportButton').addClass('ui-state-disabled');
-        $('#liExportButton').addClass('ui-state-disabled');
-        $('#liManageContentPackagesButton').addClass('ui-state-disabled');
-        $('#liBuildModuleButton').addClass('ui-state-disabled');
-        $('#liModulePropertiesButton').addClass('ui-state-disabled');
-    }
+    return button.parent().hasClass('ui-state-disabled');
 }

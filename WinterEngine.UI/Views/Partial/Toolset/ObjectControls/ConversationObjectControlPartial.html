@@ -4,13 +4,19 @@
     <div id="divConversationsTab-Details">
 
         <label id="lblConversationDetails-Name" for="txtConversationDetails-Name">Name:</label>
-        <input id="txtConversationDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveConversation.Name" class="clsConversationObjectField" />
+        <input id="txtConversationDetails-Name" type="text" maxlength="64"
+            data-bind="value: ActiveConversation.Name,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label id="lblConversationDetails-Tag" for="txtConversationDetails-Tag">Tag:</label>
-        <input id="txtConversationDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveConversation.Tag" class="clsConversationObjectField" />
+        <input id="txtConversationDetails-Tag" type="text" maxlength="32" 
+            data-bind="value: ActiveConversation.Tag,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label id="lblConversationDetails-Resref" for="txtConversationDetails-Resref">Resref:</label>
-        <input id="txtConversationDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveConversation.Resref" class="clsConversationObjectField" />
+        <input id="txtConversationDetails-Resref" type="text" maxlength="32"
+            data-bind="value: ActiveConversation.Resref,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
     </div>
 </div>

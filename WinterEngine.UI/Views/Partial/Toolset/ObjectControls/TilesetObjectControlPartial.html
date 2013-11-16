@@ -3,21 +3,28 @@
     <h3>Tileset Details</h3>
     <div id="divTilesetsTab-Details">
         <label id="lblTilesetDetails-Name" for="txtTilesetDetails-Name">Name:</label>
-        <input id="txtTilesetDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset.Name" class="clsTilesetObjectField" />
+        <input id="txtTilesetDetails-Name" type="text" maxlength="64" 
+            data-bind="value: ActiveTileset.Name,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label id="lblTilesetDetails-Tag" for="txtTilesetDetails-Tag">Tag:</label>
-        <input id="txtTilesetDetails-Tag" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset.Tag" class="clsTilesetObjectField" />
+        <input id="txtTilesetDetails-Tag" type="text" maxlength="64" 
+            data-bind="value: ActiveTileset.Tag,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label id="lblTilesetDetails-Resref" for="txtTilesetDetails-Resref">Resref:</label>
-        <input id="txtTilesetDetails-Resref" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveTileset.Resref" class="clsTilesetObjectField" />
+        <input id="txtTilesetDetails-Resref" type="text" maxlength="64" 
+            data-bind="value: ActiveTileset.Resref,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
-        <select id="selTilesetDetails-Spritesheet" size="3" disabled="disabled" class="clsTilesetObjectField"
+        <select id="selTilesetDetails-Spritesheet" size="3"
             data-bind="options: TilesetSpriteSheetsList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
                        value: ActiveTileset.GraphicResourceID == null ? 0 : ActiveTileset.GraphicResourceID,
-                       event: { change: function (item) { return SelectTilesetSpriteSheet(); } }">
+                       event: { change: function (item) { return SelectTilesetSpriteSheet(); } },
+                       enable: IsObjectLoadedForCurrentObjectMode">
         </select>
 
     </div>
