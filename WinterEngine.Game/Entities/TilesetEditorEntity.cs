@@ -112,40 +112,6 @@ namespace WinterEngine.Game.Entities
             }
         }
 
-        public void HandleSaveTilesetSpritesheetEvent(object sender, TilesetSelectionEventArgs e)
-        {
-            try
-            {
-                List<Tile> tileDTOs = (from tile
-                                       in TileList
-                                       select new Tile
-                                       {
-                                           TextureCellX = tile.SpriteSheetColumn,
-                                           TextureCellY = tile.SpriteSheetRow,
-                                           TilesetID = e.TilesetResourceID,
-                                           CollisionBoxes = (from box
-                                                             in tile.CollisionBoxList
-                                                             select new TileCollisionBox
-                                                             {
-                                                                 IsPassable = box.IsPassable,
-                                                                 TileLocationIndex = box.TileIndex
-                                                             }).ToList()
-                                       }).ToList();
-
-                using (TilesetRepository repo = new TilesetRepository())
-                {
-                    Tileset tileset = repo.GetByID(e.TilesetResourceID);
-                    tileset.TileList = tileDTOs;
-
-                    repo.Update(tileset);
-                }
-
-            }
-            catch
-            {
-                throw;
-            }
-        }
 
         #endregion
 

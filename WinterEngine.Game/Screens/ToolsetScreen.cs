@@ -25,6 +25,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess.Repositories;
+using System.Linq;
 
 namespace WinterEngine.Game.Screens
 {
@@ -216,6 +217,22 @@ namespace WinterEngine.Game.Screens
         }
         private void SaveTileset(object sender, GameObjectSaveEventArgs e)
         {
+            e.ActiveTileset.TileList = (from tile
+                                        in TilesetEditorEntityInstance.TileList
+                                        select new Tile
+                                        {
+                                            TextureCellX = tile.SpriteSheetColumn,
+                                            TextureCellY = tile.SpriteSheetRow,
+                                            TilesetID = e.ActiveTileset.ResourceID,
+                                            CollisionBoxes = (from box
+                                                              in tile.CollisionBoxList
+                                                              select new TileCollisionBox
+                                                              {
+                                                                  IsPassable = box.IsPassable,
+                                                                  TileLocationIndex = box.TileIndex
+                                                              }).ToList()
+                                        }).ToList();
+
             using (TilesetRepository repo = new TilesetRepository())
             {
                 repo.Upsert(e.ActiveTileset);
