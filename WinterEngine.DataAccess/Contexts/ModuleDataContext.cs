@@ -5,27 +5,27 @@ namespace WinterEngine.DataAccess.Contexts
 {
     public class ModuleDataContext : DbContext
     {
-        public DbSet<Area> Areas { get; set; }
-        public DbSet<Creature> Creatures { get; set; }
-        public DbSet<Item> Items { get; set; }
-        public DbSet<Placeable> Placeables { get; set; }
-        public DbSet<Category> ResourceCategories { get; set; }
-        public DbSet<GameModule> Modules { get; set; }
-        public DbSet<Race> Races { get; set; }
-        public DbSet<ItemProperty> ItemProperties { get; set; }
-        public DbSet<CharacterClass> CharacterClasses { get; set; }
-        public DbSet<Ability> Abilities { get; set; }
-        public DbSet<ItemType> ItemTypes { get; set; }
-        public DbSet<Tileset> Tilesets { get; set; }
-        public DbSet<Tile> Tiles { get; set; }
-        public DbSet<TileCollisionBox> TileCollisionBoxes { get; set; }
-        public DbSet<ContentPackage> ContentPackages { get; set; }
-        public DbSet<ContentPackageResource> ContentPackageResources { get; set; }
-        public DbSet<Conversation> Conversations { get; set; }
-        public DbSet<Script> Scripts { get; set; }
-        public DbSet<LocalVariable> LocalVariables { get; set; }
-        public DbSet<Faction> Factions { get; set; }
-        public DbSet<Gender> Genders { get; set; }
+        public virtual DbSet<Area> Areas { get; set; }
+        public virtual DbSet<Creature> Creatures { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<Placeable> Placeables { get; set; }
+        public virtual DbSet<Category> ResourceCategories { get; set; }
+        public virtual DbSet<GameModule> Modules { get; set; }
+        public virtual DbSet<Race> Races { get; set; }
+        public virtual DbSet<ItemProperty> ItemProperties { get; set; }
+        public virtual DbSet<CharacterClass> CharacterClasses { get; set; }
+        public virtual DbSet<Ability> Abilities { get; set; }
+        public virtual DbSet<ItemType> ItemTypes { get; set; }
+        public virtual DbSet<Tileset> Tilesets { get; set; }
+        public virtual DbSet<Tile> Tiles { get; set; }
+        public virtual DbSet<TileCollisionBox> TileCollisionBoxes { get; set; }
+        public virtual DbSet<ContentPackage> ContentPackages { get; set; }
+        public virtual DbSet<ContentPackageResource> ContentPackageResources { get; set; }
+        public virtual DbSet<Conversation> Conversations { get; set; }
+        public virtual DbSet<Script> Scripts { get; set; }
+        public virtual DbSet<LocalVariable> LocalVariables { get; set; }
+        public virtual DbSet<Faction> Factions { get; set; }
+        public virtual DbSet<Gender> Genders { get; set; }
         
         public ModuleDataContext()
         {
