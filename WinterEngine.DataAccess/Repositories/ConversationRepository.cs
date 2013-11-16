@@ -54,7 +54,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// If a conversation does not exist by newConversation's resref, it will be added to the database.
         /// </summary>
         /// <param name="conversation">The new conversation to upsert.</param>
-        public void Save(Conversation conversation)
+        public Conversation Save(Conversation conversation)
         {
             if (conversation.ResourceID <= 0)
             {
@@ -64,6 +64,12 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(conversation);
             }
+            return conversation;
+        }
+
+        public void Save(IEnumerable<Conversation> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -115,11 +121,16 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Conversations.Remove(conversation);
         }
 
+        public void Delete(IEnumerable<Conversation> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Returns all of the conversations from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Conversation> GetAll()
+        public IEnumerable<Conversation> GetAll()
         {
             return _context.Conversations.ToList();
         }
@@ -152,7 +163,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// Returns all of the conversations in a specified category from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Conversation> GetAllByResourceCategory(Category resourceCategory)
+        public IEnumerable<Conversation> GetAllByResourceCategory(Category resourceCategory)
         {
             return _context.Conversations.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }

@@ -48,7 +48,7 @@ namespace WinterEngine.DataAccess
         /// If an item does not exist by newItem's resref, it will be added to the database.
         /// </summary>
         /// <param name="newItem">The new item to upsert.</param>
-        public void Save(Item item)
+        public Item Save(Item item)
         {
             if (item.ResourceID <= 0)
             {
@@ -58,6 +58,12 @@ namespace WinterEngine.DataAccess
             {
                 Update(item);
             }
+            return item;
+        }
+
+        public void Save(IEnumerable<Item> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -109,11 +115,16 @@ namespace WinterEngine.DataAccess
             _context.Items.Remove(item);
         }
 
+        public void Delete(IEnumerable<Item> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Returns all of the items from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Item> GetAll()
+        public IEnumerable<Item> GetAll()
         {
             return _context.Items.ToList();
         }
@@ -146,7 +157,7 @@ namespace WinterEngine.DataAccess
         /// Returns all of the items in a specified category from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Item> GetAllByResourceCategory(Category resourceCategory)
+        public IEnumerable<Item> GetAllByResourceCategory(Category resourceCategory)
         {
             return _context.Items.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }

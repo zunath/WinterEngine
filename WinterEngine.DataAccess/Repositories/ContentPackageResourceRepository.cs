@@ -41,7 +41,7 @@ namespace WinterEngine.DataAccess.Repositories
             _context.ContentPackageResources.AddRange(resourceList);
         }
 
-        public void Save(ContentPackageResource resource)
+        public ContentPackageResource Save(ContentPackageResource resource)
         {
             if (resource.ResourceID <= 0)
             {
@@ -51,6 +51,12 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(resource);
             }
+            return resource;
+        }
+
+        public void Save(IEnumerable<ContentPackageResource> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(ContentPackageResource resource)
@@ -80,8 +86,13 @@ namespace WinterEngine.DataAccess.Repositories
             Delete(contPackResource);
         }
 
-        public List<ContentPackageResource> GetAll()
-                                                {
+        public void Delete(IEnumerable<ContentPackageResource> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ContentPackageResource> GetAll()
+        {
             return _context.ContentPackageResources.ToList();
         }
 

@@ -52,7 +52,7 @@ namespace WinterEngine.DataAccess
         /// If an area does not exist by newArea's resref, it will be added to the database.
         /// </summary>
         /// <param name="area">The new area to upsert.</param>
-        public void Save(Area area)
+        public Area Save(Area area)
         {
             if (area.ResourceID <= 0)
             {
@@ -62,6 +62,13 @@ namespace WinterEngine.DataAccess
             {
                 Update(area);
             }
+
+            return area;
+        }
+
+        public void Save(IEnumerable<Area> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -108,11 +115,16 @@ namespace WinterEngine.DataAccess
             _context.Areas.Remove(area);
         }
 
+        public void Delete(IEnumerable<Area> area)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Returns all of the areas from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Area> GetAll()
+        public IEnumerable<Area> GetAll()
         {
             return _context.Areas.ToList();
         }
@@ -132,7 +144,7 @@ namespace WinterEngine.DataAccess
         /// Returns all of the areas in a specified category from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Area> GetAllByResourceCategory(Category resourceCategory)
+        public IEnumerable<Area> GetAllByResourceCategory(Category resourceCategory)
         {
             var result = _context.Areas.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
             return result;

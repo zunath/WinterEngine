@@ -65,7 +65,7 @@ namespace WinterEngine.DataAccess
             _context.ItemTypes.AddRange(itemTypeList);
         }
 
-        public void Save(ItemType itemType)
+        public ItemType Save(ItemType itemType)
         {
             if (itemType.ResourceID <= 0)
             {
@@ -75,6 +75,12 @@ namespace WinterEngine.DataAccess
             {
                 Update(itemType);
             }
+            return itemType;
+        }
+
+        public void Save(IEnumerable<ItemType> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -106,11 +112,16 @@ namespace WinterEngine.DataAccess
             Delete(item);
         }
 
+        public void Delete(IEnumerable<ItemType> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Returns all item types from the database.
         /// </summary>
         /// <returns></returns>
-        public List<ItemType> GetAll()
+        public IEnumerable<ItemType> GetAll()
         {
             return _context.ItemTypes.ToList();
         }

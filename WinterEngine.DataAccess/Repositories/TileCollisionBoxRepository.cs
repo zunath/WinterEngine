@@ -37,7 +37,7 @@ namespace WinterEngine.DataAccess.Repositories
             _context.TileCollisionBoxes.AddRange(boxes);
         }
 
-        public void Save(TileCollisionBox box)
+        public TileCollisionBox Save(TileCollisionBox box)
         {
             if (box.CollisionBoxID <= 0)
             {
@@ -47,6 +47,12 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(box);
             }
+            return box;
+        }
+
+        public void Save(IEnumerable<TileCollisionBox> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(TileCollisionBox box)
@@ -68,7 +74,12 @@ namespace WinterEngine.DataAccess.Repositories
             Delete(tileCollisionBox);
         }
 
-        public List<TileCollisionBox> GetAll()
+        public void Delete(IEnumerable<TileCollisionBox> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<TileCollisionBox> GetAll()
         {
             return _context.TileCollisionBoxes.ToList();
         }

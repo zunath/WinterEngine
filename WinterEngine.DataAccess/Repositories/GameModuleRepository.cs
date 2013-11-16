@@ -14,7 +14,7 @@ namespace WinterEngine.DataAccess
     /// <summary>
     /// Repository for accessing module-related data from the database.
     /// </summary>
-    public class GameModuleRepository : IGenericRepository<GameModule>
+    public class GameModuleRepository : IGenericRepository<GameModule>, IGameModuleRepository
     {
 
         private readonly ModuleDataContext _context;
@@ -43,7 +43,12 @@ namespace WinterEngine.DataAccess
             throw new NotImplementedException();
         }
 
-        public void Save(GameModule entity)
+        public GameModule Save(GameModule entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(IEnumerable<GameModule> entityList)
         {
             throw new NotImplementedException();
         }
@@ -76,7 +81,12 @@ namespace WinterEngine.DataAccess
             _context.Modules.Remove(module);
         }
 
-        public List<GameModule> GetAll()
+        public void Delete(IEnumerable<GameModule> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<GameModule> GetAll()
         {
             var result = _context.Modules.ToList();
             return result;
@@ -106,6 +116,11 @@ namespace WinterEngine.DataAccess
 
         #endregion
 
-                
+
+
+        public GameModule GetModule()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Factions.AddRange(factionList);
         }
 
-        public void Save(Faction faction)
+        public Faction Save(Faction faction)
         {
             if (faction.ResourceID <= 0)
             {
@@ -47,6 +47,12 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(faction);
             }
+            return faction;
+        }
+
+        public void Save(IEnumerable<Faction> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Faction faction)
@@ -69,7 +75,12 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Factions.Remove(faction);
         }
 
-        public List<Faction> GetAll()
+        public void Delete(IEnumerable<Faction> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Faction> GetAll()
         {
             return _context.Factions.ToList();
         }

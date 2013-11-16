@@ -54,7 +54,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// If an gender does not exist by newGender's ID, it will be added to the database.
         /// </summary>
         /// <param name="gender">The new gender to upsert.</param>
-        public void Save(Gender gender)
+        public Gender Save(Gender gender)
         {
             if (gender.ResourceID <= 0)
             {
@@ -64,6 +64,12 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(gender);
             }
+            return gender;
+        }
+
+        public void Save(IEnumerable<Gender> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -94,11 +100,16 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Genders.Remove(gender);
         }
 
+        public void Delete(IEnumerable<Gender> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Returns all of the genders from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Gender> GetAll()
+        public IEnumerable<Gender> GetAll()
         {
             return _context.Genders.ToList();
         }

@@ -50,7 +50,7 @@ namespace WinterEngine.DataAccess
         /// If an placeable does not exist by newPlaceable's resref, it will be added to the database.
         /// </summary>
         /// <param name="newItem">The new placeable to upsert.</param>
-        public void Save(Placeable placeable)
+        public Placeable Save(Placeable placeable)
         {
             if (placeable.ResourceID <= 0)
             {
@@ -60,6 +60,12 @@ namespace WinterEngine.DataAccess
             {
                 Update(placeable);
             }
+            return placeable;
+        }
+
+        public void Save(IEnumerable<Placeable> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -113,11 +119,16 @@ namespace WinterEngine.DataAccess
             _context.Placeables.Remove(placeable);
         }
 
+        public void Delete(IEnumerable<Placeable> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Returns all of the placeables from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Placeable> GetAll()
+        public IEnumerable<Placeable> GetAll()
         {
             return _context.Placeables.ToList();
         }
@@ -149,7 +160,7 @@ namespace WinterEngine.DataAccess
         /// Returns all of the placeables in a specified category from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Placeable> GetAllByResourceCategory(Category resourceCategory)
+        public IEnumerable<Placeable> GetAllByResourceCategory(Category resourceCategory)
         {
             return _context.Placeables.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }

@@ -53,7 +53,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// If an script does not exist by newScript's resref, it will be added to the database.
         /// </summary>
         /// <param name="script">The new script to upsert.</param>
-        public void Save(Script script)
+        public Script Save(Script script)
         {
             if (script.ResourceID <= 0)
             {
@@ -63,6 +63,12 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(script);
             }
+            return script;
+        }
+
+        public void Save(IEnumerable<Script> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -121,11 +127,16 @@ namespace WinterEngine.DataAccess.Repositories
       
         }
 
+        public void Delete(IEnumerable<Script> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Returns all of the scripts from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Script> GetAll()
+        public IEnumerable<Script> GetAll()
         {
             return _context.Scripts.ToList();
         }
@@ -157,7 +168,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// Returns all of the scripts in a specified category from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Script> GetAllByResourceCategory(Category resourceCategory)
+        public IEnumerable<Script> GetAllByResourceCategory(Category resourceCategory)
         {
             return _context.Scripts.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }

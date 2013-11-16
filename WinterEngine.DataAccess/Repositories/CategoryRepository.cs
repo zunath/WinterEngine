@@ -15,7 +15,7 @@ namespace WinterEngine.DataAccess
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class CategoryRepository : IGenericRepository<Category>
+    public class CategoryRepository : IGenericRepository<Category>, ICategoryRepository
     {
         #region Constructors
 
@@ -48,7 +48,7 @@ namespace WinterEngine.DataAccess
             _context.ResourceCategories.AddRange(categoryList);
         }
 
-        public void Save(Category category)
+        public Category Save(Category category)
         {
             if (category.ResourceID <= 0)
             {
@@ -58,6 +58,13 @@ namespace WinterEngine.DataAccess
             {
                 Update(category);
             }
+
+            return category;
+        }
+
+        public void Save(IEnumerable<Category> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -89,11 +96,16 @@ namespace WinterEngine.DataAccess
             _context.ResourceCategories.Remove(category);
         }
 
+        public void Delete(IEnumerable<Category> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Returns all resource categories from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Category> GetAll()
+        public IEnumerable<Category> GetAll()
         {
             var result = _context.ResourceCategories.ToList();
             return result;
@@ -151,6 +163,16 @@ namespace WinterEngine.DataAccess
 
         #endregion
 
-        
+
+
+        public IEnumerable<Category> GetAllResourceCategoriesByResourceType(GameObjectTypeEnum resourceType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Category GetUncategorizedCategory(GameObjectTypeEnum resourceType)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

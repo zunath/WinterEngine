@@ -39,7 +39,7 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Tilesets.AddRange(tilesetList);
         }
 
-        public void Save(Tileset tileset)
+        public Tileset Save(Tileset tileset)
         {
             if (tileset.ResourceID <= 0)
             {
@@ -49,6 +49,12 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(tileset);
             }
+            return tileset;
+        }
+
+        public void Save(IEnumerable<Tileset> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Tileset newTileset)
@@ -71,7 +77,12 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Tilesets.Remove(tileset);
         }
 
-        public List<Tileset> GetAll()
+        public void Delete(IEnumerable<Tileset> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Tileset> GetAll()
         {
             return _context.Tilesets.ToList();
         }
@@ -86,7 +97,7 @@ namespace WinterEngine.DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        public List<Tileset> GetAllByResourceCategory(Category resourceCategory)
+        public IEnumerable<Tileset> GetAllByResourceCategory(Category resourceCategory)
         {
             return _context.Tilesets.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
         }

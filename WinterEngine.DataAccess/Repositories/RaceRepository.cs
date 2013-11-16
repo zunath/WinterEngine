@@ -36,7 +36,7 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Races.AddRange(raceList);
         }
 
-        public void Save(Race race)
+        public Race Save(Race race)
         {
             if (race.ResourceID <= 0)
             {
@@ -46,6 +46,12 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(race);
             }
+            return race;
+        }
+
+        public void Save(IEnumerable<Race> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Race race)
@@ -67,7 +73,12 @@ namespace WinterEngine.DataAccess.Repositories
             Delete(race);
         }
 
-        public List<Race> GetAll()
+        public void Delete(IEnumerable<Race> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Race> GetAll()
         {
             return _context.Races.ToList();
         }

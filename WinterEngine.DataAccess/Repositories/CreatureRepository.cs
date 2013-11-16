@@ -54,7 +54,7 @@ namespace WinterEngine.DataAccess
         /// If an creature does not exist by newCreature's resref, it will be added to the database.
         /// </summary>
         /// <param name="creature">The new creature to upsert.</param>
-        public void Save(Creature creature)
+        public Creature Save(Creature creature)
         {
             if (creature.ResourceID <= 0)
             {
@@ -64,6 +64,12 @@ namespace WinterEngine.DataAccess
             {
                 Update(creature);
             }
+            return creature;
+        }
+
+        public void Save(IEnumerable<Creature> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -113,11 +119,16 @@ namespace WinterEngine.DataAccess
             _context.Creatures.Remove(creature);
         }
 
+        public void Delete(IEnumerable<Creature> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Returns all of the creatures from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Creature> GetAll()
+        public IEnumerable<Creature> GetAll()
         {
             return _context.Creatures.ToList();
         }
@@ -149,7 +160,7 @@ namespace WinterEngine.DataAccess
         /// Returns all of the creatures in a specified category from the database.
         /// </summary>
         /// <returns></returns>
-        public List<Creature> GetAllByResourceCategory(Category resourceCategory)
+        public IEnumerable<Creature> GetAllByResourceCategory(Category resourceCategory)
         {
             return _context.Creatures.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }

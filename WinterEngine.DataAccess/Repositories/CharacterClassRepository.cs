@@ -38,7 +38,7 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
 
-        public void Save(CharacterClass characterClass)
+        public CharacterClass Save(CharacterClass characterClass)
         {
             if (characterClass.ResourceID <= 0)
             {
@@ -48,6 +48,12 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(characterClass);
             }
+            return characterClass;
+        }
+
+        public void Save(IEnumerable<CharacterClass> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(CharacterClass characterClass)
@@ -69,7 +75,12 @@ namespace WinterEngine.DataAccess.Repositories
             _context.CharacterClasses.Remove(charClass);
         }
 
-        public List<CharacterClass> GetAll()
+        public void Delete(IEnumerable<CharacterClass> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<CharacterClass> GetAll()
         {
             return _context.CharacterClasses.ToList();
         }

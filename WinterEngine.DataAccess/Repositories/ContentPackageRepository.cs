@@ -63,7 +63,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// If it already exists, the existing one will be updated with new values.
         /// </summary>
         /// <param name="package"></param>
-        public void Save(ContentPackage package)
+        public ContentPackage Save(ContentPackage package)
         {
             if (package.ResourceID <= 0)
             {
@@ -73,6 +73,13 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(package);
             }
+
+            return package;
+        }
+
+        public void Save(IEnumerable<ContentPackage> entityList)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -113,30 +120,40 @@ namespace WinterEngine.DataAccess.Repositories
             Delete(contPackage);
         }
 
-        public List<DropDownListUIObject> GetAllUIObjects()
+        public void Delete(IEnumerable<ContentPackage> entityList)
         {
-            List<DropDownListUIObject> items = (from contentPackage
-                                                in Context.ContentPackageRepository.Get()
-                                                select new DropDownListUIObject
-                                                {
-                                                    Name = contentPackage.Name,
-                                                    ResourceID = contentPackage.ResourceID
-                                                }).ToList();
-            return items;
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Returns true if a content package exists in the database.
-        /// Returns false if a content package does not exist in the database.
-        /// The content package's FileName property is used to check.
-        /// </summary>
-        /// <param name="package"></param>
-        /// <returns></returns>
-        public bool Exists(ContentPackage package)
+        public IEnumerable<ContentPackage> GetAll()
         {
-            ContentPackage dbPackage = _context.ContentPackages.SingleOrDefault(x => x.FileName == package.FileName);
-            return !Object.ReferenceEquals(dbPackage, null);
+            throw new NotImplementedException();
         }
+
+        //public List<DropDownListUIObject> GetAllUIObjects()
+        //{
+        //    List<DropDownListUIObject> items = (from contentPackage
+        //                                        in Context.ContentPackageRepository.Get()
+        //                                        select new DropDownListUIObject
+        //                                        {
+        //                                            Name = contentPackage.Name,
+        //                                            ResourceID = contentPackage.ResourceID
+        //                                        }).ToList();
+        //    return items;
+        //}
+
+        ///// <summary>
+        ///// Returns true if a content package exists in the database.
+        ///// Returns false if a content package does not exist in the database.
+        ///// The content package's FileName property is used to check.
+        ///// </summary>
+        ///// <param name="package"></param>
+        ///// <returns></returns>
+        //public bool Exists(ContentPackage package)
+        //{
+        //    ContentPackage dbPackage = _context.ContentPackages.SingleOrDefault(x => x.FileName == package.FileName);
+        //    return !Object.ReferenceEquals(dbPackage, null);
+        //}
 
         /// <summary>
         /// Returns the content package matching the packageID passed in.

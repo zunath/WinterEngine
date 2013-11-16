@@ -50,7 +50,7 @@ namespace WinterEngine.DataAccess.Repositories
         //    return items;
         //}
 
-        public void Save(ItemProperty itemProperty)
+        public ItemProperty Save(ItemProperty itemProperty)
         {
             if (itemProperty.ResourceID <= 0)
             {
@@ -60,8 +60,13 @@ namespace WinterEngine.DataAccess.Repositories
             {
                 Update(itemProperty);
             }
+            return itemProperty;
         }
-        
+
+        public void Save(IEnumerable<ItemProperty> entityList)
+        {
+            throw new NotImplementedException();
+        }
 
         public void Update(ItemProperty itemProperty)
         {
@@ -82,7 +87,12 @@ namespace WinterEngine.DataAccess.Repositories
             Delete(itemProperty);
         }
 
-        public List<ItemProperty> GetAll()
+        public void Delete(IEnumerable<ItemProperty> entityList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ItemProperty> GetAll()
         {
             return _context.ItemProperties.ToList();
         }
