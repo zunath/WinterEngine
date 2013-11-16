@@ -193,7 +193,8 @@ function PasteButtonClick(element) {
 
 function ModulePropertiesButtonClick(element) {
     if (IsMenuButtonDisabled($(element))) return;
-
+    
+    ToolsetViewModel.RefreshModuleProperties();
     $('#divModulePropertiesBox').dialog('open');
 }
 
@@ -208,8 +209,7 @@ function SaveModulePropertiesChanges() {
         $("#divModulePropertiesBox").tabs("option", "active", 2);
     }
     else {
-        var model = ko.viewmodel.toModel(ToolsetViewModel).ActiveModule;
-        Entity.SaveModuleProperties(JSON.stringify(model));
+        ToolsetViewModel.SaveModuleProperties();
     }
 }
 

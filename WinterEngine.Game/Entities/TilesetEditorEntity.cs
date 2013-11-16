@@ -173,20 +173,23 @@ namespace WinterEngine.Game.Entities
             }
             TileList.Clear();
 
-            List<TileCollisionBox> activeTilesetCollisionBoxes = new TileCollisionBoxRepository().GetByTilesetID(activeTileset.ResourceID);
-            
-            for (int currentColumn = 0; currentColumn < numberOfColumns; currentColumn++)
+            if (activeTileset != null)
             {
-                for (int currentRow = 0; currentRow < numberOfRows; currentRow++)
+                List<TileCollisionBox> activeTilesetCollisionBoxes = new TileCollisionBoxRepository().GetByTilesetID(activeTileset.ResourceID);
+
+                for (int currentColumn = 0; currentColumn < numberOfColumns; currentColumn++)
                 {
-                    Tile activeTile = activeTileset.TileList.SingleOrDefault(x => x.TextureCellX == currentColumn && x.TextureCellY == currentRow);
-                    TileEntity entity = TileEntityFactory.CreateNew();
-                    int tileID = activeTile == null ? 0 : activeTile.TileID;
+                    for (int currentRow = 0; currentRow < numberOfRows; currentRow++)
+                    {
+                        Tile activeTile = activeTileset.TileList.SingleOrDefault(x => x.TextureCellX == currentColumn && x.TextureCellY == currentRow);
+                        TileEntity entity = TileEntityFactory.CreateNew();
+                        int tileID = activeTile == null ? 0 : activeTile.TileID;
 
-                    entity.InitializeSprite(EntitySpriteSheet, currentRow, currentColumn);
-                    entity.InitializeCollisionBoxes(tileID, activeTilesetCollisionBoxes.Where(x => x.TileID == tileID).ToList());
+                        entity.InitializeSprite(EntitySpriteSheet, currentRow, currentColumn);
+                        entity.InitializeCollisionBoxes(tileID, activeTilesetCollisionBoxes.Where(x => x.TileID == tileID).ToList());
 
-                    tileIndex++;
+                        tileIndex++;
+                    }
                 }
             }
         }

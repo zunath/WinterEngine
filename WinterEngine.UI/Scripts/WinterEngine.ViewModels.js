@@ -9,15 +9,6 @@ function InitializeToolsetViewModel() {
     ToolsetViewModel.Refresh = function () {
         var parsedModel = JSON.parse(Entity.GetModelJSON());
         ko.viewmodel.updateFromModel(ToolsetViewModel, parsedModel);
-
-        if (ToolsetViewModel.IsObjectLoadedForCurrentObjectMode()) {
-            $('#btnObjectTabApplyChanges').button('enable');
-            $('#btnObjectTabDiscardChanges').button('enable');
-        }
-        else {
-            $('#btnObjectTabApplyChanges').button('disable');
-            $('#btnObjectTabDiscardChanges').button('disable');
-        }
     };
 
     ToolsetViewModel.RefreshModuleProperties = function () {
@@ -49,10 +40,7 @@ function InitializeToolsetViewModel() {
 
     ToolsetViewModel.RefreshObject = function (objectTypeName) {
         var parsedObject = JSON.parse(Entity.GetModelJSON())["Active" + objectTypeName];
-        var currentViewModel = ko.viewmodel.toModel(ToolsetViewModel);
-        currentViewModel["Active" + objectTypeName] = parsedObject;
-
-        ko.viewmodel.updateFromModel(ToolsetViewModel, currentViewModel);
+        ko.viewmodel.updateFromModel(ToolsetViewModel["Active" + objectTypeName], parsedObject);
     };
 
     ToolsetViewModel.RefreshStatusVariables = function () {
@@ -62,6 +50,11 @@ function InitializeToolsetViewModel() {
         ToolsetViewModel.CurrentObjectTreeSelector(parsedModel.CurrentObjectTreeSelector);
         ToolsetViewModel.IsObjectLoadedForCurrentObjectMode(parsedModel.IsObjectLoadedForCurrentObjectMode);
         ToolsetViewModel.IsModuleOpened(parsedModel.IsModuleOpened);
+    };
+
+    ToolsetViewModel.SaveModuleProperties = function () {
+        var model = ko.viewmodel.toModel(ToolsetViewModel).ActiveModule;
+        Entity.SaveModuleProperties(JSON.stringify(model));
     };
 
 }

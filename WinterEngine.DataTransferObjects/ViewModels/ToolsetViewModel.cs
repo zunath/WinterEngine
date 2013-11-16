@@ -22,14 +22,9 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             {
                 try
                 {
-                    if (String.IsNullOrWhiteSpace(CurrentObjectMode))
-                    {
-                        return GameObjectTypeEnum.Unknown;
-                    }
-                    else
-                    {
-                        return (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), CurrentObjectMode);
-                    }
+                    GameObjectTypeEnum gameObjectType = GameObjectTypeEnum.Unknown;
+                    Enum.TryParse<GameObjectTypeEnum>(CurrentObjectMode, out gameObjectType);
+                    return gameObjectType;
                 }
                 catch
                 {

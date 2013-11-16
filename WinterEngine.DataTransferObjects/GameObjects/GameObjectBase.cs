@@ -25,10 +25,6 @@ namespace WinterEngine.DataTransferObjects
         private int _graphicResourceID;
         private ContentPackageResource _graphicResource;
 
-        // Temporary fields (not stored in database)
-        private string _temporaryDisplayName;
-
-
         #endregion
 
         #region Properties
@@ -92,16 +88,6 @@ namespace WinterEngine.DataTransferObjects
             set { _resourceCategory = value; }
         }
 
-        /// <summary>
-        /// Gets or sets the temporary display name, for use with the ToString method.
-        /// </summary>
-        [NotMapped]
-        public string TemporaryDisplayName
-        {
-            get { return _temporaryDisplayName; }
-            set { _temporaryDisplayName = value; }
-        }
-
         [ForeignKey("GraphicResourceID")]
         [JsonIgnore]
         public virtual ContentPackageResource GraphicResource
@@ -136,22 +122,6 @@ namespace WinterEngine.DataTransferObjects
         #endregion
 
         #region Methods
-        #endregion
-
-        #region Overrides
-
-        public override string ToString()
-        {
-            if (String.IsNullOrWhiteSpace(TemporaryDisplayName))
-            {
-                return base.ToString();
-            }
-            else
-            {
-                return TemporaryDisplayName;
-            }
-        }
-
         #endregion
 
     }
