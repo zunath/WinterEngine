@@ -5,10 +5,9 @@ using System.Text;
 using Lidgren.Network;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataTransferObjects.GameObjects;
-using WinterEngine.Network.Packets;
-using WinterEngine.Network.Enums;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Paths;
+using WinterEngine.DataTransferObjects.Packets;
 
 namespace WinterEngine.Network.Listeners
 {

@@ -10,10 +10,9 @@ using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Paths;
-using WinterEngine.Network.BusinessObjects;
 using WinterEngine.Network.Configuration;
-using WinterEngine.Network.Enums;
-using WinterEngine.Network.Packets;
+using WinterEngine.DataTransferObjects.Enums;
+using WinterEngine.DataTransferObjects.Packets;
 
 namespace WinterEngine.Network.Listeners
 {
@@ -107,7 +106,7 @@ namespace WinterEngine.Network.Listeners
                 customPort = GameServerConfiguration.DefaultGamePort;
             }
 
-            Agent = new NetworkAgent(AgentRoleEnum.Server, GameServerConfiguration.ApplicationID, customPort);
+            Agent = new NetworkAgent(NetworkAgentRoleEnum.Server, GameServerConfiguration.ApplicationID, customPort);
             Agent.OnConnected += Agent_OnConnectionEstablished;
             Agent.OnDisconnected += Agent_OnDisconnected;
             this._contentPackages = contentPackages;
@@ -200,7 +199,7 @@ namespace WinterEngine.Network.Listeners
             RaiseOnLogMessageEvent("Connection established: " + e.Connection.RemoteEndPoint.Address + ":" + e.Connection.RemoteEndPoint.Port);
 
             // Send a request for the user's username.
-            RequestPacket packet = new RequestPacket(RequestTypeEnum.Username);
+            RequestPacket packet = new RequestPacket(PacketRequestTypeEnum.Username);
             Agent.SendPacket(packet, e.Connection, NetDeliveryMethod.ReliableUnordered);
         }
 

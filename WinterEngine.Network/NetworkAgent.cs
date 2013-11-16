@@ -4,10 +4,10 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Lidgren.Network;
 using ProtoBuf;
-using WinterEngine.Network.BusinessObjects;
 using WinterEngine.Network.Configuration;
-using WinterEngine.Network.Enums;
-using WinterEngine.Network.Packets;
+using WinterEngine.DataTransferObjects.Enums;
+using WinterEngine.DataTransferObjects.Packets;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
 
 namespace WinterEngine.Network
 {
@@ -17,7 +17,7 @@ namespace WinterEngine.Network
 
         private NetPeer _peer;
         private NetPeerConfiguration _configuration;
-        private AgentRoleEnum _role;
+        private NetworkAgentRoleEnum _role;
         private int _port;
         private NetOutgoingMessage _outgoingMessage;
         private List<NetIncomingMessage> _incomingMessages;
@@ -65,7 +65,7 @@ namespace WinterEngine.Network
         /// <summary>
         /// Customize appIdentifier. Note: Client and server appIdentifier must be the same.
         /// </summary>
-        public NetworkAgent(AgentRoleEnum role, string tag, int customPort)
+        public NetworkAgent(NetworkAgentRoleEnum role, string tag, int customPort)
         {
             _role = role;
             _configuration = new NetPeerConfiguration(tag);
@@ -107,7 +107,7 @@ namespace WinterEngine.Network
             #endif
 
 
-            if (_role == AgentRoleEnum.Server)
+            if (_role == NetworkAgentRoleEnum.Server)
             {
                 _configuration.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
                 _configuration.Port = _port;
@@ -116,7 +116,7 @@ namespace WinterEngine.Network
                 _peer = new NetServer(_configuration);
             }
 
-            else if (_role == AgentRoleEnum.Client)
+            else if (_role == NetworkAgentRoleEnum.Client)
             {
                 _configuration.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
                 //Casts the NetPeer to a NetClient
@@ -134,7 +134,7 @@ namespace WinterEngine.Network
         /// </summary>
         public void Connect(string ip)
         {
-            if (_role == AgentRoleEnum.Client)
+            if (_role == NetworkAgentRoleEnum.Client)
             {
                 _incomingMessages.Clear(); // Remove any old, out of date packets from being processed.
                 _peer.Connect(ip, _port);
