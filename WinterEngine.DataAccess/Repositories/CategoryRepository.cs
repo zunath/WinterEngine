@@ -15,7 +15,7 @@ namespace WinterEngine.DataAccess
     /// Data access class.
     /// Handles retrieving data from the database and returning DataTransferObjects (DTOs)
     /// </summary>
-    public class CategoryRepository : IResourceRepository<Category>
+    public class CategoryRepository : IGenericRepository<Category>
     {
         #region Constructors
 

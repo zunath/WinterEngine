@@ -8,7 +8,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class TileCollisionBoxRepository: IResourceRepository<TileCollisionBox>
+    public class TileCollisionBoxRepository : IGenericRepository<TileCollisionBox>
     {
         private readonly ModuleDataContext _context;
         private readonly bool _autoSaveChanges;

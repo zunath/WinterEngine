@@ -26,17 +26,17 @@ namespace WinterEngine.DataAccess.Factories
         [Inject] public IGameObjectRepository<Tileset> TilesetRepository { private get; set; }
         [Inject] public IGameObjectRepository<GameModule> GameModuleRepository { private get; set; }
         
-        [Inject] public IResourceRepository<Ability> AbilityRepository { private get; set; }        
-        [Inject] public IResourceRepository<Category> CategoryRepository { private get; set; }
-        [Inject] public IResourceRepository<CharacterClass> CharacterClassRepository { private get; set; }
-        [Inject] public IResourceRepository<ContentPackage> ContentPackageRepository { private get; set; }
-        [Inject] public IResourceRepository<ContentPackageResource> ContentPackageResourceRepository { private get; set; }
-        [Inject] public IResourceRepository<ItemProperty> ItemPropertyResource { private get; set; }
-        [Inject] public IResourceRepository<ItemType> ItemTypeRepository { private get; set; }
-        [Inject] public IResourceRepository<LocalVariable> LocalVariableRepository { private get; set; }
-        [Inject] public IResourceRepository<Race> RaceRepository { private get; set; }
-        [Inject] public IResourceRepository<Tile> TileRepository { private get; set; }
-        [Inject] public IResourceRepository<TileCollisionBox> TileCollisionBoxRepository { private get; set; }
+        [Inject] public IGenericRepository<Ability> AbilityRepository { private get; set; }        
+        [Inject] public IGenericRepository<Category> CategoryRepository { private get; set; }
+        [Inject] public IGenericRepository<CharacterClass> CharacterClassRepository { private get; set; }
+        [Inject] public IGenericRepository<ContentPackage> ContentPackageRepository { private get; set; }
+        [Inject] public IGenericRepository<ContentPackageResource> ContentPackageResourceRepository { private get; set; }
+        [Inject] public IGenericRepository<ItemProperty> ItemPropertyResource { private get; set; }
+        [Inject] public IGenericRepository<ItemType> ItemTypeRepository { private get; set; }
+        [Inject] public IGenericRepository<LocalVariable> LocalVariableRepository { private get; set; }
+        [Inject] public IGenericRepository<Race> RaceRepository { private get; set; }
+        [Inject] public IGenericRepository<Tile> TileRepository { private get; set; }
+        [Inject] public IGenericRepository<TileCollisionBox> TileCollisionBoxRepository { private get; set; }
 
         public IGenericRepository<T> GetGenericRepository<T>()
         {
@@ -162,51 +162,51 @@ namespace WinterEngine.DataAccess.Factories
             }
         }
 
-        public IResourceRepository<T> GetResourceRepository<T>() where T : GameResourceBase
+        public IGenericRepository<T> GetResourceRepository<T>() where T : GameResourceBase
         {
             if (typeof(T) == typeof(Ability))
             {
-                return (IResourceRepository<T>)AbilityRepository;
+                return (IGenericRepository<T>)AbilityRepository;
             }
             if (typeof(T) == typeof(Category))
             {
-                return (IResourceRepository<T>)CategoryRepository;
+                return (IGenericRepository<T>)CategoryRepository;
             }
             if (typeof(T) == typeof(CharacterClass))
             {
-                return (IResourceRepository<T>)CharacterClassRepository;
+                return (IGenericRepository<T>)CharacterClassRepository;
             }
             if (typeof(T) == typeof(ContentPackage))
             {
-                return (IResourceRepository<T>)ContentPackageRepository;
+                return (IGenericRepository<T>)ContentPackageRepository;
             }
             if (typeof(T) == typeof(ContentPackageResource))
             {
-                return (IResourceRepository<T>)ContentPackageResourceRepository;
+                return (IGenericRepository<T>)ContentPackageResourceRepository;
             }
             if (typeof(T) == typeof(ItemProperty))
             {
-                return (IResourceRepository<T>)ItemPropertyResource;
+                return (IGenericRepository<T>)ItemPropertyResource;
             }
             if (typeof(T) == typeof(ItemType))
             {
-                return (IResourceRepository<T>)ItemTypeRepository;
+                return (IGenericRepository<T>)ItemTypeRepository;
             }
             if (typeof(T) == typeof(LocalVariable))
             {
-                return (IResourceRepository<T>)LocalVariableRepository;
+                return (IGenericRepository<T>)LocalVariableRepository;
             }
             if (typeof(T) == typeof(Race))
             {
-                return (IResourceRepository<T>)RaceRepository;
+                return (IGenericRepository<T>)RaceRepository;
             }
             if (typeof(T) == typeof(Tile))
             {
-                return (IResourceRepository<T>)TileRepository;
+                return (IGenericRepository<T>)TileRepository;
             }
             if (typeof(T) == typeof(TileCollisionBox))
             {
-                return (IResourceRepository<T>)TileCollisionBoxRepository;
+                return (IGenericRepository<T>)TileCollisionBoxRepository;
             }
             else
             {

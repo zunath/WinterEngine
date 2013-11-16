@@ -8,7 +8,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class RaceRepository : IResourceRepository<Race>
+    public class RaceRepository : IGenericRepository<Race>
     {
         #region Constructors
 

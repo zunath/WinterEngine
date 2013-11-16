@@ -11,6 +11,6 @@ namespace WinterEngine.DataAccess
     {
         IGenericRepository<T> GetGenericRepository<T>();
         IGameObjectRepository<T> GetGameObjectRepository<T>() where T : GameObjectBase;
-        IResourceRepository<T> GetResourceRepository<T>() where T : GameResourceBase;
+        IGenericRepository<T> GetResourceRepository<T>() where T : GameResourceBase;
     }
 }

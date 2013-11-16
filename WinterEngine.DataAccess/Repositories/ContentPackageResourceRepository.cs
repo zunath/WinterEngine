@@ -12,7 +12,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class ContentPackageResourceRepository : IResourceRepository<ContentPackageResource>
+    public class ContentPackageResourceRepository : IGenericRepository<ContentPackageResource>
     {
 
         private readonly ModuleDataContext _context;

@@ -114,7 +114,6 @@
     <Compile Include="Repositories\DefaultObjectRepository.cs" />
     <Compile Include="Repositories\FactionRepository.cs" />
     <Compile Include="Repositories\GenderRepository.cs" />
-    <Compile Include="Interfaces\IGameModuleRepository.cs" />
     <Compile Include="Repositories\ItemPropertyRepository.cs" />
     <Compile Include="Interfaces\IRepositoryFactory.cs" />
     <Compile Include="Interfaces\IRepositoryInterfaces.cs" />

@@ -11,7 +11,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class GenderRepository : IResourceRepository<Gender>
+    public class GenderRepository : IGenericRepository<Gender>
     {
 
         private readonly ModuleDataContext _context;

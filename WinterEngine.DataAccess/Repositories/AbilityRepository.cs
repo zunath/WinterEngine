@@ -9,7 +9,7 @@ using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
-    public class AbilityRepository : IResourceRepository<Ability>
+    public class AbilityRepository : IGenericRepository<Ability>
     {
 
         private readonly ModuleDataContext _context;
@@ -28,85 +28,84 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        public Ability Add(Ability ability)
+        private Ability SaveInternal(Ability ability, bool saveChanges = true)
         {
-            return _context.Abilities.Add(ability);
-        }
-
-        public void Add(List<Ability> abilityList)
-        {
-            _context.Abilities.AddRange(abilityList);
-        }
-
-        public void Save(Ability ability)
-        {
-            //todo need to return an id somehow
+            Ability retAbility;
             if (ability.ResourceID <= 0)
             {
-                _context.Abilities.Add(ability);
+                retAbility = _context.Abilities.Add(ability);
             }
             else
             {
-                Update(ability);
+                retAbility = _context.Abilities.SingleOrDefault(x => x.ResourceID == ability.ResourceID);
+                if (retAbility == null) return null;
+                _context.Entry(retAbility).CurrentValues.SetValues(ability);
+                
             }
-        }       
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
 
-        public void Update(Ability ability)
+            return retAbility;
+        }
+
+        public Ability Save(Ability ability)
         {
-            Faction dbFaction = _context.Factions.Where(x => x.ResourceID == ability.ResourceID).SingleOrDefault();
-            if (dbFaction == null) return;
+            return SaveInternal(ability, true);
+        }
 
-            _context.Entry(dbFaction).CurrentValues.SetValues(ability);
+        public void Save(IEnumerable<Ability> abilities)
+        {
+            foreach (Ability current in abilities)
+            {
+                SaveInternal(current, false);
+            }
+            _context.SaveChanges();
+        }
+
+        private void DeleteInternal(Ability ability, bool saveChanges = true)
+        {
+            Ability dbAbility = _context.Abilities.SingleOrDefault(x => x.ResourceID == ability.ResourceID);
+            if (dbAbility == null) return;
+
+            _context.Abilities.Remove(ability);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
         }
 
         public void Delete(Ability ability)
         {
-            _context.Abilities.Remove(ability);
+            DeleteInternal(ability);
         }
 
         public void Delete(int resourceID)
         {
-            var ability = _context.Abilities.Find(resourceID);
-            _context.Abilities.Remove(ability);
+            Ability ability = _context.Abilities.Find(resourceID);
+            DeleteInternal(ability);
         }
 
-        public List<Ability> GetAll()
+        public void Delete(IEnumerable<Ability> abilities)
         {
-            return _context.Abilities.ToList();
-        }
-
-        public Ability GetByID(int abilityID)
-        {
-            return _context.Abilities.Where(x => x.ResourceID == abilityID).SingleOrDefault();
-        }
-
-        public void ApplyChanges()
-        {
+            foreach (Ability ability in abilities)
+            {
+                DeleteInternal(ability, false);
+            }
             _context.SaveChanges();
         }
 
-        //public bool Exists(Ability ability)
-        //{
-        //    Ability dbAbility = _context.Abilities.Where(x => x.ResourceID == ability.ResourceID).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbAbility, null);
-        //}
+        public IEnumerable<Ability> GetAll()
+        {
+            return _context.Abilities;
+        }
 
-        
-
-        //public int GetDefaultResourceID()
-        //{
-        //    Ability defaultObject = _context.Abilities.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
-
-        
-
-        //public int GetDefaultResourceID(GameObjectTypeEnum resourceType)
-        //{
-        //    Category defaultObject = _context.Abilities.Where(x => x.IsDefault && x.ResourceType == resourceType).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
-
+        public Ability GetByID(int resourceID)
+        {
+            return _context.Abilities.SingleOrDefault(x => x.ResourceID == resourceID);
+        }
 
         #endregion
     }
