@@ -8,7 +8,7 @@ namespace WinterEngine.Library.Managers
 {
     public interface IModuleManager
     {
-        bool CreateModule(GameModule module);
+        bool CreateModule();
         void SaveModule(string path);
         void SaveModule();
         void OpenModule(string path);

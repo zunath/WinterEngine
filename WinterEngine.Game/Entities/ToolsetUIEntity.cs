@@ -42,7 +42,7 @@ namespace WinterEngine.Game.Entities
         public IGameObjectFactory _gameObjectFactory { get; set; }
         [Inject]
         public IGameResourceManager _resourceManager { get; set; }
-        
+
         #endregion
 
         #region Properties
@@ -55,7 +55,7 @@ namespace WinterEngine.Game.Entities
                 return _viewModel;
             }
 
-            }
+        }
 
         #endregion
 
@@ -413,6 +413,29 @@ namespace WinterEngine.Game.Entities
                 newCategory.ResourceID);
         }
 
+        private void SaveArea(object sender, JavascriptMethodEventArgs e)
+        {
+            bool duplicateResref = false;
+            string name = e.Arguments[0];
+            string tag = e.Arguments[1];
+            string resref = e.Arguments[2];
+            int categoryID = (int)e.Arguments[3];
+
+            Area area = _gameObjectFactory.Create(GameObjectTypeEnum.Area) as Area;
+            area.Name = name;
+            area.Tag = tag;
+            area.Resref = resref;
+
+            area = _repositoryFactory.GetGameObjectRepository<Area>().Add(area);
+
+
+            AsyncJavascriptCallback("CreateNewObject_Callback",
+                duplicateResref,
+                name,
+                area.ResourceID);
+        }
+
+
         private void AddNewObject(object sender, JavascriptMethodEventArgs e)
         {
             try
@@ -425,6 +448,7 @@ namespace WinterEngine.Game.Entities
                 int categoryID = (int)e.Arguments[3];
                 GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[4]);
                 int resourceID = 0;
+
 
                 if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
                 {
@@ -552,21 +576,21 @@ namespace WinterEngine.Game.Entities
             //using (CategoryRepository repo = new CategoryRepository())
             //{
             Category dbCategory = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
-                if (!dbCategory.IsSystemResource)
-                {
-                    dbCategory.Name = name;
-                }
-                else
-                {
-                    error = ErrorTypeEnum.CannotChangeSystemResource;
-                }
+            if (!dbCategory.IsSystemResource)
+            {
+                dbCategory.Name = name;
             }
-
+            else
+            {
+                error = ErrorTypeEnum.CannotChangeSystemResource;
+            }
+            
             AsyncJavascriptCallback("RenameObject_Callback",
                 error == ErrorTypeEnum.None ? true : false,
                 EnumerationHelper.GetEnumerationDescription(error),
                 name);
         }
+
 
         #endregion
 
@@ -726,10 +750,9 @@ namespace WinterEngine.Game.Entities
         {
             ClearViewModelPopulation();
 
-            using (GameModuleRepository repo = new GameModuleRepository())
-            {
-                ViewModel.ActiveModule = repo.GetModule();
-            }
+            // TODO: Consider adding new interface
+            ViewModel.ActiveModule = _repositoryFactory.GetGameObjectRepository<GameModule>().GetAll().SingleOrDefault();
+            ViewModel.TilesetSpriteSheetsList = _repositoryFactory
 
             using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
             {

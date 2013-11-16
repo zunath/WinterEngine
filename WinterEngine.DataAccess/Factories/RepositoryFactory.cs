@@ -37,7 +37,7 @@ namespace WinterEngine.DataAccess.Factories
         [Inject] public IResourceRepository<Race> RaceRepository { private get; set; }
         [Inject] public IResourceRepository<Tile> TileRepository { private get; set; }
         [Inject] public IResourceRepository<TileCollisionBox> TileCollisionBoxRepository { private get; set; }
-        
+
         public IGenericRepository<T> GetGenericRepository<T>()
         {
             if(typeof(T) == typeof(Area))
@@ -213,6 +213,5 @@ namespace WinterEngine.DataAccess.Factories
                 throw new NotImplementedException();
             }
         }
-    
     }
 }
