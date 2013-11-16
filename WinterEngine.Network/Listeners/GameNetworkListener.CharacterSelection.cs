@@ -5,10 +5,9 @@ using System.Text;
 using Lidgren.Network;
 using WinterEngine.DataAccess.FileAccess;
 using WinterEngine.DataTransferObjects.GameObjects;
-using WinterEngine.Network.Packets;
-using WinterEngine.Network.Enums;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Paths;
+using WinterEngine.DataTransferObjects.Packets;
 
 namespace WinterEngine.Network.Listeners
 {
@@ -36,7 +35,7 @@ namespace WinterEngine.Network.Listeners
                 string username = ConnectionUsernamesDictionary[packet.SenderConnection];
                 PlayerCharacterFileAccess repo = new PlayerCharacterFileAccess();
                 
-                characterList = repo.GetCharactersByUsername(username);
+                    characterList = repo.GetCharactersByUsername(username);
                 
 
                 CharacterSelectionPacket resultPacket = new CharacterSelectionPacket
@@ -64,7 +63,7 @@ namespace WinterEngine.Network.Listeners
                 string filePath = DirectoryPaths.CharacterVaultDirectoryPath + ConnectionUsernamesDictionary[packet.SenderConnection] + "/" + packet.FileName;
 
                 PlayerCharacterFileAccess repo = new PlayerCharacterFileAccess();
-                responseType = repo.DeletePlayerCharacterFile(filePath);
+                    responseType = repo.DeletePlayerCharacterFile(filePath);
                 
             }
             else

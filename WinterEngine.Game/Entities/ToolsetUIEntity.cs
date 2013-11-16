@@ -33,7 +33,7 @@ namespace WinterEngine.Game.Entities
         public ToolsetViewModel _viewModel { get; set; }
         public FileExtensionFactory _extensionFactory { get; set; }
         public JsonSerializerSettings _serializerSettings { get; set; }
-
+        
         [Inject]
         public ModuleManager _moduleManager { get; set; }
         [Inject]
@@ -55,7 +55,7 @@ namespace WinterEngine.Game.Entities
                 return _viewModel;
             }
 
-        }
+            }
 
         #endregion
 
@@ -363,10 +363,6 @@ namespace WinterEngine.Game.Entities
                 JSTreeNode scriptRootNode;
                 JSTreeNode tilesetRootNode;
 
-                /*
-                 * I don't think the repositories need to generate JSTreeNode.
-                 */
-
                 // Get each category's children for each object type
                 areaRootNode = _repositoryFactory.GetGameObjectRepository<Area>().GenerateJSTreeHierarchy();
                 creatureRootNode = _repositoryFactory.GetGameObjectRepository<Creature>().GenerateJSTreeHierarchy();
@@ -455,6 +451,8 @@ namespace WinterEngine.Game.Entities
                 
                 }
 
+                PopulateToolsetViewModel();
+
                 AsyncJavascriptCallback("CreateNewObject_Callback",
                     error == ErrorTypeEnum.None ? true : false,
                     EnumerationHelper.GetEnumerationDescription(error),
@@ -468,7 +466,6 @@ namespace WinterEngine.Game.Entities
             }
         }
 
-        //TODO: It would be nice to get rid of this
         private void DeleteCategory(object sender, JavascriptMethodEventArgs e)
         {
             ErrorTypeEnum error = ErrorTypeEnum.None;
@@ -490,6 +487,8 @@ namespace WinterEngine.Game.Entities
             {
                 RefreshAreaEntity(this, new ObjectSelectionEventArgs(0));
             }
+
+            PopulateToolsetViewModel();
 
             AsyncJavascriptCallback("DeleteObject_Callback",
                 error == ErrorTypeEnum.None ? true : false,
@@ -537,12 +536,13 @@ namespace WinterEngine.Game.Entities
                 ViewModel.ActiveTileset = new Tileset();
             }
 
+            PopulateToolsetViewModel();
+
             AsyncJavascriptCallback("DeleteObject_Callback", 
                 error == ErrorTypeEnum.None ? true : false,
                 EnumerationHelper.GetEnumerationDescription(error));
         }
 
-        //Todo: Why isn't a save good for this?
         private void RenameCategory(object sender, JavascriptMethodEventArgs e)
         {
             ErrorTypeEnum error = ErrorTypeEnum.None;
@@ -555,39 +555,6 @@ namespace WinterEngine.Game.Entities
                 if (!dbCategory.IsSystemResource)
                 {
                     dbCategory.Name = name;
-                }
-                else
-                {
-                    error = ErrorTypeEnum.CannotChangeSystemResource;
-                }
-            //}
-
-            AsyncJavascriptCallback("RenameObject_Callback",
-                error == ErrorTypeEnum.None ? true : false,
-                EnumerationHelper.GetEnumerationDescription(error),
-                name);
-        }
-
-        private void RenameObject(object sender, JavascriptMethodEventArgs e)
-        {
-            ErrorTypeEnum error = ErrorTypeEnum.None;
-            GameObjectFactory factory = new GameObjectFactory();
-            string name = e.Arguments[0];
-            int resourceID = (int)e.Arguments[1];
-            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[2]);
-
-            GameObjectBase dbObject = factory.GetFromDatabaseByID(resourceID, gameObjectType);
-
-            if (dbObject == null)
-            {
-                error = ErrorTypeEnum.ObjectResrefDoesNotExist;
-            }
-            else
-            {
-                if (!dbObject.IsSystemResource)
-                {
-                    dbObject.Name = name;
-                    factory.UpdateInDatabase(dbObject);
                 }
                 else
                 {
@@ -628,6 +595,7 @@ namespace WinterEngine.Game.Entities
             
             if (ViewModel.GameObjectType == GameObjectTypeEnum.Area)
             {
+                ViewModel.ActiveArea = gameObject as Area;
                 RefreshAreaEntity(this, eventArgs);
             }
             else if (ViewModel.GameObjectType == GameObjectTypeEnum.Conversation)
@@ -653,7 +621,7 @@ namespace WinterEngine.Game.Entities
             else if (ViewModel.GameObjectType == GameObjectTypeEnum.Tileset)
             {
                 ViewModel.ActiveTileset = gameObject as Tileset;
-                RaiseTilesetLoadEvent(ViewModel.ActiveTileset.GraphicResourceID);
+                RaiseTilesetLoadEvent(gameObject.GraphicResourceID);
             }
 
             AsyncJavascriptCallback("LoadObjectData_Callback");
@@ -676,46 +644,46 @@ namespace WinterEngine.Game.Entities
                 AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
             }
         }
-                
+
         private void SaveCreature(object sender, JavascriptMethodEventArgs e)
         {
             if (OnSaveCreature != null)
-                {
+            {
                 ViewModel.ActiveCreature = JsonConvert.DeserializeObject<Creature>(e.Arguments[0]);
                 OnSaveCreature(this, new GameObjectSaveEventArgs(ViewModel.ActiveCreature));
                 AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
             }
-                }
+        }
 
         private void SaveItem(object sender, JavascriptMethodEventArgs e)
         {
             if (OnSaveItem != null)
-                {
+            {
                 ViewModel.ActiveItem = JsonConvert.DeserializeObject<Item>(e.Arguments[0]);
                 OnSaveItem(this, new GameObjectSaveEventArgs(ViewModel.ActiveItem));
                 AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
             }
-                }
+        }
 
         private void SavePlaceable(object sender, JavascriptMethodEventArgs e)
         {
             if (OnSavePlaceable != null)
-                {
+            {
                 ViewModel.ActivePlaceable = JsonConvert.DeserializeObject<Placeable>(e.Arguments[0]);
                 OnSavePlaceable(this, new GameObjectSaveEventArgs(ViewModel.ActivePlaceable));
                 AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
-                }
-                }
+            }
+        }
 
         private void SaveConversation(object sender, JavascriptMethodEventArgs e)
-                {
+        {
             if (OnSaveConversation != null)
-                {
+            {
                 ViewModel.ActiveConversation = JsonConvert.DeserializeObject<Conversation>(e.Arguments[0]);
                 OnSaveConversation(this, new GameObjectSaveEventArgs(ViewModel.ActiveConversation));
                 AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
-                }
-                }
+            }
+        }
 
         private void SaveScript(object sender, JavascriptMethodEventArgs e)
         {
@@ -821,21 +789,20 @@ namespace WinterEngine.Game.Entities
 
         private void ChangeObjectMode(object sender, JavascriptMethodEventArgs e)
         {
-            if (ViewModel.IsModuleOpened)
-            {
-            ViewModel.CurrentObjectMode = e.Arguments[0];
-            ViewModel.CurrentObjectTreeSelector = e.Arguments[1];
-            ViewModel.CurrentObjectTabSelector = e.Arguments[2];
-            string mode = e.Arguments[0];
+                ViewModel.CurrentObjectMode = e.Arguments[0];
+                ViewModel.CurrentObjectTreeSelector = e.Arguments[1];
+                string mode = e.Arguments[0];
+            GameObjectTypeEnum gameObjectType = GameObjectTypeEnum.Unknown;
+            Enum.TryParse(mode, true, out gameObjectType);
 
-            // Inform subscribers (AKA: The screen) that the object mode has changed.
-            if (OnObjectModeChanged != null)
-            {
-                OnObjectModeChanged(this, new ObjectModeChangedEventArgs((GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), mode)));
-            }
+                // Inform subscribers (AKA: The screen) that the object mode has changed.
+                if (OnObjectModeChanged != null)
+                {
+                OnObjectModeChanged(this, new ObjectModeChangedEventArgs(gameObjectType));
+                }
 
-            AsyncJavascriptCallback("ChangeObjectMode_Callback");
-        }
+                AsyncJavascriptCallback("ChangeObjectMode_Callback");
+            
         }
 
         #endregion

@@ -22,10 +22,11 @@ using System.Diagnostics;
 using FlatRedBall.Screens;
 using WinterEngine.Game.Screens;
 using WinterEngine.Network;
-using WinterEngine.Network.Enums;
+using WinterEngine.DataTransferObjects.Enums;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.Game.Services;
+using WinterEngine.Network.Clients;
 
 namespace WinterEngine.Game.Entities
 {

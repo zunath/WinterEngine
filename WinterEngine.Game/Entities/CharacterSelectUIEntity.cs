@@ -22,10 +22,9 @@ using WinterEngine.Network.Clients;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.Game.Screens;
 using WinterEngine.Game.Services;
-using WinterEngine.Network.Enums;
-using WinterEngine.Network.BusinessObjects;
+using WinterEngine.DataTransferObjects.Enums;
 using WinterEngine.DataTransferObjects.GameObjects;
-using WinterEngine.Network.Packets;
+using WinterEngine.DataTransferObjects.Packets;
 using System.Web.Script.Serialization;
 using Lidgren.Network;
 using WinterEngine.DataTransferObjects.BusinessObjects;
@@ -106,7 +105,7 @@ namespace WinterEngine.Game.Entities
 
         private void InitializePage(object sender, JavascriptMethodEventArgs e)
         {
-            WinterEngineService.NetworkClient.SendRequest(RequestTypeEnum.CharacterSelection, NetDeliveryMethod.ReliableOrdered);
+            WinterEngineService.NetworkClient.SendRequest(PacketRequestTypeEnum.CharacterSelection, NetDeliveryMethod.ReliableOrdered);
         }
 
         private void NewCharacter(object sender, JavascriptMethodEventArgs e)

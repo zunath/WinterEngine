@@ -14,7 +14,6 @@ namespace WinterEngine.DataTransferObjects.ViewModels
     {
         public string CurrentObjectMode { get; set; }
         public string CurrentObjectTreeSelector { get; set; }
-        public string CurrentObjectTabSelector { get; set; }
 
         [JsonIgnore]
         public GameObjectTypeEnum GameObjectType
@@ -23,14 +22,9 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             {
                 try
                 {
-                    if (String.IsNullOrWhiteSpace(CurrentObjectMode))
-                    {
-                        return GameObjectTypeEnum.Unknown;
-                    }
-                    else
-                    {
-                        return (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), CurrentObjectMode);
-                    }
+                    GameObjectTypeEnum gameObjectType = GameObjectTypeEnum.Unknown;
+                    Enum.TryParse<GameObjectTypeEnum>(CurrentObjectMode, out gameObjectType);
+                    return gameObjectType;
                 }
                 catch
                 {
@@ -93,7 +87,6 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         {
             IsModuleOpened = false;
             CurrentObjectMode = "";
-            CurrentObjectTabSelector = "";
             CurrentObjectTreeSelector = "";
             ActiveModule = new GameModule(true);
             ActiveArea = new Area(true);

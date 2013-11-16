@@ -1,76 +1,10 @@
-﻿// Called from Toolset.TreeViews.js: OnTreeViewNodeSelected()
-function LoadObjectData(resourceID) {
+﻿function LoadObjectData(resourceID) {
     Entity.LoadObjectData(resourceID);
 }
 
 function LoadObjectData_Callback() {
-    var mode = ToolsetViewModel.CurrentObjectMode();
-    
-    if (mode == 'Area') {
-        $('.clsAreaObjectField').removeAttr('disabled');
-        $('.clsCreatureObjectField').attr('disabled', 'disabled');
-        $('.clsItemObjectField').attr('disabled', 'disabled');
-        $('.clsPlaceableObjectField').attr('disabled', 'disabled');
-        $('.clsConversationObjectField').attr('disabled', 'disabled');
-        $('.clsScriptObjectField').attr('disabled', 'disabled');
-        $('.clsTilesetObjectField').attr('disabled', 'disabled');
-    }
-    else if (mode == 'Creature') {
-        $('.clsAreaObjectField').attr('disabled', 'disabled');
-        $('.clsCreatureObjectField').removeAttr('disabled');
-        $('.clsItemObjectField').attr('disabled', 'disabled');
-        $('.clsPlaceableObjectField').attr('disabled', 'disabled');
-        $('.clsConversationObjectField').attr('disabled', 'disabled');
-        $('.clsScriptObjectField').attr('disabled', 'disabled');
-        $('.clsTilesetObjectField').attr('disabled', 'disabled');
-    }
-    else if (mode == 'Item') {
-        $('.clsAreaObjectField').attr('disabled', 'disabled');
-        $('.clsCreatureObjectField').attr('disabled', 'disabled');
-        $('.clsItemObjectField').removeAttr('disabled');
-        $('.clsPlaceableObjectField').attr('disabled', 'disabled');
-        $('.clsConversationObjectField').attr('disabled', 'disabled');
-        $('.clsScriptObjectField').attr('disabled', 'disabled');
-        $('.clsTilesetObjectField').attr('disabled', 'disabled');
-    }
-    else if (mode == 'Placeable') {
-        $('.clsAreaObjectField').attr('disabled', 'disabled');
-        $('.clsCreatureObjectField').attr('disabled', 'disabled');
-        $('.clsItemObjectField').attr('disabled', 'disabled');
-        $('.clsPlaceableObjectField').removeAttr('disabled');
-        $('.clsConversationObjectField').attr('disabled', 'disabled');
-        $('.clsScriptObjectField').attr('disabled', 'disabled');
-        $('.clsTilesetObjectField').attr('disabled', 'disabled');
-    }
-    else if (mode == 'Conversation') {
-        $('.clsAreaObjectField').attr('disabled', 'disabled');
-        $('.clsCreatureObjectField').attr('disabled', 'disabled');
-        $('.clsItemObjectField').attr('disabled', 'disabled');
-        $('.clsPlaceableObjectField').attr('disabled', 'disabled');
-        $('.clsConversationObjectField').removeAttr('disabled');
-        $('.clsScriptObjectField').attr('disabled', 'disabled');
-        $('.clsTilesetObjectField').attr('disabled', 'disabled');
-    }
-    else if (mode == 'Script') {
-        $('.clsAreaObjectField').attr('disabled', 'disabled');
-        $('.clsCreatureObjectField').attr('disabled', 'disabled');
-        $('.clsItemObjectField').attr('disabled', 'disabled');
-        $('.clsPlaceableObjectField').attr('disabled', 'disabled');
-        $('.clsConversationObjectField').attr('disabled', 'disabled');
-        $('.clsScriptObjectField').removeAttr('disabled');
-        $('.clsTilesetObjectField').attr('disabled', 'disabled');
-    }
-    else if (mode == 'Tileset') {
-        $('.clsAreaObjectField').attr('disabled', 'disabled');
-        $('.clsCreatureObjectField').attr('disabled', 'disabled');
-        $('.clsItemObjectField').attr('disabled', 'disabled');
-        $('.clsPlaceableObjectField').attr('disabled', 'disabled');
-        $('.clsConversationObjectField').attr('disabled', 'disabled');
-        $('.clsScriptObjectField').attr('disabled', 'disabled');
-        $('.clsTilesetObjectField').removeAttr('disabled');
-    }
-
-    ToolsetViewModel.Refresh();
+    ToolsetViewModel.RefreshActiveObject();
+    ToolsetViewModel.RefreshStatusVariables();
 }
 
 function ObjectTabApplyChanges() {
@@ -78,7 +12,7 @@ function ObjectTabApplyChanges() {
 }
 
 function ObjectTabApplyChanges_Callback() {
-    ToolsetViewModel.Refresh();
+    ToolsetViewModel.RefreshActiveObject();
 }
 
 function ObjectTabDiscardChanges() {
@@ -90,7 +24,9 @@ function ObjectTabDiscardChanges() {
 
 function SelectTilesetSpriteSheet() {
     var selectedSpritesheetID = parseInt($('#selTilesetDetails-Spritesheet option:selected').val());
-    Entity.LoadTilesetSpritesheet(selectedSpritesheetID);
+    if (selectedSpritesheetID > 0) {
+        Entity.LoadTilesetSpritesheet(selectedSpritesheetID);
+    }
 }
 
 function OpenEditLocalVariableBox(isModuleProperties, mode, variableObject) {

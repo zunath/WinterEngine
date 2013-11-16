@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.Network.Configuration;
-using WinterEngine.Network.Packets;
+using WinterEngine.DataTransferObjects.Packets;
 
 namespace WinterEngine.Network.Clients
 {

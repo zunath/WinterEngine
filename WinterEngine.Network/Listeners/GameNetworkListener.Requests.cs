@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Lidgren.Network;
-using WinterEngine.Network.Enums;
-using WinterEngine.Network.Packets;
+using WinterEngine.DataTransferObjects.Enums;
+using WinterEngine.DataTransferObjects.Packets;
 
 namespace WinterEngine.Network.Listeners
 {
@@ -30,7 +30,7 @@ namespace WinterEngine.Network.Listeners
 
             switch (packet.RequestType)
             {
-                case RequestTypeEnum.CharacterSelection:
+                case PacketRequestTypeEnum.CharacterSelection:
                     ProcessCharacterSelectionRequest(packet);
                     break;
                 default:

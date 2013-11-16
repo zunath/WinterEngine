@@ -25,6 +25,7 @@ using WinterEngine.DataTransferObjects;
 using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess.Repositories;
+using System.Linq;
 
 namespace WinterEngine.Game.Screens
 {
@@ -172,11 +173,11 @@ namespace WinterEngine.Game.Screens
         private void SaveArea(object sender, GameObjectSaveEventArgs e)
         {
             _repositoryFactory.GetGameObjectRepository<Area>().Upsert(e.ActiveArea);
-        }
+            }
         private void SaveCreature(object sender, GameObjectSaveEventArgs e)
         {
             _repositoryFactory.GetGameObjectRepository<Creature>().Upsert(e.ActiveCreature);
-        }
+            }
         private void SaveItem(object sender, GameObjectSaveEventArgs e)
         {
             _repositoryFactory.GetGameObjectRepository<Item>().Upsert(e.ActiveItem);
@@ -195,7 +196,26 @@ namespace WinterEngine.Game.Screens
         }
         private void SaveTileset(object sender, GameObjectSaveEventArgs e)
         {
-            _repositoryFactory.GetGameObjectRepository<Tileset>().Upsert(e.ActiveTileset);
+            e.ActiveTileset.TileList = (from tile
+                                        in TilesetEditorEntityInstance.TileList
+                                        select new Tile
+                                        {
+                                            TextureCellX = tile.SpriteSheetColumn,
+                                            TextureCellY = tile.SpriteSheetRow,
+                                            TilesetID = e.ActiveTileset.ResourceID,
+                                            CollisionBoxes = (from box
+                                                              in tile.CollisionBoxList
+                                                              select new TileCollisionBox
+                                                              {
+                                                                  IsPassable = box.IsPassable,
+                                                                  TileLocationIndex = box.TileIndex
+                                                              }).ToList()
+                                        }).ToList();
+
+            using (TilesetRepository repo = new TilesetRepository())
+            {
+                repo.Upsert(e.ActiveTileset);
+            }
         }
 
         #endregion

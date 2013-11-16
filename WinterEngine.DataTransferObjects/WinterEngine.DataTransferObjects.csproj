@@ -74,6 +74,9 @@
     <Reference Include="FlatRedBall.Content">
       <HintPath>..\WinterEngine.Game\Libraries\Xna4Pc\FlatRedBall.Content.dll</HintPath>
     </Reference>
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\References\Lidgren.Network.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Newtonsoft.Json">
@@ -106,9 +109,17 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\ConnectionAddress.cs" />
     <Compile Include="BusinessObjects\DefaultObjectIDs.cs" />
+    <Compile Include="BusinessObjects\FileTransferProgress.cs" />
+    <Compile Include="Enumerations\NetworkAgentRoleEnum.cs" />
+    <Compile Include="Enumerations\FileRequestTypeEnum.cs" />
     <Compile Include="Enumerations\GenderTypeEnum.cs" />
     <Compile Include="Enumerations\ModuleRebuildModeEnum.cs" />
+    <Compile Include="Enumerations\PacketRequestTypeEnum.cs" />
+    <Compile Include="Enumerations\UserProfileResponseTypeEnum.cs" />
+    <Compile Include="Enumerations\WebServiceMethodTypeEnum.cs" />
+    <Compile Include="EventArgsExtended\ConnectionStatusEventArgs.cs" />
     <Compile Include="EventArgsExtended\ObjectModeChangedEventArgs.cs" />
+    <Compile Include="EventArgsExtended\PacketReceivedEventArgs.cs" />
     <Compile Include="EventArgsExtended\PositionEventArgs.cs" />
     <Compile Include="EventArgsExtended\GameObjectSaveEventArgs.cs" />
     <Compile Include="EventArgsExtended\TilesetSelectionEventArgs.cs" />
@@ -117,6 +128,15 @@
     <Compile Include="Resources\GameResourceFactory.cs" />
     <Compile Include="Resources\GameResourceFactoryInterfaces.cs" />
     <Compile Include="GameObjects\Tileset.cs" />
+    <Compile Include="Packets\CharacterSelectionPacket.cs" />
+    <Compile Include="Packets\ContentPackageListPacket.cs" />
+    <Compile Include="Packets\DeleteCharacterPacket.cs" />
+    <Compile Include="Packets\FileRequestPacket.cs" />
+    <Compile Include="Packets\PacketBase.cs" />
+    <Compile Include="Packets\RequestPacket.cs" />
+    <Compile Include="Packets\StreamingFileDetailsPacket.cs" />
+    <Compile Include="Packets\StreamingFilePacket.cs" />
+    <Compile Include="Packets\UsernamePacket.cs" />
     <Compile Include="Resources\Faction.cs" />
     <Compile Include="Resources\Gender.cs" />
     <Compile Include="Resources\TileCollisionBox.cs" />

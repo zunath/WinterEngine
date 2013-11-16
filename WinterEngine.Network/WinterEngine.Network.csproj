@@ -76,33 +76,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\ConnectionStatusEventArgs.cs" />
-    <Compile Include="BusinessObjects\FileTransferProgress.cs" />
-    <Compile Include="BusinessObjects\PacketReceivedEventArgs.cs" />
     <Compile Include="Clients\GameNetworkClient.cs" />
     <Compile Include="Clients\MasterServerClient.cs" />
     <Compile Include="Configuration\GameServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />
-    <Compile Include="Enums\AgentRoleEnum.cs" />
-    <Compile Include="Enums\FileRequestTypeEnum.cs" />
-    <Compile Include="Enums\RequestTypeEnum.cs" />
-    <Compile Include="Enums\UserProfileResponseTypeEnum.cs" />
-    <Compile Include="Enums\WebServiceMethodTypeEnum.cs" />
     <Compile Include="Listeners\GameNetworkListener.CharacterSelection.cs" />
     <Compile Include="Listeners\GameNetworkListener.FileStreamer.cs" />
     <Compile Include="Listeners\GameNetworkListener.Requests.cs" />
-    <Compile Include="Packets\CharacterSelectionPacket.cs" />
-    <Compile Include="Packets\ContentPackageListPacket.cs" />
-    <Compile Include="Packets\DeleteCharacterPacket.cs" />
-    <Compile Include="Packets\FileRequestPacket.cs" />
-    <Compile Include="Packets\StreamingFileDetailsPacket.cs" />
-    <Compile Include="Packets\StreamingFilePacket.cs" />
-    <Compile Include="Packets\UsernamePacket.cs" />
-    <Compile Include="WebServiceClientUtility.cs" />
+    <Compile Include="Clients\WebServiceClientUtility.cs" />
     <Compile Include="Listeners\GameNetworkListener.cs" />
     <Compile Include="NetworkAgent.cs" />
-    <Compile Include="Packets\PacketBase.cs" />
-    <Compile Include="Packets\RequestPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

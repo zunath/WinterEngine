@@ -1,5 +1,8 @@
 ﻿
-<div id="divObjectTabContainerButtons" class="btn-group clsHidden">
-    <input id="btnObjectTabApplyChanges" type="button" class="btn btn-inverse" value="Apply Changes" onclick="ObjectTabApplyChanges();" />
-    <input id="btnObjectTabDiscardChanges" type="button" class="btn btn-inverse" value="Discard Changes" onclick="ObjectTabDiscardChanges();" />
+<div id="divObjectTabContainerButtons" class="btn-group" 
+    data-bind="css: { clsHidden: CurrentObjectMode() == '' }">
+    <input id="btnObjectTabApplyChanges" type="button" class="btn btn-inverse" value="Apply Changes" onclick="ObjectTabApplyChanges();" 
+        data-bind="enable: IsObjectLoadedForCurrentObjectMode" />
+    <input id="btnObjectTabDiscardChanges" type="button" class="btn btn-inverse" value="Discard Changes" onclick="ObjectTabDiscardChanges();" 
+        data-bind="enable: IsObjectLoadedForCurrentObjectMode" />
 </div>

@@ -51,7 +51,14 @@ namespace WinterEngine.Game.Entities
 		static List<string> mRegisteredUnloads = new List<string>();
 		static List<string> LoadedContentManagers = new List<string>();
 		
-		private PositionedObjectList<TileEntity> TileList;
+		private PositionedObjectList<TileEntity> mTileList;
+		public PositionedObjectList<TileEntity> TileList
+		{
+			get
+			{
+				return mTileList;
+			}
+		}
 		protected Layer LayerProvidedByContainer = null;
 
         public TilesetEditorEntity(string contentManagerName) :
@@ -73,7 +80,7 @@ namespace WinterEngine.Game.Entities
 		{
 			// Generated Initialize
 			LoadStaticContent(ContentManagerName);
-			TileList = new PositionedObjectList<TileEntity>();
+			mTileList = new PositionedObjectList<TileEntity>();
 			
 			PostInitialize();
 			if (addToManagers)

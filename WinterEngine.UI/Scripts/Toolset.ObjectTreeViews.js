@@ -79,7 +79,10 @@ function BuildObjectTreeViewContextMenu(node) {
 // Initializes a specified div selector as a tree view.
 function InitializeTreeView(selector, data) {
     $(selector).jstree({
-        "animation": 0,
+
+        "core": {
+            "animation": 0,
+        },
         "plugins": ["json_data", "ui", "themeroller", "sort", "crrm", "contextmenu", "types"],
         "json_data": {
             "data": [
@@ -133,11 +136,6 @@ function OnTreeViewNodeSelected() {
     else if (nodeType == 'object') {
         LoadObjectData(resourceID);
     }
-}
-
-// Convenience function to hide all tree view divs.
-function HideAllTreeViews() {
-    $('.clsTreeViewDiv').addClass('clsHidden');
 }
 
 // CALLBACK FUNCTION
@@ -212,6 +210,8 @@ function CreateNewObject_Callback(success, errorMessage, gameObjectType, name, r
         $(newObject).data('resourceid', resourceID);
         $(newObject).data('nodetype', 'object');
         CloseNewObjectBox();
+
+        ToolsetViewModel.Refresh();
     }
     else {
         $('#lblNewObjectErrors').text(errorMessage);
@@ -265,15 +265,6 @@ function DeleteObject_Callback(success, errorMessage) {
 
         caller.remove(parent);
         CloseDeleteObjectBox();
-
-        $('.clsAreaObjectField').attr('disabled', 'disabled').val('');
-        $('.clsCreatureObjectField').attr('disabled', 'disabled').val('');
-        $('.clsItemObjectField').attr('disabled', 'disabled').val('');
-        $('.clsPlaceableObjectField').attr('disabled', 'disabled').val('');
-        $('.clsConversationObjectField').attr('disabled', 'disabled').val('');
-        $('.clsScriptObjectField').attr('disabled', 'disabled').val('');
-        $('.clsTilesetObjectField').attr('disabled', 'disabled').val('');
-
         ToolsetViewModel.Refresh();
         $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('deselect_all');
     }

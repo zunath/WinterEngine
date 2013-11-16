@@ -11,23 +11,23 @@
                     <a id="aOpenModuleButton" href="#" onclick="ShowOpenModulePopUp(this);">Open Module
                     </a>
                 </li>
-                <li id="liCloseModuleButton" class="ui-state-disabled">
+                <li id="liCloseModuleButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }" >
                     <a id="aCloseModuleButton" href="#" onclick="CloseModuleButtonClick(this);">Close Module
                     </a>
                 </li>
-                <li id="liSaveModuleButton" class="ui-state-disabled">
+                <li id="liSaveModuleButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aSaveModuleButton" href="#" onclick="SaveModuleButtonClick(this);">Save
                     </a>
                 </li>
-                <li id="liSaveAsButton" class="ui-state-disabled">
+                <li id="liSaveAsButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aSaveAsButton" href="#" onclick="ShowSaveAsModulePopUp(this);">Save As...
                     </a>
                 </li>
-                <li id="liImportButton" class="ui-state-disabled">
+                <li id="liImportButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aImportButton" href="#" onclick="ImportButtonClick(this);">Import
                     </a>
                 </li>
-                <li id="liExportButton" class="ui-state-disabled">
+                <li id="liExportButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aExportButton" href="#" onclick="ExportButtonClick(this);">Export
                     </a>
                 </li>
@@ -40,27 +40,27 @@
         <li>
             <a href="#">Edit</a>
             <ul>
-                <li id="liUndoButton" class="ui-state-disabled">
+                <li id="liUndoButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aUndoButton" href="#" onclick="UndoButtonClick(this);">Undo
                     </a>
                 </li>
-                <li id="liRedoButton" class="ui-state-disabled">
+                <li id="liRedoButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aRedoButton" href="#" onclick="RedoButtonClick(this);">Redo
                     </a>
                 </li>
-                <li id="liCopyButton" class="ui-state-disabled">
+                <li id="liCopyButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aCopyButton" href="#" onclick="CopyButtonClick(this);">Copy
                     </a>
                 </li>
-                <li id="liCutButton" class="ui-state-disabled">
+                <li id="liCutButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aCutButton" href="#" onclick="CutButtonClick(this);">Cut
                     </a>
                 </li>
-                <li id="liPasteButton" class="ui-state-disabled">
+                <li id="liPasteButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aPasteButton" href="#" onclick="PasteButtonClick(this);">Paste
                     </a>
                 </li>
-                <li id="liModulePropertiesButton" class="ui-state-disabled">
+                <li id="liModulePropertiesButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aModulePropertiesButton" href="#" onclick="ModulePropertiesButtonClick(this);">Module Properties
                     </a>
                 </li>
@@ -69,11 +69,11 @@
         <li>
             <a href="#">Content</a>
             <ul>
-                <li id="liManageContentPackagesButton" class="ui-state-disabled">
+                <li id="liManageContentPackagesButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aManageContentPackagesButton" href="#" onclick="ManageContentPackagesButtonClick(this);">Manage Content Packages
                     </a>
                 </li>
-                <li id="liBuildModuleButton" class="ui-state-disabled">
+                <li id="liBuildModuleButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
                     <a id="aBuildModuleButton" href="#" onclick="BuildModuleButtonClick(this);">Build Module
                     </a>
                 </li>

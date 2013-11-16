@@ -27,10 +27,8 @@ function NewModuleBoxOKClick() {
 function NewModuleBoxOKClick_Callback(success) {
     if (success) {
         CloseNewModuleBox();
-        ToggleModuleActionButtons(true);
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
-        $('#divObjectBar').removeClass('clsHidden');
         ToolsetViewModel.Refresh();
     }
     else {
@@ -67,15 +65,10 @@ function OpenModuleButtonClick(element) {
 
 function OpenModuleButtonClick_Callback(success) {
     if (success) {
-        ToggleModuleActionButtons(true);
         Entity.LoadTreeViewData();
         ChangeObjectMode("Area");
-        $('#divObjectBar').removeClass('clsHidden');
         CloseOpenModulePopUp();
         ToolsetViewModel.Refresh();
-    }
-    else {
-        ToggleModuleActionButtons(false);
     }
 }
 
@@ -86,9 +79,6 @@ function CloseModuleButtonClick(element) {
 
 function CloseModuleButtonClick_Callback() {
     ChangeObjectMode();
-    HideAllTreeViews();
-    ToggleModuleActionButtons(false);
-    $('#divObjectBar').addClass('clsHidden');
 }
 
 function SaveModuleButtonClick(element) {
@@ -203,7 +193,8 @@ function PasteButtonClick(element) {
 
 function ModulePropertiesButtonClick(element) {
     if (IsMenuButtonDisabled($(element))) return;
-
+    
+    ToolsetViewModel.RefreshModuleProperties();
     $('#divModulePropertiesBox').dialog('open');
 }
 
@@ -218,8 +209,7 @@ function SaveModulePropertiesChanges() {
         $("#divModulePropertiesBox").tabs("option", "active", 2);
     }
     else {
-        var model = ko.viewmodel.toModel(ToolsetViewModel).ActiveModule;
-        Entity.SaveModuleProperties(JSON.stringify(model));
+        ToolsetViewModel.SaveModuleProperties();
     }
 }
 
@@ -336,30 +326,5 @@ function CloseAlertBox() {
 }
 
 function IsMenuButtonDisabled(button) {
-    var isDisabled = button.parent().hasClass('ui-state-disabled');
-
-    return isDisabled;
-}
-
-function ToggleModuleActionButtons(isEnabled) {
-    if (isEnabled) {
-        $('#liCloseModuleButton').removeClass('ui-state-disabled');
-        $('#liSaveModuleButton').removeClass('ui-state-disabled');
-        $('#liSaveAsButton').removeClass('ui-state-disabled');
-        $('#liImportButton').removeClass('ui-state-disabled');
-        $('#liExportButton').removeClass('ui-state-disabled');
-        $('#liManageContentPackagesButton').removeClass('ui-state-disabled');
-        $('#liBuildModuleButton').removeClass('ui-state-disabled');
-        $('#liModulePropertiesButton').removeClass('ui-state-disabled');
-    }
-    else {
-        $('#liCloseModuleButton').addClass('ui-state-disabled');
-        $('#liSaveModuleButton').addClass('ui-state-disabled');
-        $('#liSaveAsButton').addClass('ui-state-disabled');
-        $('#liImportButton').addClass('ui-state-disabled');
-        $('#liExportButton').addClass('ui-state-disabled');
-        $('#liManageContentPackagesButton').addClass('ui-state-disabled');
-        $('#liBuildModuleButton').addClass('ui-state-disabled');
-        $('#liModulePropertiesButton').addClass('ui-state-disabled');
-    }
+    return button.parent().hasClass('ui-state-disabled');
 }

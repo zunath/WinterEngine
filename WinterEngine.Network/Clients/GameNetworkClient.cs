@@ -5,10 +5,10 @@ using System.Web.Script.Serialization;
 using Lidgren.Network;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.BusinessObjects;
-using WinterEngine.Network.BusinessObjects;
 using WinterEngine.Network.Configuration;
-using WinterEngine.Network.Enums;
-using WinterEngine.Network.Packets;
+using WinterEngine.DataTransferObjects.Enums;
+using WinterEngine.DataTransferObjects.Packets;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
 
 namespace WinterEngine.Network.Clients
 {
@@ -172,7 +172,7 @@ namespace WinterEngine.Network.Clients
         {
             if (Agent == null)
             {
-                Agent = new NetworkAgent(AgentRoleEnum.Client, GameServerConfiguration.ApplicationID, address.ServerPort);
+                Agent = new NetworkAgent(NetworkAgentRoleEnum.Client, GameServerConfiguration.ApplicationID, address.ServerPort);
             }
             else
             {
@@ -195,7 +195,7 @@ namespace WinterEngine.Network.Clients
         /// </summary>
         /// <param name="requestType"></param>
         /// <param name="deliveryMethod"></param>
-        public void SendRequest(RequestTypeEnum requestType, NetDeliveryMethod deliveryMethod = NetDeliveryMethod.ReliableUnordered)
+        public void SendRequest(PacketRequestTypeEnum requestType, NetDeliveryMethod deliveryMethod = NetDeliveryMethod.ReliableUnordered)
         {
             RequestPacket packet = new RequestPacket(requestType);
             Agent.SendPacket(packet, ServerConnection, deliveryMethod);

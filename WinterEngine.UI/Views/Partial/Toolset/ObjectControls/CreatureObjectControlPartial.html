@@ -1,50 +1,61 @@
 ﻿
-<div id="divCreaturesTab" class="clsObjectTabDiv">
+<div id="divCreatureTab" class="clsObjectTabDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Creature' }">
     <h3>Creature Details</h3>
     <div id="divCreaturesTab-Details">
         <label id="lblCreatureDetails-Name" for="txtCreatureDetails-Name">Name:</label>
-        <input id="txtCreatureDetails-Name" type="text" maxlength="64" disabled="disabled" data-bind="value: ActiveCreature.Name" class="clsCreatureObjectField" />
+        <input id="txtCreatureDetails-Name" type="text" maxlength="64" 
+            data-bind="value: ActiveCreature.Name,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label id="lblCreatureDetails-Tag" for="txtCreatureDetails-Tag">Tag:</label>
-        <input id="txtCreatureDetails-Tag" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveCreature.Tag" class="clsCreatureObjectField" />
+        <input id="txtCreatureDetails-Tag" type="text" maxlength="32" 
+            data-bind="value: ActiveCreature.Tag,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label id="lblCreatureDetails-Resref" for="txtCreatureDetails-Resref">Resref:</label>
-        <input id="txtCreatureDetails-Resref" type="text" maxlength="32" disabled="disabled" data-bind="value: ActiveCreature.Resref" class="clsCreatureObjectField" />
+        <input id="txtCreatureDetails-Resref" type="text" maxlength="32" 
+            data-bind="value: ActiveCreature.Resref,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label id="lblCreatureDetails-Appearance" for="txtCreatureDetails-Appearance">Appearance:</label>
-        <select id="selCreatureDetails-Appearance" disabled="disabled" data-bind="" class="clsCreatureObjectField" size="3"></select>
+        <select id="selCreatureDetails-Appearance" size="3"
+            data-bind="enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Race:</label>
-        <select id="selCreatureDetails-Race" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreatureDetails-Race" size="3"
             data-bind="options: RaceList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveCreature.RaceID" ></select>
+                       value: ActiveCreature.RaceID,
+                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
 
         <label>Gender:</label>
-        <select id="selCreatureDetails-Gender" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreatureDetails-Gender" size="3"
             data-bind="options: GenderList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveCreature.GenderID"></select>
+                       value: ActiveCreature.GenderID,
+                       enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Faction:</label>
-        <select id="selCreatureDetails-Faction" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreatureDetails-Faction" size="3"
             data-bind="options: FactionList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveCreature.FactionID"></select>
+                       value: ActiveCreature.FactionID,
+                       enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Conversation:</label>
-        <select id="selCreatureDetails-Conversation" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreatureDetails-Conversation" size="3"
             data-bind="options: ConversationList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.ConversationID"></select>
+                        value: ActiveCreature.ConversationID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>
             Is Invulnerable:
-            <input id="chkCreatureDetails-IsInvulnerable" disabled="disabled" type="checkbox" data-bind="value: ActiveCreature.IsInvulnerable" class="clsCreatureObjectField" />
+            <input id="chkCreatureDetails-IsInvulnerable" type="checkbox" data-bind="value: ActiveCreature.IsInvulnerable" />
         </label>
 
     </div>
@@ -52,25 +63,39 @@
     <h3>Attributes</h3>
     <div id="divCreaturesTab-Attributes">
         <label>Hit Points:</label>
-        <input id="numCreaturesTab-HitPoints" type="number" min="1" max="65535" disabled="disabled" data-bind="value: ActiveCreature.MaxHitPoints" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-HitPoints" type="number" min="1" max="65535" 
+            data-bind="value: ActiveCreature.MaxHitPoints,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label>Mana:</label>
-        <input id="numCreaturesTab-Mana" type="number" min="1" max="65535" disabled="disabled" data-bind="value: ActiveCreature.MaxMana" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Mana" type="number" min="1" max="65535" 
+            data-bind="value: ActiveCreature.MaxMana,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label>Strength:</label>
-        <input id="numCreaturesTab-Strength" type="number" min="1" max="255" disabled="disabled" data-bind="value: ActiveCreature.Strength" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Strength" type="number" min="1" max="255" 
+            data-bind="value: ActiveCreature.Strength,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label>Dexterity:</label>
-        <input id="numCreaturesTab-Dexterity" type="number" min="1" max="255" disabled="disabled" data-bind="value: ActiveCreature.Dexterity" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Dexterity" type="number" min="1" max="255" 
+            data-bind="value: ActiveCreature.Dexterity,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label>Constitution:</label>
-        <input id="numCreaturesTab-Constitution" type="number" min="1" max="255" disabled="disabled" data-bind="value: ActiveCreature.Constitution" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Constitution" type="number" min="1" max="255" 
+            data-bind="value: ActiveCreature.Constitution,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label>Intelligence:</label>
-        <input id="numCreaturesTab-Intelligence" type="number" min="1" max="255" disabled="disabled" data-bind="value: ActiveCreature.Intelligence" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Intelligence" type="number" min="1" max="255" 
+            data-bind="value: ActiveCreature.Intelligence,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
         <label>Wisdom:</label>
-        <input id="numCreaturesTab-Wisdom" type="number" min="1" max="255" disabled="disabled" data-bind="value: ActiveCreature.Wisdom" class="clsCreatureObjectField" />
+        <input id="numCreaturesTab-Wisdom" type="number" min="1" max="255" 
+            data-bind="value: ActiveCreature.Wisdom,
+                       enable: IsObjectLoadedForCurrentObjectMode" />
 
     </div>
 
@@ -81,122 +106,143 @@
     <h3>Equipment</h3>
     <div id="divCreaturesTab-Equipment">
         <label>Main Hand:</label>
-        <select id="selCreaturesTab-MainHand" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-MainHand" size="3"
             data-bind="options: ItemList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveCreature.MainHandItemID"></select>
+                       value: ActiveCreature.MainHandItemID,
+                       enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Off Hand:</label>
-        <select id="selCreaturesTab-OffHand" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-OffHand" size="3"
             data-bind="options: ItemList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveCreature.OffHandItemID"></select>
+                       value: ActiveCreature.OffHandItemID,
+                       enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Head:</label>
-        <select id="selCreaturesTab-Head" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-Head" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.HeadItemID"></select>
+                        value: ActiveCreature.HeadItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Body:</label>
-        <select id="selCreaturesTab-Body" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-Body" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.BodyItemID"></select>
+                        value: ActiveCreature.BodyItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Back:</label>
-        <select id="selCreaturesTab-Back" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-Back" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.BackItemID"></select>
+                        value: ActiveCreature.BackItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Hands:</label>
-        <select id="selCreaturesTab-Hands" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-Hands" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.HandsItemID"></select>
+                        value: ActiveCreature.HandsItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Waist:</label>
-        <select id="selCreaturesTab-Waist" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-Waist" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.WaistItemID"></select>
+                        value: ActiveCreature.WaistItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Legs:</label>
-        <select id="selCreaturesTab-Legs" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-Legs" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.LegsItemID"></select>
+                        value: ActiveCreature.LegsItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Feet:</label>
-        <select id="selCreaturesTab-Feet" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-Feet" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.FeetItemID"></select>
+                        value: ActiveCreature.FeetItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Ear (L):</label>
-        <select id="selCreaturesTab-EarL" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-EarL" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.EarLeftItemID"></select>
+                        value: ActiveCreature.EarLeftItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Ear (R):</label>
-        <select id="selCreaturesTab-EarR" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-EarR" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.EarRightItemID"></select>
+                        value: ActiveCreature.EarRightItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Ring (L):</label>
-        <select id="selCreaturesTab-RingL" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-RingL" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.RingLeftItemID"></select>
+                        value: ActiveCreature.RingLeftItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Ring (R):</label>
-        <select id="selCreaturesTab-RingR" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-RingR" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.RingRightItemID"></select>
+                        value: ActiveCreature.RingRightItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label>Neck:</label>
-        <select id="selCreaturesTab-Neck" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesTab-Neck" size="3"
             data-bind="options: ItemList,
                         optionsText: function (item) { return item.Name },
                         optionsValue: function (item) { return item.ResourceID },
-                        value: ActiveCreature.NeckItemID"></select>
+                        value: ActiveCreature.NeckItemID,
+                        enable: IsObjectLoadedForCurrentObjectMode"></select>
 
     </div>
 
     <h3>Inventory</h3>
-    <div id="divCreaturesTab-Inventory" data-bind="foreach: ActiveCreature.Inventory">
+    <div id="divCreaturesTab-Inventory" 
+        data-bind="foreach: ActiveCreature.Inventory,
+                   enable: IsObjectLoadedForCurrentObjectMode">
     </div>
 
     <h3>Description</h3>
     <div id="divCreaturesTab-Description">
-        <textarea id="txtCreaturesTab-Description" disabled="disabled" data-bind="value: ActiveCreature.Description" class="clsCreatureObjectField"></textarea>
+        <textarea id="txtCreaturesTab-Description" 
+            data-bind="value: ActiveCreature.Description,
+                       enable: IsObjectLoadedForCurrentObjectMode"></textarea>
     </div>
 
     <h3>Comments</h3>
     <div id="divCreaturesTab-Comments">
-        <textarea id="txtCreaturesTab-Comments" disabled="disabled" data-bind="value: ActiveCreature.Comment" class="clsCreatureObjectField"></textarea>
+        <textarea id="txtCreaturesTab-Comments" 
+            data-bind="value: ActiveCreature.Comment,
+                       enable: IsObjectLoadedForCurrentObjectMode"></textarea>
     </div>
 
     <h3>Local Variables</h3>
     <div id="divCreaturesTab-LocalVariables">
-        <input id="btnCreaturesTab-AddLocalVariable" type="button" value="Add New Variable" onclick="OpenEditLocalVariableBox(false, 'create');" />
+        <input id="btnCreaturesTab-AddLocalVariable" type="button" value="Add New Variable" onclick="OpenEditLocalVariableBox(false, 'create');" 
+            data-bind="enable: IsObjectLoadedForCurrentObjectMode"/>
 
         <div data-bind="foreach: ActiveCreature.LocalVariables">
             <label data-bind="text: Name"></label>
@@ -211,39 +257,44 @@
     <h3>Events</h3>
     <div id="divCreaturesTab-Events">
         <label id="lblCreaturesEvents-OnSpawn">On Spawn:</label>
-        <select id="selCreaturesEvents-OnSpawn" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesEvents-OnSpawn" size="3"
             data-bind="options: ScriptList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveCreature.OnSpawnEventScriptID"></select>
+                       value: ActiveCreature.OnSpawnEventScriptID,
+                       enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label id="lblCreaturesEvents-OnDamaged">On Damaged:</label>
-        <select id="selCreaturesEvents-OnDamaged" disabled="disabled" class="clsCreatureObjectField" size="3" 
+        <select id="selCreaturesEvents-OnDamaged" size="3" 
             data-bind="options: ScriptList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveCreature.OnDamagedEventScriptID"></select>
+                       value: ActiveCreature.OnDamagedEventScriptID,
+                       enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label id="lblCreaturesEvents-OnDeath">On Death:</label>
-        <select id="selCreaturesEvents-OnDeath" disabled="disabled" class="clsCreatureObjectField" size="3" 
+        <select id="selCreaturesEvents-OnDeath" size="3" 
             data-bind="options: ScriptList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveCreature.OnDeathEventScriptID"></select>
+                       value: ActiveCreature.OnDeathEventScriptID,
+                       enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label id="lblCreaturesEvents-OnConversation">On Conversation:</label>
-        <select id="selCreaturesEvents-OnConversation" disabled="disabled" class="clsCreatureObjectField" size="3"
+        <select id="selCreaturesEvents-OnConversation" size="3"
             data-bind="options: ScriptList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveCreature.OnConversationEventScriptID"></select>
+                       value: ActiveCreature.OnConversationEventScriptID,
+                       enable: IsObjectLoadedForCurrentObjectMode"></select>
 
         <label id="lblCreaturesEvents-OnHeartbeat">On Heartbeat:</label>
-        <select id="selCreaturesEvents-OnHeartbeat" disabled="disabled" class="clsCreatureObjectField" size="3" 
+        <select id="selCreaturesEvents-OnHeartbeat" size="3" 
             data-bind="options: ScriptList,
                        optionsText: function (item) { return item.Name },
                        optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveCreature.OnHeartbeatEventScriptID"></select>
+                       value: ActiveCreature.OnHeartbeatEventScriptID,
+                       enable: IsObjectLoadedForCurrentObjectMode"></select>
 
     </div>
 </div>

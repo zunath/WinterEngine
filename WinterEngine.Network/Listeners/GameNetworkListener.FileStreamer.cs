@@ -7,10 +7,10 @@ using Lidgren.Network;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Paths;
-using WinterEngine.Network.BusinessObjects;
 using WinterEngine.Network.Configuration;
-using WinterEngine.Network.Enums;
-using WinterEngine.Network.Packets;
+using WinterEngine.DataTransferObjects.Enums;
+using WinterEngine.DataTransferObjects.Packets;
+using WinterEngine.DataTransferObjects.BusinessObjects;
 
 namespace WinterEngine.Network.Listeners
 {

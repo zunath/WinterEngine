@@ -8,15 +8,14 @@ using WinterEngine.Network.Clients;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.Game.Services;
-using WinterEngine.Network.BusinessObjects;
-using WinterEngine.Network.Packets;
+using WinterEngine.DataTransferObjects.Packets;
 
 using Awesomium.Core;
 using System.IO;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.Paths;
-using WinterEngine.Network.Enums;
 using Lidgren.Network;
+using WinterEngine.DataTransferObjects.Enums;
 
 namespace WinterEngine.Game.Entities
 {
@@ -388,7 +387,7 @@ namespace WinterEngine.Game.Entities
         {
             switch (packet.RequestType)
             {
-                case RequestTypeEnum.Username:
+                case PacketRequestTypeEnum.Username:
                     ProcessUsernameRequest();
                     break;
                 default:
