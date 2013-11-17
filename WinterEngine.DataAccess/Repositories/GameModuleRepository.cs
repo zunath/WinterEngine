@@ -38,11 +38,11 @@ namespace WinterEngine.DataAccess
             GameModule retGameModule;
             if (gameModule.ResourceID <= 0)
             {
-                retGameModule = _context.Modules.Add(gameModule);
+                retGameModule = _context.GameModules.Add(gameModule);
             }
             else
             {
-                retGameModule = _context.Modules.SingleOrDefault(x => x.ResourceID == gameModule.ResourceID);
+                retGameModule = _context.GameModules.SingleOrDefault(x => x.ResourceID == gameModule.ResourceID);
                 if (retGameModule == null) return null;
                 _context.Entry(retGameModule).CurrentValues.SetValues(gameModule);
 
@@ -91,10 +91,10 @@ namespace WinterEngine.DataAccess
 
         private void DeleteInternal(GameModule gameModule, bool saveChanges = true)
         {
-            var dbGameModule = _context.Modules.SingleOrDefault(x => x.ResourceID == gameModule.ResourceID);
+            var dbGameModule = _context.GameModules.SingleOrDefault(x => x.ResourceID == gameModule.ResourceID);
             if (dbGameModule == null) return;
 
-            _context.Modules.Remove(dbGameModule);
+            _context.GameModules.Remove(dbGameModule);
 
             if (saveChanges)
             {
@@ -109,7 +109,7 @@ namespace WinterEngine.DataAccess
 
         public void Delete(int resourceID)
         {
-            var gameModule = _context.Modules.Find(resourceID);
+            var gameModule = _context.GameModules.Find(resourceID);
             DeleteInternal(gameModule);
         }
 
@@ -136,7 +136,7 @@ namespace WinterEngine.DataAccess
 
         public GameModule GetModule()
         {
-            return _context.Modules.FirstOrDefault();
+            return _context.GameModules.FirstOrDefault();
         }
 
         #endregion
