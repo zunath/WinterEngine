@@ -13,7 +13,7 @@ using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Paths;
 
-namespace WinterEngine.Editor.Extensions
+namespace WinterEngine.Library.Extensions
 {
     public static class ContentPackageResourceExtensions
     {

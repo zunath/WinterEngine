@@ -176,15 +176,6 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// Deletes all of the creatures attached to a specified category from the database.
-        /// </summary>
-        public void DeleteAllByCategory(Category resourceCategory)
-        {
-            List<Creature> creatureList = _context.Creatures.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            _context.Creatures.RemoveRange(creatureList);
-        }
-
-        /// <summary>
         /// Generates a hierarchy of categories containing creatures for use in tree views.
         /// </summary>
         /// <returns>The root node containing all other categories and creatures.</returns>

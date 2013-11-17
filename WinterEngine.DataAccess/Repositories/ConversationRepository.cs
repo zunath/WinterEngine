@@ -179,15 +179,6 @@ namespace WinterEngine.DataAccess.Repositories
         }        
 
         /// <summary>
-        /// Deletes all of the conversations attached to a specified category from the database.
-        /// </summary>
-        public void DeleteAllByCategory(Category resourceCategory)
-        {
-            List<Conversation> conversationList = _context.Conversations.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            _context.Conversations.RemoveRange(conversationList);
-        }
-
-        /// <summary>
         /// Generates a hierarchy of categories containing conversations for use in tree views.
         /// </summary>
         /// <returns>The root node containing all other categories and conversations.</returns>

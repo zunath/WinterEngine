@@ -107,28 +107,6 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Tilesets.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
-        
-
-        //Move logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from tileset
-        //                                        in Context.TilesetRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = tileset.Name,
-        //                                            ResourceID = tileset.ResourceID
-        //                                        }).ToList();
-
-        //    return items;
-        //}
-
-        public void DeleteAllByCategory(Category category)
-        {
-            List<Tileset> tilesetList = _context.Tilesets.Where(x => x.ResourceCategoryID == category.ResourceID).ToList();
-            _context.Tilesets.RemoveRange(tilesetList);
-        }
-
         /// <summary>
         /// Generates a hierarchy of categories containing scripts for use in tree views.
         /// </summary>

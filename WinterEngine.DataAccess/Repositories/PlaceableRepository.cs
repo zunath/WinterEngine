@@ -175,16 +175,6 @@ namespace WinterEngine.DataAccess
             return _context.Placeables.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
-
-        /// <summary>
-        /// Removes all of the placeables attached to a specified category from the database.
-        /// </summary>
-        public void DeleteAllByCategory(Category resourceCategory)
-        {
-            List<Placeable> placeableList = _context.Placeables.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            _context.Placeables.RemoveRange(placeableList);
-        }
-
         /// <summary>
         /// Generates a hierarchy of categories containing placeables for use in tree views.
         /// </summary>

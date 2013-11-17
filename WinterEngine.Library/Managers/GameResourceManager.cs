@@ -10,7 +10,7 @@ using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.XMLObjects;
-using WinterEngine.Editor.Extensions;
+using WinterEngine.Library.Extensions;
 using WinterEngine.DataTransferObjects.Enumerations;
 using System.Linq;
 using WinterEngine.DataAccess;
@@ -68,7 +68,7 @@ namespace WinterEngine.Library.Managers
                 foreach (ContentPackageResourceXML current in xmlModel.ResourceList)
                 {
                     string truncatedName = Path.GetFileNameWithoutExtension(current.FileName).Truncate(64);
-                    
+
                     ContentPackageResource resource = new ContentPackageResource
                     {
                         FileName = current.FileName,
@@ -93,44 +93,45 @@ namespace WinterEngine.Library.Managers
             try
             {
 
-                    List<ContentPackage> existingContentPackages; 
+                List<ContentPackage> existingContentPackages;
                 if (rebuildMode == ModuleRebuildModeEnum.SystemResourcesOnly)
-                    {
-                        existingContentPackages = repo.GetAll();
-                        existingContentPackages = (from package
-                                                   in existingContentPackages
-                                                   where package.IsSystemResource == true
-                                                   select package).ToList();
-                    }
+                {
+                    existingContentPackages = _contentPackageRepository.GetAll().ToList();
+                    existingContentPackages = (from package
+                                               in existingContentPackages
+                                               where package.IsSystemResource == true
+                                               select package).ToList();
+                }
                 else if (rebuildMode == ModuleRebuildModeEnum.UserResourcesOnly)
+                {
+                    existingContentPackages = _contentPackageRepository.GetAll().ToList();
+                    existingContentPackages = (from package
+                                               in existingContentPackages
+                                               where package.IsSystemResource == false
+                                               select package).ToList();
+                }
+                else
+                {
+                    existingContentPackages = _contentPackageRepository.GetAll().ToList();
+                }
+
+                // Update or remove existing
+                foreach (ContentPackage current in existingContentPackages)
+                {
+                    if (contentPackages.Exists(x => x.FileName == current.FileName))
                     {
-                        existingContentPackages = repo.GetAll();
-                        existingContentPackages = (from package
-                                                   in existingContentPackages
-                                                   where package.IsSystemResource == false
-                                                   select package).ToList();
+                        _contentPackageRepository.Save(current);
+                        contentPackages.RemoveAll(x => x.FileName == current.FileName);
                     }
                     else
                     {
-                    existingContentPackages = _contentPackageRepository.GetAll();
-                    }
-
-                    // Update or remove existing
-                    foreach (ContentPackage current in existingContentPackages)
-                    {
-                        if (contentPackages.Exists(x => x.FileName == current.FileName))
-                        {
-                        _contentPackageRepository.Update(current);
-                            contentPackages.RemoveAll(x => x.FileName == current.FileName);
-                        }
-                        else
-                        {
                         _contentPackageRepository.Delete(current);
-                        }
                     }
+                }
 
-                    // Add the new ones
-                _contentPackageRepository.Add(contentPackages);
+                // Add the new ones
+                _contentPackageRepository.Save(contentPackages);
+
 
             }
             catch
@@ -143,12 +144,12 @@ namespace WinterEngine.Library.Managers
         /// Handles refreshing content package resource links in the database and updating existing references. Uses the currently active set of content packages in the database.
         /// </summary>
         public void RebuildModule(ModuleRebuildModeEnum rebuildMode)
-            {
-                List<ContentPackage> contentPackages = (from package
-                                                        in repo.GetAll()
-                                                        where package.IsSystemResource == false
-                                                        select package).ToList();
-                RebuildModule(contentPackages, rebuildMode);
+        {
+            List<ContentPackage> contentPackages = (from package
+                                                    in _contentPackageRepository.GetAll()
+                                                    where package.IsSystemResource == false
+                                                    select package).ToList();
+            RebuildModule(contentPackages, rebuildMode);
 
         }
 

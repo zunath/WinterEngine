@@ -183,17 +183,6 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Scripts.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
-        
-
-        /// <summary>
-        /// Removes all of the scripts attached to a specified category from the database.
-        /// </summary>
-        public void DeleteAllByCategory(Category resourceCategory)
-        {
-            List<Script> scriptList = _context.Scripts.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            _context.Scripts.RemoveRange(scriptList);
-        }
-
         /// <summary>
         /// Generates a hierarchy of categories containing scripts for use in tree views.
         /// </summary>

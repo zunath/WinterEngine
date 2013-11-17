@@ -173,15 +173,6 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// Deletes all of the items attached to a specified category from the database.
-        /// </summary>
-        public void DeleteAllByCategory(Category resourceCategory)
-        {
-            List<Item> itemList = _context.Items.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            _context.Items.RemoveRange(itemList);
-        }
-
-        /// <summary>
         /// Generates a hierarchy of categories containing items for use in tree views.
         /// </summary>
         /// <returns>The root node containing all other categories and items.</returns>

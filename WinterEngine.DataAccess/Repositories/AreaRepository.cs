@@ -163,15 +163,6 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// Deletes all of the areas attached to a specified category from the database.
-        /// </summary>
-        public void DeleteAllByCategory(Category resourceCategory)
-        {
-            List<Area> areaList = _context.Areas.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            _context.Areas.RemoveRange(areaList);
-        }
-
-        /// <summary>
         /// Generates a hierarchy of categories containing areas for use in tree views.
         /// </summary>
         /// <returns>The root node containing all other categories and areas.</returns>

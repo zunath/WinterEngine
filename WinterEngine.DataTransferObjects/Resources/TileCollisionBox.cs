@@ -22,6 +22,10 @@ namespace WinterEngine.DataTransferObjects
         [ForeignKey("TileID")]
         public virtual Tile ParentTile { get; set; }
 
+        public virtual int TilesetID { get; set; }
+        [ForeignKey("TilesetID")]
+        public virtual Tileset ParentTileset { get; set; }
+
         #endregion
     }
 }

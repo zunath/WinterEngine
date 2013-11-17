@@ -15,7 +15,7 @@ using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.DataTransferObjects.ViewModels;
-using WinterEngine.Editor.Extensions;
+using WinterEngine.Library.Extensions;
 using WinterEngine.Library.Managers;
 using WinterEngine.Editor.Utility;
 using Microsoft.Xna.Framework.Graphics;
@@ -43,6 +43,12 @@ namespace WinterEngine.Game.Entities
         public IGameObjectFactory _gameObjectFactory { get; set; }
         [Inject]
         public IGameResourceManager _resourceManager { get; set; }
+        [Inject]
+        public IUITreeObjectRepository _uiTreeObjectRepository { get; set; }
+        [Inject]
+        public IGameModuleRepository _gameModuleRepository { get; set; }
+        [Inject]
+        public IUIObjectRepository _uiObjectRepository { get; set; }
 
         #endregion
 
@@ -56,7 +62,7 @@ namespace WinterEngine.Game.Entities
                 return _viewModel;
             }
 
-            }
+        }
 
         #endregion
 
@@ -135,11 +141,6 @@ namespace WinterEngine.Game.Entities
 
             // Treeview Bindings
             EntityJavascriptObject.Bind("LoadTreeViewData", false, LoadTreeViewData);
-            EntityJavascriptObject.Bind("AddNewObject", false, AddNewObject);
-            EntityJavascriptObject.Bind("AddNewCategory", false, AddNewCategory);
-            EntityJavascriptObject.Bind("DeleteCategory", false, DeleteCategory);
-            EntityJavascriptObject.Bind("DeleteObject", false, DeleteObject);
-            EntityJavascriptObject.Bind("RenameCategory", false, RenameCategory);
 
             // Data Manipulation Bindings 
             EntityJavascriptObject.Bind("GetModelJSON", true, GetModelJSON);
@@ -151,8 +152,32 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("SaveConversation", false, SaveConversation);
             EntityJavascriptObject.Bind("SaveScript", false, SaveScript);
             EntityJavascriptObject.Bind("SaveTileset", false, SaveTileset);
+            EntityJavascriptObject.Bind("SaveCategory", false, SaveCategory);
 
-            EntityJavascriptObject.Bind("LoadObjectData", false, LoadObjectData);
+            EntityJavascriptObject.Bind("LoadArea", false, LoadArea);
+            EntityJavascriptObject.Bind("LoadCreature", false, LoadCreature);
+            EntityJavascriptObject.Bind("LoadItem", false, LoadItem);
+            EntityJavascriptObject.Bind("LoadPlaceable", false, LoadPlaceable);
+            EntityJavascriptObject.Bind("LoadConversation", false, LoadConversation);
+            EntityJavascriptObject.Bind("LoadScript", false, LoadScript);
+            EntityJavascriptObject.Bind("LoadTileset", false, LoadTileset);
+
+            EntityJavascriptObject.Bind("DeleteArea", false, DeleteArea);
+            EntityJavascriptObject.Bind("DeleteCreature", false, DeleteCreature);
+            EntityJavascriptObject.Bind("DeleteItem", false, DeleteItem);
+            EntityJavascriptObject.Bind("DeletePlaceable", false, DeletePlaceable);
+            EntityJavascriptObject.Bind("DeleteConversation", false, DeleteConversation);
+            EntityJavascriptObject.Bind("DeleteScript", false, DeleteScript);
+            EntityJavascriptObject.Bind("DeleteTileset", false, DeleteTileset);
+
+            EntityJavascriptObject.Bind("DeleteCategoryArea", false, DeleteCategoryArea);
+            EntityJavascriptObject.Bind("DeleteCategoryCreature", false, DeleteCategoryCreature);
+            EntityJavascriptObject.Bind("DeleteCategoryItem", false, DeleteCategoryItem);
+            EntityJavascriptObject.Bind("DeleteCategoryPlaceable", false, DeleteCategoryPlaceable);
+            EntityJavascriptObject.Bind("DeleteCategoryConversation", false, DeleteCategoryConversation);
+            EntityJavascriptObject.Bind("DeleteCategoryScript", false, DeleteCategoryScript);
+            EntityJavascriptObject.Bind("DeleteCategoryTileset", false, DeleteCategoryTileset);
+
             EntityJavascriptObject.Bind("GetModulesList", true, GetModulesList);
             
             // Tileset Editor Bindings
@@ -264,7 +289,7 @@ namespace WinterEngine.Game.Entities
             try
             {
                 GameModule updatedModule = JsonConvert.DeserializeObject<GameModule>(e.Arguments[0]);
-                _repositoryFactory.GetGenericRepository<GameModule>().Update(updatedModule);
+                _repositoryFactory.GetGenericRepository<GameModule>().Save(updatedModule);
 
                 PopulateToolsetViewModel();
                 AsyncJavascriptCallback("SaveModuleProperties_Callback");
@@ -300,20 +325,16 @@ namespace WinterEngine.Game.Entities
 
         private void ManageContentPackagesButton(object sender, JavascriptMethodEventArgs e)
         {
-            List<ContentPackage> attachedContentPackages;
             List<ContentPackage> availableContentPackages = new List<ContentPackage>();
+            List<ContentPackage> attachedContentPackages = (from package
+                                        in _repositoryFactory.GetGenericRepository<ContentPackage>().GetAll()
+                                        where package.IsSystemResource == false
+                                        select package).ToList();
 
-            using (ContentPackageRepository repo = new ContentPackageRepository())
-            {
-                attachedContentPackages = (from package
-                                           in repo.GetAll()
-                                           where package.IsSystemResource == false
-                                           select package).ToList();
-
-                // We don't need to send the resource list to the GUI because it could contain a lot of data.
-                // We'll pick up the resource list when we go to do a save/rebuild of the module.
-                attachedContentPackages.ForEach(a => a.ResourceList = null);
-            }
+            // We don't need to send the resource list to the GUI because it could contain a lot of data.
+            // We'll pick up the resource list when we go to do a save/rebuild of the module.
+            attachedContentPackages.ForEach(a => a.ResourceList = null);
+            
 
             string[] files = Directory.GetFiles(DirectoryPaths.ContentPackageDirectoryPath, "*" + _extensionFactory.GetFileExtension(FileTypeEnum.ContentPackage));
             foreach (string currentPackage in files)
@@ -328,8 +349,8 @@ namespace WinterEngine.Game.Entities
                 availableContentPackages.Add(package);
             }
 
-            //ViewModel.AvailableContentPackages = availableContentPackages;
-            //ViewModel.AttachedContentPackages = attachedContentPackages;
+            ViewModel.AvailableContentPackages = availableContentPackages;
+            ViewModel.AttachedContentPackages = attachedContentPackages;
 
             AsyncJavascriptCallback("ManageContentPackagesButton_Callback");
         }
@@ -371,13 +392,13 @@ namespace WinterEngine.Game.Entities
                 JSTreeNode tilesetRootNode;
 
                 // Get each category's children for each object type
-                areaRootNode = _repositoryFactory.GetGameObjectRepository<Area>().GenerateJSTreeHierarchy();
-                creatureRootNode = _repositoryFactory.GetGameObjectRepository<Creature>().GenerateJSTreeHierarchy();
-                itemRootNode = _repositoryFactory.GetGameObjectRepository<Item>().GenerateJSTreeHierarchy();
-                placeableRootNode = _repositoryFactory.GetGameObjectRepository<Placeable>().GenerateJSTreeHierarchy();
-                conversationRootNode = _repositoryFactory.GetGameObjectRepository<Conversation>().GenerateJSTreeHierarchy();
-                scriptRootNode = _repositoryFactory.GetGameObjectRepository<Script>().GenerateJSTreeHierarchy();
-                tilesetRootNode = _repositoryFactory.GetGameObjectRepository<Tileset>().GenerateJSTreeHierarchy();
+                areaRootNode = _uiTreeObjectRepository.GenerateJSTreeHierarchy<Area>();
+                creatureRootNode = _uiTreeObjectRepository.GenerateJSTreeHierarchy<Creature>();
+                itemRootNode = _uiTreeObjectRepository.GenerateJSTreeHierarchy<Item>();
+                placeableRootNode = _uiTreeObjectRepository.GenerateJSTreeHierarchy<Placeable>();
+                conversationRootNode = _uiTreeObjectRepository.GenerateJSTreeHierarchy<Conversation>();
+                scriptRootNode = _uiTreeObjectRepository.GenerateJSTreeHierarchy<Script>();
+                tilesetRootNode = _uiTreeObjectRepository.GenerateJSTreeHierarchy<Tileset>();
                 
                 AsyncJavascriptCallback("LoadTreeViews_Callback",
                     JsonConvert.SerializeObject(areaRootNode),
@@ -394,188 +415,6 @@ namespace WinterEngine.Game.Entities
             }
         }
 
-        private void AddNewCategory(object sender, JavascriptMethodEventArgs e)
-        {
-            ErrorTypeEnum error = ErrorTypeEnum.None;
-            string name = e.Arguments[0];
-            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[1]);
-            Category newCategory = new Category
-            {
-                IsSystemResource = false,
-                Name = name,
-                GameObjectType = gameObjectType
-            };
-
-            //using (CategoryRepository repo = new CategoryRepository())
-            //{
-            //    newCategory = repo.Add(newCategory);
-            //}
-
-            newCategory = _repositoryFactory.GetGenericRepository<Category>().Add(newCategory);
-
-            AsyncJavascriptCallback("CreateNewCategory_Callback",
-                error == ErrorTypeEnum.None ? true : false,
-                EnumerationHelper.GetEnumerationDescription(error),
-                name,
-                newCategory.ResourceID);
-        }
-
-        private void AddNewObject(object sender, JavascriptMethodEventArgs e)
-        {
-            try
-            {
-                ErrorTypeEnum error = ErrorTypeEnum.None;
-                
-                string name = e.Arguments[0];
-                string tag = e.Arguments[1];
-                string resref = e.Arguments[2];
-                int categoryID = (int)e.Arguments[3];
-                GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[4]);
-                int resourceID = 0;
-
-
-                if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
-                {
-                    error = ErrorTypeEnum.ObjectResrefAlreadyExists;
-                }
-                else
-                {
-                    GameObjectBase newObject = factory.CreateObject(gameObjectType, name, tag, resref);
-                //Why do we need to check if it exists? Can't we just save it?
-                //if (factory.DoesObjectExistInDatabase(resref, gameObjectType))
-                //{
-                //    error = ErrorTypeEnum.ObjectResrefAlreadyExists;
-                //}
-                //else
-                //{
-                GameObjectBase newObject = _gameObjectFactory.Create(gameObjectType);
-                newObject.Name = name;
-                newObject.Tag = tag;
-                newObject.Resref = resref;
-                    newObject.ResourceCategoryID = categoryID;
-
-                resourceID = _repositoryFactory.GetRepository(gameObjectType).Save(newObject);
-
-                
-                }
-
-                PopulateToolsetViewModel();
-
-                AsyncJavascriptCallback("CreateNewObject_Callback",
-                    error == ErrorTypeEnum.None ? true : false,
-                    EnumerationHelper.GetEnumerationDescription(error),
-                    (int)gameObjectType,
-                    name,
-                    resourceID);
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        private void DeleteCategory(object sender, JavascriptMethodEventArgs e)
-        {
-            ErrorTypeEnum error = ErrorTypeEnum.None;
-            int categoryID = (int)e.Arguments[0];
-            //GameObjectFactory factory = new GameObjectFactory();
-            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[1]);
-            
-
-            //using(CategoryRepository repo = new CategoryRepository())
-            //{
-            //    categoryToRemove = repo.GetByID(categoryID);
-            //}
-
-            Category categoryToRemove = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
-
-            _repositoryFactory.GetRepository(gameObjectType).DeleteByCategory(categoryToRemove);
-        
-            if (gameObjectType == GameObjectTypeEnum.Area)
-            {
-                RefreshAreaEntity(this, new ObjectSelectionEventArgs(0));
-            }
-
-            PopulateToolsetViewModel();
-
-            AsyncJavascriptCallback("DeleteObject_Callback",
-                error == ErrorTypeEnum.None ? true : false,
-                EnumerationHelper.GetEnumerationDescription(error));
-        }
-
-        private void DeleteObject(object sender, JavascriptMethodEventArgs e)
-        {
-            ErrorTypeEnum error = ErrorTypeEnum.None;
-            //GameObjectFactory factory = new GameObjectFactory();
-            int resourceID = (int)e.Arguments[0];
-            GameObjectTypeEnum gameObjectType = (GameObjectTypeEnum)Enum.Parse(typeof(GameObjectTypeEnum), e.Arguments[1]);
-
-            //factory.DeleteFromDatabase(resourceID, gameObjectType);
-
-            _repositoryFactory.GetRepository(gameObjectType).Delete(resourceID);
-
-            if (gameObjectType == GameObjectTypeEnum.Area)
-            {
-                ViewModel.ActiveArea = new Area(true);
-                RefreshAreaEntity(this, new ObjectSelectionEventArgs(0));
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Conversation)
-            {
-                ViewModel.ActiveConversation = new Conversation(true);
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Creature)
-            {
-                ViewModel.ActiveCreature = new Creature(true);
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Item)
-            {
-                ViewModel.ActiveItem = new Item(true);
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Placeable)
-            {
-                ViewModel.ActivePlaceable = new Placeable(true);
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Script)
-            {
-                ViewModel.ActiveScript = new Script();
-            }
-            else if (gameObjectType == GameObjectTypeEnum.Tileset)
-            {
-                ViewModel.ActiveTileset = new Tileset();
-            }
-
-            PopulateToolsetViewModel();
-
-            AsyncJavascriptCallback("DeleteObject_Callback", 
-                error == ErrorTypeEnum.None ? true : false,
-                EnumerationHelper.GetEnumerationDescription(error));
-        }
-
-        private void RenameCategory(object sender, JavascriptMethodEventArgs e)
-        {
-            ErrorTypeEnum error = ErrorTypeEnum.None;
-            string name = e.Arguments[0];
-            int categoryID = (int)e.Arguments[1];
-            
-            //using (CategoryRepository repo = new CategoryRepository())
-            //{
-            Category dbCategory = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
-                if (!dbCategory.IsSystemResource)
-                {
-                    dbCategory.Name = name;
-                }
-                else
-                {
-                    error = ErrorTypeEnum.CannotChangeSystemResource;
-                }
-
-            AsyncJavascriptCallback("RenameObject_Callback",
-                error == ErrorTypeEnum.None ? true : false,
-                EnumerationHelper.GetEnumerationDescription(error),
-                name);
-        }
-
-
         #endregion
 
         #region UI Methods - Data Manipulation
@@ -591,125 +430,11 @@ namespace WinterEngine.Game.Entities
             e.Result = JsonConvert.SerializeObject(ViewModel);
         }
 
-        private void LoadObjectData(object sender, JavascriptMethodEventArgs e)
-        {
-            int resourceID = (int)e.Arguments[0];
-            ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
-
-            var gameObject = _repositoryFactory.GetRepository(ViewModel.GameObjectType).Load(resourceID);
-            Type type = Type.GetType("WinterEngine.DataTransferObjects" + ViewModel.GameObjectType.ToString() + "`1");
-            var prop = ViewModel.GetType().GetProperties().Where(p => p.GetType() == type).Single();
-            prop.SetValue(prop, gameObject, null);
-            
-            if (ViewModel.GameObjectType == GameObjectTypeEnum.Area)
-            {
-                ViewModel.ActiveArea = gameObject as Area;
-                RefreshAreaEntity(this, eventArgs);
-            }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Conversation)
-            {
-                ViewModel.ActiveConversation = gameObject as Conversation;
-            }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Creature)
-            {
-                ViewModel.ActiveCreature = gameObject as Creature;
-            }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Item)
-            {
-                ViewModel.ActiveItem = gameObject as Item;
-            }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Placeable)
-            {
-                ViewModel.ActivePlaceable = gameObject as Placeable;
-            }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Script)
-            {
-                ViewModel.ActiveScript = gameObject as Script;
-            }
-            else if (ViewModel.GameObjectType == GameObjectTypeEnum.Tileset)
-            {
-                ViewModel.ActiveTileset = gameObject as Tileset;
-                RaiseTilesetLoadEvent(gameObject.GraphicResourceID);
-            }
-
-            AsyncJavascriptCallback("LoadObjectData_Callback");
-        }
-
         private void RefreshAreaEntity(object sender, ObjectSelectionEventArgs e)
         {
             if (!Object.ReferenceEquals(OnAreaLoaded, null))
             {
                 OnAreaLoaded(sender, e);
-            }
-        }
-
-        private void SaveArea(object sender, JavascriptMethodEventArgs e)
-        {
-            if (OnSaveArea != null)
-            {
-                ViewModel.ActiveArea = JsonConvert.DeserializeObject<Area>(e.Arguments[0]);
-                OnSaveArea(this, new GameObjectSaveEventArgs(ViewModel.ActiveArea));
-                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
-            }
-        }
-
-        private void SaveCreature(object sender, JavascriptMethodEventArgs e)
-        {
-            if (OnSaveCreature != null)
-            {
-                ViewModel.ActiveCreature = JsonConvert.DeserializeObject<Creature>(e.Arguments[0]);
-                OnSaveCreature(this, new GameObjectSaveEventArgs(ViewModel.ActiveCreature));
-                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
-            }
-        }
-
-        private void SaveItem(object sender, JavascriptMethodEventArgs e)
-        {
-            if (OnSaveItem != null)
-            {
-                ViewModel.ActiveItem = JsonConvert.DeserializeObject<Item>(e.Arguments[0]);
-                OnSaveItem(this, new GameObjectSaveEventArgs(ViewModel.ActiveItem));
-                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
-            }
-        }
-
-        private void SavePlaceable(object sender, JavascriptMethodEventArgs e)
-        {
-            if (OnSavePlaceable != null)
-            {
-                ViewModel.ActivePlaceable = JsonConvert.DeserializeObject<Placeable>(e.Arguments[0]);
-                OnSavePlaceable(this, new GameObjectSaveEventArgs(ViewModel.ActivePlaceable));
-                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
-            }
-        }
-
-        private void SaveConversation(object sender, JavascriptMethodEventArgs e)
-        {
-            if (OnSaveConversation != null)
-            {
-                ViewModel.ActiveConversation = JsonConvert.DeserializeObject<Conversation>(e.Arguments[0]);
-                OnSaveConversation(this, new GameObjectSaveEventArgs(ViewModel.ActiveConversation));
-                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
-            }
-        }
-
-        private void SaveScript(object sender, JavascriptMethodEventArgs e)
-        {
-            if (OnSaveScript != null)
-            {
-                ViewModel.ActiveScript = JsonConvert.DeserializeObject<Script>(e.Arguments[0]);
-                OnSaveScript(this, new GameObjectSaveEventArgs(ViewModel.ActiveScript));
-                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
-            }
-        }
-
-        private void SaveTileset(object sender, JavascriptMethodEventArgs e)
-        {
-            if (OnSaveTileset != null)
-            {
-                ViewModel.ActiveTileset = JsonConvert.DeserializeObject<Tileset>(e.Arguments[0]);
-                OnSaveTileset(this, new GameObjectSaveEventArgs(ViewModel.ActiveTileset));
-                AsyncJavascriptCallback("ObjectTabApplyChanges_Callback");
             }
         }
 
@@ -735,48 +460,15 @@ namespace WinterEngine.Game.Entities
             ClearViewModelPopulation();
 
             // TODO: Consider adding new interface
-            ViewModel.ActiveModule = _repositoryFactory.GetGameObjectRepository<GameModule>().GetAll().SingleOrDefault();
-            ViewModel.TilesetSpriteSheetsList = _repositoryFactory
-
-            using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
-            {
-                ViewModel.TilesetSpriteSheetsList = repo.GetAllUIObjects(ContentPackageResourceTypeEnum.Tileset, false);
-            }
-
-            using (ItemRepository repo = new ItemRepository())
-            {
-                ViewModel.ItemList = repo.GetAllUIObjects();
-            }
-
-            using (ScriptRepository repo = new ScriptRepository())
-            {
-                ViewModel.ScriptList = repo.GetAllUIObjects();
-            }
-
-            using (GenderRepository repo = new GenderRepository())
-            {
-                ViewModel.GenderList = repo.GetAllUIObjects();
-            }
-
-            using (ConversationRepository repo = new ConversationRepository())
-            {
-                ViewModel.ConversationList = repo.GetAllUIObjects();
-            }
-
-            using (RaceRepository repo = new RaceRepository())
-            {
-                ViewModel.RaceList = repo.GetAllUIObjects();
-            }
-
-            using (FactionRepository repo = new FactionRepository())
-            {
-                ViewModel.FactionList = repo.GetAllUIObjects();
-            }
-
-            using (TilesetRepository repo = new TilesetRepository())
-            {
-                ViewModel.TilesetList = repo.GetAllUIObjects();
-            }
+            ViewModel.ActiveModule = _gameModuleRepository.GetModule();
+            ViewModel.TilesetSpriteSheetsList = _uiObjectRepository.GetAllUIObjects().ToList(); // TODO: Type checking
+            ViewModel.ItemList = _uiObjectRepository.GetAllUIObjects().ToList();
+            ViewModel.ScriptList = _uiObjectRepository.GetAllUIObjects().ToList();
+            ViewModel.GenderList = _uiObjectRepository.GetAllUIObjects().ToList();
+            ViewModel.ConversationList = _uiObjectRepository.GetAllUIObjects().ToList();
+            ViewModel.RaceList = _uiObjectRepository.GetAllUIObjects().ToList();
+            ViewModel.FactionList = _uiObjectRepository.GetAllUIObjects().ToList();
+            ViewModel.TilesetList = _uiObjectRepository.GetAllUIObjects().ToList();
         }
 
         private void ClearViewModelPopulation()
@@ -809,9 +501,427 @@ namespace WinterEngine.Game.Entities
             }
 
             AsyncJavascriptCallback("ChangeObjectMode_Callback");
-            
+
         }
 
+        #endregion
+
+        #region UI Methods - Object Save Methods
+
+        private void SaveArea(object sender, JavascriptMethodEventArgs e)
+        {
+            Area area = JsonConvert.DeserializeObject<Area>(e.Arguments[1]);
+            area = _repositoryFactory.GetGameObjectRepository<Area>().Save(area);
+            bool setActiveArea = e.Arguments.Count() > 2 ? (bool)e.Arguments[2] : false;
+            if (setActiveArea)
+            {
+                ViewModel.ActiveArea = area;
+            }
+
+            if (OnSaveArea != null)
+            {
+                OnSaveArea(this, new GameObjectSaveEventArgs(ViewModel.ActiveArea));
+            }
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+
+        private void SaveCreature(object sender, JavascriptMethodEventArgs e)
+        {
+            Creature creature = JsonConvert.DeserializeObject<Creature>(e.Arguments[1]);
+            creature = _repositoryFactory.GetGameObjectRepository<Creature>().Save(creature);
+            bool setActiveCreature = e.Arguments.Count() > 2 ? (bool)e.Arguments[2] : false;
+
+            if (setActiveCreature)
+            {
+                ViewModel.ActiveCreature = creature;
+            }
+
+            if (OnSaveCreature != null)
+            {
+                OnSaveCreature(this, new GameObjectSaveEventArgs(ViewModel.ActiveCreature)); 
+            }
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+
+        private void SaveItem(object sender, JavascriptMethodEventArgs e)
+        {
+            Item item = JsonConvert.DeserializeObject<Item>(e.Arguments[1]);
+            item = _repositoryFactory.GetGameObjectRepository<Item>().Save(item);
+            bool setActiveItem = e.Arguments.Count() > 2 ? (bool)e.Arguments[2] : false;
+
+            if (setActiveItem)
+            {
+                ViewModel.ActiveItem = item;
+            }
+
+            if (OnSaveItem != null)
+            {
+                OnSaveItem(this, new GameObjectSaveEventArgs(ViewModel.ActiveItem));
+            }
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+
+        private void SavePlaceable(object sender, JavascriptMethodEventArgs e)
+        {
+            Placeable placeable = JsonConvert.DeserializeObject<Placeable>(e.Arguments[1]);
+            placeable = _repositoryFactory.GetGameObjectRepository<Placeable>().Save(placeable);
+            bool setActivePlaceable = e.Arguments.Count() > 2 ? (bool)e.Arguments[2] : false;
+
+            if (setActivePlaceable)
+            {
+                ViewModel.ActivePlaceable = placeable;
+            }
+
+            if (OnSavePlaceable != null)
+            {
+                OnSavePlaceable(this, new GameObjectSaveEventArgs(ViewModel.ActivePlaceable));
+            }
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+
+        private void SaveConversation(object sender, JavascriptMethodEventArgs e)
+        {
+            Conversation conversation = JsonConvert.DeserializeObject<Conversation>(e.Arguments[1]);
+            conversation = _repositoryFactory.GetGameObjectRepository<Conversation>().Save(conversation);
+            bool setActiveConversation = e.Arguments.Count() > 2 ? (bool)e.Arguments[2] : false;
+
+            if (setActiveConversation)
+            {
+                ViewModel.ActiveConversation = conversation;
+            }
+
+            if (OnSaveConversation != null)
+            {
+                OnSaveConversation(this, new GameObjectSaveEventArgs(ViewModel.ActiveConversation));
+            }
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+
+        private void SaveScript(object sender, JavascriptMethodEventArgs e)
+        {
+            Script script = JsonConvert.DeserializeObject<Script>(e.Arguments[1]);
+            script = _repositoryFactory.GetGameObjectRepository<Script>().Save(script);
+            bool setActiveScript = e.Arguments.Count() > 2 ? (bool)e.Arguments[2] : false;
+
+            if (setActiveScript)
+            {
+                ViewModel.ActiveScript = script;
+            }
+
+            if (OnSaveScript != null)
+            {
+                OnSaveScript(this, new GameObjectSaveEventArgs(ViewModel.ActiveScript));
+            }
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+
+        private void SaveTileset(object sender, JavascriptMethodEventArgs e)
+        {
+            Tileset tileset = JsonConvert.DeserializeObject<Tileset>(e.Arguments[1]);
+            tileset = _repositoryFactory.GetGameObjectRepository<Tileset>().Save(tileset);
+            bool setActiveTileset = e.Arguments.Count() > 2 ? (bool)e.Arguments[2] : false;
+
+            if (setActiveTileset)
+            {
+                ViewModel.ActiveTileset = tileset;
+            }
+
+            if (OnSaveTileset != null)
+            {
+                OnSaveTileset(this, new GameObjectSaveEventArgs(ViewModel.ActiveTileset));
+            }
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+
+        private void SaveCategory(object sender, JavascriptMethodEventArgs e)
+        {
+            Category category = JsonConvert.DeserializeObject<Category>(e.Arguments[1]);
+            category = _repositoryFactory.GetGenericRepository<Category>().Save(category);
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0], JsonConvert.SerializeObject(category));
+            }
+        }
+
+        #endregion
+
+        #region UI Methods - Object Load Methods
+
+        private void LoadArea(object sender, JavascriptMethodEventArgs e)
+        {
+            int resourceID = (int)e.Arguments[1];
+            ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
+            ViewModel.ActiveArea = _repositoryFactory.GetGameObjectRepository<Area>().GetByID(resourceID);
+
+            RefreshAreaEntity(this, eventArgs);
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+        private void LoadItem(object sender, JavascriptMethodEventArgs e)
+        {
+            int resourceID = (int)e.Arguments[1];
+            ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
+            ViewModel.ActiveItem = _repositoryFactory.GetGameObjectRepository<Item>().GetByID(resourceID);
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+        private void LoadCreature(object sender, JavascriptMethodEventArgs e)
+        {
+            int resourceID = (int)e.Arguments[1];
+            ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
+            ViewModel.ActiveCreature = _repositoryFactory.GetGameObjectRepository<Creature>().GetByID(resourceID);
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+        private void LoadPlaceable(object sender, JavascriptMethodEventArgs e)
+        {
+            int resourceID = (int)e.Arguments[1];
+            ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
+            ViewModel.ActivePlaceable = _repositoryFactory.GetGameObjectRepository<Placeable>().GetByID(resourceID);
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+        private void LoadConversation(object sender, JavascriptMethodEventArgs e)
+        {
+            int resourceID = (int)e.Arguments[1];
+            ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
+            ViewModel.ActiveConversation = _repositoryFactory.GetGameObjectRepository<Conversation>().GetByID(resourceID);
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+        private void LoadScript(object sender, JavascriptMethodEventArgs e)
+        {
+            int resourceID = (int)e.Arguments[1];
+            ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
+            ViewModel.ActiveScript = _repositoryFactory.GetGameObjectRepository<Script>().GetByID(resourceID);
+
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+        private void LoadTileset(object sender, JavascriptMethodEventArgs e)
+        {
+            int resourceID = (int)e.Arguments[1];
+            ObjectSelectionEventArgs eventArgs = new ObjectSelectionEventArgs(resourceID);
+            ViewModel.ActiveTileset = _repositoryFactory.GetGameObjectRepository<Tileset>().GetByID(resourceID);
+
+            RaiseTilesetLoadEvent(ViewModel.ActiveTileset.GraphicResourceID);
+            if (!String.IsNullOrWhiteSpace(e.Arguments[0]))
+            {
+                AsyncJavascriptCallback(e.Arguments[0]);
+            }
+        }
+        
+        #endregion
+
+        #region UI Methods - Object Delete Methods
+
+        private void DeleteArea(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int areaID = (int)e.Arguments[1];
+            _repositoryFactory.GetGameObjectRepository<Area>().Delete(areaID);
+            ViewModel.ActiveArea = new Area(true);
+            RefreshAreaEntity(this, new ObjectSelectionEventArgs(0));
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteItem(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int itemID = (int)e.Arguments[1];
+            _repositoryFactory.GetGameObjectRepository<Item>().Delete(itemID);
+            ViewModel.ActiveItem = new Item(true);
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteCreature(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int creatureID = (int)e.Arguments[1];
+            _repositoryFactory.GetGameObjectRepository<Creature>().Delete(creatureID);
+            ViewModel.ActiveCreature = new Creature(true);
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeletePlaceable(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int placeableID = (int)e.Arguments[1];
+            _repositoryFactory.GetGameObjectRepository<Placeable>().Delete(placeableID);
+            ViewModel.ActivePlaceable = new Placeable(true);
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteConversation(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int conversationID = (int)e.Arguments[1];
+            _repositoryFactory.GetGameObjectRepository<Conversation>().Delete(conversationID);
+            ViewModel.ActiveConversation = new Conversation(true);
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteScript(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int scriptID = (int)e.Arguments[1];
+            _repositoryFactory.GetGameObjectRepository<Script>().Delete(scriptID);
+            ViewModel.ActiveScript = new Script();
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteTileset(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int tilesetID = (int)e.Arguments[1];
+            _repositoryFactory.GetGameObjectRepository<Tileset>().Delete(tilesetID);
+            ViewModel.ActiveTileset = new Tileset();
+            
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteCategoryArea(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int categoryID = (int)e.Arguments[1];
+            Category category = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
+            IEnumerable<Area> areas = _repositoryFactory.GetGameObjectRepository<Area>().GetAllByResourceCategory(category);
+            _repositoryFactory.GetGameObjectRepository<Area>().Delete(areas);
+            RefreshAreaEntity(this, new ObjectSelectionEventArgs(0));
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteCategoryItem(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int categoryID = (int)e.Arguments[1];
+            Category category = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
+            IEnumerable<Item> items = _repositoryFactory.GetGameObjectRepository<Item>().GetAllByResourceCategory(category);
+            _repositoryFactory.GetGameObjectRepository<Item>().Delete(items);
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteCategoryCreature(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int categoryID = (int)e.Arguments[1];
+            Category category = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
+            IEnumerable<Creature> creatures = _repositoryFactory.GetGameObjectRepository<Creature>().GetAllByResourceCategory(category);
+            _repositoryFactory.GetGameObjectRepository<Creature>().Delete(creatures);
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteCategoryPlaceable(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int categoryID = (int)e.Arguments[1];
+            Category category = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
+            IEnumerable<Placeable> placeables = _repositoryFactory.GetGameObjectRepository<Placeable>().GetAllByResourceCategory(category);
+            _repositoryFactory.GetGameObjectRepository<Placeable>().Delete(placeables);
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteCategoryConversation(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int categoryID = (int)e.Arguments[1];
+            Category category = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
+            IEnumerable<Conversation> conversations = _repositoryFactory.GetGameObjectRepository<Conversation>().GetAllByResourceCategory(category);
+            _repositoryFactory.GetGameObjectRepository<Conversation>().Delete(conversations);
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteCategoryScript(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int categoryID = (int)e.Arguments[1];
+            Category category = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
+            IEnumerable<Script> scripts = _repositoryFactory.GetGameObjectRepository<Script>().GetAllByResourceCategory(category);
+            _repositoryFactory.GetGameObjectRepository<Script>().Delete(scripts);
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
+
+        private void DeleteCategoryTileset(object sender, JavascriptMethodEventArgs e)
+        {
+            string callbackJSFunction = e.Arguments[0];
+            int categoryID = (int)e.Arguments[1];
+            Category category = _repositoryFactory.GetGenericRepository<Category>().GetByID(categoryID);
+            IEnumerable<Tileset> tilesets = _repositoryFactory.GetGameObjectRepository<Tileset>().GetAllByResourceCategory(category);
+            _repositoryFactory.GetGameObjectRepository<Tileset>().Delete(tilesets);
+
+            PopulateToolsetViewModel();
+            AsyncJavascriptCallback(callbackJSFunction);
+        }
         #endregion
 
         #region UI Methods - Tileset Editor

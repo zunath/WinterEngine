@@ -1,5 +1,5 @@
 ﻿function LoadObjectData(resourceID) {
-    Entity.LoadObjectData(resourceID);
+    Entity["Load" + ToolsetViewModel.CurrentObjectMode()]("LoadObjectData_Callback", resourceID);
 }
 
 function LoadObjectData_Callback() {

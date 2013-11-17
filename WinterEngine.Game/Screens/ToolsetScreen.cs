@@ -152,7 +152,7 @@ namespace WinterEngine.Game.Screens
 
         private void HandleAreaLoadEvent(object sender, ObjectSelectionEventArgs e)
         {
-            Area selectedArea = _areaRepo.GetByID(e.ResourceID);
+            Area selectedArea = _repositoryFactory.GetGameObjectRepository<Area>().GetByID(e.ResourceID);
             AreaEntityInstance.ChangeArea(selectedArea);
         }
 
@@ -172,27 +172,21 @@ namespace WinterEngine.Game.Screens
 
         private void SaveArea(object sender, GameObjectSaveEventArgs e)
         {
-            _repositoryFactory.GetGameObjectRepository<Area>().Upsert(e.ActiveArea);
             }
         private void SaveCreature(object sender, GameObjectSaveEventArgs e)
         {
-            _repositoryFactory.GetGameObjectRepository<Creature>().Upsert(e.ActiveCreature);
-            }
+        }
         private void SaveItem(object sender, GameObjectSaveEventArgs e)
         {
-            _repositoryFactory.GetGameObjectRepository<Item>().Upsert(e.ActiveItem);
         }
         private void SavePlaceable(object sender, GameObjectSaveEventArgs e)
         {
-            _repositoryFactory.GetGameObjectRepository<Placeable>().Upsert(e.ActivePlaceable);
         }
         private void SaveConversation(object sender, GameObjectSaveEventArgs e)
         {
-            _repositoryFactory.GetGameObjectRepository<Conversation>().Upsert(e.ActiveConversation);
         }
         private void SaveScript(object sender, GameObjectSaveEventArgs e)
         {
-            _repositoryFactory.GetGameObjectRepository<Script>().Upsert(e.ActiveScript);
         }
         private void SaveTileset(object sender, GameObjectSaveEventArgs e)
         {
@@ -212,10 +206,7 @@ namespace WinterEngine.Game.Screens
                                                               }).ToList()
                                         }).ToList();
 
-            using (TilesetRepository repo = new TilesetRepository())
-            {
-                repo.Upsert(e.ActiveTileset);
-            }
+            _repositoryFactory.GetGameObjectRepository<Tileset>().Save(e.ActiveTileset);
         }
 
         #endregion
