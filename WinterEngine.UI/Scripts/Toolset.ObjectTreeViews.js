@@ -158,67 +158,55 @@ function LoadTreeViews_Callback(jsonAreas,
     $(ToolsetViewModel.CurrentObjectTreeSelector()).removeClass('clsHidden');
 }
 
-// Handles requesting a new category be created.
 function CreateNewCategory() {
     if (!$('#formNewCategory').valid()) return;
 
-    var name = $('#txtCategoryName').val();
+    var category = new Object();
+    category.Name = $('#txtCategoryName').val();
+    category.GameObjectType = ToolsetViewModel.CurrentObjectMode();
 
-    Entity.AddNewCategory(name, ToolsetViewModel.CurrentObjectMode());
+    Entity.SaveCategory("CreateNewCategory_Callback", JSON.stringify(category));
 }
 
-// CALLBACK FUNCTION
-// If successful, new category will be created in the UI.
-// If failed, error will display.
-function CreateNewCategory_Callback(success, errorMessage, name, categoryID) {
-    if (success) {
-        var caller = $('#divCreateCategory').data('Caller');
-        var parent = $('#divCreateCategory').data('Parent');
-        var newCategory = caller.create(parent, null, name, null, true);
-        $(newCategory).data('nodetype', 'category');
-        $(newCategory).data('categoryid', categoryID);
+function CreateNewCategory_Callback(jsonCategory) {
+    var parsedCategory = JSON.parse(jsonCategory);
+    var caller = $('#divCreateCategory').data('Caller');
+    var parent = $('#divCreateCategory').data('Parent');
+    var newCategory = caller.create(parent, null, parsedCategory.Name, null, true);
+    $(newCategory).data('nodetype', 'category');
+    $(newCategory).data('categoryid', parsedCategory.ResourceID);
         
-        CloseNewCategoryBox();
-    }
-    else {
-        $('#lblNewCategoryErrors').text(errorMessage);
-    }
+    CloseNewCategoryBox();
+    
 }
 
-// Handles requesting a new object be created.
 function CreateNewObject() {
     if (!$('#formNewObject').valid()) return;
 
     var parent = $('#divNewObject').data('Parent');
-    var name = $('#txtObjectName').val();
-    var tag = $('#txtObjectTag').val();
-    var resref = $('#txtObjectResref').val();
-    var categoryID = $(parent).data('categoryid');
+    var gameObject = new Object();
+    gameObject.Name = $('#txtObjectName').val();
+    gameObject.Tag = $('#txtObjectTag').val();
+    gameObject.Resref = $('#txtObjectResref').val();
+    gameObject.ResourceCategoryID = $(parent).data('categoryid');
 
-    Entity.AddNewObject(name, tag, resref, categoryID, ToolsetViewModel.CurrentObjectMode());
-
+    // Example: Entity.SaveArea(jsonData);
+    Entity["Save" + ToolsetViewModel.CurrentObjectMode()]("CreateNewObject_Callback", JSON.stringify(gameObject), false);
 }
 
-// CALLBACK FUNCTION
-// If successful, a new object will be created in the UI.
-// If failed, error message will display.
-function CreateNewObject_Callback(success, errorMessage, gameObjectType, name, resourceID) {
-    if (success) {
-        var caller = $('#divNewObject').data('Caller');
-        var parent = $('#divNewObject').data('Parent');
-        var newObject = caller.create(parent, null, name, null, true);
-        $(newObject).data('resourceid', resourceID);
-        $(newObject).data('nodetype', 'object');
-        CloseNewObjectBox();
+function CreateNewObject_Callback(jsonNewObject) {
+    var parsedObject = JSON.parse(jsonNewObject);
+    var caller = $('#divNewObject').data('Caller');
+    var parent = $('#divNewObject').data('Parent');
+    var newObject = caller.create(parent, null, parsedObject.Name, null, true);
+    $(newObject).data('resourceid', parsedObject.ResourceID);
+    $(newObject).data('nodetype', 'object');
+    CloseNewObjectBox();
 
-        ToolsetViewModel.Refresh();
-    }
-    else {
-        $('#lblNewObjectErrors').text(errorMessage);
-    }
+    ToolsetViewModel.Refresh();
+    
 }
 
-// Closes the pop-up div for new categories and clears all temporary data.
 function CloseNewCategoryBox() {
     $('#divCreateCategory').removeData('Caller');
     $('#divCreateCategory').removeData('Parent');
@@ -228,7 +216,6 @@ function CloseNewCategoryBox() {
     $('#divCreateCategory').dialog('close');
 }
 
-// Closes the pop-up div for new objects and clears all temporary data.
 function CloseNewObjectBox() {
     $('#divNewObject').removeData('Caller');
     $('#divNewObject').removeData('Parent');
@@ -240,37 +227,29 @@ function CloseNewObjectBox() {
     $('#divNewObject').dialog('close');
 }
 
-// Handles requesting that a category or object be deleted from database.
 function DeleteObject() {
     var selectedNode = $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('get_selected');
     var mode = $('#divConfirmDelete').data('DeleteMode');
 
     if (mode == 'DeleteCategory') {
         var categoryID = $(selectedNode).data('categoryid');
-        Entity.DeleteCategory(categoryID, ToolsetViewModel.CurrentObjectMode());
+        Entity["DeleteCategory" + ToolsetViewModel.CurrentObjectMode()]("DeleteObject_Callback", categoryID);
     }
     else if (mode == 'DeleteObject') {
         var resourceID = $(selectedNode).data('resourceid');
-        Entity.DeleteObject(resourceID, ToolsetViewModel.CurrentObjectMode(), true);
+        Entity["Delete" + ToolsetViewModel.CurrentObjectMode()]("DeleteObject_Callback", resourceID);
     }
 }
 
-// CALLBACK FUNCTION
-// If successful, removes the category or object node from the UI.
-// If failed, error message will display.
-function DeleteObject_Callback(success, errorMessage) {
-    if (success) {
-        var caller = $('#divConfirmDelete').data('Caller');
-        var parent = $('#divConfirmDelete').data('Parent');
+function DeleteObject_Callback() {
+    var caller = $('#divConfirmDelete').data('Caller');
+    var parent = $('#divConfirmDelete').data('Parent');
 
-        caller.remove(parent);
-        CloseDeleteObjectBox();
-        ToolsetViewModel.Refresh();
-        $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('deselect_all');
-    }
-    else {
-        $('#lblConfirmDeleteErrors').text(errorMessage);
-    }
+    caller.remove(parent);
+    CloseDeleteObjectBox();
+    ToolsetViewModel.Refresh();
+    $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('deselect_all');
+    
 }
 
 // Closes the pop-up div for deleting objects and clears all temporary data.
@@ -285,11 +264,13 @@ function CloseDeleteObjectBox() {
 function RenameObject() {
     var selectedNode = $(ToolsetViewModel.CurrentObjectTreeSelector()).jstree('get_selected');
     var mode = $('#divRenameTreeNode').data('RenameMode');
-    var newObjectName = $('#txtRenameTreeNode').val();
-
+    
     if (mode == "RenameCategory") {
-        var categoryID = $(selectedNode).data('categoryid');
-        Entity.RenameCategory(newObjectName, categoryID);
+        var category = new Object();
+        category.Name = $('#txtRenameTreeNode').val();
+        category.ResourceID = $(selectedNode).data('categoryid');
+
+        Entity.SaveCategory(JSON.stringify(category), "RenameObject_Callback");
     }
 }
 

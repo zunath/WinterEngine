@@ -20,6 +20,8 @@ using WinterEngine.Network.Listeners;
 using Xceed.Wpf.Toolkit;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataAccess.FileAccess;
+using WinterEngine.DataAccess;
+using System.Linq;
 
 namespace WinterEngine.Server
 {
@@ -38,7 +40,7 @@ namespace WinterEngine.Server
         private BindingList<string> _connectedUsernames;
 
         private readonly IModuleManager _moduleManager;
-        private readonly IGenericRepository<ContentPackage> _contentPackage;
+        private readonly IGenericRepository<ContentPackage> _contentPackageRepository;
 
         #endregion
 
@@ -108,7 +110,7 @@ namespace WinterEngine.Server
             _moduleManager = moduleManager;
 
             if (contentPackage == null) throw new ArgumentNullException("contentPackage");
-            _contentPackage = contentPackage;
+            _contentPackageRepository = contentPackage;
 
             InitializeComponent();
         }
@@ -272,7 +274,7 @@ namespace WinterEngine.Server
             string path = OpenFile.FileName;
             textBoxModuleFileName.Text = Path.GetFileNameWithoutExtension(path);
             _moduleManager.OpenModule(path);
-            ContentPackageList = _contentPackage.GetAll();
+            ContentPackageList = _contentPackageRepository.GetAll().ToList();
         }
 
         /// <summary>

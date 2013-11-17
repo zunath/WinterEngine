@@ -24,7 +24,6 @@ namespace WinterEngine.DataAccess
     {
         IEnumerable<T> GetAllByResourceCategory(Category resourceCategory);
         T GetByResref(string resref);
-        void DeleteAllByCategory(Category resourceCategory);
         bool Exists(string resref);
     }
 

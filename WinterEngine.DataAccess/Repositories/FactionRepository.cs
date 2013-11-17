@@ -112,36 +112,11 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Factions.ToList();
         }
 
-        //todo: Move this logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from item
-        //                                        in Context.FactionRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = item.Name,
-        //                                            ResourceID = item.ResourceID
-        //                                        }).ToList();
-        //    return items;
-        //}
-
-
         public Faction GetByID(int factionID)
         {
             return _context.Factions.Where(x => x.ResourceID == factionID).SingleOrDefault();
         }
         
-        //public bool Exists(Faction faction)
-        //{
-        //    Faction dbFaction = _context.Factions.Where(x => x.ResourceID == faction.ResourceID).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbFaction, null);
-        //}
-
-        //public int GetDefaultResourceID()
-        //{
-        //    Faction defaultObject = _context.Factions.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
 
         #endregion
 

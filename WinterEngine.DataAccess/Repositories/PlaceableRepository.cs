@@ -145,19 +145,6 @@ namespace WinterEngine.DataAccess
             return _context.Placeables.Where(x => x.ResourceID == resourceID).SingleOrDefault();
         }
         
-        //todo: move logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from placeable
-        //                                        in Context.PlaceableRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = placeable.Name,
-        //                                            ResourceID = placeable.ResourceID
-        //                                        }).ToList();
-        //    return items;
-        //}
-
         /// <summary>
         /// Returns all of the placeables in a specified category from the database.
         /// </summary>
@@ -177,51 +164,6 @@ namespace WinterEngine.DataAccess
             return _context.Placeables.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
-
-        /// <summary>
-        /// Removes all of the placeables attached to a specified category from the database.
-        /// </summary>
-        public void DeleteAllByCategory(Category resourceCategory)
-        {
-            List<Placeable> placeableList = _context.Placeables.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            _context.Placeables.RemoveRange(placeableList);
-        }
-
-        /// <summary>
-        /// Generates a hierarchy of categories containing placeables for use in tree views.
-        /// </summary>
-        /// <returns>The root node containing all other categories and placeables.</returns>
-        public JSTreeNode GenerateJSTreeHierarchy()
-        {
-            JSTreeNode rootNode = new JSTreeNode("Placeables");
-            rootNode.attr.Add("data-nodetype", "root");
-            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = _context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Placeable).ToList();
-            foreach (Category category in categories)
-            {
-                JSTreeNode categoryNode = new JSTreeNode(category.Name);
-                categoryNode.attr.Add("data-nodetype", "category");
-                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
-                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
-
-                List<Placeable> placeables = _context.Placeables.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
-                foreach (Placeable placeable in placeables)
-                {
-                    JSTreeNode childNode = new JSTreeNode(placeable.Name);
-                    childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resourceid", Convert.ToString(placeable.ResourceID));
-                    childNode.attr.Add("data-issystemresource", Convert.ToString(placeable.IsSystemResource));
-
-                    categoryNode.children.Add(childNode);
-                }
-
-                treeNodes.Add(categoryNode);
-            }
-
-            rootNode.children = treeNodes;
-            return rootNode;
-        }
-
         /// <summary>
         /// Returns True if an object with the specified resref exists in the database.
         /// Returns False if no object with the specified resref is found in the database.
@@ -234,11 +176,6 @@ namespace WinterEngine.DataAccess
             return !Object.ReferenceEquals(placeable, null);
         }
 
-        //public int GetDefaultResourceID()
-        //{
-        //    Placeable defaultObject = _context.Placeables.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
         #endregion
     }
 }

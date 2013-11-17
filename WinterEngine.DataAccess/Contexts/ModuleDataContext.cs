@@ -10,7 +10,7 @@ namespace WinterEngine.DataAccess.Contexts
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Placeable> Placeables { get; set; }
         public virtual DbSet<Category> ResourceCategories { get; set; }
-        public virtual DbSet<GameModule> Modules { get; set; }
+        public virtual DbSet<GameModule> GameModules { get; set; }
         public virtual DbSet<Race> Races { get; set; }
         public virtual DbSet<ItemProperty> ItemProperties { get; set; }
         public virtual DbSet<CharacterClass> CharacterClasses { get; set; }

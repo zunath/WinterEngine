@@ -24,16 +24,16 @@ namespace WinterEngine.Game.IoC
 
             #region WinterEngine.DataAccess
 
-            //Bind<IGameObjectRepository<Area>>().To<AreaRepository>()
+            Bind<IGameObjectRepository<Area>>().To<AreaRepository>();
             Bind<IGameObjectRepository<Conversation>>().To<ConversationRepository>();
             Bind<IGameObjectRepository<Creature>>().To<CreatureRepository>();
             Bind<IGameObjectRepository<Item>>().To<ItemRepository>();
             Bind<IGameObjectRepository<Placeable>>().To<PlaceableRepository>();
 
-            Bind<IResourceRepository<Category>>().To<CategoryRepository>();
-            Bind<IResourceRepository<ContentPackage>>().To<ContentPackageRepository>();
-            Bind<IResourceRepository<ContentPackageResource>>().To<ContentPackageResourceRepository>();
-            Bind<IResourceRepository<ItemType>>().To<ItemTypeRepository>();
+            //Bind<IResourceRepository<Category>>().To<CategoryRepository>();
+            //Bind<IResourceRepository<ContentPackage>>().To<ContentPackageRepository>();
+            //Bind<IResourceRepository<ContentPackageResource>>().To<ContentPackageResourceRepository>();
+            //Bind<IResourceRepository<ItemType>>().To<ItemTypeRepository>();
 
             #endregion
 

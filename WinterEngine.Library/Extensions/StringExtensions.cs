@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WinterEngine.Editor.Extensions
+namespace WinterEngine.Library.Extensions
 {
     public static class StringExtensions
     {

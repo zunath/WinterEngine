@@ -13,7 +13,7 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using WinterEngine.Library.Extensions;
 using WinterEngine.Game.Interfaces;
-using WinterEngine.Editor.Extensions;
+using WinterEngine.Library.Extensions;
 
 
 namespace WinterEngine.Game.Entities

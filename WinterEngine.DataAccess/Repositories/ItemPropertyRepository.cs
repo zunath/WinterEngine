@@ -47,7 +47,6 @@ namespace WinterEngine.DataAccess.Repositories
 
             return retItemProperty;
         }
-
         public ItemProperty Save(ItemProperty itemProperty)
         {
             return InternalSave(itemProperty, true);
@@ -116,20 +115,6 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.ItemProperties.Where(x => x.ResourceID == itemPropertyID).SingleOrDefault();
         }
 
-
-        //public bool Exists(ItemProperty itemProperty)
-        //{
-        //    ItemProperty dbItemProperty = _context.ItemProperties.Where(x => x.ResourceID == itemProperty.ResourceID).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbItemProperty, null);
-        //}
-
-        
-
-        //public int GetDefaultResourceID()
-        //{
-        //    ItemProperty defaultObject = _context.ItemProperties.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
 
         #endregion
                 

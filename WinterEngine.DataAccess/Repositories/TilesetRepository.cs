@@ -130,63 +130,6 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Tilesets.Where(x => x.Resref == resref).SingleOrDefault();
         }
 
-        
-
-        //Move logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from tileset
-        //                                        in Context.TilesetRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = tileset.Name,
-        //                                            ResourceID = tileset.ResourceID
-        //                                        }).ToList();
-
-        //    return items;
-        //}
-
-        public void DeleteAllByCategory(Category category)
-        {
-            List<Tileset> tilesetList = _context.Tilesets.Where(x => x.ResourceCategoryID == category.ResourceID).ToList();
-            _context.Tilesets.RemoveRange(tilesetList);
-        }
-
-        /// <summary>
-        /// Generates a hierarchy of categories containing scripts for use in tree views.
-        /// </summary>
-        /// <returns>The root node containing all other categories and scripts.</returns>
-        public JSTreeNode GenerateJSTreeHierarchy()
-        {
-            JSTreeNode rootNode = new JSTreeNode("Tilesets");
-            rootNode.attr.Add("data-nodetype", "root");
-            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = _context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Tileset).ToList();
-            foreach (Category category in categories)
-            {
-                JSTreeNode categoryNode = new JSTreeNode(category.Name);
-                categoryNode.attr.Add("data-nodetype", "category");
-                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
-                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
-
-                List<Tileset> tilesets = _context.Tilesets.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
-                foreach (Tileset tileset in tilesets)
-                {
-                    JSTreeNode childNode = new JSTreeNode(tileset.Name);
-                    childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resourceid", Convert.ToString(tileset.ResourceID));
-                    childNode.attr.Add("data-issystemresource", Convert.ToString(tileset.IsSystemResource));
-
-                    categoryNode.children.Add(childNode);
-                }
-
-                treeNodes.Add(categoryNode);
-            }
-
-            rootNode.children = treeNodes;
-            return rootNode;
-        }
-
         public bool Exists(string resref)
         {
             Tileset tileset = _context.Tilesets.Where(x => x.Resref == resref).SingleOrDefault();
@@ -194,12 +137,6 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         #endregion
-
-        //public int GetDefaultResourceID()
-        //{
-        //    Tileset defaultObject = _context.Tilesets.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
 
     }
 }

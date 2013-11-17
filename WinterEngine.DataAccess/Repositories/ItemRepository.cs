@@ -129,20 +129,6 @@ namespace WinterEngine.DataAccess
             }
             _context.SaveChanges();
         }
-        //todo: move this logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from item
-        //                                        in Context.ItemRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = item.Name,
-        //                                            ResourceID = item.ResourceID
-        //                                        }).ToList();
-
-        //    return items;
-        //}
-
         public IEnumerable<Item> GetAll()
         {
             return _context.Items.AsEnumerable();
@@ -174,50 +160,6 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// Deletes all of the items attached to a specified category from the database.
-        /// </summary>
-        public void DeleteAllByCategory(Category resourceCategory)
-        {
-            List<Item> itemList = _context.Items.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            _context.Items.RemoveRange(itemList);
-        }
-
-        /// <summary>
-        /// Generates a hierarchy of categories containing items for use in tree views.
-        /// </summary>
-        /// <returns>The root node containing all other categories and items.</returns>
-        public JSTreeNode GenerateJSTreeHierarchy()
-        {
-            JSTreeNode rootNode = new JSTreeNode("Items");
-            rootNode.attr.Add("data-nodetype", "root");
-            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = _context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Item).ToList();
-            foreach (Category category in categories)
-            {
-                JSTreeNode categoryNode = new JSTreeNode(category.Name);
-                categoryNode.attr.Add("data-nodetype", "category");
-                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
-                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
-
-                List<Item> items = _context.Items.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
-                foreach (Item item in items)
-                {
-                    JSTreeNode childNode = new JSTreeNode(item.Name);
-                    childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resourceid", Convert.ToString(item.ResourceID));
-                    childNode.attr.Add("data-issystemresource", Convert.ToString(item.IsSystemResource));
-
-                    categoryNode.children.Add(childNode);
-                }
-
-                treeNodes.Add(categoryNode);
-            }
-
-            rootNode.children = treeNodes;
-            return rootNode;
-        }
-
-        /// <summary>
         /// Returns True if an object with the specified resref exists in the database.
         /// Returns False if no object with the specified resref is found in the database.
         /// </summary>
@@ -228,14 +170,6 @@ namespace WinterEngine.DataAccess
             Item item = _context.Items.Where(x => x.Resref == resref).SingleOrDefault();
             return !Object.ReferenceEquals(item, null);
         }
-
-        
-
-        //public int GetDefaultResourceID()
-        //{
-        //    Item defaultObject = _context.Items.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
 
         #endregion
 

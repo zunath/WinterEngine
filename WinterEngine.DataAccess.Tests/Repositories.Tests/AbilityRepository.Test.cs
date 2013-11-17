@@ -34,7 +34,7 @@ namespace WinterEngine.DataAccess.Tests.Repositories.Tests
             var cx = mockContext.Object;
             var repo = new AbilityRepository(cx, true);
             
-            repo.Add(ability);
+            repo.Save(ability);
 
             mockSet.Verify(x => x.Add(ability), Times.Once());
         }

@@ -111,38 +111,11 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Races.ToList();
         }
 
-        //todo: move logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from item
-        //                                        in Context.RaceRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = item.Name,
-        //                                            ResourceID = item.ResourceID
-        //                                        }).ToList();
-        //    return items;
-        //}
-
-
-
         public Race GetByID(int raceID)
         {
             return _context.Races.Where(x => x.ResourceID == raceID).SingleOrDefault();
         }
 
-
-        //public bool Exists(Race race)
-        //{
-        //    Race dbRace = _context.Races.Where(x => x.ResourceID == race.ResourceID).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbRace, null);
-        //}
-
-        //public int GetDefaultResourceID()
-        //{
-        //    Race defaultObject = _context.Races.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
 
         #endregion
 

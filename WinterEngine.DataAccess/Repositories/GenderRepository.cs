@@ -128,20 +128,6 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Genders.ToList();
         }
 
-        //todo: move this logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from gender
-        //                                        in Context.GenderRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = gender.Name,
-        //                                            ResourceID = gender.ResourceID
-        //                                        }).ToList();
-
-        //    return items;
-        //}
-
         public Gender GetByID(int resourceID)
         {
             return _context.Genders.Where(x => x.ResourceID == resourceID).SingleOrDefault();
@@ -166,5 +152,6 @@ namespace WinterEngine.DataAccess.Repositories
 
 
         #endregion
+
     }
 }

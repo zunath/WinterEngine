@@ -36,6 +36,7 @@ namespace WinterEngine.Library.Managers
         private readonly IGenericRepository<ContentPackage> _contentPackageRepository;
         private readonly IGenericRepository<Category> _categoryRepository;
         private readonly IGameObjectFactory _gameObjectFactory;
+        private readonly IGenericRepository<GameModule> _gameModuleRepositoryGeneric;
 
         #endregion
 
@@ -127,7 +128,7 @@ namespace WinterEngine.Library.Managers
         #endregion
 
         #region Events / Delegates
-        
+
         #endregion
 
         #region Methods
@@ -155,8 +156,7 @@ namespace WinterEngine.Library.Managers
                 module.Tag = ModuleTag;
                 module.Resref = ModuleResref;
 
-                _gameModuleRepository.Add(module);
-                _gameModuleRepository.ApplyChanges();
+                _gameModuleRepositoryGeneric.Save(module);
 
                 LoadSystemContentPacks();
 
@@ -174,24 +174,24 @@ namespace WinterEngine.Library.Managers
         /// <param name="path"></param>
         public void SaveModule(string path)
         {
-                // Update the path to the module file
-                if (!String.IsNullOrEmpty(path))
-                {
-                    ModulePath = path;
-                }
+            // Update the path to the module file
+            if (!String.IsNullOrEmpty(path))
+            {
+                ModulePath = path;
+            }
             string backupPath = _fileArchiveManager.GenerateUniqueFileName(ModulePath);
 
-                // Make a back up of the module file just in case something goes wrong.
-                if (File.Exists(ModulePath))
-                {
-                    File.Copy(ModulePath, backupPath);
-                }
+            // Make a back up of the module file just in case something goes wrong.
+            if (File.Exists(ModulePath))
+            {
+                File.Copy(ModulePath, backupPath);
+            }
 
-                File.Delete(ModulePath);
+            File.Delete(ModulePath);
             _fileArchiveManager.ArchiveDirectory(TemporaryDirectoryPath, ModulePath);
 
-                // Delete the backup since the new save was successful.
-                File.Delete(backupPath);
+            // Delete the backup since the new save was successful.
+            File.Delete(backupPath);
 
         }
 
@@ -214,7 +214,7 @@ namespace WinterEngine.Library.Managers
 
 
             TemporaryDirectoryPath = _fileArchiveManager.CreateUniqueDirectory();
-                // Extract all files contained in the module zip file to the temporary directory.
+            // Extract all files contained in the module zip file to the temporary directory.
             _fileArchiveManager.ExtractArchive(ModulePath, TemporaryDirectoryPath);
 
 
@@ -273,13 +273,11 @@ namespace WinterEngine.Library.Managers
             }
 
             // Retrieve the required content packages (ones which are attached to the module)
-            using (ContentPackageRepository repo = new ContentPackageRepository())
-            {
-                IEnumerable<ContentPackage> contentPackages = repo.GetAll();
-                moduleContentPackages = (from package
-                                         in contentPackages
-                                         select package.FileName).ToList();
-            }
+            IEnumerable<ContentPackage> contentPackages = _contentPackageRepository.GetAll();
+            moduleContentPackages = (from package
+                                        in contentPackages
+                                        select package.FileName).ToList();
+            
 
             // Determine which content packages do not exist on disk that are required by this module.
             missingContentPackages = moduleContentPackages.Except(fileContentPackages).ToList();

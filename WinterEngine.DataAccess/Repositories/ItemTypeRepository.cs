@@ -135,18 +135,6 @@ namespace WinterEngine.DataAccess
         }
 
 
-        ///// <summary>
-        ///// Returns true if an item type exists in the database.
-        ///// Returns false if an item type does not exist in the database.
-        ///// </summary>
-        ///// <param name="itemType"></param>
-        ///// <returns></returns>
-        //public bool Exists(ItemType itemType)
-        //{
-        //    ItemType dbItemType = _context.ItemTypes.Where(x => x.ResourceID == itemType.ResourceID).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbItemType, null);
-        //}
-
         #endregion
     }
 }

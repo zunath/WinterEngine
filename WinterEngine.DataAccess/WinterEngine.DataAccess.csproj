@@ -124,7 +124,6 @@
     <Compile Include="Repositories\GameModuleRepository.cs" />
     <Compile Include="Repositories\PlaceableRepository.cs" />
     <Compile Include="Repositories\RaceRepository.cs" />
-    <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ScriptRepository.cs" />
     <Compile Include="Repositories\TileCollisionBoxRepository.cs" />

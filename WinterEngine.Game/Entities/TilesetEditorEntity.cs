@@ -29,6 +29,7 @@ using WinterEngine.DataTransferObjects.BusinessObjects;
 using Microsoft.Xna.Framework;
 using System.Linq;
 using WinterEngine.Game.Interfaces;
+using WinterEngine.DataAccess;
 
 namespace WinterEngine.Game.Entities
 {
@@ -37,6 +38,10 @@ namespace WinterEngine.Game.Entities
         #region Fields
 
         private Texture2D _tilesetSpriteSheet;
+        private readonly IGenericRepository<ContentPackageResource> _contentPackageResourceRepository;
+        private readonly IGenericRepository<TileCollisionBox> _tileCollisionBoxRepository;
+        private readonly IGenericRepository<Tileset> _tilesetRepository;
+
         #endregion
 
         #region Properties
@@ -94,10 +99,7 @@ namespace WinterEngine.Game.Entities
                 ClearTileEntityList();
                 ContentPackageResource resource;
 
-                using (ContentPackageResourceRepository repo = new ContentPackageResourceRepository())
-                {
-                    resource = repo.GetByID(e.GraphicResourceID);
-                }
+                resource = _contentPackageResourceRepository.GetByID(e.GraphicResourceID);
 
                 if (resource != null && !resource.IsDefault)
                 {
@@ -132,16 +134,15 @@ namespace WinterEngine.Game.Entities
             int numberOfTiles = numberOfColumns * numberOfRows;
             int tileIndex = 0;
 
-            Tileset activeTileset;
-            using (TilesetRepository repo = new TilesetRepository())
-            {
-                activeTileset = repo.GetByID(TilesetResourceID);
-            }
+            Tileset activeTileset = _tilesetRepository.GetByID(TilesetResourceID);
             TileList.Clear();
 
             if (activeTileset != null)
             {
-                List<TileCollisionBox> activeTilesetCollisionBoxes = new TileCollisionBoxRepository().GetByTilesetID(activeTileset.ResourceID);
+                List<TileCollisionBox> activeTilesetCollisionBoxes = (from box
+                                                                      in _tileCollisionBoxRepository.GetAll()
+                                                                      where box.TilesetID == activeTileset.ResourceID
+                                                                      select box).ToList();
 
                 for (int currentColumn = 0; currentColumn < numberOfColumns; currentColumn++)
                 {

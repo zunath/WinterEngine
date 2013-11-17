@@ -124,26 +124,15 @@ namespace WinterEngine.DataAccess
 
         public IEnumerable<GameModule> GetAll()
         {
-            var result = _context.Modules.ToList();
+            var result = _context.GameModules.ToList();
             return result;
         }
 
         public GameModule GetByID(int resourceID)
         {
-            var result = _context.Modules.Find(resourceID);
+            var result = _context.GameModules.Find(resourceID);
             return result;
         }
-
-        //public bool Exists()
-        //{
-        //    GameModule module = GetModule();
-        //    return !Object.ReferenceEquals(module, null);
-        //}
-
-        //public GameModule GetModule()
-        //{
-        //    return _context.Modules.FirstOrDefault();
-        //}
 
         public GameModule GetModule()
         {
