@@ -27,32 +27,43 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        public TileCollisionBox Add(TileCollisionBox box)
+        private TileCollisionBox InternalSave(TileCollisionBox tileCollisionBox, bool saveChanges)
         {
-            return _context.TileCollisionBoxes.Add(box);
-        }
-
-        public void Add(List<TileCollisionBox> boxes)
-        {
-            _context.TileCollisionBoxes.AddRange(boxes);
-        }
-
-        public TileCollisionBox Save(TileCollisionBox box)
-        {
-            if (box.CollisionBoxID <= 0)
+            TileCollisionBox retTileCollisionBox;
+            if (tileCollisionBox.CollisionBoxID <= 0)
             {
-                _context.TileCollisionBoxes.Add(box);
+                retTileCollisionBox = _context.TileCollisionBoxes.Add(tileCollisionBox);
             }
             else
             {
-                Update(box);
+                retTileCollisionBox = _context.TileCollisionBoxes.SingleOrDefault(x => x.CollisionBoxID == tileCollisionBox.CollisionBoxID);
+                if (retTileCollisionBox == null) return null;
+                _context.Entry(retTileCollisionBox).CurrentValues.SetValues(tileCollisionBox);
+
             }
-            return box;
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retTileCollisionBox;
+        }
+
+        public TileCollisionBox Save(TileCollisionBox tCollisionBox)
+        {
+            return InternalSave(tCollisionBox, true);
         }
 
         public void Save(IEnumerable<TileCollisionBox> entityList)
         {
-            throw new NotImplementedException();
+            if (entityList != null)
+            {
+                foreach (var tCollisionBox in entityList)
+                {
+                    InternalSave(tCollisionBox, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
         public void Update(TileCollisionBox box)
@@ -63,20 +74,37 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Entry(dbBox).CurrentValues.SetValues(box);
         }
 
-        public void Delete(TileCollisionBox box)
+        private void DeleteInternal(TileCollisionBox tileCollisionBox, bool saveChanges = true)
         {
-            _context.TileCollisionBoxes.Remove(box);
+            var dbTileCollisionBox = _context.TileCollisionBoxes.SingleOrDefault(x => x.CollisionBoxID == tileCollisionBox.CollisionBoxID);
+            if (dbTileCollisionBox == null) return;
+
+            _context.TileCollisionBoxes.Remove(tileCollisionBox);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+        }
+
+        public void Delete(TileCollisionBox ability)
+        {
+            DeleteInternal(ability);
         }
 
         public void Delete(int resourceID)
         {
             var tileCollisionBox = _context.TileCollisionBoxes.Find(resourceID);
-            Delete(tileCollisionBox);
+            DeleteInternal(tileCollisionBox);
         }
 
-        public void Delete(IEnumerable<TileCollisionBox> entityList)
+        public void Delete(IEnumerable<TileCollisionBox> tileCollisionBoxList)
         {
-            throw new NotImplementedException();
+            foreach (var tileCollisionBox in tileCollisionBoxList)
+            {
+                DeleteInternal(tileCollisionBox, false);
+            }
+            _context.SaveChanges();
         }
 
         public IEnumerable<TileCollisionBox> GetAll()
@@ -89,10 +117,6 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.TileCollisionBoxes.Where(x => x.CollisionBoxID == boxID).SingleOrDefault();
         }
 
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
 
         //public bool Exists(TileCollisionBox box)
         //{

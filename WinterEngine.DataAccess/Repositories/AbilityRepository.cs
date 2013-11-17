@@ -66,10 +66,10 @@ namespace WinterEngine.DataAccess.Repositories
 
         private void DeleteInternal(Ability ability, bool saveChanges = true)
         {
-            Ability dbAbility = _context.Abilities.SingleOrDefault(x => x.ResourceID == ability.ResourceID);
+            var dbAbility = _context.Abilities.SingleOrDefault(x => x.ResourceID == ability.ResourceID);
             if (dbAbility == null) return;
 
-            _context.Abilities.Remove(ability);
+            _context.Abilities.Remove(dbAbility);
 
             if (saveChanges)
             {

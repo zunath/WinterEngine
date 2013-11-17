@@ -30,23 +30,26 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        /// <summary>
-        /// Adds a gender to the database.
-        /// </summary>
-        /// <param name="gender">The gender to add to the database.</param>
-        /// <returns></returns>
-        public Gender Add(Gender gender)
+        private Gender InternalSave(Gender gender, bool saveChanges)
         {
-            return _context.Genders.Add(gender);
-        }
+            Gender retGender;
+            if (gender.ResourceID <= 0)
+            {
+                retGender = _context.Genders.Add(gender);
+            }
+            else
+            {
+                retGender = _context.Genders.SingleOrDefault(x => x.ResourceID == gender.ResourceID);
+                if (retGender == null) return null;
+                _context.Entry(retGender).CurrentValues.SetValues(gender);
 
-        /// <summary>
-        /// Adds a list of genders to the database.
-        /// </summary>
-        /// <param name="genderList">The list of genders to add to the database.</param>
-        public void Add(List<Gender> genderList)
-        {
-            _context.Genders.AddRange(genderList);
+            }
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retGender;
         }
 
         /// <summary>
@@ -56,20 +59,19 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="gender">The new gender to upsert.</param>
         public Gender Save(Gender gender)
         {
-            if (gender.ResourceID <= 0)
-            {
-                _context.Genders.Add(gender);
-            }
-            else
-            {
-                Update(gender);
-            }
-            return gender;
+            return InternalSave(gender, true);
         }
 
         public void Save(IEnumerable<Gender> entityList)
         {
-            throw new NotImplementedException();
+            if(entityList != null)
+            {
+                foreach(var gender in entityList)
+                {
+                    InternalSave(gender, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -84,25 +86,37 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Entry(dbGender).CurrentValues.SetValues(newGender);
         }
 
+        private void DeleteInternal(Gender gender, bool saveChanges = true)
+        {
+            var dbGender = _context.Genders.SingleOrDefault(x => x.ResourceID == gender.ResourceID);
+            if (dbGender == null) return;
+
+            _context.Genders.Remove(dbGender);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+        }
+
         public void Delete(Gender gender)
         {
-            _context.Genders.Remove(gender);
+            DeleteInternal(gender);
         }
 
-        /// <summary>
-        /// Deletes a gender with the specified resref from the database.
-        /// </summary>
-        /// <param name="resref">The resource reference to search for and delete.</param>
-        /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Gender gender = _context.Genders.Where(c => c.ResourceID == resourceID).SingleOrDefault();
-            _context.Genders.Remove(gender);
+            var gender = _context.Genders.Find(resourceID);
+            DeleteInternal(gender);
         }
 
-        public void Delete(IEnumerable<Gender> entityList)
+        public void Delete(IEnumerable<Gender> genderList)
         {
-            throw new NotImplementedException();
+            foreach (var gender in genderList)
+            {
+                DeleteInternal(gender, false);
+            }
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -152,20 +166,5 @@ namespace WinterEngine.DataAccess.Repositories
 
 
         #endregion
-
-        //public object Load(int resourceID)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public int Save(object gameObject)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void DeleteByCategory(Category category)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

@@ -33,31 +33,50 @@ namespace WinterEngine.DataAccess
 
         #region Methods
 
-        public GameModule Add(GameModule gameModule)
+        private GameModule InternalSave(GameModule gameModule, bool saveChanges)
         {
-            return _context.Modules.Add(gameModule);
-        }
+            GameModule retGameModule;
+            if (gameModule.ResourceID <= 0)
+            {
+                retGameModule = _context.Modules.Add(gameModule);
+            }
+            else
+            {
+                retGameModule = _context.Modules.SingleOrDefault(x => x.ResourceID == gameModule.ResourceID);
+                if (retGameModule == null) return null;
+                _context.Entry(retGameModule).CurrentValues.SetValues(gameModule);
 
-        public void Add(List<GameModule> entityList)
-        {
-            throw new NotImplementedException();
+            }
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retGameModule;
         }
 
         public GameModule Save(GameModule entity)
         {
-            throw new NotImplementedException();
+            return InternalSave(entity, true);
         }
 
         public void Save(IEnumerable<GameModule> entityList)
         {
-            throw new NotImplementedException();
+            if(entityList != null)
+            {
+                foreach( var gm in entityList)
+                {
+                    InternalSave(gm, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
         public void Update(GameModule module)
         {
             //todo: What do I do with this?
-            //GameModule dbModule = GetModule();
-            //if (dbModule == null) throw new NullReferenceException("Game module does not exist");
+            GameModule dbModule = GetModule();
+            if (dbModule == null) throw new NullReferenceException("Game module does not exist");
 
             foreach (LocalVariable variable in module.LocalVariables)
             {
@@ -70,20 +89,37 @@ namespace WinterEngine.DataAccess
             _context.LocalVariables.AddRange(module.LocalVariables.ToList());
         }
 
-        public void Delete(GameModule entity)
+        private void DeleteInternal(GameModule gameModule, bool saveChanges = true)
         {
-            _context.Modules.Remove(entity);
+            var dbGameModule = _context.Modules.SingleOrDefault(x => x.ResourceID == gameModule.ResourceID);
+            if (dbGameModule == null) return;
+
+            _context.Modules.Remove(dbGameModule);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+        }
+
+        public void Delete(GameModule gameModule)
+        {
+            DeleteInternal(gameModule);
         }
 
         public void Delete(int resourceID)
         {
-            GameModule module = _context.Modules.Where(x => x.ResourceID == resourceID).FirstOrDefault();
-            _context.Modules.Remove(module);
+            var gameModule = _context.Modules.Find(resourceID);
+            DeleteInternal(gameModule);
         }
 
-        public void Delete(IEnumerable<GameModule> entityList)
+        public void Delete(IEnumerable<GameModule> gameModuleList)
         {
-            throw new NotImplementedException();
+            foreach (var gameModule in gameModuleList)
+            {
+                DeleteInternal(gameModule, false);
+            }
+            _context.SaveChanges();
         }
 
         public IEnumerable<GameModule> GetAll()
@@ -98,11 +134,6 @@ namespace WinterEngine.DataAccess
             return result;
         }
 
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
-
         //public bool Exists()
         //{
         //    GameModule module = GetModule();
@@ -114,13 +145,15 @@ namespace WinterEngine.DataAccess
         //    return _context.Modules.FirstOrDefault();
         //}
 
+        public GameModule GetModule()
+        {
+            return _context.Modules.FirstOrDefault();
+        }
+
         #endregion
 
 
 
-        public GameModule GetModule()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

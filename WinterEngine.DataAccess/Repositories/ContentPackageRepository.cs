@@ -40,22 +40,26 @@ namespace WinterEngine.DataAccess.Repositories
         
         #region Database Methods
 
-        /// <summary>
-        /// Adds a content package to the database.
-        /// </summary>
-        /// <param name="package"></param>
-        public ContentPackage Add(ContentPackage package)
+        private ContentPackage SaveInternal(ContentPackage package, bool saveChanges)
         {
-            return _context.ContentPackages.Add(package);
-        }
-            
-        /// <summary>
-        /// Adds a list of content packages to the database.
-        /// </summary>
-        /// <param name="packageList"></param>
-        public void Add(List<ContentPackage> packageList)
-        {
-            _context.ContentPackages.AddRange(packageList);
+            ContentPackage retContentPackage;
+            if (package.ResourceID <= 0)
+            {
+                retContentPackage = _context.ContentPackages.Add(package);
+            }
+            else
+            {
+                retContentPackage = _context.ContentPackages.SingleOrDefault(x => x.ResourceID == package.ResourceID);
+                if (retContentPackage == null) return null;
+                _context.Entry(retContentPackage).CurrentValues.SetValues(package);
+
+            }
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retContentPackage;
         }
 
         /// <summary>
@@ -65,95 +69,77 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="package"></param>
         public ContentPackage Save(ContentPackage package)
         {
-            if (package.ResourceID <= 0)
-            {
-                _context.ContentPackages.Add(package);
-            }
-            else
-            {
-                Update(package);
-            }
-
-            return package;
+            return SaveInternal(package, true);
         }
 
         public void Save(IEnumerable<ContentPackage> entityList)
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Updates an existing content package with new values
-        /// </summary>
-        /// <param name="package"></param>
-        public void Update(ContentPackage package)
-        {
-            ContentPackage dbPackage = _context.ContentPackages.Where(x => x.ResourceID == package.ResourceID).SingleOrDefault();
-            if (dbPackage == null)
+            if(entityList != null)
             {
-                dbPackage = _context.ContentPackages.Where(x => x.FileName == package.FileName).SingleOrDefault();
+                foreach(var contPackage in entityList)
+                {
+                    SaveInternal(contPackage, false);
+                }
             }
-
-            if (dbPackage == null) return;
-
-            _context.Entry(dbPackage).CurrentValues.SetValues(package);
         }
 
         /// <summary>
         /// Deletes a content package from the database.
         /// </summary>
         /// <param name="package"></param>
-        public void Delete(ContentPackage package)
+        //public void Delete(ContentPackage package)
+        //{
+        //    for(int index = package.ResourceList.Count - 1; index >= 0; index--)
+        //    {
+        //        ContentPackageResource resource = package.ResourceList[index];
+        //        _context.ContentPackageResources.Remove(resource);
+        //    }
+
+        //    _context.ContentPackages.Remove(package);
+        //}
+
+        private void DeleteInternal(ContentPackage contentPackage, bool saveChanges = true)
         {
-            for(int index = package.ResourceList.Count - 1; index >= 0; index--)
+            var contPackage = _context.ContentPackages.SingleOrDefault(x => x.ResourceID == contentPackage.ResourceID);
+            if (contPackage == null) return;
+
+            foreach(var rList in contentPackage.ResourceList)
             {
-                ContentPackageResource resource = package.ResourceList[index];
-                _context.ContentPackageResources.Remove(resource);
+                _context.ContentPackageResources.Remove(rList);
             }
 
-            _context.ContentPackages.Remove(package);
+            _context.ContentPackages.Remove(contentPackage);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+        }
+
+        public void Delete(ContentPackage contPackage)
+        {
+            DeleteInternal(contPackage);
         }
 
         public void Delete(int resourceID)
         {
             var contPackage = _context.ContentPackages.Find(resourceID);
-            Delete(contPackage);
+            DeleteInternal(contPackage);
         }
 
-        public void Delete(IEnumerable<ContentPackage> entityList)
+        public void Delete(IEnumerable<ContentPackage> contPackageList)
         {
-            throw new NotImplementedException();
+            foreach (var contPackage in contPackageList)
+            {
+                DeleteInternal(contPackage, false);
+            }
+            _context.SaveChanges();
         }
 
         public IEnumerable<ContentPackage> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.ContentPackages.AsEnumerable();
         }
-
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from contentPackage
-        //                                        in Context.ContentPackageRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = contentPackage.Name,
-        //                                            ResourceID = contentPackage.ResourceID
-        //                                        }).ToList();
-        //    return items;
-        //}
-
-        ///// <summary>
-        ///// Returns true if a content package exists in the database.
-        ///// Returns false if a content package does not exist in the database.
-        ///// The content package's FileName property is used to check.
-        ///// </summary>
-        ///// <param name="package"></param>
-        ///// <returns></returns>
-        //public bool Exists(ContentPackage package)
-        //{
-        //    ContentPackage dbPackage = _context.ContentPackages.SingleOrDefault(x => x.FileName == package.FileName);
-        //    return !Object.ReferenceEquals(dbPackage, null);
-        //}
 
         /// <summary>
         /// Returns the content package matching the packageID passed in.
@@ -165,59 +151,6 @@ namespace WinterEngine.DataAccess.Repositories
         {
             return _context.ContentPackages.Where(x => x.ResourceID == packageID).SingleOrDefault();
         }
-
-
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
-
-        ///// <summary>
-        ///// Returns the file names of every content package used by the module.
-        ///// </summary>
-        ///// <returns></returns>
-        //public List<string> GetAllFileNames()
-        //{
-        //    List<ContentPackage> packages = _context.ContentPackages.ToList();
-        //    return packages.Select(x => x.FileName).ToList();
-        //}
-
-        ///// <summary>
-        ///// Returns all content packages which are not system resources (aka: user resources) from the database.
-        ///// </summary>
-        ///// <returns></returns>
-        //public List<ContentPackage> GetAllUserResources()
-        //{
-        //    return _context.ContentPackages.Where(x => x.IsSystemResource == false).ToList();
-        //}
-
-        ///// <summary>
-        ///// Returns all content packages which are system resources from the database.
-        ///// </summary>
-        ///// <returns></returns>
-        //public List<ContentPackage> GetAllSystemResources()
-        //{
-        //    return _context.ContentPackages.Where(x => x.IsSystemResource == true).ToList();
-        //}
-
-        ///// <summary>
-        ///// Returns true if a content package exists in the database.
-        ///// Returns false if a content package does not exist in the database.
-        ///// The content package's FileName property is used to check.
-        ///// </summary>
-        ///// <param name="package"></param>
-        ///// <returns></returns>
-        //public bool Exists(ContentPackage package)
-        //{
-        //    ContentPackage dbPackage = _context.ContentPackages.Where(x => x.FileName == package.FileName).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbPackage, null);
-        //}
-
-        //public int GetDefaultResourceID()
-        //{
-        //    ContentPackage defaultObject = _context.ContentPackages.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
 
         #endregion
 

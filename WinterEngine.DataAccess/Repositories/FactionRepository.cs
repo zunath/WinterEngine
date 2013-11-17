@@ -27,32 +27,43 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        public Faction Add(Faction faction)
+        private Faction InternalSave(Faction faction, bool saveChanges)
         {
-            return _context.Factions.Add(faction);
-        }
+            Faction retFaction;
+            if (faction.ResourceID <= 0)
+            {
+                retFaction = _context.Factions.Add(faction);
+            }
+            else
+            {
+                retFaction = _context.Factions.SingleOrDefault(x => x.ResourceID == faction.ResourceID);
+                if (retFaction == null) return null;
+                _context.Entry(retFaction).CurrentValues.SetValues(faction);
 
-        public void Add(List<Faction> factionList)
-        {
-            _context.Factions.AddRange(factionList);
+            }
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retFaction;
         }
 
         public Faction Save(Faction faction)
         {
-            if (faction.ResourceID <= 0)
-            {
-                _context.Factions.Add(faction);
-            }
-            else
-            {
-                Update(faction);
-            }
-            return faction;
+            return InternalSave(faction, true);
         }
 
         public void Save(IEnumerable<Faction> entityList)
         {
-            throw new NotImplementedException();
+            if(entityList != null)
+            {
+                foreach(var faction in entityList)
+                {
+                    InternalSave(faction, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
         public void Update(Faction faction)
@@ -63,21 +74,37 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Entry(dbFaction).CurrentValues.SetValues(faction);
         }
 
+        private void DeleteInternal(Faction faction, bool saveChanges = true)
+        {
+            var dbFaction = _context.Factions.SingleOrDefault(x => x.ResourceID == faction.ResourceID);
+            if (dbFaction == null) return;
+
+            _context.Factions.Remove(dbFaction);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+        }
 
         public void Delete(Faction faction)
         {
-            _context.Factions.Remove(faction);
+            DeleteInternal(faction);
         }
 
         public void Delete(int resourceID)
         {
             var faction = _context.Factions.Find(resourceID);
-            _context.Factions.Remove(faction);
+            DeleteInternal(faction);
         }
 
-        public void Delete(IEnumerable<Faction> entityList)
+        public void Delete(IEnumerable<Faction> factionList)
         {
-            throw new NotImplementedException();
+            foreach (var faction in factionList)
+            {
+                DeleteInternal(faction, false);
+            }
+            _context.SaveChanges();
         }
 
         public IEnumerable<Faction> GetAll()
@@ -103,12 +130,7 @@ namespace WinterEngine.DataAccess.Repositories
         {
             return _context.Factions.Where(x => x.ResourceID == factionID).SingleOrDefault();
         }
-
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
-
+        
         //public bool Exists(Faction faction)
         //{
         //    Faction dbFaction = _context.Factions.Where(x => x.ResourceID == faction.ResourceID).SingleOrDefault();

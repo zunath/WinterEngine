@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Repositories;
@@ -28,23 +29,26 @@ namespace WinterEngine.DataAccess
 
         #region Methods
 
-        /// <summary>
-        /// Adds an area to the database.
-        /// </summary>
-        /// <param name="area">The area to add to the database.</param>
-        /// <returns></returns>
-        public Area Add(Area area)
+        private Area InternalSave(Area area, bool saveChanges)
         {
-            return _context.Areas.Add(area);
-        }
+            Area retArea;
+            if (area.ResourceID <= 0)
+            {
+                retArea = _context.Areas.Add(area);
+            }
+            else
+            {
+                retArea = _context.Areas.SingleOrDefault(x => x.ResourceID == area.ResourceID);
+                if (retArea == null) return null;
+                _context.Entry(retArea).CurrentValues.SetValues(area);
 
-        /// <summary>
-        /// Adds a list of areas to the database.
-        /// </summary>
-        /// <param name="areaList">The list of areas to add to the database.</param>
-        public void Add(List<Area> areaList)
-        {
-            _context.Areas.AddRange(areaList);   
+            }
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retArea;
         }
 
         /// <summary>
@@ -54,70 +58,53 @@ namespace WinterEngine.DataAccess
         /// <param name="area">The new area to upsert.</param>
         public Area Save(Area area)
         {
-            if (area.ResourceID <= 0)
-            {
-                _context.Areas.Add(area);
-            }
-            else
-            {
-                Update(area);
-            }
-
-            return area;
+            return InternalSave(area, true);
         }
 
         public void Save(IEnumerable<Area> entityList)
         {
-            throw new NotImplementedException();
+            if(entityList != null)
+            {
+                foreach(var area in entityList)
+                {
+                    InternalSave(area, false);
+                }
+                _context.SaveChanges();
+            }
+            
         }
 
-        /// <summary>
-        /// Updates an existing area in the database with new values.
-        /// </summary>
-        /// <param name="newArea">The new area that will replace the area with the matching resref.</param>
-        public void Update(Area newArea)
+        private void DeleteInternal(Area area, bool saveChanges = true)
         {
-            Area dbArea;
-            if (newArea.ResourceID <= 0)
-            {
-                dbArea = _context.Areas.Where(x => x.Resref == newArea.Resref).SingleOrDefault();
-            }
-            else
-            {
-                dbArea = _context.Areas.Where(x => x.ResourceID == newArea.ResourceID).SingleOrDefault();
-            }
+            var dbArea = _context.Areas.SingleOrDefault(x => x.ResourceID == area.ResourceID);
             if (dbArea == null) return;
 
-            foreach (LocalVariable variable in newArea.LocalVariables)
+            _context.Areas.Remove(dbArea);
+
+            if (saveChanges)
             {
-                variable.GameObjectBaseID = newArea.ResourceID;
+                _context.SaveChanges();
             }
-
-            _context.Entry(dbArea).CurrentValues.SetValues(newArea);
         }
-
 
         public void Delete(Area area)
         {
-            this.Delete(area.ResourceID);
+            DeleteInternal(area);
         }
 
-        /// <summary>
-        /// Deletes an area with the specified resource ID from the database.
-        /// </summary>
-        /// <param name="resref">The resource reference to search for and delete.</param>
-        /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Area area = _context.Areas.Where(a => a.ResourceID == resourceID).SingleOrDefault();
-
-            _context.LocalVariables.RemoveRange(area.LocalVariables.ToList());
-            _context.Areas.Remove(area);
+            var area = _context.Areas.Find(resourceID);
+            DeleteInternal(area);
         }
 
-        public void Delete(IEnumerable<Area> area)
+        public void Delete(IEnumerable<Area> areas)
         {
-            throw new NotImplementedException();
+            foreach (var area in areas)
+            {
+                DeleteInternal(area, false);
+            }
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -134,12 +121,7 @@ namespace WinterEngine.DataAccess
             var result = _context.Areas.Where(x => x.ResourceID == resourceID).SingleOrDefault();
             return result;
         }
-
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
-
+        
         /// <summary>
         /// Returns all of the areas in a specified category from the database.
         /// </summary>

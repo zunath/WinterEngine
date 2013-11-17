@@ -28,59 +28,44 @@ namespace WinterEngine.DataAccess
 
         #region Methods
 
-        
-
-        //move logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from item
-        //                                        in Context.ItemTypeRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = item.Name,
-        //                                            ResourceID = item.ResourceID
-        //                                        }).ToList();
-
-        //    return items;
-        //}
-
-
-        /// <summary>
-        /// Adds an item type to the database.
-        /// </summary>
-        /// <param name="itemType"></param>
-        /// <returns></returns>
-        public ItemType Add(ItemType itemType)
+        private ItemType InternalSave(ItemType itemType, bool saveChanges)
         {
-            return _context.ItemTypes.Add(itemType);
-        }
-
-        /// <summary>
-        /// Adds a list of item types to the database.
-        /// </summary>
-        /// <param name="itemTypeList"></param>
-        /// <returns></returns>
-        public void Add(List<ItemType> itemTypeList)
-        {
-            _context.ItemTypes.AddRange(itemTypeList);
-        }
-
-        public ItemType Save(ItemType itemType)
-        {
+            ItemType retItemType;
             if (itemType.ResourceID <= 0)
             {
-                _context.ItemTypes.Add(itemType);
+                retItemType = _context.ItemTypes.Add(itemType);
             }
             else
             {
-                Update(itemType);
+                retItemType = _context.ItemTypes.SingleOrDefault(x => x.ResourceID == itemType.ResourceID);
+                if (retItemType == null) return null;
+                _context.Entry(retItemType).CurrentValues.SetValues(itemType);
+
             }
-            return itemType;
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retItemType;
+        }
+
+        
+        public ItemType Save(ItemType itemType)
+        {
+            return InternalSave(itemType, true);
         }
 
         public void Save(IEnumerable<ItemType> entityList)
         {
-            throw new NotImplementedException();
+            if (entityList != null)
+            {
+                foreach (var itemType in entityList)
+                {
+                    InternalSave(itemType, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -90,31 +75,43 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Update(ItemType itemType)
         {
-            ItemType dbItemType = _context.ItemTypes.Where(x => x.ResourceID == itemType.ResourceID).SingleOrDefault();
+            var dbItemType = _context.ItemTypes.Where(x => x.ResourceID == itemType.ResourceID).SingleOrDefault();
             if (dbItemType == null) return;
 
             _context.Entry(dbItemType).CurrentValues.SetValues(itemType);
         }
 
-        /// <summary>
-        /// Deletes an item type from the database.
-        /// </summary>
-        /// <param name="itemType">The item type to delete.</param>
-        /// <returns></returns>
+        private void DeleteInternal(ItemType itemType, bool saveChanges = true)
+        {
+            var dbItemType = _context.Abilities.SingleOrDefault(x => x.ResourceID == itemType.ResourceID);
+            if (dbItemType == null) return;
+
+            _context.Abilities.Remove(dbItemType);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+        }
+
         public void Delete(ItemType itemType)
         {
-            _context.ItemTypes.Remove(itemType);
+            DeleteInternal(itemType);
         }
 
         public void Delete(int resourceID)
         {
-            var item = _context.ItemTypes.Find(resourceID);
-            Delete(item);
+            var itemType = _context.ItemTypes.Find(resourceID);
+            DeleteInternal(itemType);
         }
 
-        public void Delete(IEnumerable<ItemType> entityList)
+        public void Delete(IEnumerable<ItemType> itemTypeList)
         {
-            throw new NotImplementedException();
+            foreach (var itemType in itemTypeList)
+            {
+                DeleteInternal(itemType, false);
+            }
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -137,10 +134,6 @@ namespace WinterEngine.DataAccess
             return _context.ItemTypes.Where(x => x.ResourceID == itemTypeID).SingleOrDefault();
         }
 
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
 
         ///// <summary>
         ///// Returns true if an item type exists in the database.

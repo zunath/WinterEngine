@@ -30,42 +30,43 @@ namespace WinterEngine.DataAccess
 
         #region Methods
 
-        /// <summary>
-        /// Adds a placeable to the database.
-        /// </summary>
-        /// <param name="placeable">The placeable to add to the database.</param>
-        /// <returns></returns>
-        public Placeable Add(Placeable placeable)
+        private Placeable InternalSave(Placeable placeable, bool saveChanges)
         {
-            return _context.Placeables.Add(placeable);
-        }
-
-        public void Add(List<Placeable> placeableList)
-        {
-            _context.Placeables.AddRange(placeableList);
-        }
-
-        /// <summary>
-        /// If an placeable with the same resref is in the database, it will be replaced with newPlaceable.
-        /// If an placeable does not exist by newPlaceable's resref, it will be added to the database.
-        /// </summary>
-        /// <param name="newItem">The new placeable to upsert.</param>
-        public Placeable Save(Placeable placeable)
-        {
+            Placeable retPlaceable;
             if (placeable.ResourceID <= 0)
             {
-                _context.Placeables.Add(placeable);
+                retPlaceable = _context.Placeables.Add(placeable);
             }
             else
             {
-                Update(placeable);
+                retPlaceable = _context.Placeables.SingleOrDefault(x => x.ResourceID == placeable.ResourceID);
+                if (retPlaceable == null) return null;
+                _context.Entry(retPlaceable).CurrentValues.SetValues(placeable);
+
             }
-            return placeable;
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retPlaceable;
+        }
+
+        public Placeable Save(Placeable placeable)
+        {
+            return InternalSave(placeable, true);
         }
 
         public void Save(IEnumerable<Placeable> entityList)
         {
-            throw new NotImplementedException();
+            if (entityList != null)
+            {
+                foreach (var placeable in entityList)
+                {
+                    InternalSave(placeable, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -96,32 +97,38 @@ namespace WinterEngine.DataAccess
             _context.Entry(dbPlaceable).CurrentValues.SetValues(newPlaceable);
         }
 
-        
+        private void DeleteInternal(Placeable placeable, bool saveChanges = true)
+        {
+            var dbPlaceable = _context.Placeables.SingleOrDefault(x => x.ResourceID == placeable.ResourceID);
+            if (dbPlaceable == null) return;
 
-        /// <summary>
-        /// Removes a placeable from the database
-        /// </summary>
-        /// <param name="placeable"></param>
+            _context.LocalVariables.RemoveRange(placeable.LocalVariables.ToList());
+            _context.Placeables.Remove(dbPlaceable);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+        }
+
         public void Delete(Placeable placeable)
         {
-            this.Delete(placeable.ResourceID);
+            DeleteInternal(placeable);
         }
 
-        /// <summary>
-        /// Removes a placeable with the specified resref from the database.
-        /// </summary>
-        /// <param name="resref">The resource reference to search for and Remove.</param>
-        /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Placeable placeable = _context.Placeables.Where(p => p.ResourceID == resourceID).SingleOrDefault();
-            _context.LocalVariables.RemoveRange(placeable.LocalVariables.ToList());
-            _context.Placeables.Remove(placeable);
+            var placeable = _context.Placeables.Find(resourceID);
+            DeleteInternal(placeable);
         }
 
-        public void Delete(IEnumerable<Placeable> entityList)
+        public void Delete(IEnumerable<Placeable> placeableList)
         {
-            throw new NotImplementedException();
+            foreach (var placeable in placeableList)
+            {
+                DeleteInternal(placeable, false);
+            }
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -137,12 +144,7 @@ namespace WinterEngine.DataAccess
         {
             return _context.Placeables.Where(x => x.ResourceID == resourceID).SingleOrDefault();
         }
-
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
-
+        
         //todo: move logic somewhere else
         //public List<DropDownListUIObject> GetAllUIObjects()
         //{

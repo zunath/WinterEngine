@@ -30,23 +30,26 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        /// <summary>
-        /// Adds a conversation to the database.
-        /// </summary>
-        /// <param name="conversation">The conversation to add to the database.</param>
-        /// <returns></returns>
-        public Conversation Add(Conversation conversation)
+        private Conversation InternalSave(Conversation conversation, bool saveChanges)
         {
-            return _context.Conversations.Add(conversation);
-        }
+            Conversation retConversation;
+            if (conversation.ResourceID <= 0)
+            {
+                retConversation = _context.Conversations.Add(conversation);
+            }
+            else
+            {
+                retConversation = _context.Conversations.SingleOrDefault(x => x.ResourceID == conversation.ResourceID);
+                if (retConversation == null) return null;
+                _context.Entry(retConversation).CurrentValues.SetValues(conversation);
 
-        /// <summary>
-        /// Adds a list of conversations to the database.
-        /// </summary>
-        /// <param name="conversationList">The list of conversations to add to the database.</param>
-        public void Add(List<Conversation> conversationList)
-        {
-            _context.Conversations.AddRange(conversationList);
+            }
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retConversation;
         }
 
         /// <summary>
@@ -56,20 +59,19 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="conversation">The new conversation to upsert.</param>
         public Conversation Save(Conversation conversation)
         {
-            if (conversation.ResourceID <= 0)
-            {
-                _context.Conversations.Add(conversation);
-            }
-            else
-            {
-                Update(conversation);
-            }
-            return conversation;
+            return InternalSave(conversation, true);
         }
 
         public void Save(IEnumerable<Conversation> entityList)
         {
-            throw new NotImplementedException();
+            if(entityList != null)
+            {
+                foreach(var conv in entityList)
+                {
+                    InternalSave(conv, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -100,30 +102,37 @@ namespace WinterEngine.DataAccess.Repositories
             _context.LocalVariables.AddRange(newConversation.LocalVariables.ToList());
         }
 
-        /// <summary>
-        /// Deletes a conversation from the database.
-        /// </summary>
-        /// <param name="conversation"></param>
+        private void DeleteInternal(Conversation conversation, bool saveChanges = true)
+        {
+            var dbConversation = _context.Conversations.SingleOrDefault(x => x.ResourceID == conversation.ResourceID);
+            if (dbConversation == null) return;
+
+            _context.Conversations.Remove(dbConversation);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+        }
+
         public void Delete(Conversation conversation)
         {
-            this.Delete(conversation.ResourceID);
+            DeleteInternal(conversation);
         }
 
-        /// <summary>
-        /// Deletes a conversation with the specified resref from the database.
-        /// </summary>
-        /// <param name="resref">The resource reference to search for and delete.</param>
-        /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Conversation conversation = _context.Conversations.Where(c => c.ResourceID == resourceID).SingleOrDefault();
-            _context.LocalVariables.RemoveRange(conversation.LocalVariables.ToList());
-            _context.Conversations.Remove(conversation);
+            var conversation = _context.Conversations.Find(resourceID);
+            DeleteInternal(conversation);
         }
 
-        public void Delete(IEnumerable<Conversation> entityList)
+        public void Delete(IEnumerable<Conversation> conversationList)
         {
-            throw new NotImplementedException();
+            foreach (var conversation in conversationList)
+            {
+                DeleteInternal(conversation, false);
+            }
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -138,11 +147,6 @@ namespace WinterEngine.DataAccess.Repositories
         public Conversation GetByID(int resourceID)
         {
             return _context.Conversations.Where(x => x.ResourceID == resourceID).SingleOrDefault();
-        }
-
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
         }
 
         //todo: move this somewhere else

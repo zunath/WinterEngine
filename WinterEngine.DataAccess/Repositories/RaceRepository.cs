@@ -26,32 +26,43 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        public Race Add(Race race)
+        private Race InternalSave(Race race, bool saveChanges)
         {
-            return _context.Races.Add(race);
-        }
+            Race retRace;
+            if (race.ResourceID <= 0)
+            {
+                retRace = _context.Races.Add(race);
+            }
+            else
+            {
+                retRace = _context.Races.SingleOrDefault(x => x.ResourceID == race.ResourceID);
+                if (retRace == null) return null;
+                _context.Entry(retRace).CurrentValues.SetValues(race);
 
-        public void Add(List<Race> raceList)
-        {
-            _context.Races.AddRange(raceList);
+            }
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retRace;
         }
 
         public Race Save(Race race)
         {
-            if (race.ResourceID <= 0)
-            {
-                _context.Races.Add(race);
-            }
-            else
-            {
-                Update(race);
-            }
-            return race;
+            return InternalSave(race, true);
         }
 
         public void Save(IEnumerable<Race> entityList)
         {
-            throw new NotImplementedException();
+            if (entityList != null)
+            {
+                foreach (var race in entityList)
+                {
+                    InternalSave(race, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
         public void Update(Race race)
@@ -62,20 +73,37 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Entry(dbRace).CurrentValues.SetValues(race);
         }
 
+        private void DeleteInternal(Race race, bool saveChanges = true)
+        {
+            var dbRace = _context.Abilities.SingleOrDefault(x => x.ResourceID == race.ResourceID);
+            if (dbRace == null) return;
+
+            _context.Abilities.Remove(dbRace);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+        }
+
         public void Delete(Race race)
         {
-            _context.Races.Remove(race);
+            DeleteInternal(race);
         }
 
         public void Delete(int resourceID)
         {
             var race = _context.Races.Find(resourceID);
-            Delete(race);
+            DeleteInternal(race);
         }
 
-        public void Delete(IEnumerable<Race> entityList)
+        public void Delete(IEnumerable<Race> raceList)
         {
-            throw new NotImplementedException();
+            foreach (var race in raceList)
+            {
+                DeleteInternal(race, false);
+            }
+            _context.SaveChanges();
         }
 
         public IEnumerable<Race> GetAll()
@@ -103,10 +131,6 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Races.Where(x => x.ResourceID == raceID).SingleOrDefault();
         }
 
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
 
         //public bool Exists(Race race)
         //{

@@ -33,72 +33,76 @@ namespace WinterEngine.DataAccess
 
         #region Methods
 
-        /// <summary>
-        /// Adds a resource category to the database.
-        /// </summary>
-        /// <param name="resourceCategory"></param>
-        /// <returns></returns>
-        public Category Add(Category resourceCategory)
+        private Category InternalSave(Category category, bool saveChanges)
         {
-            return _context.ResourceCategories.Add(resourceCategory);
-        }
+            Category retCategory;
+            if (category.ResourceID <= 0)
+            {
+                retCategory = _context.ResourceCategories.Add(category);
+            }
+            else
+            {
+                retCategory = _context.ResourceCategories.SingleOrDefault(x => x.ResourceID == category.ResourceID);
+                if (retCategory == null) return null;
+                _context.Entry(retCategory).CurrentValues.SetValues(category);
 
-        public void Add(List<Category> categoryList)
-        {
-            _context.ResourceCategories.AddRange(categoryList);
+            }
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retCategory;
         }
 
         public Category Save(Category category)
         {
-            if (category.ResourceID <= 0)
-            {
-                _context.ResourceCategories.Add(category);
-            }
-            else
-            {
-                Update(category);
-            }
-
-            return category;
+            return InternalSave(category, true);
         }
 
         public void Save(IEnumerable<Category> entityList)
         {
-            throw new NotImplementedException();
+            if(entityList != null)
+            {
+                foreach(var cat in entityList)
+                {
+                    InternalSave(cat, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
-        /// <summary>
-        /// Updates an existing resource category with new values.
-        /// </summary>
-        /// <param name="resourceCategory"></param>
-        /// <returns></returns>
-        public void Update(Category resourceCategory)
+        private void DeleteInternal(Category ability, bool saveChanges = true)
         {
-            Category dbCategory = _context.ResourceCategories.Where(x => x.ResourceID == resourceCategory.ResourceID).SingleOrDefault();
+            var dbCategory = _context.ResourceCategories.SingleOrDefault(x => x.ResourceID == ability.ResourceID);
             if (dbCategory == null) return;
 
-            _context.Entry(dbCategory).CurrentValues.SetValues(resourceCategory);
+            _context.ResourceCategories.Remove(ability);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
         }
 
-        /// <summary>
-        /// Deletes a resource category from the database.
-        /// </summary>
-        /// <param name="resourceCategory">The resource category to delete.</param>
-        /// <returns></returns>
-        public void Delete(Category resourceCategory)
+        public void Delete(Category category)
         {
-            _context.ResourceCategories.Remove(resourceCategory);
+            DeleteInternal(category);
         }
 
         public void Delete(int resourceID)
         {
             var category = _context.ResourceCategories.Find(resourceID);
-            _context.ResourceCategories.Remove(category);
+            DeleteInternal(category);
         }
 
-        public void Delete(IEnumerable<Category> entityList)
+        public void Delete(IEnumerable<Category> categoryList)
         {
-            throw new NotImplementedException();
+            foreach (var category in categoryList)
+            {
+                DeleteInternal(category, false);
+            }
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -122,49 +126,6 @@ namespace WinterEngine.DataAccess
             return _context.ResourceCategories.Where(x => x.ResourceID == categoryID).SingleOrDefault();
         }
 
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
-
-        ///// <summary>
-        ///// Returns all of the resource categories for a particular resource type.
-        ///// </summary>
-        ///// <param name="resourceType">The type of resources to get.</param>
-        ///// <returns></returns>
-        //public List<Category> GetAllResourceCategoriesByResourceType(GameObjectTypeEnum resourceType)
-        //{
-        //    return _context.ResourceCategories.Where(x => x.GameObjectType.Equals(resourceType)).ToList();
-        //}      
-
-        ///// <summary>
-        ///// Returns true if a resource category exists in the database.
-        ///// Returns false if a resource category does not exist in the database.
-        ///// </summary>
-        ///// <param name="resourceCategory"></param>
-        ///// <returns></returns>
-        //public bool Exists(Category resourceCategory)
-        //{
-        //    Category category = _context.ResourceCategories.Where(r => r.ResourceID.Equals(resourceCategory.ResourceID)).SingleOrDefault();
-        //    return !Object.ReferenceEquals(category, null);
-        //}
-
-        
-
-        ///// <summary>
-        ///// Returns the system category named "*Uncategorized" for a particular resource type.
-        ///// </summary>
-        ///// <param name="resourceType">The type of resource to look for.</param>
-        ///// <returns></returns>
-        //public Category GetUncategorizedCategory(GameObjectTypeEnum resourceType)
-        //{
-        //    return _context.ResourceCategories.Where(x => x.IsSystemResource == true && x.GameObjectType == resourceType).SingleOrDefault();
-        //}
-
-        #endregion
-
-
-
         public IEnumerable<Category> GetAllResourceCategoriesByResourceType(GameObjectTypeEnum resourceType)
         {
             throw new NotImplementedException();
@@ -174,5 +135,9 @@ namespace WinterEngine.DataAccess
         {
             throw new NotImplementedException();
         }
+
+        #endregion
+
+        
     }
 }

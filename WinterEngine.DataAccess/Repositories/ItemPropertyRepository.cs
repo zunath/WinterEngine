@@ -26,46 +26,43 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        public ItemProperty Add(ItemProperty itemProperty)
+        private ItemProperty InternalSave(ItemProperty itemProperty, bool saveChanges)
         {
-            return _context.ItemProperties.Add(itemProperty);
-        }
-
-        public void Add(List<ItemProperty> itemPropertyList)
-        {
-            _context.ItemProperties.AddRange(itemPropertyList);
-        }
-
-        
-        //todo: Move logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from item
-        //                                        in Context.ItemPropertyRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = item.Name,
-        //                                            ResourceID = item.ResourceID
-        //                                        }).ToList();
-        //    return items;
-        //}
-
-        public ItemProperty Save(ItemProperty itemProperty)
-        {
+            ItemProperty retItemProperty;
             if (itemProperty.ResourceID <= 0)
             {
-                _context.ItemProperties.Add(itemProperty);
+                retItemProperty = _context.ItemProperties.Add(itemProperty);
             }
             else
             {
-                Update(itemProperty);
+                retItemProperty = _context.ItemProperties.SingleOrDefault(x => x.ResourceID == itemProperty.ResourceID);
+                if (retItemProperty == null) return null;
+                _context.Entry(retItemProperty).CurrentValues.SetValues(itemProperty);
+
             }
-            return itemProperty;
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retItemProperty;
+        }
+
+        public ItemProperty Save(ItemProperty itemProperty)
+        {
+            return InternalSave(itemProperty, true);
         }
 
         public void Save(IEnumerable<ItemProperty> entityList)
         {
-            throw new NotImplementedException();
+            if (entityList != null)
+            {
+                foreach (var itm in entityList)
+                {
+                    InternalSave(itm, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
         public void Update(ItemProperty itemProperty)
@@ -76,20 +73,37 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Entry(dbItemProperty).CurrentValues.SetValues(itemProperty);
         }
 
+        private void DeleteInternal(ItemProperty itemProperty, bool saveChanges = true)
+        {
+            var dbItemProperty = _context.ItemProperties.SingleOrDefault(x => x.ResourceID == itemProperty.ResourceID);
+            if (dbItemProperty == null) return;
+
+            _context.ItemProperties.Remove(dbItemProperty);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+        }
+
         public void Delete(ItemProperty itemProperty)
         {
-            _context.ItemProperties.Remove(itemProperty);
+            DeleteInternal(itemProperty);
         }
 
         public void Delete(int resourceID)
         {
             var itemProperty = _context.ItemProperties.Find(resourceID);
-            Delete(itemProperty);
+            DeleteInternal(itemProperty);
         }
 
-        public void Delete(IEnumerable<ItemProperty> entityList)
+        public void Delete(IEnumerable<ItemProperty> itemPropertyList)
         {
-            throw new NotImplementedException();
+            foreach (var itemProperty in itemPropertyList)
+            {
+                DeleteInternal(itemProperty, false);
+            }
+            _context.SaveChanges();
         }
 
         public IEnumerable<ItemProperty> GetAll()
@@ -102,10 +116,6 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.ItemProperties.Where(x => x.ResourceID == itemPropertyID).SingleOrDefault();
         }
 
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
 
         //public bool Exists(ItemProperty itemProperty)
         //{

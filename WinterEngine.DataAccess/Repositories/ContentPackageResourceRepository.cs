@@ -31,64 +31,76 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        public ContentPackageResource Add(ContentPackageResource resource)
+        private ContentPackageResource InternalSave(ContentPackageResource contPackResource, bool saveChanges)
         {
-            return _context.ContentPackageResources.Add(resource);
-        }
+            ContentPackageResource retContentPackResource;
+            if (contPackResource.ResourceID <= 0)
+            {
+                retContentPackResource = _context.ContentPackageResources.Add(contPackResource);
+            }
+            else
+            {
+                retContentPackResource = _context.ContentPackageResources.SingleOrDefault(x => x.ResourceID == contPackResource.ResourceID);
+                if (retContentPackResource == null) return null;
+                _context.Entry(retContentPackResource).CurrentValues.SetValues(contPackResource);
 
-        public void Add(List<ContentPackageResource> resourceList)
-        {
-            _context.ContentPackageResources.AddRange(resourceList);
+            }
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retContentPackResource;
         }
 
         public ContentPackageResource Save(ContentPackageResource resource)
         {
-            if (resource.ResourceID <= 0)
-            {
-                _context.ContentPackageResources.Add(resource);
-            }
-            else
-            {
-                Update(resource);
-            }
-            return resource;
+            return InternalSave(resource, true);
         }
 
         public void Save(IEnumerable<ContentPackageResource> entityList)
         {
-            throw new NotImplementedException();
+            if(entityList != null)
+            {
+                foreach(var cpr in entityList)
+                {
+                    InternalSave(cpr, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
-        public void Update(ContentPackageResource resource)
+        private void DeleteInternal(ContentPackageResource contentPackageResource, bool saveChanges = true)
         {
-            ContentPackageResource dbResource = _context.ContentPackageResources.Where(x => x.ResourceID == resource.ResourceID).SingleOrDefault();
-            if (dbResource == null) return;
+            var contPackageResource = _context.ContentPackageResources.SingleOrDefault(x => x.ResourceID == contentPackageResource.ResourceID);
+            if (contPackageResource == null) return;
 
-            _context.Entry(dbResource).CurrentValues.SetValues(resource);
+            _context.ContentPackageResources.Remove(contentPackageResource);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
             }
+        }
 
-        //public void Upsert(List<ContentPackageResource> resourceList)
-        //{
-        //    foreach (ContentPackageResource resource in resourceList)
-        //    {
-        //        Upsert(resource);
-        //    }
-        //}
-
-        public void Delete(ContentPackageResource resource)
+        public void Delete(ContentPackageResource contPackageResource)
         {
-            _context.ContentPackageResources.Remove(resource);
+            DeleteInternal(contPackageResource);
         }
 
         public void Delete(int resourceID)
         {
-            var contPackResource = _context.ContentPackageResources.Find(resourceID);
-            Delete(contPackResource);
+            var ability = _context.ContentPackageResources.Find(resourceID);
+            DeleteInternal(ability);
         }
 
-        public void Delete(IEnumerable<ContentPackageResource> entityList)
+        public void Delete(IEnumerable<ContentPackageResource> contPackageList)
         {
-            throw new NotImplementedException();
+            foreach (var contPackage in contPackageList)
+            {
+                DeleteInternal(contPackage, false);
+            }
+            _context.SaveChanges();
         }
 
         public IEnumerable<ContentPackageResource> GetAll()
@@ -100,11 +112,6 @@ namespace WinterEngine.DataAccess.Repositories
                                                 {
             return _context.ContentPackageResources.Where(x => x.ResourceID == resourceID).SingleOrDefault();
         }
-
-        public void ApplyChanges()
-            {
-            _context.SaveChanges();
-            }
 
         //todo: move this somewhere else
         //public List<DropDownListUIObject> GetAllUIObjects()

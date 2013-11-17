@@ -29,46 +29,43 @@ namespace WinterEngine.DataAccess.Repositories
 
         #region Methods
 
-        /// <summary>
-        /// Adds a script to the database.
-        /// </summary>
-        /// <param name="script">The script to add to the database.</param>
-        /// <returns></returns>
-        public Script Add(Script script)
+        private Script InternalSave(Script script, bool saveChanges)
         {
-            return _context.Scripts.Add(script);
-        }
-
-        /// <summary>
-        /// Adds a list of scripts to the database.
-        /// </summary>
-        /// <param name="scriptList">The list of scripts to add to the database.</param>
-        public void Add(List<Script> scriptList)
-        {
-            _context.Scripts.AddRange(scriptList);
-        }
-
-        /// <summary>
-        /// If an script with the same resref is in the database, it will be replaced with newScript.
-        /// If an script does not exist by newScript's resref, it will be added to the database.
-        /// </summary>
-        /// <param name="script">The new script to upsert.</param>
-        public Script Save(Script script)
-        {
+            Script retScript;
             if (script.ResourceID <= 0)
             {
-                _context.Scripts.Add(script);
+                retScript = _context.Scripts.Add(script);
             }
             else
             {
-                Update(script);
+                retScript = _context.Scripts.SingleOrDefault(x => x.ResourceID == script.ResourceID);
+                if (retScript == null) return null;
+                _context.Entry(retScript).CurrentValues.SetValues(script);
+
             }
-            return script;
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retScript;
+        }
+
+        public Script Save(Script script)
+        {
+            return InternalSave(script, true);
         }
 
         public void Save(IEnumerable<Script> entityList)
         {
-            throw new NotImplementedException();
+            if (entityList != null)
+            {
+                foreach (var script in entityList)
+                {
+                    InternalSave(script, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -100,38 +97,40 @@ namespace WinterEngine.DataAccess.Repositories
             _context.Entry(dbScript).CurrentValues.SetValues(newScript);
         }
 
-        
 
-        /// <summary>
-        /// Removes a script from the database.
-        /// </summary>
-        /// <param name="script"></param>
+        private void DeleteInternal(Script script, bool saveChanges = true)
+        {
+            var dbScript = _context.Scripts.SingleOrDefault(x => x.ResourceID == script.ResourceID);
+            if (dbScript == null) return;
+
+            _context.LocalVariables.RemoveRange(dbScript.LocalVariables.ToList());
+            _context.Scripts.Remove(dbScript);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+        }
+
         public void Delete(Script script)
         {
-            this.Delete(script.ResourceID);
+            DeleteInternal(script);
         }
 
-        /// <summary>
-        /// Removes a script with the specified resref from the database.
-        /// </summary>
-        /// <param name="resref">The resource reference to search for and Remove.</param>
-        /// <returns></returns>
         public void Delete(int resourceID)
         {
-            //Script script = Context.ScriptRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
             var script = _context.Scripts.Find(resourceID);
-            //Context.LocalVariableRepository.DeleteList(script.LocalVariables.ToList());
-            _context.LocalVariables.RemoveRange(script.LocalVariables.ToList());
-            //Context.ScriptRepository.Delete(script);
-            _context.Scripts.Remove(script);
-      
+            DeleteInternal(script);
         }
 
-        public void Delete(IEnumerable<Script> entityList)
+        public void Delete(IEnumerable<Script> scriptList)
         {
-            throw new NotImplementedException();
+            foreach (var script in scriptList)
+            {
+                DeleteInternal(script, false);
+            }
+            _context.SaveChanges();
         }
-
         /// <summary>
         /// Returns all of the scripts from the database.
         /// </summary>

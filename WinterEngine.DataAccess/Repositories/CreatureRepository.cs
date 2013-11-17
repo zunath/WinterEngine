@@ -30,23 +30,26 @@ namespace WinterEngine.DataAccess
 
         #region Methods
 
-        /// <summary>
-        /// Adds a creature to the database.
-        /// </summary>
-        /// <param name="creature">The creature to add to the database.</param>
-        /// <returns></returns>
-        public Creature Add(Creature creature)
+        private Creature InternalSave(Creature creature, bool saveChanges)
         {
-            return _context.Creatures.Add(creature);
-        }
+            Creature retCreature;
+            if (creature.ResourceID <= 0)
+            {
+                retCreature = _context.Creatures.Add(creature);
+            }
+            else
+            {
+                retCreature = _context.Creatures.SingleOrDefault(x => x.ResourceID == creature.ResourceID);
+                if (retCreature == null) return null;
+                _context.Entry(retCreature).CurrentValues.SetValues(creature);
 
-        /// <summary>
-        /// Adds a list of creatures to the database.
-        /// </summary>
-        /// <param name="creatureList">The list of creatures to add to the database.</param>
-        public void Add(List<Creature> creatureList)
-        {
-            _context.Creatures.AddRange(creatureList);
+            }
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
+
+            return retCreature;
         }
 
         /// <summary>
@@ -56,20 +59,19 @@ namespace WinterEngine.DataAccess
         /// <param name="creature">The new creature to upsert.</param>
         public Creature Save(Creature creature)
         {
-            if (creature.ResourceID <= 0)
-            {
-                _context.Creatures.Add(creature);
-            }
-            else
-            {
-                Update(creature);
-            }
-            return creature;
+            return InternalSave(creature, true);
         }
 
         public void Save(IEnumerable<Creature> entityList)
         {
-            throw new NotImplementedException();
+            if(entityList != null)
+            {
+                foreach(var creat in entityList)
+                {
+                    InternalSave(creat, false);
+                }
+                _context.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -98,30 +100,50 @@ namespace WinterEngine.DataAccess
             _context.Entry(dbCreature).CurrentValues.SetValues(newCreature);
         }
 
-        /// <summary>
-        /// Deletes a creature from the database
-        /// </summary>
-        /// <param name="creature"></param>
-        public void Delete(Creature creature)
-        {
-            this.Delete(creature.ResourceID);
-        }
 
         /// <summary>
         /// Deletes a creature with the specified resref from the database.
         /// </summary>
         /// <param name="resref">The resource reference to search for and delete.</param>
         /// <returns></returns>
-        public void Delete(int resourceID)
-        {            
-            Creature creature = _context.Creatures.Where(c => c.ResourceID == resourceID).SingleOrDefault();
-            _context.LocalVariables.RemoveRange(creature.LocalVariables.ToList());
-            _context.Creatures.Remove(creature);
+        //public void Delete(int resourceID)
+        //{            
+        //    Creature creature = _context.Creatures.Where(c => c.ResourceID == resourceID).SingleOrDefault();
+        //    _context.LocalVariables.RemoveRange(creature.LocalVariables.ToList());
+        //    _context.Creatures.Remove(creature);
+        //}
+
+        private void DeleteInternal(Creature creature, bool saveChanges = true)
+        {
+            var dbCreature = _context.Creatures.SingleOrDefault(x => x.ResourceID == creature.ResourceID);
+            if (dbCreature == null) return;
+
+            _context.Creatures.Remove(dbCreature);
+
+            if (saveChanges)
+            {
+                _context.SaveChanges();
+            }
         }
 
-        public void Delete(IEnumerable<Creature> entityList)
+        public void Delete(Creature creature)
         {
-            throw new NotImplementedException();
+            DeleteInternal(creature);
+        }
+
+        public void Delete(int resourceID)
+        {
+            var creature = _context.Creatures.Find(resourceID);
+            DeleteInternal(creature);
+        }
+
+        public void Delete(IEnumerable<Creature> creatureList)
+        {
+            foreach (var creature in creatureList)
+            {
+                DeleteInternal(creature, false);
+            }
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -136,11 +158,6 @@ namespace WinterEngine.DataAccess
         public Creature GetByID(int resourceID)
         {
             return _context.Creatures.Where(x => x.ResourceID == resourceID).SingleOrDefault();
-        }
-
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
         }
 
         //Move this logic somewhere else
