@@ -35,7 +35,7 @@ namespace WinterEngine.DataAccess
 
         public GameModule Add(GameModule gameModule)
         {
-            return _context.Modules.Add(gameModule);
+            return _context.GameModules.Add(gameModule);
         }
 
         public void Add(List<GameModule> entityList)
@@ -72,13 +72,13 @@ namespace WinterEngine.DataAccess
 
         public void Delete(GameModule entity)
         {
-            _context.Modules.Remove(entity);
+            _context.GameModules.Remove(entity);
         }
 
         public void Delete(int resourceID)
         {
-            GameModule module = _context.Modules.Where(x => x.ResourceID == resourceID).FirstOrDefault();
-            _context.Modules.Remove(module);
+            GameModule module = _context.GameModules.Where(x => x.ResourceID == resourceID).FirstOrDefault();
+            _context.GameModules.Remove(module);
         }
 
         public void Delete(IEnumerable<GameModule> entityList)
@@ -88,31 +88,15 @@ namespace WinterEngine.DataAccess
 
         public IEnumerable<GameModule> GetAll()
         {
-            var result = _context.Modules.ToList();
+            var result = _context.GameModules.ToList();
             return result;
         }
 
         public GameModule GetByID(int resourceID)
         {
-            var result = _context.Modules.Find(resourceID);
+            var result = _context.GameModules.Find(resourceID);
             return result;
         }
-
-        public void ApplyChanges()
-        {
-            _context.SaveChanges();
-        }
-
-        //public bool Exists()
-        //{
-        //    GameModule module = GetModule();
-        //    return !Object.ReferenceEquals(module, null);
-        //}
-
-        //public GameModule GetModule()
-        //{
-        //    return _context.Modules.FirstOrDefault();
-        //}
 
         #endregion
 
@@ -120,7 +104,7 @@ namespace WinterEngine.DataAccess
 
         public GameModule GetModule()
         {
-            throw new NotImplementedException();
+            return _context.GameModules.SingleOrDefault();
         }
     }
 }

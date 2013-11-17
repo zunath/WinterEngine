@@ -143,19 +143,6 @@ namespace WinterEngine.DataAccess
             _context.SaveChanges();
         }
 
-        //Move this logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from creature
-        //                                        in Context.CreatureRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = creature.Name,
-        //                                            ResourceID = creature.ResourceID
-        //                                        }).ToList();
-        //    return items;
-        //}
-
         /// <summary>
         /// Returns all of the creatures in a specified category from the database.
         /// </summary>
@@ -176,41 +163,6 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// Generates a hierarchy of categories containing creatures for use in tree views.
-        /// </summary>
-        /// <returns>The root node containing all other categories and creatures.</returns>
-        public JSTreeNode GenerateJSTreeHierarchy()
-        {
-            JSTreeNode rootNode = new JSTreeNode("Creatures");
-            rootNode.attr.Add("data-nodetype", "root");
-            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = _context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Creature).ToList();
-            foreach (Category category in categories)
-            {
-                JSTreeNode categoryNode = new JSTreeNode(category.Name);
-                categoryNode.attr.Add("data-nodetype", "category");
-                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
-                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
-
-                List<Creature> creatures = _context.Creatures.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
-                foreach (Creature creature in creatures)
-                {
-                    JSTreeNode childNode = new JSTreeNode(creature.Name);
-                    childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resourceid", Convert.ToString(creature.ResourceID));
-                    childNode.attr.Add("data-issystemresource", Convert.ToString(creature.IsSystemResource));
-
-                    categoryNode.children.Add(childNode);
-                }
-
-                treeNodes.Add(categoryNode);
-            }
-
-            rootNode.children = treeNodes;
-            return rootNode;
-        }
-
-        /// <summary>
         /// Returns True if an object with the specified resref exists in the database.
         /// Returns False if no object with the specified resref is found in the database.
         /// </summary>
@@ -222,11 +174,6 @@ namespace WinterEngine.DataAccess
             return !Object.ReferenceEquals(creature, null);
         }
 
-        //public int GetDefaultResourceID()
-        //{
-        //    Creature defaultObject = _context.Creatures.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
 
         #endregion
 

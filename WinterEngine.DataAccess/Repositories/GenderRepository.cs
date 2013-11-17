@@ -114,20 +114,6 @@ namespace WinterEngine.DataAccess.Repositories
             return _context.Genders.ToList();
         }
 
-        //todo: move this logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from gender
-        //                                        in Context.GenderRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = gender.Name,
-        //                                            ResourceID = gender.ResourceID
-        //                                        }).ToList();
-
-        //    return items;
-        //}
-
         public Gender GetByID(int resourceID)
         {
             return _context.Genders.Where(x => x.ResourceID == resourceID).SingleOrDefault();
@@ -138,34 +124,7 @@ namespace WinterEngine.DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        //public bool Exists(Gender gender)
-        //{
-        //    Gender dbGender = _context.Genders.Where(x => x.ResourceID == gender.ResourceID).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbGender, null);
-        //}
-
-        //public int GetDefaultResourceID()
-        //{
-        //    Gender defaultObject = _context.Genders.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
-
-
         #endregion
 
-        //public object Load(int resourceID)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public int Save(object gameObject)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void DeleteByCategory(Category category)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

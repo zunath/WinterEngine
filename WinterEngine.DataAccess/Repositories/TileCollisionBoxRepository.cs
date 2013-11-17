@@ -94,30 +94,6 @@ namespace WinterEngine.DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        //public bool Exists(TileCollisionBox box)
-        //{
-        //    TileCollisionBox dbBox = _context.TileCollisionBoxes.Where(x => x.CollisionBoxID == box.CollisionBoxID).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbBox, null);
-        //}        
-
-        //public List<TileCollisionBox> GetByTileID(int tileID)
-        //{
-        //    return _context.TileCollisionBoxes.Where(x => x.TileID == tileID).ToList();
-        //}
-
-        //public List<TileCollisionBox> GetByTilesetID(int tilesetID)
-        //{
-        //    List<TileCollisionBox> collisionBoxes = new List<TileCollisionBox>();
-        //    List<Tile> tiles = _context.Tiles.Where(x => x.TilesetID == tilesetID).ToList();
-
-        //    foreach (Tile tile in tiles)
-        //    {
-        //        collisionBoxes.AddRange(tile.CollisionBoxes);
-        //    }
-
-        //    return collisionBoxes;
-        //}
-
         #endregion
 
 

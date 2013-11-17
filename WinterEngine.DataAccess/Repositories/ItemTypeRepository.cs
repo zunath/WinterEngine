@@ -28,23 +28,6 @@ namespace WinterEngine.DataAccess
 
         #region Methods
 
-        
-
-        //move logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from item
-        //                                        in Context.ItemTypeRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = item.Name,
-        //                                            ResourceID = item.ResourceID
-        //                                        }).ToList();
-
-        //    return items;
-        //}
-
-
         /// <summary>
         /// Adds an item type to the database.
         /// </summary>
@@ -141,18 +124,6 @@ namespace WinterEngine.DataAccess
         {
             _context.SaveChanges();
         }
-
-        ///// <summary>
-        ///// Returns true if an item type exists in the database.
-        ///// Returns false if an item type does not exist in the database.
-        ///// </summary>
-        ///// <param name="itemType"></param>
-        ///// <returns></returns>
-        //public bool Exists(ItemType itemType)
-        //{
-        //    ItemType dbItemType = _context.ItemTypes.Where(x => x.ResourceID == itemType.ResourceID).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbItemType, null);
-        //}
 
         #endregion
     }

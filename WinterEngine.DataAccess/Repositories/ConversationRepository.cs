@@ -145,20 +145,6 @@ namespace WinterEngine.DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        //todo: move this somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from conversation
-        //                                        in Context.ConversationRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = conversation.Name,
-        //                                            ResourceID = conversation.ResourceID
-        //                                        }).ToList();
-
-        //    return items;
-        //}
-
         /// <summary>
         /// Returns all of the conversations in a specified category from the database.
         /// </summary>
@@ -179,41 +165,6 @@ namespace WinterEngine.DataAccess.Repositories
         }        
 
         /// <summary>
-        /// Generates a hierarchy of categories containing conversations for use in tree views.
-        /// </summary>
-        /// <returns>The root node containing all other categories and conversations.</returns>
-        public JSTreeNode GenerateJSTreeHierarchy()
-        {
-            JSTreeNode rootNode = new JSTreeNode("Conversations");
-            rootNode.attr.Add("data-nodetype", "root");
-            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = _context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Conversation).ToList();
-            foreach (Category category in categories)
-            {
-                JSTreeNode categoryNode = new JSTreeNode(category.Name);
-                categoryNode.attr.Add("data-nodetype", "category");
-                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
-                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
-
-                List<Conversation> conversations = _context.Conversations.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
-                foreach (Conversation conversation in conversations)
-                {
-                    JSTreeNode childNode = new JSTreeNode(conversation.Name);
-                    childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resourceid", Convert.ToString(conversation.ResourceID));
-                    childNode.attr.Add("data-issystemresource", Convert.ToString(conversation.IsSystemResource));
-
-                    categoryNode.children.Add(childNode);
-                }
-
-                treeNodes.Add(categoryNode);
-            }
-
-            rootNode.children = treeNodes;
-            return rootNode;
-        }
-
-        /// <summary>
         /// Returns True if an object with the specified resref exists in the database.
         /// Returns False if no object with the specified resref is found in the database.
         /// </summary>
@@ -224,12 +175,6 @@ namespace WinterEngine.DataAccess.Repositories
             Conversation conversation = _context.Conversations.Where(x => x.Resref == resref).SingleOrDefault();
             return !Object.ReferenceEquals(conversation, null);
         }
-
-        //public int GetDefaultResourceID()
-        //{
-        //    Conversation defaultObject = _context.Conversations.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
 
         #endregion
 

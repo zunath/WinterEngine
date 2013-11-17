@@ -163,42 +163,6 @@ namespace WinterEngine.DataAccess
         }
 
         /// <summary>
-        /// Generates a hierarchy of categories containing areas for use in tree views.
-        /// </summary>
-        /// <returns>The root node containing all other categories and areas.</returns>
-        public JSTreeNode GenerateJSTreeHierarchy()
-        {
-            JSTreeNode rootNode = new JSTreeNode("Areas");
-            rootNode.attr.Add("data-nodetype", "root");
-            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = _context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Area).ToList();
-            foreach (Category category in categories)
-            {
-                JSTreeNode categoryNode = new JSTreeNode(category.Name);
-                categoryNode.attr.Add("data-nodetype", "category");
-                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
-                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
-                
-                List<Area> areas = _context.Areas.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
-                foreach (Area area in areas)
-                {
-                    JSTreeNode childNode = new JSTreeNode(area.Name);
-                    childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resourceid", Convert.ToString(area.ResourceID));
-                    childNode.attr.Add("data-issystemresource", Convert.ToString(area.IsSystemResource));
-
-                    categoryNode.children.Add(childNode);
-                }
-
-                treeNodes.Add(categoryNode);
-            }
-
-            rootNode.children = treeNodes;
-            return rootNode;
-        }
-
-
-        /// <summary>
         /// Returns True if an object with the specified resref exists in the database.
         /// Returns False if no object with the specified resref is found in the database.
         /// </summary>

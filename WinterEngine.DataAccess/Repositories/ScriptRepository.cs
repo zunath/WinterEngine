@@ -151,19 +151,6 @@ namespace WinterEngine.DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        //todo: This needs to go somehwhere else.
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from script
-        //                                        in _context.ScriptRepository
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = script.Name,
-        //                                            ResourceID = script.ResourceID
-        //                                        }).ToList();
-        //    return items;
-        //}
-
         /// <summary>
         /// Returns all of the scripts in a specified category from the database.
         /// </summary>
@@ -184,41 +171,6 @@ namespace WinterEngine.DataAccess.Repositories
         }
 
         /// <summary>
-        /// Generates a hierarchy of categories containing scripts for use in tree views.
-        /// </summary>
-        /// <returns>The root node containing all other categories and scripts.</returns>
-        public JSTreeNode GenerateJSTreeHierarchy()
-        {
-            JSTreeNode rootNode = new JSTreeNode("Scripts");
-            rootNode.attr.Add("data-nodetype", "root");
-            List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = _context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Script).ToList();
-            foreach (Category category in categories)
-            {
-                JSTreeNode categoryNode = new JSTreeNode(category.Name);
-                categoryNode.attr.Add("data-nodetype", "category");
-                categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
-                categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
-
-                List<Script> scripts = _context.Scripts.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
-                foreach (Script script in scripts)
-                {
-                    JSTreeNode childNode = new JSTreeNode(script.Name);
-                    childNode.attr.Add("data-nodetype", "object");
-                    childNode.attr.Add("data-resourceid", Convert.ToString(script.ResourceID));
-                    childNode.attr.Add("data-issystemresource", Convert.ToString(script.IsSystemResource));
-
-                    categoryNode.children.Add(childNode);
-                }
-
-                treeNodes.Add(categoryNode);
-            }
-
-            rootNode.children = treeNodes;
-            return rootNode;
-        }
-
-        /// <summary>
         /// Returns True if an object with the specified resref exists in the database.
         /// Returns False if no object with the specified resref is found in the database.
         /// </summary>
@@ -229,12 +181,6 @@ namespace WinterEngine.DataAccess.Repositories
             Script script = _context.Scripts.Where(x => x.Resref == resref).SingleOrDefault();
             return !Object.ReferenceEquals(script, null);
         }       
-
-        //public int GetDefaultResourceID()
-        //{
-        //    Script defaultObject = _context.Scripts.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
 
         #endregion
 

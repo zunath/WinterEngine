@@ -95,18 +95,6 @@ namespace WinterEngine.DataAccess.Repositories
             _context.SaveChanges();
         }
 
-        //public bool Exists(CharacterClass characterClass)
-        //{
-        //    CharacterClass dbCharacterClass = _context.CharacterClasses.Where(x => x.ResourceID == characterClass.ResourceID).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbCharacterClass, null);
-        //}        
-
-        //public int GetDefaultResourceID()
-        //{
-        //    CharacterClass defaultObject = _context.CharacterClasses.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
-                
         #endregion
     }
 }

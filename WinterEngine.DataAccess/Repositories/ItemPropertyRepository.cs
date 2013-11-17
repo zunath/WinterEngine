@@ -36,20 +36,6 @@ namespace WinterEngine.DataAccess.Repositories
             _context.ItemProperties.AddRange(itemPropertyList);
         }
 
-        
-        //todo: Move logic somewhere else
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from item
-        //                                        in Context.ItemPropertyRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = item.Name,
-        //                                            ResourceID = item.ResourceID
-        //                                        }).ToList();
-        //    return items;
-        //}
-
         public ItemProperty Save(ItemProperty itemProperty)
         {
             if (itemProperty.ResourceID <= 0)
@@ -106,20 +92,6 @@ namespace WinterEngine.DataAccess.Repositories
         {
             _context.SaveChanges();
         }
-
-        //public bool Exists(ItemProperty itemProperty)
-        //{
-        //    ItemProperty dbItemProperty = _context.ItemProperties.Where(x => x.ResourceID == itemProperty.ResourceID).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbItemProperty, null);
-        //}
-
-        
-
-        //public int GetDefaultResourceID()
-        //{
-        //    ItemProperty defaultObject = _context.ItemProperties.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
 
         #endregion
                 

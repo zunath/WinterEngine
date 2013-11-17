@@ -130,31 +130,6 @@ namespace WinterEngine.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        //public List<DropDownListUIObject> GetAllUIObjects()
-        //{
-        //    List<DropDownListUIObject> items = (from contentPackage
-        //                                        in Context.ContentPackageRepository.Get()
-        //                                        select new DropDownListUIObject
-        //                                        {
-        //                                            Name = contentPackage.Name,
-        //                                            ResourceID = contentPackage.ResourceID
-        //                                        }).ToList();
-        //    return items;
-        //}
-
-        ///// <summary>
-        ///// Returns true if a content package exists in the database.
-        ///// Returns false if a content package does not exist in the database.
-        ///// The content package's FileName property is used to check.
-        ///// </summary>
-        ///// <param name="package"></param>
-        ///// <returns></returns>
-        //public bool Exists(ContentPackage package)
-        //{
-        //    ContentPackage dbPackage = _context.ContentPackages.SingleOrDefault(x => x.FileName == package.FileName);
-        //    return !Object.ReferenceEquals(dbPackage, null);
-        //}
-
         /// <summary>
         /// Returns the content package matching the packageID passed in.
         /// Returns null if content package does not exist.
@@ -171,53 +146,6 @@ namespace WinterEngine.DataAccess.Repositories
         {
             _context.SaveChanges();
         }
-
-        ///// <summary>
-        ///// Returns the file names of every content package used by the module.
-        ///// </summary>
-        ///// <returns></returns>
-        //public List<string> GetAllFileNames()
-        //{
-        //    List<ContentPackage> packages = _context.ContentPackages.ToList();
-        //    return packages.Select(x => x.FileName).ToList();
-        //}
-
-        ///// <summary>
-        ///// Returns all content packages which are not system resources (aka: user resources) from the database.
-        ///// </summary>
-        ///// <returns></returns>
-        //public List<ContentPackage> GetAllUserResources()
-        //{
-        //    return _context.ContentPackages.Where(x => x.IsSystemResource == false).ToList();
-        //}
-
-        ///// <summary>
-        ///// Returns all content packages which are system resources from the database.
-        ///// </summary>
-        ///// <returns></returns>
-        //public List<ContentPackage> GetAllSystemResources()
-        //{
-        //    return _context.ContentPackages.Where(x => x.IsSystemResource == true).ToList();
-        //}
-
-        ///// <summary>
-        ///// Returns true if a content package exists in the database.
-        ///// Returns false if a content package does not exist in the database.
-        ///// The content package's FileName property is used to check.
-        ///// </summary>
-        ///// <param name="package"></param>
-        ///// <returns></returns>
-        //public bool Exists(ContentPackage package)
-        //{
-        //    ContentPackage dbPackage = _context.ContentPackages.Where(x => x.FileName == package.FileName).SingleOrDefault();
-        //    return !Object.ReferenceEquals(dbPackage, null);
-        //}
-
-        //public int GetDefaultResourceID()
-        //{
-        //    ContentPackage defaultObject = _context.ContentPackages.Where(x => x.IsDefault).FirstOrDefault();
-        //    return defaultObject == null ? 0 : defaultObject.ResourceID;
-        //}
 
         #endregion
 
