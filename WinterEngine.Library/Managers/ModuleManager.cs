@@ -95,7 +95,9 @@ namespace WinterEngine.Library.Managers
             IGenericRepository<Category> categoryRepository,
             IFileArchiveManager fileArchiveManager,
             IDatabaseRepository databaseRepository,
-            IGameModuleRepository gameModuleRepository)
+            IGameModuleRepository gameModuleRepository,
+            IGameObjectFactory gameObjectFactory,
+            IGenericRepository<GameModule> gameModuleRepositoryGeneric)
         {
             if (contentPackageRepository == null) throw new ArgumentNullException("contentPackageRepository");
             _contentPackageRepository = contentPackageRepository;
@@ -111,6 +113,12 @@ namespace WinterEngine.Library.Managers
 
             if (gameModuleRepository == null) throw new ArgumentNullException("gameModuleRepository");
             _gameModuleRepository = gameModuleRepository;
+
+            if (gameObjectFactory == null) throw new ArgumentNullException("gameObjectFactory");
+            _gameObjectFactory = gameObjectFactory;
+
+            if (gameModuleRepositoryGeneric == null) throw new ArgumentNullException("gameModuleRepositoryGeneric");
+            _gameModuleRepositoryGeneric = gameModuleRepositoryGeneric;
 
         }
 

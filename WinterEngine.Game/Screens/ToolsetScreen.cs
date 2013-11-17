@@ -26,17 +26,23 @@ using WinterEngine.DataAccess;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataAccess.Repositories;
 using System.Linq;
+using Ninject;
 
 namespace WinterEngine.Game.Screens
 {
 	public partial class ToolsetScreen
     {
-        private readonly IRepositoryFactory _repositoryFactory;
-
         #region Constants
 
         const int MaxZoomDistance = 1000;
         const int MinZoomDistance = 100;
+
+        #endregion
+
+        #region Properties
+
+        [Inject]
+        public IRepositoryFactory RepositoryFactory { private get; set; }
 
         #endregion
 
