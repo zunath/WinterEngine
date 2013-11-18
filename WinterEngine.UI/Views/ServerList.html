@@ -18,39 +18,35 @@
 </head>
 <body>
     <div id="divServerListContent">
-        <h2 class="clsTitle">Server List</h2>
-        
         <div id="divLoading">
             <label id="lblLoading">Retrieving server list...</label>
         </div>
-
-        <table id="tblServerList" class="clsServerList">
-            <thead>
-                <tr>
-                    <td>Server Name
-                    </td>
-                    <td>Address
-                    </td>
-                    <td>Max Level
-                    </td>
-                    <td>Players
-                    </td>
-                    <td>Game Type
-                    </td>
-                    <td>PVP Type
-                    </td>
-                    <td>Connect
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-
-        </table>
-        <br />
         
-        <input id="btnGetAllServers" class="clsFullButton" value="Get Servers" type="button" onclick="GetAllServers();" />
-        <br />
+        <div style="overflow:auto; max-height: 500px">
+            <table id="tblServerList" class="clsServerList">
+                <thead>
+                    <tr>
+                        <td>Server Name
+                        </td>
+                        <td>Address
+                        </td>
+                        <td>Max Level
+                        </td>
+                        <td>Players
+                        </td>
+                        <td>Game Type
+                        </td>
+                        <td>PVP Type
+                        </td>
+                        <td>Connect
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+
+            </table>
+        </div>
         <br />
         <input id="btnMainMenu" class="clsFullButton" value="Return to Main Menu" type="button" onclick="GoToMainMenu();" />
 

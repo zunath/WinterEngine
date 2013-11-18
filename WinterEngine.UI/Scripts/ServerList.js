@@ -6,18 +6,20 @@ function Initialize() {
     InitializeLoadingBox();
     InitializeUnableToConnectToServerBox();
     InitializeDownloadProgressBar();
+
+    $('input:button').button();
+
 }
 
 function InitializeDataTable() {
     $('#tblServerList').dataTable({
-        "sDom": 'rfrtpi',
-        "bPaginate": true,
-        "bLengthChange": false,
-        "bFilter": true,
+        "sDom": 'rtf',
+        "bPaginate": false,
+        "bFilter": false,
         "bSort": true,
         "bAutoWidth": false,
-        "sPaginationType": 'full_numbers',
-        "iDisplayLength": 9
+        //"sPaginationType": 'full_numbers',
+        "bJQueryUI": true,
     });
 }
 
@@ -88,6 +90,8 @@ function GetAllServers_Callback(jsonServerList) {
                 currentServer.ServerIPAddress + '\', ' + currentServer.ServerPort + ');" />'
         ]);
     }
+
+    $('input:button').button();
 
     $('#divLoading').dialog('close');
 }
