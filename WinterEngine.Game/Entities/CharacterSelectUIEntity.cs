@@ -29,6 +29,8 @@ using System.Web.Script.Serialization;
 using Lidgren.Network;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
+using WinterEngine.DataTransferObjects.ViewModels;
+using Newtonsoft.Json;
 
 namespace WinterEngine.Game.Entities
 {
@@ -40,12 +42,15 @@ namespace WinterEngine.Game.Entities
 
         #region Properties
 
+        private CharacterSelectionViewModel ViewModel { get; set; }
+
         #endregion
 
         #region FRB Event Handling
 
         private void CustomInitialize()
         {
+            ViewModel = new CharacterSelectionViewModel();
             AwesomiumWebView.DocumentReady += OnDocumentReady;
             WinterEngineService.NetworkClient.OnPacketReceived += NetworkClient_OnPacketReceived;
 		}
@@ -86,15 +91,14 @@ namespace WinterEngine.Game.Entities
             // Page Initialization
             EntityJavascriptObject.Bind("InitializePage", false, InitializePage);
 
+            // Model Data
+            EntityJavascriptObject.Bind("GetModelJSON", true, GetModelJSON);
+
             // Button Functionality
             EntityJavascriptObject.Bind("NewCharacter", false, NewCharacter);
             EntityJavascriptObject.Bind("DeleteCharacter", false, DeleteCharacter);
             EntityJavascriptObject.Bind("JoinServer", false, JoinServer);
             EntityJavascriptObject.Bind("CancelCharacterSelection", false, CancelCharacterSelection);
-
-            // There is a bug with Awesomium's rendering which is preventing the loading pop up from
-            // displaying in the correct position when called from the Initialize() method in the JS file.
-            AsyncJavascriptCallback("InitializeLoadingPopUpBox_Callback");
 
             AsyncJavascriptCallback("InitializePage");
         }
@@ -102,6 +106,11 @@ namespace WinterEngine.Game.Entities
         #endregion
 
         #region UI Methods
+
+        private void GetModelJSON(object sender, JavascriptMethodEventArgs e)
+        {
+            e.Result = JsonConvert.SerializeObject(ViewModel);
+        }
 
         private void InitializePage(object sender, JavascriptMethodEventArgs e)
         {

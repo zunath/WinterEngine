@@ -12,6 +12,9 @@
     <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src="../Scripts/jquery.awesomiumXNA.js"></script>
     <script src="../Scripts/jquery.validate.js"></script>
+    <script src="../Scripts/WinterEngine.Shared.js"></script>
+    <script src="../Scripts/CharacterSelection.ViewModel.js"></script>
+    <script src="../Scripts/CharacterSelection.Initialization.js"></script>
     <script src="../Scripts/CharacterSelection.js"></script>
 
     <script>
@@ -23,123 +26,16 @@
 </head>
 <body>
     
-    <div id="divServerNameAndAnnouncement">
-        
-        <div id="divServerName" class="clsServerNameHeader">
-            <span id="spnServerName" class="clsBold">Server Name</span>
-        </div>
-        <textarea id="tarServerAnnouncements" 
-            rows="3" 
-            class="clsNonResizeable clsServerDetails" 
-            readonly="readonly">Announcement:
-        </textarea>
+    <div data-partial="CharacterSelection/ServerDetailsPartial.html"></div>
+    <div data-partial="CharacterSelection/CharacterListPartial.html"></div>
+    <div data-partial="CharacterSelection/CharacterDetailsPartial.html"></div>
+    <div data-partial="CharacterSelection/ButtonGroupPartial.html"></div>
 
-    </div>
-    <br />
-    <div id="divLeftPane" class="clsPaneHalfLeft clsPaneRounded">
+    <div data-partial="CharacterSelection/PopUpBoxes/DeleteCharacterPartial.html"></div>
+    <div data-partial="CharacterSelection/PopUpBoxes/DeleteCharacterResponsePartial.html"></div>
+    <div data-partial="CharacterSelection/PopUpBoxes/LoadingServerPartial.html"></div>
+    <div data-partial="CharacterSelection/PopUpBoxes/LostServerConnectionPartial.html"></div>
 
-
-        <div id="divCharacterList" class="clsCharacterList">
-            <h2 class="clsCenter">Please select a character...</h2>
-            <hr />
-            
-            <div id="divCharacters">
-                <!-- Populated by BuildCharacterList() function -->
-            </div>
-        </div>
-
-    </div>
-
-    <div id="divRightPane" class="clsPaneHalfRight clsPaneRounded">
-        
-        <div id="divCharacterInformation">
-            <h2 class="clsCenter">Character Information</h2>
-            <hr />
-            
-            <div id="divCharacterPortrait" class="clsCharacterPortrait">
-
-            </div>
-
-            <div id="divCharacterDetails" class="clsCharacterDetails">
-
-                <div class="clsCenter">
-                    <b>
-                        <span id="spnCharacterName" >Please select a character</span>
-                    </b> 
-                    <span id="spnCharacterRace"></span>
-                </div> 
-                <br />
-                <table id="tblCharacterAttributes" class="clsCharacterAttributeTable">
-                    <thead>
-                        <tr>
-                            <th><b>STR</b></th>
-                            <th><b>CON</b></th>
-                            <th><b>DEX</b></th>
-                            <th><b>INT</b></th>
-                            <th><b>WIS</b></th>
-                        </tr>
-                    </thead>
-                    <tr>
-                        <td id="tdStrengthValue">N/A</td>
-                        <td id="tdConstitutionValue">N/A</td>
-                        <td id="tdDexterityValue">N/A</td>
-                        <td id="tdIntelligenceValue">N/A</td>
-                        <td id="tdWisdomValue">N/A</td>
-
-                    </tr>
-                </table>
-                <br />
-                <div id="divLevelProgressBar" class="clsLevelProgressBar"></div>
-
-            </div>
-        </div>
-    </div>
-
-    <div id="divButtonGroup" class="clsCharacterSelectionButtonGroup">
-
-        <input id="btnNewCharacter" type="button" value="New Character" class="clsQuarterButton" onclick="NewCharacterButton();" />
-        <input id="btnDeleteCharacter" type="button" value="Delete Character" class="clsQuarterButton" disabled="disabled" onclick="DeleteCharacterButton();" />
-        <input id="btnJoinServer" type="button" value="Join" class="clsQuarterButton" disabled="disabled" onclick="JoinServerButton();" />
-        <input id="btnCancel" type="button" value="Cancel" class="clsQuarterButton" onclick="CancelCharacterSelectionButton();" />
-        
-    </div>
-
-    <div id="divDeleteCharacterPopUpBox">
-        <label id="lblDeleteCharacterConfirmation">
-            Are you sure you want to permanently delete your character?
-        </label>
-        <br />
-        <br />
-        <input id="btnConfirmDeleteCharacter" type="button" value="Delete" class="clsHalfButton" onclick="ConfirmDeleteCharacterButton();" />
-        <input id="btnCancelDeleteCharacter" type="button" value="Cancel" class="clsHalfButton" onclick="CancelDeleteCharacterButton();" />
-    </div>
-
-    <div id="divDeleteCharacterResponsePopUpBox">
-        <label id="lblDeleteCharacterResponsePopUpBox">
-
-        </label>
-        <br />
-        <br />
-        <input id="btnDeleteCharacterResponsePopUpBoxOKButton" type="button" value="OK" class="clsFullButton" onclick="CloseDeleteCharacterResponsePopUpBox();" />
-    </div>
-
-    <div id="divLoading">
-        <label id="lblLoading">
-            Retrieving server information...
-        </label>
-        <br />
-        <br />
-        <input id="btnCancelLoading" type="button" value="Cancel" class="clsFullButton" onclick="CancelCharacterSelectionButton();" />
-    </div>
-
-    <div id="divLostConnection">
-        <label id="lblLostConnection">
-            Your connection to the server has been lost.
-        </label>
-        <br />
-        <br />
-        <input id="btnLostConnectionOK" type="button" value="OK" class="clsFullButton" onclick="LostConnectionOKButton();" />
-    </div>
 
 </body>
 </html>
