@@ -385,9 +385,16 @@ function ToggleLoginPopUpControls(disabled) {
     $('#txtPassword').attr('disabled', disabled);
     $('#chkSaveCredentials').attr('disabled', disabled);
 
-    $('#btnLogin').button('disable');
-    $('#btnCancelLogin').button('disable');
-    $('#btnCreateAccount').button('disable');
+    if (disabled) {
+        $('#btnLogin').button('disable');
+        $('#btnCancelLogin').button('disable');
+        $('#btnCreateAccount').button('disable');
+    }
+    else {
+        $('#btnLogin').button('enable');
+        $('#btnCancelLogin').button('enable');
+        $('#btnCreateAccount').button('enable');
+    }
 
 }
 

@@ -22,6 +22,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Converters;
 using WinterEngine.DataTransferObjects.UIObjects;
 using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace WinterEngine.Game.Entities
@@ -214,27 +215,33 @@ namespace WinterEngine.Game.Entities
 
         #region UI Methods - File Menu Bindings
 
-        private void NewModuleButton(object sender, JavascriptMethodEventArgs e)
+        private async void NewModuleButton(object sender, JavascriptMethodEventArgs e)
         {
-            ModuleManager.ModuleName = e.Arguments[0];
-            ModuleManager.ModuleTag = e.Arguments[1];
-            ModuleManager.ModuleResref = e.Arguments[2];
-            bool success = ModuleManager.CreateModule();
-            PopulateToolsetViewModel();
-            ViewModel.IsModuleOpened = success;
+            bool success = false;
 
+            await Task.Factory.StartNew(() =>
+            {
+                ModuleManager.ModuleName = e.Arguments[0];
+                ModuleManager.ModuleTag = e.Arguments[1];
+                ModuleManager.ModuleResref = e.Arguments[2];
+                success = ModuleManager.CreateModule();
+                PopulateToolsetViewModel();
+                ViewModel.IsModuleOpened = success;
+            });
             AsyncJavascriptCallback("NewModuleBoxOKClick_Callback", success);
         }
 
-        private void OpenModuleButton(object sender, JavascriptMethodEventArgs e)
+        private async void OpenModuleButton(object sender, JavascriptMethodEventArgs e)
         {
             try
             {
-                string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] + ExtensionFactory.GetFileExtension(FileTypeEnum.Module);
-                ModuleManager.OpenModule(filePath);
-                PopulateToolsetViewModel();
-                ViewModel.IsModuleOpened = true;
-
+                await Task.Factory.StartNew(() =>
+                {
+                    string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] + ExtensionFactory.GetFileExtension(FileTypeEnum.Module);
+                    ModuleManager.OpenModule(filePath);
+                    PopulateToolsetViewModel();
+                    ViewModel.IsModuleOpened = true;
+                });
                 AsyncJavascriptCallback("OpenModuleButtonClick_Callback", true);
 
             }
@@ -278,12 +285,14 @@ namespace WinterEngine.Game.Entities
             AsyncJavascriptCallback("SaveAsModuleButtonClick_Callback", (int)response, e.Arguments[0]);
         }
 
-        private void CloseModuleButton(object sender, JavascriptMethodEventArgs e)
+        private async void CloseModuleButton(object sender, JavascriptMethodEventArgs e)
         {
-            ModuleManager.CloseModule();
-            ClearViewModelPopulation();
-            ViewModel.IsModuleOpened = false;
-
+            await Task.Factory.StartNew(() =>
+            {
+                ModuleManager.CloseModule();
+                ClearViewModelPopulation();
+                ViewModel.IsModuleOpened = false;
+            });
             AsyncJavascriptCallback("CloseModuleButtonClick_Callback");
         }
 
@@ -296,18 +305,22 @@ namespace WinterEngine.Game.Entities
 
         #region UI Methods - Edit Menu Bindings
 
-        private void SaveModuleProperties(object sender, JavascriptMethodEventArgs e)
+        private async void SaveModuleProperties(object sender, JavascriptMethodEventArgs e)
         {
             try
             {
-                GameModule updatedModule = JsonConvert.DeserializeObject<GameModule>(e.Arguments[0]);
-
-                using (GameModuleRepository repo = new GameModuleRepository())
+                await Task.Factory.StartNew(() =>
                 {
-                    repo.Update(updatedModule);
-                }
+                    GameModule updatedModule = JsonConvert.DeserializeObject<GameModule>(e.Arguments[0]);
 
-                PopulateToolsetViewModel();
+                    using (GameModuleRepository repo = new GameModuleRepository())
+                    {
+                        repo.Update(updatedModule);
+                    }
+
+                    PopulateToolsetViewModel();
+                });
+
                 AsyncJavascriptCallback("SaveModuleProperties_Callback");
             }
             catch (Exception ex)

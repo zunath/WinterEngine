@@ -27,6 +27,7 @@ using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.Game.Services;
 using WinterEngine.Network.Clients;
+using System.Threading.Tasks;
 
 namespace WinterEngine.Game.Entities
 {
@@ -136,27 +137,34 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void LoginButtonClick(object sender, JavascriptMethodEventArgs args)
+        private async void LoginButtonClick(object sender, JavascriptMethodEventArgs args)
         {
-            string username = args.Arguments[0].ToString();
-            string password = args.Arguments[1].ToString();
-            LoginCredentials loginCredentials = new LoginCredentials { UserName = username, Password = password};
-            WinterEngineService.InitializeUserProfile(WebUtility.AttemptUserLogin(loginCredentials));
+            string username = args.Arguments[0];
+            string password = args.Arguments[1];
+            LoginCredentials loginCredentials = new LoginCredentials(username, password);
             UserProfileResponseTypeEnum responseType = UserProfileResponseTypeEnum.Failure;
 
-            if (WinterEngineService.ActiveUserProfile.UserID > 0 && WinterEngineService.ActiveUserProfile.IsEmailVerified)
+            await Task.Factory.StartNew(() =>
             {
-                WinterEngineService.ActiveUserProfile.IsLoggedIn = true;
-                responseType = UserProfileResponseTypeEnum.Successful;
-            }
-            else if (WinterEngineService.ActiveUserProfile.UserID > 0 && !WinterEngineService.ActiveUserProfile.IsEmailVerified)
-            {
-                responseType = UserProfileResponseTypeEnum.AccountNotActivated;
-            }
-            else
-            {
-                responseType = UserProfileResponseTypeEnum.InvalidPassword;
-            }
+                WinterEngineService.InitializeUserProfile(WebUtility.AttemptUserLogin(loginCredentials));
+                    
+                if (WinterEngineService.ActiveUserProfile.UserID > 0 && WinterEngineService.ActiveUserProfile.IsEmailVerified)
+                {
+                    WinterEngineService.ActiveUserProfile.IsLoggedIn = true;
+                    responseType = UserProfileResponseTypeEnum.Successful;
+                }
+                else if (WinterEngineService.ActiveUserProfile.UserID > 0 && !WinterEngineService.ActiveUserProfile.IsEmailVerified)
+                {
+                    responseType = UserProfileResponseTypeEnum.AccountNotActivated;
+                }
+                else
+                {
+                    responseType = UserProfileResponseTypeEnum.InvalidPassword;
+                }
+
+                loginCredentials.UserName = "";
+                loginCredentials.Password = "";
+            });
 
             AsyncJavascriptCallback("DoLogin_Callback", (int)responseType);
         }
@@ -293,9 +301,9 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void ResendAccountActivationEmail(object sender, JavascriptMethodEventArgs args)
+        private async void ResendAccountActivationEmail(object sender, JavascriptMethodEventArgs args)
         {
-            WebUtility.RequestActivationEmailResend(WinterEngineService.ActiveUserProfile.UserEmail);
+            await Task.Factory.StartNew(() => WebUtility.RequestActivationEmailResend(WinterEngineService.ActiveUserProfile.UserEmail));
         }
 
         #endregion
