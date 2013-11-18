@@ -104,7 +104,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("ForumsButtonClick", false, ForumsButtonClick);
             EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButtonClick);
 
-            EntityJavascriptObject.Bind("UpsertProfileButtonClick", false, UpsertProfileButtonClick);
+            EntityJavascriptObject.Bind("SaveUserProfileClick", false, SaveUserProfileClick);
             EntityJavascriptObject.Bind("ResendAccountActivationEmail", false, ResendAccountActivationEmail);
         
             // User profile data binding
@@ -233,7 +233,7 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void UpsertProfileButtonClick(object sender, JavascriptMethodEventArgs args)
+        private async void SaveUserProfileClick(object sender, JavascriptMethodEventArgs args)
         {
             UserProfileResponseTypeEnum responseType = UserProfileResponseTypeEnum.Failure;
 
@@ -241,28 +241,30 @@ namespace WinterEngine.Game.Entities
             string confirmPassword = args.Arguments[2];
             bool isCreatingNewProfile = (bool)args.Arguments[7];
 
-            if (password == confirmPassword)
+            await Task.Factory.StartNew(() =>
             {
-                UserProfile profile = new UserProfile
+                if (password == confirmPassword)
                 {
-                    UserName = args.Arguments[0],
-                    UserPassword = args.Arguments[1],
-                    UserEmail = args.Arguments[3],
-                    UserFirstName = args.Arguments[4],
-                    UserLastName = args.Arguments[5],
-                };
+                    UserProfile profile = new UserProfile
+                    {
+                        UserName = args.Arguments[0],
+                        UserPassword = args.Arguments[1],
+                        UserEmail = args.Arguments[3],
+                        UserFirstName = args.Arguments[4],
+                        UserLastName = args.Arguments[5],
+                    };
 
-                DateTime parsedDOB;
-                DateTime.TryParse(args.Arguments[6], out parsedDOB);
-                profile.UserDOB = parsedDOB;
+                    DateTime parsedDOB;
+                    DateTime.TryParse(args.Arguments[6], out parsedDOB);
+                    profile.UserDOB = parsedDOB;
 
-                responseType = WebUtility.SendUserProfile(profile, isCreatingNewProfile);
-            }
-            else
-            {
-                responseType = UserProfileResponseTypeEnum.PasswordMismatch;
-            }
-
+                    responseType = WebUtility.SendUserProfile(profile, isCreatingNewProfile);
+                }
+                else
+                {
+                    responseType = UserProfileResponseTypeEnum.PasswordMismatch;
+                }
+            });
             AsyncJavascriptCallback("SaveProfileButton_Callback", Convert.ToInt32(responseType));
         }
 

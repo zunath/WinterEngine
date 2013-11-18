@@ -83,10 +83,10 @@ function SaveProfileButton() {
     var username = $('#txtProfileUsername').val();
 
     if (profileMode == 'create') {
-        responseType = Entity.UpsertProfileButtonClick(username, password, confirmPassword, email, firstName, lastName, dob, true);
+        responseType = Entity.SaveUserProfileClick(username, password, confirmPassword, email, firstName, lastName, dob, true);
     }
     else if (profileMode == 'modify') {
-        responseType = Entity.UpsertProfileButtonClick(username, password, confirmPassword, email, firstName, lastName, dob, false);
+        responseType = Entity.SaveUserProfileClick(username, password, confirmPassword, email, firstName, lastName, dob, false);
     }
 }
 
