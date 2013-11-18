@@ -21,7 +21,18 @@
           <SourceClassType>Entities\CharacterSelectUIEntity</SourceClassType>
           <InstanceName>CharacterSelectUIEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
+          <AttachToCamera>true</AttachToCamera>
           <IndependentOfCamera>true</IndependentOfCamera>
+          <LayerOn>LayerInstance</LayerOn>
+        </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>FlatRedBallType</SourceType>
+          <SourceFile />
+          <SourceClassType>Layer</SourceClassType>
+          <InstanceName>LayerInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <Is2D>false</Is2D>
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>
@@ -38,7 +49,18 @@
           <SourceClassType>Entities\MainMenuUIEntity</SourceClassType>
           <InstanceName>MainMenuGuiEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
+          <AttachToCamera>true</AttachToCamera>
           <IndependentOfCamera>true</IndependentOfCamera>
+          <LayerOn>LayerInstance</LayerOn>
+        </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>FlatRedBallType</SourceType>
+          <SourceFile />
+          <SourceClassType>Layer</SourceClassType>
+          <InstanceName>LayerInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <Is2D>false</Is2D>
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>
@@ -55,8 +77,18 @@
           <SourceClassType>Entities\ServerListUIEntity</SourceClassType>
           <InstanceName>ServerListGuiEntityInstance</InstanceName>
           <AttachToContainer>true</AttachToContainer>
+          <AttachToCamera>true</AttachToCamera>
           <IndependentOfCamera>true</IndependentOfCamera>
-          <LayerOn />
+          <LayerOn>LayerInstance</LayerOn>
+        </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>FlatRedBallType</SourceType>
+          <SourceFile />
+          <SourceClassType>Layer</SourceClassType>
+          <InstanceName>LayerInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <Is2D>false</Is2D>
         </NamedObjectSave>
       </NamedObjects>
     </ScreenSave>
@@ -578,7 +610,7 @@
     <RecordLockContention>false</RecordLockContention>
   </GlobalContentSettingsSave>
   <SyncedProjects />
-  <StartUpScreen>Screens\ToolsetScreen</StartUpScreen>
+  <StartUpScreen>Screens\MainMenuScreen</StartUpScreen>
   <In2D>false</In2D>
   <SetResolution>false</SetResolution>
   <ResolutionWidth>800</ResolutionWidth>

@@ -26,6 +26,7 @@ using FlatRedBall.Screens;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using FlatRedBall.Graphics;
 
 namespace WinterEngine.Game.Screens
 {
@@ -37,6 +38,7 @@ namespace WinterEngine.Game.Screens
 		#endif
 		
 		private WinterEngine.Game.Entities.ServerListUIEntity ServerListGuiEntityInstance;
+		private FlatRedBall.Graphics.Layer LayerInstance;
 
 		public ServerListScreen()
 			: base()
@@ -49,6 +51,8 @@ namespace WinterEngine.Game.Screens
 			LoadStaticContent(ContentManagerName);
 			ServerListGuiEntityInstance = new WinterEngine.Game.Entities.ServerListUIEntity(ContentManagerName, false);
 			ServerListGuiEntityInstance.Name = "ServerListGuiEntityInstance";
+			LayerInstance = new FlatRedBall.Graphics.Layer();
+			LayerInstance.Name = "LayerInstance";
 			
 			
 			base.Initialize(addToManagers);
@@ -58,6 +62,9 @@ namespace WinterEngine.Game.Screens
 // Generated AddToManagers
 		public override void AddToManagers ()
 		{
+			SpriteManager.AddLayer(LayerInstance);
+			LayerInstance.LayerCameraSettings = new LayerCameraSettings();
+			LayerInstance.LayerCameraSettings.Orthogonal = false;
 			base.AddToManagers();
 			CustomInitialize();
 		}
@@ -95,6 +102,10 @@ namespace WinterEngine.Game.Screens
 				ServerListGuiEntityInstance.Destroy();
 				ServerListGuiEntityInstance.Detach();
 			}
+			if (LayerInstance != null)
+			{
+				SpriteManager.RemoveLayer(LayerInstance);
+			}
 
 			base.Destroy();
 
@@ -108,12 +119,18 @@ namespace WinterEngine.Game.Screens
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
 			base.PostInitialize();
+			if (ServerListGuiEntityInstance.Parent == null)
+			{
+				ServerListGuiEntityInstance.CopyAbsoluteToRelative();
+				ServerListGuiEntityInstance.RelativeZ += -40;
+				ServerListGuiEntityInstance.AttachTo(SpriteManager.Camera, false);
+			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public override void AddToManagersBottomUp ()
 		{
 			base.AddToManagersBottomUp();
-			ServerListGuiEntityInstance.AddToManagers(mLayer);
+			ServerListGuiEntityInstance.AddToManagers(LayerInstance);
 		}
 		public override void ConvertToManuallyUpdated ()
 		{

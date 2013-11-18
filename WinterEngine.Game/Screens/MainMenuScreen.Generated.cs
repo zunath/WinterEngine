@@ -26,6 +26,7 @@ using FlatRedBall.Screens;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using FlatRedBall.Graphics;
 
 namespace WinterEngine.Game.Screens
 {
@@ -37,6 +38,7 @@ namespace WinterEngine.Game.Screens
 		#endif
 		
 		private WinterEngine.Game.Entities.MainMenuUIEntity MainMenuGuiEntityInstance;
+		private FlatRedBall.Graphics.Layer LayerInstance;
 
 		public MainMenuScreen()
 			: base()
@@ -49,6 +51,8 @@ namespace WinterEngine.Game.Screens
 			LoadStaticContent(ContentManagerName);
 			MainMenuGuiEntityInstance = new WinterEngine.Game.Entities.MainMenuUIEntity(ContentManagerName, false);
 			MainMenuGuiEntityInstance.Name = "MainMenuGuiEntityInstance";
+			LayerInstance = new FlatRedBall.Graphics.Layer();
+			LayerInstance.Name = "LayerInstance";
 			
 			
 			base.Initialize(addToManagers);
@@ -58,6 +62,9 @@ namespace WinterEngine.Game.Screens
 // Generated AddToManagers
 		public override void AddToManagers ()
 		{
+			SpriteManager.AddLayer(LayerInstance);
+			LayerInstance.LayerCameraSettings = new LayerCameraSettings();
+			LayerInstance.LayerCameraSettings.Orthogonal = false;
 			base.AddToManagers();
 			CustomInitialize();
 		}
@@ -95,6 +102,10 @@ namespace WinterEngine.Game.Screens
 				MainMenuGuiEntityInstance.Destroy();
 				MainMenuGuiEntityInstance.Detach();
 			}
+			if (LayerInstance != null)
+			{
+				SpriteManager.RemoveLayer(LayerInstance);
+			}
 
 			base.Destroy();
 
@@ -108,12 +119,18 @@ namespace WinterEngine.Game.Screens
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
 			base.PostInitialize();
+			if (MainMenuGuiEntityInstance.Parent == null)
+			{
+				MainMenuGuiEntityInstance.CopyAbsoluteToRelative();
+				MainMenuGuiEntityInstance.RelativeZ += -40;
+				MainMenuGuiEntityInstance.AttachTo(SpriteManager.Camera, false);
+			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
 		public override void AddToManagersBottomUp ()
 		{
 			base.AddToManagersBottomUp();
-			MainMenuGuiEntityInstance.AddToManagers(mLayer);
+			MainMenuGuiEntityInstance.AddToManagers(LayerInstance);
 		}
 		public override void ConvertToManuallyUpdated ()
 		{

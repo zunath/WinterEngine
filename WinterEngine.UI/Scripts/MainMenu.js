@@ -164,14 +164,15 @@ function InitializeLoginBox() {
 function ToggleIsLoggedIn(isLoggedIn) {
 
     if (isLoggedIn) {
-        $('#btnProfile').removeAttr('disabled');
-        $('#btnFindServer').removeAttr('disabled');
+        $('#btnProfile').button('enable');
+        $('#btnFindServer').button('enable');
+
         $('#btnLoginLogout').val('Logout');
         $('#btnLoginLogout').data('mode', 'logout');
     }
     else {
-        $('#btnProfile').attr('disabled', 'disabled');
-        $('#btnFindServer').attr('disabled', 'disabled');
+        $('#btnProfile').button('disable');
+        $('#btnFindServer').button('disable');
         $('#btnLoginLogout').val('Login');
         $('#btnLoginLogout').data('mode', 'login');
     }
@@ -243,8 +244,8 @@ function ShowLogoutConfirmation() {
 function DoLogout() {
     Entity.LogoutButtonClick();
 
-    $('#btnProfile').attr('disabled', 'disabled');
-    $('#btnFindServer').attr('disabled', 'disabled');
+    $('#btnProfile').button('disable');
+    $('#btnFindServer').button('disable');
     $('#btnLoginLogout').val('Login');
     $('#btnLoginLogout').data('mode', 'login');
     CloseConfirmLogoutBox();
@@ -262,9 +263,10 @@ function InitializeUserProfileBox() {
         modal: true,
         autoOpen: false,
         title: 'My Profile',
-        resizable: false,
+        resizable: true,
         dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
+        draggable: false,
+        width: '450'
     });
 
     $('#txtDOB').datepicker({
@@ -371,7 +373,7 @@ function CloseAccountNotActivatedBox() {
 
 function ResendAccountActivationEmail() {
     var email = Entity.GetEmail();
-    $('#btnAccountNotActivatedResendEmail').attr('disabled', 'disabled');
+    $('#btnAccountNotActivatedResendEmail').button('disable');
     $('#lblAccountNotActivatedMessage').text('Activation email has been resent to ' + email);
     Entity.ResendAccountActivationEmail();
 }
@@ -382,9 +384,10 @@ function ToggleLoginPopUpControls(disabled) {
     $('#txtUsername').attr('disabled', disabled);
     $('#txtPassword').attr('disabled', disabled);
     $('#chkSaveCredentials').attr('disabled', disabled);
-    $('#btnLogin').attr('disabled', disabled);
-    $('#btnCancelLogin').attr('disabled', disabled);
-    $('#btnCreateAccount').attr('disabled', disabled);
+
+    $('#btnLogin').button('disable');
+    $('#btnCancelLogin').button('disable');
+    $('#btnCreateAccount').button('disable');
 
 }
 
