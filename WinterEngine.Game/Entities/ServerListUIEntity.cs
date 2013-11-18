@@ -16,6 +16,7 @@ using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataTransferObjects.Paths;
 using Lidgren.Network;
 using WinterEngine.DataTransferObjects.Enums;
+using System.Threading.Tasks;
 
 namespace WinterEngine.Game.Entities
 {
@@ -177,9 +178,14 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void GetServerList(object sender, JavascriptMethodEventArgs e)
+        private async void GetServerList(object sender, JavascriptMethodEventArgs e)
         {
-            string jsonServerList = WebUtility.GetAllActiveServers();
+            string jsonServerList = "";
+            await Task.Factory.StartNew(() =>
+            {
+                jsonServerList = WebUtility.GetAllActiveServers();
+            });
+
             AsyncJavascriptCallback("GetAllServers_Callback", jsonServerList);
         }
 
@@ -188,7 +194,7 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ConnectToServer(object sender, JavascriptMethodEventArgs e)
+        private async void ConnectToServer(object sender, JavascriptMethodEventArgs e)
         {
             ConnectionAddress address = new ConnectionAddress
             {
@@ -196,13 +202,19 @@ namespace WinterEngine.Game.Entities
                 ServerPort = (int)e.Arguments[1]
             };
 
-            WinterEngineService.NetworkClient.Connect(address);
+            await Task.Factory.StartNew(() =>
+            {
+                WinterEngineService.NetworkClient.Connect(address);
+            });
         }
 
-        private void CancelConnectToServer(object sender, JavascriptMethodEventArgs e)
+        private async void CancelConnectToServer(object sender, JavascriptMethodEventArgs e)
         {
-            CancelRequestFileFromServer();
-            WinterEngineService.NetworkClient.Disconnect();
+            await Task.Factory.StartNew(() =>
+            {
+                CancelRequestFileFromServer();
+                WinterEngineService.NetworkClient.Disconnect();
+            });
         }
 
         private void GoToMainMenu(object sender, JavascriptMethodEventArgs e)
