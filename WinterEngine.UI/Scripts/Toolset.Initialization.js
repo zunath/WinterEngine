@@ -1,4 +1,4 @@
-﻿
+﻿ 
 
 function Initialize() {
     InitializeToolsetViewModel(); // Located in WinterEngine.ViewModels.js
@@ -31,6 +31,10 @@ function Initialize() {
     $("input[type=button]").button();
     $('#btnObjectTabApplyChanges').button('disable');
     $('#btnObjectTabDiscardChanges').button('disable');
+
+    $('.clsProgressBar').progressbar({
+        value: false
+    });
 
     // Unblock the UI - the UI blocking is done to prevent the user from making javascript calls before Awesomium has loaded.
     $.unblockUI();

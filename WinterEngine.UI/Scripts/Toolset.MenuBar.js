@@ -21,10 +21,16 @@ function NewModuleBoxOKClick() {
     var moduleTag = $('#txtModuleTag').val();
     var moduleResref = $('#txtModuleResref').val();
 
+    $('#btnNewModuleOK, #btnNewModuleCancel').button('disable');
+    $('#divCreatingModuleProgressBar').removeClass('clsHidden');
+
     Entity.NewModuleButtonClick(moduleName, moduleTag, moduleResref);
 }
 
 function NewModuleBoxOKClick_Callback(success) {
+    $('#divCreatingModuleProgressBar').addClass('clsHidden');
+    $('#btnNewModuleOK, #btnNewModuleCancel').button('enable');
+
     if (success) {
         CloseNewModuleBox();
         Entity.LoadTreeViewData();
@@ -59,6 +65,8 @@ function OpenModuleButtonClick(element) {
     var selectedModule = $('#selModulesList option:selected').text();
 
     if (selectedModule != '') {
+        $('#btnOpenModuleOpenButton, #btnOpenModuleCancelButton').button('disable');
+        $('#divOpeningModuleProgressBar').removeClass('clsHidden');
         Entity.OpenModuleButtonClick(selectedModule);
     }
 }
@@ -69,6 +77,9 @@ function OpenModuleButtonClick_Callback(success) {
         ChangeObjectMode("Area");
         CloseOpenModulePopUp();
         ToolsetViewModel.Refresh();
+
+        $('#divOpeningModuleProgressBar').addClass('clsHidden');
+        $('#btnOpenModuleOpenButton, #btnOpenModuleCancelButton').button('enable');
     }
 }
 

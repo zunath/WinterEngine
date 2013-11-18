@@ -5,6 +5,10 @@
     <select id="selModulesList" size="5" data-bind="foreach: ModuleList">
         <option data-bind="text: FileName" ondblclick="OpenModuleButtonClick();"></option>
     </select>
+    
+    <div class="row-fluid">
+        <div id="divOpeningModuleProgressBar" class="clsProgressBar clsHidden"></div>
+    </div>
 
     <input id="btnOpenModuleOpenButton" type="button" value="Open" onclick="OpenModuleButtonClick();" />
     <input id="btnOpenModuleCancelButton" type="button" value="Cancel" onclick="CloseOpenModulePopUp();" />

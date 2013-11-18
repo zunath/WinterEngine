@@ -206,9 +206,12 @@ namespace WinterEngine.Game.Entities
 
         #region General Methods
 
-        private void SaveModule()
+        private async void SaveModule()
         {
-            ModuleManager.SaveModule();
+            await Task.Factory.StartNew(() =>
+            {
+                ModuleManager.SaveModule();
+            });
         }
 
         #endregion
