@@ -4,31 +4,34 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    
+    <link rel="stylesheet" href="../Styling/Shared/bootstrap.css" />
+    <link rel="stylesheet" href="../Styling/Shared/bootstrap-responsive.css" />
+    <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
     <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
     <link rel="stylesheet" href="../Styling/Game/CharacterSelectionStyles.css" />
-    <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
     
     <script src="../Scripts/jquery-2.0.3.min.js"></script>
     <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src="../Scripts/jquery.awesomiumXNA.js"></script>
+    <script src="../Scripts/knockout-2.3.0.js"></script>
+    <script src="../Scripts/knockout.viewmodel.js"></script>
     <script src="../Scripts/jquery.validate.js"></script>
+    <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/WinterEngine.Shared.js"></script>
     <script src="../Scripts/CharacterSelection.ViewModel.js"></script>
     <script src="../Scripts/CharacterSelection.Initialization.js"></script>
     <script src="../Scripts/CharacterSelection.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            Initialize();
-        });
-    </script>
-
 </head>
 <body>
-    
     <div data-partial="CharacterSelection/ServerDetailsPartial.html"></div>
-    <div data-partial="CharacterSelection/CharacterListPartial.html"></div>
-    <div data-partial="CharacterSelection/CharacterDetailsPartial.html"></div>
+
+    <div class="row-fluid">
+        <div data-partial="CharacterSelection/CharacterListPartial.html"></div>
+        <div data-partial="CharacterSelection/CharacterDetailsPartial.html"></div>
+    </div>
+
     <div data-partial="CharacterSelection/ButtonGroupPartial.html"></div>
 
     <div data-partial="CharacterSelection/PopUpBoxes/DeleteCharacterPartial.html"></div>

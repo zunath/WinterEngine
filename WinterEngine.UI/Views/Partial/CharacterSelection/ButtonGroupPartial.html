@@ -1,9 +1,15 @@
 ﻿
 <div id="divButtonGroup" class="clsCharacterSelectionButtonGroup">
 
-    <input id="btnNewCharacter" type="button" value="New Character" class="clsQuarterButton" onclick="NewCharacterButton();" />
-    <input id="btnDeleteCharacter" type="button" value="Delete Character" class="clsQuarterButton" disabled="disabled" onclick="DeleteCharacterButton();" />
-    <input id="btnJoinServer" type="button" value="Join" class="clsQuarterButton" disabled="disabled" onclick="JoinServerButton();" />
-    <input id="btnCancel" type="button" value="Cancel" class="clsQuarterButton" onclick="CancelCharacterSelectionButton();" />
+    <div class="row-fluid">
+        
+        <div class="span12 clsCenter">
+            <input id="btnNewCharacter" type="button" class="clsFullButton" value="New Character" onclick="NewCharacterButton();" />
+            <input id="btnDeleteCharacter" type="button" class="clsFullButton" value="Delete Character" onclick="DeleteCharacterButton();" />
+            <input id="btnJoinServer" type="button" class="clsFullButton" value="Join Server" onclick="JoinServerButton();" />
+            <input id="btnCancel" type="button" class="clsFullButton" value="Cancel" onclick="CancelCharacterSelectionButton();" />
+        </div>
+    
+    </div>
         
 </div>

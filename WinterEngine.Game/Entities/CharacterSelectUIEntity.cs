@@ -52,8 +52,29 @@ namespace WinterEngine.Game.Entities
         {
             ViewModel = new CharacterSelectionViewModel();
             AwesomiumWebView.DocumentReady += OnDocumentReady;
-            WinterEngineService.NetworkClient.OnPacketReceived += NetworkClient_OnPacketReceived;
+
+            // debugging
+            ViewModel.ActiveCharacter = new PlayerCharacter();
+            ViewModel.ActiveCharacter.FirstName = "Zunath";
+            ViewModel.ActiveCharacter.LastName = "Zintuachi";
+            ViewModel.ActiveCharacter.Race = new DataTransferObjects.Race
+            {
+                Name = "Race"
+            };
+
+            ViewModel.Characters = new List<PlayerCharacter>();
+            ViewModel.Characters.Add(ViewModel.ActiveCharacter);
+            ViewModel.Characters.Add(ViewModel.ActiveCharacter);
+            ViewModel.Characters.Add(ViewModel.ActiveCharacter);
+
+            // end debugging
+
+            if (!Object.ReferenceEquals(WinterEngineService.NetworkClient, null))
+            {
+                WinterEngineService.NetworkClient.OnPacketReceived += NetworkClient_OnPacketReceived;
+            }
 		}
+
 
 		private void CustomActivity()
 		{
@@ -89,7 +110,7 @@ namespace WinterEngine.Game.Entities
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
             // Page Initialization
-            EntityJavascriptObject.Bind("InitializePage", false, InitializePage);
+            EntityJavascriptObject.Bind("RequestServerInformation", false, RequestServerInformation);
 
             // Model Data
             EntityJavascriptObject.Bind("GetModelJSON", true, GetModelJSON);
@@ -100,7 +121,7 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("JoinServer", false, JoinServer);
             EntityJavascriptObject.Bind("CancelCharacterSelection", false, CancelCharacterSelection);
 
-            AsyncJavascriptCallback("InitializePage");
+            RunJavaScriptMethod("Initialize();");
         }
 
         #endregion
@@ -112,9 +133,12 @@ namespace WinterEngine.Game.Entities
             e.Result = JsonConvert.SerializeObject(ViewModel);
         }
 
-        private void InitializePage(object sender, JavascriptMethodEventArgs e)
+        private void RequestServerInformation(object sender, JavascriptMethodEventArgs e)
         {
-            WinterEngineService.NetworkClient.SendRequest(PacketRequestTypeEnum.CharacterSelection, NetDeliveryMethod.ReliableOrdered);
+            if (!Object.ReferenceEquals(WinterEngineService.NetworkClient, null))
+            {
+                WinterEngineService.NetworkClient.SendRequest(PacketRequestTypeEnum.CharacterSelection, NetDeliveryMethod.ReliableOrdered);
+            }
         }
 
         private void NewCharacter(object sender, JavascriptMethodEventArgs e)
@@ -181,10 +205,21 @@ namespace WinterEngine.Game.Entities
         /// <param name="packet"></param>
         private void ProcessCharacterSelectionPacket(CharacterSelectionPacket packet)
         {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            string jsonCharacterList = serializer.Serialize(packet.CharacterList);
+            ViewModel.CanDeleteCharacters = packet.CanDeleteCharacters;
+            ViewModel.Characters = packet.CharacterList;
+            ViewModel.ServerName = packet.ServerName;
+            ViewModel.Announcement = packet.ServerAnnouncement;
 
-            AsyncJavascriptCallback("InitializeServerInformation_Callback", packet.ServerName, packet.ServerAnnouncement, packet.CanDeleteCharacters, jsonCharacterList);
+            if (packet.CharacterList.Count > 0)
+            {
+                ViewModel.ActiveCharacter = packet.CharacterList[0];
+            }
+            else
+            {
+                ViewModel.ActiveCharacter = new PlayerCharacter();
+            }
+
+            AsyncJavascriptCallback("RequestServerInformation_Callback");
         }
 
         /// <summary>

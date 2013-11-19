@@ -2,11 +2,13 @@
 <div id="divLeftPane" class="clsPaneHalfLeft clsPaneRounded">
 
     <div id="divCharacterList" class="clsCharacterList">
-        <h2 class="clsCenter">Please select a character...</h2>
+        <h3 class="clsCenter">Please select a character...</h3>
         <hr />
-            
-        <div id="divCharacters">
-            <!-- Populated by BuildCharacterList() function -->
+        
+        <div data-bind="foreach: Characters">
+            <div class="clsCharacterEntry" onclick="LoadCharacterInformation($index());">
+                <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+            </div>
         </div>
     </div>
 

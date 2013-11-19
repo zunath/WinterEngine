@@ -1,9 +1,4 @@
-﻿/* Page Initialization */
-var CanDeleteCharacters = false;
-var SelectedCharacterDiv;
-
-/* Button Functionality */
-
+﻿
 function NewCharacterButton() {
     Entity.NewCharacter();
 }
@@ -79,7 +74,7 @@ function LoadCharacterInformation(characterID) {
     $('#tdIntelligenceValue').text($(selectedCharacter).data('int'));
     $('#tdWisdomValue').text($(selectedCharacter).data('wis'));
 
-    if (CanDeleteCharacters) {
+    if (CharacterSelectionViewModel.CanDeleteCharacters()) {
         $('#btnDeleteCharacter').removeAttr('disabled');
     }
 

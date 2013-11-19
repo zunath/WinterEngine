@@ -2,7 +2,7 @@
 <div id="divRightPane" class="clsPaneHalfRight clsPaneRounded">
         
     <div id="divCharacterInformation">
-        <h2 class="clsCenter">Character Information</h2>
+        <h3 class="clsCenter">Character Information</h3>
         <hr />
             
         <div id="divCharacterPortrait" class="clsCharacterPortrait">
@@ -11,12 +11,17 @@
 
         <div id="divCharacterDetails" class="clsCharacterDetails">
 
-            <div class="clsCenter">
-                <b>
-                    <span id="spnCharacterName" >Please select a character</span>
-                </b> 
-                <span id="spnCharacterRace"></span>
-            </div> 
+            <b>Name: </b>             
+            <span id="spnCharacterName"
+                data-bind="text: ActiveCharacter.FirstName() + ' ' + ActiveCharacter.LastName()">
+            </span>
+            
+            <br />
+            <b>Race: </b>
+            <span id="spnCharacterRace"
+                data-bind="text: ActiveCharacter.Race.Name">
+            </span>
+        
             <br />
             <table id="tblCharacterAttributes" class="clsCharacterAttributeTable">
                 <thead>
@@ -29,11 +34,21 @@
                     </tr>
                 </thead>
                 <tr>
-                    <td id="tdStrengthValue">N/A</td>
-                    <td id="tdConstitutionValue">N/A</td>
-                    <td id="tdDexterityValue">N/A</td>
-                    <td id="tdIntelligenceValue">N/A</td>
-                    <td id="tdWisdomValue">N/A</td>
+                    <td id="tdStrengthValue"
+                        data-bind="text: ActiveCharacter.Strength">
+                    </td>
+                    <td id="tdConstitutionValue"
+                        data-bind="text: ActiveCharacter.Constitution">
+                    </td>
+                    <td id="tdDexterityValue"
+                        data-bind="text: ActiveCharacter.Dexterity">
+                    </td>
+                    <td id="tdIntelligenceValue"
+                        data-bind="text: ActiveCharacter.Intelligence">
+                    </td>
+                    <td id="tdWisdomValue"
+                        data-bind="text: ActiveCharacter.Wisdom">
+                    </td>
 
                 </tr>
             </table>
