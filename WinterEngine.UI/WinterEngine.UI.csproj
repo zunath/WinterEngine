@@ -146,6 +146,18 @@
     <Content Include="Views\Partial\CharacterSelection\ServerDetailsPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Partial\ServerList\PopUpBoxes\ConnectingToServerPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\ServerList\PopUpBoxes\LoadingServerListPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\ServerList\PopUpBoxes\UnableToConnectPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\ServerList\ServerListTablePartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Partial\Toolset\ObjectControls\ApplyDiscardChangesPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

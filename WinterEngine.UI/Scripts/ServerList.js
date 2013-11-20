@@ -9,6 +9,11 @@ function Initialize() {
 
     $('input:button').button();
 
+    $('.clsProgressBar').progressbar({
+        value: false
+    });
+
+    GetAllServers();
 }
 
 function InitializeDataTable() {

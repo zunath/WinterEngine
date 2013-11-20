@@ -126,6 +126,7 @@
     <Compile Include="Resources\Gender.cs" />
     <Compile Include="Resources\TileCollisionBox.cs" />
     <Compile Include="UIObjects\DropDownListUIObject.cs" />
+    <Compile Include="ViewModels\CharacterCreationViewModel.cs" />
     <Compile Include="ViewModels\CharacterSelectionViewModel.cs" />
     <Compile Include="XMLObjects\ContentPackageResourceXML.cs" />
     <Compile Include="BusinessObjects\JSTreeNode.cs" />

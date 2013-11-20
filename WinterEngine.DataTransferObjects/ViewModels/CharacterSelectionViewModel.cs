@@ -15,6 +15,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public int ActiveCharacterIndex { get; set; }
         public bool CanDeleteCharacters { get; set; }
         public List<string> CharacterPortraits { get; set; }
+        public string DeleteCharacterResponseMessage { get; set; }
 
         [JsonIgnore]
         public PlayerCharacter ActiveCharacter

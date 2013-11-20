@@ -121,9 +121,16 @@ namespace WinterEngine.Game.Entities
 
         private void DeleteCharacter(object sender, JavascriptMethodEventArgs e)
         {
-            string fileName = ViewModel.ActiveCharacter.FileName;
-            DeleteCharacterPacket packet = new DeleteCharacterPacket(fileName, DeleteCharacterTypeEnum.Request);
-            WinterEngineService.NetworkClient.SendPacket(packet, NetDeliveryMethod.ReliableUnordered);
+            if (ViewModel.ActiveCharacter != null)
+            {
+                string fileName = ViewModel.ActiveCharacter.FileName;
+                DeleteCharacterPacket packet = new DeleteCharacterPacket(fileName, DeleteCharacterTypeEnum.Request);
+
+                if (!Object.ReferenceEquals(WinterEngineService.NetworkClient, null))
+                {
+                    WinterEngineService.NetworkClient.SendPacket(packet, NetDeliveryMethod.ReliableUnordered);
+                }
+            }
         }
 
         private void JoinServer(object sender, JavascriptMethodEventArgs e)
@@ -132,7 +139,11 @@ namespace WinterEngine.Game.Entities
 
         private void CancelCharacterSelection(object sender, JavascriptMethodEventArgs e)
         {
-            WinterEngineService.NetworkClient.Disconnect();
+            if (!Object.ReferenceEquals(WinterEngineService.NetworkClient, null))
+            {
+                WinterEngineService.NetworkClient.Disconnect();
+            }
+
             RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(ServerListScreen)));
         }
 
@@ -180,11 +191,12 @@ namespace WinterEngine.Game.Entities
         private void ProcessCharacterSelectionPacket(CharacterSelectionPacket packet)
         {
             ViewModel.CanDeleteCharacters = packet.CanDeleteCharacters;
-            ViewModel.Characters = packet.CharacterList;
+            ViewModel.Characters = packet.CharacterList == null ? new List<PlayerCharacter>() : packet.CharacterList;
             ViewModel.ServerName = packet.ServerName;
             ViewModel.Announcement = packet.ServerAnnouncement;
 
             // Generate portraits for each character
+            
             for (int index = 0; index < ViewModel.Characters.Count; index++)
             {
                 string base64Portrait = ViewModel.Characters[index].Portrait.ToBase64String();
@@ -202,7 +214,28 @@ namespace WinterEngine.Game.Entities
         /// <param name="packet"></param>
         private void ProcessDeleteCharacterResponsePacket(DeleteCharacterPacket packet)
         {
-            AsyncJavascriptCallback("ConfirmDeleteCharacterButton_Callback", (int)packet.DeleteRequestType);
+            if(packet.DeleteRequestType == DeleteCharacterTypeEnum.Accepted)
+            {
+                ViewModel.DeleteCharacterResponseMessage = "Your character has been deleted successfully.";
+            }
+            else if (packet.DeleteRequestType == DeleteCharacterTypeEnum.Denied)
+            {
+                ViewModel.DeleteCharacterResponseMessage = "Your request to delete your character has been denied by the server.";
+            }
+            else if (packet.DeleteRequestType == DeleteCharacterTypeEnum.DeniedDisabled)
+            {
+                ViewModel.DeleteCharacterResponseMessage = "The server has disabled character deletion.";
+            }
+            else if (packet.DeleteRequestType == DeleteCharacterTypeEnum.Error)
+            {
+                ViewModel.DeleteCharacterResponseMessage = "An error has occurred. Your character has not been deleted.";
+            }
+            else if (packet.DeleteRequestType == DeleteCharacterTypeEnum.FileNotFound)
+            {
+                ViewModel.DeleteCharacterResponseMessage = "Character does not exist.";
+            }
+
+            AsyncJavascriptCallback("DeleteCharacter_Callback", (int)packet.DeleteRequestType);
         }
 
         #endregion

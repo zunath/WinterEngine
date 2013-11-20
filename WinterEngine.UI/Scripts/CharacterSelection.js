@@ -9,35 +9,21 @@ function DeleteCharacterButton() {
 }
 
 function ConfirmDeleteCharacterButton() {
+    $('#lblDeleteCharacterConfirmation').text('Deleting character...');
+    $('#divDeleteCharacterLoadingBar').removeClass('clsHidden');
+
+    $('#btnConfirmDeleteCharacter').button('disable');
+    $('#btnCancelDeleteCharacter').button('disable');
+
     Entity.DeleteCharacter();
 }
 
-function ConfirmDeleteCharacterButton_Callback(responseID) {
-    // Response IDs are found in the DeleteCharacterTypeEnum.cs file
+function DeleteCharacter_Callback() {
+    CharacterSelectionViewModel.Refresh();
 
-    $('#divDeleteCharacterPopUpBox').dialog('close');
-
-    // 2 = Accepted
-    if (responseID == 2) {
-        $('.clsCharacterActive').hide();
-        return;
-    }
-    // 3 = Denied
-    else if (responseID == 3) {
-        $('#lblDeleteCharacterResponsePopUpBox').text('Your request to delete your character has been denied.');
-    }
-    // 4 = DeniedDisabled
-    else if (responseID == 4) {
-        $('#lblDeleteCharacterResponsePopUpBox').text('The server has disabled character deletion.');
-    }
-    // 5 = FileNotFound
-    else if (responseID == 5) {
-        $('#lblDeleteCharacterResponsePopUpBox').text('Character does not exist.');
-    }
-    // 6 = Error
-    else if (responseID == 6) {
-        $('#lblDeleteCharacterResponsePopUpBox').text('An error occurred. Your character has not been deleted.');
-    }
+    $('#divDeleteCharacterLoadingBar').addClass('clsHidden');
+    $('#btnConfirmDeleteCharacter').button('enable');
+    $('#btnCancelDeleteCharacter').button('enable');
 
     $('#divDeleteCharacterResponsePopUpBox').dialog('open');
 }

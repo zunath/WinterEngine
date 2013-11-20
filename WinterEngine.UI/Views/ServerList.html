@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    
+    <link rel="stylesheet" href="../Styling/Shared/bootstrap.css" />
+    <link rel="stylesheet" href="../Styling/Shared/bootstrap-responsive.css" />
     <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
     <link rel="stylesheet" href="../Styling/Game/ServerListStyles.css" />
     <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
@@ -17,69 +20,11 @@
 
 </head>
 <body>
-    <div id="divServerListContent">
-        <div id="divLoading">
-            <label id="lblLoading">Retrieving server list...</label>
-        </div>
-        
-        <div style="overflow:auto; max-height: 500px">
-            <table id="tblServerList" class="clsServerList">
-                <thead>
-                    <tr>
-                        <td>Server Name
-                        </td>
-                        <td>Address
-                        </td>
-                        <td>Max Level
-                        </td>
-                        <td>Players
-                        </td>
-                        <td>Game Type
-                        </td>
-                        <td>PVP Type
-                        </td>
-                        <td>Connect
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-
-            </table>
-        </div>
-        <br />
-        <input id="btnMainMenu" class="clsFullButton" value="Return to Main Menu" type="button" onclick="GoToMainMenu();" />
-
-        <div id="divConnectingToServer">
-            <label id="lblConnectingToServer">
-                Please wait while a connection to the server is established.
-            </label>
-            <br />
-            <br />
-
-            <div id="divDownloadProgress" class="clsHidden">
-            </div>
-            <br />
-            <input id="btnCancel" type="button" value="Cancel" class="clsFullButton" onclick="CancelConnectToServer();" />
-        </div>
-
-        <div id="divUnableToConnectToServer">
-            <label id="lblUnableToConnectToServer">
-                Unable to establish connection to server.
-            </label>
-            <br />
-            <br />
-            <input id="btnUnableToConnectOK" type="button" value="OK" class="clsFullButton" onclick="UnableToConnectToServerClose();" />
-        </div>
-
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            Initialize();
-        });
-
-    </script>
+    
+    <div data-partial="ServerList/ServerListTablePartial.html"></div>
+    <div data-partial="ServerList/PopUpBoxes/ConnectingToServerPartial.html"></div>
+    <div data-partial="ServerList/PopUpBoxes/LoadingServerListPartial.html"></div>
+    <div data-partial="ServerList/PopUpBoxes/UnableToConnectPartial.html"></div>
 
 </body>
 </html>

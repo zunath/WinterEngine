@@ -6,6 +6,7 @@ function InitializeDialogBox(selector, dialogTitle) {
         title: dialogTitle,
         resizable: false,
         dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
+        draggable: false,
+        closeOnEscape: false
     });
 }
