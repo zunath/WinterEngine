@@ -13,6 +13,34 @@
         <string>GLUE</string>
       </Tags>
       <Source>GLUE</Source>
+      <Name>Screens\CharacterCreationScreen</Name>
+      <NamedObjects>
+        <NamedObjectSave>
+          <SourceType>FlatRedBallType</SourceType>
+          <SourceFile />
+          <SourceClassType>Layer</SourceClassType>
+          <InstanceName>LayerInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <Is2D>false</Is2D>
+        </NamedObjectSave>
+        <NamedObjectSave>
+          <SourceType>Entity</SourceType>
+          <SourceFile />
+          <SourceClassType>Entities\CharacterCreationUIEntity</SourceClassType>
+          <InstanceName>CharacterCreationUIEntityInstance</InstanceName>
+          <AttachToContainer>true</AttachToContainer>
+          <AttachToCamera>true</AttachToCamera>
+          <IndependentOfCamera>true</IndependentOfCamera>
+          <LayerOn>LayerInstance</LayerOn>
+        </NamedObjectSave>
+      </NamedObjects>
+    </ScreenSave>
+    <ScreenSave>
+      <Tags>
+        <string>GLUE</string>
+      </Tags>
+      <Source>GLUE</Source>
       <BaseScreen>Screens\BaseScreen</BaseScreen>
       <Name>Screens\CharacterSelectScreen</Name>
       <NamedObjects>
@@ -227,6 +255,7 @@
           </Properties>
           <Name>ResourcePath</Name>
           <Type>string</Type>
+          <DefaultValue xsi:type="xsd:string">file:///./Views/CharacterCreation.html</DefaultValue>
           <DefinedByBase>true</DefinedByBase>
         </CustomVariable>
       </CustomVariables>

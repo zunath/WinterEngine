@@ -29,5 +29,16 @@ namespace WinterEngine.DataTransferObjects.GameObjects
         public int Experience { get; set; }
 
         #endregion
+
+        #region Constructors
+
+        public PlayerCharacter()
+        {
+            this.FirstName = "";
+            this.LastName = "";
+
+        }
+
+        #endregion
     }
 }

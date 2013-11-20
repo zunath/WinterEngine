@@ -9,8 +9,7 @@ function DeleteCharacterButton() {
 }
 
 function ConfirmDeleteCharacterButton() {
-    var fileName = $(SelectedCharacterDiv).data('fileName');
-    Entity.DeleteCharacter(fileName);
+    Entity.DeleteCharacter();
 }
 
 function ConfirmDeleteCharacterButton_Callback(responseID) {
@@ -59,69 +58,19 @@ function CancelDeleteCharacterButton() {
     $('#divDeleteCharacterPopUpBox').dialog('close');
 }
 
-function LoadCharacterInformation(characterID) {
-
-    SelectedCharacterDiv = $('#divCharacter' + characterID);
-    $('.clsCharacterActive').removeClass('clsCharacterActive');
-    $(selectedCharacter).addClass('clsCharacterActive');
-
-    $('#spnCharacterName').text($(selectedCharacter).data('name'));
-    $('#spnCharacterRace').text($(selectedCharacter).data('race'));
-
-    $('#tdStrengthValue').text($(selectedCharacter).data('str'));
-    $('#tdConstitutionValue').text($(selectedCharacter).data('con'));
-    $('#tdDexterityValue').text($(selectedCharacter).data('dex'));
-    $('#tdIntelligenceValue').text($(selectedCharacter).data('int'));
-    $('#tdWisdomValue').text($(selectedCharacter).data('wis'));
-
-    if (CharacterSelectionViewModel.CanDeleteCharacters()) {
-        $('#btnDeleteCharacter').removeAttr('disabled');
-    }
-
-    $('#btnJoinServer').removeAttr('disabled');
+function LoadCharacterInformation(index) {
+    Entity.LoadCharacter(index);
 }
 
-/* Character List Creation */
+function LoadCharacterInformation_Callback() {
 
-function BuildCharacterList(characterList) {
-    var characters = JSON.parse(characterList);
-
-    for (var index = 0; index < characters.length; index++) {
-        var currentCharacter = characters[index];
-
-        var divContent = '<div id="divCharacter' + index + '" class="clsCharacterEntry">';
-
-        divContent += '<img src="" class="clsCharacterPortrait" />';
-        divContent += '<span id="spnCharacterName' + index + '"></span>';
-        divContent += '<br />';
-        divContent += '</div>';
-
-        $('#divCharacters').append(divContent);
-
-        var selector = '#spnCharacterName' + index;
-        $(selector).text(currentCharacter.FirstName + ' ' + currentCharacter.LastName);
-
-        selector = '#divCharacter' + index;
-        $(selector).data('name', currentCharacter.FirstName + ' ' + currentCharacter.LastName);
-        $(selector).data('race', currentCharacter.Race); 
-
-        $(selector).data('maxHP', currentCharacter.MaxHitPoints);
-        $(selector).data('maxMana', currentCharacter.MaxMana);
-        $(selector).data('hp', currentCharacter.HitPoints);
-        $(selector).data('mana', currentCharacter.Mana);
-
-        $(selector).data('str', currentCharacter.Strength);
-        $(selector).data('con', currentCharacter.Constitution);
-        $(selector).data('dex', currentCharacter.Dexterity);
-        $(selector).data('int', currentCharacter.Intelligence);
-        $(selector).data('wis', currentCharacter.Wisdom);
-
-        $(selector).data('fileName', currentCharacter.FileName);
-
-        $(selector).click(function() {
-            LoadCharacterInformation(index);
-        });
+    if (CharacterSelectionViewModel.CanDeleteCharacters()) {
+        $('#btnDeleteCharacter').button('enable');
     }
+
+    $('#btnJoinServer').button('enable');
+
+    CharacterSelectionViewModel.Refresh();
 }
 
 /* Lost Connection */

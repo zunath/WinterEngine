@@ -7,45 +7,25 @@
     border-radius: 15px;
 }
 
-.clsPaneHalfLeft
+.clsCharacterListPanel
 {
-    width: 49%;
-    height: 100%;
-    float: left;
     background-color: lightgrey;
     border:solid 2px;
-    height:400px;
-    position: relative;
+    width: 99%;
+    text-align:center;
 }
 
-.clsPaneHalfRight
-{
-    width: 49%;
-    height: 100%;
-    float:right;
-    background-color: lightgrey;
-    border: solid 2px;
-}
 
 .clsPaneRounded
 {
     border-radius: 15px;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 
 .clsPaneContent
 {
     width: 100%;
     height: 100%;
-}
-
-.clsCharacterList
-{
-    overflow-y: auto;
-    overflow-x: hidden;
-    max-height: 100%;
-    overflow-y: auto;
-    border: 1px;
 }
 
 .clsServerDetails
@@ -68,14 +48,6 @@
     margin-right: auto;
 }
 
-.clsLevelProgressBar
-{
-    width: 95%;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .clsCharacterDetails
 {
     background-color: lightgrey;
@@ -86,29 +58,6 @@
     text-align: center;
     background-color:white;
     border: 1px solid;
-}
-
-.clsSkillsList
-{
-    text-align: center;
-    float: left;
-    width: 49%;
-    border: 1px solid;
-}
-
-.clsAbilitiesList
-{
-    text-align: center;
-    float: left;
-    width: 49%;
-    border:1px solid;
-}
-
-.clsCharacterPortrait
-{
-    width: 64px;
-    height: 64px;
-    float: left;
 }
 
 .clsCharacterEntry
@@ -130,6 +79,11 @@
 }
 
 .clsCharacterActive
+{
+    background-color: yellow;
+}
+
+.clsCharacterActive:hover
 {
     background-color: yellow;
 }

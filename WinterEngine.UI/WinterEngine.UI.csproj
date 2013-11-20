@@ -122,10 +122,10 @@
     <Content Include="Views\MainMenu.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Partial\CharacterSelection\ButtonGroupPartial.html">
+    <Content Include="Views\CharacterCreation.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Partial\CharacterSelection\CharacterDetailsPartial.html">
+    <Content Include="Views\Partial\CharacterSelection\ButtonGroupPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\CharacterSelection\CharacterListPartial.html">
@@ -417,7 +417,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Partial\CharacterCreation\PopUpBoxes\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WinterEngine.DataTransferObjects\WinterEngine.DataTransferObjects.csproj">
       <Project>{273d0963-a639-4529-bdc1-049bb8695799}</Project>

@@ -1,36 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using FlatRedBall;
-using FlatRedBall.Input;
-using FlatRedBall.Instructions;
-using FlatRedBall.AI.Pathfinding;
-using FlatRedBall.Graphics.Animation;
-using FlatRedBall.Graphics.Particle;
-
-using FlatRedBall.Math.Geometry;
-using FlatRedBall.Math.Splines;
-using BitmapFont = FlatRedBall.Graphics.BitmapFont;
-using Cursor = FlatRedBall.Gui.Cursor;
-using GuiManager = FlatRedBall.Gui.GuiManager;
-
-using Keys = Microsoft.Xna.Framework.Input.Keys;
-using Vector3 = Microsoft.Xna.Framework.Vector3;
-using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using Awesomium.Core;
-using WinterEngine.Network.Clients;
-using WinterEngine.DataTransferObjects.EventArgsExtended;
-using WinterEngine.Game.Screens;
-using WinterEngine.Game.Services;
+using Lidgren.Network;
+using Newtonsoft.Json;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Enums;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataTransferObjects.Packets;
-using System.Web.Script.Serialization;
-using Lidgren.Network;
-using WinterEngine.DataTransferObjects.BusinessObjects;
-using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.ViewModels;
-using Newtonsoft.Json;
+using WinterEngine.Game.Screens;
+using WinterEngine.Game.Services;
+using WinterEngine.Library.Extensions;
 
 namespace WinterEngine.Game.Entities
 {
@@ -53,22 +34,6 @@ namespace WinterEngine.Game.Entities
             ViewModel = new CharacterSelectionViewModel();
             AwesomiumWebView.DocumentReady += OnDocumentReady;
 
-            // debugging
-            ViewModel.ActiveCharacter = new PlayerCharacter();
-            ViewModel.ActiveCharacter.FirstName = "Zunath";
-            ViewModel.ActiveCharacter.LastName = "Zintuachi";
-            ViewModel.ActiveCharacter.Race = new DataTransferObjects.Race
-            {
-                Name = "Race"
-            };
-
-            ViewModel.Characters = new List<PlayerCharacter>();
-            ViewModel.Characters.Add(ViewModel.ActiveCharacter);
-            ViewModel.Characters.Add(ViewModel.ActiveCharacter);
-            ViewModel.Characters.Add(ViewModel.ActiveCharacter);
-
-            // end debugging
-
             if (!Object.ReferenceEquals(WinterEngineService.NetworkClient, null))
             {
                 WinterEngineService.NetworkClient.OnPacketReceived += NetworkClient_OnPacketReceived;
@@ -87,7 +52,10 @@ namespace WinterEngine.Game.Entities
 
 		private void CustomDestroy()
 		{
-            WinterEngineService.NetworkClient.OnPacketReceived -= NetworkClient_OnPacketReceived;
+            if (!Object.ReferenceEquals(WinterEngineService.NetworkClient, null))
+            {
+                WinterEngineService.NetworkClient.OnPacketReceived -= NetworkClient_OnPacketReceived;
+            }
 		}
 
         private static void CustomLoadStaticContent(string contentManagerName)
@@ -109,17 +77,14 @@ namespace WinterEngine.Game.Entities
         {
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
-            // Page Initialization
             EntityJavascriptObject.Bind("RequestServerInformation", false, RequestServerInformation);
-
-            // Model Data
             EntityJavascriptObject.Bind("GetModelJSON", true, GetModelJSON);
 
-            // Button Functionality
             EntityJavascriptObject.Bind("NewCharacter", false, NewCharacter);
             EntityJavascriptObject.Bind("DeleteCharacter", false, DeleteCharacter);
             EntityJavascriptObject.Bind("JoinServer", false, JoinServer);
             EntityJavascriptObject.Bind("CancelCharacterSelection", false, CancelCharacterSelection);
+            EntityJavascriptObject.Bind("LoadCharacter", false, LoadCharacter);
 
             RunJavaScriptMethod("Initialize();");
         }
@@ -143,11 +108,20 @@ namespace WinterEngine.Game.Entities
 
         private void NewCharacter(object sender, JavascriptMethodEventArgs e)
         {
+            RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(CharacterCreationScreen)));
+        }
+
+        private void LoadCharacter(object sender, JavascriptMethodEventArgs e)
+        {
+            int index = (int)e.Arguments[0];
+            ViewModel.ActiveCharacterIndex = index;
+
+            AsyncJavascriptCallback("LoadCharacterInformation_Callback");
         }
 
         private void DeleteCharacter(object sender, JavascriptMethodEventArgs e)
         {
-            string fileName = e.Arguments[0];
+            string fileName = ViewModel.ActiveCharacter.FileName;
             DeleteCharacterPacket packet = new DeleteCharacterPacket(fileName, DeleteCharacterTypeEnum.Request);
             WinterEngineService.NetworkClient.SendPacket(packet, NetDeliveryMethod.ReliableUnordered);
         }
@@ -210,14 +184,14 @@ namespace WinterEngine.Game.Entities
             ViewModel.ServerName = packet.ServerName;
             ViewModel.Announcement = packet.ServerAnnouncement;
 
-            if (packet.CharacterList.Count > 0)
+            // Generate portraits for each character
+            for (int index = 0; index < ViewModel.Characters.Count; index++)
             {
-                ViewModel.ActiveCharacter = packet.CharacterList[0];
+                string base64Portrait = ViewModel.Characters[index].Portrait.ToBase64String();
+                ViewModel.CharacterPortraits.Insert(index, base64Portrait);
             }
-            else
-            {
-                ViewModel.ActiveCharacter = new PlayerCharacter();
-            }
+
+            ViewModel.ActiveCharacterIndex = 0;
 
             AsyncJavascriptCallback("RequestServerInformation_Callback");
         }

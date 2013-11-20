@@ -220,6 +220,10 @@
     <Compile Include="Screens\BaseScreen.Generated.cs">
       <DependentUpon>BaseScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Screens\CharacterCreationScreen.cs" />
+    <Compile Include="Screens\CharacterCreationScreen.Generated.cs">
+      <DependentUpon>CharacterCreationScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Screens\CharacterSelectScreen.cs" />
     <Compile Include="Screens\CharacterSelectScreen.Generated.cs">
       <DependentUpon>CharacterSelectScreen.cs</DependentUpon>

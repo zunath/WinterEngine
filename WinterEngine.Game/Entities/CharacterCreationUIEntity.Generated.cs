@@ -137,6 +137,7 @@ namespace WinterEngine.Game.Entities
 			RotationX = oldRotationX;
 			RotationY = oldRotationY;
 			RotationZ = oldRotationZ;
+			ResourcePath = "file:///./Views/CharacterCreation.html";
 		}
 		public override void ConvertToManuallyUpdated ()
 		{
