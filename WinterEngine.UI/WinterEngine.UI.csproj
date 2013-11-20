@@ -104,6 +104,9 @@
     <Content Include="Scripts\knockout.viewmodel.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\Toolset.ConversationEditor.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\WinterEngine.Shared.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -156,6 +159,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\ServerList\ServerListTablePartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\ConversationEditorPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\Toolset\ObjectControls\ApplyDiscardChangesPartial.html">

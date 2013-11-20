@@ -639,7 +639,7 @@
     <RecordLockContention>false</RecordLockContention>
   </GlobalContentSettingsSave>
   <SyncedProjects />
-  <StartUpScreen>Screens\ServerListScreen</StartUpScreen>
+  <StartUpScreen>Screens\ToolsetScreen</StartUpScreen>
   <In2D>false</In2D>
   <SetResolution>false</SetResolution>
   <ResolutionWidth>800</ResolutionWidth>

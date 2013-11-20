@@ -16,6 +16,8 @@ namespace WinterEngine.DataTransferObjects
 
         #region Properties
 
+        public virtual IEnumerable<ConversationNode> Responses { get; set; }
+
         #endregion
 
         #region Constructors

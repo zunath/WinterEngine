@@ -36,6 +36,8 @@ function Initialize() {
         value: false
     });
 
+    $('.clsResizable').resizable();
+
     // Unblock the UI - the UI blocking is done to prevent the user from making javascript calls before Awesomium has loaded.
     $.unblockUI();
 }

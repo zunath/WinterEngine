@@ -22,6 +22,7 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<ContentPackage> ContentPackages { get; set; }
         public DbSet<ContentPackageResource> ContentPackageResources { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<ConversationNode> ConversationResponses { get; set; }
         public DbSet<Script> Scripts { get; set; }
         public DbSet<LocalVariable> LocalVariables { get; set; }
         public DbSet<Faction> Factions { get; set; }
