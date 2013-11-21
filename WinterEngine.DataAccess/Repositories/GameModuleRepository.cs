@@ -29,7 +29,7 @@ namespace WinterEngine.DataAccess
 
         public GameModule Add(GameModule gameModule)
         {
-            return Context.GameModuleRepository.Add(gameModule);
+            return Context.GameModules.Add(gameModule);
         }
 
         public void Update(GameModule module)
@@ -42,15 +42,15 @@ namespace WinterEngine.DataAccess
                 variable.GameObjectBaseID = module.ResourceID;
             }
 
-            Context.Context.Entry(dbModule).CurrentValues.SetValues(module);
-            Context.LocalVariableRepository.DeleteList(dbModule.LocalVariables.ToList());
-            Context.LocalVariableRepository.AddList(module.LocalVariables.ToList());
+            Context.Entry(dbModule).CurrentValues.SetValues(module);
+            Context.LocalVariables.RemoveRange(dbModule.LocalVariables.ToList());
+            Context.LocalVariables.AddRange(module.LocalVariables.ToList());
         }
 
         public void Delete(int resourceID)
         {
-            GameModule module = Context.GameModuleRepository.Get(x => x.ResourceID == resourceID).FirstOrDefault();
-            Context.GameModuleRepository.Delete(module);
+            GameModule module = Context.GameModules.FirstOrDefault(x => x.ResourceID == resourceID);
+            Context.GameModules.Remove(module);
         }
 
         public bool Exists()
@@ -61,7 +61,7 @@ namespace WinterEngine.DataAccess
 
         public GameModule GetModule()
         {
-            return Context.GameModuleRepository.Get().FirstOrDefault();
+            return Context.GameModules.FirstOrDefault();
         }
 
         public override void Dispose()

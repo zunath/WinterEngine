@@ -29,13 +29,13 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<ItemType> GetAll()
         {
-            return Context.ItemTypeRepository.Get().ToList();
+            return Context.ItemTypes.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from item
-                                                in Context.ItemTypeRepository.Get()
+                                                in Context.ItemTypes
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = item.Name,
@@ -53,7 +53,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public ItemType Add(ItemType itemType)
         {
-            return Context.ItemTypeRepository.Add(itemType);
+            return Context.ItemTypes.Add(itemType);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Add(List<ItemType> itemTypeList)
         {
-            Context.ItemTypeRepository.AddList(itemTypeList);
+            Context.ItemTypes.AddRange(itemTypeList);
         }
 
         /// <summary>
@@ -73,17 +73,17 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Update(ItemType itemType)
         {
-            ItemType dbItemType = Context.ItemTypeRepository.Get(x => x.ResourceID == itemType.ResourceID).SingleOrDefault();
+            ItemType dbItemType = Context.ItemTypes.SingleOrDefault(x => x.ResourceID == itemType.ResourceID);
             if (dbItemType == null) return;
 
-            Context.Context.Entry(dbItemType).CurrentValues.SetValues(itemType);
+            Context.Entry(dbItemType).CurrentValues.SetValues(itemType);
         }
 
         public void Upsert(ItemType itemType)
         {
             if (itemType.ResourceID <= 0)
             {
-                Context.ItemTypeRepository.Add(itemType);
+                Context.ItemTypes.Add(itemType);
             }
             else
             {
@@ -99,7 +99,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public ItemType GetByID(int itemTypeID)
         {
-            return Context.ItemTypeRepository.Get(x => x.ResourceID == itemTypeID).SingleOrDefault();
+            return Context.ItemTypes.SingleOrDefault(x => x.ResourceID == itemTypeID);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(ItemType itemType)
         {
-            ItemType dbItemType = Context.ItemTypeRepository.Get(x => x.ResourceID == itemType.ResourceID).SingleOrDefault();
+            ItemType dbItemType = Context.ItemTypes.SingleOrDefault(x => x.ResourceID == itemType.ResourceID);
             return !Object.ReferenceEquals(dbItemType, null);
         }
 
@@ -121,12 +121,12 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(ItemType itemType)
         {
-            Context.ItemTypeRepository.Delete(itemType);
+            Context.ItemTypes.Remove(itemType);
         }
 
         public int GetDefaultResourceID()
         {
-            ItemType defaultObject = Context.ItemTypeRepository.Get(x => x.IsDefault).FirstOrDefault();
+            ItemType defaultObject = Context.ItemTypes.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

@@ -22,13 +22,13 @@ namespace WinterEngine.DataAccess.Repositories
 
         public List<Race> GetAll()
         {
-            return Context.RaceRepository.Get().ToList();
+            return Context.Races.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from item
-                                                in Context.RaceRepository.Get()
+                                                in Context.Races
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = item.Name,
@@ -40,27 +40,27 @@ namespace WinterEngine.DataAccess.Repositories
 
         public Race Add(Race race)
         {
-            return Context.RaceRepository.Add(race);
+            return Context.Races.Add(race);
         }
 
         public void Add(List<Race> raceList)
         {
-            Context.RaceRepository.AddList(raceList);
+            Context.Races.AddRange(raceList);
         }
 
         public void Update(Race race)
         {
-            Race dbRace = Context.RaceRepository.Get(x => x.ResourceID == race.ResourceID).SingleOrDefault();
+            Race dbRace = Context.Races.SingleOrDefault(x => x.ResourceID == race.ResourceID);
             if (dbRace == null) return;
 
-            Context.Context.Entry(dbRace).CurrentValues.SetValues(race);
+            Context.Entry(dbRace).CurrentValues.SetValues(race);
         }
 
         public void Upsert(Race race)
         {
             if (race.ResourceID <= 0)
             {
-                Context.RaceRepository.Add(race);
+                Context.Races.Add(race);
             }
             else
             {
@@ -70,23 +70,23 @@ namespace WinterEngine.DataAccess.Repositories
 
         public Race GetByID(int raceID)
         {
-            return Context.RaceRepository.Get(x => x.ResourceID == raceID).SingleOrDefault();
+            return Context.Races.SingleOrDefault(x => x.ResourceID == raceID);
         }
 
         public bool Exists(Race race)
         {
-            Race dbRace = Context.RaceRepository.Get(x => x.ResourceID == race.ResourceID).SingleOrDefault();
+            Race dbRace = Context.Races.SingleOrDefault(x => x.ResourceID == race.ResourceID);
             return !Object.ReferenceEquals(dbRace, null);
         }
 
         public void Delete(Race race)
         {
-            Context.RaceRepository.Delete(race);
+            Context.Races.Remove(race);
         }
 
         public int GetDefaultResourceID()
         {
-            Race defaultObject = Context.RaceRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Race defaultObject = Context.Races.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

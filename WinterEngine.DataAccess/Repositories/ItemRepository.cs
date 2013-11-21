@@ -32,12 +32,12 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Item Add(Item item)
         {
-            return Context.ItemRepository.Add(item);
+            return Context.Items.Add(item);
         }
 
         public void Add(List<Item> itemList)
         {
-            Context.ItemRepository.AddList(itemList);
+            Context.Items.AddRange(itemList);
         }
 
         /// <summary>
@@ -49,11 +49,11 @@ namespace WinterEngine.DataAccess
             Item dbItem;
             if (newItem.ResourceID <= 0)
             {
-                dbItem = Context.ItemRepository.Get(x => x.Resref == newItem.Resref).SingleOrDefault();
+                dbItem = Context.Items.SingleOrDefault(x => x.Resref == newItem.Resref);
             }
             else
             {
-                dbItem = Context.ItemRepository.Get(x => x.ResourceID == newItem.ResourceID).SingleOrDefault();
+                dbItem = Context.Items.SingleOrDefault(x => x.ResourceID == newItem.ResourceID);
             }
             if (dbItem == null) return;
 
@@ -62,9 +62,9 @@ namespace WinterEngine.DataAccess
                 variable.GameObjectBaseID = newItem.ResourceID;
             }
 
-            Context.Context.Entry(dbItem).CurrentValues.SetValues(newItem);
-            Context.LocalVariableRepository.DeleteList(dbItem.LocalVariables.ToList());
-            Context.LocalVariableRepository.AddList(newItem.LocalVariables.ToList());
+            Context.Entry(dbItem).CurrentValues.SetValues(newItem);
+            Context.LocalVariables.RemoveRange(dbItem.LocalVariables.ToList());
+            Context.LocalVariables.AddRange(newItem.LocalVariables.ToList());
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace WinterEngine.DataAccess
         {
             if (item.ResourceID <= 0)
             {
-                Context.ItemRepository.Add(item);
+                Context.Items.Add(item);
             }
             else
             {
@@ -91,9 +91,9 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Item item = Context.ItemRepository.Get(i => i.ResourceID == resourceID).SingleOrDefault();
-            Context.LocalVariableRepository.DeleteList(item.LocalVariables.ToList());
-            Context.ItemRepository.Delete(item);
+            Item item = Context.Items.SingleOrDefault(i => i.ResourceID == resourceID);
+            Context.LocalVariables.RemoveRange(item.LocalVariables.ToList());
+            Context.Items.Remove(item);
         }
 
         /// <summary>
@@ -102,13 +102,13 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Item> GetAll()
         {
-            return Context.ItemRepository.Get().ToList();
+            return Context.Items.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from item
-                                                in Context.ItemRepository.Get()
+                                                in Context.Items
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = item.Name,
@@ -124,7 +124,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Item> GetAllByResourceCategory(Category resourceCategory)
         {
-            return Context.ItemRepository.Get(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
+            return Context.Items.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }
 
         /// <summary>
@@ -134,12 +134,12 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Item GetByResref(string resref)
         {
-            return Context.ItemRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            return Context.Items.SingleOrDefault(x => x.Resref == resref);
         }
 
         public Item GetByID(int resourceID)
         {
-            return Context.ItemRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            return Context.Items.SingleOrDefault(x => x.ResourceID == resourceID);
         }
 
         /// <summary>
@@ -147,8 +147,8 @@ namespace WinterEngine.DataAccess
         /// </summary>
         public void DeleteAllByCategory(Category resourceCategory)
         {
-            List<Item> itemList = Context.ItemRepository.Get(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            Context.DeleteAll(itemList);
+            List<Item> itemList = Context.Items.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
+            Context.Items.RemoveRange(itemList);
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            Item item = Context.ItemRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            Item item = Context.Items.SingleOrDefault(x => x.Resref == resref);
             return !Object.ReferenceEquals(item, null);
         }
 
@@ -172,7 +172,7 @@ namespace WinterEngine.DataAccess
             JSTreeNode rootNode = new JSTreeNode("Items");
             rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Item).ToList();
+            List<Category> categories = Context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Item).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);
@@ -180,7 +180,7 @@ namespace WinterEngine.DataAccess
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Item> items = Context.ItemRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
+                List<Item> items = Context.Items.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Item item in items)
                 {
                     JSTreeNode childNode = new JSTreeNode(item.Name);
@@ -200,7 +200,7 @@ namespace WinterEngine.DataAccess
 
         public int GetDefaultResourceID()
         {
-            Item defaultObject = Context.ItemRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Item defaultObject = Context.Items.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

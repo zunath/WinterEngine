@@ -27,27 +27,27 @@ namespace WinterEngine.DataAccess.Repositories
 
         public ContentPackageResource Add(ContentPackageResource resource)
         {
-            return Context.ContentPackageResourceRepository.Add(resource);
+            return Context.ContentPackageResources.Add(resource);
         }
 
         public void Add(List<ContentPackageResource> resourceList)
         {
-            Context.ContentPackageResourceRepository.AddList(resourceList);
+            Context.ContentPackageResources.AddRange(resourceList);
         }
 
         public void Update(ContentPackageResource resource)
         {
-            ContentPackageResource dbResource = Context.ContentPackageResourceRepository.Get(x => x.ResourceID == resource.ResourceID).SingleOrDefault();
+            ContentPackageResource dbResource = Context.ContentPackageResources.SingleOrDefault(x => x.ResourceID == resource.ResourceID);
             if (dbResource == null) return;
 
-            Context.Context.Entry(dbResource).CurrentValues.SetValues(resource);
+            Context.Entry(dbResource).CurrentValues.SetValues(resource);
         }
 
         public void Upsert(ContentPackageResource resource)
         {
             if (resource.ResourceID <= 0)
             {
-                Context.ContentPackageResourceRepository.Add(resource);
+                Context.ContentPackageResources.Add(resource);
             }
             else
             {
@@ -65,18 +65,18 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void Delete(ContentPackageResource resource)
         {
-            Context.ContentPackageResourceRepository.Delete(resource);
+            Context.ContentPackageResources.Remove(resource);
         }
 
         public List<ContentPackageResource> GetAll()
         {
-            return Context.ContentPackageResourceRepository.Get(null, null, "ContentPackage").ToList();
+            return Context.ContentPackageResources.Include("ContentPackage").ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from contentPackageResource
-                                                in Context.ContentPackageResourceRepository.Get()
+                                                in Context.ContentPackageResources
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = contentPackageResource.Name,
@@ -89,7 +89,7 @@ namespace WinterEngine.DataAccess.Repositories
         public List<DropDownListUIObject> GetAllUIObjects(ContentPackageResourceTypeEnum resourceType, bool includeDefault = false)
         {
             List<DropDownListUIObject> items = (from category
-                                               in Context.ContentPackageResourceRepository.Get()
+                                               in Context.ContentPackageResources
                                                 where category.ContentPackageResourceType == resourceType
                                                 select new DropDownListUIObject
                                                 {
@@ -107,7 +107,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public bool Exists(ContentPackageResource resource)
         {
-            List<ContentPackageResource> resources = Context.ContentPackageResourceRepository.Get(x => x.ResourceID == resource.ResourceID).ToList();
+            List<ContentPackageResource> resources = Context.ContentPackageResources.Where(x => x.ResourceID == resource.ResourceID).ToList();
             if (resources.Count > 0)
             {
                 return true;
@@ -120,12 +120,12 @@ namespace WinterEngine.DataAccess.Repositories
 
         public ContentPackageResource GetByID(int resourceID)
         {
-            return Context.ContentPackageResourceRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            return Context.ContentPackageResources.SingleOrDefault(x => x.ResourceID == resourceID);
         }
 
         public int GetDefaultResourceID()
         {
-            ContentPackageResource defaultObject = Context.ContentPackageResourceRepository.Get(x => x.IsDefault).FirstOrDefault();
+            ContentPackageResource defaultObject = Context.ContentPackageResources.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

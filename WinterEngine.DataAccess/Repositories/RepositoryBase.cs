@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WinterEngine.DataAccess.Contexts;
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -10,7 +11,7 @@ namespace WinterEngine.DataAccess.Repositories
     {
         #region Fields
 
-        private UnitOfWork _unitOfWork;
+        private ModuleDataContext _context;
         private string _connectionString;
         private bool _autoSaveChanges;
 
@@ -27,9 +28,9 @@ namespace WinterEngine.DataAccess.Repositories
             set { _connectionString = value; }
         }
 
-        public UnitOfWork Context
+        public ModuleDataContext Context
         {
-            get { return _unitOfWork; }
+            get { return _context; }
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace WinterEngine.DataAccess.Repositories
                 connectionString = WinterConnectionInformation.ActiveConnectionString;
             }
             ConnectionString = connectionString;
-            _unitOfWork = new UnitOfWork(ConnectionString);
+            _context = new ModuleDataContext(ConnectionString);
             _autoSaveChanges = autoSaveChanges;
         }
 
@@ -63,14 +64,14 @@ namespace WinterEngine.DataAccess.Repositories
 
         public void SaveChanges()
         {
-            Context.Save();
+            Context.SaveChanges();
         }
 
         public virtual void Dispose()
         {
             if (AutoSaveChanges)
             {
-                Context.Save();
+                Context.SaveChanges();
             }
         }
 

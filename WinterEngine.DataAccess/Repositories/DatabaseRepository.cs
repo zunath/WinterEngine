@@ -21,8 +21,6 @@ namespace WinterEngine.DataAccess
         /// <param name="databaseFilePath">The full path to the database file to which the conection will be changed.</param>
         public void ChangeDatabaseConnection(string databaseFilePath)
         {
-            Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0");
-
             // Change the active connection to point to this new database.
             WinterConnectionInformation.ActiveConnectionString = BuildConnectionString(databaseFilePath);
         }

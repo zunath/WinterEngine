@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WinterEngine.DataAccess.Contexts;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.DataTransferObjects;
@@ -37,12 +38,12 @@ namespace WinterEngine.DataAccess
             Item defaultItem;
             Tileset defaultTileset;
 
-            using (UnitOfWork context = new UnitOfWork())
+            using (ModuleDataContext context = new ModuleDataContext())
             {
                 #region Category Defaults
                 try
                 {
-                    defaultCategoryArea = context.CategoryRepository.Add(new Category
+                    defaultCategoryArea = context.ResourceCategories.Add(new Category
                     {
                         Name = "*Uncategorized",
                         GameObjectType = GameObjectTypeEnum.Area,
@@ -50,7 +51,7 @@ namespace WinterEngine.DataAccess
                         IsSystemResource = true,
                         IsDefault = true,
                     });
-                    defaultCategoryConversation = context.CategoryRepository.Add(new Category
+                    defaultCategoryConversation = context.ResourceCategories.Add(new Category
                     {
                         Name = "*Uncategorized",
                         GameObjectType = GameObjectTypeEnum.Conversation,
@@ -58,7 +59,7 @@ namespace WinterEngine.DataAccess
                         IsSystemResource = true,
                         IsDefault = true,
                     });
-                    defaultCategoryCreature = context.CategoryRepository.Add(new Category
+                    defaultCategoryCreature = context.ResourceCategories.Add(new Category
                     {
                         Name = "*Uncategorized",
                         GameObjectType = GameObjectTypeEnum.Creature,
@@ -66,7 +67,7 @@ namespace WinterEngine.DataAccess
                         IsSystemResource = true,
                         IsDefault = true,
                     });
-                    defaultCategoryItem = context.CategoryRepository.Add(new Category
+                    defaultCategoryItem = context.ResourceCategories.Add(new Category
                     {
                         Name = "*Uncategorized",
                         GameObjectType = GameObjectTypeEnum.Item,
@@ -74,7 +75,7 @@ namespace WinterEngine.DataAccess
                         IsSystemResource = true,
                         IsDefault = true,
                     });
-                    defaultCategoryPlaceable = context.CategoryRepository.Add(new Category
+                    defaultCategoryPlaceable = context.ResourceCategories.Add(new Category
                     {
                         Name = "*Uncategorized",
                         GameObjectType = GameObjectTypeEnum.Placeable,
@@ -82,7 +83,7 @@ namespace WinterEngine.DataAccess
                         IsSystemResource = true,
                         IsDefault = true,
                     });
-                    defaultCategoryScript = context.CategoryRepository.Add(new Category
+                    defaultCategoryScript = context.ResourceCategories.Add(new Category
                     {
                         Name = "*Uncategorized",
                         GameObjectType = GameObjectTypeEnum.Script,
@@ -90,7 +91,7 @@ namespace WinterEngine.DataAccess
                         IsSystemResource = true,
                         IsDefault = true,
                     });
-                    defaultCategoryTileset = context.CategoryRepository.Add(new Category
+                    defaultCategoryTileset = context.ResourceCategories.Add(new Category
                     {
                         Name = "*Uncategorized",
                         GameObjectType = GameObjectTypeEnum.Tileset,
@@ -98,7 +99,7 @@ namespace WinterEngine.DataAccess
                         IsSystemResource = true,
                         IsDefault = true,
                     });
-                    defaultCategoryGameModule = context.CategoryRepository.Add(new Category
+                    defaultCategoryGameModule = context.ResourceCategories.Add(new Category
                     {
                         Name = "*Uncategorized",
                         GameObjectType = GameObjectTypeEnum.GameModule,
@@ -107,7 +108,7 @@ namespace WinterEngine.DataAccess
                         IsDefault = true,
                     });
 
-                    context.Save();
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -118,7 +119,7 @@ namespace WinterEngine.DataAccess
 
                 try
                 {
-                    defaultGender = context.GenderRepository.Add(new Gender
+                    defaultGender = context.Genders.Add(new Gender
                     {
                         GenderType = GenderTypeEnum.Unknown,
                         IsSystemResource = true,
@@ -127,21 +128,21 @@ namespace WinterEngine.DataAccess
 
                     });
                     
-                    context.GenderRepository.Add(new Gender
+                    context.Genders.Add(new Gender
                     {
                         GenderType = GenderTypeEnum.Male,
                         IsSystemResource = true,
                         Name = "Male"
                     });
 
-                    context.GenderRepository.Add(new Gender
+                    context.Genders.Add(new Gender
                     {
                         GenderType = GenderTypeEnum.Female,
                         IsSystemResource = true,
                         Name = "Female"
                     });
 
-                    context.Save();
+                    context.SaveChanges();
                 }
                 catch(Exception ex)
                 {
@@ -150,14 +151,14 @@ namespace WinterEngine.DataAccess
 
                 try
                 {
-                    defaultRace = context.RaceRepository.Add(new Race
+                    defaultRace = context.Races.Add(new Race
                     {
                         IsDefault = true,
                         IsSystemResource = true,
                         Name = "(None)"
                     });
 
-                    context.Save();
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -165,49 +166,49 @@ namespace WinterEngine.DataAccess
                 }
                 try
                 {
-                    defaultContentPackageResourceBGM = context.ContentPackageResourceRepository.Add(new ContentPackageResource
+                    defaultContentPackageResourceBGM = context.ContentPackageResources.Add(new ContentPackageResource
                     {
                         IsDefault = true,
                         IsSystemResource = true,
                         Name = "(None)",
                         ContentPackageResourceType = ContentPackageResourceTypeEnum.BGM
                     });
-                    defaultContentPackageResourceCharacter = context.ContentPackageResourceRepository.Add(new ContentPackageResource
+                    defaultContentPackageResourceCharacter = context.ContentPackageResources.Add(new ContentPackageResource
                     {
                         IsDefault = true,
                         IsSystemResource = true,
                         Name = "(None)",
                         ContentPackageResourceType = ContentPackageResourceTypeEnum.Character
                     });
-                    defaultContentPackageResourceItem = context.ContentPackageResourceRepository.Add(new ContentPackageResource
+                    defaultContentPackageResourceItem = context.ContentPackageResources.Add(new ContentPackageResource
                     {
                         IsDefault = true,
                         IsSystemResource = true,
                         Name = "(None)",
                         ContentPackageResourceType = ContentPackageResourceTypeEnum.Item
                     });
-                    defaultContentPackageResourceNone = context.ContentPackageResourceRepository.Add(new ContentPackageResource
+                    defaultContentPackageResourceNone = context.ContentPackageResources.Add(new ContentPackageResource
                     {
                         IsDefault = true,
                         IsSystemResource = true,
                         Name = "(None)",
                         ContentPackageResourceType = ContentPackageResourceTypeEnum.None
                     });
-                    defaultContentPackageResourcePlaceable = context.ContentPackageResourceRepository.Add(new ContentPackageResource
+                    defaultContentPackageResourcePlaceable = context.ContentPackageResources.Add(new ContentPackageResource
                     {
                         IsDefault = true,
                         IsSystemResource = true,
                         Name = "(None)",
                         ContentPackageResourceType = ContentPackageResourceTypeEnum.Placeable
                     });
-                    defaultContentPackageResourceSoundEffect = context.ContentPackageResourceRepository.Add(new ContentPackageResource
+                    defaultContentPackageResourceSoundEffect = context.ContentPackageResources.Add(new ContentPackageResource
                     {
                         IsDefault = true,
                         IsSystemResource = true,
                         Name = "(None)",
                         ContentPackageResourceType = ContentPackageResourceTypeEnum.SoundEffect
                     });
-                    defaultContentPackageResourceTileset = context.ContentPackageResourceRepository.Add(new ContentPackageResource
+                    defaultContentPackageResourceTileset = context.ContentPackageResources.Add(new ContentPackageResource
                     {
                         IsDefault = true,
                         IsSystemResource = true,
@@ -215,7 +216,7 @@ namespace WinterEngine.DataAccess
                         ContentPackageResourceType = ContentPackageResourceTypeEnum.Tileset
                     });
 
-                    context.Save();
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -224,7 +225,7 @@ namespace WinterEngine.DataAccess
 
                 try
                 {
-                    defaultScript = context.ScriptRepository.Add(new Script
+                    defaultScript = context.Scripts.Add(new Script
                     {
                         IsDefault = true,
                         IsInTreeView = false,
@@ -237,7 +238,7 @@ namespace WinterEngine.DataAccess
                     });
 
 
-                    context.Save();
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -246,14 +247,14 @@ namespace WinterEngine.DataAccess
                 
                 try
                 {
-                    defaultFaction = context.FactionRepository.Add(new Faction
+                    defaultFaction = context.Factions.Add(new Faction
                     {
                         IsDefault = true,
                         IsSystemResource = true,
                         Name = "(None)"                        
                     });
 
-                    context.Save();
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -261,7 +262,7 @@ namespace WinterEngine.DataAccess
                 }
                 try
                 {
-                    defaultConversation = context.ConversationRepository.Add(new Conversation
+                    defaultConversation = context.Conversations.Add(new Conversation
                     {
                         GraphicResourceID = defaultContentPackageResourceNone.ResourceID,
                         IsDefault = true,
@@ -273,7 +274,7 @@ namespace WinterEngine.DataAccess
                         ResourceCategoryID = defaultCategoryConversation.ResourceID
                     });
 
-                    context.Save();
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -281,7 +282,7 @@ namespace WinterEngine.DataAccess
                 }
                 try
                 {
-                    defaultItem = context.ItemRepository.Add(new Item
+                    defaultItem = context.Items.Add(new Item
                     {
                         GraphicResourceID = defaultContentPackageResourceItem.ResourceID,
                         IsDefault = true,
@@ -294,7 +295,7 @@ namespace WinterEngine.DataAccess
                         ResourceCategoryID = defaultCategoryItem.ResourceID
                     });
 
-                    context.Save();
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -303,7 +304,7 @@ namespace WinterEngine.DataAccess
 
                 try
                 {
-                    defaultTileset = context.TilesetRepository.Add(new Tileset
+                    defaultTileset = context.Tilesets.Add(new Tileset
                     {
                         GraphicResourceID = defaultContentPackageResourceTileset.ResourceID,
                         IsDefault = true,
@@ -315,7 +316,7 @@ namespace WinterEngine.DataAccess
                         ResourceCategoryID = defaultCategoryTileset.ResourceID
                     });
 
-                    context.Save();
+                    context.SaveChanges();
                 }
                 catch(Exception ex)
                 {

@@ -23,13 +23,13 @@ namespace WinterEngine.DataAccess.Repositories
 
         public List<CharacterClass> GetAll()
         {
-            return Context.CharacterClassRepository.Get().ToList();
+            return Context.CharacterClasses.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from item
-                                                in Context.CharacterClassRepository.Get()
+                                                in Context.CharacterClasses
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = item.Name,
@@ -42,27 +42,27 @@ namespace WinterEngine.DataAccess.Repositories
 
         public CharacterClass Add(CharacterClass characterClass)
         {
-            return Context.CharacterClassRepository.Add(characterClass);
+            return Context.CharacterClasses.Add(characterClass);
         }
 
         public void Add(List<CharacterClass> characterClassList)
         {
-            Context.CharacterClassRepository.AddList(characterClassList);
+            Context.CharacterClasses.AddRange(characterClassList);
         }
 
         public void Update(CharacterClass characterClass)
         {
-            CharacterClass dbCharacterClass = Context.CharacterClassRepository.Get(x => x.ResourceID == characterClass.ResourceID).SingleOrDefault();
+            CharacterClass dbCharacterClass = Context.CharacterClasses.SingleOrDefault(x => x.ResourceID == characterClass.ResourceID);
             if (dbCharacterClass == null) return;
 
-            Context.Context.Entry(dbCharacterClass).CurrentValues.SetValues(characterClass);
+            Context.Entry(dbCharacterClass).CurrentValues.SetValues(characterClass);
         }
 
         public void Upsert(CharacterClass characterClass)
         {
             if (characterClass.ResourceID <= 0)
             {
-                Context.CharacterClassRepository.Add(characterClass);
+                Context.CharacterClasses.Add(characterClass);
             }
             else
             {
@@ -72,23 +72,23 @@ namespace WinterEngine.DataAccess.Repositories
 
         public CharacterClass GetByID(int characterClassID)
         {
-            return Context.CharacterClassRepository.Get(x => x.ResourceID == characterClassID).SingleOrDefault();
+            return Context.CharacterClasses.SingleOrDefault(x => x.ResourceID == characterClassID);
         }
 
         public bool Exists(CharacterClass characterClass)
         {
-            CharacterClass dbCharacterClass = Context.CharacterClassRepository.Get(x => x.ResourceID == characterClass.ResourceID).SingleOrDefault();
+            CharacterClass dbCharacterClass = Context.CharacterClasses.SingleOrDefault(x => x.ResourceID == characterClass.ResourceID);
             return !Object.ReferenceEquals(dbCharacterClass, null);
         }
 
         public void Delete(CharacterClass characterClass)
         {
-            Context.CharacterClassRepository.Delete(characterClass);
+            Context.CharacterClasses.Remove(characterClass);
         }
 
         public int GetDefaultResourceID()
         {
-            CharacterClass defaultObject = Context.CharacterClassRepository.Get(x => x.IsDefault).FirstOrDefault();
+            CharacterClass defaultObject = Context.CharacterClasses.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

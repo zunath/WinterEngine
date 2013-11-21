@@ -22,13 +22,13 @@ namespace WinterEngine.DataAccess.Repositories
 
         public List<Faction> GetAll()
         {
-            return Context.FactionRepository.Get().ToList();
+            return Context.Factions.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from item
-                                                in Context.FactionRepository.Get()
+                                                in Context.Factions
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = item.Name,
@@ -40,27 +40,27 @@ namespace WinterEngine.DataAccess.Repositories
 
         public Faction Add(Faction faction)
         {
-            return Context.FactionRepository.Add(faction);
+            return Context.Factions.Add(faction);
         }
 
         public void Add(List<Faction> factionList)
         {
-            Context.FactionRepository.AddList(factionList);
+            Context.Factions.AddRange(factionList);
         }
 
         public void Update(Faction faction)
         {
-            Faction dbFaction = Context.FactionRepository.Get(x => x.ResourceID == faction.ResourceID).SingleOrDefault();
+            Faction dbFaction = Context.Factions.SingleOrDefault(x => x.ResourceID == faction.ResourceID);
             if (dbFaction == null) return;
 
-            Context.Context.Entry(dbFaction).CurrentValues.SetValues(faction);
+            Context.Entry(dbFaction).CurrentValues.SetValues(faction);
         }
 
         public void Upsert(Faction faction)
         {
             if (faction.ResourceID <= 0)
             {
-                Context.FactionRepository.Add(faction);
+                Context.Factions.Add(faction);
             }
             else
             {
@@ -70,23 +70,23 @@ namespace WinterEngine.DataAccess.Repositories
 
         public Faction GetByID(int factionID)
         {
-            return Context.FactionRepository.Get(x => x.ResourceID == factionID).SingleOrDefault();
+            return Context.Factions.SingleOrDefault(x => x.ResourceID == factionID);
         }
 
         public bool Exists(Faction faction)
         {
-            Faction dbFaction = Context.FactionRepository.Get(x => x.ResourceID == faction.ResourceID).SingleOrDefault();
+            Faction dbFaction = Context.Factions.SingleOrDefault(x => x.ResourceID == faction.ResourceID);
             return !Object.ReferenceEquals(dbFaction, null);
         }
 
         public void Delete(Faction faction)
         {
-            Context.FactionRepository.Delete(faction);
+            Context.Factions.Remove(faction);
         }
 
         public int GetDefaultResourceID()
         {
-            Faction defaultObject = Context.FactionRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Faction defaultObject = Context.Factions.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

@@ -23,13 +23,13 @@ namespace WinterEngine.DataAccess.Repositories
 
         public List<ItemProperty> GetAll()
         {
-            return Context.ItemPropertyRepository.Get().ToList();
+            return Context.ItemProperties.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from item
-                                                in Context.ItemPropertyRepository.Get()
+                                                in Context.ItemProperties
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = item.Name,
@@ -41,27 +41,27 @@ namespace WinterEngine.DataAccess.Repositories
 
         public ItemProperty Add(ItemProperty itemProperty)
         {
-            return Context.ItemPropertyRepository.Add(itemProperty);
+            return Context.ItemProperties.Add(itemProperty);
         }
 
         public void Add(List<ItemProperty> itemPropertyList)
         {
-            Context.ItemPropertyRepository.AddList(itemPropertyList);
+            Context.ItemProperties.AddRange(itemPropertyList);
         }
 
         public void Update(ItemProperty itemProperty)
         {
-            ItemProperty dbItemProperty = Context.ItemPropertyRepository.Get(x => x.ResourceID == itemProperty.ResourceID).SingleOrDefault();
+            ItemProperty dbItemProperty = Context.ItemProperties.SingleOrDefault(x => x.ResourceID == itemProperty.ResourceID);
             if (dbItemProperty == null) return;
 
-            Context.Context.Entry(dbItemProperty).CurrentValues.SetValues(itemProperty);
+            Context.Entry(dbItemProperty).CurrentValues.SetValues(itemProperty);
         }
 
         public void Upsert(ItemProperty itemProperty)
         {
             if (itemProperty.ResourceID <= 0)
             {
-                Context.ItemPropertyRepository.Add(itemProperty);
+                Context.ItemProperties.Add(itemProperty);
             }
             else
             {
@@ -71,23 +71,23 @@ namespace WinterEngine.DataAccess.Repositories
 
         public ItemProperty GetByID(int itemPropertyID)
         {
-            return Context.ItemPropertyRepository.Get(x => x.ResourceID == itemPropertyID).SingleOrDefault();
+            return Context.ItemProperties.SingleOrDefault(x => x.ResourceID == itemPropertyID);
         }
 
         public bool Exists(ItemProperty itemProperty)
         {
-            ItemProperty dbItemProperty = Context.ItemPropertyRepository.Get(x => x.ResourceID == itemProperty.ResourceID).SingleOrDefault();
+            ItemProperty dbItemProperty = Context.ItemProperties.SingleOrDefault(x => x.ResourceID == itemProperty.ResourceID);
             return !Object.ReferenceEquals(dbItemProperty, null);
         }
 
         public void Delete(ItemProperty itemProperty)
         {
-            Context.ItemPropertyRepository.Delete(itemProperty);
+            Context.ItemProperties.Remove(itemProperty);
         }
 
         public int GetDefaultResourceID()
         {
-            ItemProperty defaultObject = Context.ItemPropertyRepository.Get(x => x.IsDefault).FirstOrDefault();
+            ItemProperty defaultObject = Context.ItemProperties.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

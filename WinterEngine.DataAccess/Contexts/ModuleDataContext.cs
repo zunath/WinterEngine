@@ -10,7 +10,7 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<Item> Items { get; set; }
         public DbSet<Placeable> Placeables { get; set; }
         public DbSet<Category> ResourceCategories { get; set; }
-        public DbSet<GameModule> Modules { get; set; }
+        public DbSet<GameModule> GameModules { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<ItemProperty> ItemProperties { get; set; }
         public DbSet<CharacterClass> CharacterClasses { get; set; }
@@ -30,6 +30,7 @@ namespace WinterEngine.DataAccess.Contexts
         
         public ModuleDataContext()
         {
+            base.Database.Connection.ConnectionString = WinterConnectionInformation.ActiveConnectionString;
         }
 
         public ModuleDataContext(string connString) : base(connString)

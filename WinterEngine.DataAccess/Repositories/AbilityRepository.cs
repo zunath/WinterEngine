@@ -22,13 +22,14 @@ namespace WinterEngine.DataAccess.Repositories
 
         public List<Ability> GetAll()
         {
-            return Context.AbilityRepository.Get().ToList();
+
+            return Context.Abilities.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from item
-                                                in Context.AbilityRepository.Get()
+                                                in Context.Abilities
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = item.Name,
@@ -40,27 +41,27 @@ namespace WinterEngine.DataAccess.Repositories
 
         public Ability Add(Ability ability)
         {
-            return Context.AbilityRepository.Add(ability);
+            return Context.Abilities.Add(ability);
         }
 
         public void Add(List<Ability> abilityList)
         {
-            Context.AbilityRepository.AddList(abilityList);
+            Context.Abilities.AddRange(abilityList);
         }
 
         public void Update(Ability ability)
         {
-            Faction dbFaction = Context.FactionRepository.Get(x => x.ResourceID == ability.ResourceID).SingleOrDefault();
-            if (dbFaction == null) return;
+            Ability dbAbility = Context.Abilities.SingleOrDefault(x => x.ResourceID == ability.ResourceID);
+            if (dbAbility == null) return;
 
-            Context.Context.Entry(dbFaction).CurrentValues.SetValues(ability);
+            Context.Entry(dbAbility).CurrentValues.SetValues(ability);
         }
 
         public void Upsert(Ability ability)
         {
             if (ability.ResourceID <= 0)
             {
-                Context.AbilityRepository.Add(ability);
+                Context.Abilities.Add(ability);
             }
             else
             {
@@ -70,23 +71,23 @@ namespace WinterEngine.DataAccess.Repositories
 
         public Ability GetByID(int abilityID)
         {
-            return Context.AbilityRepository.Get(x => x.ResourceID == abilityID).SingleOrDefault();
+            return Context.Abilities.SingleOrDefault(x => x.ResourceID == abilityID);
         }
 
         public bool Exists(Ability ability)
         {
-            Ability dbAbility = Context.AbilityRepository.Get(x => x.ResourceID == ability.ResourceID).SingleOrDefault();
+            Ability dbAbility = Context.Abilities.SingleOrDefault(x => x.ResourceID == ability.ResourceID);
             return !Object.ReferenceEquals(dbAbility, null);
         }
 
         public void Delete(Ability ability)
         {
-            Context.AbilityRepository.Delete(ability);
+            Context.Abilities.Remove(ability);
         }
 
         public int GetDefaultResourceID()
         {
-            Ability defaultObject = Context.AbilityRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Ability defaultObject = Context.Abilities.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

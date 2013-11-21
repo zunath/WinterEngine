@@ -30,7 +30,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public Gender Add(Gender gender)
         {
-            return Context.GenderRepository.Add(gender);
+            return Context.Genders.Add(gender);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="genderList">The list of genders to add to the database.</param>
         public void Add(List<Gender> genderList)
         {
-            Context.GenderRepository.AddList(genderList);
+            Context.Genders.AddRange(genderList);
         }
 
         /// <summary>
@@ -48,10 +48,10 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="newScript">The new gender that will replace the gender with the matching ID.</param>
         public void Update(Gender newGender)
         {
-            Gender dbGender = Context.GenderRepository.Get(x => x.ResourceID == newGender.ResourceID).SingleOrDefault();
+            Gender dbGender = Context.Genders.SingleOrDefault(x => x.ResourceID == newGender.ResourceID);
             if (dbGender == null) return;
 
-            Context.Context.Entry(dbGender).CurrentValues.SetValues(newGender);
+            Context.Entry(dbGender).CurrentValues.SetValues(newGender);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace WinterEngine.DataAccess.Repositories
         {
             if (gender.ResourceID <= 0)
             {
-                Context.GenderRepository.Add(gender);
+                Context.Genders.Add(gender);
             }
             else
             {
@@ -78,8 +78,8 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Gender gender = Context.GenderRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
-            Context.GenderRepository.Delete(gender);
+            Gender gender = Context.Genders.SingleOrDefault(c => c.ResourceID == resourceID);
+            Context.Genders.Remove(gender);
         }
 
         /// <summary>
@@ -88,13 +88,13 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public List<Gender> GetAll()
         {
-            return Context.GenderRepository.Get().ToList();
+            return Context.Genders.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from gender
-                                                in Context.GenderRepository.Get()
+                                                in Context.Genders
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = gender.Name,
@@ -106,23 +106,23 @@ namespace WinterEngine.DataAccess.Repositories
 
         public Gender GetByID(int resourceID)
         {
-            return Context.GenderRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            return Context.Genders.SingleOrDefault(x => x.ResourceID == resourceID);
         }
 
         public void Delete(Gender gender)
         {
-            Context.GenderRepository.Delete(gender);
+            Context.Genders.Remove(gender);
         }
 
         public bool Exists(Gender gender)
         {
-            Gender dbGender = Context.GenderRepository.Get(x => x.ResourceID == gender.ResourceID).SingleOrDefault();
+            Gender dbGender = Context.Genders.SingleOrDefault(x => x.ResourceID == gender.ResourceID);
             return !Object.ReferenceEquals(dbGender, null);
         }
 
         public int GetDefaultResourceID()
         {
-            Gender defaultObject = Context.GenderRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Gender defaultObject = Context.Genders.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

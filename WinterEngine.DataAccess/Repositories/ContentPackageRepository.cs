@@ -18,12 +18,6 @@ namespace WinterEngine.DataAccess.Repositories
 {
     public class ContentPackageRepository : RepositoryBase, IResourceRepository<ContentPackage>
     {
-        #region Constants
-
-        private const string ManifestFileName = "Manifest.xml";
-
-        #endregion
-
         #region Constructors
 
         public ContentPackageRepository(string connectionString = "", bool autoSaveChanges = true)
@@ -41,7 +35,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="package"></param>
         public ContentPackage Add(ContentPackage package)
         {
-            return Context.ContentPackageRepository.Add(package);
+            return Context.ContentPackages.Add(package);
         }
             
         /// <summary>
@@ -50,7 +44,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="packageList"></param>
         public void Add(List<ContentPackage> packageList)
         {
-            Context.ContentPackageRepository.AddList(packageList);
+            Context.ContentPackages.AddRange(packageList);
         }
 
         /// <summary>
@@ -62,7 +56,7 @@ namespace WinterEngine.DataAccess.Repositories
         {
             if (package.ResourceID <= 0)
             {
-                Context.ContentPackageRepository.Add(package);
+                Context.ContentPackages.Add(package);
             }
             else
             {
@@ -76,15 +70,15 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="package"></param>
         public void Update(ContentPackage package)
         {
-            ContentPackage dbPackage = Context.ContentPackageRepository.Get(x => x.ResourceID == package.ResourceID).SingleOrDefault();
+            ContentPackage dbPackage = Context.ContentPackages.SingleOrDefault(x => x.ResourceID == package.ResourceID);
             if (dbPackage == null)
             {
-                dbPackage = Context.ContentPackageRepository.Get(x => x.FileName == package.FileName).SingleOrDefault();
+                dbPackage = Context.ContentPackages.SingleOrDefault(x => x.FileName == package.FileName);
             }
 
             if (dbPackage == null) return;
 
-            Context.Context.Entry(dbPackage).CurrentValues.SetValues(package);
+            Context.Entry(dbPackage).CurrentValues.SetValues(package);
         }
 
         /// <summary>
@@ -96,10 +90,10 @@ namespace WinterEngine.DataAccess.Repositories
             for(int index = package.ResourceList.Count - 1; index >= 0; index--)
             {
                 ContentPackageResource resource = package.ResourceList[index];
-                Context.ContentPackageResourceRepository.Delete(resource);
+                Context.ContentPackageResources.Remove(resource);
             }
 
-            Context.ContentPackageRepository.Delete(package);
+            Context.ContentPackages.Remove(package);
         }
 
         /// <summary>
@@ -108,13 +102,13 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public List<ContentPackage> GetAll()
         {
-            return Context.ContentPackageRepository.Get().ToList();
+            return Context.ContentPackages.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from contentPackage
-                                                in Context.ContentPackageRepository.Get()
+                                                in Context.ContentPackages
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = contentPackage.Name,
@@ -132,7 +126,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public bool Exists(ContentPackage package)
         {
-            ContentPackage dbPackage = Context.ContentPackageRepository.Get(x => x.FileName == package.FileName).SingleOrDefault();
+            ContentPackage dbPackage = Context.ContentPackages.SingleOrDefault(x => x.FileName == package.FileName);
             return !Object.ReferenceEquals(dbPackage, null);
         }
 
@@ -144,12 +138,12 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public ContentPackage GetByID(int packageID)
         {
-            return Context.ContentPackageRepository.Get(x => x.ResourceID == packageID).SingleOrDefault();
+            return Context.ContentPackages.SingleOrDefault(x => x.ResourceID == packageID);
         }
 
         public int GetDefaultResourceID()
         {
-            ContentPackage defaultObject = Context.ContentPackageRepository.Get(x => x.IsDefault).FirstOrDefault();
+            ContentPackage defaultObject = Context.ContentPackages.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

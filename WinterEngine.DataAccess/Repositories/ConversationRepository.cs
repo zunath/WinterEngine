@@ -30,7 +30,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public Conversation Add(Conversation conversation)
         {
-            return Context.ConversationRepository.Add(conversation);
+            return Context.Conversations.Add(conversation);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <param name="conversationList">The list of conversations to add to the database.</param>
         public void Add(List<Conversation> conversationList)
         {
-            Context.ConversationRepository.AddList(conversationList);
+            Context.Conversations.AddRange(conversationList);
         }
 
         /// <summary>
@@ -52,11 +52,11 @@ namespace WinterEngine.DataAccess.Repositories
             Conversation dbConversation;
             if (newConversation.ResourceID <= 0)
             {
-                dbConversation = Context.ConversationRepository.Get(x => x.Resref == newConversation.Resref).SingleOrDefault();
+                dbConversation = Context.Conversations.SingleOrDefault(x => x.Resref == newConversation.Resref);
             }
             else
             {
-                dbConversation = Context.ConversationRepository.Get(x => x.ResourceID == newConversation.ResourceID).SingleOrDefault();
+                dbConversation = Context.Conversations.SingleOrDefault(x => x.ResourceID == newConversation.ResourceID);
             }
             if (dbConversation == null) return;
 
@@ -65,9 +65,9 @@ namespace WinterEngine.DataAccess.Repositories
                 variable.GameObjectBaseID = newConversation.ResourceID;
             }
 
-            Context.Context.Entry(dbConversation).CurrentValues.SetValues(newConversation);
-            Context.LocalVariableRepository.DeleteList(dbConversation.LocalVariables.ToList());
-            Context.LocalVariableRepository.AddList(newConversation.LocalVariables.ToList());
+            Context.Entry(dbConversation).CurrentValues.SetValues(newConversation);
+            Context.LocalVariables.RemoveRange(dbConversation.LocalVariables.ToList());
+            Context.LocalVariables.AddRange(newConversation.LocalVariables.ToList());
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace WinterEngine.DataAccess.Repositories
         {
             if (conversation.ResourceID <= 0)
             {
-                Context.ConversationRepository.Add(conversation);
+                Context.Conversations.Add(conversation);
             }
             else
             {
@@ -94,9 +94,9 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Conversation conversation = Context.ConversationRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
-            Context.LocalVariableRepository.DeleteList(conversation.LocalVariables.ToList());
-            Context.ConversationRepository.Delete(conversation);
+            Conversation conversation = Context.Conversations.SingleOrDefault(c => c.ResourceID == resourceID);
+            Context.LocalVariables.RemoveRange(conversation.LocalVariables.ToList());
+            Context.Conversations.Remove(conversation);
         }
 
         /// <summary>
@@ -105,13 +105,13 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public List<Conversation> GetAll()
         {
-            return Context.ConversationRepository.Get().ToList();
+            return Context.Conversations.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from conversation
-                                                in Context.ConversationRepository.Get()
+                                                in Context.Conversations
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = conversation.Name,
@@ -127,7 +127,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public List<Conversation> GetAllByResourceCategory(Category resourceCategory)
         {
-            return Context.ConversationRepository.Get(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
+            return Context.Conversations.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }
 
         /// <summary>
@@ -137,12 +137,12 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public Conversation GetByResref(string resref)
         {
-            return Context.ConversationRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            return Context.Conversations.SingleOrDefault(x => x.Resref == resref);
         }
 
         public Conversation GetByID(int resourceID)
         {
-            return Context.ConversationRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            return Context.Conversations.SingleOrDefault(x => x.ResourceID == resourceID);
         }
 
         /// <summary>
@@ -150,8 +150,8 @@ namespace WinterEngine.DataAccess.Repositories
         /// </summary>
         public void DeleteAllByCategory(Category resourceCategory)
         {
-            List<Conversation> conversationList = Context.ConversationRepository.Get(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            Context.DeleteAll(conversationList);
+            List<Conversation> conversationList = Context.Conversations.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
+            Context.Conversations.RemoveRange(conversationList);
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace WinterEngine.DataAccess.Repositories
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            Conversation conversation = Context.ConversationRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            Conversation conversation = Context.Conversations.Where(x => x.Resref == resref).SingleOrDefault();
             return !Object.ReferenceEquals(conversation, null);
         }
 
@@ -175,7 +175,7 @@ namespace WinterEngine.DataAccess.Repositories
             JSTreeNode rootNode = new JSTreeNode("Conversations");
             rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Conversation).ToList();
+            List<Category> categories = Context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Conversation).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);
@@ -183,7 +183,7 @@ namespace WinterEngine.DataAccess.Repositories
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Conversation> conversations = Context.ConversationRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
+                List<Conversation> conversations = Context.Conversations.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Conversation conversation in conversations)
                 {
                     JSTreeNode childNode = new JSTreeNode(conversation.Name);
@@ -203,7 +203,7 @@ namespace WinterEngine.DataAccess.Repositories
 
         public int GetDefaultResourceID()
         {
-            Conversation defaultObject = Context.ConversationRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Conversation defaultObject = Context.Conversations.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

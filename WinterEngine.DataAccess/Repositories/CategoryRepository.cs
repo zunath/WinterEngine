@@ -33,13 +33,13 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Category> GetAll()
         {
-            return Context.CategoryRepository.Get().ToList();
+            return Context.ResourceCategories.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from category
-                                                in Context.CategoryRepository.Get()
+                                                in Context.ResourceCategories
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = category.Name,
@@ -56,7 +56,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Category> GetAllResourceCategoriesByResourceType(GameObjectTypeEnum resourceType)
         {
-            return Context.CategoryRepository.Get(x => x.GameObjectType.Equals(resourceType)).ToList();
+            return Context.ResourceCategories.Where(x => x.GameObjectType.Equals(resourceType)).ToList();
         }
 
         /// <summary>
@@ -66,12 +66,12 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Category Add(Category resourceCategory)
         {
-            return Context.CategoryRepository.Add(resourceCategory);
+            return Context.ResourceCategories.Add(resourceCategory);
         }
 
         public void Add(List<Category> categoryList)
         {
-            Context.CategoryRepository.AddList(categoryList);
+            Context.ResourceCategories.AddRange(categoryList);
         }
 
         /// <summary>
@@ -81,17 +81,17 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Update(Category resourceCategory)
         {
-            Category dbCategory = Context.CategoryRepository.Get(x => x.ResourceID == resourceCategory.ResourceID).SingleOrDefault();
+            Category dbCategory = Context.ResourceCategories.SingleOrDefault(x => x.ResourceID == resourceCategory.ResourceID);
             if (dbCategory == null) return;
 
-            Context.Context.Entry(dbCategory).CurrentValues.SetValues(resourceCategory);
+            Context.Entry(dbCategory).CurrentValues.SetValues(resourceCategory);
         }
 
         public void Upsert(Category category)
         {
             if (category.ResourceID <= 0)
             {
-                Context.CategoryRepository.Add(category);
+                Context.ResourceCategories.Add(category);
             }
             else
             {
@@ -107,7 +107,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(Category resourceCategory)
         {
-            Category category = Context.CategoryRepository.Get(r => r.ResourceID.Equals(resourceCategory.ResourceID)).SingleOrDefault();
+            Category category = Context.ResourceCategories.SingleOrDefault(r => r.ResourceID.Equals(resourceCategory.ResourceID));
             return !Object.ReferenceEquals(category, null);
         }
 
@@ -118,7 +118,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(Category resourceCategory)
         {
-            Context.CategoryRepository.Delete(resourceCategory);
+            Context.ResourceCategories.Remove(resourceCategory);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Category GetByID(int categoryID)
         {
-            return Context.CategoryRepository.Get(x => x.ResourceID == categoryID).SingleOrDefault();
+            return Context.ResourceCategories.SingleOrDefault(x => x.ResourceID == categoryID);
         }
 
         /// <summary>
@@ -138,12 +138,12 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Category GetUncategorizedCategory(GameObjectTypeEnum resourceType)
         {
-            return Context.CategoryRepository.Get(x => x.IsSystemResource == true && x.GameObjectType == resourceType).SingleOrDefault();
+            return Context.ResourceCategories.SingleOrDefault(x => x.IsSystemResource == true && x.GameObjectType == resourceType);
         }
 
         public int GetDefaultResourceID(GameObjectTypeEnum resourceType)
         {
-            Category defaultObject = Context.CategoryRepository.Get(x => x.IsDefault && x.GameObjectType == resourceType).FirstOrDefault();
+            Category defaultObject = Context.ResourceCategories.FirstOrDefault(x => x.IsDefault && x.GameObjectType == resourceType);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 

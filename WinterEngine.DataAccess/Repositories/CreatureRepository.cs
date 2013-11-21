@@ -32,7 +32,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Creature Add(Creature creature)
         {
-            return Context.CreatureRepository.Add(creature);
+            return Context.Creatures.Add(creature);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace WinterEngine.DataAccess
         /// <param name="creatureList">The list of creatures to add to the database.</param>
         public void Add(List<Creature> creatureList)
         {
-            Context.CreatureRepository.AddList(creatureList);
+            Context.Creatures.AddRange(creatureList);
         }
 
         /// <summary>
@@ -54,11 +54,11 @@ namespace WinterEngine.DataAccess
             Creature dbCreature;
             if (newCreature.ResourceID <= 0)
             {
-                dbCreature = Context.CreatureRepository.Get(x => x.Resref == newCreature.Resref).SingleOrDefault();
+                dbCreature = Context.Creatures.SingleOrDefault(x => x.Resref == newCreature.Resref);
             }
             else
             {
-                dbCreature = Context.CreatureRepository.Get(x => x.ResourceID == newCreature.ResourceID).SingleOrDefault();
+                dbCreature = Context.Creatures.SingleOrDefault(x => x.ResourceID == newCreature.ResourceID);
             }
             if (dbCreature == null) return;
 
@@ -67,9 +67,9 @@ namespace WinterEngine.DataAccess
                 variable.GameObjectBaseID = newCreature.ResourceID;
             }
 
-            Context.Context.Entry(dbCreature).CurrentValues.SetValues(newCreature);
-            Context.LocalVariableRepository.DeleteList(dbCreature.LocalVariables.ToList());
-            Context.LocalVariableRepository.AddList(newCreature.LocalVariables.ToList());
+            Context.Entry(dbCreature).CurrentValues.SetValues(newCreature);
+            Context.LocalVariables.RemoveRange(dbCreature.LocalVariables.ToList());
+            Context.LocalVariables.AddRange(newCreature.LocalVariables.ToList());
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace WinterEngine.DataAccess
         {
             if (creature.ResourceID <= 0)
             {
-                Context.CreatureRepository.Add(creature);
+                Context.Creatures.Add(creature);
             }
             else
             {
@@ -96,9 +96,9 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public void Delete(int resourceID)
         {
-            Creature creature = Context.CreatureRepository.Get(c => c.ResourceID == resourceID).SingleOrDefault();
-            Context.LocalVariableRepository.DeleteList(creature.LocalVariables.ToList());
-            Context.CreatureRepository.Delete(creature);
+            Creature creature = Context.Creatures.SingleOrDefault(c => c.ResourceID == resourceID);
+            Context.LocalVariables.RemoveRange(creature.LocalVariables.ToList());
+            Context.Creatures.Remove(creature);
         }
 
         /// <summary>
@@ -107,13 +107,13 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Creature> GetAll()
         {
-            return Context.CreatureRepository.Get().ToList();
+            return Context.Creatures.ToList();
         }
 
         public List<DropDownListUIObject> GetAllUIObjects()
         {
             List<DropDownListUIObject> items = (from creature
-                                                in Context.CreatureRepository.Get()
+                                                in Context.Creatures
                                                 select new DropDownListUIObject
                                                 {
                                                     Name = creature.Name,
@@ -128,7 +128,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public List<Creature> GetAllByResourceCategory(Category resourceCategory)
         {
-            return Context.CreatureRepository.Get(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
+            return Context.Creatures.Where(x => x.ResourceCategoryID.Equals(resourceCategory.ResourceID)).ToList();
         }
 
         /// <summary>
@@ -138,12 +138,12 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public Creature GetByResref(string resref)
         {
-            return Context.CreatureRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            return Context.Creatures.SingleOrDefault(x => x.Resref == resref);
         }
 
         public Creature GetByID(int resourceID)
         {
-            return Context.CreatureRepository.Get(x => x.ResourceID == resourceID).SingleOrDefault();
+            return Context.Creatures.SingleOrDefault(x => x.ResourceID == resourceID);
         }
 
         /// <summary>
@@ -151,8 +151,8 @@ namespace WinterEngine.DataAccess
         /// </summary>
         public void DeleteAllByCategory(Category resourceCategory)
         {
-            List<Creature> creatureList = Context.CreatureRepository.Get(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
-            Context.DeleteAll(creatureList);
+            List<Creature> creatureList = Context.Creatures.Where(x => x.ResourceCategoryID == resourceCategory.ResourceID).ToList();
+            Context.Creatures.RemoveRange(creatureList);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace WinterEngine.DataAccess
         /// <returns></returns>
         public bool Exists(string resref)
         {
-            Creature creature = Context.CreatureRepository.Get(x => x.Resref == resref).SingleOrDefault();
+            Creature creature = Context.Creatures.SingleOrDefault(x => x.Resref == resref);
             return !Object.ReferenceEquals(creature, null);
         }
 
@@ -176,7 +176,7 @@ namespace WinterEngine.DataAccess
             JSTreeNode rootNode = new JSTreeNode("Creatures");
             rootNode.attr.Add("data-nodetype", "root");
             List<JSTreeNode> treeNodes = new List<JSTreeNode>();
-            List<Category> categories = Context.CategoryRepository.Get(x => x.GameObjectType == GameObjectTypeEnum.Creature).ToList();
+            List<Category> categories = Context.ResourceCategories.Where(x => x.GameObjectType == GameObjectTypeEnum.Creature).ToList();
             foreach (Category category in categories)
             {
                 JSTreeNode categoryNode = new JSTreeNode(category.Name);
@@ -184,7 +184,7 @@ namespace WinterEngine.DataAccess
                 categoryNode.attr.Add("data-categoryid", Convert.ToString(category.ResourceID));
                 categoryNode.attr.Add("data-issystemresource", Convert.ToString(category.IsSystemResource));
 
-                List<Creature> creatures = Context.CreatureRepository.Get(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
+                List<Creature> creatures = Context.Creatures.Where(x => x.ResourceCategoryID.Equals(category.ResourceID) && x.IsInTreeView).ToList();
                 foreach (Creature creature in creatures)
                 {
                     JSTreeNode childNode = new JSTreeNode(creature.Name);
@@ -204,7 +204,7 @@ namespace WinterEngine.DataAccess
 
         public int GetDefaultResourceID()
         {
-            Creature defaultObject = Context.CreatureRepository.Get(x => x.IsDefault).FirstOrDefault();
+            Creature defaultObject = Context.Creatures.FirstOrDefault(x => x.IsDefault);
             return defaultObject == null ? 0 : defaultObject.ResourceID;
         }
 
