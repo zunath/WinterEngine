@@ -61,12 +61,18 @@ namespace WinterEngine.DataTransferObjects
         [XmlIgnore]
         public bool IsInvulnerable { get; set; }
 
-        [JsonIgnore]
+        [ProtoMember(17)]
         public int PortraitID { get; set; }
 
         [JsonIgnore]
         [ForeignKey("PortraitID")]
-        public ContentPackageResource Portrait { get; set; }
+        public virtual ContentPackageResource Portrait { get; set; }
+
+
+        [ForeignKey("CharacterClassID")]
+        [JsonIgnore]
+        public virtual CharacterClass CharClass { get; set; }
+        public int CharacterClassID { get; set; }
 
         [JsonIgnore]
         [ForeignKey("GenderID")]

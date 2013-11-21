@@ -27,16 +27,6 @@ input[type="button"]:active:enabled
     border: 1px solid;
 }
 
-/*
-input[type="button"]
-{
-	background-color:#CCC;
-   	border-style:solid;
-	border-width: 1px;
-    border: 1px solid;
-}
-*/
-
 /* TABLES */
 
 table.clsServerList
@@ -122,7 +112,6 @@ td
     font-weight: bold;
     float:left;
 }
-
 .clsNonResizeable
 {
     resize: none;

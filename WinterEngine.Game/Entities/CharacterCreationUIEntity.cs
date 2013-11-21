@@ -18,6 +18,7 @@ using GuiManager = FlatRedBall.Gui.GuiManager;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
+using WinterEngine.DataTransferObjects.ViewModels;
 
 
 #endif
@@ -25,10 +26,23 @@ using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 namespace WinterEngine.Game.Entities
 {
 	public partial class CharacterCreationUIEntity
-	{
-		private void CustomInitialize()
-		{
+    {
+        #region Fields
 
+        #endregion
+
+        #region Properties
+
+        private CharacterCreationViewModel ViewModel { get; set; }
+
+        #endregion
+
+        #region FRB Event Handling
+
+        private void CustomInitialize()
+		{
+            ViewModel = new CharacterCreationViewModel();
+            AwesomiumWebView.DocumentReady += OnDocumentReady;
 
 		}
 
@@ -49,5 +63,17 @@ namespace WinterEngine.Game.Entities
 
 
         }
-	}
+
+        #endregion
+
+        #region Awesomium Event Handling
+
+        private void OnDocumentReady(object sender, EventArgs e)
+        {
+            RunJavaScriptMethod("Initialize();");
+        }
+
+        #endregion
+
+    }
 }
