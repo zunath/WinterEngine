@@ -110,7 +110,7 @@ namespace WinterEngine.Game.Entities
 
         private void NetworkClient_OnPacketReceived(object sender, PacketReceivedEventArgs e)
         {
-            Type packetType = e.GetType();
+            Type packetType = e.Packet.GetType();
 
             if (packetType == typeof(CharacterCreationPacket))
             {
@@ -123,7 +123,7 @@ namespace WinterEngine.Game.Entities
             ViewModel.RaceList = packet.RaceList;
             ViewModel.GenderList = packet.GenderList;
 
-            AsyncJavascriptCallback("Entity.Refresh");
+            AsyncJavascriptCallback("RetrieveServerData_Callback");
         }
 
         #endregion

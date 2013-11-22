@@ -7,3 +7,9 @@
     InitializeCharacterCreationViewModel();
     $('input:button').button();
 }
+
+function RetrieveServerData_Callback() {
+
+    CharacterCreationViewModel.Refresh();
+
+}

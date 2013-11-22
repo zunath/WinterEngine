@@ -16,5 +16,18 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public int CharacterClassID { get; set; }
         public List<Race> RaceList { get; set; }
         public List<Gender> GenderList { get; set; }
+
+        public CharacterCreationViewModel()
+        {
+            this.FirstName = "";
+            this.LastName = "";
+            this.Age = 0;
+            this.RaceID = 0;
+            this.PortraitID = 0;
+            this.GenderID = 0;
+            this.CharacterClassID = 0;
+            this.RaceList = new List<Race>();
+            this.GenderList = new List<Gender>();
+        }
     }
 }
