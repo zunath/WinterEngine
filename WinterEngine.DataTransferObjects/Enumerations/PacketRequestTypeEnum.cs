@@ -8,6 +8,7 @@ namespace WinterEngine.DataTransferObjects.Enums
     public enum PacketRequestTypeEnum : byte
     {
         CharacterSelection = 1,
-        Username = 2
+        Username = 2,
+        CharacterCreation = 3,
     }
 }

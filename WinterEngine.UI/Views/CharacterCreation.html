@@ -25,23 +25,82 @@
 
 </head>
 <body>
+    <div class="row-fluid">
+        <div id="divCharacterCreationAccordion">
+            <h3>Details</h3>
+            <div id="divDetails">
+                <div class="row-fluid">
+                    <div class="span2">
+                        Name: 
+                    </div>
+                    <div class="span4">
+                        <input id="txtFirstName" name="txtFirstName" type="text" placeholder="First Name"
+                            data-bind="value: FirstName" />
+                    </div>
+                    <div class="span4">
+                        <input id="txtLastName" name="txtLastName" type="text" placeholder="Last Name" 
+                            data-bind="value: LastName" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span2">
+                        Gender:
+                    </div>
+                    <div class="span6">
+                        <select id="selGender" name="selGender" size="3"
+                            data-bind="options: GenderList,
+                                       optionsText: function (item) { return item.Name },
+                                       optionsValue: function (item) { return item.ResourceID }">
+                        </select>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span2">
+                        Age:
+                    </div>
+                    <div class="span4">
+                        <input id="numAge" name="numAge" type="number" value="18" min="1" max="9999"
+                            data-bind="value: Age" />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span2">
+                        Race:
+                    </div>
+                    <div class="span6">
+                        <select id="selRace" name="selRace" size="5"
+                            data-bind="options: RaceList,
+                                       optionsText: function (item) { return item.Name },
+                                       optionsValue: function (item) { return item.ResourceID }">
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-    <div id="divCharacterCreationAccordion">
-        <h3>Details</h3>
-        <div id="divDetails">
+            <h3>Portrait</h3>
+            <div id="divPortraits">
+            </div>
+
+            <h3>Class</h3>
+            <div id="divClass">
+            </div>
+
+            <h3>Appearance</h3>
+            <div id="divAppearance">
+
+            </div>
         </div>
+    </div>
+    
+    <div class="row-fluid">&nbsp;</div>
 
-        <h3>Portrait</h3>
-        <div id="divPortraits">
+
+    <div class="row-fluid">
+        <div class="span6">
+            <input id="btnCreate" name="btnCreate" type="button" value="Create Character" style="width:100%;" />
         </div>
-
-        <h3>Class</h3>
-        <div id="divClass">
-        </div>
-
-        <h3>Appearance</h3>
-        <div id="divAppearance">
-
+        <div class="span6">
+            <input id="btnCancel" name="btnCancel" type="button" value="Cancel Character Creation" style="width:100%;" />
         </div>
     </div>
 

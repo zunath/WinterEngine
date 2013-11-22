@@ -55,7 +55,7 @@ namespace WinterEngine.Game.Screens
 
 		void CustomDestroy()
 		{
-
+            MainMenuGuiEntityInstance.OnChangeScreen -= base.ChangeScreen;
 		}
 
         static void CustomLoadStaticContent(string contentManagerName)

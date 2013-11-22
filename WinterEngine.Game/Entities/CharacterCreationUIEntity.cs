@@ -19,6 +19,11 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Vector3 = Microsoft.Xna.Framework.Vector3;
 using Texture2D = Microsoft.Xna.Framework.Graphics.Texture2D;
 using WinterEngine.DataTransferObjects.ViewModels;
+using Awesomium.Core;
+using Newtonsoft.Json;
+using WinterEngine.DataAccess.Repositories;
+using WinterEngine.Game.Services;
+using WinterEngine.DataTransferObjects.EventArgsExtended;
 
 
 #endif
@@ -44,7 +49,12 @@ namespace WinterEngine.Game.Entities
             ViewModel = new CharacterCreationViewModel();
             AwesomiumWebView.DocumentReady += OnDocumentReady;
 
+            if (WinterEngineService.NetworkClient != null)
+            {
+                WinterEngineService.NetworkClient.OnPacketReceived += NetworkClient_OnPacketReceived;
+            }
 		}
+
 
 		private void CustomActivity()
 		{
@@ -54,8 +64,10 @@ namespace WinterEngine.Game.Entities
 
 		private void CustomDestroy()
 		{
-
-
+            if (WinterEngineService.NetworkClient != null)
+            {
+                WinterEngineService.NetworkClient.OnPacketReceived -= NetworkClient_OnPacketReceived;
+            }
 		}
 
         private static void CustomLoadStaticContent(string contentManagerName)
@@ -70,7 +82,27 @@ namespace WinterEngine.Game.Entities
 
         private void OnDocumentReady(object sender, EventArgs e)
         {
+            EntityJavascriptObject.Bind("GetModelJSON", true, GetModelJSON);
+
             RunJavaScriptMethod("Initialize();");
+        }
+
+        #endregion
+
+        #region UI Methods 
+
+        private void GetModelJSON(object sender, JavascriptMethodEventArgs e)
+        {
+            e.Result = JsonConvert.SerializeObject(ViewModel);
+        }
+
+
+        #endregion
+
+        #region Network Methods
+
+        private void NetworkClient_OnPacketReceived(object sender, PacketReceivedEventArgs e)
+        {
         }
 
         #endregion

@@ -16,6 +16,7 @@ namespace WinterEngine.DataTransferObjects.Packets
     [ProtoInclude(105, typeof(CharacterSelectionPacket))]
     [ProtoInclude(106, typeof(UsernamePacket))]
     [ProtoInclude(107, typeof(DeleteCharacterPacket))]
+    [ProtoInclude(108, typeof(CharacterSelectionPacket))]
     public class PacketBase
     {
         /// <summary>

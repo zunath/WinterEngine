@@ -30,7 +30,7 @@ using FlatRedBall.Graphics;
 
 namespace WinterEngine.Game.Screens
 {
-	public partial class CharacterCreationScreen : Screen
+	public partial class CharacterCreationScreen : BaseScreen
 	{
 		// Generated Fields
 		#if DEBUG
@@ -41,7 +41,7 @@ namespace WinterEngine.Game.Screens
 		private WinterEngine.Game.Entities.CharacterCreationUIEntity CharacterCreationUIEntityInstance;
 
 		public CharacterCreationScreen()
-			: base("CharacterCreationScreen")
+			: base()
 		{
 		}
 
@@ -55,12 +55,7 @@ namespace WinterEngine.Game.Screens
 			CharacterCreationUIEntityInstance.Name = "CharacterCreationUIEntityInstance";
 			
 			
-			PostInitialize();
 			base.Initialize(addToManagers);
-			if (addToManagers)
-			{
-				AddToManagers();
-			}
 
         }
         
@@ -71,7 +66,6 @@ namespace WinterEngine.Game.Screens
 			LayerInstance.LayerCameraSettings = new LayerCameraSettings();
 			LayerInstance.LayerCameraSettings.Orthogonal = false;
 			base.AddToManagers();
-			AddToManagersBottomUp();
 			CustomInitialize();
 		}
 
@@ -120,10 +114,11 @@ namespace WinterEngine.Game.Screens
 		}
 
 		// Generated Methods
-		public virtual void PostInitialize ()
+		public override void PostInitialize ()
 		{
 			bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
+			base.PostInitialize();
 			if (CharacterCreationUIEntityInstance.Parent == null)
 			{
 				CharacterCreationUIEntityInstance.CopyAbsoluteToRelative();
@@ -132,21 +127,23 @@ namespace WinterEngine.Game.Screens
 			}
 			FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
 		}
-		public virtual void AddToManagersBottomUp ()
+		public override void AddToManagersBottomUp ()
 		{
-			CameraSetup.ResetCamera(SpriteManager.Camera);
+			base.AddToManagersBottomUp();
 			CharacterCreationUIEntityInstance.AddToManagers(LayerInstance);
 		}
-		public virtual void ConvertToManuallyUpdated ()
+		public override void ConvertToManuallyUpdated ()
 		{
+			base.ConvertToManuallyUpdated();
 			CharacterCreationUIEntityInstance.ConvertToManuallyUpdated();
 		}
-		public static void LoadStaticContent (string contentManagerName)
+		public static new void LoadStaticContent (string contentManagerName)
 		{
 			if (string.IsNullOrEmpty(contentManagerName))
 			{
 				throw new ArgumentException("contentManagerName cannot be empty or null");
 			}
+			BaseScreen.LoadStaticContent(contentManagerName);
 			#if DEBUG
 			if (contentManagerName == FlatRedBallServices.GlobalContentManager)
 			{
@@ -161,11 +158,11 @@ namespace WinterEngine.Game.Screens
 			CustomLoadStaticContent(contentManagerName);
 		}
 		[System.Obsolete("Use GetFile instead")]
-		public static object GetStaticMember (string memberName)
+		public static new object GetStaticMember (string memberName)
 		{
 			return null;
 		}
-		public static object GetFile (string memberName)
+		public static new object GetFile (string memberName)
 		{
 			return null;
 		}

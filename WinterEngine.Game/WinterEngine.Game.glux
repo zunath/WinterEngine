@@ -13,6 +13,7 @@
         <string>GLUE</string>
       </Tags>
       <Source>GLUE</Source>
+      <BaseScreen>Screens\BaseScreen</BaseScreen>
       <Name>Screens\CharacterCreationScreen</Name>
       <NamedObjects>
         <NamedObjectSave>

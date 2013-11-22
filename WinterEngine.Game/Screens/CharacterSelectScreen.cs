@@ -40,7 +40,7 @@ namespace WinterEngine.Game.Screens
 
 		void CustomDestroy()
 		{
-
+            CharacterSelectUIEntityInstance.OnChangeScreen -= base.ChangeScreen;
 
 		}
 

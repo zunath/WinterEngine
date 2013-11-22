@@ -114,6 +114,7 @@
     <Compile Include="EventArgsExtended\GameObjectSaveEventArgs.cs" />
     <Compile Include="EventArgsExtended\TilesetSelectionEventArgs.cs" />
     <Compile Include="GameObjects\Tileset.cs" />
+    <Compile Include="Packets\CharacterCreationPacket.cs" />
     <Compile Include="Packets\CharacterSelectionPacket.cs" />
     <Compile Include="Packets\ContentPackageListPacket.cs" />
     <Compile Include="Packets\DeleteCharacterPacket.cs" />

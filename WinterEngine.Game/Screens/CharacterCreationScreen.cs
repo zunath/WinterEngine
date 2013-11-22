@@ -27,25 +27,26 @@ namespace WinterEngine.Game.Screens
 	public partial class CharacterCreationScreen
 	{
 
-		void CustomInitialize()
+		private void CustomInitialize()
+        {
+            CharacterCreationUIEntityInstance.OnChangeScreen += base.ChangeScreen;
+
+
+		}
+
+        private void CustomActivity(bool firstTimeCalled)
 		{
 
 
 		}
 
-		void CustomActivity(bool firstTimeCalled)
+        private void CustomDestroy()
 		{
-
+            CharacterCreationUIEntityInstance.OnChangeScreen -= base.ChangeScreen;
 
 		}
 
-		void CustomDestroy()
-		{
-
-
-		}
-
-        static void CustomLoadStaticContent(string contentManagerName)
+        private static void CustomLoadStaticContent(string contentManagerName)
         {
 
 

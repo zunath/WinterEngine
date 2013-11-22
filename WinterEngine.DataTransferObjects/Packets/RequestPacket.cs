@@ -10,28 +10,13 @@ namespace WinterEngine.DataTransferObjects.Packets
     [ProtoContract]
     public class RequestPacket : PacketBase
     {
-        #region Fields
-        private PacketRequestTypeEnum _requestType;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         /// Gets or sets the request type of this packet.
         /// </summary>
         [ProtoMember(1)]
-        public PacketRequestTypeEnum RequestType 
-        {
-            get
-            {
-                return _requestType;
-            }
-            set
-            {
-                _requestType = value;
-            }
-        }
+        public PacketRequestTypeEnum RequestType { get; set; }
 
         #endregion
 
