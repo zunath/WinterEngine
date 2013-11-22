@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using System.Xml;
+using System.Xml.Serialization;
 using Microsoft.Win32;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
@@ -12,19 +16,12 @@ using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Paths;
+using WinterEngine.DataTransferObjects.XMLObjects;
 using WinterEngine.Library.Managers;
-using WinterEngine.Network;
 using WinterEngine.Network.Clients;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Listeners;
 using Xceed.Wpf.Toolkit;
-using WinterEngine.DataTransferObjects.GameObjects;
-using WinterEngine.DataAccess.FileAccess;
-using System.Threading.Tasks;
-using WinterEngine.DataTransferObjects.XMLObjects;
-using System.Xml.Serialization;
-using System.Xml;
-using System.Text;
 
 namespace WinterEngine.Server
 {
@@ -55,12 +52,6 @@ namespace WinterEngine.Server
 
         #region Event Handling
 
-        /// <summary>
-        /// Handles setting default values to controls on window load,
-        /// instantiating objects, and other initialization actions
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             WebUtility = new WebServiceClientUtility();
@@ -82,43 +73,22 @@ namespace WinterEngine.Server
             OpenFile = new OpenFileDialog();
             InitializeOpenFileDialog();
 
-            numericPort.DefaultValue = GameServerConfiguration.DefaultGamePort;
-            numericPort.Text = Convert.ToString(numericPort.DefaultValue);
-
-            numericMaxLevel.Text = Convert.ToString(numericMaxLevel.DefaultValue);
-            numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.DefaultValue);
-
             ConnectedUsernames = new BindingList<string>();
             listBoxPlayers.ItemsSource = ConnectedUsernames;
 
             UpdateExternalIPAddress();
         }
 
-        /// <summary>
-        /// Prompts user to select a valid .WMOD file.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void buttonBrowse_Click(object sender, RoutedEventArgs e)
         {
             OpenFile.ShowDialog();
         }
 
-        /// <summary>
-        /// Handles sending a message to all players currently connected.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void buttonSendMessage_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        /// <summary>
-        /// Starts or stops all client and server connections.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void buttonStartStop_Click(object sender, RoutedEventArgs e)
         {
             if (ServerStatus == ServerStatusEnum.Running)
@@ -149,6 +119,7 @@ namespace WinterEngine.Server
             ServerSettings.PlayerPassword = textBoxPlayerPassword.Text;
             ServerSettings.PortNumber = (int)numericPort.Value;
             ServerSettings.PVPSetting = (PVPTypeEnum)comboBoxPVPType.SelectedValue;
+            ServerSettings.GameType = (GameTypeEnum)listBoxGameType.SelectedValue;
             ServerSettings.ServerAnnouncement = textBoxAnnouncement.Text;
             ServerSettings.ServerDescription = textBoxDescription.Text;
             ServerSettings.ServerName = textBoxServerName.Text;
@@ -310,12 +281,20 @@ namespace WinterEngine.Server
             }
 
             textBoxServerName.Text = ServerSettings.ServerName;
+            numericMaxLevel.Text = Convert.ToString(ServerSettings.MaxLevel);
             numericMaxLevel.Value = ServerSettings.MaxLevel;
+
+            numericMaxPlayers.Text = Convert.ToString(ServerSettings.MaxPlayers);
             numericMaxPlayers.Value = ServerSettings.MaxPlayers;
+
+            numericPort.DefaultValue = ServerSettings.PortNumber;
             numericPort.Value = ServerSettings.PortNumber;
+            numericPort.Text = Convert.ToString(ServerSettings.PortNumber);
+
             textBoxDescription.Text = ServerSettings.ServerDescription;
             textBoxAnnouncement.Text = ServerSettings.ServerAnnouncement;
             comboBoxPVPType.SelectedValue = ServerSettings.PVPSetting;
+            listBoxGameType.SelectedValue = ServerSettings.GameType;
             checkBoxAllowCharacterDeletion.IsChecked = ServerSettings.AllowCharacterDeletion;
             checkBoxAllowFileAutoDownload.IsChecked = ServerSettings.AllowFileAutoDownload;
             textBoxDMPassword.Text = ServerSettings.GMPassword;

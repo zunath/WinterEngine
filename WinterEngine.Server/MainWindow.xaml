@@ -78,9 +78,13 @@
                     <Label Content="Server Announcement:" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Files">
+            <TabItem Header="Player Blacklist">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ListBox>
+                    <Grid HorizontalAlignment="Left" Height="324" VerticalAlignment="Top" Width="512"/>
+                    <ListBox Name="listBoxBlacklist" HorizontalAlignment="Left" Height="251" Margin="10,10,0,0" VerticalAlignment="Top" Width="492"/>
+                    <TextBox Name="textBoxBlacklistUsername" HorizontalAlignment="Left" Height="23" Margin="10,292,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="379"/>
+                    <Button Name="buttonAddToBlacklist" Content="Add to Blacklist" HorizontalAlignment="Left" Margin="394,292,0,0" VerticalAlignment="Top" Width="108"/>
+                    <Button Content="Remove Selected" HorizontalAlignment="Left" Margin="394,266,0,0" VerticalAlignment="Top" Width="108"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Log">

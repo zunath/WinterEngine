@@ -15,6 +15,7 @@ namespace WinterEngine.DataTransferObjects.XMLObjects
         public int MaxLevel { get; set; }
         public int MaxPlayers { get; set; }
         public PVPTypeEnum PVPSetting { get; set; }
+        public GameTypeEnum GameType { get; set; }
         public bool AllowCharacterDeletion { get; set; }
         public bool AllowFileAutoDownload { get; set; }
         public string PlayerPassword { get; set; }
@@ -30,6 +31,7 @@ namespace WinterEngine.DataTransferObjects.XMLObjects
             this.MaxLevel = 0;
             this.MaxPlayers = 0;
             this.PVPSetting = PVPTypeEnum.None;
+            this.GameType = GameTypeEnum.Action;
             this.AllowCharacterDeletion = false;
             this.AllowFileAutoDownload = false;
             this.PlayerPassword = "";
