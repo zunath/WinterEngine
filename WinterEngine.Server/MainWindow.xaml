@@ -42,7 +42,7 @@
                     <Label Content="IP Address:" HorizontalAlignment="Left" Margin="274,6,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <Label x:Name="labelIPAddress" Content="Checking..." HorizontalAlignment="Left" Margin="357,6,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <Label Content="Server Status:" HorizontalAlignment="Left" Margin="6,286,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="textBoxServerStatus" HorizontalAlignment="Left" Height="23" Margin="42,286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" IsReadOnly="True" Text="Not started..." IsEnabled="False" Grid.Column="1"/>
+                    <TextBox x:Name="textBoxServerStatus" HorizontalAlignment="Left" Height="23" Margin="42,286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" IsReadOnly="True" Text="Not started..." IsEnabled="False" Grid.Column="1"/>
                     <Button x:Name="buttonStartStop" Content="Start Server" HorizontalAlignment="Left" Margin="347,287,0,0" VerticalAlignment="Top" Width="90" Click="buttonStartStop_Click" Grid.Column="1"/>
                     <xctk:IntegerUpDown x:Name="numericMaxLevel" HorizontalAlignment="Left" Margin="357,122,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.829,-0.55" Width="80" Maximum="50" Minimum="0" DefaultValue="50" Grid.Column="1" LostFocus="SetDefaultValues_MaxLevel" />
                     <ListBox x:Name="listBoxPlayers" HorizontalAlignment="Left" Height="124" Margin="5,99,0,0" VerticalAlignment="Top" Width="172" Grid.ColumnSpan="2" />
@@ -67,6 +67,7 @@
                     <xctk:IntegerUpDown x:Name="numericPort" Grid.Column="1" HorizontalAlignment="Left" Margin="357,39,0,0" VerticalAlignment="Top" Width="80" Minimum="1" Maximum="65535" LostFocus="SetDefaultValues_Port" />
                     <CheckBox x:Name="checkBoxAllowCharacterDeletion" Content="Allow Character Deletion" Grid.Column="1" HorizontalAlignment="Left" Margin="274,162,0,0" VerticalAlignment="Top" IsChecked="True" />
                     <CheckBox x:Name="checkBoxAllowFileAutoDownload" Content="Allow File Auto-Download" Grid.Column="1" HorizontalAlignment="Left" Margin="274,183,0,0" VerticalAlignment="Top" IsChecked="True" />
+                    <Button x:Name="buttonSaveSettings" Content="Save Settings" Grid.Column="1" HorizontalAlignment="Left" Margin="253,287,0,0" VerticalAlignment="Top" Width="87" Click="buttonSaveSettings_Click" />
                 </Grid>
             </TabItem>
             <TabItem Header="Description">

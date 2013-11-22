@@ -21,6 +21,10 @@ using Xceed.Wpf.Toolkit;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataAccess.FileAccess;
 using System.Threading.Tasks;
+using WinterEngine.DataTransferObjects.XMLObjects;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Text;
 
 namespace WinterEngine.Server
 {
@@ -28,6 +32,7 @@ namespace WinterEngine.Server
     {
         #region Properties
 
+        private ServerSettingsXML ServerSettings { get; set; }
         private ServerStatusEnum ServerStatus { get; set; }
         private WebServiceClientUtility WebUtility { get; set; }
         private OpenFileDialog OpenFile { get; set; }
@@ -60,6 +65,7 @@ namespace WinterEngine.Server
         {
             WebUtility = new WebServiceClientUtility();
             ServerStatus = ServerStatusEnum.Stopped;
+            LoadSettings();
 
             MasterServerDispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 30),
                 DispatcherPriority.Normal,
@@ -131,6 +137,23 @@ namespace WinterEngine.Server
             {
                 StartServer();
             }
+        }
+
+        private void buttonSaveSettings_Click(object sender, RoutedEventArgs e)
+        {
+            ServerSettings.AllowCharacterDeletion = (bool)checkBoxAllowCharacterDeletion.IsChecked;
+            ServerSettings.AllowFileAutoDownload = (bool)checkBoxAllowFileAutoDownload.IsChecked;
+            ServerSettings.GMPassword = textBoxDMPassword.Text;
+            ServerSettings.MaxLevel = (int)numericMaxLevel.Value;
+            ServerSettings.MaxPlayers = (int)numericMaxPlayers.Value;
+            ServerSettings.PlayerPassword = textBoxPlayerPassword.Text;
+            ServerSettings.PortNumber = (int)numericPort.Value;
+            ServerSettings.PVPSetting = (PVPTypeEnum)comboBoxPVPType.SelectedValue;
+            ServerSettings.ServerAnnouncement = textBoxAnnouncement.Text;
+            ServerSettings.ServerDescription = textBoxDescription.Text;
+            ServerSettings.ServerName = textBoxServerName.Text;
+
+            SaveSettings();
         }
 
         private void buttonBanAccount_Click(object sender, RoutedEventArgs e)
@@ -266,6 +289,51 @@ namespace WinterEngine.Server
             };
 
             return server;
+        }
+
+        private void LoadSettings()
+        {
+            ServerSettings = new ServerSettingsXML();
+            XmlSerializer serializer = new XmlSerializer(typeof(ServerSettingsXML));
+
+            if (File.Exists(FilePaths.ServerSettingsPath))
+            {
+                using (StreamReader reader = new StreamReader(FilePaths.ServerSettingsPath))
+                {
+                    ServerSettings = (ServerSettingsXML)serializer.Deserialize(reader);
+                }
+            }
+            else
+            {
+                // Create a file with initial values.
+                SaveSettings();
+            }
+
+            textBoxServerName.Text = ServerSettings.ServerName;
+            numericMaxLevel.Value = ServerSettings.MaxLevel;
+            numericMaxPlayers.Value = ServerSettings.MaxPlayers;
+            numericPort.Value = ServerSettings.PortNumber;
+            textBoxDescription.Text = ServerSettings.ServerDescription;
+            textBoxAnnouncement.Text = ServerSettings.ServerAnnouncement;
+            comboBoxPVPType.SelectedValue = ServerSettings.PVPSetting;
+            checkBoxAllowCharacterDeletion.IsChecked = ServerSettings.AllowCharacterDeletion;
+            checkBoxAllowFileAutoDownload.IsChecked = ServerSettings.AllowFileAutoDownload;
+            textBoxDMPassword.Text = ServerSettings.GMPassword;
+            textBoxPlayerPassword.Text = ServerSettings.PlayerPassword;
+        }
+
+        private void SaveSettings()
+        {
+            using (StringWriter stringWriter = new StringWriter())
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(ServerSettingsXML));
+                XmlWriterSettings settings = new XmlWriterSettings { Indent = true, Encoding = Encoding.ASCII };
+                XmlWriter writer = XmlWriter.Create(stringWriter, settings);
+                serializer.Serialize(writer, ServerSettings);
+                string xmlOutput = stringWriter.ToString();
+
+                File.WriteAllText(FilePaths.ServerSettingsPath, xmlOutput);
+            }
         }
 
         #endregion

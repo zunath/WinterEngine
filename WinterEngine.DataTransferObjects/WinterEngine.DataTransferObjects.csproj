@@ -178,6 +178,7 @@
     <Compile Include="GameObjects\Script.cs" />
     <Compile Include="XMLObjects\ContentPackageXML.cs" />
     <Compile Include="ViewModels\ToolsetViewModel.cs" />
+    <Compile Include="XMLObjects\ServerSettingsXML.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
