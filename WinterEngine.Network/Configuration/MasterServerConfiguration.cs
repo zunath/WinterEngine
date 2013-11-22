@@ -11,7 +11,7 @@ namespace WinterEngine.Network.Configuration
     // application's app.config file.
     public class MasterServerConfiguration
     {
-        private const string _masterServerURL = "https://www.winterengixxxne.com/";
+        private const string _masterServerURL = "https://www.winterengine.com/";
         //private const string _masterServerURL = "http://localhost:12901/";            // For debugging
 
         /// <summary>
