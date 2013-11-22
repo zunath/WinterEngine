@@ -77,6 +77,7 @@
     <Compile Include="Clients\GameNetworkClient.cs" />
     <Compile Include="Configuration\GameServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />
+    <Compile Include="Listeners\GameNetworkListener.CharacterCreation.cs" />
     <Compile Include="Listeners\GameNetworkListener.CharacterSelection.cs" />
     <Compile Include="Listeners\GameNetworkListener.FileStreamer.cs" />
     <Compile Include="Listeners\GameNetworkListener.Requests.cs" />

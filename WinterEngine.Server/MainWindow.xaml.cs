@@ -128,17 +128,7 @@ namespace WinterEngine.Server
             }
             else
             {
-                WinterServer serverDetails = BuildServerDetails();
-                ToggleServerStatusMode(true);
-                buttonStartStop.Content = "Shutdown";
-                SendServerDetailsAsync(serverDetails);
-                GameServerListener = new GameNetworkListener(serverDetails.ServerPort, ContentPackageList);
-                GameServerListener.OnLogMessage += gameServer_OnLogMessageReceived;
-
-                GameServerDispatcherTimer.Start();
-                MasterServerDispatcherTimer.Start();
-
-                textBoxServerStatus.Text = "Running...";
+                StartServer();
             }
         }
 
@@ -155,6 +145,42 @@ namespace WinterEngine.Server
         #endregion
 
         #region Methods
+
+        private async void StartServer()
+        {
+            bool success = false;
+            textBoxServerStatus.Text = "Starting server...";
+
+            await Task.Factory.StartNew(() =>
+            {
+                if (WebUtility.IsMasterServerAlive())
+                {
+                    WinterServer serverDetails = BuildServerDetails();
+                    ToggleServerStatusMode(true);
+                    buttonStartStop.Content = "Shutdown";
+                    SendServerDetailsAsync(serverDetails);
+                    GameServerListener = new GameNetworkListener(serverDetails.ServerPort, ContentPackageList);
+                    GameServerListener.OnLogMessage += gameServer_OnLogMessageReceived;
+
+                    GameServerDispatcherTimer.Start();
+                    MasterServerDispatcherTimer.Start();
+                    success = true;
+                }
+                else
+                {
+                    success = false;
+                }
+            });
+
+            if (success)
+            {
+                textBoxServerStatus.Text = "Running...";
+            }
+            else
+            {
+                textBoxServerStatus.Text = "Unable to connect to master server...";
+            }
+        }
 
         private void InitializeOpenFileDialog()
         {

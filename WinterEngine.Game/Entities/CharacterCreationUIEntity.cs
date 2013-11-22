@@ -24,6 +24,9 @@ using Newtonsoft.Json;
 using WinterEngine.DataAccess.Repositories;
 using WinterEngine.Game.Services;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
+using WinterEngine.DataTransferObjects.Enums;
+using Lidgren.Network;
+using WinterEngine.DataTransferObjects.Packets;
 
 
 #endif
@@ -52,13 +55,17 @@ namespace WinterEngine.Game.Entities
             if (WinterEngineService.NetworkClient != null)
             {
                 WinterEngineService.NetworkClient.OnPacketReceived += NetworkClient_OnPacketReceived;
+                WinterEngineService.NetworkClient.SendRequest(PacketRequestTypeEnum.CharacterCreation, NetDeliveryMethod.ReliableUnordered);
             }
 		}
 
 
 		private void CustomActivity()
 		{
-
+            if (WinterEngineService.NetworkClient != null)
+            {
+                WinterEngineService.NetworkClient.Process();
+            }
 
 		}
 
@@ -103,6 +110,20 @@ namespace WinterEngine.Game.Entities
 
         private void NetworkClient_OnPacketReceived(object sender, PacketReceivedEventArgs e)
         {
+            Type packetType = e.GetType();
+
+            if (packetType == typeof(CharacterCreationPacket))
+            {
+                ProcessCharacterCreationPacket(e.Packet as CharacterCreationPacket);
+            }
+        }
+
+        private void ProcessCharacterCreationPacket(CharacterCreationPacket packet)
+        {
+            ViewModel.RaceList = packet.RaceList;
+            ViewModel.GenderList = packet.GenderList;
+
+            AsyncJavascriptCallback("Entity.Refresh");
         }
 
         #endregion

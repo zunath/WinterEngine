@@ -39,9 +39,16 @@ namespace WinterEngine.Network.Clients
 
             using (WebResponse response = request.GetResponse())
             {
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                if (IsMasterServerAlive())
                 {
-                    return ReplaceJsonArraySpecialCharacters(reader.ReadToEnd());
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        return ReplaceJsonArraySpecialCharacters(reader.ReadToEnd());
+                    }
+                }
+                else
+                {
+                    return "";
                 }
             }
         }
@@ -60,19 +67,26 @@ namespace WinterEngine.Network.Clients
             request.ContentType = "application/json; charset=utf-8";
             request.Method = "POST";
 
-            using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
+            if (IsMasterServerAlive())
             {
-                writer.Write(jsonObject);
-                writer.Flush();
-                writer.Close();
-            }
-
-            using (WebResponse response = request.GetResponse())
-            {
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
                 {
-                    return ReplaceJsonArraySpecialCharacters(reader.ReadToEnd());
+                    writer.Write(jsonObject);
+                    writer.Flush();
+                    writer.Close();
                 }
+
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        return ReplaceJsonArraySpecialCharacters(reader.ReadToEnd());
+                    }
+                }
+            }
+            else
+            {
+                return "";
             }
         }
 
@@ -222,6 +236,32 @@ namespace WinterEngine.Network.Clients
             return success;
         }
 
+        public bool IsMasterServerAlive()
+        {
+            bool isUp = false;
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(MasterServerConfiguration.MasterServerURL);
+            request.Method = "HEAD";
+
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    HttpWebResponse httpResponse = (HttpWebResponse)response;
+
+                    if (httpResponse != null && httpResponse.StatusCode == HttpStatusCode.OK)
+                    {
+                        isUp = true;
+                    }
+                }
+            }
+            catch
+            {
+                isUp = false;
+            }
+
+            return isUp;
+        }
 
     }
 }

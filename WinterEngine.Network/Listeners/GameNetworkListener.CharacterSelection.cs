@@ -38,7 +38,7 @@ namespace WinterEngine.Network.Listeners
                     characterList = repo.GetCharactersByUsername(username);
                 }
 
-                CharacterSelectionPacket resultPacket = new CharacterSelectionPacket
+                CharacterSelectionPacket responsePacket = new CharacterSelectionPacket
                 {
                     ServerAnnouncement = ServerDetails.ServerAnnouncement,
                     ServerName = ServerDetails.ServerName,
@@ -46,7 +46,7 @@ namespace WinterEngine.Network.Listeners
                     CanDeleteCharacters = ServerDetails.IsCharacterDeletionEnabled
                 };
 
-                Agent.SendPacket(resultPacket, packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);
+                Agent.SendPacket(responsePacket, packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);
             }
         }
 
