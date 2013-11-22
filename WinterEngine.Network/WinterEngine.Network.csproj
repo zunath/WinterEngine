@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clients\GameNetworkClient.cs" />
-    <Compile Include="Clients\MasterServerClient.cs" />
     <Compile Include="Configuration\GameServerConfiguration.cs" />
     <Compile Include="Configuration\MasterServerConfiguration.cs" />
     <Compile Include="Listeners\GameNetworkListener.CharacterSelection.cs" />

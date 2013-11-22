@@ -20,80 +20,22 @@ using WinterEngine.Network.Listeners;
 using Xceed.Wpf.Toolkit;
 using WinterEngine.DataTransferObjects.GameObjects;
 using WinterEngine.DataAccess.FileAccess;
+using System.Threading.Tasks;
 
 namespace WinterEngine.Server
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        #region Fields
-
-        private bool _isRunning;
-        private OpenFileDialog _openFile;
-        private List<ContentPackage> _contentPackages;
-        private BackgroundWorker _masterServerThread;
-        private BackgroundWorker _gameListenerThread;
-        private BindingList<string> _connectedUsernames;
-
-        #endregion
-
         #region Properties
 
-        /// <summary>
-        /// Gets or sets whether the game server and master client are running.
-        /// </summary>
-        private bool IsRunning
-        {
-            get { return _isRunning; }
-            set { _isRunning = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the thread responsible for managing the master server client.
-        /// </summary>
-        private BackgroundWorker MasterServerThread
-        {
-            get { return _masterServerThread; }
-            set { _masterServerThread = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the thread responsible for managing the game listener.
-        /// </summary>
-        private BackgroundWorker GameListenerThread
-        {
-            get { return _gameListenerThread; }
-            set { _gameListenerThread = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the open file dialog.
-        /// </summary>
-        private OpenFileDialog OpenFile
-        {
-            get { return _openFile; }
-            set { _openFile = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the list of content packages used by the active module.
-        /// </summary>
-        private List<ContentPackage> ContentPackageList
-        {
-            get { return _contentPackages; }
-            set { _contentPackages = value; }
-        }
-
-        /// <summary>
-        /// Gets the usernames currently connected to the server.
-        /// </summary>
-        protected BindingList<string> ConnectedUsernames
-        {
-            get { return _connectedUsernames; }
-            set { _connectedUsernames = value; }
-        }
+        private bool IsRunning { get; set; }
+        private WebServiceClientUtility WebUtility { get; set; }
+        private OpenFileDialog OpenFile { get; set; }
+        private List<ContentPackage> ContentPackageList { get; set; }
+        protected BindingList<string> ConnectedUsernames { get; set; }
+        private DispatcherTimer MasterServerDispatcherTimer { get; set; }
+        private DispatcherTimer GameServerDispatcherTimer { get; set; }
+        private GameNetworkListener GameServerListener { get; set; }
 
         #endregion
 
@@ -116,17 +58,19 @@ namespace WinterEngine.Server
         /// <param name="e"></param>
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            GameListenerThread = new BackgroundWorker();
-            GameListenerThread.WorkerSupportsCancellation = true;
-            GameListenerThread.WorkerReportsProgress = false;
-            GameListenerThread.DoWork += GameServerThread_DoWork;
-            GameListenerThread.RunWorkerCompleted += GameListenerThread_RunWorkerCompleted;
+            WebUtility = new WebServiceClientUtility();
 
-            MasterServerThread = new BackgroundWorker();
-            MasterServerThread.WorkerSupportsCancellation = true;
-            MasterServerThread.WorkerReportsProgress = false;
-            MasterServerThread.DoWork += MasterServerThread_DoWork;
-            MasterServerThread.RunWorkerCompleted += MasterServerThread_RunWorkerCompleted;
+            MasterServerDispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 30),
+                DispatcherPriority.Normal,
+                new EventHandler(SendServerDetailsToMasterServer),
+                Dispatcher.CurrentDispatcher);
+            MasterServerDispatcherTimer.Stop();
+
+            GameServerDispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 5),
+                DispatcherPriority.Normal,
+                new EventHandler(ProcessGameServer),
+                Dispatcher.CurrentDispatcher);
+            GameServerDispatcherTimer.Stop();
 
             OpenFile = new OpenFileDialog();
             InitializeOpenFileDialog();
@@ -141,27 +85,6 @@ namespace WinterEngine.Server
             listBoxPlayers.ItemsSource = ConnectedUsernames;
 
             UpdateExternalIPAddress();
-
-            /*
-            using (PlayerCharacterRepository repo = new PlayerCharacterRepository())
-            {
-                UserProfile profile = new UserProfile
-                {
-                    UserName = "z"
-                };
-
-                PlayerCharacter character = new PlayerCharacter
-                {
-                    Age = 22,
-                    Biography = "test bio",
-                    FirstName = "Zunath",
-                    LastName = "Zintuachi",
-                    IsGameMaster = false
-                };
-
-                repo.SerializePlayerCharacterFile(character, profile);
-            }
-            */
         }
 
         /// <summary>
@@ -195,40 +118,35 @@ namespace WinterEngine.Server
             {
                 ToggleServerStatusMode(false);
                 buttonStartStop.Content = "Start Server";
+                GameServerListener.OnLogMessage -= gameServer_OnLogMessageReceived;
+                GameServerListener.Shutdown();
+
+                GameServerDispatcherTimer.Stop();
+                MasterServerDispatcherTimer.Stop();
+
+                textBoxServerStatus.Text = "Not started...";
             }
             else
             {
+                WinterServer serverDetails = BuildServerDetails();
                 ToggleServerStatusMode(true);
-
-                if (!GameListenerThread.IsBusy)
-                {
-                    GameListenerThread.RunWorkerAsync(BuildServerDetails());
-                }
-
-                if (!MasterServerThread.IsBusy)
-                {
-                    MasterServerThread.RunWorkerAsync(BuildServerDetails());
-                }
-
                 buttonStartStop.Content = "Shutdown";
+                SendServerDetailsAsync(serverDetails);
+                GameServerListener = new GameNetworkListener(serverDetails.ServerPort, ContentPackageList);
+                GameServerListener.OnLogMessage += gameServer_OnLogMessageReceived;
+
+                GameServerDispatcherTimer.Start();
+                MasterServerDispatcherTimer.Start();
+
+                textBoxServerStatus.Text = "Running...";
             }
         }
 
-        /// <summary>
-        /// Handles banning a user's account from this server.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void buttonBanAccount_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        /// <summary>
-        /// Handles booting a user from this server.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void buttonBootPlayer_Click(object sender, RoutedEventArgs e)
         {
 
@@ -238,9 +156,6 @@ namespace WinterEngine.Server
 
         #region Methods
 
-        /// <summary>
-        /// Initializes the OpenFile components
-        /// </summary>
         private void InitializeOpenFileDialog()
         {
             FileExtensionFactory fileExtensionFactory = new FileExtensionFactory();
@@ -253,11 +168,6 @@ namespace WinterEngine.Server
             OpenFile.FileOk += LoadModule;
         }
 
-        /// <summary>
-        /// Loads the selected file's data into the window.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void LoadModule(object sender, CancelEventArgs e)
         {
             string path = OpenFile.FileName;
@@ -272,10 +182,6 @@ namespace WinterEngine.Server
             }
         }
 
-        /// <summary>
-        /// Toggles whether the server is currently running, enabling or disabling the controls as necessary.
-        /// </summary>
-        /// <param name="serverStarted">Set to true if the server is started. Set to false if the server is stopped.</param>
         private void ToggleServerStatusMode(bool serverStarted)
         {
             IsRunning = serverStarted;
@@ -287,22 +193,16 @@ namespace WinterEngine.Server
             buttonBootPlayer.IsEnabled = serverStarted;
         }
 
-        /// <summary>
-        /// Handles updating the external IP address content on a separate thread.
-        /// </summary>
-        private void UpdateExternalIPAddress()
+        private async void UpdateExternalIPAddress()
         {
-            BackgroundWorker ipAddressCheckerWorker = new BackgroundWorker();
-            ipAddressCheckerWorker.DoWork += delegate
+            string externalIPAddress = "";
+            await Task.Factory.StartNew(() =>
             {
                 WebServiceClientUtility netUtility = new WebServiceClientUtility();
+                externalIPAddress = netUtility.GetExternalIPAddress();
+            });
 
-                string externalIPAddress = netUtility.GetExternalIPAddress();
-                labelIPAddress.Dispatcher.Invoke(DispatcherPriority.Normal,
-                    new Action(() => { labelIPAddress.Content = externalIPAddress; }));
-
-            };
-            ipAddressCheckerWorker.RunWorkerAsync();
+            labelIPAddress.Content = externalIPAddress;
         }
 
 
@@ -312,29 +212,29 @@ namespace WinterEngine.Server
         /// <returns></returns>
         private WinterServer BuildServerDetails()
         {
-            if (Object.ReferenceEquals(listBoxGameType.SelectedItem, null))
+            if(listBoxGameType.SelectedItem == null)
             {
                 listBoxGameType.SelectedIndex = 0;
             }
 
-            if (Object.ReferenceEquals(comboBoxPVPType.SelectedItem, null))
+            if(comboBoxPVPType.SelectedItem == null)
             {
                 comboBoxPVPType.SelectedIndex = 0;
             }
 
             WinterServer server = new WinterServer
-                    {
-                        ServerName = textBoxServerName.Text,
-                        ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value),
-                        ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value),
-                        ServerPort = (ushort)numericPort.Value,
-                        ServerDescription = textBoxDescription.Text,
-                        ServerAnnouncement = textBoxAnnouncement.Text,
-                        GameTypeID = (GameTypeEnum)listBoxGameType.SelectedItem,
-                        PVPTypeID = (PVPTypeEnum)comboBoxPVPType.SelectedItem,
-                        IsAutoDownloadEnabled = (bool)checkBoxAllowFileAutoDownload.IsChecked,
-                        IsCharacterDeletionEnabled = (bool)checkBoxAllowCharacterDeletion.IsChecked
-                    };
+            {
+                ServerName = textBoxServerName.Text,
+                ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value),
+                ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value),
+                ServerPort = (ushort)numericPort.Value,
+                ServerDescription = textBoxDescription.Text,
+                ServerAnnouncement = textBoxAnnouncement.Text,
+                GameTypeID = (GameTypeEnum)listBoxGameType.SelectedItem,
+                PVPTypeID = (PVPTypeEnum)comboBoxPVPType.SelectedItem,
+                IsAutoDownloadEnabled = (bool)checkBoxAllowFileAutoDownload.IsChecked,
+                IsCharacterDeletionEnabled = (bool)checkBoxAllowCharacterDeletion.IsChecked
+            };
 
             return server;
         }
@@ -404,42 +304,16 @@ namespace WinterEngine.Server
 
         #endregion
 
-        #region Game server thread
+        #region Game server methods
 
-        private void GameServerThread_DoWork(object sender, DoWorkEventArgs e)
+        private void ProcessGameServer(object sender, EventArgs e)
         {
-            try
+            if (IsRunning)
             {
-                WinterServer serverCopy = e.Argument as WinterServer;
-                GameNetworkListener gameServer = new GameNetworkListener(serverCopy.ServerPort, ContentPackageList);
-                gameServer.OnLogMessage += gameServer_OnLogMessageReceived;
+                GameServerListener.Process(BuildServerDetails());
 
-                while (IsRunning)
-                {
-                    this.Dispatcher.Invoke(DispatcherPriority.Normal,
-                        new Action(() => { serverCopy = BuildServerDetails(); }));
-
-                    gameServer.Process(serverCopy);
-
-                    this.Dispatcher.Invoke(DispatcherPriority.Normal,
-                        new Action(() => { UpdateUsersList(gameServer.ConnectedUsernames); }));
-                }
-
-                gameServer.Shutdown();
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        private void GameListenerThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ConnectedUsernames.Clear();
-
-            if (!Object.ReferenceEquals(e.Error, null))
-            {
-                throw e.Error;
+                this.Dispatcher.Invoke(DispatcherPriority.Normal,
+                    new Action(() => { UpdateUsersList(GameServerListener.ConnectedUsernames); }));
             }
         }
 
@@ -451,37 +325,23 @@ namespace WinterEngine.Server
 
         #endregion
 
-        #region Master client thread
+        #region Master client methods
 
-        private void MasterServerThread_DoWork(object sender, DoWorkEventArgs e)
+        private void SendServerDetailsToMasterServer(object sender, EventArgs e)
         {
-            try
+            if (IsRunning)
             {
-                MasterServerClient masterClient = new MasterServerClient();
-                WinterServer serverCopy = e.Argument as WinterServer;
-
-                while (IsRunning)
-                {
-                    this.Dispatcher.Invoke(DispatcherPriority.Normal,
-                        new Action(() => { serverCopy = BuildServerDetails(); }));
-                    masterClient.Process(serverCopy);
-
-                }
-            }
-            catch
-            {
-                throw;
+                WebUtility.SendServerDetails(BuildServerDetails());
             }
         }
 
-        private void MasterServerThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private async void SendServerDetailsAsync(WinterServer serverDetails)
         {
-            if (!Object.ReferenceEquals(e.Error, null))
+            await Task.Factory.StartNew(() =>
             {
-                throw e.Error;
-            }
+                WebUtility.SendServerDetails(serverDetails);
+            });
         }
-
 
         #endregion
     }

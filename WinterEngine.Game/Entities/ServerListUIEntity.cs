@@ -325,13 +325,16 @@ namespace WinterEngine.Game.Entities
         /// <param name="packet"></param>
         private void ProcessContentPackageListPacket(ContentPackageListPacket packet)
         {
-            foreach (string fileName in packet.FileNames)
+            if (packet.FileNames != null)
             {
-                string filePath = DirectoryPaths.ContentPackageDirectoryPath + fileName;
-
-                if (!File.Exists(filePath))
+                foreach (string fileName in packet.FileNames)
                 {
-                    MissingFiles.Add(fileName);
+                    string filePath = DirectoryPaths.ContentPackageDirectoryPath + fileName;
+
+                    if (!File.Exists(filePath))
+                    {
+                        MissingFiles.Add(fileName);
+                    }
                 }
             }
 

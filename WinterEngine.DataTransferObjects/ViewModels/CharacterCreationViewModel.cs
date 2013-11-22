@@ -14,7 +14,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public int PortraitID { get; set; }
         public int GenderID { get; set; }
         public int CharacterClassID { get; set; }
-        public List<Race> Races { get; set; }
-        public List<Gender> Genders { get; set; }
+        public List<Race> RaceList { get; set; }
+        public List<Gender> GenderList { get; set; }
     }
 }

@@ -20,50 +20,20 @@ namespace WinterEngine.Network.Listeners
     {
         #region Fields
 
-        private NetworkAgent _agent;
-        private List<PacketBase> _incomingPackets;
-        private FileExtensionFactory _fileExtensionFactory;
-        private WinterServer _serverDetails;
         private Dictionary<NetConnection, string> _connectionUsernames;
 
         #endregion
 
         #region Properties
 
-        /// <summary>
-        /// Gets or sets the network agent.
-        /// </summary>
-        private NetworkAgent Agent
-        {
-            get { return _agent; }
-            set { _agent = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the list of incoming packets that need to be processed by the listener.
-        /// </summary>
-        private List<PacketBase> IncomingPackets
-        {
-            get { return _incomingPackets; }
-            set { _incomingPackets = value; }
-        }
-
-        /// <summary>
-        /// The file extension factory used for file streaming.
-        /// </summary>
-        private FileExtensionFactory FileExtensionFactory
-        {
-            get { return _fileExtensionFactory; }
-        }
+        private NetworkAgent Agent { get; set; }
+        private List<PacketBase> IncomingPackets { get; set; }
+        private FileExtensionFactory FileExtensionFactory { get; set; }
 
         /// <summary>
         /// Gets or sets the server information object.
         /// </summary>
-        private WinterServer ServerDetails
-        {
-            get { return _serverDetails; }
-            set { _serverDetails = value; }
-        }
+        private WinterServer ServerDetails { get; set; }
 
         /// <summary>
         /// Gets or sets the dictionary containing the link between clients' NetConnections and their usernames.
@@ -113,13 +83,17 @@ namespace WinterEngine.Network.Listeners
 
             _contentPackageNames = new List<string>();
             _contentPackagePaths = new List<string>();
-            foreach (ContentPackage package in contentPackages)
+
+            if (contentPackages != null)
             {
-                _contentPackageNames.Add(package.FileName);
-                _contentPackagePaths.Add(DirectoryPaths.ContentPackageDirectoryPath + package.FileName);
+                foreach (ContentPackage package in contentPackages)
+                {
+                    _contentPackageNames.Add(package.FileName);
+                    _contentPackagePaths.Add(DirectoryPaths.ContentPackageDirectoryPath + package.FileName);
+                }
             }
 
-            _fileExtensionFactory = new FileExtensionFactory();
+            FileExtensionFactory = new FileExtensionFactory();
             _fileTransferClients = new Dictionary<NetConnection, FileTransferProgress>();
         }
 
@@ -151,8 +125,6 @@ namespace WinterEngine.Network.Listeners
             }
 
             StreamFilesToClients();
-
-            Thread.Sleep(5);
         }
 
         /// <summary>

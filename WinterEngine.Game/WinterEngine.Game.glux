@@ -640,7 +640,7 @@
     <RecordLockContention>false</RecordLockContention>
   </GlobalContentSettingsSave>
   <SyncedProjects />
-  <StartUpScreen>Screens\CharacterCreationScreen</StartUpScreen>
+  <StartUpScreen>Screens\MainMenuScreen</StartUpScreen>
   <In2D>false</In2D>
   <SetResolution>false</SetResolution>
   <ResolutionWidth>800</ResolutionWidth>
