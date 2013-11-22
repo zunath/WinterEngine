@@ -105,6 +105,7 @@
     <Compile Include="Enumerations\GenderTypeEnum.cs" />
     <Compile Include="Enumerations\ModuleRebuildModeEnum.cs" />
     <Compile Include="Enumerations\PacketRequestTypeEnum.cs" />
+    <Compile Include="Enumerations\ServerStatusEnum.cs" />
     <Compile Include="Enumerations\UserProfileResponseTypeEnum.cs" />
     <Compile Include="Enumerations\WebServiceMethodTypeEnum.cs" />
     <Compile Include="EventArgsExtended\ConnectionStatusEventArgs.cs" />

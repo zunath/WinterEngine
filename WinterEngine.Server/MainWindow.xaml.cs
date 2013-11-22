@@ -28,7 +28,7 @@ namespace WinterEngine.Server
     {
         #region Properties
 
-        private bool IsRunning { get; set; }
+        private ServerStatusEnum ServerStatus { get; set; }
         private WebServiceClientUtility WebUtility { get; set; }
         private OpenFileDialog OpenFile { get; set; }
         private List<ContentPackage> ContentPackageList { get; set; }
@@ -59,6 +59,7 @@ namespace WinterEngine.Server
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             WebUtility = new WebServiceClientUtility();
+            ServerStatus = ServerStatusEnum.Stopped;
 
             MasterServerDispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 30),
                 DispatcherPriority.Normal,
@@ -114,7 +115,7 @@ namespace WinterEngine.Server
         /// <param name="e"></param>
         private void buttonStartStop_Click(object sender, RoutedEventArgs e)
         {
-            if (IsRunning)
+            if (ServerStatus == ServerStatusEnum.Running)
             {
                 ToggleServerStatusMode(false);
                 buttonStartStop.Content = "Start Server";
@@ -126,7 +127,7 @@ namespace WinterEngine.Server
 
                 textBoxServerStatus.Text = "Not started...";
             }
-            else
+            else if(ServerStatus == ServerStatusEnum.Stopped)
             {
                 StartServer();
             }
@@ -150,6 +151,7 @@ namespace WinterEngine.Server
         {
             bool success = false;
             textBoxServerStatus.Text = "Starting server...";
+            ServerStatus = ServerStatusEnum.Starting;
 
             await Task.Factory.StartNew(() => 
             {
@@ -159,7 +161,6 @@ namespace WinterEngine.Server
             if (success)
             {
                 WinterServer serverDetails = BuildServerDetails();
-                ToggleServerStatusMode(true);
                 buttonStartStop.Content = "Shutdown";
                 SendServerDetailsAsync(serverDetails);
                 GameServerListener = new GameNetworkListener(serverDetails.ServerPort, ContentPackageList);
@@ -168,6 +169,7 @@ namespace WinterEngine.Server
                 GameServerDispatcherTimer.Start();
                 MasterServerDispatcherTimer.Start();
                 textBoxServerStatus.Text = "Running...";
+                ToggleServerStatusMode(true);
             }
             else
             {
@@ -203,7 +205,15 @@ namespace WinterEngine.Server
 
         private void ToggleServerStatusMode(bool serverStarted)
         {
-            IsRunning = serverStarted;
+            if (serverStarted)
+            {
+                ServerStatus = ServerStatusEnum.Running;
+            }
+            else
+            {
+                ServerStatus = ServerStatusEnum.Stopped;
+            }
+
             buttonBrowse.IsEnabled = !serverStarted;
             numericPort.IsEnabled = !serverStarted;
 
@@ -327,7 +337,7 @@ namespace WinterEngine.Server
 
         private void ProcessGameServer(object sender, EventArgs e)
         {
-            if (IsRunning)
+            if (ServerStatus == ServerStatusEnum.Running)
             {
                 GameServerListener.Process(BuildServerDetails());
 
@@ -348,7 +358,7 @@ namespace WinterEngine.Server
 
         private void SendServerDetailsToMasterServer(object sender, EventArgs e)
         {
-            if (IsRunning)
+            if (ServerStatus == ServerStatusEnum.Running)
             {
                 WebUtility.SendServerDetails(BuildServerDetails());
             }
