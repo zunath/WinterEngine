@@ -151,29 +151,22 @@ namespace WinterEngine.Server
             bool success = false;
             textBoxServerStatus.Text = "Starting server...";
 
-            await Task.Factory.StartNew(() =>
+            await Task.Factory.StartNew(() => 
             {
-                if (WebUtility.IsMasterServerAlive())
-                {
-                    WinterServer serverDetails = BuildServerDetails();
-                    ToggleServerStatusMode(true);
-                    buttonStartStop.Content = "Shutdown";
-                    SendServerDetailsAsync(serverDetails);
-                    GameServerListener = new GameNetworkListener(serverDetails.ServerPort, ContentPackageList);
-                    GameServerListener.OnLogMessage += gameServer_OnLogMessageReceived;
-
-                    GameServerDispatcherTimer.Start();
-                    MasterServerDispatcherTimer.Start();
-                    success = true;
-                }
-                else
-                {
-                    success = false;
-                }
+                success = WebUtility.IsMasterServerAlive();
             });
 
             if (success)
             {
+                WinterServer serverDetails = BuildServerDetails();
+                ToggleServerStatusMode(true);
+                buttonStartStop.Content = "Shutdown";
+                SendServerDetailsAsync(serverDetails);
+                GameServerListener = new GameNetworkListener(serverDetails.ServerPort, ContentPackageList);
+                GameServerListener.OnLogMessage += gameServer_OnLogMessageReceived;
+
+                GameServerDispatcherTimer.Start();
+                MasterServerDispatcherTimer.Start();
                 textBoxServerStatus.Text = "Running...";
             }
             else
