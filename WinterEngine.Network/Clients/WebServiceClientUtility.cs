@@ -9,6 +9,11 @@ using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.Library.Utility;
 using WinterEngine.Network.Configuration;
 using WinterEngine.DataTransferObjects.Enums;
+using WinterEngine.DataTransferObjects.XMLObjects;
+using Newtonsoft.Json;
+using WinterEngine.DataTransferObjects.ViewModels;
+using WinterEngine.DataTransferObjects.Packets;
+using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.Network.Clients
 {
@@ -114,13 +119,35 @@ namespace WinterEngine.Network.Clients
         /// tracks the active server list.
         /// </summary>
         /// <param name="details">The server details to send to the master server.</param>
-        public string SendServerDetails(WinterServer details)
+        public string SendServerDetails(ServerViewModel viewModel)
         {
             try
             {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string jsonObject = serializer.Serialize(details);
-                return SendJsonRequest("UpdateServerDetails", WebServiceMethodTypeEnum.Server, jsonObject);
+                bool isActive = false;
+                if (viewModel.ServerStatus == ServerStatusEnum.Running ||
+                   viewModel.ServerStatus == ServerStatusEnum.Starting)
+                {
+                    isActive = true;
+                }
+
+                MasterServerStatusPacket packet = new MasterServerStatusPacket
+                {
+                    GameTypeID = (byte)viewModel.ServerSettings.GameType,
+                    IsAutoDownloadEnabled = viewModel.ServerSettings.AllowFileAutoDownload,
+                    IsCharacterDeletionEnabled = viewModel.ServerSettings.AllowCharacterDeletion,
+                    PVPTypeID = (byte)viewModel.ServerSettings.PVPSetting,
+                    ServerCurrentPlayers = viewModel.ConnectedUsernames.Count(),
+                    ServerDescription = viewModel.ServerSettings.Description,
+                    ServerIPAddress = viewModel.ServerIPAddress,
+                    ServerMaxLevel = viewModel.ServerSettings.MaxLevel,
+                    ServerMaxPlayers = viewModel.ServerSettings.MaxPlayers,
+                    ServerName = viewModel.ServerSettings.Name,
+                    ServerPort = viewModel.ServerSettings.PortNumber,
+                    IsActive = isActive
+                };
+
+                string json = JsonConvert.SerializeObject(packet);
+                return SendJsonRequest("UpdateServerDetails", WebServiceMethodTypeEnum.Server, json);
             }
             catch
             {

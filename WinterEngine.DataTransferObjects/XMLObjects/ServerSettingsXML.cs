@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 using WinterEngine.DataTransferObjects.Enumerations;
 
 namespace WinterEngine.DataTransferObjects.XMLObjects
@@ -12,9 +14,9 @@ namespace WinterEngine.DataTransferObjects.XMLObjects
         #region Fields
 
         private int _portNumber;
-        private string _serverName;
-        private string _serverDescription;
-        private string _serverAnnouncement;
+        private string _name;
+        private string _description;
+        private string _announcement;
         private int _maxLevel;
         private int _maxPlayers;
         private PVPTypeEnum _pvpSetting;
@@ -42,41 +44,42 @@ namespace WinterEngine.DataTransferObjects.XMLObjects
             }
         }
 
-        public string ServerName 
+        public string Name 
         {
             get
             {
-                return _serverName;
+                return _name;
             }
             set
             {
-                _serverName = value;
-                OnPropertyChanged("ServerName");
+                _name = value;
+                OnPropertyChanged("Name");
             }
         }
 
-        public string ServerDescription 
+        public string Description 
         {
             get
             {
-                return _serverDescription;
+                return _description;
             }
             set
             {
-                _serverDescription = value;
-                OnPropertyChanged("ServerDescription");
+                _description = value;
+                OnPropertyChanged("Description");
             }
         }
-        public string ServerAnnouncement 
+        [JsonIgnore]
+        public string Announcement 
         {
             get
             {
-                return _serverAnnouncement;
+                return _announcement;
             }
             set
             {
-                _serverAnnouncement = value;
-                OnPropertyChanged("ServerAnnouncement");
+                _announcement = value;
+                OnPropertyChanged("Announcement");
             }
         }
         public int MaxLevel 
@@ -152,6 +155,7 @@ namespace WinterEngine.DataTransferObjects.XMLObjects
                 OnPropertyChanged("AllowFileAutoDownload");
             }
         }
+        [JsonIgnore]
         public string PlayerPassword 
         {
             get
@@ -164,6 +168,7 @@ namespace WinterEngine.DataTransferObjects.XMLObjects
                 OnPropertyChanged("PlayerPassword");
             }
         }
+        [JsonIgnore]
         public string GMPassword 
         {
             get
@@ -176,8 +181,9 @@ namespace WinterEngine.DataTransferObjects.XMLObjects
                 OnPropertyChanged("GMPassword");
             }
         }
+        [JsonIgnore]
         public BindingList<string> BannedUserAccounts { get; set; }
-        
+
         #endregion
 
         #region Events / Delegates
@@ -191,9 +197,9 @@ namespace WinterEngine.DataTransferObjects.XMLObjects
         public ServerSettingsXML()
         {
             this.PortNumber = 0;
-            this.ServerName = "";
-            this.ServerDescription = "";
-            this.ServerAnnouncement = "";
+            this.Name = "";
+            this.Description = "";
+            this.Announcement = "";
             this.MaxLevel = 0;
             this.MaxPlayers = 0;
             this.PVPSetting = PVPTypeEnum.None;

@@ -96,7 +96,7 @@
                              VerticalAlignment="Top" 
                              Width="227" 
                              MaxLength="32" 
-                             Text="{Binding ServerSettings.ServerName}"
+                             Text="{Binding ServerSettings.Name}"
                              Grid.Column="1" />
                     <Label Content="IP Address:" 
                            HorizontalAlignment="Left" 
@@ -300,14 +300,14 @@
                              TextWrapping="Wrap" 
                              VerticalAlignment="Stretch" 
                              Margin="0,42,0,157" 
-                             Text="{Binding ServerSettings.ServerDescription}"
+                             Text="{Binding ServerSettings.Description}"
                              MaxLength="255"/>
                     <TextBox x:Name="textBoxAnnouncement"
                              HorizontalAlignment="Stretch" 
                              TextWrapping="Wrap" 
                              VerticalAlignment="Stretch" 
                              Margin="0,199,0,0" 
-                             Text="{Binding ServerSettings.ServerAnnouncement}"
+                             Text="{Binding ServerSettings.Announcement}"
                              MaxLength="255" />
                     <Label Content="Server Description:" 
                            HorizontalAlignment="Left" 
@@ -354,12 +354,10 @@
             </TabItem>
             <TabItem Header="Log">
                 <ScrollViewer>
-                    <TextBlock Name="txtLog" 
-                               TextWrapping="Wrap" 
-                               Text="" 
-                               HorizontalAlignment="Stretch" 
-                               VerticalAlignment="Stretch"
-                               IsEnabled="False"/>
+                    <ListBox Name="listBoxLog" 
+                             HorizontalAlignment="Stretch" 
+                             VerticalAlignment="Stretch"
+                             ItemsSource="{Binding LogMessages}"/>
                 </ScrollViewer>
             </TabItem>
         </TabControl>

@@ -30,9 +30,9 @@ namespace WinterEngine.Network.Listeners
         {
             List<PlayerCharacter> characterList = new List<PlayerCharacter>();
 
-            if (ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
+            if (Model.ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
             {
-                string username = ConnectionUsernamesDictionary[packet.SenderConnection];
+                string username = Model.ConnectionUsernamesDictionary[packet.SenderConnection];
                 using (PlayerCharacterFileAccess repo = new PlayerCharacterFileAccess())
                 {
                     characterList = repo.GetCharactersByUsername(username);
@@ -40,10 +40,10 @@ namespace WinterEngine.Network.Listeners
 
                 CharacterSelectionPacket responsePacket = new CharacterSelectionPacket
                 {
-                    ServerAnnouncement = ServerDetails.ServerAnnouncement,
-                    ServerName = ServerDetails.ServerName,
+                    ServerAnnouncement = Model.ServerAnnouncement,
+                    ServerName = Model.ServerName,
                     CharacterList = characterList,
-                    CanDeleteCharacters = ServerDetails.IsCharacterDeletionEnabled
+                    CanDeleteCharacters = Model.IsCharacterDeletionEnabled
                 };
 
                 Agent.SendPacket(responsePacket, packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);
@@ -58,9 +58,9 @@ namespace WinterEngine.Network.Listeners
         {
             DeleteCharacterTypeEnum responseType = DeleteCharacterTypeEnum.Denied;
 
-            if (ServerDetails.IsCharacterDeletionEnabled)
+            if (Model.IsCharacterDeletionEnabled)
             {
-                string filePath = DirectoryPaths.CharacterVaultDirectoryPath + ConnectionUsernamesDictionary[packet.SenderConnection] + "/" + packet.FileName;
+                string filePath = DirectoryPaths.CharacterVaultDirectoryPath + Model.ConnectionUsernamesDictionary[packet.SenderConnection] + "/" + packet.FileName;
 
                 using(PlayerCharacterFileAccess repo = new PlayerCharacterFileAccess())
                 {

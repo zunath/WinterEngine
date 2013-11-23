@@ -51,6 +51,12 @@ namespace WinterEngine.Server
 
         #endregion
 
+        #region Events / Delegates
+
+        public event EventHandler<GameNetworkListenerProcessEventArgs> OnProcessingCycleStart;
+
+        #endregion
+
         #region Event Handling
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
@@ -98,18 +104,19 @@ namespace WinterEngine.Server
             labelIPAddress.DataContext = ViewModel;
             textBoxServerStatus.DataContext = ViewModel;
             textBoxModuleFileName.DataContext = ViewModel;
+            listBoxLog.DataContext = ViewModel;
         }
 
         private void BindGameServerEvents()
         {
-            GameServerListener.OnPlayerListChanged += PlayerListChanged;
-            GameServerListener.OnLogMessage += gameServer_OnLogMessageReceived;
+            this.OnProcessingCycleStart += GameServerListener.ProcessCycleBegin;
+            GameServerListener.OnProcessingCycleComplete += this.GameServerCycleCompleted;
         }
 
         private void UnbindGameServerEvents()
         {
-            GameServerListener.OnPlayerListChanged -= PlayerListChanged;
-            GameServerListener.OnLogMessage -= gameServer_OnLogMessageReceived;
+            this.OnProcessingCycleStart -= GameServerListener.ProcessCycleBegin;
+            GameServerListener.OnProcessingCycleComplete -= this.GameServerCycleCompleted;
         }
 
 
@@ -126,14 +133,7 @@ namespace WinterEngine.Server
         {
             if (ViewModel.ServerStatus == ServerStatusEnum.Running)
             {
-                ToggleServerStatusMode(false);
-                buttonStartStop.Content = "Start Server";
-                GameServerListener.Shutdown();
-
-                GameServerDispatcherTimer.Stop();
-                MasterServerDispatcherTimer.Stop();
-
-                ViewModel.ServerStatusMessage = "Not started...";
+                StopServer();
             }
             else if(ViewModel.ServerStatus == ServerStatusEnum.Stopped)
             {
@@ -173,10 +173,9 @@ namespace WinterEngine.Server
 
             if (success)
             {
-                WinterServer serverDetails = BuildWinterServerDetails();
                 buttonStartStop.Content = "Shutdown";
-                SendServerDetailsAsync(serverDetails);
-                GameServerListener = new GameNetworkListener(serverDetails.ServerPort, ViewModel.ContentPackageList);
+                SendServerDetailsAsync();
+                GameServerListener = new GameNetworkListener(ViewModel.ServerSettings.PortNumber, ViewModel.ContentPackageList);
                 BindGameServerEvents();
 
                 GameServerDispatcherTimer.Start();
@@ -188,6 +187,19 @@ namespace WinterEngine.Server
             {
                 ViewModel.ServerStatusMessage = "Unable to connect to master server...";
             }
+        }
+
+        private void StopServer()
+        {
+            ToggleServerStatusMode(false);
+            buttonStartStop.Content = "Start Server";
+            GameServerListener.Shutdown();
+
+            GameServerDispatcherTimer.Stop();
+            MasterServerDispatcherTimer.Stop();
+            SendServerDetailsAsync();
+
+            ViewModel.ServerStatusMessage = "Not started...";
         }
 
         private void InitializeOpenFileDialog()
@@ -249,45 +261,6 @@ namespace WinterEngine.Server
             ViewModel.ServerIPAddress = externalIPAddress;
         }
 
-        private WinterServer BuildWinterServerDetails()
-        {
-            if(listBoxGameType.SelectedItem == null)
-            {
-                listBoxGameType.SelectedIndex = 0;
-            }
-
-            if(comboBoxPVPType.SelectedItem == null)
-            {
-                comboBoxPVPType.SelectedIndex = 0;
-            }
-
-            WinterServer server = new WinterServer
-            {
-                ServerName = ViewModel.ServerSettings.ServerName,
-                ServerMaxLevel = (byte)ViewModel.ServerSettings.MaxLevel,
-                ServerMaxPlayers = (byte)ViewModel.ServerSettings.MaxPlayers,
-                ServerPort = (ushort)ViewModel.ServerSettings.PortNumber,
-                ServerDescription = ViewModel.ServerSettings.ServerDescription,
-                ServerAnnouncement = ViewModel.ServerSettings.ServerAnnouncement,
-                GameTypeID = ViewModel.ServerSettings.GameType,
-                PVPTypeID = ViewModel.ServerSettings.PVPSetting,
-                IsAutoDownloadEnabled = ViewModel.ServerSettings.AllowFileAutoDownload,
-                IsCharacterDeletionEnabled = ViewModel.ServerSettings.AllowCharacterDeletion,
-                QueuedServerMessage = ViewModel.QueuedServerMessage,
-                BanUserList = ViewModel.QueuedBanUserList,
-                BootUserList = ViewModel.QueuedBootUserList
-            };
-
-            this.Dispatcher.Invoke(DispatcherPriority.Normal, 
-                new Action(() => 
-                {
-                    ViewModel.QueuedServerMessage = "";
-                    ViewModel.QueuedBanUserList.Clear();
-                    ViewModel.QueuedBootUserList.Clear();
-                }));
-            return server;
-        }
-
         private void LoadSettings()
         {
             if (File.Exists(FilePaths.ServerSettingsPath))
@@ -330,26 +303,48 @@ namespace WinterEngine.Server
         {
             if (ViewModel.ServerStatus == ServerStatusEnum.Running)
             {
-                GameServerListener.Process(BuildWinterServerDetails());
+                if (OnProcessingCycleStart != null)
+                {
+                    // Send data from server application to game network thread.
+                    GameNetworkListenerProcessEventArgs updatedDataEventArgs = new GameNetworkListenerProcessEventArgs
+                    {
+                        BanUserList = ViewModel.QueuedBanUserList,
+                        BootUserList = ViewModel.QueuedBootUserList,
+                        ServerMessage = ViewModel.ServerMessage,
+                        ServerAnnouncement = ViewModel.ServerSettings.Announcement,
+                    };
+
+                    OnProcessingCycleStart(this, updatedDataEventArgs);
+                }
+
+                GameServerListener.Process();
             }
         }
 
-        private void gameServer_OnLogMessageReceived(object sender, NetworkLogMessageEventArgs e)
+        private void GameServerCycleCompleted(object sender, GameNetworkListenerProcessEventArgs e)
         {
-            this.Dispatcher.Invoke(DispatcherPriority.Normal,
-                new Action(() => { txtLog.Text += e.Message + "\n"; }));
+            RefreshLogMessages(e.LogMessages);
+            RefreshPlayerList(e.PlayerList);
         }
 
-        private void PlayerListChanged(object sender, UsernameListEventArgs e)
+        private void RefreshLogMessages(List<string> messages)
+        {
+            foreach (string message in messages)
+            {
+                ViewModel.LogMessages.Insert(0, "(" + DateTime.Now + ") " + message);
+            }
+        }
+
+        private void RefreshPlayerList(List<string> updatedUsernames)
         {
             // Usernames to remove
-            List<string> usernames = ViewModel.ConnectedUsernames.Where(x => !e.Usernames.Contains(x)).ToList();
+            List<string> usernames = ViewModel.ConnectedUsernames.Where(x => !updatedUsernames.Contains(x)).ToList();
             foreach (string username in usernames)
             {
                 ViewModel.ConnectedUsernames.Remove(username);
             }
             // Usernames to add
-            usernames = e.Usernames.Where(x => !ViewModel.ConnectedUsernames.Contains(x)).ToList();
+            usernames = updatedUsernames.Where(x => !ViewModel.ConnectedUsernames.Contains(x)).ToList();
 
             foreach (string username in usernames)
             {
@@ -365,15 +360,15 @@ namespace WinterEngine.Server
         {
             if (ViewModel.ServerStatus == ServerStatusEnum.Running)
             {
-                WebUtility.SendServerDetails(BuildWinterServerDetails());
+                WebUtility.SendServerDetails(ViewModel);
             }
         }
 
-        private async void SendServerDetailsAsync(WinterServer serverDetails)
+        private async void SendServerDetailsAsync()
         {
             await TaskEx.Run(() =>
             {
-                WebUtility.SendServerDetails(serverDetails);
+                WebUtility.SendServerDetails(ViewModel);
             });
         }
 

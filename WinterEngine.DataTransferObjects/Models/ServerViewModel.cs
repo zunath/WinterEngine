@@ -68,7 +68,6 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public string QueuedServerMessage { get; set; }
         public List<string> QueuedBootUserList { get; set; }
         public List<string> QueuedBanUserList { get; set; }
-
         public string ModuleFileName 
         {
             get
@@ -117,6 +116,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
                 OnPropertyChanged("ServerIPAddress");
             }
         }
+        public BindingList<string> LogMessages { get; set; }
 
         #region Constructors
         public ServerViewModel()
@@ -133,6 +133,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             this.BlackListUserName = "";
             this.ServerStatusMessage = "Stopped...";
             this.ServerIPAddress = "Checking...";
+            this.LogMessages = new BindingList<string>();
         }
 
         #endregion

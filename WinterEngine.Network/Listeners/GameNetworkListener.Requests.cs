@@ -26,7 +26,7 @@ namespace WinterEngine.Network.Listeners
         /// <param name="packet"></param>
         private void ProcessRequest(RequestPacket packet)
         {
-            RaiseOnLogMessageEvent("Request Packet received: " + packet.RequestType);
+            Model.LogMessages.Add("Request Packet recieved: " + packet.RequestType);
 
             switch (packet.RequestType)
             {

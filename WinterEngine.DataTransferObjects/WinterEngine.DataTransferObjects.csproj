@@ -109,6 +109,7 @@
     <Compile Include="Enumerations\UserProfileResponseTypeEnum.cs" />
     <Compile Include="Enumerations\WebServiceMethodTypeEnum.cs" />
     <Compile Include="EventArgsExtended\ConnectionStatusEventArgs.cs" />
+    <Compile Include="EventArgsExtended\GameNetworkListenerProcessEventArgs.cs" />
     <Compile Include="EventArgsExtended\ObjectModeChangedEventArgs.cs" />
     <Compile Include="EventArgsExtended\PacketReceivedEventArgs.cs" />
     <Compile Include="EventArgsExtended\PositionEventArgs.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="EventArgsExtended\TilesetSelectionEventArgs.cs" />
     <Compile Include="EventArgsExtended\UsernameListEventArgs.cs" />
     <Compile Include="GameObjects\Tileset.cs" />
+    <Compile Include="Models\GameNetworkListenerModel.cs" />
     <Compile Include="Packets\BanUserPacket.cs" />
     <Compile Include="Packets\BootUserPacket.cs" />
     <Compile Include="Packets\CharacterCreationPacket.cs" />
@@ -123,6 +125,7 @@
     <Compile Include="Packets\ContentPackageListPacket.cs" />
     <Compile Include="Packets\DeleteCharacterPacket.cs" />
     <Compile Include="Packets\FileRequestPacket.cs" />
+    <Compile Include="Packets\MasterServerStatusPacket.cs" />
     <Compile Include="Packets\PacketBase.cs" />
     <Compile Include="Packets\RequestPacket.cs" />
     <Compile Include="Packets\ServerMessagePacket.cs" />
@@ -134,15 +137,14 @@
     <Compile Include="Resources\Gender.cs" />
     <Compile Include="Resources\TileCollisionBox.cs" />
     <Compile Include="UIObjects\DropDownListUIObject.cs" />
-    <Compile Include="ViewModels\CharacterCreationViewModel.cs" />
-    <Compile Include="ViewModels\CharacterSelectionViewModel.cs" />
-    <Compile Include="ViewModels\ServerViewModel.cs" />
+    <Compile Include="Models\CharacterCreationViewModel.cs" />
+    <Compile Include="Models\CharacterSelectionViewModel.cs" />
+    <Compile Include="Models\ServerViewModel.cs" />
     <Compile Include="XMLObjects\ContentPackageResourceXML.cs" />
     <Compile Include="BusinessObjects\JSTreeNode.cs" />
     <Compile Include="BusinessObjects\Location.cs" />
     <Compile Include="BusinessObjects\LoginCredentials.cs" />
     <Compile Include="BusinessObjects\UserProfile.cs" />
-    <Compile Include="BusinessObjects\WinterServer.cs" />
     <Compile Include="Enumerations\DeleteCharacterTypeEnum.cs" />
     <Compile Include="Enumerations\ErrorTypeEnum.cs" />
     <Compile Include="Enumerations\FileStreamerStatusEnum.cs" />
@@ -182,7 +184,7 @@
     <Compile Include="GameObjects\PlayerCharacter.cs" />
     <Compile Include="GameObjects\Script.cs" />
     <Compile Include="XMLObjects\ContentPackageXML.cs" />
-    <Compile Include="ViewModels\ToolsetViewModel.cs" />
+    <Compile Include="Models\ToolsetViewModel.cs" />
     <Compile Include="XMLObjects\ServerSettingsXML.cs" />
   </ItemGroup>
   <ItemGroup>

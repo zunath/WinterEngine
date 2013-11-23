@@ -13,6 +13,7 @@ using WinterEngine.DataTransferObjects.Paths;
 using WinterEngine.Network.Configuration;
 using WinterEngine.DataTransferObjects.Enums;
 using WinterEngine.DataTransferObjects.Packets;
+using WinterEngine.DataTransferObjects.Models;
 
 namespace WinterEngine.Network.Listeners
 {
@@ -29,37 +30,8 @@ namespace WinterEngine.Network.Listeners
         private NetworkAgent Agent { get; set; }
         private List<PacketBase> IncomingPackets { get; set; }
         private FileExtensionFactory FileExtensionFactory { get; set; }
-
-        /// <summary>
-        /// Gets or sets the server information object.
-        /// </summary>
-        private WinterServer ServerDetails { get; set; }
-
-        /// <summary>
-        /// Gets or sets the dictionary containing the link between clients' NetConnections and their usernames.
-        /// </summary>
-        private Dictionary<NetConnection, string> ConnectionUsernamesDictionary
-        {
-            get 
-            {
-                if (_connectionUsernames == null)
-                {
-                    _connectionUsernames = new Dictionary<NetConnection, string>();
-                }
-
-                return _connectionUsernames; 
-            }
-            set { _connectionUsernames = value; }
-        }
-
-        /// <summary>
-        /// Gets the list of usernames currently connected to the server.
-        /// </summary>
-        public List<string> ConnectedUsernames
-        {
-            get { return ConnectionUsernamesDictionary.Values.ToList(); }
-        }
-
+        private GameNetworkListenerModel Model { get; set; }
+        
         #endregion
 
         #region Constructors
@@ -95,6 +67,7 @@ namespace WinterEngine.Network.Listeners
 
             FileExtensionFactory = new FileExtensionFactory();
             _fileTransferClients = new Dictionary<NetConnection, FileTransferProgress>();
+            Model = new GameNetworkListenerModel();
         }
 
 
@@ -102,8 +75,7 @@ namespace WinterEngine.Network.Listeners
 
         #region Events / Delegates
 
-        public event EventHandler<NetworkLogMessageEventArgs> OnLogMessage;
-        public event EventHandler<UsernameListEventArgs> OnPlayerListChanged;
+        public event EventHandler<GameNetworkListenerProcessEventArgs> OnProcessingCycleComplete;
         
         #endregion
 
@@ -112,16 +84,10 @@ namespace WinterEngine.Network.Listeners
         public void Shutdown()
         {
             Agent.Shutdown();
-
-            if (OnPlayerListChanged != null)
-            {
-                OnPlayerListChanged(this, new UsernameListEventArgs(ConnectedUsernames));
-            }
         }
 
-        public void Process(WinterServer serverDetails)
+        public void Process()
         {
-            ServerDetails = serverDetails;
             // Checks for messages and processes them.
             IncomingPackets = Agent.CheckForPackets();
 
@@ -131,53 +97,64 @@ namespace WinterEngine.Network.Listeners
             }
 
             StreamFilesToClients();
-            SendServerMessage(serverDetails.QueuedServerMessage);
-            BanUsers(serverDetails.BanUserList);
-            BootUsers(serverDetails.BootUserList);
+            SendServerMessage();
+            BanUsers();
+            BootUsers();
+
+            RaiseOnProcessingCycleCompleteEvent();
+            CleanUpCycleData();
         }
 
-        private void SendServerMessage(string message)
+        public void ProcessCycleBegin(object sender, GameNetworkListenerProcessEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(message))
+            Model.QueuedBanUsersList = e.BanUserList;
+            Model.QueuedBootUsersList = e.BootUserList;
+            Model.QueuedServerMessage = e.ServerMessage;
+            Model.ServerAnnouncement = e.ServerAnnouncement;
+        }
+
+        private void CleanUpCycleData()
+        {
+            Model.LogMessages.Clear();
+            Model.QueuedBanUsersList.Clear();
+            Model.QueuedBootUsersList.Clear();
+            Model.QueuedServerMessage = "";
+        }
+
+        private void SendServerMessage()
+        {
+            if (!string.IsNullOrWhiteSpace(Model.QueuedServerMessage))
             {
-                ServerMessagePacket packet = new ServerMessagePacket(message);
+                ServerMessagePacket packet = new ServerMessagePacket(Model.QueuedServerMessage);
 
                 foreach (NetConnection user in Agent.Connections)
                 {
                     Agent.SendPacket(packet, user, NetDeliveryMethod.ReliableUnordered);
                 }
+
+                Model.QueuedServerMessage = string.Empty;
             }
         }
 
-        private void BanUsers(List<string> usernames)
+        private void BanUsers()
         {
-            if (usernames != null && usernames.Count > 0)
+            if (Model.QueuedBanUsersList != null && Model.QueuedBanUsersList.Count > 0)
             {
-                foreach (string userName in usernames)
+                foreach (string userName in Model.QueuedBanUsersList)
                 {
-                    NetConnection connection = (NetConnection)ConnectionUsernamesDictionary.Where(x => x.Value == userName);
+                    NetConnection connection = (NetConnection)Model.ConnectionUsernamesDictionary.Where(x => x.Value == userName);
 
-                }
-
-                if (OnPlayerListChanged != null)
-                {
-                    OnPlayerListChanged(this, new UsernameListEventArgs(ConnectedUsernames));
                 }
             }
         }
 
-        private void BootUsers(List<string> usernames)
+        private void BootUsers()
         {
-            if (usernames != null && usernames.Count > 0)
+            if (Model.QueuedBootUsersList != null && Model.QueuedBootUsersList.Count > 0)
             {
-                foreach (string userName in usernames)
+                foreach (string userName in Model.QueuedBootUsersList)
                 {
-                    NetConnection connection = (NetConnection)ConnectionUsernamesDictionary.Where(x => x.Value == userName);
-                }
-
-                if (OnPlayerListChanged != null)
-                {
-                    OnPlayerListChanged(this, new UsernameListEventArgs(ConnectedUsernames));
+                    NetConnection connection = (NetConnection)Model.ConnectionUsernamesDictionary.Where(x => x.Value == userName);
                 }
             }
         }
@@ -211,19 +188,24 @@ namespace WinterEngine.Network.Listeners
             }
         }
 
-        private void RaiseOnLogMessageEvent(string message)
+        private void RaiseOnProcessingCycleCompleteEvent()
         {
-            if (!Object.ReferenceEquals(OnLogMessage, null))
+            if (OnProcessingCycleComplete != null)
             {
-                NetworkLogMessageEventArgs e = new NetworkLogMessageEventArgs { Message = message };
-                OnLogMessage(this, e);
+                GameNetworkListenerProcessEventArgs e = new GameNetworkListenerProcessEventArgs
+                {
+                    PlayerList = Model.ConnectedUsernames,
+                    LogMessages = Model.LogMessages
+                };
+
+                OnProcessingCycleComplete(this, e);
             }
         }
 
         private void Agent_OnConnectionEstablished(object sender, ConnectionStatusEventArgs e)
         {
             SendContentPackageList(e.Connection);
-            RaiseOnLogMessageEvent("Connection established: " + e.Connection.RemoteEndPoint.Address + ":" + e.Connection.RemoteEndPoint.Port);
+            Model.LogMessages.Add("Connection established: " + e.Connection.RemoteEndPoint.Address + ":" + e.Connection.RemoteEndPoint.Port);
 
             // Send a request for the user's username.
             RequestPacket packet = new RequestPacket(PacketRequestTypeEnum.Username);
@@ -232,24 +214,14 @@ namespace WinterEngine.Network.Listeners
 
         private void Agent_OnDisconnected(object sender, ConnectionStatusEventArgs e)
         {
-            ConnectionUsernamesDictionary.Remove(e.Connection);
-
-            if (OnPlayerListChanged != null)
-            {
-                OnPlayerListChanged(this, new UsernameListEventArgs(ConnectedUsernames));
-            }
+            Model.ConnectionUsernamesDictionary.Remove(e.Connection);
         }
 
         private void ProcessUsernamePacket(UsernamePacket packet)
         {
-            if(!ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
+            if (!Model.ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
             {
-                ConnectionUsernamesDictionary.Add(packet.SenderConnection, packet.Username);
-
-                if (OnPlayerListChanged != null)
-                {
-                    OnPlayerListChanged(this, new UsernameListEventArgs(ConnectedUsernames));
-                }
+                Model.ConnectionUsernamesDictionary.Add(packet.SenderConnection, packet.Username);
             }
         }
 
