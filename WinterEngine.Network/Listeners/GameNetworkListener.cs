@@ -98,7 +98,6 @@ namespace WinterEngine.Network.Listeners
 
             StreamFilesToClients();
             SendServerMessage();
-            BanUsers();
             BootUsers();
 
             RaiseOnProcessingCycleCompleteEvent();
@@ -107,7 +106,7 @@ namespace WinterEngine.Network.Listeners
 
         public void ProcessCycleBegin(object sender, GameNetworkListenerProcessEventArgs e)
         {
-            Model.QueuedBanUsersList = e.BanUserList;
+            Model.BannedUsersList = e.BanUserList;
             Model.QueuedBootUsersList = e.BootUserList;
             Model.QueuedServerMessage = e.ServerMessage;
             Model.ServerAnnouncement = e.ServerAnnouncement;
@@ -116,7 +115,6 @@ namespace WinterEngine.Network.Listeners
         private void CleanUpCycleData()
         {
             Model.LogMessages.Clear();
-            Model.QueuedBanUsersList.Clear();
             Model.QueuedBootUsersList.Clear();
             Model.QueuedServerMessage = "";
         }
@@ -135,26 +133,24 @@ namespace WinterEngine.Network.Listeners
                 Model.QueuedServerMessage = string.Empty;
             }
         }
-
-        private void BanUsers()
-        {
-            if (Model.QueuedBanUsersList != null && Model.QueuedBanUsersList.Count > 0)
-            {
-                foreach (string userName in Model.QueuedBanUsersList)
-                {
-                    NetConnection connection = (NetConnection)Model.ConnectionUsernamesDictionary.Where(x => x.Value == userName);
-
-                }
-            }
-        }
-
+        
         private void BootUsers()
         {
+            // Any users logged in that are on the ban list will automatically be booted.
+            Model.QueuedBootUsersList.AddRange((from username
+                                                in Model.BannedUsersList
+                                                where Model.ConnectionUsernamesDictionary.ContainsValue(username)
+                                                select username).ToList());
+
             if (Model.QueuedBootUsersList != null && Model.QueuedBootUsersList.Count > 0)
             {
                 foreach (string userName in Model.QueuedBootUsersList)
                 {
-                    NetConnection connection = (NetConnection)Model.ConnectionUsernamesDictionary.Where(x => x.Value == userName);
+                    NetConnection connection = Model.ConnectionUsernamesDictionary.SingleOrDefault(x => x.Value == userName).Key;
+                    if (connection != null)
+                    {
+                        connection.Disconnect("You have been booted.");
+                    }
                 }
             }
         }
@@ -206,6 +202,8 @@ namespace WinterEngine.Network.Listeners
         {
             SendContentPackageList(e.Connection);
             Model.LogMessages.Add("Connection established: " + e.Connection.RemoteEndPoint.Address + ":" + e.Connection.RemoteEndPoint.Port);
+
+            // TODO: Check master server for player's user name, based on IP address
 
             // Send a request for the user's username.
             RequestPacket packet = new RequestPacket(PacketRequestTypeEnum.Username);

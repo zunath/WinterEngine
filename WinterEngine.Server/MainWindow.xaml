@@ -78,7 +78,7 @@
                              VerticalAlignment="Top" 
                              Width="300" MaxLength="254" 
                              IsEnabled="False" 
-                             Text="{Binding ServerMessage}"
+                             Text=""
                              Grid.Column="1"/>
                     <Button x:Name="buttonSendMessage" 
                             Content="Send Message" 
@@ -331,6 +331,7 @@
                              Margin="10,10,0,0" 
                              VerticalAlignment="Top" 
                              ItemsSource="{Binding ServerSettings.BannedUserAccounts}"
+                             SelectionMode="Extended"
                              Width="492"/>
                     <TextBox Name="textBoxBlacklistUsername" 
                              HorizontalAlignment="Left"
@@ -344,12 +345,13 @@
                             HorizontalAlignment="Left"
                             Margin="394,292,0,0" 
                             VerticalAlignment="Top" 
-                            Width="108"/>
-                    <Button Content="Remove Selected" 
+                            Width="108" Click="buttonAddToBlacklist_Click"/>
+                    <Button Name="buttonRemoveSelectedBlacklist"
+                            Content="Remove Selected" 
                             HorizontalAlignment="Left" 
                             Margin="394,266,0,0"
                             VerticalAlignment="Top" 
-                            Width="108"/>
+                            Width="108" Click="buttonRemoveSelectedBlacklist_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Log">

@@ -10,7 +10,7 @@ namespace WinterEngine.DataTransferObjects.Models
     public class GameNetworkListenerModel
     {
         public List<string> LogMessages { get; set; }
-        public List<string> QueuedBanUsersList { get; set; }
+        public List<string> BannedUsersList { get; set; }
         public List<string> QueuedBootUsersList { get; set; }
         public string QueuedServerMessage { get; set; }
         public List<PacketBase> IncomingPackets { get; set; }
@@ -26,7 +26,7 @@ namespace WinterEngine.DataTransferObjects.Models
         public GameNetworkListenerModel()
         {
             this.LogMessages = new List<string>();
-            this.QueuedBanUsersList = new List<string>();
+            this.BannedUsersList = new List<string>();
             this.QueuedBootUsersList = new List<string>();
             this.QueuedServerMessage = "";
             this.IncomingPackets = new List<PacketBase>();

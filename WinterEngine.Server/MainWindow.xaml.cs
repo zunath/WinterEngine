@@ -2,30 +2,23 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using System.Xml;
-using System.Xml.Serialization;
-using System.Linq.Expressions;
-using System.Linq;
 using Microsoft.Win32;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
-using WinterEngine.DataTransferObjects;
-using WinterEngine.DataTransferObjects.BusinessObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Paths;
+using WinterEngine.DataTransferObjects.ViewModels;
 using WinterEngine.DataTransferObjects.XMLObjects;
 using WinterEngine.Library.Managers;
+using WinterEngine.Library.Utility;
 using WinterEngine.Network.Clients;
-using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Listeners;
 using Xceed.Wpf.Toolkit;
-using WinterEngine.DataTransferObjects.ViewModels;
-using WinterEngine.Library.Utility;
 
 namespace WinterEngine.Server
 {
@@ -105,6 +98,7 @@ namespace WinterEngine.Server
             textBoxServerStatus.DataContext = ViewModel;
             textBoxModuleFileName.DataContext = ViewModel;
             listBoxLog.DataContext = ViewModel;
+            textBoxBlacklistUsername.DataContext = ViewModel;
         }
 
         private void BindGameServerEvents()
@@ -127,6 +121,8 @@ namespace WinterEngine.Server
 
         private void buttonSendMessage_Click(object sender, RoutedEventArgs e)
         {
+            ViewModel.ServerMessage = textBoxServerMessage.Text;
+            textBoxServerMessage.Text = "";
         }
 
         private void buttonStartStop_Click(object sender, RoutedEventArgs e)
@@ -148,12 +144,23 @@ namespace WinterEngine.Server
 
         private void buttonBanAccount_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.QueuedBanUserList = (List<string>)listBoxPlayers.SelectedItems;
+            List<string> newBannedUsers = listBoxPlayers.SelectedItems.OfType<string>().ToList();
+            ViewModel.QueuedBootUserList.AddRange(newBannedUsers);
+
+            foreach (string username in newBannedUsers)
+            {
+                if(!ViewModel.ServerSettings.BannedUserAccounts.Contains(username))
+                {
+                    ViewModel.ServerSettings.BannedUserAccounts.Add(username);
+                }
+            }
+
+            XMLUtility.SerializeObjectToFile<ServerSettingsXML>(ViewModel.ServerSettings, FilePaths.ServerSettingsPath);
         }
 
         private void buttonBootPlayer_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.QueuedBootUserList = (List<string>)listBoxPlayers.SelectedItems;
+            ViewModel.QueuedBootUserList.AddRange(listBoxPlayers.SelectedItems.OfType<string>().ToList());
         }
 
         #endregion
@@ -163,6 +170,7 @@ namespace WinterEngine.Server
         private async void StartServerAsync()
         {
             bool success = false;
+            ViewModel.LogMessages.Insert(0, "Starting server..");
             ViewModel.ServerStatusMessage = "Starting server...";
             ViewModel.ServerStatus = ServerStatusEnum.Starting;
 
@@ -182,6 +190,7 @@ namespace WinterEngine.Server
                 MasterServerDispatcherTimer.Start();
                 ViewModel.ServerStatusMessage = "Running...";
                 ToggleServerStatusMode(true);
+                ViewModel.LogMessages.Insert(0, "Server started up successfully! Running...");
             }
             else
             {
@@ -200,6 +209,7 @@ namespace WinterEngine.Server
             SendServerDetailsAsync();
 
             ViewModel.ServerStatusMessage = "Not started...";
+            ViewModel.LogMessages.Insert(0, "Server stopped.");
         }
 
         private void InitializeOpenFileDialog()
@@ -308,7 +318,7 @@ namespace WinterEngine.Server
                     // Send data from server application to game network thread.
                     GameNetworkListenerProcessEventArgs updatedDataEventArgs = new GameNetworkListenerProcessEventArgs
                     {
-                        BanUserList = ViewModel.QueuedBanUserList,
+                        BanUserList = ViewModel.ServerSettings.BannedUserAccounts.ToList(),
                         BootUserList = ViewModel.QueuedBootUserList,
                         ServerMessage = ViewModel.ServerMessage,
                         ServerAnnouncement = ViewModel.ServerSettings.Announcement,
@@ -352,6 +362,35 @@ namespace WinterEngine.Server
             }
         }
 
+        private void buttonAddToBlacklist_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(ViewModel.BlackListUserName))
+            {
+                if (!ViewModel.ServerSettings.BannedUserAccounts.Contains(ViewModel.BlackListUserName))
+                {
+                    ViewModel.ServerSettings.BannedUserAccounts.Add(ViewModel.BlackListUserName);
+                    XMLUtility.SerializeObjectToFile<ServerSettingsXML>(ViewModel.ServerSettings, FilePaths.ServerSettingsPath);
+                }
+            }
+            ViewModel.BlackListUserName = "";
+        }
+
+        private void buttonRemoveSelectedBlacklist_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBoxBlacklist.SelectedItems != null && listBoxBlacklist.SelectedItems.Count > 0)
+            {
+                List<string> itemsToRemove = listBoxBlacklist.SelectedItems.OfType<string>().ToList();
+
+                foreach (string username in itemsToRemove)
+                {
+                    ViewModel.ServerSettings.BannedUserAccounts.Remove(username);
+                }
+
+                XMLUtility.SerializeObjectToFile<ServerSettingsXML>(ViewModel.ServerSettings, FilePaths.ServerSettingsPath);
+            }
+
+        }
+
         #endregion
 
         #region Master client methods
@@ -373,5 +412,6 @@ namespace WinterEngine.Server
         }
 
         #endregion
+
     }
 }

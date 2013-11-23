@@ -67,7 +67,6 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         }
         public string QueuedServerMessage { get; set; }
         public List<string> QueuedBootUserList { get; set; }
-        public List<string> QueuedBanUserList { get; set; }
         public string ModuleFileName 
         {
             get
@@ -126,10 +125,9 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             this.ContentPackageList = new List<ContentPackage>();
             this.QueuedServerMessage = "";
             this.QueuedBootUserList = new List<string>();
-            this.QueuedBanUserList = new List<string>();
             this.ConnectedUsernames = new BindingList<string>();
             this.ServerMessage = "";
-            this.ModuleFileName = "";
+            this.ModuleFileName = "Select a module...";
             this.BlackListUserName = "";
             this.ServerStatusMessage = "Stopped...";
             this.ServerIPAddress = "Checking...";
