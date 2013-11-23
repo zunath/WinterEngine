@@ -97,6 +97,7 @@ namespace WinterEngine.Server
             listBoxBlacklist.DataContext = ViewModel;
             labelIPAddress.DataContext = ViewModel;
             textBoxServerStatus.DataContext = ViewModel;
+            textBoxModuleFileName.DataContext = ViewModel;
         }
 
         private void BindGameServerEvents()
@@ -246,7 +247,6 @@ namespace WinterEngine.Server
             });
 
             ViewModel.ServerIPAddress = externalIPAddress;
-            labelIPAddress.Content = ViewModel.ServerIPAddress;
         }
 
         private WinterServer BuildWinterServerDetails()
