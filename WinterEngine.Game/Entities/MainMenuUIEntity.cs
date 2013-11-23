@@ -95,7 +95,7 @@ namespace WinterEngine.Game.Entities
         {
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
-            EntityJavascriptObject.Bind("LoginButtonClick", false, LoginButtonClick);
+            EntityJavascriptObject.Bind("LoginButtonClick", false, LoginButtonClickAsync);
             EntityJavascriptObject.Bind("LogoutButtonClick", true, LogoutButtonClick);
             EntityJavascriptObject.Bind("FindServerButtonClick", false, FindServerButtonClick);
             EntityJavascriptObject.Bind("ToolsetButtonClick", false, ToolsetButtonClick);
@@ -104,8 +104,8 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("ForumsButtonClick", false, ForumsButtonClick);
             EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButtonClick);
 
-            EntityJavascriptObject.Bind("SaveUserProfileClick", false, SaveUserProfileClick);
-            EntityJavascriptObject.Bind("ResendAccountActivationEmail", false, ResendAccountActivationEmail);
+            EntityJavascriptObject.Bind("SaveUserProfileClick", false, SaveUserProfileClickAsync);
+            EntityJavascriptObject.Bind("ResendAccountActivationEmail", false, ResendAccountActivationEmailAsync);
         
             // User profile data binding
             EntityJavascriptObject.Bind("GetUserName", true, GetUserName);
@@ -137,7 +137,7 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private async void LoginButtonClick(object sender, JavascriptMethodEventArgs args)
+        private async void LoginButtonClickAsync(object sender, JavascriptMethodEventArgs args)
         {
             string username = args.Arguments[0];
             string password = args.Arguments[1];
@@ -233,7 +233,7 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private async void SaveUserProfileClick(object sender, JavascriptMethodEventArgs args)
+        private async void SaveUserProfileClickAsync(object sender, JavascriptMethodEventArgs args)
         {
             UserProfileResponseTypeEnum responseType = UserProfileResponseTypeEnum.Failure;
 
@@ -303,7 +303,7 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private async void ResendAccountActivationEmail(object sender, JavascriptMethodEventArgs args)
+        private async void ResendAccountActivationEmailAsync(object sender, JavascriptMethodEventArgs args)
         {
             await Task.Factory.StartNew(() => WebUtility.RequestActivationEmailResend(WinterEngineService.ActiveUserProfile.UserEmail));
         }

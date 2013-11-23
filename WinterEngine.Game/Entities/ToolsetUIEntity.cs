@@ -153,15 +153,15 @@ namespace WinterEngine.Game.Entities
 
             // File Menu Bindings
 
-            EntityJavascriptObject.Bind("NewModuleButtonClick", false, NewModuleButton);
-            EntityJavascriptObject.Bind("OpenModuleButtonClick", false, OpenModuleButton);
-            EntityJavascriptObject.Bind("CloseModuleButtonClick", false, CloseModuleButton);
+            EntityJavascriptObject.Bind("NewModuleButtonClick", false, NewModuleButtonAsync);
+            EntityJavascriptObject.Bind("OpenModuleButtonClick", false, OpenModuleButtonAsync);
+            EntityJavascriptObject.Bind("CloseModuleButtonClick", false, CloseModuleButtonAsync);
             EntityJavascriptObject.Bind("SaveModuleButtonClick", false, SaveModuleButton);
             EntityJavascriptObject.Bind("SaveAsModuleButtonClick", false, SaveAsModuleButton);
             EntityJavascriptObject.Bind("ExitButtonClick", false, ExitButton);
 
             // Edit Menu Bindings
-            EntityJavascriptObject.Bind("SaveModuleProperties", false, SaveModuleProperties);
+            EntityJavascriptObject.Bind("SaveModuleProperties", false, SaveModulePropertiesAsync);
 
             // Object Mode Bindings
             EntityJavascriptObject.Bind("ChangeObjectMode", false, ChangeObjectMode);
@@ -206,7 +206,7 @@ namespace WinterEngine.Game.Entities
 
         #region General Methods
 
-        private async void SaveModule()
+        private async void SaveModuleAsync()
         {
             await Task.Factory.StartNew(() =>
             {
@@ -218,7 +218,7 @@ namespace WinterEngine.Game.Entities
 
         #region UI Methods - File Menu Bindings
 
-        private async void NewModuleButton(object sender, JavascriptMethodEventArgs e)
+        private async void NewModuleButtonAsync(object sender, JavascriptMethodEventArgs e)
         {
             bool success = false;
 
@@ -234,7 +234,7 @@ namespace WinterEngine.Game.Entities
             AsyncJavascriptCallback("NewModuleBoxOKClick_Callback", success);
         }
 
-        private async void OpenModuleButton(object sender, JavascriptMethodEventArgs e)
+        private async void OpenModuleButtonAsync(object sender, JavascriptMethodEventArgs e)
         {
             try
             {
@@ -263,7 +263,7 @@ namespace WinterEngine.Game.Entities
             }
             else
             {
-                SaveModule();
+                SaveModuleAsync();
             }
         }
 
@@ -281,14 +281,14 @@ namespace WinterEngine.Game.Entities
             else
             {
                 ModuleManager.ModulePath = filePath;
-                SaveModule();
+                SaveModuleAsync();
                 response = SaveAsResponseTypeEnum.SaveSuccessful;
             }
 
             AsyncJavascriptCallback("SaveAsModuleButtonClick_Callback", (int)response, e.Arguments[0]);
         }
 
-        private async void CloseModuleButton(object sender, JavascriptMethodEventArgs e)
+        private async void CloseModuleButtonAsync(object sender, JavascriptMethodEventArgs e)
         {
             await Task.Factory.StartNew(() =>
             {
@@ -308,7 +308,7 @@ namespace WinterEngine.Game.Entities
 
         #region UI Methods - Edit Menu Bindings
 
-        private async void SaveModuleProperties(object sender, JavascriptMethodEventArgs e)
+        private async void SaveModulePropertiesAsync(object sender, JavascriptMethodEventArgs e)
         {
             try
             {

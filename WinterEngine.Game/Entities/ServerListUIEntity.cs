@@ -160,10 +160,10 @@ namespace WinterEngine.Game.Entities
         {
             AwesomiumWebView.DocumentReady -= OnDocumentReady;
 
-            EntityJavascriptObject.Bind("GetServerList", false, GetServerList);
-            EntityJavascriptObject.Bind("ConnectToServer", false, ConnectToServer);
+            EntityJavascriptObject.Bind("GetServerList", false, GetServerListAsync);
+            EntityJavascriptObject.Bind("ConnectToServer", false, ConnectToServerAsync);
             EntityJavascriptObject.Bind("GoToMainMenu", false, GoToMainMenu);
-            EntityJavascriptObject.Bind("CancelConnectToServer", false, CancelConnectToServer);
+            EntityJavascriptObject.Bind("CancelConnectToServer", false, CancelConnectToServerAsync);
 
             RunJavaScriptMethod("Initialize();");
         }
@@ -178,7 +178,7 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void GetServerList(object sender, JavascriptMethodEventArgs e)
+        private async void GetServerListAsync(object sender, JavascriptMethodEventArgs e)
         {
             string jsonServerList = "";
             await Task.Factory.StartNew(() =>
@@ -194,7 +194,7 @@ namespace WinterEngine.Game.Entities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void ConnectToServer(object sender, JavascriptMethodEventArgs e)
+        private async void ConnectToServerAsync(object sender, JavascriptMethodEventArgs e)
         {
             ConnectionAddress address = new ConnectionAddress
             {
@@ -208,7 +208,7 @@ namespace WinterEngine.Game.Entities
             });
         }
 
-        private async void CancelConnectToServer(object sender, JavascriptMethodEventArgs e)
+        private async void CancelConnectToServerAsync(object sender, JavascriptMethodEventArgs e)
         {
             await Task.Factory.StartNew(() =>
             {

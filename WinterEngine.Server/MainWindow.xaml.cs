@@ -73,7 +73,7 @@ namespace WinterEngine.Server
 
             SetViewModelBindings();
             LoadSettings();
-            UpdateExternalIPAddress();
+            UpdateExternalIPAddressAsync();
         }
 
         private void SetViewModelBindings()
@@ -122,7 +122,7 @@ namespace WinterEngine.Server
             }
             else if(ViewModel.ServerStatus == ServerStatusEnum.Stopped)
             {
-                StartServer();
+                StartServerAsync();
             }
         }
 
@@ -145,7 +145,7 @@ namespace WinterEngine.Server
 
         #region Methods
 
-        private async void StartServer()
+        private async void StartServerAsync()
         {
             bool success = false;
             ViewModel.ServerStatusMessage = "Starting server...";
@@ -223,7 +223,7 @@ namespace WinterEngine.Server
             buttonBootPlayer.IsEnabled = serverStarted;
         }
 
-        private async void UpdateExternalIPAddress()
+        private async void UpdateExternalIPAddressAsync()
         {
             string externalIPAddress = "";
             await Task.Factory.StartNew(() =>
