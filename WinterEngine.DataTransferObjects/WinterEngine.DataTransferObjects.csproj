@@ -135,6 +135,7 @@
     <Compile Include="UIObjects\DropDownListUIObject.cs" />
     <Compile Include="ViewModels\CharacterCreationViewModel.cs" />
     <Compile Include="ViewModels\CharacterSelectionViewModel.cs" />
+    <Compile Include="ViewModels\ServerViewModel.cs" />
     <Compile Include="XMLObjects\ContentPackageResourceXML.cs" />
     <Compile Include="BusinessObjects\JSTreeNode.cs" />
     <Compile Include="BusinessObjects\Location.cs" />

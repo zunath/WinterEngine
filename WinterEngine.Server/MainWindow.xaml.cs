@@ -23,6 +23,7 @@ using WinterEngine.Network.Clients;
 using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Listeners;
 using Xceed.Wpf.Toolkit;
+using WinterEngine.DataTransferObjects.ViewModels;
 
 namespace WinterEngine.Server
 {
@@ -30,18 +31,12 @@ namespace WinterEngine.Server
     {
         #region Properties
 
-        private ServerSettingsXML ServerSettings { get; set; }
-        private ServerStatusEnum ServerStatus { get; set; }
+        protected ServerViewModel ViewModel { get; set; }
         private WebServiceClientUtility WebUtility { get; set; }
         private OpenFileDialog OpenFile { get; set; }
-        private List<ContentPackage> ContentPackageList { get; set; }
-        protected BindingList<string> ConnectedUsernames { get; set; }
         private DispatcherTimer MasterServerDispatcherTimer { get; set; }
         private DispatcherTimer GameServerDispatcherTimer { get; set; }
         private GameNetworkListener GameServerListener { get; set; }
-        private string QueuedServerMessage { get; set; }
-        private List<string> QueuedBootUserList { get; set; }
-        private List<string> QueuedBanUserList { get; set; }
 
         #endregion
 
@@ -58,12 +53,9 @@ namespace WinterEngine.Server
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
+            ViewModel = new ServerViewModel();
             WebUtility = new WebServiceClientUtility();
-            QueuedBanUserList = new List<string>();
-            QueuedBootUserList = new List<string>();
-            ServerStatus = ServerStatusEnum.Stopped;
-            LoadSettings();
-
+            
             MasterServerDispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 30),
                 DispatcherPriority.Normal,
                 new EventHandler(SendServerDetailsToMasterServer),
@@ -79,10 +71,30 @@ namespace WinterEngine.Server
             OpenFile = new OpenFileDialog();
             InitializeOpenFileDialog();
 
-            ConnectedUsernames = new BindingList<string>();
-            listBoxPlayers.ItemsSource = ConnectedUsernames;
-
+            SetViewModelBindings();
+            LoadSettings();
             UpdateExternalIPAddress();
+        }
+
+        private void SetViewModelBindings()
+        {
+            textBoxServerName.DataContext = ViewModel;
+            numericPort.DataContext = ViewModel;
+            comboBoxPVPType.DataContext = ViewModel;
+            listBoxPlayers.DataContext = ViewModel;
+            listBoxGameType.DataContext = ViewModel;
+            numericMaxPlayers.DataContext = ViewModel;
+            numericMaxLevel.DataContext = ViewModel;
+            checkBoxAllowCharacterDeletion.DataContext = ViewModel;
+            checkBoxAllowFileAutoDownload.DataContext = ViewModel;
+            textBoxPlayerPassword.DataContext = ViewModel;
+            textBoxGMPassword.DataContext = ViewModel;
+            textBoxServerMessage.DataContext = ViewModel;
+            textBoxDescription.DataContext = ViewModel;
+            textBoxAnnouncement.DataContext = ViewModel;
+            listBoxBlacklist.DataContext = ViewModel;
+            textBoxServerStatus.DataContext = ViewModel;
+            labelIPAddress.DataContext = ViewModel;
         }
 
         private void buttonBrowse_Click(object sender, RoutedEventArgs e)
@@ -92,12 +104,11 @@ namespace WinterEngine.Server
 
         private void buttonSendMessage_Click(object sender, RoutedEventArgs e)
         {
-            QueuedServerMessage = textBoxServerMessage.Text;
         }
 
         private void buttonStartStop_Click(object sender, RoutedEventArgs e)
         {
-            if (ServerStatus == ServerStatusEnum.Running)
+            if (ViewModel.ServerStatus == ServerStatusEnum.Running)
             {
                 ToggleServerStatusMode(false);
                 buttonStartStop.Content = "Start Server";
@@ -107,9 +118,9 @@ namespace WinterEngine.Server
                 GameServerDispatcherTimer.Stop();
                 MasterServerDispatcherTimer.Stop();
 
-                textBoxServerStatus.Text = "Not started...";
+                ViewModel.ServerStatusMessage = "Not started...";
             }
-            else if(ServerStatus == ServerStatusEnum.Stopped)
+            else if(ViewModel.ServerStatus == ServerStatusEnum.Stopped)
             {
                 StartServer();
             }
@@ -117,33 +128,17 @@ namespace WinterEngine.Server
 
         private void buttonSaveSettings_Click(object sender, RoutedEventArgs e)
         {
-            ServerSettings.AllowCharacterDeletion = (bool)checkBoxAllowCharacterDeletion.IsChecked;
-            ServerSettings.AllowFileAutoDownload = (bool)checkBoxAllowFileAutoDownload.IsChecked;
-            ServerSettings.GMPassword = textBoxDMPassword.Text;
-            ServerSettings.MaxLevel = (int)numericMaxLevel.Value;
-            ServerSettings.MaxPlayers = (int)numericMaxPlayers.Value;
-            ServerSettings.PlayerPassword = textBoxPlayerPassword.Text;
-            ServerSettings.PortNumber = (int)numericPort.Value;
-            ServerSettings.PVPSetting = (PVPTypeEnum)comboBoxPVPType.SelectedValue;
-            ServerSettings.GameType = (GameTypeEnum)listBoxGameType.SelectedValue;
-            ServerSettings.ServerAnnouncement = textBoxAnnouncement.Text;
-            ServerSettings.ServerDescription = textBoxDescription.Text;
-            ServerSettings.ServerName = textBoxServerName.Text;
-
             SaveSettings();
         }
 
         private void buttonBanAccount_Click(object sender, RoutedEventArgs e)
         {
-            QueuedBanUserList = (List<string>)listBoxPlayers.SelectedItems;
-
-            
-
+            ViewModel.QueuedBanUserList = (List<string>)listBoxPlayers.SelectedItems;
         }
 
         private void buttonBootPlayer_Click(object sender, RoutedEventArgs e)
         {
-            QueuedBootUserList = (List<string>)listBoxPlayers.SelectedItems;
+            ViewModel.QueuedBootUserList = (List<string>)listBoxPlayers.SelectedItems;
         }
 
         #endregion
@@ -153,8 +148,8 @@ namespace WinterEngine.Server
         private async void StartServer()
         {
             bool success = false;
-            textBoxServerStatus.Text = "Starting server...";
-            ServerStatus = ServerStatusEnum.Starting;
+            ViewModel.ServerStatusMessage = "Starting server...";
+            ViewModel.ServerStatus = ServerStatusEnum.Starting;
 
             await Task.Factory.StartNew(() => 
             {
@@ -166,17 +161,17 @@ namespace WinterEngine.Server
                 WinterServer serverDetails = BuildServerDetails();
                 buttonStartStop.Content = "Shutdown";
                 SendServerDetailsAsync(serverDetails);
-                GameServerListener = new GameNetworkListener(serverDetails.ServerPort, ContentPackageList);
+                GameServerListener = new GameNetworkListener(serverDetails.ServerPort, ViewModel.ContentPackageList);
                 GameServerListener.OnLogMessage += gameServer_OnLogMessageReceived;
 
                 GameServerDispatcherTimer.Start();
                 MasterServerDispatcherTimer.Start();
-                textBoxServerStatus.Text = "Running...";
+                ViewModel.ServerStatusMessage = "Running...";
                 ToggleServerStatusMode(true);
             }
             else
             {
-                textBoxServerStatus.Text = "Unable to connect to master server...";
+                ViewModel.ServerStatusMessage = "Unable to connect to master server...";
             }
         }
 
@@ -195,14 +190,14 @@ namespace WinterEngine.Server
         private void LoadModule(object sender, CancelEventArgs e)
         {
             string path = OpenFile.FileName;
-            textBoxModuleFileName.Text = Path.GetFileNameWithoutExtension(path);
+            ViewModel.ModuleFileName = Path.GetFileNameWithoutExtension(path);
 
             ModuleManager manager = new ModuleManager();
             manager.OpenModule(path);
 
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
-                ContentPackageList = repo.GetAll();
+                ViewModel.ContentPackageList = repo.GetAll();
             }
 
             buttonStartStop.IsEnabled = true;
@@ -213,11 +208,11 @@ namespace WinterEngine.Server
         {
             if (serverStarted)
             {
-                ServerStatus = ServerStatusEnum.Running;
+                ViewModel.ServerStatus = ServerStatusEnum.Running;
             }
             else
             {
-                ServerStatus = ServerStatusEnum.Stopped;
+                ViewModel.ServerStatus = ServerStatusEnum.Stopped;
             }
 
             buttonBrowse.IsEnabled = !serverStarted;
@@ -237,7 +232,8 @@ namespace WinterEngine.Server
                 externalIPAddress = netUtility.GetExternalIPAddress();
             });
 
-            labelIPAddress.Content = externalIPAddress;
+            ViewModel.ServerIPAddress = externalIPAddress;
+            labelIPAddress.Content = ViewModel.ServerIPAddress;
         }
 
 
@@ -259,35 +255,36 @@ namespace WinterEngine.Server
 
             WinterServer server = new WinterServer
             {
-                ServerName = textBoxServerName.Text,
-                ServerMaxLevel = Convert.ToByte(numericMaxLevel.Value),
-                ServerMaxPlayers = Convert.ToByte(numericMaxPlayers.Value),
-                ServerPort = (ushort)numericPort.Value,
-                ServerDescription = textBoxDescription.Text,
-                ServerAnnouncement = textBoxAnnouncement.Text,
-                GameTypeID = (GameTypeEnum)listBoxGameType.SelectedItem,
-                PVPTypeID = (PVPTypeEnum)comboBoxPVPType.SelectedItem,
-                IsAutoDownloadEnabled = (bool)checkBoxAllowFileAutoDownload.IsChecked,
-                IsCharacterDeletionEnabled = (bool)checkBoxAllowCharacterDeletion.IsChecked,
-                QueuedServerMessage = this.QueuedServerMessage,
-                BanUserList = this.QueuedBanUserList,
-                BootUserList = this.QueuedBootUserList
+                ServerName = ViewModel.ServerSettings.ServerName,
+                ServerMaxLevel = (byte)ViewModel.ServerSettings.MaxLevel,
+                ServerMaxPlayers = (byte)ViewModel.ServerSettings.MaxPlayers,
+                ServerPort = (ushort)ViewModel.ServerSettings.PortNumber,
+                ServerDescription = ViewModel.ServerSettings.ServerDescription,
+                ServerAnnouncement = ViewModel.ServerSettings.ServerAnnouncement,
+                GameTypeID = ViewModel.ServerSettings.GameType,
+                PVPTypeID = ViewModel.ServerSettings.PVPSetting,
+                IsAutoDownloadEnabled = ViewModel.ServerSettings.AllowFileAutoDownload,
+                IsCharacterDeletionEnabled = ViewModel.ServerSettings.AllowCharacterDeletion,
+                QueuedServerMessage = ViewModel.QueuedServerMessage,
+                BanUserList = ViewModel.QueuedBanUserList,
+                BootUserList = ViewModel.QueuedBootUserList
             };
-            QueuedServerMessage = "";
+            ViewModel.QueuedServerMessage = "";
+            ViewModel.QueuedBanUserList.Clear();
+            ViewModel.QueuedBootUserList.Clear();
 
             return server;
         }
 
         private void LoadSettings()
         {
-            ServerSettings = new ServerSettingsXML();
             XmlSerializer serializer = new XmlSerializer(typeof(ServerSettingsXML));
 
             if (File.Exists(FilePaths.ServerSettingsPath))
             {
                 using (StreamReader reader = new StreamReader(FilePaths.ServerSettingsPath))
                 {
-                    ServerSettings = (ServerSettingsXML)serializer.Deserialize(reader);
+                    ViewModel.ServerSettings = (ServerSettingsXML)serializer.Deserialize(reader);
                 }
             }
             else
@@ -295,26 +292,6 @@ namespace WinterEngine.Server
                 // Create a file with initial values.
                 SaveSettings();
             }
-
-            textBoxServerName.Text = ServerSettings.ServerName;
-            numericMaxLevel.Text = Convert.ToString(ServerSettings.MaxLevel);
-            numericMaxLevel.Value = ServerSettings.MaxLevel;
-
-            numericMaxPlayers.Text = Convert.ToString(ServerSettings.MaxPlayers);
-            numericMaxPlayers.Value = ServerSettings.MaxPlayers;
-
-            numericPort.DefaultValue = ServerSettings.PortNumber;
-            numericPort.Value = ServerSettings.PortNumber;
-            numericPort.Text = Convert.ToString(ServerSettings.PortNumber);
-
-            textBoxDescription.Text = ServerSettings.ServerDescription;
-            textBoxAnnouncement.Text = ServerSettings.ServerAnnouncement;
-            comboBoxPVPType.SelectedValue = ServerSettings.PVPSetting;
-            listBoxGameType.SelectedValue = ServerSettings.GameType;
-            checkBoxAllowCharacterDeletion.IsChecked = ServerSettings.AllowCharacterDeletion;
-            checkBoxAllowFileAutoDownload.IsChecked = ServerSettings.AllowFileAutoDownload;
-            textBoxDMPassword.Text = ServerSettings.GMPassword;
-            textBoxPlayerPassword.Text = ServerSettings.PlayerPassword;
         }
 
         private void SaveSettings()
@@ -324,7 +301,7 @@ namespace WinterEngine.Server
                 XmlSerializer serializer = new XmlSerializer(typeof(ServerSettingsXML));
                 XmlWriterSettings settings = new XmlWriterSettings { Indent = true, Encoding = Encoding.ASCII };
                 XmlWriter writer = XmlWriter.Create(stringWriter, settings);
-                serializer.Serialize(writer, ServerSettings);
+                serializer.Serialize(writer, ViewModel.ServerSettings);
                 string xmlOutput = stringWriter.ToString();
 
                 File.WriteAllText(FilePaths.ServerSettingsPath, xmlOutput);
@@ -335,63 +312,27 @@ namespace WinterEngine.Server
 
         #region GUI Methods
 
-        /// <summary>
-        /// Defaults the text of the MaxPlayers numeric integer to the value of the control.
-        /// This is a workaround for a bug in the extended WPF controls.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SetDefaultValues_MaxPlayers(object sender, RoutedEventArgs e)
         {
             IntegerUpDown control = e.Source as IntegerUpDown;
             numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.Value);
         }
 
-        /// <summary>
-        /// Defaults the text of the MaxLevel numeric integer to the value of the control.
-        /// This is a workaround for a bug in the extended WPF controls.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SetDefaultValues_MaxLevel(object sender, RoutedEventArgs e)
         {
             IntegerUpDown control = e.Source as IntegerUpDown;
             numericMaxLevel.Text = Convert.ToString(numericMaxLevel.Value);
         }
 
-        /// <summary>
-        /// Defaults the text of the Port numeric integer to the value of the control.
-        /// This is a workaround for a bug in the extended WPF controls.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SetDefaultValues_Port(object sender, RoutedEventArgs e)
         {
             IntegerUpDown control = e.Source as IntegerUpDown;
             numericPort.Text = Convert.ToString(numericPort.Value);
         }
 
-        /// <summary>
-        /// Adds or removes usernames from the list of players.
-        /// </summary>
-        /// <param name="updatedUsernameList"></param>
         private void UpdateUsersList(List<string> updatedUsernameList)
         {
-            for (int index = ConnectedUsernames.Count - 1; index >= 0; index--)
-            {
-                if (!updatedUsernameList.Contains(ConnectedUsernames[index]))
-                {
-                    ConnectedUsernames.RemoveAt(index);
-                }
-            }
-
-            foreach (string username in updatedUsernameList)
-            {
-                if (!ConnectedUsernames.Contains(username))
-                {
-                    ConnectedUsernames.Add(username);
-                }
-            }
+            ViewModel.ConnectedUsernames = new BindingList<string>(updatedUsernameList);
         }
 
         #endregion
@@ -400,7 +341,7 @@ namespace WinterEngine.Server
 
         private void ProcessGameServer(object sender, EventArgs e)
         {
-            if (ServerStatus == ServerStatusEnum.Running)
+            if (ViewModel.ServerStatus == ServerStatusEnum.Running)
             {
                 GameServerListener.Process(BuildServerDetails());
 
@@ -421,7 +362,7 @@ namespace WinterEngine.Server
 
         private void SendServerDetailsToMasterServer(object sender, EventArgs e)
         {
-            if (ServerStatus == ServerStatusEnum.Running)
+            if (ViewModel.ServerStatus == ServerStatusEnum.Running)
             {
                 WebUtility.SendServerDetails(BuildServerDetails());
             }
