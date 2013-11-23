@@ -51,6 +51,12 @@ namespace WinterEngine.DataTransferObjects.BusinessObjects
         public GameTypeEnum GameTypeID { get; set; }
         public bool IsAutoDownloadEnabled { get; set; }
         public bool IsCharacterDeletionEnabled { get; set; }
+        [ScriptIgnore]
+        public string QueuedServerMessage { get; set; }
+        [ScriptIgnore]
+        public List<string> BootUserList { get; set; }
+        [ScriptIgnore]
+        public List<string> BanUserList { get; set; }
 
         #endregion
 

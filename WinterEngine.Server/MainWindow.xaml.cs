@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Linq.Expressions;
 using Microsoft.Win32;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
@@ -38,6 +39,9 @@ namespace WinterEngine.Server
         private DispatcherTimer MasterServerDispatcherTimer { get; set; }
         private DispatcherTimer GameServerDispatcherTimer { get; set; }
         private GameNetworkListener GameServerListener { get; set; }
+        private string QueuedServerMessage { get; set; }
+        private List<string> QueuedBootUserList { get; set; }
+        private List<string> QueuedBanUserList { get; set; }
 
         #endregion
 
@@ -55,6 +59,8 @@ namespace WinterEngine.Server
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             WebUtility = new WebServiceClientUtility();
+            QueuedBanUserList = new List<string>();
+            QueuedBootUserList = new List<string>();
             ServerStatus = ServerStatusEnum.Stopped;
             LoadSettings();
 
@@ -86,7 +92,7 @@ namespace WinterEngine.Server
 
         private void buttonSendMessage_Click(object sender, RoutedEventArgs e)
         {
-
+            QueuedServerMessage = textBoxServerMessage.Text;
         }
 
         private void buttonStartStop_Click(object sender, RoutedEventArgs e)
@@ -129,12 +135,15 @@ namespace WinterEngine.Server
 
         private void buttonBanAccount_Click(object sender, RoutedEventArgs e)
         {
+            QueuedBanUserList = (List<string>)listBoxPlayers.SelectedItems;
+
+            
 
         }
 
         private void buttonBootPlayer_Click(object sender, RoutedEventArgs e)
         {
-
+            QueuedBootUserList = (List<string>)listBoxPlayers.SelectedItems;
         }
 
         #endregion
@@ -195,6 +204,9 @@ namespace WinterEngine.Server
             {
                 ContentPackageList = repo.GetAll();
             }
+
+            buttonStartStop.IsEnabled = true;
+            buttonSendMessage.IsEnabled = true;
         }
 
         private void ToggleServerStatusMode(bool serverStarted)
@@ -256,8 +268,12 @@ namespace WinterEngine.Server
                 GameTypeID = (GameTypeEnum)listBoxGameType.SelectedItem,
                 PVPTypeID = (PVPTypeEnum)comboBoxPVPType.SelectedItem,
                 IsAutoDownloadEnabled = (bool)checkBoxAllowFileAutoDownload.IsChecked,
-                IsCharacterDeletionEnabled = (bool)checkBoxAllowCharacterDeletion.IsChecked
+                IsCharacterDeletionEnabled = (bool)checkBoxAllowCharacterDeletion.IsChecked,
+                QueuedServerMessage = this.QueuedServerMessage,
+                BanUserList = this.QueuedBanUserList,
+                BootUserList = this.QueuedBootUserList
             };
+            QueuedServerMessage = "";
 
             return server;
         }

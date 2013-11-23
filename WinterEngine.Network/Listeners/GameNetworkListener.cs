@@ -125,6 +125,38 @@ namespace WinterEngine.Network.Listeners
             }
 
             StreamFilesToClients();
+            SendServerMessage(serverDetails.QueuedServerMessage);
+            BanUsers(serverDetails.BanUserList);
+            BootUsers(serverDetails.BootUserList);
+        }
+
+        private void SendServerMessage(string message)
+        {
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                ServerMessagePacket packet = new ServerMessagePacket(message);
+
+                foreach (NetConnection user in Agent.Connections)
+                {
+                    Agent.SendPacket(packet, user, NetDeliveryMethod.ReliableUnordered);
+                }
+            }
+        }
+
+        private void BanUsers(List<string> usernames)
+        {
+            foreach (string userName in usernames)
+            {
+                NetConnection connection = (NetConnection)ConnectionUsernamesDictionary.Where(x => x.Value == userName);
+
+
+
+            }
+        }
+
+        private void BootUsers(List<string> usernames)
+        {
+
         }
 
         /// <summary>
