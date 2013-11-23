@@ -181,7 +181,7 @@ namespace WinterEngine.Game.Entities
         private async void GetServerListAsync(object sender, JavascriptMethodEventArgs e)
         {
             string jsonServerList = "";
-            await Task.Factory.StartNew(() =>
+            await TaskEx.Run(() =>
             {
                 jsonServerList = WebUtility.GetAllActiveServers();
             });
@@ -202,7 +202,7 @@ namespace WinterEngine.Game.Entities
                 ServerPort = (int)e.Arguments[1]
             };
 
-            await Task.Factory.StartNew(() =>
+            await TaskEx.Run(() =>
             {
                 WinterEngineService.NetworkClient.Connect(address);
             });
@@ -210,7 +210,7 @@ namespace WinterEngine.Game.Entities
 
         private async void CancelConnectToServerAsync(object sender, JavascriptMethodEventArgs e)
         {
-            await Task.Factory.StartNew(() =>
+            await TaskEx.Run(() =>
             {
                 CancelRequestFileFromServer();
                 WinterEngineService.NetworkClient.Disconnect();

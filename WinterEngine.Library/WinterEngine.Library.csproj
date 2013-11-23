@@ -88,6 +88,7 @@
     <Compile Include="Utility\EnumerationHelper.cs" />
     <Compile Include="Utility\FileHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\XMLUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

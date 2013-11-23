@@ -114,6 +114,7 @@
     <Compile Include="EventArgsExtended\PositionEventArgs.cs" />
     <Compile Include="EventArgsExtended\GameObjectSaveEventArgs.cs" />
     <Compile Include="EventArgsExtended\TilesetSelectionEventArgs.cs" />
+    <Compile Include="EventArgsExtended\UsernameListEventArgs.cs" />
     <Compile Include="GameObjects\Tileset.cs" />
     <Compile Include="Packets\BanUserPacket.cs" />
     <Compile Include="Packets\BootUserPacket.cs" />

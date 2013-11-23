@@ -144,7 +144,7 @@ namespace WinterEngine.Game.Entities
             LoginCredentials loginCredentials = new LoginCredentials(username, password);
             UserProfileResponseTypeEnum responseType = UserProfileResponseTypeEnum.Failure;
 
-            await Task.Factory.StartNew(() =>
+            await TaskEx.Run(() =>
             {
                 WinterEngineService.InitializeUserProfile(WebUtility.AttemptUserLogin(loginCredentials));
                     
@@ -241,7 +241,7 @@ namespace WinterEngine.Game.Entities
             string confirmPassword = args.Arguments[2];
             bool isCreatingNewProfile = (bool)args.Arguments[7];
 
-            await Task.Factory.StartNew(() =>
+            await TaskEx.Run(() =>
             {
                 if (password == confirmPassword)
                 {
@@ -305,7 +305,7 @@ namespace WinterEngine.Game.Entities
         /// <param name="args"></param>
         private async void ResendAccountActivationEmailAsync(object sender, JavascriptMethodEventArgs args)
         {
-            await Task.Factory.StartNew(() => WebUtility.RequestActivationEmailResend(WinterEngineService.ActiveUserProfile.UserEmail));
+            await TaskEx.Run(() => WebUtility.RequestActivationEmailResend(WinterEngineService.ActiveUserProfile.UserEmail));
         }
 
         #endregion

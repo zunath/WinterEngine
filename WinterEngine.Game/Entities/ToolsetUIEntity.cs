@@ -208,7 +208,7 @@ namespace WinterEngine.Game.Entities
 
         private async void SaveModuleAsync()
         {
-            await Task.Factory.StartNew(() =>
+            await TaskEx.Run(() =>
             {
                 ModuleManager.SaveModule();
             });
@@ -222,7 +222,7 @@ namespace WinterEngine.Game.Entities
         {
             bool success = false;
 
-            await Task.Factory.StartNew(() =>
+            await TaskEx.Run(() =>
             {
                 ModuleManager.ModuleName = e.Arguments[0];
                 ModuleManager.ModuleTag = e.Arguments[1];
@@ -238,7 +238,7 @@ namespace WinterEngine.Game.Entities
         {
             try
             {
-                await Task.Factory.StartNew(() =>
+                await TaskEx.Run(() =>
                 {
                     string filePath = DirectoryPaths.ModuleDirectoryPath + e.Arguments[0] + ExtensionFactory.GetFileExtension(FileTypeEnum.Module);
                     ModuleManager.OpenModule(filePath);
@@ -290,7 +290,7 @@ namespace WinterEngine.Game.Entities
 
         private async void CloseModuleButtonAsync(object sender, JavascriptMethodEventArgs e)
         {
-            await Task.Factory.StartNew(() =>
+            await TaskEx.Run(() =>
             {
                 ModuleManager.CloseModule();
                 ClearViewModelPopulation();
@@ -312,7 +312,7 @@ namespace WinterEngine.Game.Entities
         {
             try
             {
-                await Task.Factory.StartNew(() =>
+                await TaskEx.Run(() =>
                 {
                     GameModule updatedModule = JsonConvert.DeserializeObject<GameModule>(e.Arguments[0]);
 

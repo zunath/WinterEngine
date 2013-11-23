@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Linq.Expressions;
+using System.Linq;
 using Microsoft.Win32;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
@@ -24,6 +25,7 @@ using WinterEngine.Network.Configuration;
 using WinterEngine.Network.Listeners;
 using Xceed.Wpf.Toolkit;
 using WinterEngine.DataTransferObjects.ViewModels;
+using WinterEngine.Library.Utility;
 
 namespace WinterEngine.Server
 {
@@ -55,7 +57,7 @@ namespace WinterEngine.Server
         {
             ViewModel = new ServerViewModel();
             WebUtility = new WebServiceClientUtility();
-            
+
             MasterServerDispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 30),
                 DispatcherPriority.Normal,
                 new EventHandler(SendServerDetailsToMasterServer),
@@ -93,9 +95,22 @@ namespace WinterEngine.Server
             textBoxDescription.DataContext = ViewModel;
             textBoxAnnouncement.DataContext = ViewModel;
             listBoxBlacklist.DataContext = ViewModel;
-            textBoxServerStatus.DataContext = ViewModel;
             labelIPAddress.DataContext = ViewModel;
+            textBoxServerStatus.DataContext = ViewModel;
         }
+
+        private void BindGameServerEvents()
+        {
+            GameServerListener.OnPlayerListChanged += PlayerListChanged;
+            GameServerListener.OnLogMessage += gameServer_OnLogMessageReceived;
+        }
+
+        private void UnbindGameServerEvents()
+        {
+            GameServerListener.OnPlayerListChanged -= PlayerListChanged;
+            GameServerListener.OnLogMessage -= gameServer_OnLogMessageReceived;
+        }
+
 
         private void buttonBrowse_Click(object sender, RoutedEventArgs e)
         {
@@ -112,7 +127,6 @@ namespace WinterEngine.Server
             {
                 ToggleServerStatusMode(false);
                 buttonStartStop.Content = "Start Server";
-                GameServerListener.OnLogMessage -= gameServer_OnLogMessageReceived;
                 GameServerListener.Shutdown();
 
                 GameServerDispatcherTimer.Stop();
@@ -128,7 +142,7 @@ namespace WinterEngine.Server
 
         private void buttonSaveSettings_Click(object sender, RoutedEventArgs e)
         {
-            SaveSettings();
+            XMLUtility.SerializeObjectToFile<ServerSettingsXML>(ViewModel.ServerSettings, FilePaths.ServerSettingsPath);
         }
 
         private void buttonBanAccount_Click(object sender, RoutedEventArgs e)
@@ -151,18 +165,18 @@ namespace WinterEngine.Server
             ViewModel.ServerStatusMessage = "Starting server...";
             ViewModel.ServerStatus = ServerStatusEnum.Starting;
 
-            await Task.Factory.StartNew(() => 
+            await TaskEx.Run(() => 
             {
                 success = WebUtility.IsMasterServerAlive();
             });
 
             if (success)
             {
-                WinterServer serverDetails = BuildServerDetails();
+                WinterServer serverDetails = BuildWinterServerDetails();
                 buttonStartStop.Content = "Shutdown";
                 SendServerDetailsAsync(serverDetails);
                 GameServerListener = new GameNetworkListener(serverDetails.ServerPort, ViewModel.ContentPackageList);
-                GameServerListener.OnLogMessage += gameServer_OnLogMessageReceived;
+                BindGameServerEvents();
 
                 GameServerDispatcherTimer.Start();
                 MasterServerDispatcherTimer.Start();
@@ -226,22 +240,16 @@ namespace WinterEngine.Server
         private async void UpdateExternalIPAddressAsync()
         {
             string externalIPAddress = "";
-            await Task.Factory.StartNew(() =>
+            await TaskEx.Run(() =>
             {
-                WebServiceClientUtility netUtility = new WebServiceClientUtility();
-                externalIPAddress = netUtility.GetExternalIPAddress();
+                externalIPAddress = WebUtility.GetExternalIPAddress();
             });
 
             ViewModel.ServerIPAddress = externalIPAddress;
             labelIPAddress.Content = ViewModel.ServerIPAddress;
         }
 
-
-        /// <summary>
-        /// Builds a ServerDetails object based on data put into the form's fields.
-        /// </summary>
-        /// <returns></returns>
-        private WinterServer BuildServerDetails()
+        private WinterServer BuildWinterServerDetails()
         {
             if(listBoxGameType.SelectedItem == null)
             {
@@ -269,42 +277,26 @@ namespace WinterEngine.Server
                 BanUserList = ViewModel.QueuedBanUserList,
                 BootUserList = ViewModel.QueuedBootUserList
             };
-            ViewModel.QueuedServerMessage = "";
-            ViewModel.QueuedBanUserList.Clear();
-            ViewModel.QueuedBootUserList.Clear();
 
+            this.Dispatcher.Invoke(DispatcherPriority.Normal, 
+                new Action(() => 
+                {
+                    ViewModel.QueuedServerMessage = "";
+                    ViewModel.QueuedBanUserList.Clear();
+                    ViewModel.QueuedBootUserList.Clear();
+                }));
             return server;
         }
 
         private void LoadSettings()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(ServerSettingsXML));
-
             if (File.Exists(FilePaths.ServerSettingsPath))
             {
-                using (StreamReader reader = new StreamReader(FilePaths.ServerSettingsPath))
-                {
-                    ViewModel.ServerSettings = (ServerSettingsXML)serializer.Deserialize(reader);
-                }
+                ViewModel.ServerSettings = XMLUtility.DeserializeFile<ServerSettingsXML>(FilePaths.ServerSettingsPath);
             }
             else
             {
-                // Create a file with initial values.
-                SaveSettings();
-            }
-        }
-
-        private void SaveSettings()
-        {
-            using (StringWriter stringWriter = new StringWriter())
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(ServerSettingsXML));
-                XmlWriterSettings settings = new XmlWriterSettings { Indent = true, Encoding = Encoding.ASCII };
-                XmlWriter writer = XmlWriter.Create(stringWriter, settings);
-                serializer.Serialize(writer, ViewModel.ServerSettings);
-                string xmlOutput = stringWriter.ToString();
-
-                File.WriteAllText(FilePaths.ServerSettingsPath, xmlOutput);
+                XMLUtility.SerializeObjectToFile<ServerSettingsXML>(ViewModel.ServerSettings, FilePaths.ServerSettingsPath);
             }
         }
 
@@ -330,11 +322,6 @@ namespace WinterEngine.Server
             numericPort.Text = Convert.ToString(numericPort.Value);
         }
 
-        private void UpdateUsersList(List<string> updatedUsernameList)
-        {
-            ViewModel.ConnectedUsernames = new BindingList<string>(updatedUsernameList);
-        }
-
         #endregion
 
         #region Game server methods
@@ -343,10 +330,7 @@ namespace WinterEngine.Server
         {
             if (ViewModel.ServerStatus == ServerStatusEnum.Running)
             {
-                GameServerListener.Process(BuildServerDetails());
-
-                this.Dispatcher.Invoke(DispatcherPriority.Normal,
-                    new Action(() => { UpdateUsersList(GameServerListener.ConnectedUsernames); }));
+                GameServerListener.Process(BuildWinterServerDetails());
             }
         }
 
@@ -354,6 +338,23 @@ namespace WinterEngine.Server
         {
             this.Dispatcher.Invoke(DispatcherPriority.Normal,
                 new Action(() => { txtLog.Text += e.Message + "\n"; }));
+        }
+
+        private void PlayerListChanged(object sender, UsernameListEventArgs e)
+        {
+            // Usernames to remove
+            List<string> usernames = ViewModel.ConnectedUsernames.Where(x => !e.Usernames.Contains(x)).ToList();
+            foreach (string username in usernames)
+            {
+                ViewModel.ConnectedUsernames.Remove(username);
+            }
+            // Usernames to add
+            usernames = e.Usernames.Where(x => !ViewModel.ConnectedUsernames.Contains(x)).ToList();
+
+            foreach (string username in usernames)
+            {
+                ViewModel.ConnectedUsernames.Add(username);
+            }
         }
 
         #endregion
@@ -364,13 +365,13 @@ namespace WinterEngine.Server
         {
             if (ViewModel.ServerStatus == ServerStatusEnum.Running)
             {
-                WebUtility.SendServerDetails(BuildServerDetails());
+                WebUtility.SendServerDetails(BuildWinterServerDetails());
             }
         }
 
         private async void SendServerDetailsAsync(WinterServer serverDetails)
         {
-            await Task.Factory.StartNew(() =>
+            await TaskEx.Run(() =>
             {
                 WebUtility.SendServerDetails(serverDetails);
             });

@@ -103,6 +103,7 @@ namespace WinterEngine.Network.Listeners
         #region Events / Delegates
 
         public event EventHandler<NetworkLogMessageEventArgs> OnLogMessage;
+        public event EventHandler<UsernameListEventArgs> OnPlayerListChanged;
         
         #endregion
 
@@ -111,6 +112,11 @@ namespace WinterEngine.Network.Listeners
         public void Shutdown()
         {
             Agent.Shutdown();
+
+            if (OnPlayerListChanged != null)
+            {
+                OnPlayerListChanged(this, new UsernameListEventArgs(ConnectedUsernames));
+            }
         }
 
         public void Process(WinterServer serverDetails)
@@ -145,18 +151,35 @@ namespace WinterEngine.Network.Listeners
 
         private void BanUsers(List<string> usernames)
         {
-            foreach (string userName in usernames)
+            if (usernames != null && usernames.Count > 0)
             {
-                NetConnection connection = (NetConnection)ConnectionUsernamesDictionary.Where(x => x.Value == userName);
+                foreach (string userName in usernames)
+                {
+                    NetConnection connection = (NetConnection)ConnectionUsernamesDictionary.Where(x => x.Value == userName);
 
+                }
 
-
+                if (OnPlayerListChanged != null)
+                {
+                    OnPlayerListChanged(this, new UsernameListEventArgs(ConnectedUsernames));
+                }
             }
         }
 
         private void BootUsers(List<string> usernames)
         {
+            if (usernames != null && usernames.Count > 0)
+            {
+                foreach (string userName in usernames)
+                {
+                    NetConnection connection = (NetConnection)ConnectionUsernamesDictionary.Where(x => x.Value == userName);
+                }
 
+                if (OnPlayerListChanged != null)
+                {
+                    OnPlayerListChanged(this, new UsernameListEventArgs(ConnectedUsernames));
+                }
+            }
         }
 
         /// <summary>
@@ -210,6 +233,11 @@ namespace WinterEngine.Network.Listeners
         private void Agent_OnDisconnected(object sender, ConnectionStatusEventArgs e)
         {
             ConnectionUsernamesDictionary.Remove(e.Connection);
+
+            if (OnPlayerListChanged != null)
+            {
+                OnPlayerListChanged(this, new UsernameListEventArgs(ConnectedUsernames));
+            }
         }
 
         private void ProcessUsernamePacket(UsernamePacket packet)
@@ -217,6 +245,11 @@ namespace WinterEngine.Network.Listeners
             if(!ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
             {
                 ConnectionUsernamesDictionary.Add(packet.SenderConnection, packet.Username);
+
+                if (OnPlayerListChanged != null)
+                {
+                    OnPlayerListChanged(this, new UsernameListEventArgs(ConnectedUsernames));
+                }
             }
         }
 
