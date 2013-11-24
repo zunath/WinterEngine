@@ -322,6 +322,31 @@ namespace WinterEngine.DataAccess
                 {
                     throw new Exception("Error adding tilesets.", ex);
                 }
+
+                try
+                {
+                    List<LevelRequirement> levels = new List<LevelRequirement>();
+
+                    for (int current = 1; current <= 99; current++)
+                    {
+                        levels.Add(new LevelRequirement
+                        {
+                            NewAbilities = 0,
+                            ExperienceRequired = current * 500,
+                            IsDefault = false,
+                            IsSystemResource = false,
+                            Level = current,
+                            SkillPoints = 0,
+                        });
+                    }
+
+                    context.LevelRequirements.AddRange(levels);
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error adding level requirements.", ex);
+                }
             }
         }
     }

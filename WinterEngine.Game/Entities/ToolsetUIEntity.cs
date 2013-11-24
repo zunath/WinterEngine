@@ -833,6 +833,21 @@ namespace WinterEngine.Game.Entities
             {
                 ViewModel.TilesetList = repo.GetAllUIObjects();
             }
+
+            using (AbilityRepository repo = new AbilityRepository())
+            {
+                ViewModel.AbilityList = repo.GetAll();
+            }
+
+            using (SkillRepository repo = new SkillRepository())
+            {
+                ViewModel.SkillList = repo.GetAll();
+            }
+
+            using (LevelRequirementRepository repo = new LevelRequirementRepository())
+            {
+                ViewModel.LevelRequirementList = repo.GetAll();
+            }
         }
 
         private void ClearViewModelPopulation()
@@ -848,6 +863,9 @@ namespace WinterEngine.Game.Entities
             ViewModel.RaceList.Clear();
             ViewModel.FactionList.Clear();
             ViewModel.TilesetList.Clear();
+            ViewModel.AbilityList.Clear();
+            ViewModel.LevelRequirementList.Clear();
+            ViewModel.SkillList.Clear();
         }
 
         private void ChangeObjectMode(object sender, JavascriptMethodEventArgs e)

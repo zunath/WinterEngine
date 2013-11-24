@@ -1,3 +1,4 @@
-﻿<div id="divSkillGridContainer">
-
+﻿<div id="divSkillGridContainer" data-bind="css: { clsHidden: CurrentObjectMode() != 'Skill' }">
+    <div data-bind="foreach: SkillList">
+    </div>
 </div>

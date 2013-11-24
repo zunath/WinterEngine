@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinterEngine.DataTransferObjects;
+using WinterEngine.DataTransferObjects.UIObjects;
 
 namespace WinterEngine.DataAccess.Repositories
 {
@@ -68,6 +69,11 @@ namespace WinterEngine.DataAccess.Repositories
         public void Delete(Skill skill)
         {
             Context.Skills.Remove(skill);
+        }
+
+        public List<DropDownListUIObject> GetAllUIObjects()
+        {
+            throw new NotSupportedException();
         }
 
         public override void Dispose()

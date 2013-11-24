@@ -18,6 +18,8 @@ namespace WinterEngine.DataTransferObjects
 
         public int Level { get; set; }
         public int ExperienceRequired { get; set; }
+        public int SkillPoints { get; set; }
+        public int NewAbilities { get; set; }
 
         #endregion
     }

@@ -67,6 +67,14 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public Tileset ActiveTileset { get; set; }
         #endregion
 
+        #region Grid Object Data
+
+        public List<LevelRequirement> LevelRequirementList { get; set; }
+        public List<Ability> AbilityList { get; set; }
+        public List<Skill> SkillList { get; set; }
+
+        #endregion
+
         #region Drop Down Menu List Data
 
         public List<GameModule> ModuleList { get; set; }
@@ -107,6 +115,10 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             RaceList = new List<DropDownListUIObject>();
             FactionList = new List<DropDownListUIObject>();
             TilesetList = new List<DropDownListUIObject>();
+
+            LevelRequirementList = new List<LevelRequirement>();
+            AbilityList = new List<Ability>();
+            SkillList = new List<Skill>();
         }
     }
 }

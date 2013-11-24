@@ -72,6 +72,11 @@ namespace WinterEngine.DataAccess.Repositories
             Context.LevelRequirements.Remove(levelRequirement);
         }
 
+        public List<DropDownListUIObject> GetAllUIObjects()
+        {
+            throw new NotSupportedException();
+        }
+
         public override void Dispose()
         {
             base.Dispose();
