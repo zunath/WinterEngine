@@ -20,6 +20,7 @@ namespace WinterEngine.DataTransferObjects.Packets
     [ProtoInclude(109, typeof(ServerMessagePacket))]
     [ProtoInclude(110, typeof(BootUserPacket))]
     [ProtoInclude(111, typeof(BanUserPacket))]
+    [ProtoInclude(112, typeof(ClientDisconnectPacket))]
     public class PacketBase
     {
         /// <summary>

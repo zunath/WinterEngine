@@ -123,6 +123,7 @@
     <Compile Include="Packets\BootUserPacket.cs" />
     <Compile Include="Packets\CharacterCreationPacket.cs" />
     <Compile Include="Packets\CharacterSelectionPacket.cs" />
+    <Compile Include="Packets\ClientDisconnectPacket.cs" />
     <Compile Include="Packets\ClientAuthorizationResponsePacket.cs" />
     <Compile Include="Packets\ContentPackageListPacket.cs" />
     <Compile Include="Packets\DeleteCharacterPacket.cs" />

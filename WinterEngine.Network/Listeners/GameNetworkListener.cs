@@ -206,7 +206,6 @@ namespace WinterEngine.Network.Listeners
 
         private void Agent_OnConnectionEstablished(object sender, ConnectionStatusEventArgs e)
         {
-            SendContentPackageList(e.Connection);
             Model.LogMessages.Add("Connection requested: " + e.Connection.RemoteEndPoint.Address + ":" + e.Connection.RemoteEndPoint.Port);
 
             // Send a request for the user's username.
@@ -226,20 +225,28 @@ namespace WinterEngine.Network.Listeners
 
             if (isAuthorized)
             {
-                if (!Model.ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
+                if(Model.BannedUsersList.Contains(packet.Username))
                 {
-                    Model.ConnectionUsernamesDictionary.Add(packet.SenderConnection, packet.Username);
-                    Model.LogMessages.Add(packet.Username + " has joined the server.");
+                    ClientDisconnectPacket response = new ClientDisconnectPacket("You have been BANNED from this server.");
+                    Agent.SendPacket(response, packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);
+                    packet.SenderConnection.Disconnect("You have been BANNED from this server.");
                 }
+                else
+                {
+                    if (!Model.ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
+                    {
+                        Model.ConnectionUsernamesDictionary.Add(packet.SenderConnection, packet.Username);
+                        Model.LogMessages.Add(packet.Username + " (" + packet.SenderConnection.RemoteEndPoint.Address.ToString() + ") has joined the server.");
+                    }
+                    SendContentPackageList(packet.SenderConnection);
+                }
+
             }
             else
             {
-                NetConnection connection = Model.ConnectionUsernamesDictionary.SingleOrDefault(x => x.Value == packet.Username).Key;
-                if (connection != null)
-                {
-                    connection.Disconnect("User not authorized by master server.");
-                    Model.LogMessages.Add("Denied user '" + packet.Username + "' from connecting. User failed master server authorization.");
-                }
+                Model.LogMessages.Add("Denied user '" + packet.Username + "' from connecting. User failed master server authorization.");
+                ClientDisconnectPacket response = new ClientDisconnectPacket("Failed to authenticate with master server.");
+                Agent.SendPacket(response, packet.SenderConnection, NetDeliveryMethod.ReliableUnordered);
             }
 
         }

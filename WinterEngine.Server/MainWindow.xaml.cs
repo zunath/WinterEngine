@@ -262,7 +262,7 @@ namespace WinterEngine.Server
 
         private async void UpdateExternalIPAddressAsync()
         {
-            string externalIPAddress = "";
+            string externalIPAddress = "Unknown";
             await TaskEx.Run(() =>
             {
                 externalIPAddress = WebUtility.GetExternalIPAddress();

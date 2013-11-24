@@ -160,3 +160,11 @@ function ConnectToServer_Callback(responseID) {
 function UnableToConnectToServerClose() {
     $('#divUnableToConnectToServer').dialog('close');
 }
+
+function DisconnectFromServerWithReason_Callback(reason) {
+    $('#lblConnectionFailureReason').text(reason);
+
+    $('#divLoading').dialog('close');
+    $('#divConnectingToServer').dialog('close');
+    $('#divUnableToConnectToServer').dialog('open');
+}

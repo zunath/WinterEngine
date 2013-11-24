@@ -22,90 +22,14 @@ namespace WinterEngine.Game.Entities
 {
 	public partial class ServerListUIEntity
     {
-        #region Fields
-
-        private WebServiceClientUtility _webServiceUtility;
-        private FileExtensionFactory _fileExtensionFactory;
-        private List<string> _missingFiles;
-        private long _fileSize;
-        private string _lastReceivedFile;
-        private FileStreamerStatusEnum _fileStreamStatus;
-
-        #endregion
-
         #region Properties
 
-        /// <summary>
-        /// Gets the web utility used for making calls to the master server.
-        /// </summary>
-        private WebServiceClientUtility WebUtility
-        {
-            get
-            {
-                if (_webServiceUtility == null)
-                {
-                    _webServiceUtility = new WebServiceClientUtility();
-                }
-
-                return _webServiceUtility;
-            }
-        }
-
-        private FileExtensionFactory FileExtensionFactory
-        {
-            get
-            {
-                if (_fileExtensionFactory == null)
-                {
-                    _fileExtensionFactory = new FileExtensionFactory();
-                }
-
-                return _fileExtensionFactory;
-            }
-            
-        }
-
-        /// <summary>
-        /// Gets or sets the list of missing files which are required by the server.
-        /// </summary>
-        private List<string> MissingFiles
-        {
-            get
-            {
-                if (_missingFiles == null)
-                {
-                    _missingFiles = new List<string>();
-                }
-
-                return _missingFiles;
-            }
-            set { _missingFiles = value; }
-        }
-
-        /// <summary>
-        /// Gets the size of the file currently being downloaded by the file streamer.
-        /// </summary>
-        private long FileSize
-        {
-            get { return _fileSize; }
-            set { _fileSize = value; }
-        }
-
-        /// <summary>
-        /// Gets the last file received by the file streamer.
-        /// </summary>
-        private string LastReceivedFile
-        {
-            get { return _lastReceivedFile; }
-            set { _lastReceivedFile = value; }
-        }
-
-        private FileStreamerStatusEnum FileStreamStatus
-        {
-            get { return _fileStreamStatus; }
-            set { _fileStreamStatus = value; }
-        }
-
+        private WebServiceClientUtility WebUtility { get; set; }
+        private FileExtensionFactory FileExtensionFactory { get; set; }
+        private List<string> MissingFiles { get; set; }
+        private long FileSize { get; set; }
+        private string LastReceivedFile { get; set; }
+        private FileStreamerStatusEnum FileStreamStatus { get; set; }
 
         #endregion
 
@@ -113,6 +37,10 @@ namespace WinterEngine.Game.Entities
 
         private void CustomInitialize()
 		{
+            WebUtility = new WebServiceClientUtility();
+            FileExtensionFactory = new FileExtensionFactory();
+            MissingFiles = new List<string>();
+
             AwesomiumWebView.DocumentReady += OnDocumentReady;
 
             WinterEngineService.InitializeNetworkClient();
@@ -257,8 +185,16 @@ namespace WinterEngine.Game.Entities
             {
                 ProcessRequest(e.Packet as RequestPacket);
             }
+            else if (packetType == typeof(ClientDisconnectPacket))
+            {
+                ProcessClientDisconnectPacket(e.Packet as ClientDisconnectPacket);
+            }
         }
 
+        private void ProcessClientDisconnectPacket(ClientDisconnectPacket packet)
+        {
+            AsyncJavascriptCallback("DisconnectFromServerWithReason_Callback", packet.Reason);
+        }
 
         /// <summary>
         /// Processes a streaming file packet, building a file as bytes are received.
@@ -325,7 +261,7 @@ namespace WinterEngine.Game.Entities
         /// <param name="packet"></param>
         private void ProcessStreamingFileDetailsPacket(StreamingFileDetailsPacket packet)
         {
-            _fileSize = packet.FileSize;
+            FileSize = packet.FileSize;
         }
 
         /// <summary>
