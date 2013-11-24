@@ -139,9 +139,9 @@
                                         VerticalAlignment="Top"    
                                         RenderTransformOrigin="-1.829,-0.55" 
                                         Width="80" 
-                                        Maximum="99" 
+                                        Maximum="{Binding ModuleMaxLevel}" 
                                         Minimum="1" 
-                                        DefaultValue="50"
+                                        DefaultValue="1"
                                         Value="{Binding ServerSettings.MaxLevel}"
                                         Grid.Column="1" 
                                         LostFocus="SetDefaultValues_MaxLevel" />

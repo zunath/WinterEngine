@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Microsoft.Win32;
+using WinterEngine.DataAccess;
 using WinterEngine.DataAccess.Factories;
 using WinterEngine.DataAccess.Repositories;
+using WinterEngine.DataTransferObjects;
 using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Paths;
@@ -232,9 +234,22 @@ namespace WinterEngine.Server
             ModuleManager manager = new ModuleManager();
             manager.OpenModule(path);
 
+            using (GameModuleRepository repo = new GameModuleRepository())
+            {
+                GameModule gameModule = repo.GetModule();
+                ViewModel.ModuleMaxLevel = gameModule.MaxLevel;
+                numericMaxLevel.Maximum = gameModule.MaxLevel;
+            }
+
             using (ContentPackageRepository repo = new ContentPackageRepository())
             {
                 ViewModel.ContentPackageList = repo.GetAll();
+            }
+
+            // Set the bounds of the server max level to the maximum that the module allows.
+            if (ViewModel.ModuleMaxLevel < ViewModel.ServerSettings.MaxLevel)
+            {
+                ViewModel.ServerSettings.MaxLevel = ViewModel.ModuleMaxLevel;
             }
 
             buttonStartStop.IsEnabled = true;
@@ -289,19 +304,16 @@ namespace WinterEngine.Server
 
         private void SetDefaultValues_MaxPlayers(object sender, RoutedEventArgs e)
         {
-            IntegerUpDown control = e.Source as IntegerUpDown;
             numericMaxPlayers.Text = Convert.ToString(numericMaxPlayers.Value);
         }
 
         private void SetDefaultValues_MaxLevel(object sender, RoutedEventArgs e)
         {
-            IntegerUpDown control = e.Source as IntegerUpDown;
             numericMaxLevel.Text = Convert.ToString(numericMaxLevel.Value);
         }
 
         private void SetDefaultValues_Port(object sender, RoutedEventArgs e)
         {
-            IntegerUpDown control = e.Source as IntegerUpDown;
             numericPort.Text = Convert.ToString(numericPort.Value);
         }
 
@@ -418,6 +430,7 @@ namespace WinterEngine.Server
         }
 
         #endregion
+
 
     }
 }

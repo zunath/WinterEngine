@@ -19,6 +19,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         private string _serverStatusMessage;
         private string _serverIPAddress;
         private ServerStatusEnum _serverStatus;
+        private int _maxLevel;
 
         #endregion
 
@@ -116,6 +117,18 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             }
         }
         public BindingList<string> LogMessages { get; set; }
+        public int ModuleMaxLevel
+        {
+            get
+            {
+                return _maxLevel;
+            }
+            set
+            {
+                _maxLevel = value;
+                OnPropertyChanged("MaxLevel");
+            }
+        }
 
         #region Constructors
         public ServerViewModel()
@@ -132,6 +145,7 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             this.ServerStatusMessage = "Stopped...";
             this.ServerIPAddress = "Checking...";
             this.LogMessages = new BindingList<string>();
+            this.ModuleMaxLevel = 99;
         }
 
         #endregion
