@@ -89,7 +89,7 @@ function CloseModuleButtonClick(element) {
 }
 
 function CloseModuleButtonClick_Callback() {
-    ChangeObjectMode();
+    ChangeObjectMode('');
 }
 
 function SaveModuleButtonClick(element) {

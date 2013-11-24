@@ -27,6 +27,9 @@ namespace WinterEngine.DataAccess.Contexts
         public DbSet<LocalVariable> LocalVariables { get; set; }
         public DbSet<Faction> Factions { get; set; }
         public DbSet<Gender> Genders { get; set; }
+        public DbSet<Animation> Animations { get; set; }
+        public DbSet<LevelRequirement> LevelRequirements { get; set; }
+        public DbSet<Skill> Skills { get; set; }
         
         public ModuleDataContext()
         {

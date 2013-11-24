@@ -100,6 +100,7 @@
     <Compile Include="FileAccess\FileArchiveManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AbilityRepository.cs" />
+    <Compile Include="Repositories\AnimationRepository.cs" />
     <Compile Include="Repositories\AreaRepository.cs" />
     <Compile Include="Repositories\CharacterClassRepository.cs" />
     <Compile Include="Repositories\ContentPackageRepository.cs" />
@@ -117,11 +118,13 @@
     <Compile Include="Repositories\CreatureRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="Repositories\GameModuleRepository.cs" />
+    <Compile Include="Repositories\LevelRequirementRepository.cs" />
     <Compile Include="Repositories\PlaceableRepository.cs" />
     <Compile Include="Repositories\RaceRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ScriptRepository.cs" />
+    <Compile Include="Repositories\SkillRepository.cs" />
     <Compile Include="Repositories\TileCollisionBoxRepository.cs" />
     <Compile Include="Repositories\TilesetRepository.cs" />
     <Compile Include="WinterConnectionInformation.cs" />

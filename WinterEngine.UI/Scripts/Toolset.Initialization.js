@@ -3,9 +3,8 @@
 function Initialize() {
     InitializeToolsetViewModel(); // Located in WinterEngine.ViewModels.js
     InitializeValidation();
-    InitializeMainMenu();
-    $('#ulObjectBar').menu({}); // Object selection menu
-
+    InitializeDropDownMenus();
+    
     InitializeDialogBox('#divAboutBox', 'About');
     InitializeDialogBox('#divNewModuleBox', 'New Module');
     InitializeDialogBox('#divOpenModuleBox', 'Open Module');
@@ -42,12 +41,11 @@ function Initialize() {
     $.unblockUI();
 }
 
-function InitializeMainMenu() {
+function InitializeDropDownMenus() {
 
-    $('#ulMenu').menu({
+    $('.clsDropDownMenuBar').menu({
         position: { my: 'left top', at: 'left bottom' }
     });
-	
 }
 
 function InitializeValidation() {

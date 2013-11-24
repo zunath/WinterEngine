@@ -1,33 +1,69 @@
 ﻿<div id="divObjectBar" class="clsObjectBarDiv row-fluid clsHidden"
     data-bind="css: {clsHidden: IsModuleOpened() == false}">
-    <ul id="ulObjectBar">
-        <li id="liArea" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Area'}">
-            <a href="#" onclick="ChangeObjectMode('Area');">Areas
-            </a>
+    <ul id="ulObjectBar" class="clsDropDownMenuBar">
+
+        <li>
+            <a href="#">Game Objects</a>
+            <ul>
+                <li id="liArea" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Area' }">
+                    <a href="#" onclick="ChangeObjectMode('Area');">Areas
+                    </a>
+                </li>
+                <li id="liCreature" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Creature' }">
+                    <a href="#" onclick="ChangeObjectMode('Creature');">Creatures
+                    </a>
+                </li>
+                <li id="liItem" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Item' }">
+                    <a href="#" onclick="ChangeObjectMode('Item');">Items
+                    </a>
+                </li>
+                <li id="liPlaceable" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Placeable' }">
+                    <a href="#" onclick="ChangeObjectMode('Placeable');">Placeables
+                    </a>
+                </li>
+            </ul>
         </li>
-        <li id="liCreature" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Creature' }">
-            <a href="#" onclick="ChangeObjectMode('Creature');">Creatures
-            </a>
+
+        <li>
+            <a href="#">Data</a>
+            <ul>
+                <li id="liAbility" data-bind="css: {clsActiveObjectType: CurrentObjectMode() == 'Ability'}">
+                    <a href="#" onclick="ChangeObjectMode('Ability');">Abilities</a>
+                </li>
+                <li id="liClass" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Class' }">
+                    <a href="#" onclick="ChangeObjectMode('Class');">Classes
+                    </a>
+                </li>
+                <li id="liConversation" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Conversation' }">
+                    <a href="#" onclick="ChangeObjectMode('Conversation');">Conversations
+                    </a>
+                </li>
+                <li id="liLevel" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Level' }">
+                    <a href="#" onclick="ChangeObjectMode('Level');">Levels
+                    </a>
+                </li>
+                <li id="liScript" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Script' }">
+                    <a href="#" onclick="ChangeObjectMode('Script');">Scripts
+                    </a>
+                </li>
+                <li id="liSkill" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Skill' }">
+                    <a href="#" onclick="ChangeObjectMode('Skill');">Skills
+                    </a>
+                </li>
+            </ul>
         </li>
-        <li id="liItem" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Item' }">
-            <a href="#" onclick="ChangeObjectMode('Item');">Items
-            </a>
-        </li>
-        <li id="liPlaceable" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Placeable' }">
-            <a href="#" onclick="ChangeObjectMode('Placeable');">Placeables
-            </a>
-        </li>
-        <li id="liConversation" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Conversation' }">
-            <a href="#" onclick="ChangeObjectMode('Conversation');">Conversations
-            </a>
-        </li>
-        <li id="liScript" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Script' }">
-            <a href="#" onclick="ChangeObjectMode('Script');">Scripts
-            </a>
-        </li>
-        <li id="liTileset" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Tileset' }">
-            <a href="#" onclick="ChangeObjectMode('Tileset');">Tilesets
-            </a>
+
+        <li>
+            <a href="#">Graphics</a>
+            <ul>
+                <li id="liAnimation" data-bind="css: {clsActiveObjectType: CurrentObjectMode() == 'Animation'}">
+                    <a href="#" onclick="ChangeObjectMode('Animation');">Animations</a>
+                </li>
+
+                <li id="liTileset" data-bind="css: { clsActiveObjectType: CurrentObjectMode() == 'Tileset' }">
+                    <a href="#" onclick="ChangeObjectMode('Tileset');">Tilesets</a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>

@@ -136,9 +136,12 @@
     <Compile Include="Packets\StreamingFilePacket.cs" />
     <Compile Include="Packets\UsernamePacket.cs" />
     <Compile Include="Packets\UserValidationPacket.cs" />
+    <Compile Include="Resources\Animation.cs" />
     <Compile Include="Resources\ConversationNode.cs" />
     <Compile Include="Resources\Faction.cs" />
     <Compile Include="Resources\Gender.cs" />
+    <Compile Include="Resources\LevelRequirement.cs" />
+    <Compile Include="Resources\Skill.cs" />
     <Compile Include="Resources\TileCollisionBox.cs" />
     <Compile Include="UIObjects\DropDownListUIObject.cs" />
     <Compile Include="Models\CharacterCreationViewModel.cs" />

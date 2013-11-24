@@ -165,6 +165,15 @@
     <Content Include="Views\Partial\Toolset\ConversationEditorPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Partial\Toolset\GridControls\AbilityGridPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\GridControls\LevelGridPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\Toolset\GridControls\SkillGridPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Partial\Toolset\ObjectControls\ApplyDiscardChangesPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
