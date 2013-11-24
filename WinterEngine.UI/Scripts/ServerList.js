@@ -130,7 +130,28 @@ function CancelConnectToServer() {
 
 /* Server connection failures */
 
-function UnableToConnectToServer() {
+function ConnectToServer_Callback(responseID) {
+    var reason;
+
+    // Values come from AuthorizationTypeEnum.cs
+    if (responseID == 0) {
+        reason = "Unknown";
+    }
+    else if (responseID == 1) {
+        reason = "Master server could not locate user.";
+    }
+    else if (responseID == 2) {
+        reason = "Master server could not locate client-server.";
+    }
+    else if (responseID == 3) {
+        reason = "Authorization token mismatch.";
+    }
+    else if (responseID == 5) {
+        reason = "An unknown error occurred.";
+    }
+
+    $('#lblConnectionFailureReason').text(reason);
+
     $('#divLoading').dialog('close');
     $('#divConnectingToServer').dialog('close');
     $('#divUnableToConnectToServer').dialog('open');

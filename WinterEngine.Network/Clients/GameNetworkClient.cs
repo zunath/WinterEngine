@@ -140,6 +140,9 @@ namespace WinterEngine.Network.Clients
         #region Events / Delegates
 
         public event EventHandler<PacketReceivedEventArgs> OnPacketReceived;
+        public event EventHandler<ConnectionStatusEventArgs> OnConnected;
+        public event EventHandler<ConnectionStatusEventArgs> OnDisconnected;
+        public event EventHandler<ConnectionStatusEventArgs> OnDisconnecting;
 
         #endregion
 
@@ -172,14 +175,47 @@ namespace WinterEngine.Network.Clients
         {
             if (Agent == null)
             {
-                Agent = new NetworkAgent(NetworkAgentRoleEnum.Client, GameServerConfiguration.ApplicationID, address.ServerPort);
+                Agent = new NetworkAgent(NetworkAgentRoleEnum.Client, GameServerConfiguration.ApplicationID, address.Port);
+
+
+                // Refresh event hooks
+                Agent.OnConnected -= RaiseOnAgentConnectedEvent;
+                Agent.OnDisconnected -= RaiseAgentOnDisconnectedEvent;
+                Agent.OnDisconnecting -= RaiseAgentOnDisconnectingEvent;
+                Agent.OnConnected += RaiseOnAgentConnectedEvent;
+                Agent.OnDisconnected += RaiseAgentOnDisconnectedEvent;
+                Agent.OnDisconnecting += RaiseAgentOnDisconnectingEvent;
             }
             else
             {
-                Agent.Port = address.ServerPort;
+                Agent.Port = address.Port;
             }
 
-            Agent.Connect(address.ServerIPAddress);
+            Agent.Connect(address.IPAddress);
+        }
+
+        private void RaiseAgentOnDisconnectingEvent(object sender, ConnectionStatusEventArgs e)
+        {
+            if (OnDisconnecting != null)
+            {
+                OnDisconnecting(this, e);
+            }
+        }
+
+        private void RaiseAgentOnDisconnectedEvent(object sender, ConnectionStatusEventArgs e)
+        {
+            if (OnDisconnected != null)
+            {
+                OnDisconnected(this, e);
+            }
+        }
+
+        private void RaiseOnAgentConnectedEvent(object sender, ConnectionStatusEventArgs e)
+        {
+            if (OnConnected != null)
+            {
+                OnConnected(this, e);
+            }
         }
 
         /// <summary>

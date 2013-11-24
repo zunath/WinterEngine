@@ -11,8 +11,8 @@ namespace WinterEngine.DataTransferObjects.BusinessObjects
     {
         #region Properties
 
-        public string ServerIPAddress { get; set; }
-        public int ServerPort { get; set; }
+        public string IPAddress { get; set; }
+        public int Port { get; set; }
 
         #endregion
 
@@ -26,8 +26,8 @@ namespace WinterEngine.DataTransferObjects.BusinessObjects
         {
             // Reference: http://stackoverflow.com/questions/892618/create-a-hashcode-of-two-numbers
             int hashPrime = 23 * 31;
-            int ipHash = hashPrime + ServerIPAddress.GetHashCode();
-            int portHash = hashPrime + ServerPort.GetHashCode();
+            int ipHash = hashPrime + IPAddress.GetHashCode();
+            int portHash = hashPrime + Port.GetHashCode();
 
             return ipHash + portHash;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace WinterEngine.DataTransferObjects.BusinessObjects
 {
@@ -16,5 +17,7 @@ namespace WinterEngine.DataTransferObjects.BusinessObjects
         public DateTime UserDOB { get; set; }
         public bool IsEmailVerified { get; set; }
         public bool IsLoggedIn { get; set; }
+        [XmlIgnore]
+        public string ActiveAuthorizationTokenGUID { get; set; }
     }
 }

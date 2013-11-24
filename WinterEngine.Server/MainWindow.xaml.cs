@@ -57,7 +57,7 @@ namespace WinterEngine.Server
             ViewModel = new ServerViewModel();
             WebUtility = new WebServiceClientUtility();
 
-            MasterServerDispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 30),
+            MasterServerDispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 2),
                 DispatcherPriority.Normal,
                 new EventHandler(SendServerDetailsToMasterServer),
                 Dispatcher.CurrentDispatcher);
@@ -318,6 +318,8 @@ namespace WinterEngine.Server
                     // Send data from server application to game network thread.
                     GameNetworkListenerProcessEventArgs updatedDataEventArgs = new GameNetworkListenerProcessEventArgs
                     {
+                        ServerIPAddress = ViewModel.ServerIPAddress,
+                        ServerPort = ViewModel.ServerSettings.PortNumber,
                         BanUserList = ViewModel.ServerSettings.BannedUserAccounts.ToList(),
                         BootUserList = ViewModel.QueuedBootUserList,
                         ServerMessage = ViewModel.ServerMessage,

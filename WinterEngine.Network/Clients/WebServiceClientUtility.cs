@@ -19,6 +19,16 @@ namespace WinterEngine.Network.Clients
 {
     public class WebServiceClientUtility
     {
+        
+        private JsonSerializerSettings SerializerSettings { get; set; }
+
+        public WebServiceClientUtility()
+        {
+            this.SerializerSettings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+        }
 
         /// <summary>
         /// Builds the URL to the master server.
@@ -147,7 +157,11 @@ namespace WinterEngine.Network.Clients
                 };
 
                 string json = JsonConvert.SerializeObject(packet);
-                return SendJsonRequest("UpdateServerDetails", WebServiceMethodTypeEnum.Server, json);
+                string result = SendJsonRequest("UpdateServerDetails", WebServiceMethodTypeEnum.Server, json);
+
+
+
+                return result;
             }
             catch
             {
@@ -196,15 +210,60 @@ namespace WinterEngine.Network.Clients
                     return null;
                 }
 
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string jsonObject = serializer.Serialize(loginCredentials);
+                string jsonObject = JsonConvert.SerializeObject(loginCredentials, SerializerSettings);
                 string result = SendJsonRequest("ValidateLoginCredentials", WebServiceMethodTypeEnum.User, jsonObject);
-                
-                return serializer.Deserialize<UserProfile>(result);
+
+                return JsonConvert.DeserializeObject<UserProfile>(result, SerializerSettings);
             }
             catch(Exception ex)
             {
                 throw new Exception("Error sending login credentials.", ex);
+            }
+        }
+
+        public AuthorizationTypeEnum RequestClientAuthorization(string ipAddress, int port, string username, string authorizationToken)
+        {
+            try
+            {
+                UserValidationPacket packet = new UserValidationPacket
+                {
+                    ServerIPAddress = ipAddress,
+                    ServerPort = port,
+                    Username = username,
+                    ActiveAuthorizationToken = authorizationToken
+                };
+
+                string json = JsonConvert.SerializeObject(packet);
+                string result = SendJsonRequest("AuthorizeUserForClientServer", WebServiceMethodTypeEnum.Server, json);
+                ClientAuthorizationResponsePacket response = JsonConvert.DeserializeObject<ClientAuthorizationResponsePacket>(result);
+                
+                return response.AuthorizationResponse;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error requesting client authorization.", ex);
+            }
+        }
+
+        public bool IsUserAuthorizedForServer(int port, string username)
+        {
+            try
+            {
+                UserValidationPacket packet = new UserValidationPacket
+                {
+                    ServerPort = port,
+                    Username = username
+                };
+
+                string json = JsonConvert.SerializeObject(packet);
+                string response = SendJsonRequest("CheckUserAuthorizedForClientServer", WebServiceMethodTypeEnum.Server, json);
+                bool success = Convert.ToBoolean(response);
+
+                return success;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error checking user authorization.", ex);
             }
         }
 
@@ -289,6 +348,7 @@ namespace WinterEngine.Network.Clients
 
             return isUp;
         }
+
 
     }
 }

@@ -21,7 +21,6 @@ namespace WinterEngine.Network.Listeners
         private List<ContentPackage> _contentPackages;
         private List<string> _contentPackageNames;
         private List<string> _contentPackagePaths;
-        private Dictionary<NetConnection, FileTransferProgress> _fileTransferClients;
 
         #endregion
 
@@ -55,11 +54,7 @@ namespace WinterEngine.Network.Listeners
         /// <summary>
         /// Gets or sets the list of clients to which the listener is streaming files.
         /// </summary>
-        private Dictionary<NetConnection, FileTransferProgress> FileTransferClients
-        {
-            get { return _fileTransferClients; }
-            set { _fileTransferClients = value; }
-        }
+        private Dictionary<NetConnection, FileTransferProgress> FileTransferClients { get; set; }
 
         #endregion
 

@@ -14,6 +14,7 @@ using WinterEngine.Network.Configuration;
 using WinterEngine.DataTransferObjects.Enums;
 using WinterEngine.DataTransferObjects.Packets;
 using WinterEngine.DataTransferObjects.Models;
+using WinterEngine.Network.Clients;
 
 namespace WinterEngine.Network.Listeners
 {
@@ -31,7 +32,8 @@ namespace WinterEngine.Network.Listeners
         private List<PacketBase> IncomingPackets { get; set; }
         private FileExtensionFactory FileExtensionFactory { get; set; }
         private GameNetworkListenerModel Model { get; set; }
-        
+        private WebServiceClientUtility WebUtility { get; set; }
+
         #endregion
 
         #region Constructors
@@ -43,6 +45,8 @@ namespace WinterEngine.Network.Listeners
         /// <param name="contentPackages">The content packages to be streamed to users on connection.</param>
         public GameNetworkListener(int customPort, List<ContentPackage> contentPackages)
         {
+            WebUtility = new WebServiceClientUtility();
+
             if (customPort <= 0)
             {
                 customPort = GameServerConfiguration.DefaultGamePort;
@@ -66,7 +70,7 @@ namespace WinterEngine.Network.Listeners
             }
 
             FileExtensionFactory = new FileExtensionFactory();
-            _fileTransferClients = new Dictionary<NetConnection, FileTransferProgress>();
+            FileTransferClients = new Dictionary<NetConnection, FileTransferProgress>();
             Model = new GameNetworkListenerModel();
         }
 
@@ -106,6 +110,8 @@ namespace WinterEngine.Network.Listeners
 
         public void ProcessCycleBegin(object sender, GameNetworkListenerProcessEventArgs e)
         {
+            Model.ServerIPAddress = e.ServerIPAddress;
+            Model.ServerPort = e.ServerPort;
             Model.BannedUsersList = e.BanUserList;
             Model.QueuedBootUsersList = e.BootUserList;
             Model.QueuedServerMessage = e.ServerMessage;
@@ -201,9 +207,7 @@ namespace WinterEngine.Network.Listeners
         private void Agent_OnConnectionEstablished(object sender, ConnectionStatusEventArgs e)
         {
             SendContentPackageList(e.Connection);
-            Model.LogMessages.Add("Connection established: " + e.Connection.RemoteEndPoint.Address + ":" + e.Connection.RemoteEndPoint.Port);
-
-            // TODO: Check master server for player's user name, based on IP address
+            Model.LogMessages.Add("Connection requested: " + e.Connection.RemoteEndPoint.Address + ":" + e.Connection.RemoteEndPoint.Port);
 
             // Send a request for the user's username.
             RequestPacket packet = new RequestPacket(PacketRequestTypeEnum.Username);
@@ -217,10 +221,27 @@ namespace WinterEngine.Network.Listeners
 
         private void ProcessUsernamePacket(UsernamePacket packet)
         {
-            if (!Model.ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
+            // Check the user's authorization with the master server. If not authorized, connection will be denied.
+            bool isAuthorized = WebUtility.IsUserAuthorizedForServer(Model.ServerPort, packet.Username);
+
+            if (isAuthorized)
             {
-                Model.ConnectionUsernamesDictionary.Add(packet.SenderConnection, packet.Username);
+                if (!Model.ConnectionUsernamesDictionary.ContainsKey(packet.SenderConnection))
+                {
+                    Model.ConnectionUsernamesDictionary.Add(packet.SenderConnection, packet.Username);
+                    Model.LogMessages.Add(packet.Username + " has joined the server.");
+                }
             }
+            else
+            {
+                NetConnection connection = Model.ConnectionUsernamesDictionary.SingleOrDefault(x => x.Value == packet.Username).Key;
+                if (connection != null)
+                {
+                    connection.Disconnect("User not authorized by master server.");
+                    Model.LogMessages.Add("Denied user '" + packet.Username + "' from connecting. User failed master server authorization.");
+                }
+            }
+
         }
 
         #endregion

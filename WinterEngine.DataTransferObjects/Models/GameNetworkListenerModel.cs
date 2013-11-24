@@ -9,6 +9,8 @@ namespace WinterEngine.DataTransferObjects.Models
 {
     public class GameNetworkListenerModel
     {
+        public string ServerIPAddress { get; set; }
+        public int ServerPort { get; set; }
         public List<string> LogMessages { get; set; }
         public List<string> BannedUsersList { get; set; }
         public List<string> QueuedBootUsersList { get; set; }
@@ -25,6 +27,8 @@ namespace WinterEngine.DataTransferObjects.Models
 
         public GameNetworkListenerModel()
         {
+            this.ServerIPAddress = "";
+            this.ServerPort = 0;
             this.LogMessages = new List<string>();
             this.BannedUsersList = new List<string>();
             this.QueuedBootUsersList = new List<string>();

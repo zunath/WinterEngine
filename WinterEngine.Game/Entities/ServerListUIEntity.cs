@@ -189,23 +189,34 @@ namespace WinterEngine.Game.Entities
             AsyncJavascriptCallback("GetAllServers_Callback", jsonServerList);
         }
 
-        /// <summary>
-        /// Handles connecting to a specified game server.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private async void ConnectToServerAsync(object sender, JavascriptMethodEventArgs e)
         {
-            ConnectionAddress address = new ConnectionAddress
+            AuthorizationTypeEnum response = AuthorizationTypeEnum.Unknown;
+            ConnectionAddress serverAddress = new ConnectionAddress
             {
-                ServerIPAddress = e.Arguments[0],
-                ServerPort = (int)e.Arguments[1]
+                IPAddress = e.Arguments[0],
+                Port = (int)e.Arguments[1]
             };
 
             await TaskEx.Run(() =>
             {
-                WinterEngineService.NetworkClient.Connect(address);
+                // Authorize with master server for the specified server.
+                response = WebUtility.RequestClientAuthorization(
+                    serverAddress.IPAddress, 
+                    serverAddress.Port, 
+                    WinterEngineService.ActiveUserProfile.UserName, 
+                    WinterEngineService.ActiveUserProfile.ActiveAuthorizationTokenGUID);
+
+                if (response == AuthorizationTypeEnum.Success)
+                {
+                    WinterEngineService.NetworkClient.Connect(serverAddress);
+                }
             });
+
+            if(response != AuthorizationTypeEnum.Success)
+            {
+                AsyncJavascriptCallback("ConnectToServer_Callback", (int)response);
+            }
         }
 
         private async void CancelConnectToServerAsync(object sender, JavascriptMethodEventArgs e)

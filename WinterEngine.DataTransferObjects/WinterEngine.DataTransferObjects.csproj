@@ -99,6 +99,7 @@
     <Compile Include="BusinessObjects\ConnectionAddress.cs" />
     <Compile Include="BusinessObjects\DefaultObjectIDs.cs" />
     <Compile Include="BusinessObjects\FileTransferProgress.cs" />
+    <Compile Include="Enumerations\AuthorizationTypeEnum.cs" />
     <Compile Include="Enumerations\ConversationNodeTypeEnum.cs" />
     <Compile Include="Enumerations\NetworkAgentRoleEnum.cs" />
     <Compile Include="Enumerations\FileRequestTypeEnum.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Packets\BootUserPacket.cs" />
     <Compile Include="Packets\CharacterCreationPacket.cs" />
     <Compile Include="Packets\CharacterSelectionPacket.cs" />
+    <Compile Include="Packets\ClientAuthorizationResponsePacket.cs" />
     <Compile Include="Packets\ContentPackageListPacket.cs" />
     <Compile Include="Packets\DeleteCharacterPacket.cs" />
     <Compile Include="Packets\FileRequestPacket.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Packets\StreamingFileDetailsPacket.cs" />
     <Compile Include="Packets\StreamingFilePacket.cs" />
     <Compile Include="Packets\UsernamePacket.cs" />
+    <Compile Include="Packets\UserValidationPacket.cs" />
     <Compile Include="Resources\ConversationNode.cs" />
     <Compile Include="Resources\Faction.cs" />
     <Compile Include="Resources\Gender.cs" />
