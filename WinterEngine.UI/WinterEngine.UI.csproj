@@ -51,17 +51,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Awesomium.Core, Version=1.7.0.5, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
+    <Reference Include="Awesomium.Core, Version=1.7.3.0, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\Awesomium.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Awesomium.Windows.Controls, Version=1.7.0.5, Culture=neutral, PublicKeyToken=7a34e179b8b61c39, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\Awesomium.Windows.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="Awesomium.Windows.Forms, Version=1.7.0.5, Culture=neutral, PublicKeyToken=9bd24830fbe304a0, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\Awesomium.Windows.Forms.dll</HintPath>
+      <HintPath>..\References\Awesomium\Awesomium.Core.dll</HintPath>
     </Reference>
     <Reference Include="BitFactory.Logging">
       <HintPath>..\References\BitFactory.Logging.dll</HintPath>

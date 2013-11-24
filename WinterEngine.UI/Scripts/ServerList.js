@@ -117,12 +117,13 @@ function UpdateDownloadProgressBar(percentComplete, fileName) {
 
     $('#divDownloadProgress').removeClass('clsHidden');
     $("#divDownloadProgress").progressbar("option", "value", percentComplete);
-
+    $('#divConnectingLoading').addClass('clsHidden');
 }
 
 function CancelConnectToServer() {
     $('#divConnectingToServer').dialog('close');
     $('#divDownloadProgress').addClass('clsHidden');
+    $('#divConnectingLoading').removeClass('clsHidden');
     $('#divDownloadProgress').progressbar("option", "value", 0);
     $('#lblConnectingToServer').text('Please wait while a connection to the server is established.');
     Entity.CancelConnectToServer();

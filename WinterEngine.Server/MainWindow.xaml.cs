@@ -59,7 +59,7 @@ namespace WinterEngine.Server
 
             MasterServerDispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 2),
                 DispatcherPriority.Normal,
-                new EventHandler(SendServerDetailsToMasterServer),
+                new EventHandler(SendServerDetailsToMasterServerAsync),
                 Dispatcher.CurrentDispatcher);
             MasterServerDispatcherTimer.Stop();
 
@@ -398,12 +398,15 @@ namespace WinterEngine.Server
 
         #region Master client methods
 
-        private void SendServerDetailsToMasterServer(object sender, EventArgs e)
+        private async void SendServerDetailsToMasterServerAsync(object sender, EventArgs e)
         {
-            if (ViewModel.ServerStatus == ServerStatusEnum.Running)
+            await TaskEx.Run(() =>
             {
-                WebUtility.SendServerDetails(ViewModel);
-            }
+                if (ViewModel.ServerStatus == ServerStatusEnum.Running)
+                {
+                    WebUtility.SendServerDetails(ViewModel);
+                }
+            });
         }
 
         private async void SendServerDetailsAsync()

@@ -74,9 +74,9 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Awesomium.Core, Version=1.7.1.0, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
+    <Reference Include="Awesomium.Core, Version=1.7.3.0, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\References\Awesomium.Core.dll</HintPath>
+      <HintPath>..\References\Awesomium\Awesomium.Core.dll</HintPath>
     </Reference>
     <Reference Include="FlatRedBall, Version=2011.11.13.868, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
