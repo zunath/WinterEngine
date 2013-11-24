@@ -15,6 +15,7 @@ namespace WinterEngine.DataTransferObjects.EventArgsExtended
         public string ServerMessage { get; set; }
         public List<string> LogMessages { get; set; }
         public string ServerAnnouncement { get; set; }
+        public string ServerName { get; set; }
 
         public GameNetworkListenerProcessEventArgs()
         {
@@ -26,6 +27,7 @@ namespace WinterEngine.DataTransferObjects.EventArgsExtended
             this.ServerMessage = "";
             this.LogMessages = new List<string>();
             this.ServerAnnouncement = "";
+            this.ServerName = "";
         }
     }
 }

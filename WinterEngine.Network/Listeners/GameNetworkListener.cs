@@ -115,6 +115,7 @@ namespace WinterEngine.Network.Listeners
             Model.BannedUsersList = e.BanUserList;
             Model.QueuedBootUsersList = e.BootUserList;
             Model.QueuedServerMessage = e.ServerMessage;
+            Model.ServerName = e.ServerName;
             Model.ServerAnnouncement = e.ServerAnnouncement;
         }
 

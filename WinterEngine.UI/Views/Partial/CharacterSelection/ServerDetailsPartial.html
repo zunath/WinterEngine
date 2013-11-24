@@ -1,12 +1,14 @@
 ﻿<div id="divServerNameAndAnnouncement">
         
     <div id="divServerName" class="clsServerNameHeader">
-        <span id="spnServerName" class="clsBold">Server Name</span>
+        <span id="spnServerName" class="clsBold"
+            data-bind="text: 'Server Name: ' + ServerName()"></span>
     </div>
     <textarea id="tarServerAnnouncements" 
         rows="3" 
         class="clsNonResizeable clsServerDetails" 
-        readonly="readonly">Announcement:
+        readonly="readonly"
+        data-bind="text: 'Announcement: ' + Announcement()">
     </textarea>
 
 </div>

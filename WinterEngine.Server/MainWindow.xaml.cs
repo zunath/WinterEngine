@@ -324,6 +324,7 @@ namespace WinterEngine.Server
                         BootUserList = ViewModel.QueuedBootUserList,
                         ServerMessage = ViewModel.ServerMessage,
                         ServerAnnouncement = ViewModel.ServerSettings.Announcement,
+                        ServerName = ViewModel.ServerSettings.Name,
                     };
 
                     OnProcessingCycleStart(this, updatedDataEventArgs);
