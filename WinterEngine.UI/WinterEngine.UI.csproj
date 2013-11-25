@@ -411,9 +411,6 @@
     <Content Include="Images\FRBLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Game\ServerListStyles.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\ServerList.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

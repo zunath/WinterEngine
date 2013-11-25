@@ -30,13 +30,18 @@
         <img src="../Images/WinterEngineLogo.png" class="clsMainMenuLogo" />
     
         <div class="col-lg-offset-7 col-lg-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="text-align:center;">
+                    <h3 class="panel-title">Main Menu</h3>
+                </div>
+
+                <div class="panel-body" style="text-align:center;">
 
                     <div class="btn-group-vertical">
                     
                         <button id="btnLoginLogout" type="button" value="Login" class="btn btn-primary" 
                             onclick="LoginButton();" data-mode="login" >Login</button>
+                        <button id="btnFindServer" type="button" value="Find Server" class="btn btn-primary" disabled="disabled" onclick="FindServerButton();">Find Server</button>
                         <button id="btnProfile" type="button" value="My Profile" class="btn btn-primary" disabled="disabled" onclick="OpenUserProfileBox();" >My Profile</button>
                         <button id="btnToolset" type="button" value="Toolset" class="btn btn-primary" onclick="ToolsetButton();" >Toolset</button>
                         <button id="btnSettings" type="button" value="Game Settings" class="btn btn-primary" onclick="SettingsButton();" >Game Settings</button>

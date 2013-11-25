@@ -1,17 +1,27 @@
-﻿
-<div id="divUnableToConnectToServer">
-            
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <label id="lblUnableToConnectToServer">
-            Unable to establish connection to server.
-        </label>
-        <br />
-        Reason: <label id="lblConnectionFailureReason"></label>
-    </div>
-            
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <input id="btnUnableToConnectOK" type="button" value="OK" class="clsFullButton" onclick="UnableToConnectToServerClose();" />
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+
+    <div id="divUnableToConnectToServer" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Unable to Connect
+                </div>
+                <div class="modal-body">
+                    <label id="lblUnableToConnectToServer">
+                        Unable to establish connection to server.
+                    </label>
+                    <br />
+                    Reason: <label id="lblConnectionFailureReason"></label>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button id="btnUnableToConnectOK" type="button" value="OK" class="btn btn-primary" onclick="UnableToConnectToServerClose();">
+                            OK
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

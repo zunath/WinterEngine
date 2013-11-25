@@ -1,10 +1,23 @@
-﻿<div id="divLoading">
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <label id="lblLoading">Retrieving server list...</label>
-    </div>
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="clsProgressBar"></div>
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+
+    <div id="divLoading" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Success
+                </div>
+                <div class="modal-body">
+                    <label id="lblLoading">Retrieving server list...</label>
+
+                    
+                    <div id="divServerListProgressBarContainer" class="progress progress-striped active">
+                        <div class="active progress-bar" id="divServerListProgressbar"
+                            role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>

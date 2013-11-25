@@ -1,23 +1,45 @@
-﻿
-<div id="divConnectingToServer">
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
 
-    <div class="row">&nbsp;</div>
-    <label id="lblConnectingToServer">
-        Please wait while a connection to the server is established.
-    </label>
-    <div class="row">&nbsp;</div>
+    <div id="divConnectingToServer" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Connecting to Server
+                </div>
+                <div class="modal-body">
 
-    <div class="row">
-        <div id="divDownloadProgress" class="clsHidden"></div>
-    </div>
-    
-    <div id="divConnectingLoading" class="row">
-        <div class="clsProgressBar"></div>
-    </div>
+                    <label id="lblConnectingToServer">
+                        Please wait while a connection to the server is established.
+                    </label>
+                    
+                    <div id="divDownloadContainer" class="progress clsHidden">
+                        <div class="active progress-bar"  id="divDownloadProgress"
+                            role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        </div>
+                    </div>
 
-    <div class="row">&nbsp;</div>
 
-    <div class="row clsCenter">
-        <input id="btnCancel" type="button" value="Cancel" class="clsFullButton" onclick="CancelConnectToServer();" />
+                    <div id="divConnectingLoadingContainer" class="progress progress-striped active clsHidden">
+                        <div class="active progress-bar" id="divConnectingLoading"
+                            role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                            <span>Connecting to server. Please wait...</span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button id="btnCancel" type="button" value="Cancel" class="btn btn-primary" onclick="CancelConnectToServer();">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+

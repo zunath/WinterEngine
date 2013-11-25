@@ -1,6 +1,6 @@
 ﻿
 <div style="overflow:auto; max-height: 500px">
-    <table id="tblServerList" class="clsServerList">
+    <table id="tblServerList" class="table table-bordered">
         <thead>
             <tr>
                 <td>Server Name</td>
@@ -12,15 +12,20 @@
                 <td>Connect</td>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-striped" style="background-color: white;">
         </tbody>
 
     </table>
 </div>
         
-<div class="row">&nbsp;</div>
-<div class="row clsCenter">
+<div class="row">
 
-    <input id="btnRefresh" style="width: 49%;" value="Refresh List" type="button" onclick="GetAllServers();" />
-    <input id="btnMainMenu" style="width: 49%;"  value="Return to Main Menu" type="button" onclick="GoToMainMenu();" />
+    <div class="panel panel-default">
+        <div class="panel-body" style="text-align:center;">
+            <div class="btn-group">
+                <button id="btnRefresh" value="Refresh List" type="button" class="btn btn-primary" onclick="GetAllServers();">Refresh List</button>
+                <button id="btnMainMenu" value="Return to Main Menu" type="button" class="btn btn-default" onclick="GoToMainMenu();">Return to Main Menu</button>
+            </div>
+        </div>
+    </div>
 </div>

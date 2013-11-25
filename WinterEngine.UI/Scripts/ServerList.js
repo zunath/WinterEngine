@@ -2,17 +2,6 @@
 
 function Initialize() {
     InitializeDataTable();
-    InitializeConnectingBox();
-    InitializeLoadingBox();
-    InitializeUnableToConnectToServerBox();
-    InitializeDownloadProgressBar();
-
-    $('input:button').button();
-
-    $('.clsProgressBar').progressbar({
-        value: false
-    });
-
     GetAllServers();
 }
 
@@ -24,55 +13,13 @@ function InitializeDataTable() {
         "bSort": true,
         "bAutoWidth": false,
         //"sPaginationType": 'full_numbers',
-        "bJQueryUI": true,
-    });
-}
-
-function InitializeConnectingBox() {
-    $('#divConnectingToServer').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Connecting',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function InitializeLoadingBox() {
-    $('#divLoading').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Loading...',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false,
-        closeOnEscape: false
-    });
-}
-
-function InitializeUnableToConnectToServerBox() {
-    $('#divUnableToConnectToServer').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Connection Failed',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function InitializeDownloadProgressBar() {
-    $('#divDownloadProgress').progressbar({
-        max: 100,
-        value: 0
     });
 }
 
 /* Button Functionality */
 
 function GetAllServers() {
-    $('#divLoading').dialog('open');
+    $('#divLoading').modal('show');
     Entity.GetServerList();
 }
 
@@ -91,14 +38,12 @@ function GetAllServers_Callback(jsonServerList) {
             currentServer.ServerCurrentPlayers + ' / ' + currentServer.ServerMaxPlayers,
             currentServer.GameType,
             currentServer.PVPType,
-            '<input id="server_' + index + '" type="button" value="Connect" onclick="ConnectToServer(\'' +
-                currentServer.ServerIPAddress + '\', ' + currentServer.ServerPort + ');" />'
+            '<button id="server_' + index + '" type="button" class="btn btn-primary" value="Connect" onclick="ConnectToServer(\'' +
+                currentServer.ServerIPAddress + '\', ' + currentServer.ServerPort + ');">Connect</button>'
         ]);
     }
 
-    $('input:button').button();
-
-    $('#divLoading').dialog('close');
+    $('#divLoading').modal('hide');
 }
 
 function GoToMainMenu() {
@@ -107,7 +52,7 @@ function GoToMainMenu() {
 
 function ConnectToServer(ipAddress, port) {
 
-    $('#divConnectingToServer').dialog('open');
+    $('#divConnectingToServer').modal('show');
     Entity.ConnectToServer(ipAddress, port);
 }
 
@@ -115,16 +60,16 @@ function UpdateDownloadProgressBar(percentComplete, fileName) {
 
     $('#lblConnectingToServer').text('Downloading File: ' + fileName);
 
-    $('#divDownloadProgress').removeClass('clsHidden');
-    $("#divDownloadProgress").progressbar("option", "value", percentComplete);
+    $('#divDownloadContainer').removeClass('clsHidden');
+    $('#divDownloadProgress').attr('aria-valuenow', percentComplete).css('width', percentComplete);
     $('#divConnectingLoading').addClass('clsHidden');
 }
 
 function CancelConnectToServer() {
-    $('#divConnectingToServer').dialog('close');
-    $('#divDownloadProgress').addClass('clsHidden');
+    $('#divConnectingToServer').modal('hide');
+    $('#divDownloadContainer').addClass('clsHidden');
     $('#divConnectingLoading').removeClass('clsHidden');
-    $('#divDownloadProgress').progressbar("option", "value", 0);
+    $('#divDownloadProgress').attr('aria-valuenow', 0).css('width', 0);
     $('#lblConnectingToServer').text('Please wait while a connection to the server is established.');
     Entity.CancelConnectToServer();
 }
@@ -153,19 +98,19 @@ function ConnectToServer_Callback(responseID) {
 
     $('#lblConnectionFailureReason').text(reason);
 
-    $('#divLoading').dialog('close');
-    $('#divConnectingToServer').dialog('close');
-    $('#divUnableToConnectToServer').dialog('open');
+    $('#divLoading').modal('hide');
+    $('#divConnectingToServer').modal('hide');
+    $('#divUnableToConnectToServer').modal('show');
 }
 
 function UnableToConnectToServerClose() {
-    $('#divUnableToConnectToServer').dialog('close');
+    $('#divUnableToConnectToServer').modal('hide');
 }
 
 function DisconnectFromServerWithReason_Callback(reason) {
     $('#lblConnectionFailureReason').text(reason);
 
-    $('#divLoading').dialog('close');
-    $('#divConnectingToServer').dialog('close');
-    $('#divUnableToConnectToServer').dialog('open');
+    $('#divLoading').modal('hide');
+    $('#divConnectingToServer').modal('hide');
+    $('#divUnableToConnectToServer').modal('show');
 }
