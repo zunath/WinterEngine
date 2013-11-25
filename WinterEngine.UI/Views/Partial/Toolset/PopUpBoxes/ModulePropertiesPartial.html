@@ -1,127 +1,157 @@
-﻿
-<div id="divModulePropertiesBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();" style="overflow:auto;">
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
 
-    <ul>
-        <li>
-            <a href="#BasicTab">Basic</a>
-        </li>
-        <li>
-            <a href="#EventsTab">Events</a>
-        </li>
-        <li>
-            <a href="#AdvancedTab">Advanced</a>
-        </li>
-    </ul>
+    <div id="divModulePropertiesBox" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Module Properties
+                </div>
+                <div class="modal-body">
 
-    <div id="BasicTab">
-        <form id="formMPBasicDetails" class="clsValidationForm">
-            <label id="lblMPModuleName" for="txtMPModuleName">Module Name:</label>
-            <input id="txtMPModuleName" name="txtMPModuleName" type="text" class="required" maxlength="64"
-                data-bind="value: ActiveModule.Name" />
+                    <ul id="ulModulePropertiesTab" class="nav nav-tabs">
+                        <li>
+                            <a href="#BasicTab" data-toggle="tab">Basic</a>
+                        </li>
+                        <li>
+                            <a href="#EventsTab" data-toggle="tab">Events</a>
+                        </li>
+                        <li>
+                            <a href="#AdvancedTab" data-toggle="tab">Advanced</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="BasicTab">
+                            <form id="formMPBasicDetails" class="clsValidationForm">
+                                <label id="lblMPModuleName" for="txtMPModuleName">Module Name:</label>
+                                <input id="txtMPModuleName" name="txtMPModuleName" type="text" class="required form-control" maxlength="64"
+                                    data-bind="value: ActiveModule.Name" />
             
-            <label id="lblMPModuleTag" for="txtMPModuleTag">Module Tag:</label>
-            <input id="txtMPModuleTag" name="txtMPModuleTag" type="text" class="required" maxlength="32"
-                data-bind="value: ActiveModule.Tag" />
+                                <label id="lblMPModuleTag" for="txtMPModuleTag">Module Tag:</label>
+                                <input id="txtMPModuleTag" name="txtMPModuleTag" type="text" class="required form-control" maxlength="32"
+                                    data-bind="value: ActiveModule.Tag" />
 
-            <label id="lblMPModuleResref" for="txtMPModuleResref">Module Resref:</label>
-            <input id="txtMPModuleResref" name="txtMPModuleResref" type="text" class="required" maxlength="32"
-                data-bind="value: ActiveModule.Resref" />
+                                <label id="lblMPModuleResref" for="txtMPModuleResref">Module Resref:</label>
+                                <input id="txtMPModuleResref" name="txtMPModuleResref" type="text" class="required form-control" maxlength="32"
+                                    data-bind="value: ActiveModule.Resref" />
 
-            <label id="lblMPModuleMaxLevel" for="txtMPModuleMaxLevel">Max Level:</label>
-            <input id="numMPModuleMaxLevel" name="numMPModuleMaxLevel" type="number" class="required" min="1" max="99"
-                data-bind="value: ActiveModule.MaxLevel" />
+                                <label id="lblMPModuleMaxLevel" for="txtMPModuleMaxLevel">Max Level:</label>
+                                <input id="numMPModuleMaxLevel" name="numMPModuleMaxLevel" type="number" class="required form-control" min="1" max="99"
+                                    data-bind="value: ActiveModule.MaxLevel" />
+                            </form>
 
-        </form>
-    </div>
+                        </div>
+                        <div class="tab-pane active" id="EventsTab">
+                            <form id="formMPEvents" class="clsValidationForm">
 
-    <div id="EventsTab">
-        <form id="formMPEvents" class="clsValidationForm">
+                                <label id="lblMPOnPlayerEnter" for="selMPOnPlayerEnter">On Player Enter:</label>
+                                <select id="selMPOnPlayerEnter" name="selMPOnPlayerEnter" size="3" class="form-control" 
+                                    data-bind="options: ScriptList,
+                                                optionsText: function (item) { return item.Name },
+                                                optionsValue: function (item) { return item.ResourceID },
+                                                value: ActiveModule.OnPlayerEnterEventScriptID"></select>
 
-            <label id="lblMPOnPlayerEnter" for="selMPOnPlayerEnter">On Player Enter:</label>
-            <select id="selMPOnPlayerEnter" name="selMPOnPlayerEnter" size="3"
-                data-bind="options: ScriptList,
-                           optionsText: function (item) { return item.Name },
-                           optionsValue: function (item) { return item.ResourceID },
-                           value: ActiveModule.OnPlayerEnterEventScriptID"></select>
-
-            <label id="lblMPOnPlayerLeaving" for="selMPOnPlayerLeaving">On Player Leaving:</label>
-            <select id="selMPOnPlayerLeaving" name="selMPOnPlayerLeaving" size="3"
-                data-bind="options: ScriptList,
-                            optionsText: function (item) { return item.Name },
-                            optionsValue: function (item) { return item.ResourceID },
-                            value: ActiveModule.OnPlayerLeavingEventScriptID"></select>
+                                <label id="lblMPOnPlayerLeaving" for="selMPOnPlayerLeaving">On Player Leaving:</label>
+                                <select id="selMPOnPlayerLeaving" name="selMPOnPlayerLeaving" size="3" class="form-control" 
+                                    data-bind="options: ScriptList,
+                                                optionsText: function (item) { return item.Name },
+                                                optionsValue: function (item) { return item.ResourceID },
+                                                value: ActiveModule.OnPlayerLeavingEventScriptID"></select>
         
-            <label id="lblMPOnPlayerLeft" for="selMPOnPlayerLeft">On Player Left:</label>
-            <select id="selMPOnPlayerLeft" name="selMPOnPlayerLeft" size="3"
-                data-bind="options: ScriptList,
-                            optionsText: function (item) { return item.Name },
-                            optionsValue: function (item) { return item.ResourceID },
-                            value: ActiveModule.OnPlayerLeftEventScriptID"></select>
+                                <label id="lblMPOnPlayerLeft" for="selMPOnPlayerLeft">On Player Left:</label>
+                                <select id="selMPOnPlayerLeft" name="selMPOnPlayerLeft" size="3" class="form-control" 
+                                    data-bind="options: ScriptList,
+                                                optionsText: function (item) { return item.Name },
+                                                optionsValue: function (item) { return item.ResourceID },
+                                                value: ActiveModule.OnPlayerLeftEventScriptID"></select>
         
-            <label id="lblMPOnHeartbeat" for="selMPOnHeartbeat">On Heartbeat:</label>
-            <select id="selMPOnHeartbeat" name="selMPOnHeartbeat" size="3"
-                data-bind="options: ScriptList,
-                            optionsText: function (item) { return item.Name },
-                            optionsValue: function (item) { return item.ResourceID },
-                            value: ActiveModule.OnHeartbeatEventScriptID"></select>
+                                <label id="lblMPOnHeartbeat" for="selMPOnHeartbeat">On Heartbeat:</label>
+                                <select id="selMPOnHeartbeat" name="selMPOnHeartbeat" size="3" class="form-control" 
+                                    data-bind="options: ScriptList,
+                                                optionsText: function (item) { return item.Name },
+                                                optionsValue: function (item) { return item.ResourceID },
+                                                value: ActiveModule.OnHeartbeatEventScriptID"></select>
 
-            <label id="lblMPOnModuleLoad" for="selMPOnModuleLoad">On Module Load:</label>
-            <select id="selMPOnModuleLoad" name="selMPOnModuleLoad" size="3"
-                data-bind="options: ScriptList,
-                            optionsText: function (item) { return item.Name },
-                            optionsValue: function (item) { return item.ResourceID },
-                            value: ActiveModule.OnModuleLoadEventScriptID"></select>
+                                <label id="lblMPOnModuleLoad" for="selMPOnModuleLoad">On Module Load:</label>
+                                <select id="selMPOnModuleLoad" name="selMPOnModuleLoad" size="3" class="form-control" 
+                                    data-bind="options: ScriptList,
+                                                optionsText: function (item) { return item.Name },
+                                                optionsValue: function (item) { return item.ResourceID },
+                                                value: ActiveModule.OnModuleLoadEventScriptID"></select>
         
-            <label id="lblMPOnPlayerDeath" for="selMPOnPlayerDeath">On Player Death:</label>
-            <select id="selMPOnPlayerDeath" name="selMPOnPlayerDeath" size="3"
-                data-bind="options: ScriptList,
-                            optionsText: function (item) { return item.Name },
-                            optionsValue: function (item) { return item.ResourceID },
-                            value: ActiveModule.OnPlayerDeathEventScriptID"></select>
+                                <label id="lblMPOnPlayerDeath" for="selMPOnPlayerDeath">On Player Death:</label>
+                                <select id="selMPOnPlayerDeath" name="selMPOnPlayerDeath" size="3" class="form-control" 
+                                    data-bind="options: ScriptList,
+                                                optionsText: function (item) { return item.Name },
+                                                optionsValue: function (item) { return item.ResourceID },
+                                                value: ActiveModule.OnPlayerDeathEventScriptID"></select>
         
-            <label id="lblMPOnPlayerDying" for="selMPOnPlayerDying">On Player Dying:</label>
-            <select id="selMPOnPlayerDying" name="selMPOnPlayerDying" size="3"
-                data-bind="options: ScriptList,
-                            optionsText: function (item) { return item.Name },
-                            optionsValue: function (item) { return item.ResourceID },
-                            value: ActiveModule.OnPlayerDyingEventScriptID"></select>
+                                <label id="lblMPOnPlayerDying" for="selMPOnPlayerDying">On Player Dying:</label>
+                                <select id="selMPOnPlayerDying" name="selMPOnPlayerDying" size="3" class="form-control" 
+                                    data-bind="options: ScriptList,
+                                                optionsText: function (item) { return item.Name },
+                                                optionsValue: function (item) { return item.ResourceID },
+                                                value: ActiveModule.OnPlayerDyingEventScriptID"></select>
         
-            <label id="lblMPOnPlayerRespawn" for="selMPOnPlayerRespawn">On Player Respawn:</label>
-            <select id="selMPOnPlayerRespawn" name="selMPOnPlayerRespawn" size="3"
-                data-bind="options: ScriptList,
-                            optionsText: function (item) { return item.Name },
-                            optionsValue: function (item) { return item.ResourceID },
-                            value: ActiveModule.OnPlayerRespawnEventScriptID"></select>
+                                <label id="lblMPOnPlayerRespawn" for="selMPOnPlayerRespawn">On Player Respawn:</label>
+                                <select id="selMPOnPlayerRespawn" name="selMPOnPlayerRespawn" size="3" class="form-control" 
+                                    data-bind="options: ScriptList,
+                                                optionsText: function (item) { return item.Name },
+                                                optionsValue: function (item) { return item.ResourceID },
+                                                value: ActiveModule.OnPlayerRespawnEventScriptID"></select>
             
-        </form>
-    </div>
+                            </form>
 
-    <div id="AdvancedTab">
-        <form id="formMPText" class="clsValidationForm">
-            <label id="lblMPDescription" for="txtMPDescription">Module Description:</label>
-            <textarea id="txtMPDescription" name="txtMPDescription"
-                data-bind="value: ActiveModule.Description"></textarea>
-            <label id="lblMPComments" for="txtMPComments">Module Comments:</label>
-            <textarea id="txtMPComments" name="txtMPComments"
-                data-bind="value: ActiveModule.Comment"></textarea>
-        </form>
+                        </div>
+                        <div class="tab-pane active" id="AdvancedTab">
+                            
+                            <form id="formMPText" class="clsValidationForm">
+                                <label id="lblMPDescription" for="txtMPDescription">Module Description:</label>
+                                <textarea id="txtMPDescription" name="txtMPDescription" class="form-control" 
+                                    data-bind="value: ActiveModule.Description"></textarea>
+                                <label id="lblMPComments" for="txtMPComments">Module Comments:</label>
+                                <textarea id="txtMPComments" name="txtMPComments" class="form-control"
+                                    data-bind="value: ActiveModule.Comment"></textarea>
+                            </form>
 
         
-        <h3>Local Variables</h3>
-        <div id="divMPLocalVariables">
-            <input id="btnMPAddLocalVariable" type="button" value="Add New Variable" onclick="OpenEditLocalVariableBox(true, 'create');" />
+                            <h3>Local Variables</h3>
+                            <div id="divMPLocalVariables">
+                                <button id="btnMPAddLocalVariable" type="button" value="Add New Variable" class="btn btn-primary"
+                                    onclick="OpenEditLocalVariableBox(true, 'create');">Add New Variable</button>
 
-            <div data-bind="foreach: ActiveModule.LocalVariables">
-                <label data-bind="text: Name"></label>
-                <input type="button" data-bind="value: 'Edit', click: function (data, event) { OpenEditLocalVariableBox(false, 'edit', $data); }" />
-                <input type="button" data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox($data) }" />
+                                <div data-bind="foreach: ActiveModule.LocalVariables">
+                                    <label data-bind="text: Name"></label>
+                                    <button type="button" class="btn btn-success"
+                                        data-bind="value: 'Edit', click: function (data, event) { OpenEditLocalVariableBox(false, 'edit', $data); }">
+                                        Edit
+                                    </button>
+                                    <button type="button" class="btn btn-danger"
+                                        data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox($data) }">
+                                        Delete
+                                    </button>
                         
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="SaveModulePropertiesChanges();">
+                        Save and Close
+                    </button>
+                    <button class="btn btn-default" onclick="CloseModulePropertiesBox();">
+                        Cancel
+                    </button>
+                </div>
             </div>
         </div>
-
     </div>
-    
-    <input type="button" value="Save and Close" onclick="SaveModulePropertiesChanges();" />
-    <input type="button" value="Cancel" onclick="CloseModulePropertiesBox();" />
-
 </div>
+
+
+

@@ -4,14 +4,6 @@ function Initialize() {
     InitializeToolsetViewModel(); // Located in WinterEngine.ViewModels.js
     InitializeValidation();
     
-    InitializeTabbedContainers();
-    InitializeDialogBox('#divModulePropertiesBox', 'Module Properties');
-    $('#divModulePropertiesBox').dialog('option', 'width', '450');
-    $('#divModulePropertiesBox').dialog('option', 'height', '500');
-
-    $('#btnObjectTabApplyChanges').button('disable');
-    $('#btnObjectTabDiscardChanges').button('disable');
-
     $('.clsProgressBar').progressbar({
         value: false
     });
@@ -25,9 +17,4 @@ function InitializeValidation() {
     $('.clsValidationForm').validate({
         errorPlacement: $.noop
     });
-}
-
-function InitializeTabbedContainers() {
-    $('#divModulePropertiesBox').tabs();
-
 }

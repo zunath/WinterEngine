@@ -66,14 +66,14 @@
             </div>
             <div id="divItemsTab-LocalVariables" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <input id="btnItemsTab-AddLocalVariable" type="button" value="Add New Variable" class="btn btn-default" onclick="OpenEditLocalVariableBox(false, 'create');" 
+                    <input id="btnItemsTab-AddLocalVariable" type="button" value="Add New Variable" class="btn btn-primary" onclick="OpenEditLocalVariableBox(false, 'create');" 
                         data-bind="enable: IsObjectLoadedForCurrentObjectMode"/>
 
                     <div data-bind="foreach: ActiveItem.LocalVariables">
                         <label data-bind="text: Name"></label>
-                        <input type="button" class="btn btn-default"
+                        <input type="button" class="btn btn-success"
                             data-bind="value: 'Edit', click: function (data, event) { OpenEditLocalVariableBox(false, 'edit', $data); }" />
-                        <input type="button" class="btn btn-default"
+                        <input type="button" class="btn btn-danger"
                             data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox($data) }" />
                         
                     </div>

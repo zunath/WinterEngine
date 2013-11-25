@@ -204,9 +204,9 @@ function PasteButtonClick(element) {
 }
 
 function ModulePropertiesButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
     
     ToolsetViewModel.RefreshModuleProperties();
+    $('#ulModulePropertiesTab a:first').tab('show')
     $('#divModulePropertiesBox').modal('show');
 }
 
