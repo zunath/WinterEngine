@@ -1,7 +1,7 @@
 ﻿/* Button Functionality - File Menu */
 
 function NewModuleButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
+    
     $('#divNewModuleBox').modal('show');
 }
 
@@ -22,7 +22,7 @@ function NewModuleBoxOKClick() {
     var moduleTag = $('#txtModuleTag').val();
     var moduleResref = $('#txtModuleResref').val();
 
-    $('#btnNewModuleOK, #btnNewModuleCancel').button('disable');
+    $('#btnNewModuleOK, #btnNewModuleCancel').attr('disabled', 'disabled');
     $('#divCreatingModuleProgressBar').removeClass('clsHidden');
 
     Entity.NewModuleButtonClick(moduleName, moduleTag, moduleResref);
@@ -30,7 +30,7 @@ function NewModuleBoxOKClick() {
 
 function NewModuleBoxOKClick_Callback(success) {
     $('#divCreatingModuleProgressBar').addClass('clsHidden');
-    $('#btnNewModuleOK, #btnNewModuleCancel').button('enable');
+    $('#btnNewModuleOK, #btnNewModuleCancel').removeAttr('disabled');
 
     if (success) {
         CloseNewModuleBox();
@@ -49,7 +49,7 @@ function NewModuleBoxCancelClick() {
 
 function ShowOpenModulePopUp(element) {
 	
-	if (IsMenuButtonDisabled($(element))) return;
+	
 
 	Entity.GetModulesList();
 	ToolsetViewModel.Refresh();
@@ -66,7 +66,7 @@ function OpenModuleButtonClick(element) {
     var selectedModule = $('#selModulesList option:selected').text();
 
     if (selectedModule != '') {
-        $('#btnOpenModuleOpenButton, #btnOpenModuleCancelButton').button('disable');
+        $('#btnOpenModuleOpenButton, #btnOpenModuleCancelButton').attr('disabled', 'disabled');
         $('#divOpeningModuleProgressBar').removeClass('clsHidden');
         Entity.OpenModuleButtonClick(selectedModule);
     }
@@ -80,12 +80,12 @@ function OpenModuleButtonClick_Callback(success) {
         ToolsetViewModel.Refresh();
 
         $('#divOpeningModuleProgressBar').addClass('clsHidden');
-        $('#btnOpenModuleOpenButton, #btnOpenModuleCancelButton').button('enable');
+        $('#btnOpenModuleOpenButton, #btnOpenModuleCancelButton').removeAttr('disabled');
     }
 }
 
 function CloseModuleButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
+    
     Entity.CloseModuleButtonClick();
 }
 
@@ -94,14 +94,14 @@ function CloseModuleButtonClick_Callback() {
 }
 
 function SaveModuleButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
+    
 
     Entity.SaveModuleButtonClick();
     ToolsetViewModel.Refresh();
 }
 
 function ShowSaveAsModulePopUp(element) {
-    if (IsMenuButtonDisabled($(element))) return;
+    
 
     Entity.GetModulesList();
     ToolsetViewModel.Refresh();
@@ -157,8 +157,6 @@ function CloseSaveAsModuleConfirmationPopUp(showSaveAsPopUp) {
 }
 
 function ImportButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
-
     //Entity.ImportButtonClick();
 }
 
@@ -167,8 +165,6 @@ function ImportButtonClick_Callback(jsonObjectList) {
 }
 
 function ExportButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
-
 }
 
 function ExportButtonClick_Callback(jsonObjectList) {
@@ -176,49 +172,43 @@ function ExportButtonClick_Callback(jsonObjectList) {
 }
 
 function ExitButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
-
     Entity.ExitButtonClick();
 }
 
 /* Button Functionality - Edit Menu */
 
 function UndoButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
 }
 
 function RedoButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
 }
 
 function CopyButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
 }
 
 function CutButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
 }
 
 function PasteButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
 }
 
 function ModulePropertiesButtonClick(element) {
     
     ToolsetViewModel.RefreshModuleProperties();
-    $('#ulModulePropertiesTab a:first').tab('show')
+    $('#ulModulePropertiesTab a:first').tab('show');
     $('#divModulePropertiesBox').modal('show');
 }
 
 function SaveModulePropertiesChanges() {
     if (!$('#formMPBasicDetails').valid()) {
-        $("#divModulePropertiesBox").tabs("option", "active", 0);
+        $('#ulModulePropertiesTab li:eq(0)').tab('show');
+
     }
     else if (!$('#formMPEvents').valid()) {
-        $("#divModulePropertiesBox").tabs("option", "active", 1);
+        $('#ulModulePropertiesTab li:eq(1)').tab('show');
     }
     else if (!$('#formMPText').valid()) {
-        $("#divModulePropertiesBox").tabs("option", "active", 2);
+        $('#ulModulePropertiesTab li:eq(2)').tab('show');
     }
     else {
         ToolsetViewModel.SaveModuleProperties();
@@ -237,7 +227,7 @@ function CloseModulePropertiesBox() {
 /* Button Functionality - Content Menu */
 
 function ManageContentPackagesButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
+    
 
     Entity.ManageContentPackagesButtonClick();
 }
@@ -290,7 +280,7 @@ function CloseManageContentPackagesBox() {
 }
 
 function BuildModuleButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
+    
 
     $('#lblAlertBox').text('Rebuilding module. Please wait...');
     $('#divAlertBox').modal('show');
@@ -314,8 +304,6 @@ function BuildModuleButtonClick_Callback(success, exception) {
 /* Button Functionality - Help Menu */
 
 function WinterEngineWebsiteButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
-
     Entity.WinterEngineWebsiteButtonClick();
 }
 
@@ -324,9 +312,3 @@ function AboutBoxClose() {
 }
 
 
-
-/* General Methods */
-
-function IsMenuButtonDisabled(button) {
-    return button.parent().hasClass('ui-state-disabled');
-}

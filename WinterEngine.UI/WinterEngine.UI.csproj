@@ -108,12 +108,6 @@
     <Content Include="Scripts\knockout.viewmodel.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Toolset.ConversationEditor.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Scripts\WinterEngine.Shared.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Styling\jstree\proton\d-mobile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -193,9 +187,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\Toolset\GridControls\AbilityGridPartial.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\Partial\Toolset\GridControls\LevelGridPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\Toolset\GridControls\SkillGridPartial.html">
