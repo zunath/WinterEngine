@@ -49,8 +49,6 @@ function NewModuleBoxCancelClick() {
 
 function ShowOpenModulePopUp(element) {
 	
-	
-
 	Entity.GetModulesList();
 	ToolsetViewModel.Refresh();
     

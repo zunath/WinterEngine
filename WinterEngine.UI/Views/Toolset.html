@@ -24,7 +24,7 @@
     <script src="../Scripts/Toolset.ObjectBar.js"></script>
     <script src="../Scripts/Toolset.ObjectTabs.js"></script>
 </head>
-<body style="background-color: transparent;">
+<body>
 
     <div id="divGlobalContainer">
 
@@ -53,7 +53,7 @@
             </div>
 
             <div class="col-xs-4" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-                <div id="divObjectTabContainer">
+                <div id="divObjectTabContainer" style="overflow:auto;">
                     <div data-partial="Toolset/ObjectControls/AreaObjectControlPartial.html"></div>
                     <div data-partial="Toolset/ObjectControls/ConversationObjectControlPartial.html"></div>
                     <div data-partial="Toolset/ObjectControls/CreatureObjectControlPartial.html"></div>
@@ -100,4 +100,5 @@
             message: 'Loading, please wait...' 
         });
     });
+
 </script>
