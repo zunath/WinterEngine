@@ -34,6 +34,32 @@ namespace WinterEngine.Game.Entities
             ViewModel = new CharacterSelectionViewModel();
             AwesomiumWebView.DocumentReady += OnDocumentReady;
 
+            // DEBUGGING
+
+
+            ViewModel.Characters.Add(new PlayerCharacter
+            {
+                FirstName = "fname",
+                LastName = "lname"
+            });
+            ViewModel.Characters.Add(new PlayerCharacter
+            {
+                FirstName = "fname",
+                LastName = "lname"
+            });
+            ViewModel.Characters.Add(new PlayerCharacter
+            {
+                FirstName = "fname",
+                LastName = "lname"
+            });
+            ViewModel.Characters.Add(new PlayerCharacter
+            {
+                FirstName = "fname",
+                LastName = "lname"
+            });
+
+            // END DEBUGGING
+
             if (!Object.ReferenceEquals(WinterEngineService.NetworkClient, null))
             {
                 WinterEngineService.NetworkClient.OnPacketReceived += NetworkClient_OnPacketReceived;

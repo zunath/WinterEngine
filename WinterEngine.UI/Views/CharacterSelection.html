@@ -6,28 +6,65 @@
     <title></title>
     
     <link rel="stylesheet" href="../Styling/Shared/bootstrap.css" />
-    <link rel="stylesheet" href="../Styling/Shared/bootstrap-responsive.css" />
-    <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
     <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
-    <link rel="stylesheet" href="../Styling/Game/CharacterSelectionStyles.css" />
     
     <script src="../Scripts/jquery-2.0.3.min.js"></script>
-    <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src="../Scripts/jquery.awesomiumXNA.js"></script>
     <script src="../Scripts/knockout-2.3.0.js"></script>
     <script src="../Scripts/knockout.viewmodel.js"></script>
     <script src="../Scripts/jquery.validate.js"></script>
+    <script src="../Scripts/bootstrap.js"></script>
     <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/WinterEngine.Shared.js"></script>
     <script src="../Scripts/CharacterSelection.ViewModel.js"></script>
     <script src="../Scripts/CharacterSelection.Initialization.js"></script>
     <script src="../Scripts/CharacterSelection.js"></script>
-
+    
 </head>
 <body>
-    <div data-partial="CharacterSelection/ServerDetailsPartial.html"></div>
-    <div data-partial="CharacterSelection/CharacterListPartial.html"></div>
-    <div data-partial="CharacterSelection/ButtonGroupPartial.html"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading" id="divMainPanelHeading">
+                    <span id="spnServerName" data-bind="text: 'Server Name: ' + ServerName()"></span>
+                </div>
+
+                <div class="panel-body">
+                    
+                    <textarea id="tarServerAnnouncements" 
+                        rows="3" 
+                        class="form-control" 
+                        style="resize: none;"
+                        readonly="readonly"
+                        data-bind="text: 'Announcement: ' + Announcement()">
+                    </textarea>
+
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                        <div data-partial="CharacterSelection/CharacterListPartial.html"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="col-xs-7">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div data-partial=""></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer" id="divMainPanelFooter">
+                    <div data-partial="CharacterSelection/ButtonGroupPartial.html"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div data-partial="CharacterSelection/PopUpBoxes/DeleteCharacterPartial.html"></div>
     <div data-partial="CharacterSelection/PopUpBoxes/DeleteCharacterResponsePartial.html"></div>

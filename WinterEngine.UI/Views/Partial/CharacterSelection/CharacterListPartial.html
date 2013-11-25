@@ -1,41 +1,56 @@
 ﻿
-<div id="divLeftPane" class="clsCharacterListPanel clsPaneRounded row">
+<div id="divCharacterList">
 
-    <div id="divCharacterList" class="clsCharacterList">
-        <h3 class="clsCenter">Please select a character...</h3>
-        <hr />
-        
-        <div style="height: 300px; overflow:auto" data-bind="foreach: Characters">
-            <div class="clsCharacterEntry" 
-                data-bind="attr: { onclick: 'LoadCharacterInformation(' + $index() + ');',
-                                   id: 'divCharacter' + $index() },
-                                   css: { clsCharacterActive: $index() == CharacterSelectionViewModel.ActiveCharacterIndex() }">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Please select a character...</h3>
+                </div>
+                <div class="panel-body">
+
+                    <div data-bind="foreach: Characters">
+                        <div class="row">
+                            <div class="list-group">
+
+
+                                <a href="#" class="list-group-item"
+                                    data-bind="css: {active: $index() == 0}">Test</a>
+
+<!--                                <div class="list-group-item active" 
+                                    data-bind="attr: {
+                                                    onclick: 'LoadCharacterInformation(' + $index() + ');',
+                                                    id: 'divCharacter' + $index()
+                                                },
+                                                css: { clsCharacterActive: $index() == CharacterSelectionViewModel.ActiveCharacterIndex() }">
                 
-                <div class="span2">
-                    <img src="#" data-bind="attr: { src: CharacterSelectionViewModel.CharacterPortraits()[$index()] }" />
-                </div>
+                                    <div class="col-md-2">
+                                        <img src="#" data-bind="attr: { src: CharacterSelectionViewModel.CharacterPortraits()[$index()] }" />
+                                    </div>
 
-                <div class="span2">
-                    <span data-bind="text: FirstName() + ' ' + LastName()"></span>
-                    <br />
-                    Race: <span data-bind="text: Race.Name"></span>
-                    <br />
-                    Level: <span data-bind="text: Level"></span>
-                </div>
-                <div class="span2">
-                    STR: <span data-bind="text: Strength"></span>
-                    <br />
-                    DEX: <span data-bind="text: Dexterity"></span>
-                    <br />
-                    CON: <span data-bind="text: Constitution"></span>
-                </div>
+                                    <div class="col-md-2">
+                                        <span data-bind="text: FirstName() + ' ' + LastName()"></span>
+                                        Race: <span data-bind="text: Race.Name"></span>
+                                        Level: <span data-bind="text: Level"></span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        STR: <span data-bind="text: Strength"></span>
+                                        DEX: <span data-bind="text: Dexterity"></span>
+                                        CON: <span data-bind="text: Constitution"></span>
+                                    </div>
                 
-                <div class="span2">
-                    INT: <span data-bind="text: Intelligence"></span>
-                    <br />
-                    WIS: <span data-bind="text: Wisdom"></span>
-                </div>
+                                    <div class="col-md-2">
+                                        INT: <span data-bind="text: Intelligence"></span>
+                                        WIS: <span data-bind="text: Wisdom"></span>
+                                    </div>-->
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
             </div>
         </div>
     </div>

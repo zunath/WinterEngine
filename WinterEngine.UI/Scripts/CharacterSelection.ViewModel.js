@@ -9,6 +9,7 @@ function InitializeCharacterSelectionViewModel() {
     CharacterSelectionViewModel.Refresh = function () {
         var parsedModel = JSON.parse(Entity.GetModelJSON());
         ko.viewmodel.updateFromModel(CharacterSelectionViewModel, parsedModel);
+        ResizeCharacterList();
     };
 
 }

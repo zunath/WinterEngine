@@ -1,23 +1,31 @@
-﻿
-<div id="divDeleteCharacterPopUpBox">
-    <div class="row">&nbsp;</div>
-    <div class="row clsCenter">
-        <label id="lblDeleteCharacterConfirmation">
-            Are you sure you want to permanently delete your character?
-        </label>
-    </div>
-    <div class="row">&nbsp;</div>
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
 
-    <div class="row">
-        <div id="divDeleteCharacterLoadingBar" class="clsProgressBar clsHidden"></div>
-    </div>
+    <div id="divDeleteCharacterPopUpBox" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Delete Character?
+                </div>
+                <div class="modal-body">
+                   
+                    <div id="divDeleteCharacterLoadingBar" class="progress progress-striped active clsHidden">
+                        <div class="active progress-bar" 
+                            role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                            <span>Deleting character. Please wait...</span>
+                        </div>
+                    </div>
 
-    <div class="row">&nbsp;</div>
+                </div>
 
-    <div class="row clsCenter">
-
-        <input id="btnConfirmDeleteCharacter" type="button" value="Delete" onclick="ConfirmDeleteCharacterButton();" />
-        <input id="btnCancelDeleteCharacter" type="button" value="Cancel" onclick="CancelDeleteCharacterButton();" />
-    
+                <div class="modal-footer">
+                    <button class="btn btn-danger" onclick="ConfirmDeleteCharacterButton();">
+                        Delete
+                    </button>
+                    <button class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

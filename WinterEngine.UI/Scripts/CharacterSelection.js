@@ -5,15 +5,15 @@ function NewCharacterButton() {
 
 function DeleteCharacterButton() {
     $('#lblDeleteCharacterConfirmation').text('Are you sure you want to permanently delete your character?');
-    $('#divDeleteCharacterPopUpBox').dialog('open');
+    $('#divDeleteCharacterPopUpBox').modal('show');
 }
 
 function ConfirmDeleteCharacterButton() {
     $('#lblDeleteCharacterConfirmation').text('Deleting character...');
     $('#divDeleteCharacterLoadingBar').removeClass('clsHidden');
 
-    $('#btnConfirmDeleteCharacter').button('disable');
-    $('#btnCancelDeleteCharacter').button('disable');
+    $('#btnConfirmDeleteCharacter').attr('disable', 'disabled');
+    $('#btnCancelDeleteCharacter').attr('disabled', 'disabled');
 
     Entity.DeleteCharacter();
 }
@@ -22,14 +22,10 @@ function DeleteCharacter_Callback() {
     CharacterSelectionViewModel.Refresh();
 
     $('#divDeleteCharacterLoadingBar').addClass('clsHidden');
-    $('#btnConfirmDeleteCharacter').button('enable');
-    $('#btnCancelDeleteCharacter').button('enable');
+    $('#btnConfirmDeleteCharacter').removeAttr('disabled');
+    $('#btnCancelDeleteCharacter').removeAttr('disabled');
 
-    $('#divDeleteCharacterResponsePopUpBox').dialog('open');
-}
-
-function CloseDeleteCharacterResponsePopUpBox() {
-    $('#btnDeleteCharacterResponsePopUpBoxOKButton').dialog('close');
+    $('#divDeleteCharacterResponsePopUpBox').modal('show');
 }
 
 function JoinServerButton() {
@@ -40,10 +36,6 @@ function CancelCharacterSelectionButton() {
     Entity.CancelCharacterSelection();
 }
 
-function CancelDeleteCharacterButton() {
-    $('#divDeleteCharacterPopUpBox').dialog('close');
-}
-
 function LoadCharacterInformation(index) {
     Entity.LoadCharacter(index);
 }
@@ -51,10 +43,10 @@ function LoadCharacterInformation(index) {
 function LoadCharacterInformation_Callback() {
 
     if (CharacterSelectionViewModel.CanDeleteCharacters()) {
-        $('#btnDeleteCharacter').button('enable');
+        $('#btnDeleteCharacter').removeAttr('disabled');
     }
 
-    $('#btnJoinServer').button('enable');
+    $('#btnJoinServer').removeAttr('disabled');
 
     CharacterSelectionViewModel.Refresh();
 }
@@ -66,5 +58,5 @@ function LostConnectionOKButton() {
 }
 
 function DisplayLostConnectionBox() {
-    $('#divLostConnection').dialog('open');
+    $('#divLostConnection').modal('show');
 }

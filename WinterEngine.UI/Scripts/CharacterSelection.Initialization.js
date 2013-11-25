@@ -2,16 +2,10 @@
 function Initialize() {
     InitializeCharacterSelectionViewModel();
     
-    InitializeDialogBox('#divLoading', 'Loading...');
-    InitializeDialogBox('#divLostConnection', 'Connection Lost!');
-    InitializeDialogBox('#divDeleteCharacterPopUpBox', 'Confirm Delete Character');
-    InitializeDialogBox('#btnDeleteCharacterResponsePopUpBoxOKButton', 'Delete Character');
-
-    $('#divLoading').dialog('open');
-    $('input:button').button();
-    $('.clsProgressBar').progressbar({
-        value: false
+    $(window).resize(function () {
+        ResizeCharacterList();
     });
+    //$('#divLoading').modal('show');
 
     Entity.RequestServerInformation();
 }
@@ -19,5 +13,16 @@ function Initialize() {
 function RequestServerInformation_Callback() {
     CharacterSelectionViewModel.Refresh();
 
-    $('#divLoading').dialog('close');
+    //$('#divLoading').modal('hide');
+
+
+}
+
+function ResizeCharacterList() {
+    var characterListHeight = $(window).height() -
+        $('#tarServerAnnouncements').height() -
+        $('#divMainPanelHeading').height() -
+        $('#divMainPanelFooter').height();
+
+    $('#divObjectTabContainer').css('height', characterListHeight);
 }

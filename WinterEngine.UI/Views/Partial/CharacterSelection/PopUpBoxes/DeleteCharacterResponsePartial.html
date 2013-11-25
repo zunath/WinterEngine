@@ -1,13 +1,21 @@
-﻿<div id="divDeleteCharacterResponsePopUpBox">
-    <div class="row">&nbsp;</div>
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
 
-    <div class="row clsCenter">
-        <label data-bind="text: DeleteCharacterResponseMessage"></label>
-    </div>
+    <div id="divDeleteCharacterResponsePopUpBox" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Delete Character?
+                </div>
+                <div class="modal-body">
+                    <label data-bind="text: DeleteCharacterResponseMessage"></label>
+                </div>
 
-    <div class="row">&nbsp;</div>
-
-    <div class="row clsCenter">
-        <input id="btnDeleteCharacterResponsePopUpBoxOKButton" type="button" value="OK" class="clsFullButton" onclick="CloseDeleteCharacterResponsePopUpBox();" />
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

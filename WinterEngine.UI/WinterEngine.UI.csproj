@@ -168,9 +168,6 @@
     <Content Include="Views\Partial\CharacterSelection\PopUpBoxes\LostServerConnectionPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Partial\CharacterSelection\ServerDetailsPartial.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\Partial\MainMenu\PopUpBoxes\AccountNotActivatedPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -397,9 +394,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Styling\jQueryUI\jquery-ui-1.10.3.custom.min.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styling\Game\CharacterSelectionStyles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Styling\Game\GameStyles.css">

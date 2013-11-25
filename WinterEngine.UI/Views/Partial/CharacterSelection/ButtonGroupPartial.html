@@ -1,15 +1,24 @@
 ﻿
-<div id="divButtonGroup" class="clsCharacterSelectionButtonGroup">
+<div id="divButtonGroup">
 
     <div class="row">
-        
-        <div class="span12 clsCenter">
-            <input id="btnNewCharacter" type="button" class="clsFullButton" value="New Character" onclick="NewCharacterButton();" />
-            <input id="btnDeleteCharacter" type="button" class="clsFullButton" value="Delete Character" onclick="DeleteCharacterButton();" />
-            <input id="btnJoinServer" type="button" class="clsFullButton" value="Join Server" onclick="JoinServerButton();" />
-            <input id="btnCancel" type="button" class="clsFullButton" value="Cancel" onclick="CancelCharacterSelectionButton();" />
-        </div>
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="btn-group">
+                        <button id="btnNewCharacter" type="button" class="btn btn-primary" 
+                            value="New Character" onclick="NewCharacterButton();">New Character</button>
+                        <button id="btnDeleteCharacter" type="button" class="btn btn-danger" 
+                            value="Delete Character" onclick="DeleteCharacterButton();">Delete Character</button>
+                        <button id="btnJoinServer" type="button" class="btn btn-success" 
+                            value="Join Server" onclick="JoinServerButton();">Join Server</button>
+                        <button id="btnCancel" type="button" class="btn btn-default" 
+                            value="Cancel" onclick="CancelCharacterSelectionButton();">Cancel</button>
+                    </div>
+                </div>
+            </div>
     
+        </div>
     </div>
-        
 </div>
