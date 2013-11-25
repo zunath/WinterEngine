@@ -1,11 +1,24 @@
-﻿
-<div id="divConfirmDelete" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-    <label id="lblConfirmDelete">
-    </label>
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    <div id="divConfirmDelete" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Delete Object
+                </div>
+                <div class="modal-body">
+                    <label id="lblConfirmDelete">
+                    </label>
+                </div>
 
-    <label id="lblConfirmDeleteErrors" class="clsErrorMessage">
-    </label>
-
-    <input id="btnDeleteObjectConfirm" type="button" value="Delete" class="clsHalfButton" onclick="DeleteObject();" />
-    <input id="btnDeleteObjectCancel" type="button" value="Cancel" class="clsHalfButton" onclick="CloseDeleteObjectBox();" />
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="DeleteObject();">
+                        Delete
+                    </button>
+                    <button class="btn btn-default" onclick="CloseDeleteObjectBox();">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

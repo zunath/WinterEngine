@@ -7,7 +7,7 @@ function BuildObjectTreeViewContextMenu(node) {
             "action": function (obj) {
                 $('#divCreateCategory').data('Caller', this);
                 $('#divCreateCategory').data('Parent', obj);
-                $('#divCreateCategory').dialog('open');
+                $('#divCreateCategory').modal('show');
             }
         },
         "CreateObject": {
@@ -15,14 +15,14 @@ function BuildObjectTreeViewContextMenu(node) {
             "action": function (obj) {
                 $('#divNewObject').data('Caller', this);
                 $('#divNewObject').data('Parent', obj);
-                $('#divNewObject').dialog('open');
+                $('#divNewObject').modal('show');
             }
         },
         "RenameCategory": {
             "label": "Rename",
             "action": function (obj) {
                 $('#divRenameTreeNode').data('RenameMode', 'RenameCategory');
-                $('#divRenameTreeNode').dialog('open');
+                $('#divRenameTreeNode').modal('show');
             }
         },
         "DeleteCategory": {
@@ -33,7 +33,7 @@ function BuildObjectTreeViewContextMenu(node) {
                 $('#divConfirmDelete').data('DeleteMode', 'DeleteCategory');
                 $('#lblConfirmDelete').text('Are you sure you want to delete this category? ' +
                     'All objects contained in this category will also be deleted.');
-                $('#divConfirmDelete').dialog('open');
+                $('#divConfirmDelete').modal('show');
             }
         },
         "DeleteObject": {
@@ -44,7 +44,7 @@ function BuildObjectTreeViewContextMenu(node) {
                 $('#divConfirmDelete').data('Parent', obj);
                 $('#divConfirmDelete').data('DeleteMode', 'DeleteObject');
                 $('#lblConfirmDelete').text('Are you sure you want to delete this ' + ToolsetViewModel.CurrentObjectMode() + '?');
-                $('#divConfirmDelete').dialog('open');
+                $('#divConfirmDelete').modal('show');
             }
         }
     };
@@ -83,7 +83,7 @@ function InitializeTreeView(selector, data) {
         "core": {
             "animation": 0,
         },
-        "plugins": ["json_data", "ui", "themeroller", "sort", "crrm", "contextmenu", "types"],
+        "plugins": ["json_data", "ui", "sort", "themes", "crrm", "contextmenu", "types"],
         "json_data": {
             "data": [
                 data
@@ -113,6 +113,10 @@ function InitializeTreeView(selector, data) {
             items: BuildObjectTreeViewContextMenu
         },
         "crrm": {
+        },
+        "themes": {
+            "url": "../Styling/jstree/proton/style.css",
+            "theme": "proton"
         }
     })
 
@@ -225,7 +229,7 @@ function CloseNewCategoryBox() {
     $('#txtCategoryName').val('');
     $('#lblNewCategoryErrors').text('');
 
-    $('#divCreateCategory').dialog('close');
+    $('#divCreateCategory').modal('hide');
 }
 
 // Closes the pop-up div for new objects and clears all temporary data.
@@ -237,7 +241,7 @@ function CloseNewObjectBox() {
     $('#txtObjectResref').val('');
     $('#lblNewObjectErrors').text('');
 
-    $('#divNewObject').dialog('close');
+    $('#divNewObject').modal('hide');
 }
 
 // Handles requesting that a category or object be deleted from database.
@@ -278,7 +282,7 @@ function CloseDeleteObjectBox() {
     $('#divConfirmDelete').removeData('Caller');
     $('#divConfirmDelete').removeData('Parent');
     $('#lblConfirmDeleteErrors').text('');
-    $('#divConfirmDelete').dialog('close');
+    $('#divConfirmDelete').modal('hide');
 }
 
 // Handles requesting that a category or object be renamed.
@@ -314,6 +318,6 @@ function RenameObject_Callback(success, errorMessage, newName) {
 function CloseRenameObjectBox() {
     $('#lblRenameTreeNodeErrors').text('');
     $('#txtRenameTreeNode').val('');
-    $('#divRenameTreeNode').dialog('close');
+    $('#divRenameTreeNode').modal('hide');
 }
 

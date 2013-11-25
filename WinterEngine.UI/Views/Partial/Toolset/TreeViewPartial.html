@@ -1,10 +1,17 @@
-﻿<div id="divTreeViewContainer" class="clsTreeViewContainerDiv" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-    <div id="divAreaTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Area' }"></div>
-    <div id="divCreatureTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Creature' }"></div>
-    <div id="divItemTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Item' }"></div>
-    <div id="divPlaceableTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Placeable' }"></div>
-    <div id="divConversationTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Conversation' }"></div>
-    <div id="divScriptTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Script' }"></div>
-    <div id="divTilesetTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Tileset' }"></div>
-    <div id="divAnimationTreeView" class="clsTreeViewDiv" data-bind="css: {clsHidden: CurrentObjectMode() != 'Animation' }"></div>
+﻿<div id="divTreeViewContainer"  onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    
+    <div class="panel panel-default" data-bind="css: {clsHidden: $.inArray(CurrentObjectMode(), ['Area', 'Creature', 'Item', 'Placeable', 'Conversation', 'Script', 'Tileset', 'Animation']) <= -1 }">
+        <div class="panel-body">
+            <div id="divAreaTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Area' }"></div>
+            <div id="divCreatureTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Creature' }"></div>
+            <div id="divItemTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Item' }"></div>
+            <div id="divPlaceableTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Placeable' }"></div>
+            <div id="divConversationTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Conversation' }"></div>
+            <div id="divScriptTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Script' }"></div>
+            <div id="divTilesetTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Tileset' }"></div>
+            <div id="divAnimationTreeView" class="clsTreeViewDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Animation' }"></div>
+        </div>
+    </div>
+
+
 </div>

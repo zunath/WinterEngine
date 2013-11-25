@@ -1,15 +1,30 @@
-﻿
-<div id="divOpenModuleBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-    Please select a module to open.
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    <div id="divOpenModuleBox" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Open Module
+                </div>
+                <div class="modal-body">
+                     Please select a module to open.
 
-    <select id="selModulesList" size="5" data-bind="foreach: ModuleList">
-        <option data-bind="text: FileName" ondblclick="OpenModuleButtonClick();"></option>
-    </select>
+                    <select id="selModulesList" size="5" data-bind="foreach: ModuleList" class="form-control">
+                        <option data-bind="text: FileName" ondblclick="OpenModuleButtonClick();"></option>
+                    </select>
     
-    <div class="row-fluid">
-        <div id="divOpeningModuleProgressBar" class="clsProgressBar clsHidden"></div>
-    </div>
+                    <div id="divOpeningModuleProgressBar" class="clsProgressBar clsHidden"></div>
+                
+                </div>
 
-    <input id="btnOpenModuleOpenButton" type="button" value="Open" onclick="OpenModuleButtonClick();" />
-    <input id="btnOpenModuleCancelButton" type="button" value="Cancel" onclick="CloseOpenModulePopUp();" />
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="OpenModuleButtonClick();">
+                        Open
+                    </button>
+                    <button class="btn btn-default" onclick="CloseOpenModulePopUp();">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

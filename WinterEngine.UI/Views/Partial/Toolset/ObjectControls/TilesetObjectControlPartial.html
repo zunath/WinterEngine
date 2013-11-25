@@ -1,31 +1,43 @@
 ﻿
 <div id="divTilesetTab" class="clsObjectTabDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Tileset' }">
-    <h3>Tileset Details</h3>
-    <div id="divTilesetsTab-Details">
-        <label id="lblTilesetDetails-Name" for="txtTilesetDetails-Name">Name:</label>
-        <input id="txtTilesetDetails-Name" type="text" maxlength="64" 
-            data-bind="value: ActiveTileset.Name,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
+    
+    
+    <div class="panel-group" id="divTilesetAccordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divTilesetAccordion" href="#divTilesetsTab-Details">Tileset Details
+                    </a>
+                </h4>
+            </div>
+            <div id="divTilesetsTab-Details" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <label id="lblTilesetDetails-Name" for="txtTilesetDetails-Name">Name:</label>
+                    <input id="txtTilesetDetails-Name" type="text" maxlength="64" class="form-control"
+                        data-bind="value: ActiveTileset.Name,
+                                    enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblTilesetDetails-Tag" for="txtTilesetDetails-Tag">Tag:</label>
-        <input id="txtTilesetDetails-Tag" type="text" maxlength="64" 
-            data-bind="value: ActiveTileset.Tag,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
+                    <label id="lblTilesetDetails-Tag" for="txtTilesetDetails-Tag">Tag:</label>
+                    <input id="txtTilesetDetails-Tag" type="text" maxlength="64" class="form-control"
+                        data-bind="value: ActiveTileset.Tag,
+                                    enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblTilesetDetails-Resref" for="txtTilesetDetails-Resref">Resref:</label>
-        <input id="txtTilesetDetails-Resref" type="text" maxlength="64" 
-            data-bind="value: ActiveTileset.Resref,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
+                    <label id="lblTilesetDetails-Resref" for="txtTilesetDetails-Resref">Resref:</label>
+                    <input id="txtTilesetDetails-Resref" type="text" maxlength="64" class="form-control"
+                        data-bind="value: ActiveTileset.Resref,
+                                    enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
-        <select id="selTilesetDetails-Spritesheet" size="3"
-            data-bind="options: TilesetSpriteSheetsList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveTileset.GraphicResourceID == null ? 0 : ActiveTileset.GraphicResourceID,
-                       event: { change: function (item) { return SelectTilesetSpriteSheet(); } },
-                       enable: IsObjectLoadedForCurrentObjectMode">
-        </select>
-
+                    <label id="lblTilesetDetails-Spritesheet" for="selTilesetDetails-Spritesheet">Spritesheet:</label>
+                    <select id="selTilesetDetails-Spritesheet" size="3" class="form-control"
+                        data-bind="options: TilesetSpriteSheetsList,
+                                    optionsText: function (item) { return item.Name },
+                                    optionsValue: function (item) { return item.ResourceID },
+                                    value: ActiveTileset.GraphicResourceID == null ? 0 : ActiveTileset.GraphicResourceID,
+                                    event: { change: function (item) { return SelectTilesetSpriteSheet(); } },
+                                    enable: IsObjectLoadedForCurrentObjectMode">
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,10 +1,21 @@
-﻿
-<div id="divAlertBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-    <div class="row-fluid">
-        <label id="lblAlertBox">
-        </label>
-    </div>
-    <div class="offset1 span1">
-        <input id="btnAlertBoxOK" type="button" class="clsFullButton" value="OK" onclick="CloseAlertBox();" />
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    <div id="divAlertBox" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Alert
+                </div>
+                <div class="modal-body">
+                    <label id="lblAlertBox">
+                    </label>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

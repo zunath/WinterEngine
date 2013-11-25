@@ -1,24 +1,59 @@
-﻿
-<div id="divSaveAsModuleBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-    Please select a file name for this module.
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    <div id="divSaveAsModuleBox" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Save Module
+                </div>
+                <div class="modal-body">
+                    Please select a file name for this module.
 
-    <label id="lblSaveAsErrors" class="clsErrorMessage"></label>
+                    <label id="lblSaveAsErrors" class="clsErrorMessage"></label>
 
-    <select id="selModulesListSaveAs" size="5" data-bind="foreach: ModuleList">
-        <option data-bind="text: FileName" onclick="SelectExistingSaveAsModule();" ondblclick="SaveAsModuleButtonClick();"></option>
-    </select>
+                    <select id="selModulesListSaveAs" size="5" class="form-control"
+                        data-bind="foreach: ModuleList">
+                        <option data-bind="text: FileName" onclick="SelectExistingSaveAsModule();" ondblclick="SaveAsModuleButtonClick();"></option>
+                    </select>
 
-    <input id="txtSaveAsModuleFileName" name="txtSaveAsModuleFileName" type="text" />
+                    <input id="txtSaveAsModuleFileName" name="txtSaveAsModuleFileName" type="text" class="form-control" />
+                </div>
 
-    <input id="btnSaveAsModuleSaveButton" type="button" value="Save" onclick="SaveAsModuleButtonClick();" />
-    <input id="btnSaveAsModuleCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModulePopUp();" />
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="SaveAsModuleButtonClick();">
+                        Save
+                    </button>
+                    <button class="btn btn-default" onclick="CloseSaveAsModulePopUp();">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="divSaveAsOverwriteConfirmation" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-    The file name <span id="spnSaveAsModuleOverwriteName"></span> already exists.
-    <br />
-    Do you want to overwrite the file?
 
-    <input id="btnSaveAsModuleOverwriteButton" type="button" value="Overwrite" onclick="SaveAsModuleOverwriteButtonClick();" />
-    <input id="btnSaveAsModuleOverwriteCancelButton" type="button" value="Cancel" onclick="CloseSaveAsModuleConfirmationPopUp(true);" />
+<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    <div id="divSaveAsOverwriteConfirmation" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Overwrite File?
+                </div>
+                <div class="modal-body">
+                    <p>The file name <span id="spnSaveAsModuleOverwriteName"></span> already exists.
+                    Do you want to overwrite the file?</p>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="SaveAsModuleOverwriteButtonClick();">
+                        Overwrite
+                    </button>
+                    <button class="btn btn-default" onclick="CloseSaveAsModuleConfirmationPopUp(true);">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

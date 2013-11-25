@@ -12,6 +12,11 @@
     user-select: none;
 }
 
+/* BOOTSTRAP OVERRIDES */
+
+.navbar {
+    margin-bottom: 0;
+}
 
 /* BUTTONS */
 

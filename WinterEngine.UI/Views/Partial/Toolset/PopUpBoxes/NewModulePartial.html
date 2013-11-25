@@ -1,31 +1,44 @@
-﻿<div id="divNewModuleBox" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    <div id="divNewModuleBox" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    New Module
+                </div>
+                <div class="modal-body">
 
-    <form id="formNewModule" class="clsValidationForm">
-        <label id="lblNewModuleError" class="clsErrorMessage"></label>
+                    <form id="formNewModule" class="clsValidationForm">
+                        <label id="lblNewModuleError" class="clsErrorMessage"></label>
 
-        <div class="row-fluid">
-            <label for="txtModuleName">Name:</label>
-            <input id="txtModuleName" name="txtModuleName" required="required" type="text" maxlength="64" />
-        </div>
-        <div class="row-fluid">
-            <label for="txtModuleTag">Tag:</label>
-            <input id="txtModuleTag" name="txtModuleTag" required="required" type="text" maxlength="32" />
-        </div>
+                        <label for="txtModuleName">Name:</label>
+                        <input id="txtModuleName" name="txtModuleName" class="form-control"
+                            required="required" type="text" maxlength="64" />
 
-        <div class="row-fluid">
-            <label for="txtModuleResref">Resref:</label>
-            <input id="txtModuleResref" name="txtModuleResref" required="required" type="text" maxlength="32" />
-        </div>
+                        <label for="txtModuleTag">Tag:</label>
+                        <input id="txtModuleTag" name="txtModuleTag"  class="form-control"
+                            required="required" type="text" maxlength="32" />
 
-        <div class="row-fluid">
-            <div id="divCreatingModuleProgressBar" class="clsProgressBar clsHidden"></div>
-        </div>
+                        <label for="txtModuleResref">Resref:</label>
+                        <input id="txtModuleResref" name="txtModuleResref" class="form-control"
+                             required="required" type="text" maxlength="32" />
 
-        <div class="span1">
-            <input id="btnNewModuleOK" type="button" class="clsFullButton" value="OK" onclick="NewModuleBoxOKClick();" />
+                        <div id="divCreatingModuleProgressBar" class="clsProgressBar clsHidden"></div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="NewModuleBoxOKClick();">
+                        Create
+                    </button>
+                    <button class="btn btn-default" onclick="NewModuleBoxCancelClick();">
+                        Cancel
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="span1">
-            <input id="btnNewModuleCancel" type="button" class="clsFullButton" value="Cancel" onclick="NewModuleBoxCancelClick();" />
-        </div>
-    </form>
+    </div>
 </div>
+
+

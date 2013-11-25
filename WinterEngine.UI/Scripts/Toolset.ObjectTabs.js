@@ -33,7 +33,7 @@ function OpenEditLocalVariableBox(isModuleProperties, mode, variableObject) {
     $('#divEditLocalVariableBox').data('ismoduleproperties', isModuleProperties);
     $('#divEditLocalVariableBox').data('mode', mode);
     $('#divEditLocalVariableBox').data('variableobject', variableObject);
-    $('#divEditLocalVariableBox').dialog('open');
+    $('#divEditLocalVariableBox').modal('show');
 
     if (mode == 'edit') {
         try
@@ -55,7 +55,7 @@ function EditLocalVariableCancelClick() {
     $('#divEditLocalVariableBox').data('ismoduleproperties', '');
     $('#divEditLocalVariableBox').data('mode', '');
     $('#divEditLocalVariableBox').data('variableobject', '');
-    $('#divEditLocalVariableBox').dialog('close');
+    $('#divEditLocalVariableBox').modal('hide');
 }
 
 function EditLocalVariableBoxOKClick() {
@@ -81,12 +81,12 @@ function EditLocalVariableBoxOKClick() {
 
     $('#txtLocalVariableName').val('');
     $('#txtLocalVariableValue').val('');
-    $('#divEditLocalVariableBox').dialog('close');
+    $('#divEditLocalVariableBox').modal('hide');
 }
 
 function OpenDeleteLocalVariableBox(variableObject) {
     $('#divConfirmDeleteLocalVariable').data('variableobject', variableObject);
-    $('#divConfirmDeleteLocalVariable').dialog('open');
+    $('#divConfirmDeleteLocalVariable').modal('show');
 
 }
 
@@ -102,5 +102,5 @@ function ConfirmDeleteLocalVariableClick() {
 function CloseDeleteLocalVariableClick() {
     $('#divConfirmDeleteLocalVariable').data('name', '');
     $('#divConfirmDeleteLocalVariable').data('localvariableid', '');
-    $('#divConfirmDeleteLocalVariable').dialog('close');
+    $('#divConfirmDeleteLocalVariable').modal('hide');
 }

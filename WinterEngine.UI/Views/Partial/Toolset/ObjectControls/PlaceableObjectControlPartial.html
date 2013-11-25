@@ -1,109 +1,149 @@
 ﻿
 <div id="divPlaceableTab" class="clsObjectTabDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Placeable' }">
-    <h3>Placeable Details</h3>
-    <div id="divPlaceablesTab-Details">
-        <label id="lblPlaceableDetails-Name" for="txtPlaceableDetails-Name">Name:</label>
-        <input id="txtPlaceableDetails-Name" type="text" maxlength="64" 
-            data-bind="value: ActivePlaceable.Name,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
+    
+    <div class="panel-group" id="divPlaceableAccordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divPlaceableAccordion" href="#divPlaceablesTab-Details">Placeable Details
+                    </a>
+                </h4>
+            </div>
+            <div id="divPlaceablesTab-Details" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    
+                    <label id="lblPlaceableDetails-Name" for="txtPlaceableDetails-Name">Name:</label>
+                    <input id="txtPlaceableDetails-Name" type="text" maxlength="64" class="form-control"
+                        data-bind="value: ActivePlaceable.Name,
+                                    enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblPlaceableDetails-Tag" for="txtPlaceableDetails-Tag">Tag:</label>
-        <input id="txtPlaceableDetails-Tag" type="text" maxlength="32" 
-            data-bind="value: ActivePlaceable.Tag,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
+                    <label id="lblPlaceableDetails-Tag" for="txtPlaceableDetails-Tag">Tag:</label>
+                    <input id="txtPlaceableDetails-Tag" type="text" maxlength="32" class="form-control"
+                        data-bind="value: ActivePlaceable.Tag,
+                                    enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblPlaceableDetails-Resref" for="txtPlaceableDetails-Resref">Resref:</label>
-        <input id="txtPlaceableDetails-Resref" type="text" maxlength="32" 
-            data-bind="value: ActivePlaceable.Resref,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
+                    <label id="lblPlaceableDetails-Resref" for="txtPlaceableDetails-Resref">Resref:</label>
+                    <input id="txtPlaceableDetails-Resref" type="text" maxlength="32" class="form-control"
+                        data-bind="value: ActivePlaceable.Resref,
+                                    enable: IsObjectLoadedForCurrentObjectMode" />
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divPlaceableAccordion" href="#divPlaceablesTab-Description">Description
+                    </a>
+                </h4>
+            </div>
+            <div id="divPlaceablesTab-Description" class="panel-collapse collapse">
+                <div class="panel-body">
+                    
+                    <textarea id="txtPlaceableDetails-Description" class="form-control"
+                        data-bind="value: ActivePlaceable.Description,
+                                    enable: IsObjectLoadedForCurrentObjectMode"></textarea>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divPlaceableAccordion" href="#divPlaceablesTab-Comments">Comments
+                    </a>
+                </h4>
+            </div>
+            <div id="divPlaceablesTab-Comments" class="panel-collapse collapse">
+                <div class="panel-body">
+                    
+                    <textarea id="txtPlaceableDetails-Comments" class="form-control"
+                        data-bind="value: ActivePlaceable.Comment,
+                                    enable: IsObjectLoadedForCurrentObjectMode"></textarea>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divPlaceableAccordion" href="#divPlaceablesTab-LocalVariables">Local Variables
+                    </a>
+                </h4>
+            </div>
+            <div id="divPlaceablesTab-LocalVariables" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <input id="btnPlaceablesTab-AddLocalVariable" type="button" value="Add New Variable" class="btn btn-default" onclick="OpenEditLocalVariableBox(false, 'create');"
+                        data-bind="enable: IsObjectLoadedForCurrentObjectMode" />
 
-    </div>
-
-    <h3>Description</h3>
-    <div id="divPlaceableDetails-Description">
-        <textarea id="txtPlaceableDetails-Description" 
-            data-bind="value: ActivePlaceable.Description,
-                       enable: IsObjectLoadedForCurrentObjectMode"></textarea>
-    </div>
-
-    <h3>Comments</h3>
-    <div id="divPlaceableDetails-Comments">
-        <textarea id="txtPlaceableDetails-Comments" 
-            data-bind="value: ActivePlaceable.Comment,
-                       enable: IsObjectLoadedForCurrentObjectMode"></textarea>
-    </div>
-
-    <h3>Local Variables</h3>
-    <div id="divPlaceablesTab-LocalVariables">
-        <input id="btnPlaceablesTab-AddLocalVariable" type="button" value="Add New Variable" onclick="OpenEditLocalVariableBox(false, 'create');"
-            data-bind="enable: IsObjectLoadedForCurrentObjectMode" />
-
-        <div data-bind="foreach: ActivePlaceable.LocalVariables">
-            <label data-bind="text: Name"></label>
-            <input type="button" data-bind="value: 'Edit', click: function (data, event) { OpenEditLocalVariableBox(false, 'edit', $data); }" />
-            <input type="button" data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox($data) }" />
+                    <div data-bind="foreach: ActivePlaceable.LocalVariables">
+                        <label data-bind="text: Name"></label>
+                        <input type="button" class="btn btn-default"
+                            data-bind="value: 'Edit', click: function (data, event) { OpenEditLocalVariableBox(false, 'edit', $data); }" />
+                        <input type="button" class="btn btn-default"
+                            data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox($data) }" />
                         
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divPlaceableAccordion" href="#divPlaceablesTab-Events">Events
+                    </a>
+                </h4>
+            </div>
+            <div id="divPlaceables-Events" class="panel-collapse collapse">
+                <div class="panel-body">
+                    
+                    <label id="lblPlaceablesEvents-OnSpawn">On Spawn:</label>
+                    <select id="selPlaceablesEvents-OnSpawn" size="3" class="form-control"
+                        data-bind="options: ScriptList,
+                                    optionsText: function (item) { return item.Name },
+                                    optionsValue: function (item) { return item.ResourceID },
+                                    value: ActivePlaceable.OnSpawnEventScriptID,
+                                    enable: IsObjectLoadedForCurrentObjectMode" ></select>
+
+                    <label id="lblPlaceablesEvents-OnDamaged">On Damaged:</label>
+                    <select id="selPlaceablesEvents-OnDamaged" size="3" class="form-control"
+                        data-bind="options: ScriptList,
+                                    optionsText: function (item) { return item.Name },
+                                    optionsValue: function (item) { return item.ResourceID },
+                                    value: ActivePlaceable.OnDamagedEventScriptID,
+                                    enable: IsObjectLoadedForCurrentObjectMode" ></select>
+
+                    <label id="lblPlaceablesEvents-OnDeath">On Death:</label>
+                    <select id="selPlaceablesEvents-OnDeath" size="3" class="form-control"
+                        data-bind="options: ScriptList,
+                                    optionsText: function (item) { return item.Name },
+                                    optionsValue: function (item) { return item.ResourceID },
+                                    value: ActivePlaceable.OnDeathEventScriptID,
+                                    enable: IsObjectLoadedForCurrentObjectMode" ></select>
+
+                    <label id="lblPlaceablesEvents-OnHeartbeat">On Heartbeat:</label>
+                    <select id="selPlaceablesEvents-OnHeartbeat" size="3" class="form-control"
+                        data-bind="options: ScriptList,
+                                    optionsText: function (item) { return item.Name },
+                                    optionsValue: function (item) { return item.ResourceID },
+                                    value: ActivePlaceable.OnHeartbeatEventScriptID,
+                                    enable: IsObjectLoadedForCurrentObjectMode" ></select>
+
+                    <label id="lblPlaceablesEvents-OnOpen">On Open:</label>
+                    <select id="selPlaceablesEvents-OnOpen" size="3" class="form-control"
+                        data-bind="options: ScriptList,
+                                    optionsText: function (item) { return item.Name },
+                                    optionsValue: function (item) { return item.ResourceID },
+                                    value: ActivePlaceable.OnOpenEventScriptID,
+                                    enable: IsObjectLoadedForCurrentObjectMode" ></select>
+
+                    <label id="lblPlaceablesEvents-OnClose">On Close:</label>
+                    <select id="selPlaceablesEvents-OnClose" size="3"class="form-control"
+                        data-bind="options: ScriptList,
+                                    optionsText: function (item) { return item.Name },
+                                    optionsValue: function (item) { return item.ResourceID },
+                                    value: ActivePlaceable.OnCloseEventScriptID,
+                                    enable: IsObjectLoadedForCurrentObjectMode"></select>
+
+                    <label id="lblPlaceablesEvents-OnUsed">On Used:</label>
+                    <select id="selPlaceablesEvents-OnUsed" size="3" class="form-control"
+                        data-bind="options: ScriptList,
+                                    optionsText: function (item) { return item.Name },
+                                    optionsValue: function (item) { return item.ResourceID },
+                                    value: ActivePlaceable.OnUsedEventScriptID,
+                                    enable: IsObjectLoadedForCurrentObjectMode" ></select>
+
+                </div>
+            </div>
         </div>
-    </div>
-
-    <h3>Events</h3>
-    <div id="divPlaceablesTab-Events">
-
-        <label id="lblPlaceablesEvents-OnSpawn">On Spawn:</label>
-        <select id="selPlaceablesEvents-OnSpawn" size="3" 
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActivePlaceable.OnSpawnEventScriptID,
-                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
-
-        <label id="lblPlaceablesEvents-OnDamaged">On Damaged:</label>
-        <select id="selPlaceablesEvents-OnDamaged" size="3" 
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActivePlaceable.OnDamagedEventScriptID,
-                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
-
-        <label id="lblPlaceablesEvents-OnDeath">On Death:</label>
-        <select id="selPlaceablesEvents-OnDeath" size="3" 
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActivePlaceable.OnDeathEventScriptID,
-                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
-
-        <label id="lblPlaceablesEvents-OnHeartbeat">On Heartbeat:</label>
-        <select id="selPlaceablesEvents-OnHeartbeat" size="3" 
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActivePlaceable.OnHeartbeatEventScriptID,
-                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
-
-        <label id="lblPlaceablesEvents-OnOpen">On Open:</label>
-        <select id="selPlaceablesEvents-OnOpen" size="3" 
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActivePlaceable.OnOpenEventScriptID,
-                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
-
-        <label id="lblPlaceablesEvents-OnClose">On Close:</label>
-        <select id="selPlaceablesEvents-OnClose" size="3"
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActivePlaceable.OnCloseEventScriptID,
-                       enable: IsObjectLoadedForCurrentObjectMode"></select>
-
-        <label id="lblPlaceablesEvents-OnUsed">On Used:</label>
-        <select id="selPlaceablesEvents-OnUsed" size="3" 
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActivePlaceable.OnUsedEventScriptID,
-                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
-
     </div>
 </div>

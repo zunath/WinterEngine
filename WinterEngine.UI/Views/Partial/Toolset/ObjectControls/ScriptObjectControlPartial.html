@@ -1,21 +1,35 @@
 ﻿
 <div id="divScriptTab" class="clsObjectTabDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Script' }">
-    <h3>Script Details</h3>
-    <div id="divScriptsTab-Details">
-        <label id="lblScriptDetails-Name" for="txtScriptDetails-Name">Name:</label>
-        <input id="txtScriptDetails-Name" type="text" maxlength="64" 
-            data-bind="value: ActiveScript.Name,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
+    
+    
+    
+    <div class="panel-group" id="divScriptAccordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divScriptAccordion" href="#divScriptsTab-Details">Script Details
+                    </a>
+                </h4>
+            </div>
+            <div id="divScriptsTab-Details" class="panel-collapse collapse in">
+                <div class="panel-body">
+                <label id="lblScriptDetails-Name" for="txtScriptDetails-Name">Name:</label>
+                <input id="txtScriptDetails-Name" type="text" maxlength="64" class="form-control"
+                    data-bind="value: ActiveScript.Name,
+                                 enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblScriptDetails-Tag" for="txtScriptDetails-Tag">Tag:</label>
-        <input id="txtScriptDetails-Tag" type="text" maxlength="32" 
-            data-bind="value: ActiveScript.Tag,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
+                <label id="lblScriptDetails-Tag" for="txtScriptDetails-Tag">Tag:</label>
+                <input id="txtScriptDetails-Tag" type="text" maxlength="32" class="form-control"
+                    data-bind="value: ActiveScript.Tag,
+                                enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblScriptDetails-Resref" for="txtScriptDetails-Resref">Resref:</label>
-        <input id="txtScriptDetails-Resref" type="text" maxlength="32" 
-            data-bind="value: ActiveScript.Resref,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
-
+                <label id="lblScriptDetails-Resref" for="txtScriptDetails-Resref">Resref:</label>
+                <input id="txtScriptDetails-Resref" type="text" maxlength="32" class="form-control"
+                    data-bind="value: ActiveScript.Resref,
+                                enable: IsObjectLoadedForCurrentObjectMode" />
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>

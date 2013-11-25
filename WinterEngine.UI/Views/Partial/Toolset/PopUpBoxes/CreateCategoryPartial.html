@@ -1,13 +1,29 @@
-﻿
-<div id="divCreateCategory" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-    <form id="formNewCategory" class="clsValidationForm">
-        <label id="lblNewCategoryErrors" class="clsErrorMessage">
-        </label>
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    <div id="divCreateCategory" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Create Category
+                </div>
+                <div class="modal-body">
+                    <form id="formNewCategory" class="clsValidationForm">
+                        <label id="lblNewCategoryErrors" class="clsErrorMessage">
+                        </label>
 
-        <label id="lblCategoryName" for="txtCategoryName">Name:</label>
-        <input id="txtCategoryName" name="txtCategoryName" type="text" class="required" maxlength="64" />
+                        <label id="lblCategoryName" for="txtCategoryName">Name:</label>
+                        <input id="txtCategoryName" name="txtCategoryName" type="text" class="required form-control" maxlength="64" />
+                    </form>
+                </div>
 
-        <input id="btnCreateCategory" type="button" value="Create" class="clsHalfButton" onclick="CreateNewCategory();" />
-        <input id="btnCancelCreateCategory" type="button" value="Cancel" class="clsHalfButton" onclick="CloseNewCategoryBox();" />
-    </form>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="CreateNewCategory();">
+                        Create
+                    </button>
+                    <button class="btn btn-default" onclick="CloseNewCategoryBox();">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

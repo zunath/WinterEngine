@@ -1,120 +1,191 @@
 ﻿<div id="divAreaTab" class="clsObjectTabDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Area' }">
-    <h3>Area Details</h3>
-    <div id="divAreasTab-Details">
-        <label id="lblAreaDetails-Name" for="txtAreaDetails-Name">Name:</label>
-        <input id="txtAreaDetails-Name" type="text" maxlength="64" 
-            data-bind="value: ActiveArea.Name,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblAreaDetails-Tag" for="txtAreaDetails-Tag">Tag:</label>
-        <input id="txtAreaDetails-Tag" type="text" maxlength="32" 
-            data-bind="value: ActiveArea.Tag,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
+    <div class="panel-group" id="divAreaAccordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divAreaAccordion" href="#divAreasTab-Details">Area Details
+                    </a>
+                </h4>
+            </div>
+            <div id="divAreasTab-Details" class="panel-collapse collapse in">
+                <div class="panel-body">
 
-        <label id="lblAreaDetails-Resref" for="txtAreaDetails-Resref">Resref:</label>
-        <input id="txtAreaDetails-Resref" type="text" maxlength="32" 
-            data-bind="value: ActiveArea.Resref,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
+                    <label id="lblAreaDetails-Name" for="txtAreaDetails-Name">Name:</label>
+                    <input id="txtAreaDetails-Name" type="text" maxlength="64" class="form-control"
+                        data-bind="value: ActiveArea.Name,
+                                    enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblAreaDetails-Tileset" for="selAreaDetails-Tileset">Tileset:</label>
-        <select id="selAreaDetails-Tileset" size="3"
-            data-bind="options: TilesetList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveArea.TilesetID,
-                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
+                    <label id="lblAreaDetails-Tag" for="txtAreaDetails-Tag">Tag:</label>
+                    <input id="txtAreaDetails-Tag" type="text" maxlength="32" class="form-control"
+                        data-bind="value: ActiveArea.Tag,
+                                    enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblAreaDetails-MapWidth" for="numAreaDetails-MapWidth">Width:</label>
-        <input id="numAreaDetails-MapWidth" type="number" min="1" max="32" data-bind="value: ActiveArea.TilesWide, enable: IsObjectLoadedForCurrentObjectMode" />
+                    <label id="lblAreaDetails-Resref" for="txtAreaDetails-Resref">Resref:</label>
+                    <input id="txtAreaDetails-Resref" type="text" maxlength="32" class="form-control"
+                        data-bind="value: ActiveArea.Resref,
+                                    enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblAreaDetails-MapHeight" for="numAreaDetails-MapHeight">Height:</label>
-        <input id="numAreaDetails-MapHeight" type="number" min="1" max="32" data-bind="value: ActiveArea.TilesHigh, enable: IsObjectLoadedForCurrentObjectMode" />
+                    <label id="lblAreaDetails-Tileset" for="selAreaDetails-Tileset">Tileset:</label>
+                    <select id="selAreaDetails-Tileset" size="3" class="form-control"
+                        data-bind="options: TilesetList,
+                                    optionsText: function (item) { return item.Name },
+                                    optionsValue: function (item) { return item.ResourceID },
+                                    value: ActiveArea.TilesetID,
+                                    enable: IsObjectLoadedForCurrentObjectMode"></select>
 
-    </div>
+                    <label id="lblAreaDetails-MapWidth" for="numAreaDetails-MapWidth">Width:</label>
+                    <input id="numAreaDetails-MapWidth" type="number" min="1" max="32" class="form-control"
+                        data-bind="value: ActiveArea.TilesWide, enable: IsObjectLoadedForCurrentObjectMode" />
 
-    <h3>Paint Tiles</h3>
-    <div id="divAreasTab-PaintTiles">
-        <canvas id="cnvAreaTilesetImage" class="clsHidden clsFullSize clsCanvas"></canvas>
-    </div>
+                    <label id="lblAreaDetails-MapHeight" for="numAreaDetails-MapHeight">Height:</label>
+                    <input id="numAreaDetails-MapHeight" type="number" min="1" max="32" class="form-control"
+                        data-bind="value: ActiveArea.TilesHigh, enable: IsObjectLoadedForCurrentObjectMode" />
 
-    <h3>Paint Creatures</h3>
-    <div id="divAreasTab-PaintCreatures">
-    </div>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divAreaAccordion" href="#divAreasTab-PaintTiles">Paint Tiles
+                    </a>
+                </h4>
+            </div>
+            <div id="divAreasTab-PaintTiles" class="panel-collapse collapse">
+                <div class="panel-body">
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divAreaAccordion" href="#divAreasTab-PaintCreatures">Paint Creatures
+                    </a>
+                </h4>
+            </div>
+            <div id="divAreasTab-PaintCreatures" class="panel-collapse collapse">
+                <div class="panel-body">
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divAreaAccordion" href="#divAreasTab-PaintPlaceables">Paint Placeables
+                    </a>
+                </h4>
+            </div>
+            <div id="divAreasTab-PaintPlaceables" class="panel-collapse collapse">
+                <div class="panel-body">
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divAreaAccordion" href="#divAreasTab-Music">Music
+                    </a>
+                </h4>
+            </div>
+            <div id="divAreasTab-Music" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <label>Background:</label>
+                    <select id="selAreasMusic-Background" size="3" class="form-control"></select>
 
-    <h3>Paint Items</h3>
-    <div id="divAreasTab-PaintItems">
-    </div>
+                    <label>Battle:</label>
+                    <select id="selAreasMusic-Battle" size="3" class="form-control"></select>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divAreaAccordion" href="#divAreasTab-Description">Description
+                    </a>
+                </h4>
+            </div>
+            <div id="divAreasTab-Description" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <textarea id="txtAreasTab-Description" class="form-control"
+                        data-bind="value: ActiveArea.Description, enable: IsObjectLoadedForCurrentObjectMode"></textarea>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divAreaAccordion" href="#divAreasTab-Comments">Comments
+                    </a>
+                </h4>
+            </div>
+            <div id="divAreasTab-Comments" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <textarea id="txtAreasTab-Comments" class="form-control"
+                        data-bind="value: ActiveArea.Comment, enable: IsObjectLoadedForCurrentObjectMode"></textarea>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divAreaAccordion" href="#divAreasTab-LocalVariables">Local Variables
+                    </a>
+                </h4>
+            </div>
+            <div id="divAreasTab-LocalVariables" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <input id="btnAreasTab-AddLocalVariable" type="button" value="Add New Variable" class="btn btn-default" onclick="OpenEditLocalVariableBox(false, 'create');"
+                        data-bind="enable: IsObjectLoadedForCurrentObjectMode" />
 
-    <h3>Paint Placeables</h3>
-    <div id="divAreasTab-PaintPlaceables">
-    </div>
+                    <div data-bind="foreach: ActiveArea.LocalVariables">
+                        <label data-bind="text: Name"></label>
+                        <button type="button" class="btn btn-default"
+                            data-bind="value: 'Edit', click: function (data, event) { OpenEditLocalVariableBox(false, 'edit', $data); }">
+                            Edit
+                        </button>
 
-    <h3>Music</h3>
-    <div id="divAreasTab-Music">
-        <label>Background:</label>
-        <select id="selAreasMusic-Background" size="3"></select>
+                        <button type="button" class="btn btn-default"
+                            data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox($data) }">
+                            Delete
+                        </button>
 
-        <label>Battle:</label>
-        <select id="selAreasMusic-Battle" size="3"></select>
-    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divAreaAccordion" href="#divAreasTab-Events">Events
+                    </a>
+                </h4>
+            </div>
+            <div id="divAreasTab-Events" class="panel-collapse collapse">
+                <div class="panel-body">
+                    
+                <label id="lblAreaEvents-OnAreaEnter">On Area Enter:</label>
+                <select id="selAreaEvents-OnAreaEnter" size="3" class="form-control"
+                    data-bind="options: ScriptList,
+                                optionsText: function (item) { return item.Name },
+                                optionsValue: function (item) { return item.ResourceID },
+                                value: ActiveArea.OnEnterEventScriptID,
+                                enable: IsObjectLoadedForCurrentObjectMode">
+                </select>
 
-    <h3>Description</h3>
-    <div id="divAreasTab-Description">
-        <textarea id="txtAreasTab-Description" data-bind="value: ActiveArea.Description, enable: IsObjectLoadedForCurrentObjectMode"></textarea>
-    </div>
+                <label id="lblAreaEvents-OnAreaExit">On Area Exit:</label>
+                <select id="selAreaEvents-OnAreaExit" size="3" class="form-control"
+                    data-bind="options: ScriptList,
+                                optionsText: function (item) { return item.Name },
+                                optionsValue: function (item) { return item.ResourceID },
+                                value: ActiveArea.OnExitEventScriptID,
+                                enable: IsObjectLoadedForCurrentObjectMode">
+                </select>
 
-    <h3>Comments</h3>
-    <div id="divAreasTab-Comments">
-        <textarea id="txtAreasTab-Comments" data-bind="value: ActiveArea.Comment, enable: IsObjectLoadedForCurrentObjectMode"></textarea>
-    </div>
+                <label id="lblAreaEvents-OnAreaHeartbeat">On Area Heartbeat:</label>
+                <select id="selAreaEvents-OnAreaHeartbeat" size="3" class="form-control"
+                    data-bind="options: ScriptList,
+                                optionsText: function (item) { return item.Name },
+                                optionsValue: function (item) { return item.ResourceID },
+                                value: ActiveArea.OnHeartbeatEventScriptID,
+                                enable: IsObjectLoadedForCurrentObjectMode">
+                </select>
 
-    <h3>Local Variables</h3>
-    <div id="divAreasTab-LocalVariables">
-        <input id="btnAreasTab-AddLocalVariable" type="button" value="Add New Variable" onclick="OpenEditLocalVariableBox(false, 'create');"
-            data-bind="enable: IsObjectLoadedForCurrentObjectMode" />
+                <label id="lblAreaEvents-OnUserDefinedEvent">On User Defined Event:</label>
+                <select id="selAreaEvents-OnUserDefinedEvent" size="3" class="form-control"
+                    data-bind="options: ScriptList,
+                                optionsText: function (item) { return item.Name },
+                                optionsValue: function (item) { return item.ResourceID },
+                                value: ActiveArea.OnUserDefinedEventScriptID,
+                                enable: IsObjectLoadedForCurrentObjectMode">
+                </select>
 
-        <div data-bind="foreach: ActiveArea.LocalVariables">
-            <label data-bind="text: Name"></label>
-            <input type="button" data-bind="value: 'Edit', click: function (data, event) { OpenEditLocalVariableBox(false, 'edit', $data); }" />
-            <input type="button" data-bind="value: 'Delete', click: function (data, event) { OpenDeleteLocalVariableBox($data) }" />
-                        
+                </div>
+            </div>
         </div>
-    </div>
-
-    <h3>Events</h3>
-    <div id="divAreasTab-Events">
-
-        <label id="lblAreaEvents-OnAreaEnter">On Area Enter:</label>
-        <select id="selAreaEvents-OnAreaEnter" size="3"
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function(item) {return item.ResourceID},
-                       value: ActiveArea.OnEnterEventScriptID,
-                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
-
-        <label id="lblAreaEvents-OnAreaExit">On Area Exit:</label>
-        <select id="selAreaEvents-OnAreaExit" size="3" 
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveArea.OnExitEventScriptID,
-                       enable: IsObjectLoadedForCurrentObjectMode"></select>
-
-        <label id="lblAreaEvents-OnAreaHeartbeat">On Area Heartbeat:</label>
-        <select id="selAreaEvents-OnAreaHeartbeat" size="3" 
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveArea.OnHeartbeatEventScriptID,
-                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
-
-        <label id="lblAreaEvents-OnUserDefinedEvent">On User Defined Event:</label>
-        <select id="selAreaEvents-OnUserDefinedEvent" size="3" 
-            data-bind="options: ScriptList,
-                       optionsText: function (item) { return item.Name },
-                       optionsValue: function (item) { return item.ResourceID },
-                       value: ActiveArea.OnUserDefinedEventScriptID,
-                       enable: IsObjectLoadedForCurrentObjectMode" ></select>
-
     </div>
 </div>

@@ -7,16 +7,16 @@
     <title></title>
 
     <link rel="stylesheet" href="../Styling/Shared/bootstrap.css" />
-    <link rel="stylesheet" href="../Styling/Shared/bootstrap-responsive.css" />
     <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
     <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
-    <link rel="stylesheet" href="../Styling/Toolset/ToolsetStyles.css" />
+    <link rel="stylesheet" href="../Styling/Game/ToolsetStyles.css" />
 
     <script src="../Scripts/jquery-2.0.3.min.js"></script>
     <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src="../Scripts/jquery.awesomiumXNA.js"></script>
     <script src="../Scripts/jquery.validate.js"></script>
     <script src="../Scripts/jquery.jstree.js"></script>
+    <script src="../Scripts/bootstrap.js"></script>
     <script src="../Scripts/knockout-2.3.0.js"></script>
     <script src="../Scripts/knockout.viewmodel.js"></script>
     <script src="../Scripts/jquery.blockUI.js"></script>
@@ -33,24 +33,32 @@
 
     <div id="divGlobalContainer">
 
-        <div id="menuBarContainer" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-            <div data-partial="Toolset/MenuBarPartial.html"></div>
-            <div data-partial="Toolset/ObjectBarPartial.html"></div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div data-partial="Toolset/MenuBarPartial.html"></div>
+            </div>
         </div>
-        <div id="nonMenuBarContainer">
 
-            <div data-partial="Toolset/TreeViewPartial.html"></div>
-            
-            <div data-partial="Toolset/ObjectControls/ConversationEditor.html"></div>
-            <!--<div id="divToShowGame" class="clsMainPanel"></div>-->
+        <div class="row">
+            <div class="col-xs-12">
+                <div data-partial="Toolset/ObjectBarPartial.html"></div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xs-3">
+                <div data-partial="Toolset/TreeViewPartial.html"></div>
+            </div>
+            <div class="col-xs-5">
+                <div data-partial="Toolset/ObjectControls/ConversationEditor.html"></div>
+                <div data-partial="Toolset/ConversationEditorPartial.html"></div>
+                <div data-partial="Toolset/GridControls/AbilityGridPartial.html"></div>
+                <div data-partial="Toolset/GridControls/LevelGridPartial.html"></div>
+                <div data-partial="Toolset/GridControls/SkillGridPartial.html"></div>
+                &nbsp;
+            </div>
 
-            <div data-partial="Toolset/ConversationEditorPartial.html"></div>
-            <div data-partial="Toolset/GridControls/AbilityGridPartial.html"></div>
-            <div data-partial="Toolset/GridControls/LevelGridPartial.html"></div>
-            <div data-partial="Toolset/GridControls/SkillGridPartial.html"></div>
-
-
-            <div id="objectTabControls" class="clsHidden" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+            <div class="col-xs-4" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
                 <div id="divObjectTabContainer">
                     <div data-partial="Toolset/ObjectControls/AreaObjectControlPartial.html"></div>
                     <div data-partial="Toolset/ObjectControls/ConversationObjectControlPartial.html"></div>
@@ -63,32 +71,36 @@
 
                 <div data-partial="Toolset/ObjectControls/ApplyDiscardChangesPartial.html"></div>
             </div>
-
-
-
-            <div data-partial="Toolset/AreaFooterPartial.html"></div>
-
-            <!-- Pop up boxes -->
-            <div data-partial="Toolset/PopUpBoxes/NewModulePartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/OpenModulePartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/SaveModuleAsPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/ErfImportExportPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/ModulePropertiesPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/AboutPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/AlertPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/NewObjectPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/ConfirmDeleteObjectPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/CreateCategoryPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/RenameTreeNodePartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/ManageContentPackagesPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/LocalVariableEditorPartial.html"></div>
-            <div data-partial="Toolset/PopUpBoxes/ConfirmDeleteLocalVariablePartial.html"></div>
-            <!-- End pop up boxes -->
-
-
+            
         </div>
 
+
+
+
+
+
+        <div data-partial="Toolset/AreaFooterPartial.html"></div>
+
+        <!-- Pop up boxes -->
+        <div data-partial="Toolset/PopUpBoxes/NewModulePartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/OpenModulePartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/SaveModuleAsPartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/ErfImportExportPartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/ModulePropertiesPartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/AboutPartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/AlertPartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/NewObjectPartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/ConfirmDeleteObjectPartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/CreateCategoryPartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/RenameTreeNodePartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/ManageContentPackagesPartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/LocalVariableEditorPartial.html"></div>
+        <div data-partial="Toolset/PopUpBoxes/ConfirmDeleteLocalVariablePartial.html"></div>
+        <!-- End pop up boxes -->
+
+
     </div>
+
 </body>
 </html>
 

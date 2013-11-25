@@ -1,20 +1,35 @@
-﻿
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    <div id="divNewObject" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Create Object
+                </div>
+                <div class="modal-body">
+                    <form id="formNewObject" class="clsValidationForm">
+                        <label id="lblNewObjectErrors" class="clsErrorMessage"></label>
 
-<div id="divNewObject" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-    <form id="formNewObject" class="clsValidationForm">
-        <label id="lblNewObjectErrors" class="clsErrorMessage"></label>
+                        <label id="lblObjectName" for="txtObjectName">Name:</label>
+                        <input id="txtObjectName" name="txtObjectName" type="text" class="required form-control" maxlength="64" />
 
-        <label id="lblObjectName" for="txtObjectName">Name:</label>
-        <input id="txtObjectName" name="txtObjectName" type="text" class="required" maxlength="64" />
+                        <label id="lblObjectTag" for="txtObjectTag">Tag:</label>
+                        <input id="txtObjectTag" name="txtObjectTag" type="text" class="required form-control" maxlength="32" />
 
-        <label id="lblObjectTag" for="txtObjectTag">Tag:</label>
-        <input id="txtObjectTag" name="txtObjectTag" type="text" class="required" maxlength="32" />
+                        <label id="lblObjectResref" for="txtObjectResref">Resref:</label>
+                        <input id="txtObjectResref" name="txtObjectResref" type="text" class="required form-control" maxlength="32" />
 
-        <label id="lblObjectResref" for="txtObjectResref">Resref:</label>
-        <input id="txtObjectResref" name="txtObjectResref" type="text" class="required" maxlength="32" />
+                    </form>
+                </div>
 
-        <input id="btnCreateObject" type="button" value="Create" class="clsHalfButton" onclick="CreateNewObject();" />
-        <input id="btnCancelObject" type="button" value="Cancel" class="clsHalfButton" onclick="CloseNewObjectBox();" />
-
-    </form>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="CreateNewObject();">
+                        Create
+                    </button>
+                    <button class="btn btn-default" onclick="CloseNewObjectBox();">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

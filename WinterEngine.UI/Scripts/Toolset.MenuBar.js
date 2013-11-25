@@ -2,7 +2,7 @@
 
 function NewModuleButtonClick(element) {
     if (IsMenuButtonDisabled($(element))) return;
-    $('#divNewModuleBox').dialog('open');
+    $('#divNewModuleBox').modal('show');
 }
 
 function CloseNewModuleBox() {
@@ -11,7 +11,8 @@ function CloseNewModuleBox() {
     $('#txtModuleName').val('');
     $('#txtModuleTag').val('');
     $('#txtModuleResref').val('');
-    $('#divNewModuleBox').dialog('close');
+    $('#divNewModuleBox').modal('hide');
+
 }
 
 function NewModuleBoxOKClick() {
@@ -53,12 +54,12 @@ function ShowOpenModulePopUp(element) {
 	Entity.GetModulesList();
 	ToolsetViewModel.Refresh();
     
-    $('#divOpenModuleBox').dialog('open');
+    $('#divOpenModuleBox').modal('show');
 	
 }
 
 function CloseOpenModulePopUp() {
-    $('#divOpenModuleBox').dialog('close');
+    $('#divOpenModuleBox').modal('hide');
 }
 
 function OpenModuleButtonClick(element) {
@@ -105,7 +106,7 @@ function ShowSaveAsModulePopUp(element) {
     Entity.GetModulesList();
     ToolsetViewModel.Refresh();
 
-    $('#divSaveAsModuleBox').dialog('open');
+    $('#divSaveAsModuleBox').modal('show');
 }
 
 function SaveAsModuleButtonClick(element) {
@@ -133,8 +134,8 @@ function SaveAsModuleOverwriteButtonClick() {
 
 function ShowSaveAsModuleConfirmationPopUp(moduleName) {
     $('#spnSaveAsModuleOverwriteName').text(moduleName);
-    $('#divSaveAsOverwriteConfirmation').dialog('open');
-    $('#divSaveAsModuleBox').dialog('close');
+    $('#divSaveAsOverwriteConfirmation').modal('show');
+    $('#divSaveAsModuleBox').modal('hide');
 }
 
 function SelectExistingSaveAsModule() {
@@ -143,15 +144,15 @@ function SelectExistingSaveAsModule() {
 }
 
 function CloseSaveAsModulePopUp() {
-    $('#divSaveAsModuleBox').dialog('close');
+    $('#divSaveAsModuleBox').modal('hide');
     $('#txtSaveAsModuleFileName').val('');
 }
 
 function CloseSaveAsModuleConfirmationPopUp(showSaveAsPopUp) {
-    $('#divSaveAsOverwriteConfirmation').dialog('close');
+    $('#divSaveAsOverwriteConfirmation').modal('hide');
     $('#spnSaveAsModuleOverwriteName').text('');
     if (showSaveAsPopUp) {
-        $('#divSaveAsModuleBox').dialog('open');
+        $('#divSaveAsModuleBox').modal('show');
     }
 }
 
@@ -162,7 +163,7 @@ function ImportButtonClick(element) {
 }
 
 function ImportButtonClick_Callback(jsonObjectList) {
-    $('#divImportBox').dialog('open');
+    $('#divImportBox').modal('show');
 }
 
 function ExportButtonClick(element) {
@@ -171,7 +172,7 @@ function ExportButtonClick(element) {
 }
 
 function ExportButtonClick_Callback(jsonObjectList) {
-    $('#divExportBox').dialog('open');
+    $('#divExportBox').modal('show');
 }
 
 function ExitButtonClick(element) {
@@ -206,7 +207,7 @@ function ModulePropertiesButtonClick(element) {
     if (IsMenuButtonDisabled($(element))) return;
     
     ToolsetViewModel.RefreshModuleProperties();
-    $('#divModulePropertiesBox').dialog('open');
+    $('#divModulePropertiesBox').modal('show');
 }
 
 function SaveModulePropertiesChanges() {
@@ -229,7 +230,7 @@ function SaveModuleProperties_Callback() {
 }
 
 function CloseModulePropertiesBox() {
-    $('#divModulePropertiesBox').dialog('close');
+    $('#divModulePropertiesBox').modal('hide');
     ToolsetViewModel.RefreshModuleProperties();
 }
 
@@ -243,7 +244,7 @@ function ManageContentPackagesButtonClick(element) {
 
 function ManageContentPackagesButton_Callback(jsonAttachedContentPackages, jsonAvailableContentPackages) {
     ToolsetViewModel.Refresh();
-    $('#divManageContentPackages').dialog('open');
+    $('#divManageContentPackages').modal('show');
 }
 
 function ManageContentPackagesAddButton() {
@@ -279,11 +280,11 @@ function ManageContentPackagesSaveChanges() {
 function ManageContentPackagesSaveChanges_Callback() {
 
     ToolsetViewModel.Refresh();
-    $('#divManageContentPackages').dialog('close');
+    $('#divManageContentPackages').modal('hide');
 }
 
 function CloseManageContentPackagesBox() {
-    $('#divManageContentPackages').dialog('close');
+    $('#divManageContentPackages').modal('hide');
     $('#selAvailableContentPackages').empty();
     $('#selAttachedContentPackages').empty();
 }
@@ -292,7 +293,7 @@ function BuildModuleButtonClick(element) {
     if (IsMenuButtonDisabled($(element))) return;
 
     $('#lblAlertBox').text('Rebuilding module. Please wait...');
-    $('#divAlertBox').dialog('open');
+    $('#divAlertBox').modal('show');
     $('#btnAlertBoxOK').attr('disabled', 'disabled');
     Entity.BuildModuleButtonClick();
 }
@@ -318,23 +319,13 @@ function WinterEngineWebsiteButtonClick(element) {
     Entity.WinterEngineWebsiteButtonClick();
 }
 
-function AboutButtonClick(element) {
-    if (IsMenuButtonDisabled($(element))) return;
-
-    $('#divAboutBox').dialog('open');
-}
-
 function AboutBoxClose() {
-    $('#divAboutBox').dialog('close');
+    $('#divAboutBox').modal('hide');
 }
 
 
 
 /* General Methods */
-
-function CloseAlertBox() {
-    $('#divAlertBox').dialog('close');
-}
 
 function IsMenuButtonDisabled(button) {
     return button.parent().hasClass('ui-state-disabled');

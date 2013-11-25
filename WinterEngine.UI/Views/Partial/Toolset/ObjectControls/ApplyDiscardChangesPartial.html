@@ -1,8 +1,8 @@
 ﻿
 <div id="divObjectTabContainerButtons" class="btn-group" 
     data-bind="css: { clsHidden: CurrentObjectMode() == '' }">
-    <input id="btnObjectTabApplyChanges" type="button" class="btn btn-inverse" value="Apply Changes" onclick="ObjectTabApplyChanges();" 
-        data-bind="enable: IsObjectLoadedForCurrentObjectMode" />
-    <input id="btnObjectTabDiscardChanges" type="button" class="btn btn-inverse" value="Discard Changes" onclick="ObjectTabDiscardChanges();" 
-        data-bind="enable: IsObjectLoadedForCurrentObjectMode" />
+    <button id="btnObjectTabApplyChanges" type="button" class="btn btn-default btn-sm" value="Save Changes" onclick="ObjectTabApplyChanges();" 
+        data-bind="enable: IsObjectLoadedForCurrentObjectMode" >Save Changes</button>
+    <button id="btnObjectTabDiscardChanges" type="button" class="btn btn-default btn-sm" value="Discard Changes" onclick="ObjectTabDiscardChanges();" 
+        data-bind="enable: IsObjectLoadedForCurrentObjectMode">Discard Changes</button>
 </div>

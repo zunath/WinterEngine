@@ -1,12 +1,26 @@
-﻿
-<div id="divRenameTreeNode" onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
-    <form id="formRenameTreeNode">
-        <label id="lblRenameTreeNodeErrors" class="clsErrorMessage"></label>
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+    <div id="divRenameTreeNode" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Rename Object
+                </div>
+                <div class="modal-body">
+                    <label id="lblRenameTreeNodeErrors" class="clsErrorMessage"></label>
 
-        <label id="lblRenameTreeNode" for="txtRenameTreeNode">New Name:</label>
-        <input id="txtRenameTreeNode" name="txtRenameTreeNode" type="text" class="required" maxlength="64" />
+                    <label id="lblRenameTreeNode" for="txtRenameTreeNode">New Name:</label>
+                    <input id="txtRenameTreeNode" name="txtRenameTreeNode" type="text" class="required" maxlength="64" />
+                </div>
 
-        <input id="btnRenameTreeNode" type="button" value="Rename" class="clsHalfButton" onclick="RenameObject();" />
-        <input id="btnCancelRenameTreeNode" type="button" value="Cancel" class="clsHalfButton" onclick="CloseRenameObjectBox();" />
-    </form>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="RenameObject();">
+                        Rename
+                    </button>
+                    <button class="btn btn-default" onclick="CloseRenameObjectBox();">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

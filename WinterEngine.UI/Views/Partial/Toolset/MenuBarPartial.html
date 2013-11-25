@@ -1,96 +1,167 @@
-﻿<div id="divMenuBar" class="row-fluid">
-    <ul id="ulMenu" class="clsDropDownMenuBar">
-        <li>
-            <a href="#">File</a>
-            <ul>
-                <li id="liNewModuleButton">
-                    <a id="aNewModuleButton" href="#" onclick="NewModuleButtonClick(this);">New Module
+﻿<div id="divMenuBar">
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b>File</b>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#divNewModuleBox">
+                                <b>
+                                    New Module
+                                </b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="ShowOpenModulePopUp();">
+                                <b>
+                                    Open Module
+                                </b>
+                            </a>
+                        </li>
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'CloseModuleButtonClick();' : '' }">
+                                <b>
+                                    Close Module
+                                </b>
+                            </a>
+                        </li>
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'SaveModuleButtonClick();' : '' }">
+                                <b>
+                                    Save
+                                </b>
+                            </a>
+                        </li>
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'ShowSaveAsModulePopUp();' : '' }">
+                                <b>
+                                    Save As...
+                                </b>
+                            </a>
+                        </li>
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'ImportButtonClick();' : '' }">
+                                <b>
+                                    Import
+                                </b>
+                            </a>
+                        </li>
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'ExportButtonClick();' : '' }">
+                                <b>
+                                    Export
+                                </b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="ExitButtonClick(this);">
+                                <b>
+                                    Exit
+                                </b>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li id="liOpenModuleButton">
-                    <a id="aOpenModuleButton" href="#" onclick="ShowOpenModulePopUp(this);">Open Module
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b>Edit</b>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'UndoButtonClick();' : '' }">
+                                <b>
+                                    Undo
+                                </b>
+                            </a>
+                        </li>
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'RedoButtonClick();' : '' }">
+                                <b>
+                                    Redo
+                                </b>
+                            </a>
+                        </li>
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'CopyButtonClick();' : '' }">
+                                <b>
+                                    Copy
+                                </b>
+                            </a>
+                        </li>
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'CutButtonClick();' : '' }">
+                                <b>
+                                    Cut
+                                </b>
+                            </a>
+                        </li>
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'PasteButtonClick();' : '' }">
+                                <b>
+                                    Paste
+                                </b>
+                            </a>
+                        </li>
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'ModulePropertiesButtonClick();' : '' }">
+                                <b>
+                                    Module Properties
+                                </b>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li id="liCloseModuleButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }" >
-                    <a id="aCloseModuleButton" href="#" onclick="CloseModuleButtonClick(this);">Close Module
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b>Content</b>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'ManageContentPackagesButtonClick();' : '' }">
+                                <b>
+                                    Manage Content Packages
+                                </b>
+                            </a>
+                        </li>
+                        <li data-bind="css: { disabled: IsModuleOpened() == false }">
+                            <a href="#" data-bind="attr: { onclick: IsModuleOpened() == true ? 'BuildModuleButtonClick();' : '' }">
+                                <b>
+                                    Build Module
+                                </b>
+                            </a>
+                        </li>
+
+                    </ul>
                 </li>
-                <li id="liSaveModuleButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aSaveModuleButton" href="#" onclick="SaveModuleButtonClick(this);">Save
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b>Help</b>
                     </a>
-                </li>
-                <li id="liSaveAsButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aSaveAsButton" href="#" onclick="ShowSaveAsModulePopUp(this);">Save As...
-                    </a>
-                </li>
-                <li id="liImportButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aImportButton" href="#" onclick="ImportButtonClick(this);">Import
-                    </a>
-                </li>
-                <li id="liExportButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aExportButton" href="#" onclick="ExportButtonClick(this);">Export
-                    </a>
-                </li>
-                <li id="liExitButton">
-                    <a id="aExitButton" href="#" onclick="ExitButtonClick(this);">Exit
-                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#" onclick="WinterEngineWebsiteButtonClick(this);">
+                                <b>
+                                    Winter Engine Website
+                                </b>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#divAboutBox">
+                                <b>
+                                    About
+                                </b>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
-        </li>
-        <li>
-            <a href="#">Edit</a>
-            <ul>
-                <li id="liUndoButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aUndoButton" href="#" onclick="UndoButtonClick(this);">Undo
-                    </a>
-                </li>
-                <li id="liRedoButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aRedoButton" href="#" onclick="RedoButtonClick(this);">Redo
-                    </a>
-                </li>
-                <li id="liCopyButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aCopyButton" href="#" onclick="CopyButtonClick(this);">Copy
-                    </a>
-                </li>
-                <li id="liCutButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aCutButton" href="#" onclick="CutButtonClick(this);">Cut
-                    </a>
-                </li>
-                <li id="liPasteButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aPasteButton" href="#" onclick="PasteButtonClick(this);">Paste
-                    </a>
-                </li>
-                <li id="liModulePropertiesButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aModulePropertiesButton" href="#" onclick="ModulePropertiesButtonClick(this);">Module Properties
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">Content</a>
-            <ul>
-                <li id="liManageContentPackagesButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aManageContentPackagesButton" href="#" onclick="ManageContentPackagesButtonClick(this);">Manage Content Packages
-                    </a>
-                </li>
-                <li id="liBuildModuleButton" data-bind="css: { 'ui-state-disabled': IsModuleOpened() == false }">
-                    <a id="aBuildModuleButton" href="#" onclick="BuildModuleButtonClick(this);">Build Module
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#">Help</a>
-            <ul>
-                <li id="liWinterEngineWebsiteButton">
-                    <a id="aWinterEngineWebsiteButton" href="#" onclick="WinterEngineWebsiteButtonClick(this);">Winter Engine Website
-                    </a>
-                </li>
-                <li id="liAboutButton">
-                    <a id="aAboutButton" href="#" onclick="AboutButtonClick(this);">About
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </ul>
+        </div>
+    </nav>
 </div>

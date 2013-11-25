@@ -1,22 +1,32 @@
 ﻿
 <div id="divConversationTab" class="clsObjectTabDiv" data-bind="css: { clsHidden: CurrentObjectMode() != 'Conversation' }">
-    <h3>Conversation Details</h3>
-    <div id="divConversationsTab-Details">
+    <div class="panel-group" id="divConversationAccordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#divConversationAccordion" href="#divConversationsTab-Details">Conversation Details
+                    </a>
+                </h4>
+            </div>
+            <div id="divConversationsTab-Details" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    
+                <label id="lblConversationDetails-Name" for="txtConversationDetails-Name">Name:</label>
+                <input id="txtConversationDetails-Name" type="text" maxlength="64" class="form-control"
+                    data-bind="value: ActiveConversation.Name,
+                                enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblConversationDetails-Name" for="txtConversationDetails-Name">Name:</label>
-        <input id="txtConversationDetails-Name" type="text" maxlength="64"
-            data-bind="value: ActiveConversation.Name,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
+                <label id="lblConversationDetails-Tag" for="txtConversationDetails-Tag">Tag:</label>
+                <input id="txtConversationDetails-Tag" type="text" maxlength="32" class="form-control"
+                    data-bind="value: ActiveConversation.Tag,
+                                enable: IsObjectLoadedForCurrentObjectMode" />
 
-        <label id="lblConversationDetails-Tag" for="txtConversationDetails-Tag">Tag:</label>
-        <input id="txtConversationDetails-Tag" type="text" maxlength="32" 
-            data-bind="value: ActiveConversation.Tag,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
-
-        <label id="lblConversationDetails-Resref" for="txtConversationDetails-Resref">Resref:</label>
-        <input id="txtConversationDetails-Resref" type="text" maxlength="32"
-            data-bind="value: ActiveConversation.Resref,
-                       enable: IsObjectLoadedForCurrentObjectMode" />
-
+                <label id="lblConversationDetails-Resref" for="txtConversationDetails-Resref">Resref:</label>
+                <input id="txtConversationDetails-Resref" type="text" maxlength="32" class="form-control"
+                    data-bind="value: ActiveConversation.Resref,
+                                enable: IsObjectLoadedForCurrentObjectMode" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
