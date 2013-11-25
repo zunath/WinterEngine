@@ -244,7 +244,8 @@ function ManageContentPackagesAddButton() {
     var selectedItemFileName = $('#selAvailableContentPackages option:selected').val();
     
     var match = ko.utils.arrayFirst(ToolsetViewModel.AttachedContentPackages(), function (item) {
-        return item.Name === selectedItemName;
+        return (item.Name === selectedItemName || item.FileName === selectedItemFileName ||
+                item.Name() === selectedItemName || item.FileName() === selectedItemFileName);
     });
 
     if (!match) {
@@ -254,9 +255,12 @@ function ManageContentPackagesAddButton() {
 
 function ManageContentPackagesRemoveButton() {
     var selectedItemName = $('#selAttachedContentPackages option:selected').text();
-
+    var selectedItemFileName = $('#selAvailableContentPackages option:selected').val();
+    
     var match = ko.utils.arrayFirst(ToolsetViewModel.AttachedContentPackages(), function (item) {
-        if (item.Name === selectedItemName)
+
+        if (item.Name === selectedItemName || item.FileName === selectedItemFileName ||
+            item.Name() === selectedItemName || item.FileName() === selectedItemName)
             return item;
     });
 
@@ -264,9 +268,7 @@ function ManageContentPackagesRemoveButton() {
 }
 
 function ManageContentPackagesSaveChanges() {
-    var jsonUpdatedContentPackages = JSON.stringify(ToolsetViewModel.AttachedContentPackages());
-
-    Entity.UpdateContentPackages(jsonUpdatedContentPackages);
+    ToolsetViewModel.SaveContentPackages();
 }
 
 function ManageContentPackagesSaveChanges_Callback() {
