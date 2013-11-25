@@ -40,7 +40,7 @@ namespace WinterEngine.Game
 			CameraSetup.SetupCamera(SpriteManager.Camera, graphics);
 			GlobalContent.Initialize();
 
-			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Game.Screens.ToolsetScreen));
+			FlatRedBall.Screens.ScreenManager.Start(typeof(WinterEngine.Game.Screens.MainMenuScreen));
 
             base.Initialize();
             Window.AllowUserResizing = true;

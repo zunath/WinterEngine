@@ -103,3 +103,30 @@ input.error
     border-style: solid;
     border-width: 3px;
 }
+
+/* Logos */
+
+.clsFRBLogo
+{
+    float:right;
+    width: 28%;
+    height: 150%;
+}
+
+.clsXNALogo
+{
+    float:right;
+    width:25%;
+    height:100%;
+}
+
+.clsMainMenuLogo
+{
+    width: 100%;
+
+}
+
+.clsFRBLogo:hover, .clsXNALogo:hover 
+{
+    opacity:0.5;
+}

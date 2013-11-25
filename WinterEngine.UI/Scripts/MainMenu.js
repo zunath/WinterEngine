@@ -2,19 +2,8 @@
 /* Page Initialization */
 function Initialize() {
     InitializeValidation();
-    InitializeLoginBox();
-    InitializeLogoutBox();
-    InitializeUserProfileBox();
-    InitializeSuccessBox();
-    InitializeAccountNotActivatedBox();
-    InitializeProgressBars();
 }
 
-function InitializeProgressBars() {
-    $('.clsProgressBar').progressbar({
-        value: false
-    });
-}
 
 // Method is called from the entity's OnDocumentReady method.
 function CheckIfLoggedIn() {
@@ -150,51 +139,30 @@ function InitializeValidation() {
 
 /* Account Login */
 
-function InitializeLoginBox() {
-    $('#divLogin').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Login',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
 function ToggleIsLoggedIn(isLoggedIn) {
 
     if (isLoggedIn) {
-        $('#btnProfile').button('enable');
-        $('#btnFindServer').button('enable');
+        $('#btnProfile').removeAttr('disabled');
+        $('#btnFindServer').removeAttr('disabled');
 
-        $('#btnLoginLogout').val('Logout');
+        $('#btnLoginLogout').text('Logout');
         $('#btnLoginLogout').data('mode', 'logout');
     }
     else {
-        $('#btnProfile').button('disable');
-        $('#btnFindServer').button('disable');
+        $('#btnProfile').attr('disabled', 'disabled');
+        $('#btnFindServer').attr('disabled', 'disabled');
         $('#btnLoginLogout').val('Login');
         $('#btnLoginLogout').data('mode', 'login');
     }
 }
 
-function InitializeLogoutBox() {
-    $('#divConfirmLogout').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Logout?',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
 
 function OpenLoginBox() {
-    $('#divLogin').dialog("open");
+    $('#divLogin').modal("show");
 }
 
 function CloseLoginBox() {
-    $('#divLogin').dialog("close");
+    $('#divLogin').modal("hide");
     $('#txtUsername').val("");
     $('#txtPassword').val("");
     $('#lblErrorMessage').addClass('clsHidden');
@@ -238,43 +206,20 @@ function DoLogin_Callback(loginStatus) {
 }
 
 function ShowLogoutConfirmation() {
-    $('#divConfirmLogout').dialog('open');
+    $('#divConfirmLogout').modal('show');
 }
 
 function DoLogout() {
     Entity.LogoutButtonClick();
 
-    $('#btnProfile').button('disable');
-    $('#btnFindServer').button('disable');
-    $('#btnLoginLogout').val('Login');
+    $('#btnProfile').attr('disabled', 'disabled');
+    $('#btnFindServer').attr('disabled', 'disabled');
+    $('#btnLoginLogout').text('Login');
     $('#btnLoginLogout').data('mode', 'login');
-    CloseConfirmLogoutBox();
+    $('#divConfirmLogout').modal('hide');
 }
-
-function CloseConfirmLogoutBox() {
-    $('#divConfirmLogout').dialog('close');
-}
-
 
 /* User Profile */
-
-function InitializeUserProfileBox() {
-    $('#divUserProfile').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'My Profile',
-        resizable: true,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false,
-        width: '450'
-    });
-
-    $('#txtDOB').datepicker({
-        changeYear: true,
-        yearRange: '1900:+0',
-        maxDate: '+0d'
-    });
-}
 
 function CreateAccountOpenBox() {
     $('#lblProfilePassword').text("Password:");
@@ -291,7 +236,7 @@ function CreateAccountOpenBox() {
     $('#txtProfilePassword').addClass('required');
     $('#txtConfirmProfilePassword').addClass('required');
 
-    $('#divUserProfile').dialog("open");
+    $('#divUserProfile').modal("show");
 }
 
 function OpenUserProfileBox() {
@@ -313,7 +258,7 @@ function OpenUserProfileBox() {
     $('#txtProfilePassword').removeClass('required');
     $('#txtConfirmProfilePassword').removeClass('required');
 
-    $('#divUserProfile').dialog("open");
+    $('#divUserProfile').modal("show");
 }
 
 function CloseUserProfileBox() {
@@ -330,50 +275,18 @@ function CloseUserProfileBox() {
     $('.error').removeClass('error');
 
     var accountMode = $('#btnCancelProfile').data('AccountMode');
-    $('#divUserProfile').dialog("close");
+    $('#divUserProfile').modal("hide");
 
     if (accountMode == 'create') {
         OpenLoginBox();
     }
 }
 
-/* SUCCESS BOX */
-
-function InitializeSuccessBox() {
-    $('#divSuccessBox').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Success',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function CloseSuccessBox() {
-    $('#divSuccessBox').dialog('close');
-}
-
 /* ACCOUNT NOT ACTIVATED BOX */
-
-function InitializeAccountNotActivatedBox() {
-    $('#divAccountNotActivatedBox').dialog({
-        modal: true,
-        autoOpen: false,
-        title: 'Account Inactive',
-        resizable: false,
-        dialogClass: 'jqueryUIDialogNoCloseButton',
-        draggable: false
-    });
-}
-
-function CloseAccountNotActivatedBox() {
-    $('#divAccountNotActivatedBox').dialog('close');
-}
 
 function ResendAccountActivationEmail() {
     var email = Entity.GetEmail();
-    $('#btnAccountNotActivatedResendEmail').button('disable');
+    $('#btnAccountNotActivatedResendEmail').attr('disabled', 'disabled');
     $('#lblAccountNotActivatedMessage').text('Activation email has been resent to ' + email);
     Entity.ResendAccountActivationEmail();
 }
@@ -386,14 +299,14 @@ function ToggleLoginPopUpControls(disabled) {
     $('#chkSaveCredentials').attr('disabled', disabled);
 
     if (disabled) {
-        $('#btnLogin').button('disable');
-        $('#btnCancelLogin').button('disable');
-        $('#btnCreateAccount').button('disable');
+        $('#btnLogin').attr('disabled', 'disabled');
+        $('#btnCancelLogin').attr('disabled', 'disabled');
+        $('#btnCreateAccount').attr('disabled', 'disabled');
     }
     else {
-        $('#btnLogin').button('enable');
-        $('#btnCancelLogin').button('enable');
-        $('#btnCreateAccount').button('enable');
+        $('#btnLogin').removeAttr('disabled');
+        $('#btnCancelLogin').removeAttr('disabled');
+        $('#btnCreateAccount').removeAttr('disabled');
     }
 
 }

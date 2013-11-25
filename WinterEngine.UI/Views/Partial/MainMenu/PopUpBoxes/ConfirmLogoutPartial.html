@@ -1,0 +1,26 @@
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+
+    <div id="divConfirmLogout" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Logout?
+                </div>
+                <div class="modal-body">
+                    <label id="lblConfirmLogout">Are you sure you want to log out?</label>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="DoLogout();">
+                            Logout
+                        </button>
+                        <button class="btn btn-default" data-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

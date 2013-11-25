@@ -8,128 +8,58 @@
     <link rel="stylesheet" href="../Styling/jQueryUI/jquery-ui-1.10.3.custom.min.css" />
     <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
     <link rel="stylesheet" href="../Styling/Game/MainMenuStyles.css" />
+    <link rel="stylesheet" href="../Styling/Shared/bootstrap.css" />
 
 
     <script src="../Scripts/jquery-2.0.3.min.js"></script>
-    <script src="../Scripts/jquery-ui-1.10.2.min.js"></script>
     <script src="../Scripts/jquery.awesomiumXNA.js"></script>
     <script src="../Scripts/jquery.validate.js"></script>
+    <script src="../Scripts/bootstrap.js"></script>
     <script src="../Scripts/MainMenu.js"></script>
 
     <script>
         $(document).ready(function () {
-            $('input:button').button();
             Initialize();
         });
     </script>
 </head>
-<body>
+<body style="background-color:transparent;">
 
-    <img src="../Images/WinterEngineLogo.png" class="clsMainMenuLogo" />
-    <br />
-    <input id="btnLoginLogout" type="button" value="Login" class="clsFullButton" onclick="LoginButton();" data-mode="login" />
-    <input id="btnProfile" type="button" value="My Profile" class="clsFullButton" disabled="disabled" onclick="OpenUserProfileBox();" />
-    <input id="btnFindServer" type="button" value="Find Server" class="clsFullButton" onclick="FindServerButton();" disabled="disabled" />
-    <input id="btnToolset" type="button" value="Toolset" class="clsFullButton" onclick="ToolsetButton();" />
-    <input id="btnSettings" type="button" value="Game Settings" class="clsFullButton" onclick="SettingsButton();" />
-    <input id="btnWebsite" type="button" value="Website" class="clsFullButton" onclick="WebsiteButton();" />
-    <input id="btnForums" type="button" value="Forums" class="clsFullButton" onclick="ForumsButton();" />
-    <input id="btnExit" type="button" value="Exit" class="clsFullButton" onclick="ExitButton();" />
+    <div class="container">
 
-    <img id="imgXNALogo" src="../Images/xnalogo.png" class="clsXNALogo" onclick="XNALogoLink();" />
-    <img id="imgFRBLogo" src="../Images/FRBLogo.png" class="clsFRBLogo" onclick="FlatRedBallLogoLink();" />
+        <img src="../Images/WinterEngineLogo.png" class="clsMainMenuLogo" />
+    
+        <div class="col-lg-offset-7 col-lg-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
 
-
-    <div id="divLogin" class="clsLoginDiv">
-
-        <form id="formLogin">
-
-            <label id="lblUsername" for="txtUsername">Username:</label>
-            <input id="txtUsername" name="txtUsername" maxlength="32" type="text" class="clsLoginInputBox required" />
-            <label id="lblPassword" for="txtPassword">Password:</label>
-            <input id="txtPassword" name="txtPassword" maxlength="60" type="password" class="clsLoginInputBox required" />
-            <br />
-            <input id="chkSaveCredentials" type="checkbox" title="test" />
-            <label for="chkSaveCredentials">Save credentials</label>
-            <br />
-            <div id="divLoggingInProgressBarContainer" class="clsHidden">
-                <br />
-                <div id="divLoggingInProgressBar" class="clsProgressBar"></div>
+                    <div class="btn-group-vertical">
+                    
+                        <button id="btnLoginLogout" type="button" value="Login" class="btn btn-primary" 
+                            onclick="LoginButton();" data-mode="login" >Login</button>
+                        <button id="btnProfile" type="button" value="My Profile" class="btn btn-primary" disabled="disabled" onclick="OpenUserProfileBox();" >My Profile</button>
+                        <button id="btnToolset" type="button" value="Toolset" class="btn btn-primary" onclick="ToolsetButton();" >Toolset</button>
+                        <button id="btnSettings" type="button" value="Game Settings" class="btn btn-primary" onclick="SettingsButton();" >Game Settings</button>
+                        <button id="btnWebsite" type="button" value="Website" class="btn btn-primary" onclick="WebsiteButton();" >Website</button>
+                        <button id="btnForums" type="button" value="Forums" class="btn btn-primary" onclick="ForumsButton();" >Forums</button>
+                        <button id="btnExit" type="button" value="Exit" class="btn btn-primary" onclick="ExitButton();" >Exit</button>
+                    </div>
+        
+                </div>
             </div>
-            <label id="lblErrorMessage" class="clsErrorMessage clsHidden">Incorrect username or password</label>
-            <br />
-            <input id="btnLogin" type="button" value="Login" class="clsHalfButton" onclick="DoLogin();" />
-            <input id="btnCancelLogin" type="button" value="Cancel" class="clsHalfButton" onclick="CloseLoginBox();" />
-            <br />
-            <div class="clsCreateAccountDiv">
-                <input id="btnCreateAccount" type="button" value="Create Account" class="clsFullButton" onclick="CreateAccountOpenBox();" />
-            </div>
+    
+        </div>
+        
+        <img id="imgXNALogo" src="../Images/xnalogo.png" class="clsXNALogo" onclick="XNALogoLink();" />
+        <img id="imgFRBLogo" src="../Images/FRBLogo.png" class="clsFRBLogo" onclick="FlatRedBallLogoLink();" />
+                
+        <div data-partial="MainMenu/PopUpBoxes/AccountNotActivatedPartial.html"></div>
+        <div data-partial="MainMenu/PopUpBoxes/ConfirmLogoutPartial.html"></div>
+        <div data-partial="MainMenu/PopUpBoxes/LoginPartial.html"></div>
+        <div data-partial="MainMenu/PopUpBoxes/SuccessPartial.html"></div>
+        <div data-partial="MainMenu/PopUpBoxes/UserProfileEditorPartial.html"></div>
 
-        </form>
+        
     </div>
-
-
-    <div id="divUserProfile" class="clsLoginDiv">
-
-        <form id="formUserProfile">
-            <label id="lblProfileError" class="clsErrorMessage clsHidden"></label>
-            <br />
-
-
-            <label id="lblProfileUsername" for="txtProfileUsername">Username:</label>
-            <input id="txtProfileUsername" name="txtProfileUsername" type="text" disabled="disabled" readonly="true" class="clsLoginInputBox required" maxlength="32"/>
-
-            <label id="lblProfilePassword" for="txtProfilePassword">Change Password:</label>
-            <input id="txtProfilePassword" name="txtProfilePassword" type="password" class="clsLoginInputBox" maxlength="60"/>
-
-            <label id="lblConfirmProfilePassword" for="txtConfirmProfilePassword">Confirm Change Password:</label>
-            <input id="txtConfirmProfilePassword" name="txtConfirmProfilePassword" type="password" class="clsLoginInputBox" maxlength="60" equalto="#txtProfilePassword" />
-
-            <label id="lblEmail" for="txtEmail">Email:</label>
-            <input id="txtEmail" name="txtEmail" type="text" class="clsLoginInputBox required" maxlength="254" />
-
-            <label id="lblFirstName" for="txtFirstName">First Name:</label>
-            <input id="txtFirstName" name="txtFirstName" type="text" class="clsLoginInputBox" maxlength="25" />
-
-            <label id="lblLastName" for="txtLastName">Last Name:</label>
-            <input id="txtLastName" name="txtLastName" type="text" class="clsLoginInputBox" maxlength="25" />
-
-            <label id="lblDOB" for="txtDOB">Birthday:</label>
-            <input id="txtDOB" name="txtDOB" type="text" class="clsLoginInputBox" />
-
-            <br />
-            <div id="divProfileProgressBarContainer" class="clsHidden">
-                <br />
-                <div id="divProfileProgressBar" class="clsProgressBar"></div>
-            </div>
-            <br />
-            <input id="btnSaveProfile" type="button" value="Save Changes" class="clsHalfButton" onclick="SaveProfileButton();" />
-            <input id="btnCancelProfile" type="button" value="Cancel" class="clsHalfButton" onclick="CloseUserProfileBox();" />
-        </form>
-    </div>
-
-    <div id="divSuccessBox">
-        <label id="lblSuccessMessage"></label>
-        <br />
-        <br />
-        <input id="btnSuccessOK" type="button" value="OK" class="clsFullButton" onclick="CloseSuccessBox();" />
-    </div>
-
-    <div id="divAccountNotActivatedBox">
-        <label id="lblAccountNotActivatedMessage">Your account has not been activated. Please check your email for a link to activate your account.</label>
-        <br />
-        <br />
-        <input id="btnAccountNotActivatedOK" type="button" value="OK" class="clsHalfButton" onclick="CloseAccountNotActivatedBox();" />
-        <input id="btnAccountNotActivatedResendEmail" type="button" value="Resend Email" class="clsHalfButton" onclick="ResendAccountActivationEmail();" />
-    </div>
-
-    <div id="divConfirmLogout">
-        <label id="lblConfirmLogout">Are you sure you want to log out?</label>
-        <br />
-        <br />
-        <input id="btnLogoutConfirm" type="button" value="Logout" class="clsHalfButton" onclick="DoLogout();" />
-        <input id="btnLogoutCancel" type="button" value="Cancel" class="clsHalfButton" onclick="CloseConfirmLogoutBox();" />
-    </div>
-
 </body>
 </html>

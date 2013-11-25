@@ -1,0 +1,59 @@
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+
+    <div id="divUserProfile" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    User Profile
+                </div>
+                <div class="modal-body">
+                    
+                    <form id="formUserProfile">
+                        <label id="lblProfileError" class="clsErrorMessage clsHidden"></label>
+                        
+
+                        <label id="lblProfileUsername" for="txtProfileUsername">Username:</label>
+                        <input id="txtProfileUsername" name="txtProfileUsername" type="text" disabled="disabled" readonly="true" class="required form-control" maxlength="32"/>
+
+                        <label id="lblProfilePassword" for="txtProfilePassword">Change Password:</label>
+                        <input id="txtProfilePassword" name="txtProfilePassword" type="password" class="form-control" maxlength="60"/>
+
+                        <label id="lblConfirmProfilePassword" for="txtConfirmProfilePassword">Confirm Change Password:</label>
+                        <input id="txtConfirmProfilePassword" name="txtConfirmProfilePassword" type="password" class="form-control" maxlength="60" equalto="#txtProfilePassword" />
+
+                        <label id="lblEmail" for="txtEmail">Email:</label>
+                        <input id="txtEmail" name="txtEmail" type="text" class="required form-control" maxlength="254" />
+
+                        <label id="lblFirstName" for="txtFirstName">First Name:</label>
+                        <input id="txtFirstName" name="txtFirstName" type="text" class="form-control" maxlength="25" />
+
+                        <label id="lblLastName" for="txtLastName">Last Name:</label>
+                        <input id="txtLastName" name="txtLastName" type="text" class="form-control" maxlength="25" />
+
+                        <label id="lblDOB" for="txtDOB">Birthday:</label>
+                        <input id="txtDOB" name="txtDOB" type="text" class="form-control" />
+
+                        <div id="divProfileProgressBarContainer" class="progress progress-striped active clsHidden">
+                            <div class="active progress-bar"  id="divProfileProgressBar"
+                                role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                <span>Saving changes. Please wait...</span>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button id="btnSaveProfile" type="button" value="Save Changes" class="btn btn-primary" onclick="SaveProfileButton();">
+                            Save Changes
+                        </button>
+                        <button id="btnCancelProfile" type="button" value="Cancel" class="btn btn-default" onclick="CloseUserProfileBox();">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
