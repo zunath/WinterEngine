@@ -53,8 +53,10 @@ function InitializeToolsetViewModel() {
     };
 
     ToolsetViewModel.SaveModuleProperties = function () {
-        var model = ko.viewmodel.toModel(ToolsetViewModel).ActiveModule;
-        Entity.SaveModuleProperties(JSON.stringify(model));
+        var model = ko.viewmodel.toModel(ToolsetViewModel);
+        var module = model.ActiveModule;
+        var levels = model.LevelRequirementList;
+        Entity.SaveModuleProperties(JSON.stringify(module), JSON.stringify(levels));
     };
 
 }

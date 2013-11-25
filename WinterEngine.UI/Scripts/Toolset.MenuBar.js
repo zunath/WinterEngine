@@ -207,8 +207,12 @@ function SaveModulePropertiesChanges() {
     else if (!$('#formMPEvents').valid()) {
         $('#ulModulePropertiesTab li:eq(1)').tab('show');
     }
-    else if (!$('#formMPText').valid()) {
+    else if (!$('#formMPLevelChart').valid()) {
         $('#ulModulePropertiesTab li:eq(2)').tab('show');
+
+    }
+    else if (!$('#formMPText').valid()) {
+        $('#ulModulePropertiesTab li:eq(3)').tab('show');
     }
     else {
         ToolsetViewModel.SaveModuleProperties();

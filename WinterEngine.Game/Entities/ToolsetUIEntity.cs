@@ -315,10 +315,16 @@ namespace WinterEngine.Game.Entities
                 await TaskEx.Run(() =>
                 {
                     GameModule updatedModule = JsonConvert.DeserializeObject<GameModule>(e.Arguments[0]);
+                    List<LevelRequirement> levelRequirements = JsonConvert.DeserializeObject<List<LevelRequirement>>(e.Arguments[1]);
 
                     using (GameModuleRepository repo = new GameModuleRepository())
                     {
                         repo.Update(updatedModule);
+                    }
+
+                    using (LevelRequirementRepository repo = new LevelRequirementRepository())
+                    {
+                        levelRequirements.ForEach(x => repo.Update(x));
                     }
 
                     PopulateToolsetViewModel();
