@@ -18,20 +18,6 @@
     margin-bottom: 0;
 }
 
-/* BUTTONS */
-
-input[type="button"]:hover:enabled
-{
-    background-color: #e8e4e4;
-    border: 1px solid;
-}
-
-input[type="button"]:active:enabled
-{
-    background-color: yellow;
-    border: 1px solid;
-}
-
 /* TABLES */
 
 table.clsServerList
@@ -55,95 +41,12 @@ td
 
 /* GENERAL STYLES */
 
-.clsFullSize
-{
-    width: 100%;
-    height: 100%;
-}
-
-.clsBold 
-{
-    font-weight: bold;
-}
-
-.clsCenter
-{
-    text-align: center;
-}
-
-.clsTitle
-{
-    text-align: center;
-    background-color: lightgrey;
-}
-
 .clsErrorMessage
 {
     color: orangered;
 }
 
 .clsHidden
-{
-    display:none;
-}
-
-.clsFullButton
-{
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    font-size:16px;
-    font-weight:bold;
-}
-
-.clsHalfButton
-{
-    width: 48%;
-    height: 100%;
-    border: dashed 5px;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    float:left;
-}
-
-.clsQuarterButton
-{
-    width: 25%;
-    height: 100%;
-    border: dashed 5px;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    float:left;
-}
-.clsNonResizeable
-{
-    resize: none;
-}
-
-ul.clsNoBullets
-{
-    list-style-type: none;
-}
-
-.clsFloatLeft
-{
-    float: left;
-}
-
-.clsFloatRight
-{
-    float: right;
-}
-
-.clsOverflowAuto
-{
-    overflow: auto;
-}
-
-/* JQUERY UI */
-.jqueryUIDialogNoCloseButton .ui-dialog-titlebar-close
 {
     display:none;
 }

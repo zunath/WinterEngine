@@ -114,7 +114,6 @@
     <Content Include="Scripts\WinterEngine.Shared.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Styling\Game\ToolsetStyles.css" />
     <Content Include="Styling\jstree\proton\d-mobile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
