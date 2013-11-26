@@ -22,6 +22,13 @@ namespace WinterEngine.DataTransferObjects.ViewModels
         public List<Skill> SkillList { get; set; }
         public int AbilityChoices { get; set; }
         public int SkillPoints { get; set; }
+        public List<Ability> SelectedAbilities { get; set; }
+        public int ActiveGenderIndex { get; set; }
+        public int ActiveRaceIndex { get; set; }
+        public int ActiveClassIndex { get; set; }
+        public int ActiveAbilityIndex { get; set; }
+        public int ActiveSkillIndex { get; set; }
+        public int ActivePortraitIndex { get; set; }
 
         public CharacterCreationViewModel()
         {
@@ -40,6 +47,14 @@ namespace WinterEngine.DataTransferObjects.ViewModels
             this.SkillList = new List<Skill>();
             this.AbilityChoices = 0;
             this.SkillPoints = 0;
+            this.SelectedAbilities = new List<Ability>();
+            this.ActiveGenderIndex = 0;
+            this.ActiveRaceIndex = 0;
+            this.ActiveClassIndex = 0;
+            this.ActiveAbilityIndex = 0;
+            this.ActiveSkillIndex = 0;
+            this.ActivePortraitIndex = 0;
+
         }
     }
 }

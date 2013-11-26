@@ -1,3 +1,32 @@
 ﻿<form id="formRaces" class="clsFormValidation">
+    <div class="row">
+        <div class="col-sm-3">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#divRaces" data-toggle="tab">Available Races</a></li>
+            </ul>
 
+            <div class="tab-content">
+                <div class="tab-pane active" id="divRaces">
+                    <div class="list-group">
+                        <div data-bind="foreach: RaceList">
+                            <a href="#" class="list-group-item" 
+                                data-bind="css: { active: $index() == CharacterCreationViewModel.ActiveRaceIndex() },
+                                            attr: { onclick: 'SelectRace(' + $index() + ');' },
+                                            text: Name"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Description
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
 </form>

@@ -67,7 +67,12 @@ namespace WinterEngine.Game.Entities
         private void OnDocumentReady(object sender, EventArgs e)
         {
             EntityJavascriptObject.Bind("GetModelJSON", true, GetModelJSON);
-
+            EntityJavascriptObject.Bind("SelectAbility", false, SelectAbility);
+            EntityJavascriptObject.Bind("SelectClass", false, SelectClass);
+            EntityJavascriptObject.Bind("SelectPortrait", false, SelectPortrait);
+            EntityJavascriptObject.Bind("SelectRace", false, SelectRace);
+            EntityJavascriptObject.Bind("SelectSkill", false, SelectSkill);
+            
             RunJavaScriptMethod("Initialize();");
         }
 
@@ -80,6 +85,29 @@ namespace WinterEngine.Game.Entities
             e.Result = JsonConvert.SerializeObject(ViewModel);
         }
 
+        private void SelectRace(object sender, JavascriptMethodEventArgs e)
+        {
+
+            AsyncJavascriptCallback("SelectRace_Callback");
+        }
+        private void SelectClass(object sender, JavascriptMethodEventArgs e)
+        {
+            AsyncJavascriptCallback("SelectClass_Callback");
+        }
+        private void SelectAbility(object sender, JavascriptMethodEventArgs e)
+        {
+            AsyncJavascriptCallback("SelectAbility_Callback");
+        }
+
+        private void SelectSkill(object sender, JavascriptMethodEventArgs e)
+        {
+            AsyncJavascriptCallback("SelectSkill_Callback");
+        }
+
+        private void SelectPortrait(object sender, JavascriptMethodEventArgs e)
+        {
+            AsyncJavascriptCallback("SelectPortrait_Callback");
+        }
 
         #endregion
 

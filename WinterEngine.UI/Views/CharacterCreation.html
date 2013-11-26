@@ -26,43 +26,41 @@
     <div class="container">
 
         <div class="row">
-            <div class="">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>Character Creation</h4>
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4>Character Creation</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-primary active" onclick="ChangeActiveMode('Details');">
+                            <input type="radio" name="options" checked="checked" id="radDetails"  /> Details
+                        </label>
+                        <label class="btn btn-primary" onclick="ChangeActiveMode('Race');" >
+                            <input type="radio" name="options" id="radRace" /> Race
+                        </label>
+                        <label class="btn btn-primary" onclick="ChangeActiveMode('Class');" >
+                            <input type="radio" name="options" id="radClass" /> Class
+                        </label>
+                        <label class="btn btn-primary" onclick="ChangeActiveMode('Abilities');">
+                            <input type="radio" name="options" id="radAbilities" /> Abilities
+                        </label>
+                        <label class="btn btn-primary" onclick="ChangeActiveMode('Skills');" >
+                            <input type="radio" name="options" id="radSkills" /> Skills
+                        </label>
+                        <label class="btn btn-primary" onclick="ChangeActiveMode('Portrait');" >
+                            <input type="radio" name="options" id="radPortrait" /> Portrait
+                        </label>
+                        <label class="btn btn-primary" onclick="ChangeActiveMode('Appearance');" >
+                            <input type="radio" name="options" id="radAppearance" /> Appearance
+                        </label>
                     </div>
-                    <div class="panel-body">
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary active" onclick="ChangeActiveMode('Details');">
-                                <input type="radio" name="options" checked="checked" id="radDetails"  /> Details
-                            </label>
-                            <label class="btn btn-primary" onclick="ChangeActiveMode('Race');" >
-                                <input type="radio" name="options" id="radRace" /> Race
-                            </label>
-                            <label class="btn btn-primary" onclick="ChangeActiveMode('Class');" >
-                                <input type="radio" name="options" id="radClass" /> Class
-                            </label>
-                            <label class="btn btn-primary" onclick="ChangeActiveMode('Abilities');">
-                                <input type="radio" name="options" id="radAbilities" /> Abilities
-                            </label>
-                            <label class="btn btn-primary" onclick="ChangeActiveMode('Skills');" >
-                                <input type="radio" name="options" id="radSkills" /> Skills
-                            </label>
-                            <label class="btn btn-primary" onclick="ChangeActiveMode('Portrait');" >
-                                <input type="radio" name="options" id="radPortrait" /> Portrait
-                            </label>
-                            <label class="btn btn-primary" onclick="ChangeActiveMode('Appearance');" >
-                                <input type="radio" name="options" id="radAppearance" /> Appearance
-                            </label>
-                        </div>
 
-                        <div class="btn-group pull-right">
+                    <div class="btn-group pull-right">
                         
-                            <button class="btn btn-success" onclick="CreateCharacter();">Create Character</button>
-                            <button class="btn btn-danger" onclick="CancelCharacterCreation();">Cancel</button>
-                        </div>
-
+                        <button class="btn btn-success" onclick="CreateCharacter();">Create Character</button>
+                        <button class="btn btn-danger" onclick="CancelCharacterCreation();">Cancel</button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -72,6 +70,10 @@
         <div class="row">
             
             <div class="panel panel-primary">
+                <div class="panel-heading text-center">
+                    <h4 data-bind="text: CurrentMode"></h4>
+                </div>
+
                 <div class="panel-body">
 
                     <div data-bind="if: CurrentMode() == 'Details'">

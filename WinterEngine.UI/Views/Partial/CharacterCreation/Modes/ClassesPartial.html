@@ -1,3 +1,33 @@
 ﻿<form id="formClasses" class="clsFormValidation">
+    <div class="row">
+        <div class="col-sm-3">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#divClasses" data-toggle="tab">Available Classes</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="divRaces">
+                    <div class="list-group">
+                        <div data-bind="foreach: ClassList">
+                            <a href="#" class="list-group-item" 
+                                data-bind="css: { active: $index() == CharacterCreationViewModel.ActiveClassIndex() },
+                                            attr: { onclick: 'SelectClass(' + $index() + ');' },
+                                            text: Name"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Description
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 </form>
