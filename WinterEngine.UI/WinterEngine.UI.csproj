@@ -132,6 +132,9 @@
     <Content Include="Styling\jstree\proton\throbber.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Styling\Shared\bootstrap-slate.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Styling\Shared\bootstrap-theme.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
