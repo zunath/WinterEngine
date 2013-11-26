@@ -3,6 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
     
     <link rel="stylesheet" href="../Styling/Shared/bootstrap-slate.css" />
@@ -12,94 +13,102 @@
     <script src="../Scripts/jquery.awesomiumXNA.js"></script>
     <script src="../Scripts/jquery.validate.js"></script>
     <script src="../Scripts/jquery.jstree.js"></script>
+    <script src="../Scripts/bootstrap.js"></script>
     <script src="../Scripts/knockout-2.3.0.js"></script>
     <script src="../Scripts/knockout.viewmodel.js"></script>
-    <script src="../Scripts/jquery.blockUI.js"></script>
-    <script src="../Scripts/WinterEngine.Shared.js"></script>
     <script src="../Scripts/CharacterCreation.ViewModel.js"></script>
     <script src="../Scripts/CharacterCreation.Initialization.js"></script>
     <script src="../Scripts/CharacterCreation.js"></script>
 
 </head>
 <body>
-    <div class="row">
-        <div id="divCharacterCreationAccordion">
-            <h3>Details</h3>
-            <div id="divDetails">
-                <div class="row">
-                    <div class="span2">
-                        Name: 
-                    </div>
-                    <div class="span4">
-                        <input id="txtFirstName" name="txtFirstName" type="text" placeholder="First Name"
-                            data-bind="value: FirstName" />
-                    </div>
-                    <div class="span4">
-                        <input id="txtLastName" name="txtLastName" type="text" placeholder="Last Name" 
-                            data-bind="value: LastName" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="span2">
-                        Gender:
-                    </div>
-                    <div class="span6">
-                        <select id="selGender" name="selGender" size="3"
-                            data-bind="options: GenderList,
-                                       optionsText: function (item) { return item.Name },
-                                       optionsValue: function (item) { return item.ResourceID }">
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="span2">
-                        Age:
-                    </div>
-                    <div class="span4">
-                        <input id="numAge" name="numAge" type="number" value="18" min="1" max="9999"
-                            data-bind="value: Age" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="span2">
-                        Race:
-                    </div>
-                    <div class="span6">
-                        <select id="selRace" name="selRace" size="5"
-                            data-bind="options: RaceList,
-                                       optionsText: function (item) { return item.Name },
-                                       optionsValue: function (item) { return item.ResourceID }">
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <h3>Portrait</h3>
-            <div id="divPortraits">
-            </div>
-
-            <h3>Class</h3>
-            <div id="divClass">
-            </div>
-
-            <h3>Appearance</h3>
-            <div id="divAppearance">
-
-            </div>
-        </div>
-    </div>
     
-    <div class="row">&nbsp;</div>
+    <div class="container">
 
+        <div class="row">
+            <div class="">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Character Creation</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active" onclick="ChangeActiveMode('Details');">
+                                <input type="radio" name="options" checked="checked" id="radDetails"  /> Details
+                            </label>
+                            <label class="btn btn-primary" onclick="ChangeActiveMode('Race');" >
+                                <input type="radio" name="options" id="radRace" /> Race
+                            </label>
+                            <label class="btn btn-primary" onclick="ChangeActiveMode('Class');" >
+                                <input type="radio" name="options" id="radClass" /> Class
+                            </label>
+                            <label class="btn btn-primary" onclick="ChangeActiveMode('Abilities');">
+                                <input type="radio" name="options" id="radAbilities" /> Abilities
+                            </label>
+                            <label class="btn btn-primary" onclick="ChangeActiveMode('Skills');" >
+                                <input type="radio" name="options" id="radSkills" /> Skills
+                            </label>
+                            <label class="btn btn-primary" onclick="ChangeActiveMode('Portrait');" >
+                                <input type="radio" name="options" id="radPortrait" /> Portrait
+                            </label>
+                            <label class="btn btn-primary" onclick="ChangeActiveMode('Appearance');" >
+                                <input type="radio" name="options" id="radAppearance" /> Appearance
+                            </label>
+                        </div>
 
-    <div class="row">
-        <div class="span6">
-            <input id="btnCreate" name="btnCreate" type="button" value="Create Character" style="width:100%;" />
+                        <div class="btn-group pull-right">
+                        
+                            <button class="btn btn-success" onclick="CreateCharacter();">Create Character</button>
+                            <button class="btn btn-danger" onclick="CancelCharacterCreation();">Cancel</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="span6">
-            <input id="btnCancel" name="btnCancel" type="button" value="Cancel Character Creation" style="width:100%;" />
+            
+        
+
+        <div class="row">
+            
+            <div class="panel panel-primary">
+                <div class="panel-body">
+
+                    <div data-bind="if: CurrentMode() == 'Details'">
+                        <div data-partial="CharacterCreation/Modes/DetailsPartial.html"></div>
+                        
+                    </div>
+                    
+                    <div data-bind="if: CurrentMode() == 'Race'">
+                        <div data-partial="CharacterCreation/Modes/RacesPartial.html"></div>
+                        
+                    </div>
+
+                    <div data-bind="if: CurrentMode() == 'Class'">
+                        <div data-partial="CharacterCreation/Modes/ClassesPartial.html"></div>
+                        
+                    </div>
+
+                    <div data-bind="if: CurrentMode() == 'Abilities'">
+                        <div data-partial="CharacterCreation/Modes/AbilitiesPartial.html"></div>
+                        
+                    </div>
+
+                    <div data-bind="if: CurrentMode() == 'Skills'">
+                        <div data-partial="CharacterCreation/Modes/SkillsPartial.html"></div>
+                        
+                    </div>
+                    
+                    <div data-bind="if: CurrentMode() == 'Portrait'">
+                        <div data-partial="CharacterCreation/Modes/PortraitsPartial.html"></div>
+                    </div>
+
+                    <div data-bind="if: CurrentMode() == 'Appearance'">
+                        <div data-partial="CharacterCreation/Modes/AppearancePartial.html"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </body>
 </html>

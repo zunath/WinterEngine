@@ -1,0 +1,37 @@
+﻿<form id="formDetails" class="clsFormValidation">
+
+    <div class="row">
+        <div class="col-sm-2">
+            <h4 >Name:</h4>
+        </div>
+        <div class="col-sm-5">
+            <input type="text" class="form-control required" placeholder="First Name" />
+        </div>
+        <div class="col-sm-5">
+            <input type="text" class="form-control required" placeholder="Last Name" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">
+            <h4>Gender:</h4>
+        </div>
+        <div class="col-sm-5">
+            <select class="form-control required" size="2"
+                data-bind="options: GenderList,
+                            optionsText: function (item) { return item.Name },
+                            optionsValue: function (item) { return item.ResourceID }"></select>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-2">
+            <h4>Age:</h4>
+        </div>
+        <div class="col-sm-5">
+            <input type="number" min="1" max="255" class="form-control required" value="18" />
+        </div>
+    </div>
+    
+</form>

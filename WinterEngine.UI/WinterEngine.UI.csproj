@@ -153,6 +153,27 @@
     <Content Include="Views\CharacterCreation.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Partial\CharacterCreation\Modes\AbilitiesPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\CharacterCreation\Modes\AppearancePartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\CharacterCreation\Modes\ClassesPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\CharacterCreation\Modes\DetailsPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\CharacterCreation\Modes\PortraitsPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\CharacterCreation\Modes\RacesPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\CharacterCreation\Modes\SkillsPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Partial\CharacterSelection\PopUpBoxes\DeleteCharacterPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
