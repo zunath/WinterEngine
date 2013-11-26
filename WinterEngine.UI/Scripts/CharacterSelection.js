@@ -51,6 +51,10 @@ function LoadCharacterInformation_Callback() {
     CharacterSelectionViewModel.Refresh();
 }
 
+function SelectCharacter(index) {
+    CharacterSelectionViewModel.ActiveCharacterIndex(index);
+}
+
 /* Lost Connection */
 
 function LostConnectionOKButton() {

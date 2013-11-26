@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    
+
     <link rel="stylesheet" href="../Styling/Shared/bootstrap.css" />
     <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
-    
+
     <script src="../Scripts/jquery-2.0.3.min.js"></script>
     <script src="../Scripts/jquery.awesomiumXNA.js"></script>
     <script src="../Scripts/knockout-2.3.0.js"></script>
@@ -19,48 +19,108 @@
     <script src="../Scripts/CharacterSelection.ViewModel.js"></script>
     <script src="../Scripts/CharacterSelection.Initialization.js"></script>
     <script src="../Scripts/CharacterSelection.js"></script>
-    
+
 </head>
 <body>
     <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading" id="divMainPanelHeading">
-                    <span id="spnServerName" data-bind="text: 'Server Name: ' + ServerName()"></span>
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="text-center" data-bind="text: 'Server: ' + ServerName()"></h4>
                 </div>
-
                 <div class="panel-body">
-                    
-                    <textarea id="tarServerAnnouncements" 
-                        rows="3" 
-                        class="form-control" 
-                        style="resize: none;"
-                        readonly="readonly"
-                        data-bind="text: 'Announcement: ' + Announcement()">
-                    </textarea>
+                    Announcements:
+                    <p data-bind="text: Announcement"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <div class="row">
-                        <div class="col-xs-5">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                        <div data-partial="CharacterSelection/CharacterListPartial.html"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="col-xs-7">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div data-partial=""></div>
-                                    </div>
+    <div class="row">
+        <div class="col-xs-5">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#divCharacters" data-toggle="tab">Character List</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="divCharacters">
+                            <div class="list-group">
+                                <div data-bind="foreach: Characters">
+                                    <a href="#" class="list-group-item"
+                                        data-bind="css: { active: $index() == CharacterSelectionViewModel.ActiveCharacterIndex() },
+                                                    text: FirstName() + ' ' + LastName(),
+                                                    attr: { onclick: 'SelectCharacter(' + $index() + ');' }"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-xs-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#divDetails" data-toggle="tab">Character Info</a></li>
+                    </ul>
 
-                <div class="panel-footer" id="divMainPanelFooter">
-                    <div data-partial="CharacterSelection/ButtonGroupPartial.html"></div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="divDetails">
+
+                            <table class="table table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">HP</th>
+                                        <th class="text-center">MP</th>
+                                        <th class="text-center">STR</th>
+                                        <th class="text-center">DEX</th>
+                                        <th class="text-center">CON</th>
+                                        <th class="text-center">INT</th>
+                                        <th class="text-center">WIS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-bind="text: Characters()[ActiveCharacterIndex] == undefined ? 0 : Characters()[ActiveCharacterIndex()].MaxHitPoints"></td>
+                                        <td data-bind="text: Characters()[ActiveCharacterIndex] == undefined ? 0 : Characters()[ActiveCharacterIndex()].MaxMana"></td>
+                                        <td data-bind="text: Characters()[ActiveCharacterIndex] == undefined ? 0 : Characters()[ActiveCharacterIndex()].Strength"></td>
+                                        <td data-bind="text: Characters()[ActiveCharacterIndex] == undefined ? 0 : Characters()[ActiveCharacterIndex()].Dexterity"></td>
+                                        <td data-bind="text: Characters()[ActiveCharacterIndex] == undefined ? 0 : Characters()[ActiveCharacterIndex()].Constitution"></td>
+                                        <td data-bind="text: Characters()[ActiveCharacterIndex] == undefined ? 0 : Characters()[ActiveCharacterIndex()].Intelligence"></td>
+                                        <td data-bind="text: Characters()[ActiveCharacterIndex] == undefined ? 0 : Characters()[ActiveCharacterIndex()].Wisdom"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <div id="divDownloadContainer" class="progress">
+                                <div class="active progress-bar progress-bar-warning"
+                                    role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                    <div class="btn-group">
+                        <button id="btnNewCharacter" type="button" class="btn btn-primary"
+                            value="New Character" onclick="NewCharacterButton();">
+                            New Character</button>
+                        <button id="btnDeleteCharacter" type="button" class="btn btn-danger"
+                            value="Delete Character" onclick="DeleteCharacterButton();">
+                            Delete Character</button>
+                        <button id="btnJoinServer" type="button" class="btn btn-success"
+                            value="Join Server" onclick="JoinServerButton();">
+                            Join Server</button>
+                        <button id="btnCancel" type="button" class="btn btn-default"
+                            value="Cancel" onclick="CancelCharacterSelectionButton();">
+                            Cancel</button>
+                    </div>
+
                 </div>
             </div>
         </div>
