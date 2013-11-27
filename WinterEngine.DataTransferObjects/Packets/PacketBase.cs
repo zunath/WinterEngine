@@ -16,11 +16,13 @@ namespace WinterEngine.DataTransferObjects.Packets
     [ProtoInclude(105, typeof(CharacterSelectionPacket))]
     [ProtoInclude(106, typeof(UsernamePacket))]
     [ProtoInclude(107, typeof(DeleteCharacterPacket))]
-    [ProtoInclude(108, typeof(CharacterCreationPacket))]
+    [ProtoInclude(108, typeof(CharacterCreationInitializationPacket))]
     [ProtoInclude(109, typeof(ServerMessagePacket))]
     [ProtoInclude(110, typeof(BootUserPacket))]
     [ProtoInclude(111, typeof(BanUserPacket))]
     [ProtoInclude(112, typeof(ClientDisconnectPacket))]
+    [ProtoInclude(113, typeof(NewCharacterPacket))]
+    [ProtoInclude(114, typeof(CharacterCreationResponsePacket))]
     public class PacketBase
     {
         /// <summary>

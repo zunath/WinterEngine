@@ -26,9 +26,6 @@
                         <div class="col-md-2 col-md-offset-7">
                             <button id="btnAddContentPackage" type="button" value="Add" class="btn btn-success"
                                 onclick="ManageContentPackagesAddButton();">Add Package</button>
-                        
-                            <button id="btnRemoveContentPackage" type="button" value="Remove" class="btn btn-danger"
-                                onclick="ManageContentPackagesRemoveButton();">Remove Package</button>
                         </div>
                     </div>
                     
@@ -40,6 +37,12 @@
                                 data-bind="foreach: AttachedContentPackages">
                                 <option data-bind="text: Name, value: FileName" ondblclick="ManageContentPackagesRemoveButton();"></option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-7">
+                            <button id="btnRemoveContentPackage" type="button" value="Remove" class="btn btn-danger"
+                                onclick="ManageContentPackagesRemoveButton();">Remove Package</button>
                         </div>
                     </div>
                 </div>

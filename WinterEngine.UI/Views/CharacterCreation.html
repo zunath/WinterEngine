@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
     
-    <link rel="stylesheet" href="../Styling/Shared/bootstrap-slate.css" />
+    <link rel="stylesheet" href="../Styling/Shared/bootstrap/css/bootstrap-slate.css" />
     <link rel="stylesheet" href="../Styling/Game/SharedStyles.css" />
 
     <script src="../Scripts/jquery-2.0.3.min.js"></script>
@@ -58,15 +58,13 @@
                     <div class="btn-group pull-right">
                         
                         <button class="btn btn-success" onclick="CreateCharacter();">Create Character</button>
-                        <button class="btn btn-danger" onclick="CancelCharacterCreation();">Cancel</button>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#divConfirmCancel">Cancel</button>
                     </div>
 
                 </div>
             </div>
         </div>
             
-        
-
         <div class="row">
             
             <div class="panel panel-primary">
@@ -111,6 +109,9 @@
                 </div>
             </div>
         </div>
+
+
+        <div data-partial="CharacterCreation/PopUpBoxes/ConfirmCancel.html"></div>
     </div>
 </body>
 </html>

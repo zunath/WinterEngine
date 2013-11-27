@@ -1,0 +1,24 @@
+﻿<div onmouseover="Entity.MouseEnterUI();" onmouseout="Entity.MouseExitUI();">
+
+    <div id="divConfirmCancel" class="modal fade" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Return to Character Selection?
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to return to character selection? All choices made here will be lost!
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="CancelCharacterCreation();">
+                        Return to Character Selection
+                    </button>
+                    <button class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

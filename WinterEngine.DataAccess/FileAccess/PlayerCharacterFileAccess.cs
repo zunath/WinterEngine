@@ -69,14 +69,14 @@ namespace WinterEngine.DataAccess.FileAccess
         /// </summary>
         /// <param name="character"></param>
         /// <returns>Returns the modified PlayerCharacter object</returns>
-        public PlayerCharacter SerializePlayerCharacterFile(PlayerCharacter character, UserProfile playerProfile)
+        public PlayerCharacter SerializePlayerCharacterFile(PlayerCharacter character, string username)
         {
             if (String.IsNullOrWhiteSpace(character.FileName))
             {
-                character.FileName = CreateUniqueFileName(character, playerProfile);
+                character.FileName = CreateUniqueFileName(character, username);
             }
 
-            string filePath = DirectoryPaths.CharacterVaultDirectoryPath + playerProfile.UserName + "/" + character.FileName;
+            string filePath = DirectoryPaths.CharacterVaultDirectoryPath + username + "/" + character.FileName;
 
             if (!Directory.Exists(DirectoryPaths.CharacterVaultDirectoryPath))
             {
@@ -84,10 +84,10 @@ namespace WinterEngine.DataAccess.FileAccess
                 Directory.CreateDirectory(DirectoryPaths.CharacterVaultDirectoryPath);
             }
 
-            if (!Directory.Exists(DirectoryPaths.CharacterVaultDirectoryPath + playerProfile.UserName))
+            if (!Directory.Exists(DirectoryPaths.CharacterVaultDirectoryPath + username))
             {
                 // Create the user's folder
-                Directory.CreateDirectory(DirectoryPaths.CharacterVaultDirectoryPath + playerProfile.UserName);
+                Directory.CreateDirectory(DirectoryPaths.CharacterVaultDirectoryPath + username);
             }
 
             try
@@ -138,10 +138,10 @@ namespace WinterEngine.DataAccess.FileAccess
         /// <param name="character"></param>
         /// <param name="playerProfile"></param>
         /// <returns></returns>
-        private string CreateUniqueFileName(PlayerCharacter character, UserProfile playerProfile)
+        private string CreateUniqueFileName(PlayerCharacter character, string username)
         {
             string extension = FileExtensionFactory.GetFileExtension(FileTypeEnum.PlayerCharacter);
-            string directoryPath = DirectoryPaths.CharacterVaultDirectoryPath + playerProfile.UserName + "/";
+            string directoryPath = DirectoryPaths.CharacterVaultDirectoryPath + username + "/";
             string fileName = character.FirstName + character.LastName;
 
             foreach (char currentCharacter in Path.GetInvalidFileNameChars())

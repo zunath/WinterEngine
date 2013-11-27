@@ -8,12 +8,15 @@ function ChangeActiveMode(mode) {
 }
 
 function CreateCharacter() {
+    var model = ko.viewmodel.toModel(CharacterCreationViewModel);
+    Entity.CreateCharacter(JSON.stringify(model));
 }
 
 function CreateCharacter_Callback() {
 }
 
 function CancelCharacterCreation() {
+    Entity.CancelCharacterCreation();
 }
 
 

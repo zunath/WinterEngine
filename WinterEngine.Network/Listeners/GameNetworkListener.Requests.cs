@@ -34,7 +34,7 @@ namespace WinterEngine.Network.Listeners
                     ProcessCharacterSelectionRequest(packet);
                     break;
                 case PacketRequestTypeEnum.CharacterCreation:
-                    ProcessCharacterCreationRequest(packet);
+                    ProcessCharacterCreationInitializationRequest(packet);
                     break;
                 default:
                     break;

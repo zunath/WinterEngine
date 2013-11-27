@@ -2,10 +2,12 @@ using Awesomium.Core;
 using Lidgren.Network;
 using Newtonsoft.Json;
 using System;
+using WinterEngine.DataTransferObjects.Enumerations;
 using WinterEngine.DataTransferObjects.Enums;
 using WinterEngine.DataTransferObjects.EventArgsExtended;
 using WinterEngine.DataTransferObjects.Packets;
 using WinterEngine.DataTransferObjects.ViewModels;
+using WinterEngine.Game.Screens;
 using WinterEngine.Game.Services;
 
 namespace WinterEngine.Game.Entities
@@ -72,7 +74,9 @@ namespace WinterEngine.Game.Entities
             EntityJavascriptObject.Bind("SelectPortrait", false, SelectPortrait);
             EntityJavascriptObject.Bind("SelectRace", false, SelectRace);
             EntityJavascriptObject.Bind("SelectSkill", false, SelectSkill);
-            
+            EntityJavascriptObject.Bind("CancelCharacterCreation", false, CancelCharacterCreation);
+            EntityJavascriptObject.Bind("CreateCharacter", false, CreateCharacter);
+
             RunJavaScriptMethod("Initialize();");
         }
 
@@ -85,9 +89,38 @@ namespace WinterEngine.Game.Entities
             e.Result = JsonConvert.SerializeObject(ViewModel);
         }
 
+        private void CreateCharacter(object sender, JavascriptMethodEventArgs e)
+        {
+            string json = e.Arguments[0];
+            ViewModel = JsonConvert.DeserializeObject<CharacterCreationViewModel>(json);
+
+            NewCharacterPacket packet = new NewCharacterPacket
+            {
+                AbilityChoices = ViewModel.AbilityChoices,
+                Age = ViewModel.Age,
+                CharacterClassID = ViewModel.CharacterClassID,
+                FirstName = ViewModel.FirstName,
+                GenderID = ViewModel.GenderID,
+                LastName = ViewModel.LastName,
+                PortraitID = ViewModel.PortraitID,
+                RaceID = ViewModel.RaceID,
+                SelectedAbilities = ViewModel.SelectedAbilities,
+                SkillPoints = ViewModel.SkillPoints
+            };
+
+            if (WinterEngineService.NetworkClient != null)
+            {
+                WinterEngineService.NetworkClient.SendPacket(packet, NetDeliveryMethod.ReliableUnordered);
+            }
+        }
+
+        private void CancelCharacterCreation(object sender, JavascriptMethodEventArgs e)
+        {
+            RaiseChangeScreenEvent(new TypeOfEventArgs(typeof(CharacterSelectScreen)));
+        }
+
         private void SelectRace(object sender, JavascriptMethodEventArgs e)
         {
-
             AsyncJavascriptCallback("SelectRace_Callback");
         }
         private void SelectClass(object sender, JavascriptMethodEventArgs e)
@@ -117,18 +150,36 @@ namespace WinterEngine.Game.Entities
         {
             Type packetType = e.Packet.GetType();
 
-            if (packetType == typeof(CharacterCreationPacket))
+            if (packetType == typeof(CharacterCreationInitializationPacket))
             {
-                ProcessCharacterCreationPacket(e.Packet as CharacterCreationPacket);
+                ProcessCharacterCreationInitializationPacket(e.Packet as CharacterCreationInitializationPacket);
+            }
+            else if (packetType == typeof(CharacterCreationResponsePacket))
+            {
+                ProcessCharacterCreationResponsePacket(e.Packet as CharacterCreationResponsePacket);
             }
         }
 
-        private void ProcessCharacterCreationPacket(CharacterCreationPacket packet)
+        private void ProcessCharacterCreationInitializationPacket(CharacterCreationInitializationPacket packet)
         {
             ViewModel.RaceList = packet.RaceList;
             ViewModel.GenderList = packet.GenderList;
+            ViewModel.ClassList = packet.ClassList;
+            ViewModel.AbilityList = packet.AbilityList;
+            ViewModel.SkillList = packet.SkillList;
 
             AsyncJavascriptCallback("RetrieveServerData_Callback");
+        }
+
+        private void ProcessCharacterCreationResponsePacket(CharacterCreationResponsePacket packet)
+        {
+            if (packet.SuccessType == SuccessFailEnum.Success)
+            {
+            }
+            else if (packet.SuccessType == SuccessFailEnum.Failure)
+            {
+
+            }
         }
 
         #endregion

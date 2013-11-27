@@ -107,6 +107,7 @@
     <Compile Include="Enumerations\ModuleRebuildModeEnum.cs" />
     <Compile Include="Enumerations\PacketRequestTypeEnum.cs" />
     <Compile Include="Enumerations\ServerStatusEnum.cs" />
+    <Compile Include="Enumerations\SuccessFailEnum.cs" />
     <Compile Include="Enumerations\UserProfileResponseTypeEnum.cs" />
     <Compile Include="Enumerations\WebServiceMethodTypeEnum.cs" />
     <Compile Include="EventArgsExtended\ConnectionStatusEventArgs.cs" />
@@ -121,7 +122,8 @@
     <Compile Include="Models\GameNetworkListenerModel.cs" />
     <Compile Include="Packets\BanUserPacket.cs" />
     <Compile Include="Packets\BootUserPacket.cs" />
-    <Compile Include="Packets\CharacterCreationPacket.cs" />
+    <Compile Include="Packets\CharacterCreationInitializationPacket.cs" />
+    <Compile Include="Packets\CharacterCreationResponsePacket.cs" />
     <Compile Include="Packets\CharacterSelectionPacket.cs" />
     <Compile Include="Packets\ClientDisconnectPacket.cs" />
     <Compile Include="Packets\ClientAuthorizationResponsePacket.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="Packets\DeleteCharacterPacket.cs" />
     <Compile Include="Packets\FileRequestPacket.cs" />
     <Compile Include="Packets\MasterServerStatusPacket.cs" />
+    <Compile Include="Packets\NewCharacterPacket.cs" />
     <Compile Include="Packets\PacketBase.cs" />
     <Compile Include="Packets\RequestPacket.cs" />
     <Compile Include="Packets\ServerMessagePacket.cs" />
