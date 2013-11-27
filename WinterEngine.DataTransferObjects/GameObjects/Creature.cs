@@ -24,9 +24,9 @@ namespace WinterEngine.DataTransferObjects
         [ProtoMember(2)]
         [MaxLength(32)]
         public string LastName { get; set; }
-        [ProtoMember(3)]
         [ForeignKey("RaceID")]
         public virtual Race Race { get; set; }
+        [ProtoMember(3)]
         public int? RaceID { get; set; }
 
         [ProtoMember(5)]
@@ -72,21 +72,25 @@ namespace WinterEngine.DataTransferObjects
         [ForeignKey("CharacterClassID")]
         [JsonIgnore]
         public virtual CharacterClass CharClass { get; set; }
+        [ProtoMember(18)]
         public int CharacterClassID { get; set; }
 
         [JsonIgnore]
         [ForeignKey("GenderID")]
         public virtual Gender Gender { get; set; }
+        [ProtoMember(19)]
         public int GenderID { get; set; }
 
         [JsonIgnore]
         [ForeignKey("FactionID")]
         public virtual Faction Faction { get; set; }
+        [ProtoMember(20)]
         public int FactionID { get; set; }
 
         [JsonIgnore]
         [ForeignKey("ConversationID")]
         public virtual Conversation Conversation { get; set; }
+        [ProtoMember(21)]
         public int ConversationID { get; set; }
 
         // EQUIPPED ITEMS

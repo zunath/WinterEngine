@@ -189,6 +189,10 @@ namespace WinterEngine.Network.Listeners
             {
                 ProcessDeleteCharacterRequest(packet as DeleteCharacterPacket);
             }
+            else if (packetType == typeof(NewCharacterPacket))
+            {
+                ProcessCharacterCreationRequest(packet as NewCharacterPacket);
+            }
         }
 
         private void RaiseOnProcessingCycleCompleteEvent()

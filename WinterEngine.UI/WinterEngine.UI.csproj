@@ -177,7 +177,10 @@
     <Content Include="Views\Partial\CharacterCreation\Modes\SkillsPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Partial\CharacterCreation\PopUpBoxes\ConfirmCancel.html">
+    <Content Include="Views\Partial\CharacterCreation\PopUpBoxes\ConfirmCancelPartial.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Partial\CharacterCreation\PopUpBoxes\CreatingCharacterPartial.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Partial\CharacterSelection\PopUpBoxes\DeleteCharacterPartial.html">

@@ -10,9 +10,11 @@ function ChangeActiveMode(mode) {
 function CreateCharacter() {
     var model = ko.viewmodel.toModel(CharacterCreationViewModel);
     Entity.CreateCharacter(JSON.stringify(model));
+    $('#divCreatingCharacter').modal('show');
 }
 
-function CreateCharacter_Callback() {
+function CreateCharacter_Callback(responseType) {
+    $('#divCreatingCharacter').modal('hide');
 }
 
 function CancelCharacterCreation() {

@@ -180,6 +180,8 @@ namespace WinterEngine.Game.Entities
             {
 
             }
+
+            AsyncJavascriptCallback("CreateCharacter_Callback", (int)packet.SuccessType);
         }
 
         #endregion
