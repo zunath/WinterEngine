@@ -196,15 +196,15 @@ namespace WinterEngine.DataTransferObjects.XMLObjects
 
         public ServerSettingsXML()
         {
-            this.PortNumber = 0;
-            this.Name = "";
+            this.PortNumber = 5121;
+            this.Name = "Server";
             this.Description = "";
             this.Announcement = "";
-            this.MaxLevel = 0;
-            this.MaxPlayers = 0;
+            this.MaxLevel = 99;
+            this.MaxPlayers = 20;
             this.PVPSetting = PVPTypeEnum.None;
             this.GameType = GameTypeEnum.Action;
-            this.AllowCharacterDeletion = false;
+            this.AllowCharacterDeletion = true;
             this.AllowFileAutoDownload = false;
             this.PlayerPassword = "";
             this.GMPassword = "";
