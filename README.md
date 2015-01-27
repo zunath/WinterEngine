@@ -1,3 +1,5 @@
+DEPRECATED. Refer to https://github.com/zunath/Ceriyo for a cleaner, better version. :)
+
 Winter Engine
 ============
 
